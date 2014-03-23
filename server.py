@@ -1,7 +1,12 @@
-import web
 import os.path as Path
 from os.path import join as Join
 from os import listdir as ListDir
+import sys, os
+abspath = os.path.dirname(__file__)
+sys.path.append(abspath)
+os.chdir(abspath)
+import web
+
 
 ## Env Variables
 root = Path.dirname(Path.realpath(__file__))
@@ -68,3 +73,5 @@ def GetLatestPost():
 if __name__ == "__main__":
     app = web.application(urls, globals())
     app.run()
+
+application = web.application(urls, globals()).wsgifunc()
