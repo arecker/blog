@@ -25,19 +25,15 @@ urls = (
 class GetHome:
     """Returns latest post"""
     def GET(self):
-        return DisplayPage(Join(root, 'pages', 'skel.html'))
+        listOfPosts = GetListOfPosts()
+        latestPost = listOfPosts[0]
+        return DisplayPage(Join(root, 'posts', latestPost))
 
 
 class GetPost:
     """Gets post by slug or 404"""
     def GET(self, slug):
         key = slug + '.html'
-
-        #if key in GetListOfPosts():
-        #    data = DisplayPage(Join(root, 'posts', key))
-        #else:
-        #    data = DisplayPage(Join(root, 'pages', '404.html'))
-        #return data
         listOfPosts = GetListOfPosts()
         indices = [i for i, s in enumerate(listOfPosts) if key in s]
         try:
