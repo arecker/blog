@@ -1,4 +1,4 @@
-#post, .post-image-container, .post-video-container {
+#post, .post-image-container, .post-video-container, #comments {
 	max-width: 60%;
 }
 
