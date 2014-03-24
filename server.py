@@ -57,7 +57,8 @@ class GetFriends:
 
 ## Helpers
 def GetListOfPosts():
-    return ListDir(Join(root, 'posts'))
+    list = ListDir(Join(root, 'posts'))
+    return list[::-1]
 
 def DisplayHome(post):
     data = ""
