@@ -20,3 +20,12 @@ This is where the post html is stored
 
 ## Putting it all together
 Based on the request, the server will determine which page to retrieve.  After the page name is passed into a helper function, the function assembles the HTML fragments, concatenates them, and returns them to the controller.
+
+```python
+def DisplayPost(post):
+    data = ""
+    for fragment in [Meta(post), Frag("css.html"), Frag("header.html"), Join(root, 'posts', post), Frag("comments.html"), Frag("analytics.html")]:
+        with open(fragment, "r") as page:
+            data += page.read()
+    return data
+```
