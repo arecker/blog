@@ -86,9 +86,6 @@ def Frag(name):
 def Meta(name):
     return Join(root, 'metas', name)
 
-def GetLatestPost():
-    pass
-
 if __name__ == "__main__":
     app = web.application(urls, globals())
     app.run()
