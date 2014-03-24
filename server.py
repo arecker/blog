@@ -27,7 +27,7 @@ class GetHome:
     def GET(self):
         listOfPosts = GetListOfPosts()
         latestPost = listOfPosts[0]
-        return DisplayPage(Join(root, 'posts', latestPost))
+        return DisplayHome(latestPost)
 
 
 class GetPost:
@@ -37,31 +37,54 @@ class GetPost:
         listOfPosts = GetListOfPosts()
         indices = [i for i, s in enumerate(listOfPosts) if key in s]
         try:
-            data = DisplayPage(Join(root, 'posts', listOfPosts[indices[0]]))
+            data = DisplayPost(listOfPosts[indices[0]])
         except:
-            data = DisplayPage(Join(root, 'pages', '404.html'))
+            data = DisplayPage('404.html')
         return data
 
 
 class GetArchives:
     """Gets Archives Page"""
     def GET(self):
-        return DisplayPage(Join(root, 'pages', 'archives.html'))
+        return DisplayPage('archives.html')
 
 
 class GetFriends:
     """Gets Friends Page"""
     def GET(self):
-        return DisplayPage(Join(root, 'pages', 'friends.html'))
+        return DisplayPage('friends.html')
 
 
 ## Helpers
 def GetListOfPosts():
     return ListDir(Join(root, 'posts'))
 
-def DisplayPage(path):
-    with open(path, "r") as page:
-        return page.read()
+def DisplayHome(post):
+    data = ""
+    for fragment in [Frag("home_meta.html"), Frag("css.html"), Frag("header.html"), Join(root, 'posts', post), Frag("analytics.html")]:
+        with open(fragment, "r") as page:
+            data += page.read()
+    return data
+
+def DisplayPost(post):
+    data = ""
+    for fragment in [Meta(post), Frag("css.html"), Frag("header.html"), Join(root, 'posts', post), Frag("comments.html"), Frag("analytics.html")]:
+        with open(fragment, "r") as page:
+            data += page.read()
+    return data
+
+def DisplayPage(name):
+    data = ""
+    for fragment in [Meta(name), Frag("css.html"), Frag("header.html"), Join(root, 'pages', name), Frag("analytics.html")]:
+        with open(fragment, "r") as page:
+            data += page.read()
+    return data
+
+def Frag(name):
+    return Join(root, 'fragments', name)
+
+def Meta(name):
+    return Join(root, 'metas', name)
 
 def GetLatestPost():
     pass

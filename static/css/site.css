@@ -41,6 +41,11 @@ a {
 	color: red;
 }
 
+#post-title a:link, #post-title a:visited, #post-title a:hover, #post-title a:active { 
+	color: black; 
+	text-decoration: none;
+}
+
 #post-banner-div {
 	text-align: center;
 	margin-bottom: 5%;
