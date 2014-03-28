@@ -16,6 +16,7 @@ root = Path.dirname(Path.realpath(__file__))
 urls = (
     '/', 'GetHome',
     '/archives', 'GetArchives',
+    '/projects', 'GetProjects',
     '/friends', 'GetFriends',
     '/(.+)', 'GetPost'
 )
@@ -47,6 +48,12 @@ class GetArchives:
     """Gets Archives Page"""
     def GET(self):
         return DisplayPage('archives.html')
+
+
+class GetProjects:
+    """Gets Projects Page"""
+    def GET(self):
+        return DisplayPage('projects.html')
 
 
 class GetFriends:
