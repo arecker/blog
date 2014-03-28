@@ -53,6 +53,8 @@ a {
 
 #post p {
 	margin-bottom: 30px;
+	line-height: 200%;
+	font-size: 110%;
 	color: black;
 }
 
