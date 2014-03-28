@@ -27,7 +27,7 @@ class GetHome:
     """Returns latest post"""
     def GET(self):
         listOfPosts = GetListOfPosts()
-        latestPost = listOfPosts[0]
+        latestPost = listOfPosts[-1]
         return DisplayHome(latestPost)
 
 
