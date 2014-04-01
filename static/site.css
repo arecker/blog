@@ -21,23 +21,14 @@
 	font-style: regular;
 }
 
-#navbar, #content {
-	margin: 40px;
-}
-
-#content { margin-left: 100px;}
-
 #navbar .nav .btn {
 	margin-top: 40px;
 	margin-right: 0px;
 	padding: 0px;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 600px) {
   .hide-mobile {
     display: none !important;
   }
-
-  #navbar { width: 100% !important; margin: 0px !important;}
-  #content { width: 100% !important; margin: 0px !important;}
 }
