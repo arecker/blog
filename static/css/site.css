@@ -1,0 +1,20 @@
+#portrait {
+   height: 80px;
+   width: 80px;
+   margin: 20px;
+   overflow: hidden;
+     
+   -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+       border-radius: 50%;
+}
+
+#navbar {
+	min-width: 560px;
+}
+
+#navbar .nav .btn {
+	margin-top: 40px;
+	margin-right: 0px;
+	padding: 0px;
+}

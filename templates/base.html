@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.Meta_title}}</title>
+    <meta name="description" content="{{ post.Meta_description }}">
+    <link rel="canonical" href="{{ post.Meta_canonical }}">
+    {% block stylesheets %}
+    <link rel="stylesheet" href="/static/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/site.css" />
+    {% endblock %}
+</head>
+
+<body>
+    <div id="navbar">
+        {% block navbar %}
+        <ul class="nav nav-pills">
+            <li><img id="portrait" src="/static/portrait.jpg" alt=""/></li>
+            <li class="btn active"><a href="/"><i class="fa fa-fw fa-home"></i> Home</a></li>
+            <li class="btn"><a href="/archives/"><i class="fa fa-fw fa-calendar"></i> Archives</a></li>
+            <li class="btn"><a href="/projects/"><i class="fa fa-fw fa-code"></i> Projects</a></li>
+            <li class="btn"><a href="/friends/"><i class="fa fa-fw fa-group"></i> Friends</a></li>
+        </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content" class="container-fluid">
+        <div class="container-fluid"><h1 id="post-title">{{ post.Title }}</h1></div>
+        <div class="container-fluid">{% autoescape off %}<div id="post-body">{{ post.Body }}</div>{% endautoescape %}</div>
+        <div id="post-footer">{% block post-footer %}{% endblock %}</div>
+    </div>
+</body>
+
+<footer>
+    {% block scripts %}
+    {% endblock %}
+</footer>
+</html>
