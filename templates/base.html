@@ -19,11 +19,10 @@
             {% block navbar %}
             <ul class="nav nav-pills">
                 <li><img id="portrait" src="/static/portrait.jpg" alt=""/></li>
-                <li class="btn active hover"><a href="/"><i class="fa fa-fw fa-home"></i> </a></li>
-                <li class="btn hover"><a href="/archives/"><i class="fa fa-fw fa-calendar"></i> </a></li>
-                <li class="btn hover"><a href="/projects/"><i class="fa fa-fw fa-code"></i> </a></li>
-                <li class="btn hover"><a href="/friends/"><i class="fa fa-fw fa-group"></i> </a></li>
-                <li class="btn disabled hide-mobile"><a><span id="site-title">alexrecker.com</span><small><span id="site-page-title"></span></small></a></li>
+                <li class="btn active hover"><a href="/"><i class="fa fa-fw fa-home"></i> <span class="hide-mobile">Home</span></a></li>
+                <li class="btn hover"><a href="/archives/"><i class="fa fa-fw fa-calendar"></i> <span class="hide-mobile">Archives</span></a></li>
+                <li class="btn hover"><a href="/projects/"><i class="fa fa-fw fa-code"></i> <span class="hide-mobile">Projects</span></a></li>
+                <li class="btn hover"><a href="/friends/"><i class="fa fa-fw fa-group"></i> <span class="hide-mobile">Friends</span></a></li>
             </ul>
             {% endblock %}
         </div>

@@ -9,17 +9,6 @@
        border-radius: 50%;
 }
 
-#site-title {
-	color: black;
-	font-weight: bold;
-	margin-right: 10px;
-}
-
-#site-page-title {
-	color: grey;
-	font-weight: bold;
-	font-style: regular;
-}
 
 #navbar, #content {
 	margin: 40px;
