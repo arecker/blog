@@ -1,5 +1,5 @@
 #region Settings
-#region Imports
+# Imports
 SECRET_KEY = 'kt26*9sry8sl&s(#vq!hxr4z-0d2-=1=r0sa!2b^vn69q-&oiu'
 import os
 from django.shortcuts import render_to_response
@@ -8,27 +8,24 @@ from django.http import HttpResponse
 from os.path import join as Join
 import markdown2, BeautifulSoup
 filepath, extension = os.path.splitext(__file__)
-#endregion
 
-#region Deployment
+# Deployment
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 ALLOWED_HOSTS = []
 WSGI_APPLICATION = 'wsgi.application'
 ROOT_URLCONF = os.path.basename(filepath)
 PAGES = os.path.abspath(Join(filepath, '..', 'pages'))
-#endregion
 
-#region Locale
+# Locale
 TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-#endregion
 
-#region Static Files
+# Static Files
 STATIC_ROOT = Join(filepath, '..', 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
@@ -37,9 +34,9 @@ STATICFILES_DIRS = (
     Join(STATIC_ROOT, "js"),
     Join(STATIC_ROOT, "img"),
 )
-#endregion
 
-#region Middleware
+
+# Middleware
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -66,9 +63,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 )
-#endregion
 
-#region Logging
+# Logging
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 
 LOGGING = {
@@ -94,13 +90,11 @@ LOGGING = {
         },
     }
 }
-#endregion
 
-#region Templates
+# Templates
 TEMPLATE_DIRS = (
     (Join(filepath, '..', 'templates')),
 )
-#endregion
 #endregion
 
 # Models
