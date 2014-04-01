@@ -1,14 +1,10 @@
-### Blog by Alex Recker
-### Hi - my name is Alex Recker.  I like to write words.
-### http://alexrecker.com/
+# Blog by Alex Recker
+# Hi - I'm Alex Recker.  I like to write words.
+# http://alexrecker.com/
+# Home
+
 [ end metadata ]
 
-Latest Post:
+This is the homepage, man.
 
-  * Nothing Yet!
-
-
-Contact Me:
-
-  * [Email - alex@reckerfamily.com](mailto:alex@reckerfamily.com)
-  * [GitHub](http://github.com/arecker)
+Not sure what to do with it yet.

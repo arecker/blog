@@ -1,8 +1,9 @@
-### Friends | Blog by Alex Recker
-### These are some of my friends.
-### http://alexrecker.com/friends/
-[ end metadata ]
+# Friends | Blog by Alex Recker
+# These are some of my friends.
+# http://alexrecker.com/friends/
+# Friends
 
+[ end metadata ]
 
 Here are some of my friends who have websites
 

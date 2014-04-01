@@ -109,38 +109,25 @@ class Post:
 
 # Controllers
 def GetHome(request):
-    for _meta_title, _meta_description, _meta_canonical in GetMetaFromMD(Join(PAGES, 'home.md')):
-        meta_title = _meta_title
-        meta_description = _meta_description
-        meta_canonical = _meta_canonical
-
-    body = GetBodyFromMD(Join(PAGES, 'home.md'))
-    post = Post(meta_title=meta_title, meta_description=meta_description, meta_canonical=meta_canonical, title="Home", body=body)
+    post = ParseMarkdown(Join(PAGES, 'home.md'))
     return render_to_response('base.html', {
         'post': post,
     })
 
 def GetArchives(request):
-    post = Post(title="Archives Page", body="Archives Body")
+    post = Post(title="Archives Page", body="Archives Body", meta_title="Archives | Blog by Alex Recker")
     return render_to_response('base.html', {
         'post': post,
     })
 
 def GetProjects(request):
-    post = Post(title="Projects Page", body="Projects Body")
+    post = ParseMarkdown(Join(PAGES, 'projects.md'))
     return render_to_response('base.html', {
         'post': post,
     })
 
 def GetFriends(request):
-    for _meta_title, _meta_description, _meta_canonical in GetMetaFromMD(Join(PAGES, 'friends.md')):
-        meta_title = _meta_title
-        meta_description = _meta_description
-        meta_canonical = _meta_canonical
-
-    body = GetBodyFromMD(Join(PAGES, 'friends.md'))
-
-    post = Post(meta_title, meta_description, meta_canonical, title="Friends Page", body=body)
+    post = ParseMarkdown(Join(PAGES, 'friends.md'))
     return render_to_response('base.html', {
         'post': post,
     })
@@ -149,15 +136,16 @@ def GetPost(request, slug):
     return HttpResponse(slug)
 
 # Helpers
-def GetMetaFromMD(PATH):
-    soup = BeautifulSoup.BeautifulSoup(markdown2.markdown_path(PATH))
-    metadata = []
-    for h3 in soup.findAll('h3'):
-        metadata.append(h3.string)
-    return (metadata,)
+def ParseMarkdown(PATH):
+    for _metadata, _body in (markdown2.markdown_path(PATH).split('[ end metadata ]'),):
+        for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup.BeautifulSoup(_metadata).findAll('h1'),):
+            meta_title = _meta_title.string
+            meta_description = _meta_description.string
+            meta_canonical = _meta_canonical.string
+            title = _title.string
+        body = _body
+    return Post(meta_title=meta_title, meta_description=meta_description, meta_canonical=meta_canonical, title=title, body=body)
 
-def GetBodyFromMD(PATH):
-    return markdown2.markdown_path(PATH).split('[ end metadata ]')[-1]
 
 
 # Routes
