@@ -114,7 +114,13 @@ class Post:
 
 # Controllers
 def GetHome(request):
-    post = Post(title="Blog by Alex Recker", body="Home Body")
+    for _meta_title, _meta_description, _meta_canonical in GetMetaFromMD(Join(PAGES, 'home.md')):
+        meta_title = _meta_title
+        meta_description = _meta_description
+        meta_canonical = _meta_canonical
+
+    body = GetBodyFromMD(Join(PAGES, 'home.md'))
+    post = Post(title="Blog by Alex Recker", body=body)
     return render_to_response('base.html', {
         'post': post,
     })

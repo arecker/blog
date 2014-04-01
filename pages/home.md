@@ -3,12 +3,12 @@
 ### http://alexrecker.com/
 [ end metadata ]
 
-# Latest Post:
+Latest Post:
 
   * Nothing Yet!
 
 
-# Contact Me:
+Contact Me:
 
   * [Email - alex@reckerfamily.com](mailto:alex@reckerfamily.com)
   * [GitHub](http://github.com/arecker)
