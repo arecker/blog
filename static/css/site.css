@@ -9,12 +9,26 @@
        border-radius: 50%;
 }
 
-#navbar {
-	min-width: 560px;
+#site-title {
+	color: black;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+#site-page-title {
+	color: grey;
+	font-weight: bold;
+	font-style: regular;
 }
 
 #navbar .nav .btn {
 	margin-top: 40px;
 	margin-right: 0px;
 	padding: 0px;
+}
+
+@media screen and (max-width: 600px) {
+  .hide-mobile {
+    display: none !important;
+  }
 }

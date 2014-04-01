@@ -13,16 +13,19 @@
 </head>
 
 <body>
-    <div id="navbar">
-        {% block navbar %}
-        <ul class="nav nav-pills">
-            <li><img id="portrait" src="/static/portrait.jpg" alt=""/></li>
-            <li class="btn active"><a href="/"><i class="fa fa-fw fa-home"></i> Home</a></li>
-            <li class="btn"><a href="/archives/"><i class="fa fa-fw fa-calendar"></i> Archives</a></li>
-            <li class="btn"><a href="/projects/"><i class="fa fa-fw fa-code"></i> Projects</a></li>
-            <li class="btn"><a href="/friends/"><i class="fa fa-fw fa-group"></i> Friends</a></li>
-        </ul>
-        {% endblock %}
+    <div id="navbar" class="container-fluid">
+        <div class="row-fluid">
+            {% block navbar %}
+            <ul class="nav nav-pills">
+                <li><img id="portrait" src="/static/portrait.jpg" alt=""/></li>
+                <li class="btn active hover"><a href="/"><i class="fa fa-fw fa-home"></i> </a></li>
+                <li class="btn hover"><a href="/archives/"><i class="fa fa-fw fa-calendar"></i> </a></li>
+                <li class="btn hover"><a href="/projects/"><i class="fa fa-fw fa-code"></i> </a></li>
+                <li class="btn hover"><a href="/friends/"><i class="fa fa-fw fa-group"></i> </a></li>
+                <li class="btn disabled hide-mobile"><a><span id="site-title">alexrecker.com</span><small><span id="site-page-title"></span></small></a></li>
+            </ul>
+            {% endblock %}
+        </div>
     </div>
 
     <div id="content" class="container-fluid">
@@ -34,6 +37,8 @@
 
 <footer>
     {% block scripts %}
+    <script type="text/javascript" src="/static/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/navbar.js"></script>
     {% endblock %}
 </footer>
 </html>

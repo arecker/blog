@@ -34,6 +34,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     Join(STATIC_ROOT, "libs"),
     Join(STATIC_ROOT, "css"),
+    Join(STATIC_ROOT, "js"),
     Join(STATIC_ROOT, "img"),
 )
 #endregion
@@ -120,7 +121,7 @@ def GetHome(request):
         meta_canonical = _meta_canonical
 
     body = GetBodyFromMD(Join(PAGES, 'home.md'))
-    post = Post(title="Blog by Alex Recker", body=body)
+    post = Post(meta_title=meta_title, meta_description=meta_description, meta_canonical=meta_canonical, title="Home", body=body)
     return render_to_response('base.html', {
         'post': post,
     })
