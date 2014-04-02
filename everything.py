@@ -91,6 +91,5 @@ urlpatterns = patterns('',
     (r'^archives/', GetArchives),
     (r'^projects/', GetProjects),
     (r'^friends/', GetFriends),
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve'),
     (r'^(?P<slug>[^/]+)', GetPost),
 )
