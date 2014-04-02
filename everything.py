@@ -2,6 +2,7 @@ from django.shortcuts import render_to_response
 from django.conf.urls import patterns
 from os.path import join as Join
 from os.path import splitext, abspath
+from os import listdir
 import markdown2, BeautifulSoup
 
 ### Global Variables
@@ -47,7 +48,7 @@ def GetFriends(request):
 
 def GetPost(request, slug):
     lookup = []
-    for post in os.listdir(POSTS):
+    for post in listdir(POSTS):
         (date, key) = post.replace('.md', '').split('_')
         lookup.append((key, date))
 
