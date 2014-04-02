@@ -3,6 +3,9 @@ sys.path.append('/home/alex/Django/')
 sys.path.append('/home/alex/Django/Blog/')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'Blog.settings'
 activate_this = "/home/alex/Django/Blog/env/bin/activate_this.py"
-execfile(activate_this, dict(__file__=activate_this))
+try:
+    execfile(activate_this, dict(__file__=activate_this))
+except:
+    pass
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()

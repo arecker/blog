@@ -25,10 +25,10 @@ USE_TZ = True
 STATIC_ROOT = Join(filepath, '..', 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-    Join(STATIC_ROOT, "libs"),
-    Join(STATIC_ROOT, "css"),
-    Join(STATIC_ROOT, "js"),
-    Join(STATIC_ROOT, "img"),
+    ('libs', Join(STATIC_ROOT, "libs")),
+    ('css', Join(STATIC_ROOT, "css")),
+    ('js', Join(STATIC_ROOT, "js")),
+    ('img', Join(STATIC_ROOT, "img")),
 )
 
 
