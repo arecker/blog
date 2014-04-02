@@ -1,3 +1,20 @@
+body {
+  /*background-image: url('http://hhdwallpapes.com/wp-content/uploads/2012/06/Fine-Line-553112.jpeg');*/
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.page-header {
+  margin-top: 20px;
+}
+
+#banner-title {
+  margin-top: 0px;
+}
+
 #portrait {
    height: 80px;
    width: 80px;
@@ -31,16 +48,28 @@
 	margin-top: 20px;
 }
 
+/* Mobile */
 @media screen and (max-width: 700px) {
   .hide-mobile {
     display: none !important;
   }
 
-#portrait { 
-	margin-left: 0px !important;
-	margin-right: 5px !important;
-	margin-bottom: 5px !important;
-}
-  #navbar { width: 100% !important; margin: 0px !important;}
-  #content { width: 100% !important; margin: 0px !important;}
+  #portrait { 
+  	margin-left: 0px !important;
+  	margin-right: 7px !important;
+  	margin-bottom: 5px !important;
+  }
+  #navbar { 
+    width: 100% !important;
+    margin: 0px !important;
+  }
+
+  #content { 
+    width: 100% !important;
+    margin: 0px !important;
+  }
+
+  body {
+      background-image: url('') !important;
+  }
 }
