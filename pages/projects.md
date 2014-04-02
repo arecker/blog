@@ -1,8 +1,8 @@
-# Projects | Blog by Alex Recker
-# Here are some things I've made.
-# http://alexrecker.com/projects/
-# Projects
+* Projects | Blog by Alex Recker
+* Here are some things I've made.
+* http://alexrecker.com/projects/
+* Projects
 
-[ end metadata ]
+[go]
 
 This is the projects page.

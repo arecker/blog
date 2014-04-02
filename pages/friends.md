@@ -1,9 +1,9 @@
-# Friends | Blog by Alex Recker
-# These are some of my friends.
-# http://alexrecker.com/friends/
-# Friends
+* Friends | Blog by Alex Recker
+* These are some of my friends.
+* http://alexrecker.com/friends/
+* Friends
 
-[ end metadata ]
+[go]
 
 Here are some of my friends who have websites
 

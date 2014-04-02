@@ -1,9 +1,9 @@
-# Blog by Alex Recker
-# Hi - I'm Alex Recker.  I like to write words.
-# http://alexrecker.com/
-# Home
+* Blog by Alex Recker
+* Hi - I'm Alex Recker.  I like to write words.
+* http://alexrecker.com/
+* Home
 
-[ end metadata ]
+[go]
 
 This is the homepage, man.
 

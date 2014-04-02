@@ -66,8 +66,8 @@ def GetPost(request, slug):
 
 ### Helpers
 def ParseMarkdown(PATH):
-    for _metadata, _body in (markdown2.markdown_path(PATH).split('[ end metadata ]'),):
-        for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup.BeautifulSoup(_metadata).findAll('h1'),):
+    for _metadata, _body in (markdown2.markdown_path(PATH).split('[go]'),):
+        for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup.BeautifulSoup(_metadata).findAll('li'),):
             meta_title = _meta_title.string
             meta_description = _meta_description.string
             meta_canonical = _meta_canonical.string
