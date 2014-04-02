@@ -16,6 +16,7 @@ ALLOWED_HOSTS = []
 WSGI_APPLICATION = 'wsgi.application'
 ROOT_URLCONF = os.path.basename(filepath)
 PAGES = os.path.abspath(Join(filepath, '..', 'pages'))
+POSTS = os.path.abspath(Join(filepath, '..', 'posts'))
 
 # Locale
 TIME_ZONE = 'America/Chicago'
@@ -133,7 +134,22 @@ def GetFriends(request):
     })
 
 def GetPost(request, slug):
-    return HttpResponse(slug)
+    lookup = []
+    for post in os.listdir(POSTS):
+        (date, key) = post.replace('.md', '').split('_')
+        lookup.append((key, date))
+
+    try:
+        lookup = dict(lookup)
+        file = lookup[slug] + '_' + slug + '.md'
+        PATH = Join(POSTS, file)
+    except:
+        PATH = Join(PAGES, '404.md')
+
+    post = ParseMarkdown(PATH)
+    return render_to_response('base.html', {
+        'post': post,
+    })
 
 # Helpers
 def ParseMarkdown(PATH):
