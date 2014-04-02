@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Pulling from upstream..."
+git pull
+echo "Updating statics..."
+./env/bin/python ./manage.py collectstatic
+echo "Done!"

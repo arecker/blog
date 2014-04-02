@@ -1,4 +1,5 @@
 import os, sys
+sys.path.append('/home/alex/Django/')
 sys.path.append('/home/alex/Django/Blog/')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'Blog.settings'
 activate_this = "/home/alex/Django/Blog/env/bin/activate_this.py"

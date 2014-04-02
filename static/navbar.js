@@ -1,15 +1,22 @@
-$('.hover').hover(function()
+function Activate(id)
 {
-	var page = $( this ).find('a').attr('href').replace('/', '').replace('/', '');
-	ChangeSitePageTitle(page);
-});
+	$('.nav-pills').find('ul').removeClass('active');
+	$( id ).addClass('active');
+}
 
-$('.hover').mouseleave(function()
+var title = $(document).find("title").text().replace(' | ', '').replace('Blog by Alex Recker', '');
+switch(title)
 {
-	$('#site-page-title').text('');
-});
-
-function ChangeSitePageTitle(title)
-{
-	$('#site-page-title').text(title);
+	case "":
+		Activate("#home-button");
+		break;
+	case "Archives":
+		Activate("#archives-button");
+		break;
+	case "Projects":
+		Activate("#projects-button");
+		break;
+	case "Friends":
+		Activate("#friends-button");
+		break;
 }

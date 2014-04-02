@@ -2,6 +2,7 @@
    height: 80px;
    width: 80px;
    margin: 20px;
+   margin-bottom: 0px;
    overflow: hidden;
      
    -webkit-border-radius: 50%;
@@ -9,16 +10,14 @@
        border-radius: 50%;
 }
 
-#site-title {
-	color: black;
-	font-weight: bold;
-	margin-right: 10px;
+
+#navbar, #content {
+	margin: 40px;
 }
 
-#site-page-title {
-	color: grey;
-	font-weight: bold;
-	font-style: regular;
+#content { 
+	margin-left: 100px;
+	margin-top: 0px;
 }
 
 #navbar .nav .btn {
@@ -27,8 +26,21 @@
 	padding: 0px;
 }
 
-@media screen and (max-width: 600px) {
+#navbar {
+	min-width: 365px;
+	margin-top: 20px;
+}
+
+@media screen and (max-width: 700px) {
   .hide-mobile {
     display: none !important;
   }
+
+#portrait { 
+	margin-left: 0px !important;
+	margin-right: 5px !important;
+	margin-bottom: 5px !important;
+}
+  #navbar { width: 100% !important; margin: 0px !important;}
+  #content { width: 100% !important; margin: 0px !important;}
 }
