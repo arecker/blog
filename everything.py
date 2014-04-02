@@ -3,7 +3,8 @@ from django.conf.urls import patterns
 from os.path import join as Join
 from os.path import splitext, abspath
 from os import listdir
-import markdown2, BeautifulSoup
+from markdown2 import markdown_path
+from BeautifulSoup import BeautifulSoup
 
 ### Global Variables
 filepath, extension = splitext(__file__)
@@ -13,7 +14,7 @@ POSTS = abspath(Join(filepath, '..', 'posts'))
 
 ### Models
 class Post:
-    def __init__(self, meta_title="Meta Title", meta_description="meta description", meta_canonical="Meta Canonical", title='Title', body='Body'):
+    def __init__(self, meta_title, meta_description, meta_canonical, title, body):
         self.Meta_title = meta_title
         self.Meta_description = meta_description
         self.Meta_canonical=meta_canonical
@@ -29,7 +30,12 @@ def GetHome(request):
     })
 
 def GetArchives(request):
-    post = Post(title="Archives Page", body="Archives Body", meta_title="Archives | Blog by Alex Recker")
+    m_title = "Archives"
+    m_description = "Placeholder"
+    m_canonical = "Placeholder"
+    title = "Archives"
+    body = "Archives page here."
+    post = Post(m_title, m_description, m_canonical, title, body)
     return render_to_response('base.html', {
         'post': post,
     })
@@ -66,8 +72,10 @@ def GetPost(request, slug):
 
 ### Helpers
 def ParseMarkdown(PATH):
-    for _metadata, _body in (markdown2.markdown_path(PATH).split('[go]'),):
-        for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup.BeautifulSoup(_metadata).findAll('li'),):
+    # Splits MD into metadata and body,
+    # Then signs a new post with the appropriate properties
+    for _metadata, _body in (markdown_path(PATH).split('[go]'),): # '[go]' is the magic separator
+        for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup(_metadata).findAll('li'),):
             meta_title = _meta_title.string
             meta_description = _meta_description.string
             meta_canonical = _meta_canonical.string
