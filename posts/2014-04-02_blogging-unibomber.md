@@ -20,7 +20,7 @@ It's probably better that way.  I wouldn't want to test drive my baby with a pos
 
 Here's what is changed about the site:
 
-* **New Domain**: I'm now at [](http://alexrecker.com).  I will eventually be moving all my old posts over here and setting up a redirect...
+* **New Domain**: I'm now at [http://alexrecker.com](http://alexrecker.com).  I will eventually be moving all my old posts over here and setting up a redirect...
 So you don't have to worry your pretty little head about it.
 * **Facebook-only comments**: Sorry brave Google+'ers.   I just can't keep up with all the crossfire.  Some discussion on Facebook, some on Wordpress,
 Some on G+... I'm just moving it all over to Facebook.  Don't get me wrong, I love it when comments get spicy - I'm just tired of storing them on my database.
