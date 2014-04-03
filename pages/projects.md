@@ -5,4 +5,6 @@
 
 [go]
 
-This is the projects page.
+Nothing here yet.
+
+I'm working on it, OK?

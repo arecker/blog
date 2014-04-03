@@ -21,23 +21,47 @@ class Post:
         self.Title = title
         self.Body = body
 
+class Headline:
+    def __init__(self, thumbnail, title, description, link):
+        self.Thumbnail = thumbnail
+        self.Title = title
+        self.Description = description
+        self.Link = link
+
+class Archive:
+    def __init__(self):
+        return None
+
+    def Create(self, title, description, link, date):
+        self.Title = title
+        self.Description = description
+        self.Link = link
+        self.Date = date
+
 
 ### Controllers
 def GetHome(request):
-    post = ParseMarkdown(Join(PAGES, 'home.md'))
-    return render_to_response('base.html', {
+    metas, headlines = ParseHomeMarkdown(Join(PAGES, 'home.md'))
+    for m_title, m_description, m_canonical, title in (metas,):
+        post = Post(meta_title=m_title, meta_description=m_description, meta_canonical=m_canonical, title=title, body="")
+
+    return render_to_response('home.html', {
         'post': post,
+        'headlines': headlines,
     })
 
 def GetArchives(request):
     m_title = "Archives"
-    m_description = "Placeholder"
-    m_canonical = "Placeholder"
+    m_description = "Here is a list of everything I've written."
+    m_canonical = "http://alexrecker.com/archives/"
     title = "Archives"
-    body = "Archives page here."
+    body = ""
+
+    archives = ParseArchivesMarkdown(listdir(POSTS))
     post = Post(m_title, m_description, m_canonical, title, body)
-    return render_to_response('base.html', {
+    return render_to_response('archives.html', {
         'post': post,
+        'archives': archives,
     })
 
 def GetProjects(request):
@@ -66,7 +90,7 @@ def GetPost(request, slug):
         PATH = Join(PAGES, '404.md')
 
     post = ParseMarkdown(PATH)
-    return render_to_response('base.html', {
+    return render_to_response('post.html', {
         'post': post,
     })
 
@@ -83,7 +107,30 @@ def ParseMarkdown(PATH):
         body = _body
     return Post(meta_title=meta_title, meta_description=meta_description, meta_canonical=meta_canonical, title=title, body=body)
 
+def ParseHomeMarkdown(PATH):
+    metas = []
+    headlines = []
+    for _metadata, _body in (markdown_path(PATH).split('[go]'),):
+        for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup(_metadata).findAll('li'),):
+            metas.append(_meta_title.string)
+            metas.append(_meta_description.string)
+            metas.append(_meta_canonical.string)
+            metas.append(_title.string)
+        for ul in BeautifulSoup(_body).findAll('ul'):
+            for thumbnail, title, description, link in ((ul.findChildren('li')),):
+                headlines.append(Headline(thumbnail=thumbnail.string, title=title.string, description=description.string, link=link.string))
+    return (metas, headlines)
 
+def ParseArchivesMarkdown(Posts):
+    archives = []
+    for post in Posts:
+        A = Archive()
+        date, slug = post.split('_')
+        for _metadata, _body in (markdown_path(Join(POSTS, post)).split('[go]'),):
+            for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup(_metadata).findAll('li'),):
+                A.Create(title=_title.string, description=_meta_description.string, link=_meta_canonical.string, date=date)
+                archives.append(A)
+    return archives
 
 ### Routes
 urlpatterns = patterns('',

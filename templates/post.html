@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block meta %}
+    <title>{{ post.Meta_title}}</title>
+    <meta name="description" content="{{ post.Meta_description }}">
+    <link rel="canonical" href="{{ post.Meta_canonical }}">
+{% endblock %}
+{% block post-title %}
+    <h1 id="post-title">{{ post.Title }}</h1>
+{% endblock %}
+{% block post-content %}{% autoescape off %}
+    <div id="post-body">
+        <div id="post-text" class="container-fluid">
+             {{ post.Body }}
+        </div>
+    </div>
+{% endautoescape %}{% endblock %}
+{% block post-footer %}
+    <div class="container-fluid" id="post-footer">
+        <h3>Comments</h3>
+        <div class="fb-comments container-fluid" data-href="http://alexrecker.com" data-numposts="20" data-colorscheme="light"></div>
+    </div>
+{% endblock %}

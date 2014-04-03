@@ -5,14 +5,16 @@
 
 [go]
 
-Here are some of my friends who have websites
+### Friends with Websites
 
   - [Sam Loesch: The Glorious Mystery](http://thegloriousmystery.blogspot.com/)
   - [Ben Parks: Trust Fall](http://benjaminnparks.blogspot.com/)
   - [GNU: Advocating for software that respects the user](http://www.gnu.org/)
 
 
-Here are some of my friends who run businesses
+
+
+### Good Businesses
 
   - [Kevin Marble's Music](http://kevinmarble.com/)
   - [Web Design by Joel Brewer](http://brewerdigital.com)

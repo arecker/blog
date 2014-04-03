@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
+    {% block meta %}
     <title>{{ post.Meta_title}}</title>
     <meta name="description" content="{{ post.Meta_description }}">
     <link rel="canonical" href="{{ post.Meta_canonical }}">
+    {% endblock %}
     {% block stylesheets %}
     <link rel="stylesheet" href="/static/libs/bootstrap.min.css" />
     <link rel="stylesheet" href="/static/libs/font-awesome.min.css" />
@@ -14,6 +16,15 @@
 </head>
 
 <body>
+    <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
     <div class="container-fluid page-header hide-mobile">
         <h2 id="banner-title">Blog by Alex Recker</h2>
     </div>
@@ -32,10 +43,13 @@
     </div>
 
     <div id="content" class="container-fluid">
-        <div class="container-fluid"><h1 id="post-title">{{ post.Title }}</h1></div>
-        <div class="container-fluid">{% autoescape off %}<div id="post-body">{{ post.Body }}</div>{% endautoescape %}</div>
-        <div id="post-footer">{% block post-footer %}{% endblock %}</div>
+        <div class="container-fluid">{% block post-title %}{% endblock %}</div>
+        <div class="container-fluid">{% block post-content %}{% autoescape off %}<div id="post-body">{{ post.Body }}</div>{% endautoescape %}{% endblock %}</div>
     </div>
+    <hr/>
+    {% block post-footer %}
+    <div class="container-fluid" id="post-footer"></div>
+    {% endblock %}
 </body>
 
 <footer>

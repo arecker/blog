@@ -15,6 +15,20 @@ body {
   margin-top: 0px;
 }
 
+#post-title {
+  margin-bottom: 20px;
+}
+
+#post-text {
+  width: 60%;
+  margin-left: 0px;
+}
+
+.thumbnail img {
+   height: 200px;
+   margin-top: 20px;
+}
+
 #portrait {
    height: 80px;
    width: 80px;
@@ -32,7 +46,7 @@ body {
 	margin: 40px;
 }
 
-#content { 
+#content, #post-footer { 
 	margin-left: 100px;
 	margin-top: 0px;
 }
@@ -67,6 +81,10 @@ body {
   #content { 
     width: 100% !important;
     margin: 0px !important;
+  }
+
+  #post-text {
+    width: 100% !important;
   }
 
   body {

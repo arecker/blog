@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block meta %}
+    <title>{{ post.Meta_title}}</title>
+    <meta name="description" content="{{ post.Meta_description }}">
+    <link rel="canonical" href="{{ post.Meta_canonical }}">
+{% endblock %}
+{% block post-title %}
+{% endblock %}
+{% block post-content %}{% autoescape off %}
+    <div id="post-body">
+        <div id="post-text" class="container-fluid">
+             <ul>
+                 {% for archive in archives %}
+                 <li>
+                     <a href={{ archive.Link }}><strong>{{ archive.Title }}</a>: </strong>
+                     <p>{{ archive.Description }}<br/>
+                     {{ archive.Date }}</p>
+                 </li>
+                 {% endfor %}
+             </ul>
+        </div>
+    </div>
+{% endautoescape %}{% endblock %}
+{% block post-footer %}
+{% endblock %}
