@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     {% block meta %}
     <title>{{ post.Meta_title}}</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
     <meta name="description" content="{{ post.Meta_description }}">
     <link rel="canonical" href="{{ post.Meta_canonical }}">
     {% endblock %}
@@ -27,6 +28,11 @@
         </script>
     <div class="container-fluid page-header hide-mobile">
         <h2 id="banner-title">Blog by Alex Recker</h2>
+        <!--ul id="me-links" class="nav nav-pills">
+            <li class="disabled"><a href=""><img src="/static/img/rss.jpg" alt=""/></a></li>
+            <li><a href="https://twitter.com/arecker41"><img src="/static/img/twitter.jpg" alt=""/></a></li>
+            <li><a href="http://github.com/arecker"><img src="/static/img/github.png" alt=""/></a></li>
+        </ul-->
     </div>
     <div id="navbar" class="container-fluid">
         <div class="row-fluid">

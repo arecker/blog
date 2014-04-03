@@ -12,7 +12,8 @@ body {
 }
 
 #banner-title {
-  margin-top: 0px;
+  margin-top: 10px;
+  float: left;
 }
 
 #post-title {
@@ -38,8 +39,7 @@ body {
 }
 
 .thumbnail .caption h3 a:hover {
-  text-decoration: none;
-  color: #002E5C
+
 }
 
 #portrait {
@@ -54,6 +54,9 @@ body {
        border-radius: 50%;
 }
 
+#me-links {
+  float: right;
+}
 
 #navbar, #content {
 	margin: 40px;
