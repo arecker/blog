@@ -37,6 +37,11 @@ body {
    margin-top: 20px;
 }
 
+.thumbnail .caption h3 a:hover {
+  text-decoration: none;
+  color: #002E5C
+}
+
 #portrait {
    height: 80px;
    width: 80px;
