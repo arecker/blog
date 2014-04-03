@@ -11,7 +11,7 @@
 If this site is giving off that crappy high school computer class project vibe, that's because it's totally homemade.
 
 Yep - it's the latest home-made meal to leave my apartment kitchen (not counting the reheated - possibly
-iradiated calzone that left me retching in my toilet last weekend).
+irradiated calzone that left me retching in my toilet last weekend).
 
 I don't have a lot to bring you this week.  Truth be told, I have been so preoccupied with my new corner of the Internet
 that I haven't gotten a chance to think about the usual stupid things I churn for you.
@@ -26,13 +26,13 @@ So you don't have to worry your pretty little head about it.
 Some on G+... I'm just moving it all over to Facebook.  Don't get me wrong, I love it when comments get spicy - I'm just tired of storing them on my database.
 I'm going to let Facebook do what it does best (and I don't mean [virtual reality gaming](https://www.facebook.com/zuck/posts/10101319050523971))
 * **RSS is broken**: For my single RSS reader out there (talking to you Drew), I regret to report that it's not working yet.
-The one hangup is that I'm just not smart enought to figure out how to do that.  It will be back up soon, you.
+The one hangup is that I'm just not smart enough to figure out how to do that.  It will be back up soon, you.
 
 
 ### Goodbye, Wordpress
 Since I started blogging last Summer, I had been using Wordpress.  Wordpress is fantastic.  Not only is it user friendly, but it is also server admin
 friendly.  Web developers love Wordpress.  All you have to do to deploy it is basically dump out a bunch of code into a folder, type in your database password,
-and off you go.  In my book, Wordpress is still the uncontested choice roll-a-website-for-your-uncle-over-the-weekend content management sytstem.
+and off you go.  In my book, Wordpress is still the uncontested choice roll-a-website-for-your-uncle-over-the-weekend content management system.
 
 <br/>
 <div class="row text-center">
@@ -57,7 +57,7 @@ They get big, they have to be backed up and restarted...
 Looking at only my needs, I rolled my own Markdown driven CMS.  Nothing needs to be backed up because it's all deployed through git.  Every post and page in its
 Markdown format is just another file in the source code.
 
-The site is a hacked down monstrocity that started with django.  I wrote a project, deleted the built-in database backend, then just combined the entire project
+The site is a hacked down monstrosity that started with django.  I wrote a project, deleted the built-in database backend, then just combined the entire project
 into one file appropriately named "everything.py".  It's not as grand as it sounds - even the markdown parsing barely exceeded a dozen lines of code thanks to the
 ```BeautifulSoup``` and ```Markdown2``` libraries.
 
