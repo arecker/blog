@@ -1,6 +1,6 @@
 * The Unibomber of Blogging | Blog by Alex Recker
 * Wordpress is easy and effortless - which is why I am retreating into the back woods of the Internet.
-* http://alexrecker.com/unibomber-blogging
+* http://alexrecker.com/blogging-unibomber
 * The Unibomber of Blogging
 
 [go]
