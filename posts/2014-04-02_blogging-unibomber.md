@@ -7,7 +7,7 @@
 
 ![](http://www.agaritacreek.com/_Images/content/cabin-banner.jpg)
 
-### My New Corner of the Internet
+### My New Corner of the CHANGE
 If this site is giving off that crappy high school computer class project vibe, that's because it's totally homemade.
 
 Yep - it's the latest home-made meal to leave my apartment kitchen (not counting the reheated - possibly
