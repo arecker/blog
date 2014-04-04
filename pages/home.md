@@ -9,7 +9,7 @@ Latest Post
 
 * /static/img/thoreau.jpg
 * Welcome Home
-* Wordpress has served me well, but my soul long for stillness.  Retreat with me into the backwoods of the Internet.
+* Wordpress has served me well, but my soul longs for the wilderness.  Retreat with me into the backwoods of the Internet.
 * /welcome-home/
 
 News
