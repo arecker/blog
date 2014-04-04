@@ -15,7 +15,7 @@ I present to you my pet project.  It's a ghetto little markdown driven CMS I've 
 The new diggs are part of an effor to be more minimal.  I'm kind of trying to do the transcendentalism thing, retreating to the Internet equivalent of a cabin in the woods with no electricity.
 
 ### Goodbye, Wordpress
-I have been using Wordpress from the beginning, and my experience with it has been awesome.  Computer people love Wordpress because it basically a one-click website.  You basically just dump a bunch of code into a folder, enter your database password, and you are good to go.
+I have been using Wordpress from the beginning, and my experience with it has been awesome.  Computer people love Wordpress because it is basically a one-click setup.  You really just dump a bunch of code into a folder, enter your database password, and you are good to go.
 
 This is why Wordpress, in my book, still reigns supreme as the number one roll-a-new-website-for-your-uncle-over-the-weekend content management system.
 
@@ -28,7 +28,7 @@ This is why Wordpress, in my book, still reigns supreme as the number one roll-a
 </div>
 
 
-But I was growing dissatisfied.  Wordpress is written entirely in PHP, so whenever a plugin broke, I basically just had to sit around and wait for it to get fixed.
+But I was growing dissatisfied.  Wordpress is written entirely in PHP, so whenever a plugin broke, I basically just had to sit around and wait for it to get fixed.  I don't know PHP, and I certainly don't want to learn it by fixing Wordpress plugins.
 
 Secondly, since it was written for non-programming folk, all the editing and site management is built right into the website.  It's convenient, but this puts a lot of pressure on your authentication for the site.  I was getting at least eight notifications on my phone daily alerting me that someone else was trying to crack my password.  I don't think anyone succeeded, because I don't remember a time where my blog looked like the *Amazon* of male enhancement pills.
 
@@ -37,6 +37,7 @@ Lastly, the database was really bumming me out.  It's really easy to set up, but
 
 ### For the Nerds
 *Warning: incoming nerd talk*
+
 Throughout all these shortcomings, the *Markdown* bandwagon started to look more and more appealing.
 
 What is markdown?  It's the new craze, and it's hard to find a web developer these days who is not gushing over it.
@@ -86,7 +87,7 @@ Hi there!  My name is Poop Smith.  Here are my hobbies:
 
 <hr>
 
-So all of my posts are written in markdown now.  I don't have to back them up because they are just pushed to GitHub like a regular source file  It's all [here](http://github.com/arecker/Blog).  If you are weird enough, I guess, you could deploy your very own version of my Blog on your own website and it would stay up to date.
+So all of my posts are written in markdown now.  I don't have to back them up because they are just pushed to GitHub like a regular source file.  It's all [here](http://github.com/arecker/Blog).  If you are weird enough, I guess, you could deploy your very own version of my Blog on your own website and it would stay up to date.
 
 The posts are written in Markdown, but the engine is built on a framework called *Django*.
 
@@ -99,7 +100,7 @@ The posts are written in Markdown, but the engine is built on a framework called
 </div>
 
 
-My one beef with Django is that it is kind of bloaty.  It's meant for really big data entry websites.  My site is a hacked down version of Django.  I basically created a project, then moved everything to a single file appropriately named ```everything.py```, then just started deleting stuff until it broke.
+My one beef with Django is that it is kind of bloaty.  It's meant for really big data entry websites.  My site is a hacked down version of Django.  I basically created a project, then moved everything to a single file appropriately named ```everything.py```.  I starved the project until it scratched my minimalist itch.
 
 
 ### Changelog
@@ -107,11 +108,11 @@ Ok ok ok - nerd talk over.  Here is what has changed about the site:
 
 * **New Domain**: My blog is now located at [alexrecker.com](http://alexrecker.com).  But you knew that already.  You *are* reading this after all.  I will be setting up a site redirect from the old blog and porting over all the posts that weren't total garbage over to this one.  So you don't have to worry your pretty little head about fixing your bookmarks.
 * **Facebook Comments Only**: I appreciate the comments - especially when they get zesty.  I just don't want to have to store them anymore.  Additionally, the old blog supported comments from Google+ too.  I accompany my decision to drop support for Google+ with a sincere apology to the only person who has ever used Google+ to comment on my Blog.  *Drew - I hope we can still be friends.*
-* **RSS is not working (yet)**: RSS is not supported right now because of a small hang-up - and that is... I'm not smart enough right now to write a RSS generator.  I'm going throw a few more monkeys and typewriters at it and see what kind of progress I can make, for again, I offer my sincere apologies to my one RSS subscriber.  *Drew - it's not you... it's me.*
+* **RSS is not working (yet)**: RSS is not supported right now because of a small hang-up - and that is... I'm not smart enough right now to write a RSS generator.  I'm going to throw a few more monkeys and typewriters at it and see what kind of progress I can make.  Again, I offer my sincere apologies to my *one* RSS subscriber.  *Drew - it's not you... it's me.*
 
 
 ### Brave New World
-That being said, welcome to my new site.  There's a lot of stuff still broken, but I'm going to do what I can.  We can take this journey together - blogger and reader marching lock step, hand-in-hand, making our way through this brave new world of embarassing markdown parsing glitches and catastrophic runtime errors.
+That being said, welcome to my new site.  There's a lot of stuff still broken, but I'm going to do what I can.  We can take this journey together - blogger and reader marching lock-step, hand-in-hand, making our way through this brave new world of embarassing markdown parsing glitches and catastrophic runtime errors.
 
 And please be noisy!  Beat the hell out of this thing.  You can't battle test a website without thowing some grenades.  Go ahead and load it up on your tablet, iPhone, Wii, and tamagotchi (if you still have one laying around).
 
