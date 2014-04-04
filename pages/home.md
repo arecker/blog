@@ -7,7 +7,7 @@
 
 Latest Post
 
-* http://www.murderpedia.org/male.K/images/kaczynski_theodore/022.jpg
+* /static/img/thoreau.jpg
 * Welcome Home
 * Wordpress has served me well, but my soul long for stillness.  Retreat with me into the backwoods of the Internet.
 * /welcome-home/
