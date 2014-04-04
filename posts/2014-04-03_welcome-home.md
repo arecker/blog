@@ -44,24 +44,33 @@ What is markdown?  It's the new craze, and it's hard to find a web developer the
 Markdown is basically a text file that gets converted into a web page.  Through basic syntax rules, you can quickly create nice little formatting touches that would take a litle more time to do by hand (taking you out of the creative process of blogging - apparently).
 
 For example, a markdown file would look something like this:
+<hr>
 
-```
-# Everybody Poops
+<code>
+\# Everybody Poops
 
-### Welcome to my weird poop blog.
+\### Welcome to my weird poop blog.
+
 Hi there!  My name is Poop Smith.  Here are my hobbies:
 
-* Blogging
-* NASDAQ
-* Escrow
+\* Blogging
 
-> Toy Story 2 was ok.
+\* NASDAQ
 
-![](http://www.thepetcollective.tv/wp-content/uploads/2013/11/corgi-puppies.gif "Corgi Attack")
-```
+\* Escrow
+<br>
 
+\> Toy Story 2 was ok.
+
+\!\[\]\(http://www.thepetcollective.tv/wp-content/uploads/2013/11/corgi-puppies.gif "Corgi Attack"\)
+</code>
+
+
+<hr>
 Pretty simple to write.  Here is where the magic lies.  By the time it makes it to the web browser, it looks like this:
 
+<hr>
+
 # Everybody Poops
 
 ### Welcome to my weird poop blog.
@@ -74,6 +83,8 @@ Hi there!  My name is Poop Smith.  Here are my hobbies:
 > Toy Story 2 was ok.
 
 ![](http://www.thepetcollective.tv/wp-content/uploads/2013/11/corgi-puppies.gif "Corgi Attack")
+
+<hr>
 
 So all of my posts are written in markdown now.  I don't have to back them up because they are just pushed to GitHub like a regular source file  It's all [here](http://github.com/arecker/Blog).  If you are weird enough, I guess, you could deploy your very own version of my Blog on your own website and it would stay up to date.
 
@@ -83,7 +94,7 @@ The posts are written in Markdown, but the engine is built on a framework called
 <div class="row text-center">
 <img src="http://content.internetvideoarchive.com/content/photos/7244/645091_149.jpg" height="200"/>
 <br>
-<small>The *Django* Framework - Completely ungoogleable since 2012</small>
+<small>The <em>Django</em> Framework - Completely ungoogleable since 2012</small>
 <br/><br/>
 </div>
 
