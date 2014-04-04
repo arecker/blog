@@ -1,4 +1,4 @@
 Blog
 ====
 
-My blogness.
+My Blog, man.
