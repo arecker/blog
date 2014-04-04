@@ -14,7 +14,7 @@ Latest Post
 
 News
 
-* /static/img/github.png
+* /static/img/github-big.png
 * Projects Page
 * This is where I will list all the projects I've made.  Coming soon!
 * /projects/
