@@ -1,5 +1,5 @@
 * Welcome Home | Blog by Alex Recker
-* Wordpress has served me well, but my soul longs for stillness.  Retreat with me into the backwoods of the Internet.
+* Wordpress has served me well, but my soul longs for wilderness.  Retreat with me into the backwoods of the Internet.
 * http://alexrecker.com/welcome-home
 * Welcome Home
 
