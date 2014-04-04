@@ -61,7 +61,7 @@ def GetArchives(request):
     post = Post(m_title, m_description, m_canonical, title, body)
     return render_to_response('archives.html', {
         'post': post,
-        'archives': archives,
+        'archives': reversed(archives),
     })
 
 def GetProjects(request):
