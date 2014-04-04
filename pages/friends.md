@@ -10,7 +10,7 @@
   - [Sam Loesch: The Glorious Mystery](http://thegloriousmystery.blogspot.com/)
   - [Ben Parks: Trust Fall](http://benjaminnparks.blogspot.com/)
   - [GNU: Advocating for software that respects the user](http://www.gnu.org/)
-
+  - [My dad's twitter](https://twitter.com/ReckerDirk)
 
 
 
