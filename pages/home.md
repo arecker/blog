@@ -8,9 +8,9 @@
 Latest Post
 
 * http://www.murderpedia.org/male.K/images/kaczynski_theodore/022.jpg
-* The Unibomber of Blogging
-* Wordpress is easy and well-supported.  I've refuted it and retreated into the Internet's backwoods.
-* /blogging-unibomber
+* Welcome Home
+* Wordpress has served me well, but my soul long for stillness.  Retreat with me into the backwoods of the Internet.
+* /welcome-home/
 
 News
 

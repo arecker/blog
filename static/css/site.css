@@ -78,11 +78,29 @@ body {
 	margin-top: 20px;
 }
 
+#archives-list {
+  list-style-type: none;
+  max-width: 350px;
+}
+
+.show-mobile {
+  display: none;
+}
+
+a:hover {
+  text-decoration: none;
+  color: blue;
+}
+
 
 /* Mobile */
 @media screen and (max-width: 700px) {
   .hide-mobile {
     display: none !important;
+  }
+
+  .show-mobile {
+    display: inline !important;
   }
 
   #portrait { 
