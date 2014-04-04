@@ -10,7 +10,7 @@
 ### My New Corner of the Internet
 I'm sure you have noticed by now that things are a little different.  The awkward layout alone should be enought to tip you off to the fact that I've jumped ship to something a little more home brewed.
 
-I present to you my pet project.  It's a ghetto little markdown driven CMS I've hacked together - and it's the most organic thing to leave my kitchen since that spinache calzone (*aside: brown spinache is bad spinache.  There - I've spared you the night long retching I endured to learn the same lesson just last weekend).
+I present to you my pet project.  It's a ghetto little markdown driven CMS I've hacked together - and it's the most organic thing to leave my kitchen since that spinache calzone (*aside* - brown spinach is bad spinach.  There - I've spared you the night long retching I endured to learn the same lesson just last weekend).
 
 The new diggs are part of an effor to be more minimal.  I'm kind of trying to do the transcendentalism thing, retreating to the Internet equivalent of a cabin in the woods with no electricity.
 
