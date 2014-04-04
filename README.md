@@ -1,4 +1,4 @@
 Blog
 ====
 
-My edit.
+My Blog, man.
