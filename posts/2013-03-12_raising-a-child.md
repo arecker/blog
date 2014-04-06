@@ -5,12 +5,16 @@
 
 [go]
 
+![](/static/img/videogamekid.jpg)
+
+<hr>
+
 I don’t know anything about raising children.  I suspect that when I have progeny of my own someday, I will learn just enough to get by.  But I wanted to first dispel your likely rage upon seeing a twenty-three year old’s blog post titled “How to raise a child…”  The title of this blog is more just to get your attention.  If you feel manipulated into reading, then you are right.  *I manipulated you, Congressman*.
 
 
 <br/>
 <div class="row text-center">
-<img src="/static/img/frankunderwood.gif" height="200"/>
+<img src="/static/img/frankunderwood.gif" height="150"/>
 <br>
 <br/><br/>
 </div>
