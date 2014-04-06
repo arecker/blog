@@ -12,9 +12,9 @@ Latest Post
 
 News
 
-* /static/img/github-big.png
+* /static/img/corgi-break.png
 * Projects Page
-* This is where I will list all the projects I've made.  Coming soon!
+* Help yourself to some home-grown software made fresh from my kitchen.
 * /projects/
 
 Friends
