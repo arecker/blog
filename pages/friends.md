@@ -1,9 +1,7 @@
-* Friends | Blog by Alex Recker
-* These are some of my friends.
-* http://alexrecker.com/friends/
-* Friends
-
-[go]
+<!--Friends | Blog by Alex Recker-->
+<!--These are some of my friends.-->
+<!--/friends/-->
+<!--Friends-->
 
 ### Friends with Websites
 
