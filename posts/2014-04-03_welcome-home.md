@@ -1,9 +1,7 @@
-* Welcome Home | Blog by Alex Recker
-* Wordpress has served me well, but my soul longs for the wilderness.  Retreat with me into the backwoods of the Internet.
-* http://alexrecker.com/welcome-home
-* Welcome Home
-
-[go]
+<!--Welcome Home | Blog by Alex Recker -->
+<!--Wordpress has served me well, but my soul longs for the wilderness.  Retreat with me into the backwoods of the Internet.-->
+<!--/welcome-home -->
+<!--Welcome Home -->
 
 ![](http://www.agaritacreek.com/_Images/content/cabin-banner.jpg)
 

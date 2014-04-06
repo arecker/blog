@@ -1,9 +1,7 @@
-* Blog by Alex Recker
-* Hi - I'm Alex Recker.  I like to write words.
-* http://alexrecker.com/
-* Home
-
-[go]
+<!--Blog by Alex Recker-->
+<!--Hi - I'm Alex Recker.  I like to write words.-->
+<!-- -->
+<!--Home-->
 
 Latest Post
 

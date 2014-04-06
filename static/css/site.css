@@ -34,8 +34,8 @@ body {
   color: black;
 }
 
-.headline-img {
-   height: 200px;
+.headline-image {
+   height: 200px !important;
    margin-top: 20px;
 }
 

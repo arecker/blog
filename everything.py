@@ -4,7 +4,7 @@ from os.path import join as Join
 from os.path import splitext, abspath
 from os import listdir
 from markdown2 import markdown_path
-from BeautifulSoup import BeautifulSoup
+from BeautifulSoup import BeautifulSoup, Comment
 
 ### Global Variables
 filepath, extension = splitext(__file__)
@@ -86,50 +86,62 @@ def GetPost(request, slug):
         lookup = dict(lookup)
         file = lookup[slug] + '_' + slug + '.md'
         PATH = Join(POSTS, file)
+        post = ParseMarkdown(PATH)
+        return render_to_response('post.html', {
+            'post': post,
+        })
     except:
         PATH = Join(PAGES, '404.md')
+        post = ParseMarkdown(PATH)
+        return render_to_response('base.html', {
+            'post': post,
+        })
 
-    post = ParseMarkdown(PATH)
-    return render_to_response('post.html', {
-        'post': post,
-    })
 
 ### Helpers
 def ParseMarkdown(PATH):
-    # Splits MD into metadata and body,
-    # Then signs a new post with the appropriate properties
-    for _metadata, _body in (markdown_path(PATH).split('[go]'),): # '[go]' is the magic separator
-        for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup(_metadata).findAll('li'),):
-            meta_title = _meta_title.string
-            meta_description = _meta_description.string
-            meta_canonical = _meta_canonical.string
-            title = _title.string
-        body = _body
+    raw = markdown_path(PATH)
+    comments = BeautifulSoup(raw).findAll(text = lambda text: isinstance(text, Comment))[:4]
+
+    for _meta_title, _meta_description, _meta_canonical, _title in ((comments), ):
+        meta_title = _meta_title.string
+        meta_description = _meta_description.string
+        meta_canonical = _meta_canonical.string
+        title = _title.string
+
+    body = raw
+
     return Post(meta_title=meta_title, meta_description=meta_description, meta_canonical=meta_canonical, title=title, body=body)
 
 def ParseHomeMarkdown(PATH):
-    metas = []
     headlines = []
-    for _metadata, _body in (markdown_path(PATH).split('[go]'),):
-        for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup(_metadata).findAll('li'),):
-            metas.append(_meta_title.string)
-            metas.append(_meta_description.string)
-            metas.append(_meta_canonical.string)
-            metas.append(_title.string)
-        for ul in BeautifulSoup(_body).findAll('ul'):
-            for thumbnail, title, description, link in ((ul.findChildren('li')),):
-                headlines.append(Headline(thumbnail=thumbnail.string, title=title.string, description=description.string, link=link.string))
+    metas = []
+    raw = markdown_path(PATH)
+    comments = BeautifulSoup(raw).findAll(text = lambda text: isinstance(text, Comment))[:4]
+
+    for _meta_title, _meta_description, _meta_canonical, _title in ((comments,)):
+        metas.append(_meta_title.string)
+        metas.append(_meta_description.string)
+        metas.append(_meta_canonical.string)
+        metas.append(_title.string)
+
+    for ul in BeautifulSoup(raw).findAll('ul'):
+        for thumbnail, title, description, link in ((ul.findChildren('li')),):
+            headlines.append(Headline(thumbnail=thumbnail.string, title=title.string, description=description.string, link=link.string))
+
     return (metas, headlines)
 
 def ParseArchivesMarkdown(Posts):
     archives = []
+
     for post in Posts:
         A = Archive()
+        comments = BeautifulSoup(markdown_path(Join(POSTS, post))).findAll(text = lambda text: isinstance(text, Comment))[:4]
         date, slug = post.split('_')
-        for _metadata, _body in (markdown_path(Join(POSTS, post)).split('[go]'),):
-            for _meta_title, _meta_description, _meta_canonical, _title in (BeautifulSoup(_metadata).findAll('li'),):
-                A.Create(title=_title.string, description=_meta_description.string, link=_meta_canonical.string, date=date)
-                archives.append(A)
+        for _meta_title, _meta_description, _meta_canonical, _title in ((comments),):
+            A.Create(title=_title.string, description=_meta_description.string, link=_meta_canonical.string, date=date)
+            archives.append(A)
+
     return archives
 
 ### Routes
