@@ -12,7 +12,7 @@
             {% for headline in headlines %}
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <img src="{{ headline.Thumbnail }}">
+                    <img class="headline-image" src="{{ headline.Thumbnail }}">
                     <div class="caption">
                         <h3><a href="{{ headline.Link }}">{{ headline.Title}}</a></h3>
                         <p>{{ headline.Description }}</p>

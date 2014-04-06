@@ -12,22 +12,31 @@
 I don’t know anything about raising children.  I suspect that when I have progeny of my own someday, I will learn just enough to get by.  But I wanted to first dispel your likely rage upon seeing a twenty-three year old’s blog post titled “How to raise a child…”  The title of this blog is more just to get your attention.  If you feel manipulated into reading, then you are right.  *I manipulated you, Congressman*.
 
 
-<br/>
-<div class="row text-center">
-<img src="/static/img/frankunderwood.gif" height="150"/>
-<br>
-<br/><br/>
+<div class="row">
+    <div class="col-centered col-lg-6">
+        <div class="thumbnail">
+            <img src="/static/img/frankunderwood.gif" height="200">
+            <div class="caption">
+                <small></small>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 ### The Problem with where Parents Get Their Facts
 Though I may not have any meaningful insight into raising a child who plays video games, I will stand up for my experience in having been a child who  liked video games.  Growing up in the world of Dateline NBC, The View, and whatever that bizarre semi regular cabal that can be seen on Fox News is, I have noticed one thing that has faithfully held back my parents’ generation from judging the role of video games in a child’s life fairly.
 
 
-<br/>
-<div class="row text-center">
-<img src="/static/img/foxandfriends.jpg" height="200"/>
-<br><small>Fox and Friends: By paranoid baby boomers, for paranoid baby boomers</small>
-<br/><br/>
+<div class="row">
+    <div class="col-centered col-lg-6">
+        <div class="thumbnail">
+            <img src="/static/img/foxandfriends.jpg">
+            <div class="caption">
+                <small>Fox and Friends: By paranoid baby boomers, for paranoid baby boomers</small>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -56,11 +65,15 @@ Sheepish at first, I delved into a little more detail.  ”Well… I’m Sam Fis
 Bonnie nodded in approval.  ”That’s cool.  Nice shot – that looked pretty hard.”  Bonnie stood and watched until Sam climbed into an extraction helicopter.
 
 
-<br/>
-<div class="row text-center">
-<img src="/static/img/samfischer.jpg" height="200"/>
-<br><small>I waited until she walked away to throw my celebratory grenades all over the civilian town.</small>
-<br/><br/>
+<div class="row">
+    <div class="col-centered col-lg-6">
+        <div class="thumbnail">
+            <img src="/static/img/samfischer.jpg" height="200">
+            <div class="caption">
+                <small>I waited until she walked away to throw my celebratory grenades all over the civilian town.</small>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -101,11 +114,15 @@ Shortly after, I could see Galileo coming up behind Benny, expressing his disapp
 Still after, Aesop approaches Galileo and furnishes his disgust with doing something as left-wing as dissecting birds.  After all, when he was a child, he was just as happy wrestling forty-year old men and throwing sheep knuckles at his friends.
 
 
-<br/>
-<div class="row text-center">
-<img src="/static/img/amoeba.gif" height="200"/>
-<br><small>… then the ameoba condescends on the flagellate for requiring his silly, futuristic flagellum to locomote about…</small>
-<br/><br/>
+<div class="row">
+    <div class="col-centered col-lg-6">
+        <div class="thumbnail">
+            <img src="/static/img/amoeba.gif" height="200">
+            <div class="caption">
+                <small>… then the ameoba condescends on the flagellate for requiring his silly, futuristic flagellum to locomote about…</small>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -118,9 +135,13 @@ Because in short time, we’ll be just as disgusted with the way our kids spend 
 I’m not a parent, but I do love video games.  Coming out of that experience, I can sum it all up by saying you can never go wrong with just talking to your kid about the kinds of things he or she thinks is cool.  Even if what they are into is really different from the things you liked as a kid, you can’t let that stop you from appreciating it.  Hell – even sit down and play a game.  Let your kid kick your butt in whatever game they are playing.  They’ll be beaming the rest of the night – not because they won, mind you  - but because you showed you give a crap about the stuff they like.
 
 
-<br/>
-<div class="row text-center">
-<img src="/static/img/happyvideogamefamily.jpg" height="300"/>
-<br><small>And if you win, then congratulations – you transcend generations with how awesome you are at things. You can now gloat until your last lucid day on earth.</small>
-<br/><br/>
+<div class="row">
+    <div class="col-centered col-lg-6">
+        <div class="thumbnail">
+            <img src="/static/img/happyvideogamefamily.jpg" height="200">
+            <div class="caption">
+                <small>And if you win, then congratulations – you transcend generations with how awesome you are at things. You can now gloat until your last lucid day on earth.</small>
+            </div>
+        </div>
+    </div>
 </div>

@@ -19,13 +19,18 @@ I have been using Wordpress from the beginning, and my experience with it has be
 
 This is why Wordpress, in my book, still reigns supreme as the number one roll-a-new-website-for-your-uncle-over-the-weekend content management system.
 
-<br/>
-<div class="row text-center">
-<img src="http://2.bp.blogspot.com/-0Xm6_Mhp16I/TcenBY6X2vI/AAAAAAAAAJg/tZuwBK1RiWE/s1600/pedo-smile.png" height="200"/>
-<br>
-<small>Not your shady uncle.  Don't get involved with his website.</small>
-<br/><br/>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="thumbnail">
+            <img src="http://2.bp.blogspot.com/-0Xm6_Mhp16I/TcenBY6X2vI/AAAAAAAAAJg/tZuwBK1RiWE/s1600/pedo-smile.png" height=200>
+            <div class="caption">
+                <small>Not your shady uncle.  Don't get involved with his website.</small>
+            </div>
+        </div>
+    </div>
 </div>
+
 
 
 But I was growing dissatisfied.  Wordpress is written entirely in PHP, so whenever a plugin broke, I basically just had to sit around and wait for it to get fixed.  I don't know PHP, and I certainly don't want to learn it by fixing Wordpress plugins.
@@ -47,24 +52,19 @@ Markdown is basically a text file that gets converted into a web page.  Through 
 For example, a markdown file would look something like this:
 <hr>
 
-<code>
-\# Everybody Poops
+	# Everybody Poops
 
-\### Welcome to my weird poop blog.
+	### Welcome to my weird poop blog.
 
-Hi there!  My name is Poop Smith.  Here are my hobbies:
+	Hi there!  My name is Poop Smith.  Here are my hobbies:
 
-\* Blogging
+	* Blogging
+	* NASDAQ
+	* Escrow
 
-\* NASDAQ
+	> Toy Story 2 was ok.
 
-\* Escrow
-<br>
-
-\> Toy Story 2 was ok.
-
-\!\[\]\(http://www.thepetcollective.tv/wp-content/uploads/2013/11/corgi-puppies.gif "Corgi Attack"\)
-</code>
+	![](http://www.thepetcollective.tv/wp-content/uploads/2013/11/corgi-puppies.gif "Corgi Attack")
 
 
 <hr>
@@ -91,12 +91,16 @@ So all of my posts are written in markdown now.  I don't have to back them up be
 
 The posts are written in Markdown, but the engine is built on a framework called *Django*.
 
-<br/>
-<div class="row text-center">
-<img src="http://content.internetvideoarchive.com/content/photos/7244/645091_149.jpg" height="200"/>
-<br>
-<small>The <em>Django</em> Framework - Completely ungoogleable since 2012</small>
-<br/><br/>
+
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <div class="thumbnail">
+            <img src="http://content.internetvideoarchive.com/content/photos/7244/645091_149.jpg" height="150">
+            <div class="caption">
+                <small>The <em>Django</em> Framework - Completely ungoogleable since 2012</small>
+            </div>
+        </div>
+    </div>
 </div>
 
 

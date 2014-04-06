@@ -25,6 +25,7 @@ body {
   margin-left: 0px;
 }
 
+
 #post-text p, #post-text, li {
   color: #333333;
 }
@@ -33,14 +34,18 @@ body {
   color: black;
 }
 
-.thumbnail img {
+.headline-img {
    height: 200px;
    margin-top: 20px;
 }
 
-.thumbnail .caption h3 a:hover {
-
+.col-centered{
+  float: none;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
+
 
 #portrait {
    height: 80px;
