@@ -57,7 +57,7 @@ def GetArchives(request):
     title = "Archives"
     body = ""
 
-    archives = ParseArchivesMarkdown(listdir(POSTS))
+    archives = ParseArchivesMarkdown(sorted(listdir(POSTS)))
     post = Post(m_title, m_description, m_canonical, title, body)
     return render_to_response('archives.html', {
         'post': post,
