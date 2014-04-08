@@ -134,7 +134,7 @@ Previously, I was really into desktop customization. When I made something I lik
 <div class="row">
     <div class="col-centered col-lg-6">
         <div class="thumbnail">
-            <img src="/static/img/attempt4.jpg">
+            <img src="/static/img/attempt4.png">
             <div class="caption">
             	<p>Attempt 4</p>
             </div>
