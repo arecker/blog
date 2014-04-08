@@ -124,7 +124,7 @@ Previously, I was really into desktop customization. When I made something I lik
 <div class="row">
     <div class="col-centered col-lg-6">
         <div class="thumbnail">
-            <img src="/static/img/attempt3.png">
+            <img src="/static/img/attempt3.jpg">
             <div class="caption">
             	<p>Attempt 3</p>
             </div>
@@ -134,7 +134,7 @@ Previously, I was really into desktop customization. When I made something I lik
 <div class="row">
     <div class="col-centered col-lg-6">
         <div class="thumbnail">
-            <img src="/static/img/attempt4.png">
+            <img src="/static/img/attempt4.jpg">
             <div class="caption">
             	<p>Attempt 4</p>
             </div>
@@ -143,7 +143,7 @@ Previously, I was really into desktop customization. When I made something I lik
 </div><div class="row">
     <div class="col-centered col-lg-6">
         <div class="thumbnail">
-            <img src="/static/img/attempt5.png">
+            <img src="/static/img/attempt5.jpg">
             <div class="caption">
             	<p>Attempt 5</p>
             </div>
@@ -153,7 +153,7 @@ Previously, I was really into desktop customization. When I made something I lik
 <div class="row">
     <div class="col-centered col-lg-6">
         <div class="thumbnail">
-            <img src="/static/img/attempt6.png">
+            <img src="/static/img/attempt6.jpg">
             <div class="caption">
             	<p>Attempt 6</p>
                 <small></small>
