@@ -1,0 +1,48 @@
+.circular {
+	width: 90px;
+	height: 90px;
+
+	background: url(./portrait.jpg) no-repeat;
+	margin-right: 10px;
+	margin-top: 0px;
+}
+
+.post-title-body, .post-body {
+	max-width: 60%;
+	margin-top: 20px;
+}
+
+.post-title-body {
+	text-align: center;
+}
+
+.page-header {
+	margin-top: 10px;
+}
+
+.post-body p {
+	margin-bottom: 50px;
+}
+
+.thumbnail {
+    border: 0 none;
+    box-shadow: none;
+    text-align: center;
+}
+
+.caption {
+	text-align: left;
+}
+
+.thumbnail * {
+	float: none !important;
+}
+
+/********** Mobile **********/
+@media screen and (max-width: 750px) {
+	/* Moves Thumbnail body closer to top */
+	.post-title-body, .post-body {
+		margin-top: 10px;
+		max-width: 95%;
+	}
+}
