@@ -84,7 +84,6 @@ class ArchivePageTests(SimpleTestCase):
 class PostTests(SimpleTestCase):
     def setUp(self):
         self.TestPost = Post(slug=u'test-post', ROOT=DOCS + '/test_posts')
-        #self.TestPost = Post(slug=u'google')
 
 
     def test_title(self):
