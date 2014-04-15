@@ -1,10 +1,11 @@
 .circular {
-	width: 90px;
-	height: 90px;
-
+	width: 80px;
+	height: 80px;
+	margin-right: 20px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
 	background: url(./portrait.jpg) no-repeat;
-	margin-right: 10px;
-	margin-top: 0px;
 }
 
 .post-title-body, .post-body {
@@ -22,6 +23,11 @@
 
 .post-body p {
 	margin-bottom: 50px;
+	color: #4C4C4C;
+}
+
+.post-body h1 {
+	font-size: 18px;
 }
 
 .thumbnail {
@@ -30,16 +36,34 @@
     text-align: center;
 }
 
+.nav li form button {
+	margin-right: 10px;
+	margin-top: 25px;
+}
+
 .caption {
-	text-align: left;
+	text-align: center;
 }
 
 .thumbnail * {
 	float: none !important;
 }
 
+.show-mobile {
+	display: none !important;
+}
+
 /********** Mobile **********/
 @media screen and (max-width: 750px) {
+	/* Mobile Toggle */
+	.hide-mobile {
+		display: none !important;
+	}
+
+	.show-mobile {
+		display: inline !important;
+	}
+
 	/* Moves Thumbnail body closer to top */
 	.post-title-body, .post-body {
 		margin-top: 10px;

@@ -14,14 +14,8 @@
 	<div class="container-fluid">
 		<div class="page-header">
 			<div class="media">
-				<a class="pull-left" href="#">
-					<div class="circular">
-					</div>
-  				</a>
   				<div class="media-body">
-  					<h3 class="media-heading">Blog</h3>
-  					<h4>by</h4>
-  					<h4>Alex Recker</h4>
+  					<h3 class="media-heading">Blog by Alex Recker</h3>
   				</div>
 			</div>
 		</div>
@@ -44,10 +38,33 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-		        <li class="active"><a href="#"><i class="fa fa-fw fa-home"></i> Home</a></li>
-		        <li><a href="#"><i class="fa fa-fw fa-calendar"></i> Archives</a></li>
-		        <li><a href="#"><i class="fa fa-fw fa-code"></i> Projects</a></li>
-		        <li><a href="#"><i class="fa fa-fw fa-group"></i> Friends</a></li>
+		      	<li class="hide-mobile">
+		      		<div class="circular"></div>
+		      	</li>
+		        <li class="active show-mobile"><a class="" href="#"><i class="fa fa-fw fa-home"></i> Home</a></li-->
+		        <li class="hide-mobile">
+    				<form action="#">
+        				<button class="btn btn-primary navbar-btn"><i class="fa fa-fw fa-home"></i> Home</button>
+    				</form>
+				</li>
+		        <li class="show-mobile"><a href="#"><i class="fa fa-fw fa-calendar"></i> Archives</a></li-->
+		        <li class="hide-mobile">
+    				<form action="#">
+        				<button class="btn btn-default navbar-btn"><i class="fa fa-fw fa-calendar"></i> Archives</button>
+    				</form>
+				</li>
+		        <li class="show-mobile"><a href="#"><i class="fa fa-fw fa-code"></i> Projects</a></li-->
+		        <li class="hide-mobile">
+    				<form action="#">
+        				<button class="btn btn-default navbar-btn"><i class="fa fa-fw fa-code"></i> Projects</button>
+    				</form>
+				</li>
+		        <li class="show-mobile"><a href="#"><i class="fa fa-fw fa-group"></i> Friends</a></li-->
+		        <li class="hide-mobile">
+    				<form action="#">
+        				<button class="btn btn-default navbar-btn"><i class="fa fa-fw fa-group"></i> Friends</button>
+    				</form>
+				</li>
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
@@ -72,7 +89,7 @@
 
 	<div class="container-fluid post-body">
 
-		<h4>My New Corner of the Internet</h4>
+		<h1>My New Corner of the Internet</h1>
 
 		<p>
 			I'm sure you have noticed by now that things are a little different. The awkward layout alone should be enought to tip you off to the fact that I've jumped ship to something a little more home brewed.
@@ -82,7 +99,7 @@
 			The new diggs are part of an effor to be more minimal. I'm kind of trying to do the transcendentalism thing, retreating to the Internet equivalent of a cabin in the woods with no electricity.
 		</p>
 
-		<h4>Goodbye Wordpress</h4>
+		<h1>Goodbye Wordpress</h1>
 
 		<p>
 			I have been using Wordpress from the beginning, and my experience with it has been awesome. Computer people love Wordpress because it is basically a one-click setup. You really just dump a bunch of code into a folder, enter your database password, and you are good to go.
@@ -101,6 +118,7 @@
 				</div>
 			</div>
 		</div>
+
 
 	</div>
 
