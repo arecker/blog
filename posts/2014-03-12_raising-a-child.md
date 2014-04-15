@@ -1,7 +1,5 @@
-<!--Raising a Child Who Plays Video Games | Blog by Alex Recker-->
-<!--This week, a twenty-three year old kid tells you how to raise your child.-->
-<!--/raising-a-child-->
 <!--Raising a Child Who Plays Video Games-->
+<!--This week, a twenty-three year old kid tells you how to raise your child.-->
 
 ![](/static/img/videogamekid.jpg)
 

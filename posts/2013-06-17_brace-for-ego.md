@@ -1,7 +1,5 @@
-<!--Brace for Ego | Blog by Alex Recker-->
-<!--Let's try blogging.  First, some rules...-->
-<!--/brace-for-ego-->
 <!--Brace for Ego-->
+<!--Let's try blogging.  First, some rules...-->
 
 Well, hello there.  Honestly, I don’t think I deserve a blog.  The idea came to me during an experiment I tried earlier this summer.  For the first half hour of every morning, to help myself wake up, I wrote a thousand words at the computer.  The ultimate aim was to become a more articulate person.  At the very least, my goal was to minimize the amount of time I practice telling stories and riffs in the shower so I can  focus more on showering.  Clearly, my main objective was cleanliness.
 

@@ -1,7 +1,5 @@
-<!--Obsessed with Computers | Blog by Alex Recker-->
-<!--A reflection on how four different, admittedly embarrassing, pursuits derailed my education and got me a job in computers.-->
-<!--/obsessed-with-computers-->
 <!--Obsessed with Computers-->
+<!--A reflection on how four different, admittedly embarrassing, pursuits derailed my education and got me a job in computers.-->
 
 I just got home from work, where I write software. I walked in, stuffed a chicken sandwich in my mouth, and headed straight upstairs to work on… well… a different computer. While coming home from working on a computer all day to relax on a computer all night may sound ridiculous to some, it got me thinking about where this all began. When did computers begin to be such a big thing for me?
 

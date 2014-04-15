@@ -1,7 +1,5 @@
-<!--Computers on our Face | Blog by Alex Recker-->
-<!--Official Promotional video for Google Glass, released this past February. Well this is interesting, Google.-->
-<!--/face-computers-->
 <!--Computers on our Face-->
+<!--Official Promotional video for Google Glass, released this past February. Well this is interesting, Google.-->
 
 <iframe width="560" height="315" src="//www.youtube.com/embed/v1uyQZNg2vE" frameborder="0" allowfullscreen></iframe>
 

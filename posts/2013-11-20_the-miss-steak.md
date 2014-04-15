@@ -1,7 +1,5 @@
-<!--The Miss-Steak | Blog by Alex Recker-->
-<!--Learn to cook one of the first edible meals that has ever left my humble kitchen. Let's try not to poison ourselves with this buttery steak sandwich.-->
-<!--/the-miss-steak-->
 <!--The Miss-Steak-->
+<!--Learn to cook one of the first edible meals that has ever left my humble kitchen. Let's try not to poison ourselves with this buttery steak sandwich.-->
 
 ![](/static/img/misssteakbanner.jpg)
 

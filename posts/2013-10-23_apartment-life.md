@@ -1,7 +1,5 @@
-<!--Apartment Life | Blog by Alex Recker-->
-<!--Catch a glimpse of my glamorous apartment life through my daily routine and a couple of pictures-->
-<!--/apartment-life-->
 <!--Apartment Life-->
+<!--Catch a glimpse of my glamorous apartment life through my daily routine and a couple of pictures-->
 
 ![](/static/img/gtabanner.jpg)
 <hr>

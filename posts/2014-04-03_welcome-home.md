@@ -1,7 +1,5 @@
-<!--Welcome Home | Blog by Alex Recker -->
+<!--Welcome Home-->
 <!--Wordpress has served me well, but my soul longs for the wilderness.  Retreat with me into the backwoods of the Internet.-->
-<!--/welcome-home -->
-<!--Welcome Home -->
 
 ![](http://www.agaritacreek.com/_Images/content/cabin-banner.jpg)
 

@@ -1,7 +1,5 @@
-<!--Skateboarding | Blog by Alex Recker-->
-<!--A story about my first try at skateboarding. Getting the courage to try out the Olympic Skatepark in Schaumburg, I'm helped by two really friendly locals.-->
-<!--/skateboarding-->
 <!--Skateboarding-->
+<!--A story about my first try at skateboarding. Getting the courage to try out the Olympic Skatepark in Schaumburg, I'm helped by two really friendly locals.-->
 
 ![](/static/img/skatepark.jpg)
 
