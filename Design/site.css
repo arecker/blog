@@ -40,6 +40,10 @@
 	border: none;
 }
 
+.navbar-toggle {
+	margin-top: 15px;
+}
+
 .nav li form button {
 	margin-right: 10px;
 	margin-top: 25px;
