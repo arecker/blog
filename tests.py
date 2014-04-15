@@ -92,3 +92,23 @@ class PostTests(SimpleTestCase):
         actual = self.TestPost.title
         expected = "Test Post"
         self.assertEqual(actual, expected, "Returned wrong post title")
+
+
+    def test_slug(self):
+        """Verifies matching slug"""
+        actual = self.TestPost.link
+        expected = 'test-post'
+        self.assertEqual(actual, expected, "Returned wrong slug")
+
+
+    def test_banner(self):
+        """Verifies banner embed was removed from body"""
+        actual = str(self.TestPost.body.text)
+        bad = '![banner](brucebanner.jpg)'
+        self.assertFalse(bad in actual, "Banner embed was not removed from post")
+
+    def test_thumbnail(self):
+        """Verifies original thumbnail embed was removed from body"""
+        actual = str(self.TestPost.body.text)
+        bad = '![thumbnail](jumbalaya.jpg "This is my favorite jumbalaya.")'
+        self.assertFalse(bad in actual, "Thumbnail was left in body as original embed")

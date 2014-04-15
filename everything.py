@@ -100,7 +100,7 @@ class Post:
             _caption = element['alt']
             _src = element['src']
             thumbnail = Thumbnail(SRC=_src, Caption=_caption)
-            raw = raw.replace('<p>' + thumbnail.element + '</p>')
+            raw = raw.replace('<p>' + str(element) + '</p>', str(thumbnail.element))
 
         self.body = Body(Banner=_banner, Text=raw)
 
