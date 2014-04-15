@@ -8,7 +8,7 @@
 	background: url(./portrait.jpg) no-repeat;
 }
 
-.post-title-body, .post-body {
+.post-title-body, .post-body, .thumbnail-body {
 	max-width: 60%;
 	margin-top: 20px;
 }
@@ -30,7 +30,7 @@
 	font-size: 18px;
 }
 
-.thumbnail {
+.post-body .thumbnail {
     border: 0 none;
     box-shadow: none;
     text-align: center;
@@ -49,12 +49,16 @@
 	margin-top: 25px;
 }
 
-.caption {
+.post-body .caption {
 	text-align: center;
 }
 
 .thumbnail * {
 	float: none !important;
+}
+
+.col-md-6 {
+	margin-top: 40px;
 }
 
 .show-mobile {
