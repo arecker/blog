@@ -111,8 +111,10 @@ class Post:
 
 
 ### Controllers
-def GetHome():
-    pass
+def GetHome(request):
+    return render_to_response('home.html', {
+        'HomePage': HomePage(),
+    })
 
 
 def GetArchives(request):

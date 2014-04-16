@@ -14,7 +14,7 @@ a:hover {
 }
 
 /* Fluid Container Sizes */
-.post-title-body, .post-body, .thumbnail-body, .comments-body {
+.post-title-body, .post-body, .thumbnail-body, .comments-body, .headlines-body {
 	max-width: 60%;
 	margin-top: 20px;
 }
@@ -90,6 +90,16 @@ a:hover {
 
 .show-mobile {
 	display: none !important;
+}
+
+/**** HEADLINES *****/
+.headlines-body {
+	margin-top: 100px;
+}
+
+.headlines-body .thumbnail {
+	margin-right: 10px;
+	margin-left: 10px;
 }
 
 /********** Mobile **********/
