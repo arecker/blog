@@ -115,8 +115,10 @@ def GetHome():
     pass
 
 
-def GetArchives():
-    pass
+def GetArchives(request):
+    return render_to_response('archives.html', {
+        'archives_page': ArchivesPage(),
+    })
 
 
 def GetProjects():

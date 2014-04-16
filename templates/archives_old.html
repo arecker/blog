@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block meta %}
+    <title>{{ post.Meta_title}}</title>
+    <meta name="description" content="{{ post.Meta_description }}">
+    <link rel="canonical" href="{{ post.Meta_canonical }}">
+{% endblock %}
+{% block post-title %}
+{% endblock %}
+{% block post-content %}{% autoescape off %}
+    <div id="post-body">
+        <div id="post-text" class="container-fluid">
+            <div class="container-fluid">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-fw fa-search"></i></span>
+                    <input id="filter" class="form-control" type="text" placeholder="Filter" onkeyup="filter(this)" />
+                </div>
+            </div>
+             <hr/>
+             <ul id="archives-list">
+                 {% for archive in archives %}
+                 <li>
+                     <h3><a href="{{ archive.Link }}">{{ archive.Title }}</a></h3>
+                     <p>{{ archive.Description }}<br/>
+                     <small>{{ archive.Date }}</small></p>
+		     <br>
+                 </li>
+                 {% endfor %}
+             </ul>
+        </div>
+    </div>
+{% endautoescape %}{% endblock %}
+{% block post-footer %}
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="/static/libs/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/navbar.js"></script>
+    <script type="text/javascript" src="/static/js/filter.js"></script>
+    <script type="text/javascript" src="/static/js/analytics.js"></script>
+{% endblock %}

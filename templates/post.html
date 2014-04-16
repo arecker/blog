@@ -14,14 +14,13 @@
 		<div class="page-header">
 			<h2>{{ post.title }}</h2>
 			<h4>{{ post.date }}</h4>
-		</div>
-
-		<div class="row">
+			<div class="row">
 			<div class="col-md-12">
 				<div class="thumbnail">
 				<img class="img-responsive" src="{{ post.body.banner}}">	
 			</div>
 			</div>
+		</div>
 		</div>
 	</div>
 
@@ -31,7 +30,7 @@
 	</div>
 
 	<!-- Post Comments -->
-	<div class="container-fluid" id="post-footer">
+	<div class="container-fluid comments-body">
         <h3>Comments</h3>
         <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ post.link }}" data-numposts="20" data-colorscheme="light"></div>
     </div>

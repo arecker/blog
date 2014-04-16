@@ -1,3 +1,7 @@
+a:hover {
+	text-decoration: none;
+}
+
 /****** Portrait in Banner ******/
 .circular {
 	width: 80px;
@@ -6,15 +10,54 @@
 	border-radius: 150px;
 	-webkit-border-radius: 150px;
 	-moz-border-radius: 150px;
-	background: url(/static/img/portrait.jpg) no-repeat;
+	background: url(/static/img/portrait-thumb.jpg) no-repeat;
+	margin-top: 5px;
 }
-/*******************************/
 
-.post-title-body, .post-body, .thumbnail-body {
+/* Fluid Container Sizes */
+.post-title-body, .post-body, .thumbnail-body, .comments-body {
 	max-width: 60%;
 	margin-top: 20px;
 }
 
+/* Navbar */
+.navbar-toggle {
+	margin-top: 15px;
+}
+
+.nav li form button, .navbar-brand {
+	margin-right: 10px;
+	margin-top: 25px;
+	margin-bottom: 0px;
+	border: 0;
+}
+
+.navbar-brand {
+	margin-top: 15px;
+}
+
+.navbar-brand h1 {
+	margin: 0;
+}
+
+/* Thumbnails */
+.thumbnail {
+    border: 0 none;
+    box-shadow: none;
+    text-align: center;
+}
+
+.post-body .caption {
+	/* Post captions should be centered */
+	text-align: center;
+}
+
+.thumbnail * {
+	float: none !important;
+}
+
+/******* POSTS *******/
+/* Post Title */
 .post-title-body {
 	text-align: center;
 }
@@ -23,40 +66,15 @@
 	margin-top: 10px;
 }
 
+/* Post Body */
 .post-body p {
-	margin-bottom: 50px;
+	margin-bottom: 10px;
 	color: #4C4C4C;
 }
 
 .post-body h1 {
 	font-size: 18px;
-}
-
-.post-body .thumbnail {
-    border: 0 none;
-    box-shadow: none;
-    text-align: center;
-}
-
-.navbar {
-	border: none;
-}
-
-.navbar-toggle {
-	margin-top: 15px;
-}
-
-.nav li form button {
-	margin-right: 10px;
-	margin-top: 25px;
-}
-
-.post-body .caption {
-	text-align: center;
-}
-
-.thumbnail * {
-	float: none !important;
+	margin-top: 30px;
 }
 
 .col-md-6 {
@@ -82,5 +100,11 @@
 	.post-title-body, .post-body {
 		margin-top: 10px;
 		max-width: 95%;
+	}
+}
+
+@media screen and (max-width: 1010px) {
+	.navbar-brand {
+		display: none;
 	}
 }
