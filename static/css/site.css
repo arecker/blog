@@ -6,12 +6,11 @@ a:hover {
 .circular {
 	width: 80px;
 	height: 80px;
-	margin-right: 20px;
 	border-radius: 150px;
 	-webkit-border-radius: 150px;
 	-moz-border-radius: 150px;
 	background: url(/static/img/portrait-thumb.jpg) no-repeat;
-	margin-top: 5px;
+	margin-top: 0px;
 }
 
 /* Fluid Container Sizes */
@@ -21,6 +20,10 @@ a:hover {
 }
 
 /* Navbar */
+.navbar {
+	border: 0 none;
+}
+
 .navbar-toggle {
 	margin-top: 15px;
 }
@@ -38,6 +41,10 @@ a:hover {
 
 .navbar-brand h1 {
 	margin: 0;
+}
+
+.brand-image {
+	margin-top: 0px;
 }
 
 /* Thumbnails */
@@ -103,7 +110,7 @@ a:hover {
 	}
 }
 
-@media screen and (max-width: 1010px) {
+@media screen and (max-width: 1050px) {
 	.navbar-brand {
 		display: none;
 	}
