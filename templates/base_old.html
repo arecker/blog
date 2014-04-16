@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    {% block meta %}
+    <title>{{ post.Meta_title}}</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
+    <meta name="description" content="{{ post.Meta_description }}">
+    <link rel="canonical" href="http://alexrecker.com{{ post.Meta_canonical }}">
+    {% endblock %}
+    {% block stylesheets %}
+    <link rel="stylesheet" href="/static/libs/bootstrap.min.css" />
+    <link rel="stylesheet" href="/static/libs/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/css/site.css" />
+    {% endblock %}
+</head>
+
+<body>
+    <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+              var js, fjs = d.getElementsByTagName(s)[0];
+              if (d.getElementById(id)) return;
+              js = d.createElement(s); js.id = id;
+              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
+              fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+    <div class="container-fluid page-header hide-mobile">
+        <h2 id="banner-title">Blog by Alex Recker</h2>
+        <!--ul id="me-links" class="nav nav-pills">
+            <li class="disabled"><a href=""><img src="/static/img/rss.jpg" alt=""/></a></li>
+            <li><a href="https://twitter.com/arecker41"><img src="/static/img/twitter.jpg" alt=""/></a></li>
+            <li><a href="http://github.com/arecker"><img src="/static/img/github.png" alt=""/></a></li>
+        </ul-->
+    </div>
+    <div id="navbar" class="container-fluid">
+        <div class="row-fluid">
+            {% block navbar %}
+            <ul class="nav nav-pills">
+                <li><img id="portrait" src="/static/img/portrait.jpg" alt=""/></li>
+                <li id="home-button" class="btn"><a href="/"><i class="fa fa-fw fa-home"></i> <span class="hide-mobile">Home</span></a></li>
+                <li id="archives-button" class="btn"><a href="/archives/"><i class="fa fa-fw fa-calendar"></i> <span class="hide-mobile">Archives</span></a></li>
+                <li id="projects-button" class="btn"><a href="/projects/"><i class="fa fa-fw fa-code"></i> <span class="hide-mobile">Projects</span></a></li>
+                <li id="friends-button" class="btn"><a href="/friends/"><i class="fa fa-fw fa-group"></i> <span class="hide-mobile">Friends</span></a></li>
+            </ul>
+            {% endblock %}
+        </div>
+    </div>
+    <div class="show-mobile">
+        <hr/>
+    </div>
+
+    <div id="content" class="container-fluid">
+        <div class="container-fluid">{% block post-title %}{% endblock %}</div>
+        <div class="container-fluid">{% block post-content %}{% autoescape off %}<div id="post-body">{{ post.Body }}</div>{% endautoescape %}{% endblock %}</div>
+    </div>
+    <hr/>
+    {% block post-footer %}
+    <div class="container-fluid" id="post-footer"></div>
+    {% endblock %}
+</body>
+
+<footer>
+    {% block scripts %}
+    <script type="text/javascript" src="/static/libs/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/navbar.js"></script>
+    <script type="text/javascript" src="/static/js/analytics.js"></script>
+    {% endblock %}
+</footer>
+</html>

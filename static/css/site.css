@@ -1,133 +1,86 @@
-body {
-  /*background-image: url('http://hhdwallpapes.com/wp-content/uploads/2012/06/Fine-Line-553112.jpeg');*/
-  background-repeat: no-repeat;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+/****** Portrait in Banner ******/
+.circular {
+	width: 80px;
+	height: 80px;
+	margin-right: 20px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	background: url(/static/img/portrait.jpg) no-repeat;
 }
+/*******************************/
 
-.page-header {
-  margin-top: 20px;
-}
-
-#banner-title {
-  margin-top: 10px;
-  float: left;
-}
-
-#post-title {
-  margin-bottom: 20px;
-}
-
-#post-text {
-  width: 60%;
-  margin-left: 0px;
-}
-
-
-#post-text p, #post-text, li {
-  color: #333333;
-}
-
-#post-text strong {
-  color: black;
-}
-
-.headline-image {
-   height: 200px !important;
-   margin-top: 20px;
-}
-
-.col-centered{
-  float: none;
-  margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-
-#portrait {
-   height: 80px;
-   width: 80px;
-   margin: 20px;
-   margin-bottom: 0px;
-   overflow: hidden;
-     
-   -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-       border-radius: 50%;
-}
-
-#me-links {
-  float: right;
-}
-
-#navbar, #content {
-	margin: 40px;
-}
-
-#content, #post-footer { 
-	margin-left: 100px;
-	margin-top: 0px;
-}
-
-#navbar .nav .btn {
-	margin-top: 40px;
-	margin-right: 0px;
-	padding: 0px;
-}
-
-#navbar {
-	min-width: 365px;
+.post-title-body, .post-body, .thumbnail-body {
+	max-width: 60%;
 	margin-top: 20px;
 }
 
-#archives-list {
-  list-style-type: none;
-  max-width: 350px;
+.post-title-body {
+	text-align: center;
+}
+
+.page-header {
+	margin-top: 10px;
+}
+
+.post-body p {
+	margin-bottom: 50px;
+	color: #4C4C4C;
+}
+
+.post-body h1 {
+	font-size: 18px;
+}
+
+.post-body .thumbnail {
+    border: 0 none;
+    box-shadow: none;
+    text-align: center;
+}
+
+.navbar {
+	border: none;
+}
+
+.navbar-toggle {
+	margin-top: 15px;
+}
+
+.nav li form button {
+	margin-right: 10px;
+	margin-top: 25px;
+}
+
+.post-body .caption {
+	text-align: center;
+}
+
+.thumbnail * {
+	float: none !important;
+}
+
+.col-md-6 {
+	margin-top: 40px;
 }
 
 .show-mobile {
-  display: none;
+	display: none !important;
 }
 
-a:hover {
-  text-decoration: none;
-  color: blue;
-}
+/********** Mobile **********/
+@media screen and (max-width: 750px) {
+	/* Mobile Toggle */
+	.hide-mobile {
+		display: none !important;
+	}
 
+	.show-mobile {
+		display: inline !important;
+	}
 
-/* Mobile */
-@media screen and (max-width: 700px) {
-  .hide-mobile {
-    display: none !important;
-  }
-
-  .show-mobile {
-    display: inline !important;
-  }
-
-  #portrait { 
-  	margin-left: 0px !important;
-  	margin-right: 7px !important;
-  	margin-bottom: 5px !important;
-  }
-  #navbar { 
-    width: 100% !important;
-    margin: 0px !important;
-  }
-
-  #content { 
-    width: 100% !important;
-    margin: 0px !important;
-  }
-
-  #post-text {
-    width: 100% !important;
-  }
-
-  body {
-      background-image: url('') !important;
-  }
+	/* Moves Thumbnail body closer to top */
+	.post-title-body, .post-body {
+		margin-top: 10px;
+		max-width: 95%;
+	}
 }

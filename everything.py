@@ -85,6 +85,7 @@ class Post:
             dictionary.append((key, file))
         dictionary = dict(dictionary)
         the_one = dictionary[slug]
+        self.date, extension = the_one.split('.')
         raw = MD(Join(ROOT, the_one))
         comments = HTML(raw).findAll(text = lambda text: isinstance(text, Comment))
         self.title = comments[0].string
@@ -97,10 +98,13 @@ class Post:
 
         # Replace images with thumbnails
         for element in HTML(raw).findAll('img'):
-            _caption = element['alt']
-            _src = element['src']
-            thumbnail = Thumbnail(SRC=_src, Caption=_caption)
-            raw = raw.replace('<p>' + str(element) + '</p>', str(thumbnail.element))
+            try:
+                _caption = element['alt']
+                _src = element['src']
+                thumbnail = Thumbnail(SRC=_src, Caption=_caption)
+                raw = raw.replace('<p>' + str(element) + '</p>', str(thumbnail.element))
+            except KeyError:
+                pass #Trying to parse the banner.  Stahp it.
 
         self.body = Body(Banner=_banner, Text=raw)
 
@@ -122,8 +126,16 @@ def GetProjects():
 def GetFriends():
     pass
 
-def GetPost():
-    pass
+
+def GetPost(request, slug):
+    try:
+        post = Post(slug)
+    except KeyError:
+        pass #404
+
+    return render_to_response('post.html', {
+        'post': post,
+    })
 
 ### Routes
 urlpatterns = patterns('',
@@ -131,5 +143,6 @@ urlpatterns = patterns('',
     (r'^archives/', GetArchives),
     (r'^projects/', GetProjects),
     (r'^friends/', GetFriends),
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve'),
     (r'^(?P<slug>[^/]+)', GetPost),
 )

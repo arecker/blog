@@ -3,69 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
-    {% block meta %}
-    <title>{{ post.Meta_title}}</title>
+    {% block meta_title %}<title>Blog by Alex Recker</title>{% endblock %}
     <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
-    <meta name="description" content="{{ post.Meta_description }}">
-    <link rel="canonical" href="http://alexrecker.com{{ post.Meta_canonical }}">
-    {% endblock %}
-    {% block stylesheets %}
+    <meta name="description" content="Hi.  My name is Alex Recker.  I like to write words.">
+    {% block meta_og_image %}<meta property="og:image" content="/static/img/portrait.jpg"/>{% endblock %}
+    <link rel="canonical" href="http://alexrecker.com/{{ post.link }}">
     <link rel="stylesheet" href="/static/libs/bootstrap.min.css" />
-    <link rel="stylesheet" href="/static/libs/font-awesome.min.css" />
+    <link rel="stylesheet" href="/static/libs/font-awesome.css" />
     <link rel="stylesheet" href="/static/css/site.css" />
-    {% endblock %}
 </head>
 
 <body>
+    <!-- Facebook Comments Crap -->
     <div id="fb-root"></div>
-        <script>(function(d, s, id) {
-              var js, fjs = d.getElementsByTagName(s)[0];
-              if (d.getElementById(id)) return;
-              js = d.createElement(s); js.id = id;
-              js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
-              fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>
-    <div class="container-fluid page-header hide-mobile">
-        <h2 id="banner-title">Blog by Alex Recker</h2>
-        <!--ul id="me-links" class="nav nav-pills">
-            <li class="disabled"><a href=""><img src="/static/img/rss.jpg" alt=""/></a></li>
-            <li><a href="https://twitter.com/arecker41"><img src="/static/img/twitter.jpg" alt=""/></a></li>
-            <li><a href="http://github.com/arecker"><img src="/static/img/github.png" alt=""/></a></li>
-        </ul-->
-    </div>
-    <div id="navbar" class="container-fluid">
-        <div class="row-fluid">
-            {% block navbar %}
-            <ul class="nav nav-pills">
-                <li><img id="portrait" src="/static/img/portrait.jpg" alt=""/></li>
-                <li id="home-button" class="btn"><a href="/"><i class="fa fa-fw fa-home"></i> <span class="hide-mobile">Home</span></a></li>
-                <li id="archives-button" class="btn"><a href="/archives/"><i class="fa fa-fw fa-calendar"></i> <span class="hide-mobile">Archives</span></a></li>
-                <li id="projects-button" class="btn"><a href="/projects/"><i class="fa fa-fw fa-code"></i> <span class="hide-mobile">Projects</span></a></li>
-                <li id="friends-button" class="btn"><a href="/friends/"><i class="fa fa-fw fa-group"></i> <span class="hide-mobile">Friends</span></a></li>
-            </ul>
-            {% endblock %}
+    <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+    <!-- Header -->
+    <div class="container-fluid hide-mobile">
+        <div class="page-header">
+            <div class="media">
+                <div class="media-body">
+                    <h3 class="media-heading">Blog by Alex Recker</h3>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="show-mobile">
-        <hr/>
-    </div>
 
-    <div id="content" class="container-fluid">
-        <div class="container-fluid">{% block post-title %}{% endblock %}</div>
-        <div class="container-fluid">{% block post-content %}{% autoescape off %}<div id="post-body">{{ post.Body }}</div>{% endautoescape %}{% endblock %}</div>
-    </div>
-    <hr/>
-    {% block post-footer %}
-    <div class="container-fluid" id="post-footer"></div>
-    {% endblock %}
+    <!-- Navbar -->
+    <div class="container-fluid">
+        <nav class="navbar navbar-default" role="navigation">
+          <div class="container-fluid">
+            <div class="navbar-header">
+            <h3 class="pull-left show-mobile">Blog by Alex Recker</h3>
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav">
+                <li class="hide-mobile">
+                    <div class="circular"></div>
+                </li>
+                <li class="active show-mobile"><a class="" href="#"><i class="fa fa-fw fa-home"></i> Home</a></li-->
+                <li class="hide-mobile">
+                    <form action="#">
+                        <button class="btn btn-primary navbar-btn"><i class="fa fa-fw fa-home"></i> Home</button>
+                    </form>
+                </li>
+                <li class="show-mobile"><a href="#"><i class="fa fa-fw fa-calendar"></i> Archives</a></li-->
+                <li class="hide-mobile">
+                    <form action="#">
+                        <button class="btn btn-default navbar-btn"><i class="fa fa-fw fa-calendar"></i> Archives</button>
+                    </form>
+                </li>
+                <li class="show-mobile"><a href="#"><i class="fa fa-fw fa-code"></i> Projects</a></li-->
+                <li class="hide-mobile">
+                    <form action="#">
+                        <button class="btn btn-default navbar-btn"><i class="fa fa-fw fa-code"></i> Projects</button>
+                    </form>
+                </li>
+                <li class="show-mobile"><a href="#"><i class="fa fa-fw fa-group"></i> Friends</a></li-->
+                <li class="hide-mobile">
+                    <form action="#">
+                        <button class="btn btn-default navbar-btn"><i class="fa fa-fw fa-group"></i> Friends</button>
+                    </form>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>      
+    </div><!-- Navbar -->
+
+    <!-- Put everything here, B-->
+    {% autoescape off %}
+    {% block body %}{% endblock %}
+    {% endautoescape %}
+
+
 </body>
 
+{% block footer %}
 <footer>
-    {% block scripts %}
     <script type="text/javascript" src="/static/libs/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/js/navbar.js"></script>
+    <script type="text/javascript" src="/static/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/analytics.js"></script>
-    {% endblock %}
+    <script type="text/javascript" src="/static/js/navbar.js"></script>
 </footer>
-</html>
+{% endblock %}
