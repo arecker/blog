@@ -7,3 +7,8 @@ Trust Fall: Blog by Ben Parks
 
 * http://benjaminnparks.blogspot.com/
 * /static/img/benparks.jpg
+
+brewerdigital.com: Joel Brewer
+
+* http://brewerdigital.com
+* /static/img/joelbrear.jpg
