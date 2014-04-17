@@ -93,6 +93,10 @@ a:hover {
 	font-size: 16px;
 }
 
+.post-body .row {
+	margin-top: 20px;
+}
+
 .post-body ul li, .post-body ol li {
 	color: #4C4C4C;
 }
