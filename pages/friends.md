@@ -11,4 +11,4 @@ Trust Fall: Blog by Ben Parks
 brewerdigital.com: Joel Brewer
 
 * http://brewerdigital.com
-* /static/img/joelbrear.jpg
+* /static/img/joelbear.jpg
