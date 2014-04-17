@@ -3,9 +3,9 @@ function filter(element) {
 
     $(".thumbnail-body").find('.media-body').each(function() {
         if ($(this).children().text().toUpperCase().search(value) > -1) {
-            $(this).show();
+            $(this).parent().parent().show();
         } else {
-            $(this).hide();
+            $(this).parent().parent().hide();
         }
     });
 }
