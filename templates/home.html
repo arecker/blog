@@ -1,13 +1,24 @@
 {% extends "base.html" %}
 
 {% block body %}
+	<!-- Heading -->
+	<div class="container-fluid section-heading">
+		<div class="media">
+			<div class="media-body">
+				<h4 class="media-heading">Welcome to my Blog</h4>
+				<p><em>I like writing words.</em></p>
+			</div>
+		</div><hr>
+	</div>
+
+
 	<!-- Headlines -->
 	<div class="container-fluid headlines-body">
 		<div class="row">
 			{% for headline in HomePage.headlines %}
 		  <div class="col-sm-6 col-md-4">
 		    <div class="thumbnail">
-		      <img src="{{ headline.thumbnail }}" >
+		      <a href="/{{ headline.link }}"><img src="{{ headline.thumbnail }}" ></a>
 		      <div class="caption">
 		        <h3>{{ headline.title }}</h3>
 		        <p>{{ headline.description }}</p>

@@ -5,6 +5,16 @@
 {% endblock %}
 
 {% block body %}
+	<!-- Heading -->
+	<div class="container-fluid section-heading">
+		<div class="media">
+			<div class="media-body">
+				<h4 class="media-heading">Here's everything I've written so far.</h4>
+				<p><em>Miles and miles of typo-ridden content for your endless enjoyment</em></p>
+			</div>
+		</div><hr>
+	</div>
+
 	<!-- Archives List -->
 	<div class="container-fluid thumbnail-body">
 		<!-- Search -->
@@ -15,7 +25,7 @@
             </div>
         </div>
 		<div class="row">
-			{% for archive in archives_page.archives %}
+			{% for archive in ArchivesPage.archives %}
 			<div class="col-md-6">
 				<div class="media">
 		  			<div class="media-body">

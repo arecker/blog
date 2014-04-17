@@ -14,9 +14,13 @@ a:hover {
 }
 
 /* Fluid Container Sizes */
-.post-title-body, .post-body, .thumbnail-body, .comments-body, .headlines-body {
+.post-title-body, .post-body, .thumbnail-body, .comments-body, .headlines-body, .projects-body, .section-heading {
 	max-width: 60%;
-	margin-top: 20px;
+	margin-top: 5px;
+}
+
+.section-heading {
+	margin-top: 50px;
 }
 
 /* Navbar */
@@ -24,11 +28,15 @@ a:hover {
 	border: 0 none;
 }
 
+.navbar-body {
+	height: 81px !important;
+}
+
 .navbar-toggle {
 	margin-top: 15px;
 }
 
-.nav li button, .navbar-brand {
+.nav li span, .navbar-brand {
 	margin-right: 10px;
 	margin-top: 25px;
 	margin-bottom: 0px;
@@ -99,12 +107,17 @@ a:hover {
 
 /**** HEADLINES *****/
 .headlines-body {
-	margin-top: 100px;
+	margin-top: 10px;
 }
 
 .headlines-body .thumbnail {
 	margin-right: 10px;
 	margin-left: 10px;
+}
+
+/**** PROJECTS ******/
+.projects-body .caption {
+	text-align: left;
 }
 
 /********** Mobile **********/

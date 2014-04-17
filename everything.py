@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.conf.urls import patterns
+import operator
 from slugify import slugify as Slug
 from os.path import join as Join
 from os.path import splitext, abspath
@@ -39,6 +40,9 @@ class Archive:
         self.description = Description
         self.link = Slug(Title)
 
+    def __str__(self):
+        return self.date
+
 
 class ArchivesPage:
     def __init__(self):
@@ -52,7 +56,44 @@ class ArchivesPage:
             comments = HTML(raw).findAll(text = lambda text: isinstance(text, Comment))
             for _title, _description in (comments,):
                 self.archives.append(Archive(Title=_title.string, Date=date, Description=_description.string))
-        self.archives = sorted(self.archives)
+        self.archives = reversed(sorted(self.archives, key=operator.attrgetter('date')))
+
+
+class Project:
+    def __init__(self, Title, Subtitle, Description, Thumbnail, Link):
+        self.title = Title
+        self.subtitle = Subtitle
+        self.description = Description
+        self.thumbnail = Thumbnail
+        self.link = Link
+
+
+class ProjectsPage:
+    def __init__(self, PATH=Join(PAGES, 'projects.md')):
+        raw = MD(PATH)
+        self.projects = []
+        for p in HTML(raw).findAll('p'):
+            title, subtitle = p.string.split(': ')
+            for _thumbnail, _description, _link in ((p.findNext('ul').findChildren()),):
+                self.projects.append(Project(Title=title, Subtitle=subtitle, Thumbnail=_thumbnail.string, Description=_description.string, Link=_link.string))
+
+
+class Friend:
+    def __init__(self, Title, Description, Link, Thumbnail):
+        self.title = Title
+        self.description = Description
+        self.link = Link
+        self.thumbnail = Thumbnail
+
+
+class FriendsPage:
+    def __init__(self, PATH=Join(PAGES, 'friends.md')):
+        raw = MD(PATH)
+        self.friends = []
+        for p in HTML(raw).findAll('p'):
+            title, description = p.string.split(': ')
+            for link, thumbnail in ((p.findNext('ul').findChildren()),):
+                self.friends.append(Friend(Title=title, Description=description, Thumbnail=thumbnail.string, Link=link.string))
 
 
 class Thumbnail:
@@ -119,16 +160,20 @@ def GetHome(request):
 
 def GetArchives(request):
     return render_to_response('archives.html', {
-        'archives_page': ArchivesPage(),
+        'ArchivesPage': ArchivesPage(),
     })
 
 
-def GetProjects():
-    pass
+def GetProjects(request):
+    return render_to_response('projects.html', {
+        'ProjectsPage': ProjectsPage(),
+    })
 
 
-def GetFriends():
-    pass
+def GetFriends(request):
+    return render_to_response('friends.html', {
+        'FriendsPage': FriendsPage(),
+    })
 
 
 def GetPost(request, slug):
@@ -144,9 +189,9 @@ def GetPost(request, slug):
 ### Routes
 urlpatterns = patterns('',
     (r'^$', GetHome),
-    (r'^archives/', GetArchives),
-    (r'^projects/', GetProjects),
-    (r'^friends/', GetFriends),
+    (r'^archives/?$', GetArchives),
+    (r'^projects/?$', GetProjects),
+    (r'^friends/?$', GetFriends),
     (r'^static/(?P<path>.*)$', 'django.views.static.serve'),
     (r'^(?P<slug>[^/]+)', GetPost),
 )

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     {% block meta_title %}<title>Blog by Alex Recker</title>{% endblock %}
     <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
-    <meta name="description" content="Hi.  My name is Alex Recker.  I like to write words.">
+    {% block meta_description %}<meta name="description" content="Hi.  My name is Alex Recker.  I like to write words.">{% endblock %}
     {% block meta_og_image %}<meta property="og:image" content="/static/img/portrait.jpg"/>{% endblock %}
     <link rel="canonical" href="http://alexrecker.com/{{ post.link }}">
     <link rel="stylesheet" href="/static/libs/bootstrap.min.css" />
@@ -25,19 +25,8 @@
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
-    <!-- Header -->
-    <!--div class="container-fluid hide-mobile">
-        <div class="page-header">
-            <div class="media">
-                <div class="media-body">
-                    <h3 class="media-heading">Blog by Alex Recker</h3>
-                </div>
-            </div>
-        </div>
-    </div-->
-
     <!-- Navbar -->
-    <div class="container-fluid">
+    <div class="container-fluid navbar-body">
         <nav class="navbar navbar-default" role="navigation">
           <div class="container-fluid">
             <div class="navbar-header">
@@ -50,25 +39,25 @@
               </button>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav">
+              <ul class="nav navbar-nav navbar-right">
                 <li class="active show-mobile"><a  href="/"><i class="fa fa-fw fa-home"></i> Home</a></li-->
                 <li class="hide-mobile">
-                    <button class="btn btn-primary navbar-btn"><a href="/"><i class="fa fa-fw fa-home"></i> Home</a></button>
+                    <span class="btn btn-primary navbar-btn"><a href="/"><i class="fa fa-fw fa-home"></i> Home</a></span>
                 </li>
                 <li class="show-mobile"><a href="/archives"><i class="fa fa-fw fa-calendar"></i> Archives</a></li-->
                 <li class="hide-mobile">
-                    <button class="btn btn-default navbar-btn"><a href="/archives"><i class="fa fa-fw fa-calendar"></i> Archives</a></button>
+                    <span class="btn btn-default navbar-btn"><a href="/archives"><i class="fa fa-fw fa-calendar"></i> Archives</a></span>
                 </li>
                 <li class="show-mobile"><a href="#"><i class="fa fa-fw fa-code"></i> Projects</a></li-->
                 <li class="hide-mobile">
-                    <button class="btn btn-default navbar-btn"><a href="/projects"><i class="fa fa-fw fa-code"></i> Projects</a></button>
+                    <span class="btn btn-default navbar-btn"><a href="/projects"><i class="fa fa-fw fa-code"></i> Projects</a></span>
                 </li>
                 <li class="show-mobile"><a href="#"><i class="fa fa-fw fa-group"></i> Friends</a></li-->
                 <li class="hide-mobile">
-                    <button class="btn btn-default navbar-btn"><a href="/friends"><i class="fa fa-fw fa-group"></i> Friends</a></button>
+                    <span class="btn btn-default navbar-btn"><a href="/friends"><i class="fa fa-fw fa-group"></i> Friends</a></span>
                 </li>
               </ul>
-              <ul class="navbar-right">
+              <ul class="nav navbar-nav">
                 <a href="#" class="navbar-brand brand-image"><div class="circular"></div></a>
                 <a class="navbar-brand" href="/">
                     <div><h1><b>Blog</b> by Alex Recker</h1></div>

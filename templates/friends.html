@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block meta_title %}
+<title>Friends | Blog by Alex Recker</title>
+{% endblock %}
+
+{% block body %}
+	<!-- Heading -->
+	<div class="container-fluid section-heading">
+		<div class="media">
+			<div class="media-body">
+				<h4 class="media-heading">My Internet buddies</h4>
+				<p><em>Won't you be my neighbor?</em></p>
+			</div>
+		</div><hr>
+	</div>
+
+	<!-- Friends List -->
+	<div class="container-fluid thumbnail-body">
+		<div class="row">
+			{% for friend in FriendsPage.friends %}
+			<div class="col-md-6">
+				<div class="media">
+					<a class="pull-left" href="{{ friend.link }}">
+						<img class="media-object" src="{{ friend.thumbnail }}"/>
+					</a>
+					<div class="media-body">
+						<h4 class="media-heading">{{ friend.title }}</h4>
+						<p>{{ friend.description }}</p>
+					</div>
+				</div>	
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
