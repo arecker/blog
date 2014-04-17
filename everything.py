@@ -100,8 +100,8 @@ class Thumbnail:
     def __init__(self, SRC, Caption):
         element = u'<div class="row">'
         element += u'<div class="col-md-4 col-md-offset-4">'
-        element += u'<div class="thumbnail">'
-        element += u'<img src="' + SRC + u'" />'
+        element += u'<div class="thumbnail"><a href="' + SRC + '">'
+        element += u'<img src="' + SRC + u'" /></a>'
         element += u'<div class="caption">'
         element += u'<p>' + Caption + u'</p>'
         element += u'</div></div></div></div>'
