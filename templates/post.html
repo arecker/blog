@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block meta_og_image %}
-<meta property="og:image" content="/static/img/{{ post.body.banner }}"/>
+<meta property="og:image" content="http://alexrecker.com/static/img/{{ post.body.banner }}"/>
 {% endblock %}
 
 {% block body %}
@@ -36,6 +36,6 @@
 	<!-- Post Comments -->
 	<div class="container-fluid comments-body">
         <h3>Comments</h3>
-        <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ post.link }}" data-numposts="20" data-colorscheme="light"></div>
+        <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ post.link }}/" data-numposts="20" data-colorscheme="light"></div>
     </div>
 {% endblock %}
