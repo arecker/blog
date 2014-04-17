@@ -56,6 +56,10 @@ a:hover {
 	margin: 0;
 }
 
+.navbar-right a {
+	border: 0;
+}
+
 .brand-image {
 	margin-top: 0px;
 }
