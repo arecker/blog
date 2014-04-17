@@ -39,3 +39,16 @@
         <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ post.link }}/" data-numposts="20" data-colorscheme="light"></div>
     </div>
 {% endblock %}
+
+{% block footer %}
+<script type="text/javascript" src="/static/libs/jquery.min.js"></script>
+<script type="text/javascript" src="/static/libs/bootstrap.min.js"></script>
+<script type="text/javascript" src="/static/js/analytics.js"></script>
+<script type="text/javascript" src="/static/libs/abigimage.min.js"></script>
+<script>
+	$(document).ready(function()
+	{
+		$('.thumbnail').find('a').abigimage();
+	})
+</script>
+{% endblock %}
