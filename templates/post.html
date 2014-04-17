@@ -4,6 +4,10 @@
 <title>{{ post.title }} | Blog by Alex Recker</title>
 {% endblock %}
 
+{% block meta_description %}
+<meta name="description" content="{{ post.description }}">
+{% endblock %}
+
 {% block meta_og_image %}
 <meta property="og:image" content="/static/img/{{ post.body.banner }}"/>
 {% endblock %}

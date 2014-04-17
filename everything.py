@@ -130,6 +130,7 @@ class Post:
         raw = MD(Join(ROOT, the_one))
         comments = HTML(raw).findAll(text = lambda text: isinstance(text, Comment))
         self.title = comments[0].string
+        self.description = comments[1].string
         self.link = slug
 
         # Get Banner
