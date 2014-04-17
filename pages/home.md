@@ -1,8 +1,8 @@
 Welcome Home
 
-* /static/img/thoreau.jpg
-* Wordpress has served me well, but my soul longs for the wilderness.  Retreat with me into the backwoods of the Internet.
-* welcome-home
+* /static/img/arguingcouple.jpg
+* Grab your HR Rep - we're talking about conflict.
+* arguments
 
 Projects
 
