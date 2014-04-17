@@ -7,6 +7,7 @@ from os.path import splitext, abspath
 from os import listdir
 from markdown2 import markdown_path as MD
 from BeautifulSoup import BeautifulSoup as HTML, Comment
+from django.views.decorators.cache import cache_page
 
 ### Global Variables
 filepath, extension = splitext(__file__)
@@ -153,30 +154,31 @@ class Post:
 
 
 ### Controllers
+@cache_page(60 * 15)
 def GetHome(request):
     return render_to_response('home.html', {
         'HomePage': HomePage(),
     })
 
-
+@cache_page(60 * 15)
 def GetArchives(request):
     return render_to_response('archives.html', {
         'ArchivesPage': ArchivesPage(),
     })
 
-
+@cache_page(60 * 15)
 def GetProjects(request):
     return render_to_response('projects.html', {
         'ProjectsPage': ProjectsPage(),
     })
 
-
+@cache_page(60 * 15)
 def GetFriends(request):
     return render_to_response('friends.html', {
         'FriendsPage': FriendsPage(),
     })
 
-
+@cache_page(60 * 15)
 def GetPost(request, slug):
     try:
         post = Post(slug)
