@@ -37,7 +37,7 @@ a:hover {
 }
 
 .nav li span, .navbar-brand {
-	margin-right: 10px;
+	margin-right: 0px;
 	margin-top: 25px;
 	margin-bottom: 0px;
 	border: 0;
@@ -54,10 +54,6 @@ a:hover {
 
 .navbar-brand h1 {
 	margin: 0;
-}
-
-.navbar-right li a {
-	border: 0 !important;
 }
 
 .brand-image {
