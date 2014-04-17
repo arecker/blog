@@ -92,7 +92,7 @@ a:hover {
 	color: #4C4C4C;
 }
 
-.post-body ul li {
+.post-body ul li, .post-body ol li {
 	color: #4C4C4C;
 }
 
