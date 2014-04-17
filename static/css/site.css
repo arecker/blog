@@ -57,7 +57,7 @@ a:hover {
 }
 
 .navbar-right li a {
-	border: 0;
+	border: 0 !important;
 }
 
 .brand-image {
