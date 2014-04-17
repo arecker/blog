@@ -92,6 +92,10 @@ a:hover {
 	color: #4C4C4C;
 }
 
+.post-body li {
+	color: #4C4C4C;
+}
+
 .post-body h1 {
 	font-size: 18px;
 	margin-top: 30px;
