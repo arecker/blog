@@ -1,3 +1,4 @@
+# Imports
 from django.shortcuts import render_to_response
 from django.conf.urls import patterns
 import operator
@@ -9,11 +10,11 @@ from markdown2 import markdown_path as MD
 from BeautifulSoup import BeautifulSoup as HTML, Comment
 from django.views.decorators.cache import cache_page
 
+
 ### Global Variables
 filepath, extension = splitext(__file__)
-PAGES = abspath(Join(filepath, '..', 'pages'))
-POSTS = abspath(Join(filepath, '..', 'posts'))
-DOCS = abspath(Join(filepath, '..', 'docs'))
+PAGES = abspath(Join(filepath, '..', 'Content/pages'))
+POSTS = abspath(Join(filepath, '..', 'Content/posts'))
 
 
 ### Models
