@@ -40,10 +40,13 @@ class ArchivesPage:
         self.archives = reversed(sorted(self.archives, key=operator.attrgetter('date')))
 
 
-# Update Archives
+### ARCHIVES
 archives_page = ArchivesPage()
 archive_soup = HTML(open(Join(SOUPS, 'archives.html')))
-append_div = archive_soup.findAll("div", { "class" : "row" })
+#append_div = archive_soup.findAll("div", { "class" : "row" })
+
+for item in ArchivesPage.archives:
+    
 
 """
 ARVCHIVE FORMAT
