@@ -145,6 +145,16 @@ a:hover {
 		margin-top: 10px;
 		max-width: 95%;
 	}
+
+	/* Adjusts width of fluid containers */
+	.container-fluid {
+		max-width: 100%;
+		margin-top: 0;
+	}
+
+	.thumbnail-body {
+		max-width: 90%;
+	}
 }
 
 @media screen and (max-width: 1050px) {
