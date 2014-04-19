@@ -155,6 +155,11 @@ a:hover {
 	.thumbnail-body {
 		max-width: 90%;
 	}
+
+	/*Navbar height can be fluid*/
+	.navbar-body {
+		height: auto !important;
+	}
 }
 
 @media screen and (max-width: 1050px) {
