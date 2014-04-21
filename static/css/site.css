@@ -124,6 +124,10 @@ a:hover {
 	margin-left: 10px;
 }
 
+.headlines-body .thumbnail .caption {
+	text-align: left;
+}
+
 /**** PROJECTS ******/
 .projects-body .caption {
 	text-align: left;
