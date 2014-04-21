@@ -8,13 +8,14 @@ from os import listdir
 from os.path import splitext, join as Join, abspath
 from markdown2 import markdown_path as MD
 from BeautifulSoup import BeautifulSoup as HTML, Comment
-import slugify as Slug
+from xml.sax import saxutils as su
+from slugify import slugify as Slug
 
 # PATHS
 filepath, extension = splitext(__file__)
 POSTS = abspath(Join(filepath, '..', 'Content/posts'))
 PAGES = abspath(Join(filepath, '..', 'Cache/pages'))
-SOUPS = abspath(Join(filepath, '..', 'Cache/Soups'))
+SOUPS = abspath(Join(filepath, '..', 'Cache/soups'))
 
 # Models
 class Archive:
@@ -43,10 +44,38 @@ class ArchivesPage:
 ### ARCHIVES
 archives_page = ArchivesPage()
 archive_soup = HTML(open(Join(SOUPS, 'archives.html')))
-#append_div = archive_soup.findAll("div", { "class" : "row" })
+handle = '<div class="handle"></div>'
 
-for item in ArchivesPage.archives:
-    
+"""
+>>> from BeautifulSoup import BeautifulSoup, Tag
+>>> soup = BeautifulSoup("")
+>>> tag = Tag(soup, "b")
+>>> tag.string = "YAY"
+>>> soup.insert(0, tag)
+>>> print unicode(soup)
+"""
+
+
+for item in archives_page.archives:
+    element  = '<div class="col-md-6">'
+    element += '<div class="media">'
+    element += '<div class="media-body">'
+    element += '<h3 class="media-heading">'
+    element += '<a href="/' + item.link + '">'
+    element += item.title
+    element += '</a></h3>'
+    element += '<p>' + item.description + '</p>'
+    element += '<p><small>' + item.date + '</small></p></div></div></div>'
+    element += handle
+    archive_soup.find("div", {"class": "handle" }).replaceWith(element)
+
+    # Handle all the unicode shit
+    archive_soup = HTML(su.unescape(archive_soup.prettify()))
+
+# Write Out to cache
+file = open(Join(PAGES, 'archives-cache.html'),"w")
+file.write(archive_soup.prettify())
+file.close()
 
 """
 ARVCHIVE FORMAT

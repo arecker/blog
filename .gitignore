@@ -4,3 +4,4 @@ env
 .idea
 settings.py
 wsgi.py
+Cache/pages/*

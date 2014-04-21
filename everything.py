@@ -1,5 +1,5 @@
 # Imports
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, HttpResponse
 from django.conf.urls import patterns
 import operator
 from slugify import slugify as Slug
@@ -15,7 +15,7 @@ from django.views.decorators.cache import cache_page
 filepath, extension = splitext(__file__)
 PAGES = abspath(Join(filepath, '..', 'Content/pages'))
 POSTS = abspath(Join(filepath, '..', 'Content/posts'))
-
+CACHE = abspath(Join(filepath, '..', 'Cache/pages'))
 
 ### Models
 class Headline:
@@ -33,32 +33,6 @@ class HomePage:
             title = p.string
             for _thumbnail, _description, _link in ((p.findNext('ul').findChildren()),):
                 self.headlines.append(Headline(Title=title, Thumbnail=_thumbnail.string, Description=_description.string, Link=_link.string))
-
-
-class Archive:
-    def __init__(self, Title, Date, Description):
-        self.title = Title
-        self.date = Date
-        self.description = Description
-        self.link = Slug(Title)
-
-    def __str__(self):
-        return self.date
-
-
-class ArchivesPage:
-    def __init__(self):
-        file_list = reversed(sorted(listdir(POSTS)))
-        self.archives = []
-        self.files = []
-        for file in file_list:
-            self.files.append(file)
-            raw = MD(Join(POSTS, file))
-            date, ext = file.split('.')
-            comments = HTML(raw).findAll(text = lambda text: isinstance(text, Comment))
-            for _title, _description in (comments,):
-                self.archives.append(Archive(Title=_title.string, Date=date, Description=_description.string))
-        self.archives = reversed(sorted(self.archives, key=operator.attrgetter('date')))
 
 
 class Project:
@@ -163,9 +137,8 @@ def GetHome(request):
 
 @cache_page(60 * 15)
 def GetArchives(request):
-    return render_to_response('archives.html', {
-        'ArchivesPage': ArchivesPage(),
-    })
+    archives_page = open(Join(CACHE, 'archives-cache.html'), 'r').read()
+    return HttpResponse(archives_page)
 
 @cache_page(60 * 15)
 def GetProjects(request):
