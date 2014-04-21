@@ -117,15 +117,3 @@ for item in home_page.headlines:
 file = open(Join(CACHE, 'pages/homepage-cache.html'),"w")
 file.write(homepage_soup.prettify())
 file.close()
-
-"""
- <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <a href="/{{ headline.link }}"><img src="{{ headline.thumbnail }}" ></a>
-      <div class="caption">
-        <h3>{{ headline.title }}</h3>
-        <p>{{ headline.description }}</p>
-      </div>
-    </div>
-  </div>
-"""
