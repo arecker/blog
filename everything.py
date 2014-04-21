@@ -18,23 +18,6 @@ POSTS = abspath(Join(filepath, '..', 'Content/posts'))
 CACHE = abspath(Join(filepath, '..', 'Cache/pages'))
 
 ### Models
-class Headline:
-    def __init__(self, Title, Thumbnail, Description, Link):
-        self.title = Title
-        self.thumbnail = Thumbnail
-        self.description = Description
-        self.link = Link
-
-class HomePage:
-    def __init__(self, PATH=Join(PAGES, 'home.md')):
-        raw = MD(PATH)
-        self.headlines = []
-        for p in HTML(raw).findAll('p'):
-            title = p.string
-            for _thumbnail, _description, _link in ((p.findNext('ul').findChildren()),):
-                self.headlines.append(Headline(Title=title, Thumbnail=_thumbnail.string, Description=_description.string, Link=_link.string))
-
-
 class Project:
     def __init__(self, Title, Subtitle, Description, Thumbnail, Link):
         self.title = Title
@@ -131,9 +114,8 @@ class Post:
 ### Controllers
 @cache_page(60 * 15)
 def GetHome(request):
-    return render_to_response('home.html', {
-        'HomePage': HomePage(),
-    })
+    home_page = open(Join(CACHE, 'homepage-cache.html'), 'r').read()
+    return HttpResponse(home_page)
 
 @cache_page(60 * 15)
 def GetArchives(request):

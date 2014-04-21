@@ -14,10 +14,28 @@ from slugify import slugify as Slug
 # PATHS
 filepath, extension = splitext(__file__)
 POSTS = abspath(Join(filepath, '..', 'Content/posts'))
-PAGES = abspath(Join(filepath, '..', 'Cache/pages'))
-SOUPS = abspath(Join(filepath, '..', 'Cache/soups'))
+PAGES = abspath(Join(filepath, '..', 'Content/pages'))
+CACHE = abspath(Join(filepath, '..', 'Cache'))
 
 # Models
+class Headline:
+    def __init__(self, Title, Thumbnail, Description, Link):
+        self.title = Title
+        self.thumbnail = Thumbnail
+        self.description = Description
+        self.link = Link
+
+
+class HomePage:
+    def __init__(self, PATH=Join(PAGES, 'home.md')):
+        raw = MD(PATH)
+        self.headlines = []
+        for p in HTML(raw).findAll('p'):
+            title = p.string
+            for _thumbnail, _description, _link in ((p.findNext('ul').findChildren()),):
+                self.headlines.append(Headline(Title=title, Thumbnail=_thumbnail.string, Description=_description.string, Link=_link.string))
+
+
 class Archive:
     def __init__(self, Title, Date, Description):
         self.title = Title
@@ -40,21 +58,15 @@ class ArchivesPage:
                 self.archives.append(Archive(Title=_title.string, Date=date, Description=_description.string))
         self.archives = reversed(sorted(self.archives, key=operator.attrgetter('date')))
 
+################################################################################################################
 
-### ARCHIVES
+##############################
+########## ARCHIVES ##########
+##############################
+
 archives_page = ArchivesPage()
-archive_soup = HTML(open(Join(SOUPS, 'archives.html')))
+archive_soup = HTML(open(Join(CACHE, 'soups/archives.html')))
 handle = '<div class="handle"></div>'
-
-"""
->>> from BeautifulSoup import BeautifulSoup, Tag
->>> soup = BeautifulSoup("")
->>> tag = Tag(soup, "b")
->>> tag.string = "YAY"
->>> soup.insert(0, tag)
->>> print unicode(soup)
-"""
-
 
 for item in archives_page.archives:
     element  = '<div class="col-md-6">'
@@ -73,21 +85,47 @@ for item in archives_page.archives:
     archive_soup = HTML(su.unescape(archive_soup.prettify()))
 
 # Write Out to cache
-file = open(Join(PAGES, 'archives-cache.html'),"w")
+file = open(Join(CACHE, 'pages/archives-cache.html'),"w")
 file.write(archive_soup.prettify())
 file.close()
 
+################################################################################################################
+
+##############################
+########## HomePage ##########
+##############################
+
+home_page = HomePage()
+homepage_soup = HTML(open(Join(CACHE, 'soups/homepage.html')))
+handle = '<div class="handle"></div>'
+
+for item in home_page.headlines:
+    element  = '<div class="col-sm-6 col-md-4">'
+    element += '<div class="thumbnail">'
+    element += '<a href="/' + item.link + '"><img src="' + item.thumbnail + '" ></a>'
+    element += '<div class="caption">'
+    element += '<h3>' + item.title + '</h3>'
+    element += '<p>' + item.description + '</p>'
+    element += '</div></div></div>'
+    element += handle
+    homepage_soup.find("div", {"class": "handle" }).replaceWith(element)
+
+    # Handle all the unicode shit
+    homepage_soup = HTML(su.unescape(homepage_soup.prettify()))
+
+# Write Out to cache
+file = open(Join(CACHE, 'pages/homepage-cache.html'),"w")
+file.write(homepage_soup.prettify())
+file.close()
+
 """
-ARVCHIVE FORMAT
-{% for archive in ArchivesPage.archives %}
-			<div class="col-md-6">
-				<div class="media">
-		  			<div class="media-body">
-		    			<h3 class="media-heading"><a href="/{{ archive.link }}">{{ archive.title }}</a></h3>
-		    			<p>{{archive.description}}</p>
-		    			<p><small>{{ archive.date }}</small></p>
-		  			</div>
-				</div>
-			</div>
-			{% endfor %}
+ <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <a href="/{{ headline.link }}"><img src="{{ headline.thumbnail }}" ></a>
+      <div class="caption">
+        <h3>{{ headline.title }}</h3>
+        <p>{{ headline.description }}</p>
+      </div>
+    </div>
+  </div>
 """
