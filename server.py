@@ -45,7 +45,7 @@ def GetSiteMap():
 @app.route("/robots.txt")
 def GetRobots():
     robots = open(join(STATIC, 'robots.txt'), 'r').read()
-    return robots
+    return Response(robots, mimetype='text')
 
 
 @app.route("/<slug>/")
