@@ -1,7 +1,5 @@
-update
 *.pyc
-env
+.env
 .idea
-settings.py
 wsgi.py
 Cache/pages/*
