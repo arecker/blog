@@ -12,3 +12,8 @@ brewerdigital.com: Joel Brewer
 
 * http://brewerdigital.com
 * /static/img/joelbear.jpg
+
+Digital Imaging Solutions: Micah Chiang Photography
+
+* http://www.micahchiang.com/
+* /static/img/micah.jpg
