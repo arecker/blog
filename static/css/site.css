@@ -17,6 +17,7 @@ a:hover {
 .post-title-body, .post-body, .thumbnail-body, .comments-body, .headlines-body, .projects-body, .section-heading {
 	max-width: 60%;
 	margin-top: 5px;
+	margin-bottom: 20px;
 }
 
 .section-heading {
