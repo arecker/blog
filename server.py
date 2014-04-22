@@ -43,7 +43,7 @@ def GetSiteMap():
 
 
 @app.route("/robots.txt")
-def GetSiteMap():
+def GetRobots():
     robots = open(join(STATIC, 'robots.txt'), 'r').read()
     return robots
 
