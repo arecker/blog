@@ -42,6 +42,12 @@ def GetSiteMap():
     return sitemap
 
 
+@app.route("/robots.txt")
+def GetSiteMap():
+    robots = open(join(STATIC, 'robots.txt'), 'r').read()
+    return robots
+
+
 @app.route("/<slug>/")
 def GetPost(slug):
     try:
