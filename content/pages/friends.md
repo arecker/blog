@@ -17,3 +17,8 @@ Digital Imaging Solutions: Micah Chiang Photography
 
 * http://www.micahchiang.com/
 * /static/img/micah.jpg
+
+trackitsvalue.com: by freebyTech
+
+* http://www.trackitsvalue.com
+* /static/img/trackitsvalue.png
