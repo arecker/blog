@@ -8,6 +8,7 @@ filepath, extension = splitext(__file__)
 PAGES = abspath(join(filepath, '..', 'content/pages'))
 POSTS = abspath(join(filepath, '..', 'content/posts'))
 CACHE = abspath(join(filepath, '..', 'cache'))
+STATIC = abspath(join(filepath, '..', 'static'))
 
 
 ### Controllers
@@ -33,6 +34,12 @@ def GetProjects():
 def GetFriends():
     friends_page = open(join(CACHE, 'pages/friends.html'), 'r').read()
     return friends_page
+
+
+@app.route("/sitemap/")
+def GetSiteMap():
+    sitemap = open(join(STATIC, 'sitemap.xml'), 'r').read()
+    return sitemap
 
 
 @app.route("/<slug>/")
