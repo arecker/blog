@@ -1,5 +1,5 @@
 from os.path import join, splitext, abspath
-from flask import Flask
+from flask import Flask, Response
 app = Flask(__name__)
 
 
@@ -38,8 +38,8 @@ def GetFriends():
 
 @app.route("/sitemap/")
 def GetSiteMap():
-    sitemap = open(join(STATIC, 'sitemap.xml'), 'r').read()
-    return sitemap
+    xml = open(join(STATIC, 'sitemap.xml'), 'r').read()
+    return Response(xml, mimetype='text/xml')
 
 
 @app.route("/robots.txt")
