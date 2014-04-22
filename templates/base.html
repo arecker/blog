@@ -7,24 +7,13 @@
     <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
     {% block meta_description %}<meta name="description" content="Hi.  My name is Alex Recker.  I like to write words.">{% endblock %}
     {% block meta_og_image %}<meta property="og:image" content="http://alexrecker.com/static/img/portrait.jpg"/>{% endblock %}
-    <link rel="canonical" href="http://alexrecker.com/{{ post.link }}">
+    <link rel="canonical" href="http://alexrecker.com/">
     <link rel="stylesheet" href="/static/libs/bootstrap.min.css" />
     <link rel="stylesheet" href="/static/libs/font-awesome.css" />
     <link rel="stylesheet" href="/static/css/site.css" />
 </head>
 
 <body>
-    <!-- Facebook Comments Crap -->
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
-
     <!-- Navbar -->
     <div class="container-fluid navbar-body">
         <nav class="navbar navbar-default" role="navigation">
@@ -40,21 +29,17 @@
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                <li class="active show-mobile"><a  href="/"><i class="fa fa-fw fa-home"></i> Home</a></li-->
-                <li class="hide-mobile">
-                    <a href="/"><span class="btn btn-primary navbar-btn"><i class="fa fa-fw fa-home"></i> Home</span></a>
+                <li>
+                    <a href="/"><span class=""><i class="fa fa-fw fa-home"></i> Home</span></a>
                 </li>
-                <li class="show-mobile"><a href="/archives"><i class="fa fa-fw fa-calendar"></i> Archives</a></li-->
-                <li class="hide-mobile">
-                    <a href="/archives"><span class="btn btn-default navbar-btn"><i class="fa fa-fw fa-calendar"></i> Archives</span></a>
+                <li>
+                    <a href="/archives"><span class=""><i class="fa fa-fw fa-calendar"></i> Archives</span></a>
                 </li>
-                <li class="show-mobile"><a href="/projects"><i class="fa fa-fw fa-code"></i> Projects</a></li-->
-                <li class="hide-mobile">
-                    <a href="/projects"><span class="btn btn-default navbar-btn"><i class="fa fa-fw fa-code"></i> Projects</span></a>
+                <li>
+                    <a href="/projects"><span class=""><i class="fa fa-fw fa-code"></i> Projects</span></a>
                 </li>
-                <li class="show-mobile"><a href="/friends"><i class="fa fa-fw fa-group"></i> Friends</a></li-->
-                <li class="hide-mobile">
-                    <a href="/friends"><span class="btn btn-default navbar-btn"><i class="fa fa-fw fa-group"></i> Friends</span></a>
+                <li>
+                    <a href="/friends"><span class=""><i class="fa fa-fw fa-group"></i> Friends</span></a>
                 </li>
               </ul>
               <ul class="nav navbar-nav">
@@ -69,17 +54,17 @@
     </div><!-- Navbar -->
 
     <!-- Put everything here, B-->
-    {% autoescape off %}
+
     {% block body %}{% endblock %}
-    {% endautoescape %}
 
 
 </body>
 
-{% block footer %}
+
 <footer>
+    {% block footer %}
     <script type="text/javascript" src="/static/libs/jquery.min.js"></script>
     <script type="text/javascript" src="/static/libs/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/js/analytics.js"></script>
+    {% endblock %}
 </footer>
-{% endblock %}

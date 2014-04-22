@@ -1,27 +1,38 @@
 {% extends "base.html" %}
 
 {% block meta_title %}
-<title>{{ post.title }} | Blog by Alex Recker</title>
+<title>{{ Post.title }} | Blog by Alex Recker</title>
 {% endblock %}
 
 {% block meta_description %}
-<meta name="description" content="{{ post.description }}">
+<meta name="description" content="{{ Post.description }}">
 {% endblock %}
 
 {% block meta_og_image %}
-<meta property="og:image" content="http://alexrecker.com/static/img/{{ post.body.banner }}"/>
+<meta property="og:image" content="http://alexrecker.com/static/img/{{ Post.body.banner }}"/>
 {% endblock %}
 
 {% block body %}
+    <!-- Facebook Comments Crap -->
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+
 	<!-- Post Title -->
 	<div class="container-fluid post-title-body">
 		<div class="page-header">
-			<h2>{{ post.title }}</h2>
-			<h4>{{ post.date }}</h4>
+			<h2>{{ Post.title }}</h2>
+			<h4>{{ Post.date }}</h4>
 			<div class="row">
 			<div class="col-md-12">
 				<div class="thumbnail">
-				<img class="img-responsive" src="{{ post.body.banner}}">	
+				<img class="img-responsive" src="{{ Post.body.banner}}">
 			</div>
 			</div>
 		</div>
@@ -30,13 +41,13 @@
 
 	<!-- Post Body -->
 	<div class="container-fluid post-body">
-		{{ post.body.text }}
+		{{ Post.body.text }}
 	</div>
 
 	<!-- Post Comments -->
 	<div class="container-fluid comments-body">
         <h3>Comments</h3>
-        <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ post.link }}/" data-numposts="20" data-colorscheme="light"></div>
+        <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ Post.link }}/" data-numposts="20" data-colorscheme="light"></div>
     </div>
 {% endblock %}
 

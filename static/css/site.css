@@ -36,7 +36,7 @@ a:hover {
 	margin-top: 15px;
 }
 
-.nav li span, .navbar-brand {
+.nav li, .navbar-brand {
 	margin-right: 0px;
 	margin-top: 25px;
 	margin-bottom: 0px;
@@ -135,13 +135,12 @@ a:hover {
 
 /********** Mobile **********/
 @media screen and (max-width: 750px) {
-	/* Mobile Toggle */
-	.hide-mobile {
-		display: none !important;
-	}
-
 	.show-mobile {
 		display: inline !important;
+	}
+
+	.nav li a {
+		padding: 0;
 	}
 
 	/* Moves Thumbnail body closer to top */
