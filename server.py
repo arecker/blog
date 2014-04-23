@@ -47,6 +47,11 @@ def GetRobots():
     robots = open(join(STATIC, 'robots.txt'), 'r').read()
     return Response(robots, mimetype='text')
 
+@app.route("/monty-hall")
+def GetMontyHall():
+    index = open(join(STATIC, 'MH', 'index.html'), 'r').read()
+    return index;
+
 
 @app.route("/<slug>/")
 def GetPost(slug):
