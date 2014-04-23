@@ -11,3 +11,5 @@ All posts and page content are stored in markdown format in the *content* folder
 
 * Optimize RefreshPosts
 * Refactor older posts with new thumbnail CSS
+* Refresh sitemap.xml
+* RSS
