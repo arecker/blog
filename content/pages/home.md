@@ -1,8 +1,8 @@
-Arguments
+Chemistry
 
-* /static/img/arguingcouple.jpg
-* Grab your HR Rep - we're talking about conflict.
-* arguments
+* /static/img/chemistry.jpg
+* Blanking on a chemistry question this week spurred an identity crisis, a Breaking Bad reference, and a tender look back on all the chemists that have been a part of my life.
+* chemistry
 
 Projects
 
