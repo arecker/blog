@@ -12,6 +12,10 @@
 <meta property="og:image" content="http://alexrecker.com/static/img/{{ Post.body.banner }}"/>
 {% endblock %}
 
+{% block meta_canonical %}
+<link rel="canonical" href="http://alexrecker.com/{{ Post.link }}">
+{% endblock %}
+
 {% block body %}
     <!-- Facebook Comments Crap -->
     <div id="fb-root"></div>
