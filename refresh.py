@@ -16,6 +16,14 @@ CACHE = abspath(join(filepath, '..', 'cache'))
 TEMPLATES = abspath(join(filepath, '..', 'templates'))
 ENV = Environment(loader=FileSystemLoader('templates'))
 
+# Dictionary of Posts / Slugs
+POST_LIST = listdir(POSTS)
+dictionary = []
+for file in POST_LIST:
+    comments = HTML(MD(join(POSTS, file))).findAll(text = lambda text: isinstance(text, Comment))
+    key = Slug(comments[0])
+    dictionary.append((key, file))
+DICTIONARY = dict(dictionary)
 
 ### Page Models
 class HomePage:
@@ -30,7 +38,7 @@ class HomePage:
 
 class ArchivesPage:
     def __init__(self):
-        file_list = reversed(sorted(listdir(POSTS)))
+        file_list = reversed(sorted(POST_LIST))
         self.archives = []
         self.files = []
         for file in file_list:
@@ -66,14 +74,7 @@ class FriendsPage:
 class Post:
     def __init__(self, slug, ROOT=POSTS):
         ## Get Post from slug
-        files = listdir(ROOT)
-        dictionary = []
-        for file in files:
-            comments = HTML(MD(join(ROOT, file))).findAll(text = lambda text: isinstance(text, Comment))
-            key = Slug(comments[0])
-            dictionary.append((key, file))
-        dictionary = dict(dictionary)
-        the_one = dictionary[slug]
+        the_one = DICTIONARY[slug]
         self.date, extension = the_one.split('.')
         raw = MD(join(ROOT, the_one))
         comments = HTML(raw).findAll(text = lambda text: isinstance(text, Comment))
@@ -178,17 +179,10 @@ def RefreshFriends():
 
 def RefreshPosts():
     template = ENV.get_template('post.html')
-    file_list = listdir(POSTS)
-    dictionary = []
-    for file in file_list:
-        comments = HTML(MD(join(POSTS, file))).findAll(text = lambda text: isinstance(text, Comment))
-        key = Slug(comments[0])
-        dictionary.append((file, key))
-
-    dictionary = dict(dictionary)
-    for file in file_list:
-        with open(join(CACHE, 'posts', dictionary[file] + '.html'), 'wb') as out:
-            out.write(template.render(Post = Post(dictionary[file])).encode('ascii', 'ignore'))
+    REV_DICT_LIST = {v:k for k, v in DICTIONARY.items()} # Reverse Dictionary
+    for file in POST_LIST:
+        with open(join(CACHE, 'posts', REV_DICT_LIST[file] + '.html'), 'wb') as out:
+            out.write(template.render(Post = Post(REV_DICT_LIST[file])).encode('ascii', 'ignore'))
 
 
 ### Action
