@@ -183,11 +183,18 @@ def RefreshPosts():
     for file in POST_LIST:
         with open(join(CACHE, 'posts', REV_DICT_LIST[file] + '.html'), 'wb') as out:
             out.write(template.render(Post = Post(REV_DICT_LIST[file])).encode('ascii', 'ignore'))
+            print('    Post: ' + REV_DICT_LIST[file])
 
 
 ### Action
+print('Caching Home Page')
 RefreshHome()
+print('Caching Archives Page')
 RefreshArchives()
+print('Caching Projects Page')
 RefreshProjects()
+print('Caching Frineds Page')
 RefreshFriends()
+print('Caching Posts')
 RefreshPosts()
+print('Done!')
