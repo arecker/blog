@@ -45,11 +45,6 @@ a:hover {
 	border: 0;
 }
 
-.nav a {
-	text-decoration: none;
-	color: white;
-}
-
 .navbar-brand {
 	margin-top: 15px;
 }
@@ -67,15 +62,6 @@ a:hover {
     border: 0 none;
     box-shadow: none;
     text-align: center;
-}
-
-.post-body .caption {
-	/* Post captions should be centered */
-	text-align: center;
-}
-
-.thumbnail * {
-	float: none !important;
 }
 
 /******* POSTS *******/
@@ -112,10 +98,6 @@ a:hover {
 	margin-top: 40px;
 }
 
-.show-mobile {
-	display: none !important;
-}
-
 /**** HEADLINES *****/
 .headlines-body {
 	margin-top: 10px;
@@ -136,6 +118,10 @@ a:hover {
 }
 
 /********** Mobile **********/
+.show-mobile {
+	display: none !important;
+}
+
 @media screen and (max-width: 750px) {
 	.show-mobile {
 		display: inline !important;
