@@ -6,7 +6,7 @@
 
 {% block body %}
 	<!-- Heading -->
-	<div class="container-fluid section-heading">
+	<div class="container-fluid">
 		<div class="media">
 			<div class="media-body">
 				<h4 class="media-heading">Here's everything I've written so far.</h4>
@@ -16,7 +16,7 @@
 	</div>
 
 	<!-- Archives List -->
-	<div class="container-fluid thumbnail-body">
+	<div class="container-fluid">
 		<!-- Search -->
 		<div class="container-fluid">
             <div class="input-group">
@@ -24,26 +24,25 @@
                 <input id="filter" class="form-control" type="text" placeholder="Filter" onkeyup="filter(this)" />
             </div>
         </div>
-		<div class="row">
-			{% for archive in collection %}
-			<div class="col-md-6">
-				<div class="media">
-		  			<div class="media-body">
-		    			<h3 class="media-heading"><a href="/{{ archive.link }}">{{ archive.title }}</a></h3>
-		    			<p>{{ archive.description }}</p>
-		    			<p><small>{{ archive.date }}</small></p>
-		  			</div>
-				</div>	
-			</div>
-			{% endfor %}
-		</div>
+
+		<table class="table">
+			<tr>
+				{% for post_row in collection | batch(2) %}
+				{% for post in post_row %}
+				<td>
+					<h3><a href="/{{ post.link }}">{{ post.title }}</a></h3>
+					<p>{{ post.description }}</p>
+					<p><small>{{ post.date }}</small></p>
+				</td>
+				{% endfor %}
+			</tr><tr>
+				{% endfor %}
+		</table>
 	</div>
 {% endblock %}
 
 {% block footer %}
 	<script type="text/javascript" src="/static/libs/jquery.min.js"></script>
     <script type="text/javascript" src="/static/libs/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/js/analytics.js"></script>
-    <script type="text/javascript" src="/static/js/navbar.js"></script>
     <script type="text/javascript" src="/static/js/filter.js"></script>
 {% endblock %}
