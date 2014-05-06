@@ -25,6 +25,13 @@ a {
 	text-decoration: none !important;
 }
 
+/* Pads table cells */
+td {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-bottom: 20px !important;
+}
+
 /* Removes shadowy stuff from navbar */
 .navbar-inner, .navbar {
   background-color: white !important; 

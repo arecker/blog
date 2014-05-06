@@ -29,27 +29,20 @@
     </script>
 
 	<!-- Post Title -->
-	<div class="container-fluid post-title-body">
-		<div class="page-header">
-			<h2>{{ collection.title }}</h2>
-			<h4>{{ collection.date }}</h4>
-			<div class="row">
-			<div class="col-md-12">
-				<div class="thumbnail">
-				<img class="img-responsive" src="{{ collection.image }}">
-			</div>
-			</div>
-		</div>
-		</div>
+	<div class="media page-header">
+	  <div class="media-body">
+	    <h2 class="media-heading">{{ collection.title }}</h2>
+	    <h4>{{ collection.date }}</h4>
+	  </div>
 	</div>
-
+	
 	<!-- Post Body -->
-	<div class="container-fluid post-body">
+	<div class="container-fluid markdown">
 		{{ collection.body }}
 	</div>
 
 	<!-- Post Comments -->
-	<div class="container-fluid comments-body">
+	<div class="container-fluid">
         <h3>Comments</h3>
         <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ collection.link }}/" data-numposts="20" data-colorscheme="light"></div>
     </div>
