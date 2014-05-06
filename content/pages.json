@@ -2,20 +2,29 @@
     "Home": {
         "Headlines": [
             {
+                "title": "Chemistry",
                 "image": "chemistry.jpg",
                 "caption": "Blanking on a chemistry question this week spurred an identity crisis, a Breaking Bad reference, and a tender look back on all the chemists that have been a part of my life.",
                 "link": "/chemistry/"
             },
             {
+                "title": "Projects",
                 "image": "corgi-break.png",
                 "caption": "Help yourself to some home-grown software made fresh from my kitchen.",
                 "link": "/projects/"
             },
             {
+                "title": "Friends",
                 "image": "misterrogers.jpg",
                 "caption": "Won't you be my neighbor?  Join my prestigious list of Internet buddies.",
                 "link": "/friends/"
             }
-        ]
+        ],
+
+        "Projects": [
+            {
+                
+            }
+        }
     }
 }
