@@ -1,8 +1,36 @@
+/****** Globals *****/
+
+/* Removes frame from thumbnails */
+.thumbnail {
+    border: 0 none;
+    box-shadow: none;
+}
+
+/* Removes underline from links */
 a:hover {
 	text-decoration: none;
 }
 
-/****** Portrait in Banner ******/
+/* Fluid Container Sizes */
+.post-title-body, .post-body, .thumbnail-body, .friends-body, .comments-body, .headlines-body, .projects-body {
+	max-width: 60%;
+	margin-top: 5px;
+	margin-bottom: 50px;
+}
+
+.section-heading {
+    max-width: 60%;
+    margin-top: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+/*********************/
+
+
+/****** NAVBAR ******/
 .circular {
 	width: 80px;
 	height: 80px;
@@ -13,19 +41,6 @@ a:hover {
 	margin-top: 0px;
 }
 
-/* Fluid Container Sizes */
-.post-title-body, .post-body, .thumbnail-body, .comments-body, .headlines-body, .projects-body, .section-heading {
-	max-width: 60%;
-	margin-top: 5px;
-	margin-bottom: 50px;
-}
-
-.section-heading {
-	margin-top: 50px;
-	margin-bottom: 10px;
-}
-
-/* Navbar */
 .navbar {
 	border: 0 none;
 }
@@ -57,46 +72,8 @@ a:hover {
 	margin-top: 0px;
 }
 
-/* Thumbnails */
-.thumbnail {
-    border: 0 none;
-    box-shadow: none;
-    text-align: center;
-}
+/********************/
 
-/******* POSTS *******/
-/* Post Title */
-.post-title-body {
-	text-align: center;
-}
-
-.page-header {
-	margin-top: 10px;
-}
-
-/* Post Body */
-.post-body p {
-	margin-bottom: 10px;
-	color: #4C4C4C;
-	font-size: 16px;
-}
-
-.post-body .row {
-	margin-top: 40px;
-}
-
-.post-body ul li, .post-body ol li {
-	color: #4C4C4C;
-}
-
-.post-body h1 {
-	font-size: 18px;
-	margin-top: 30px;
-}
-
-.col-md-6 {
-	margin-top: 40px;
-}
 
 /**** HEADLINES *****/
 .headlines-body {
@@ -107,17 +84,14 @@ a:hover {
 	margin-right: 10px;
 	margin-left: 10px;
 }
+/*********************/
 
-.headlines-body .thumbnail .caption {
-	text-align: left;
+/***** FRIENDS *******/
+.friends-body .row div {
+    margin-bottom: 10px;
 }
 
-/**** PROJECTS ******/
-.projects-body .caption {
-	text-align: left;
-}
-
-/********** Mobile **********/
+/********** Responsiveness **********/
 .show-mobile {
 	display: none !important;
 }
