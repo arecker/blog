@@ -1,5 +1,6 @@
 {
     "Home": {
+
         "Headlines": [
             {
                 "title": "Chemistry",
@@ -23,8 +24,12 @@
 
         "Projects": [
             {
-                
-            }
+                "title": "MJ Art Inspiration",
+                "subtitle": "An Art Blog",
+                "image": "mjart.png",
+                "caption": "A website I made for my beautiful muse, Marissa, to showcase her art.",
+                "link": "http://mjartinspiration.com"
+            },
         }
     }
 }
