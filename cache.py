@@ -130,7 +130,8 @@ class CacheWriter:
 
     def CreatePost(self, post):
         """Creates Post from raw MD"""
-        raw = BeautifulSoup(markdown_path(join(self.config.posts, post)))
+        markdown = markdown_path(join(self.config.posts, post))
+        raw = BeautifulSoup(markdown)
         metas = []
         for thing in raw.p:
             if thing != '\n':
@@ -142,7 +143,7 @@ class CacheWriter:
             image = metas[2]
         except IndexError:
             image = None # no banner image - that's fine
-        body = raw
+        body = markdown.encode('ascii', 'ignore')
         date = post.split('.')[0]
 
         return Post(
@@ -150,7 +151,7 @@ class CacheWriter:
             date = date,
             description = description,
             image = image,
-            body = body.text.encode('ascii', 'ignore')
+            body = body
         )
 
 
