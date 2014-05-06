@@ -1,60 +1,54 @@
-from os.path import join, splitext, abspath
+from os.path import join
+from cache import ConfigurationModel
 from flask import Flask, Response
 app = Flask(__name__)
-
-
-### Global Variables
-filepath, extension = splitext(__file__)
-PAGES = abspath(join(filepath, '..', 'content/pages'))
-POSTS = abspath(join(filepath, '..', 'content/posts'))
-CACHE = abspath(join(filepath, '..', 'cache'))
-STATIC = abspath(join(filepath, '..', 'static'))
+config = ConfigurationModel()
 
 
 ### Controllers
 @app.route("/")
 def GetHome():
-    home_page = open(join(CACHE, 'pages/home.html'), 'r').read()
+    home_page = open(join(config.cache, 'home.html'), 'r').read()
     return home_page
 
 
 @app.route("/archives/")
 def GetArchives():
-    archives_page = open(join(CACHE, 'pages/archives.html'), 'r').read()
+    archives_page = open(join(config.cache, 'archives.html'), 'r').read()
     return archives_page
 
 
 @app.route("/projects/")
 def GetProjects():
-    projects_page = open(join(CACHE, 'pages/projects.html'), 'r').read()
+    projects_page = open(join(config.cache, 'projects.html'), 'r').read()
     return projects_page
 
 
 @app.route("/friends/")
 def GetFriends():
-    friends_page = open(join(CACHE, 'pages/friends.html'), 'r').read()
+    friends_page = open(join(config.cache, 'friends.html'), 'r').read()
     return friends_page
 
 
-@app.route("/sitemap/")
+@app.route("/sitemap.xml")
 def GetSiteMap():
-    xml = open(join(STATIC, 'sitemap.xml'), 'r').read()
+    xml = open(join(config.static, 'sitemap.xml'), 'r').read()
     return Response(xml, mimetype='text/xml')
 
 
 @app.route("/robots.txt")
 def GetRobots():
-    robots = open(join(STATIC, 'robots.txt'), 'r').read()
+    robots = open(join(config.static, 'robots.txt'), 'r').read()
     return Response(robots, mimetype='text')
 
 
 @app.route("/<slug>/")
 def GetPost(slug):
     try:
-        post = open(join(CACHE, 'posts/' + slug + '.html'), 'r').read()
+        post = open(join(config.cache, slug + '.html'), 'r').read()
         return post
     except:
-        missing_page = open(join(CACHE, 'pages/404.html'), 'r').read()
+        missing_page = open(join(config.cache, '404.html'), 'r').read()
         return missing_page
 
 

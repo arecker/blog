@@ -2,6 +2,8 @@ import json
 from os.path import splitext, join, dirname
 from os import listdir
 from slugify import slugify
+from BeautifulSoup import BeautifulSoup
+from markdown2 import markdown_path
 from jinja2 import Environment, FileSystemLoader
 
 
@@ -11,7 +13,8 @@ class ConfigurationModel:
         self.pages = join(dirname(filepath), 'content', 'pages.json')
         self.posts = join(dirname(filepath), 'content', 'posts')
         self.templates = join(dirname(filepath), 'templates')
-        self.page_cache = join(dirname(filepath), 'cache', 'pages')
+        self.cache = join(dirname(filepath), 'cache')
+        self.static = join(dirname(filepath), 'static')
 
 
 class Headline:
@@ -40,10 +43,11 @@ class Friend:
 
 
 class Post:
-    def __init__(self, title, date, body, image=None):
-        self.title = title
-        self.link = slugify(title)
+    def __init__(self, title, date, description, body, image=None):
+        self.title = title.encode('ascii', 'ignore')
+        self.link = slugify(title).encode('ascii', 'ignore')
         self.date = date
+        self.description = description.encode('ascii', 'ignore')
         self.image = image
         self.body = body
 
@@ -113,12 +117,7 @@ class CacheWriter:
         posts = []
         for post in self.Posts:
             posts.append(
-                Post(
-                    title = '',
-                    date = '',
-                    image = '',
-                    body = '',
-                )
+                self.CreatePost(post)
             )
 
         # Write to archives
@@ -126,7 +125,33 @@ class CacheWriter:
 
         # Write out to individual posts
         for post in posts:
-            self.WriteOutToTemplate(template_name='post.html', collection=post, post_name = post.link + '.html')
+            self.WriteOutToTemplate(template_name='post.html', collection=post, post_name = str(post.link) + '.html')
+
+
+    def CreatePost(self, post):
+        """Creates Post from raw MD"""
+        raw = BeautifulSoup(markdown_path(join(self.config.posts, post)))
+        metas = []
+        for thing in raw.p:
+            if thing != '\n':
+                metas.append(thing)
+
+        title = metas[0]
+        description = metas[1]
+        try:
+            image = metas[2]
+        except IndexError:
+            image = None # no banner image - that's fine
+        body = raw
+        date = post.split('.')[0]
+
+        return Post(
+            title = title,
+            date = date,
+            description = description,
+            image = image,
+            body = body.text.encode('ascii', 'ignore')
+        )
 
 
     def WriteOutToTemplate(self, template_name, collection, post_name=None):
@@ -136,7 +161,7 @@ class CacheWriter:
         if post_name is not None:
             template_name = post_name # Writing out to individual post file
 
-        with open(join(self.config.page_cache, template_name), 'wb') as file:
+        with open(join(self.config.cache, template_name), 'wb') as file:
             file.write(template.render(
                 collection = collection
             ))

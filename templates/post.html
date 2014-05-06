@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {% block meta_title %}
-<title>{{ Post.title }} | Blog by Alex Recker</title>
+<title>{{ collection.title }} | Blog by Alex Recker</title>
 {% endblock %}
 
 {% block meta_description %}
-<meta name="description" content="{{ Post.description }}">
+<meta name="description" content="{{ collection.description }}">
 {% endblock %}
 
 {% block meta_og_image %}
-<meta property="og:image" content="http://alexrecker.com/static/img/{{ Post.body.banner }}"/>
+<meta property="og:image" content="http://alexrecker.com/static/img/{{ collection.body.banner }}"/>
 {% endblock %}
 
 {% block meta_canonical %}
-<link rel="canonical" href="http://alexrecker.com/{{ Post.link }}">
+<link rel="canonical" href="http://alexrecker.com/{{ collection.link }}">
 {% endblock %}
 
 {% block body %}
@@ -31,12 +31,12 @@
 	<!-- Post Title -->
 	<div class="container-fluid post-title-body">
 		<div class="page-header">
-			<h2>{{ Post.title }}</h2>
-			<h4>{{ Post.date }}</h4>
+			<h2>{{ collection.title }}</h2>
+			<h4>{{ collection.date }}</h4>
 			<div class="row">
 			<div class="col-md-12">
 				<div class="thumbnail">
-				<img class="img-responsive" src="{{ Post.body.banner}}">
+				<img class="img-responsive" src="{{ collection.image }}">
 			</div>
 			</div>
 		</div>
@@ -45,13 +45,13 @@
 
 	<!-- Post Body -->
 	<div class="container-fluid post-body">
-		{{ Post.body.text }}
+		{{ collection.body }}
 	</div>
 
 	<!-- Post Comments -->
 	<div class="container-fluid comments-body">
         <h3>Comments</h3>
-        <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ Post.link }}/" data-numposts="20" data-colorscheme="light"></div>
+        <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ collection.link }}/" data-numposts="20" data-colorscheme="light"></div>
     </div>
 {% endblock %}
 

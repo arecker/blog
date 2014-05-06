@@ -25,12 +25,12 @@
             </div>
         </div>
 		<div class="row">
-			{% for archive in ArchivesPage.archives %}
+			{% for archive in collection %}
 			<div class="col-md-6">
 				<div class="media">
 		  			<div class="media-body">
 		    			<h3 class="media-heading"><a href="/{{ archive.link }}">{{ archive.title }}</a></h3>
-		    			<p>{{archive.description}}</p>
+		    			<p>{{ archive.description }}</p>
 		    			<p><small>{{ archive.date }}</small></p>
 		  			</div>
 				</div>	
