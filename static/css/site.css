@@ -25,6 +25,13 @@ a {
 	text-decoration: none !important;
 }
 
+/* Removes shadowy stuff from navbar */
+.navbar-inner, .navbar {
+  background-color: white !important; 
+  /*border: 0 !important;*/
+  box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+}
 
 /*** Responsiveness ***/
 @media screen and (max-width: 750px) {
