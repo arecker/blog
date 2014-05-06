@@ -18,10 +18,10 @@
 			{% for headline in collection %}
 		  <div class="col-sm-6 col-md-4">
 		    <div class="thumbnail">
-		      <a href="/{{ headline.link }}"><img src="{{ headline.image }}" ></a>
+		      <a href="{{ headline.link }}"><img src="/static/img/headlines/{{ headline.image }}" ></a>
 		      <div class="caption">
 		        <h3>{{ headline.title }}</h3>
-		        <p>{{ headline.description }}</p>
+		        <p>{{ headline.caption }}</p>
 		      </div>
 		    </div>
 		  </div>

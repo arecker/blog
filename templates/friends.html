@@ -18,15 +18,15 @@
 	<!-- Friends List -->
 	<div class="container-fluid thumbnail-body">
 		<div class="row">
-			{% for friend in FriendsPage.friends %}
+			{% for friend in collection %}
 			<div class="col-md-6">
 				<div class="media">
 					<a class="pull-left" href="{{ friend.link }}">
-						<img class="media-object" src="{{ friend.thumbnail }}"/>
+						<img class="media-object" src="/static/img/friends/{{ friend.image }}"/>
 					</a>
 					<div class="media-body">
 						<h4 class="media-heading">{{ friend.title }}</h4>
-						<p>{{ friend.description }}</p>
+						<p>{{ friend.subtitle }}</p>
 					</div>
 				</div>	
 			</div>

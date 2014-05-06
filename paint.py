@@ -19,19 +19,38 @@ class Headline:
         self.link = link
 
 
+class Project:
+    def __init__(self, title, subtitle, caption, image, link):
+        self.title = title
+        self.subtitle = subtitle
+        self.caption = caption
+        self.image = image
+        self.link = link
+
+
+class Friend:
+    def __init__(self, title, subtitle, image, link):
+        self.title = title
+        self.subtitle = subtitle
+        self.image = image
+        self.link = link
+
+
 class CacheWriter:
     def __init__(self):
         # Get Config Object
         self.config = ConfigurationModel()
 
-        # Read in json for site content
+        # Read in json for page content
         data = json.load(open(self.config.pages))
-        self.Home = data["Home"]
+        self.Headlines = data["Headlines"]
+        self.Projects = data["Projects"]
+        self.Friends = data["Friends"]
 
 
     def WriteHomePage(self):
         headlines = []
-        for headline in self.Home["Headlines"]:
+        for headline in self.Headlines:
             headlines.append(
                 Headline(
                     title = headline["title"],
@@ -40,7 +59,39 @@ class CacheWriter:
                     link = headline["link"]
                 )
             )
+
         self.WriteOutToTemplate(template_name='home.html', collection=headlines)
+
+
+    def WriteProjectsPage(self):
+        projects = []
+        for project in self.Projects:
+            projects.append(
+                Project(
+                    title = project["title"],
+                    subtitle = project["subtitle"],
+                    caption = project["caption"],
+                    image = project["image"],
+                    link = project["link"]
+                )
+            )
+
+        self.WriteOutToTemplate(template_name='projects.html', collection=projects)
+
+
+    def WriteFriendsPage(self):
+        friends = []
+        for friend in self.Friends:
+            friends.append(
+                Friend(
+                    title = friend["title"],
+                    subtitle = friend["subtitle"],
+                    image = friend["image"],
+                    link = friend["link"]
+                )
+            )
+
+        self.WriteOutToTemplate(template_name='friends.html', collection=friends)
 
 
     def WriteOutToTemplate(self, template_name, collection):
@@ -51,8 +102,12 @@ class CacheWriter:
                 collection = collection
             ))
 
+            file.close()
+
 
 if __name__ == '__main__':
     cw = CacheWriter()
     cw.WriteHomePage()
+    cw.WriteProjectsPage()
+    cw.WriteFriendsPage()
 
