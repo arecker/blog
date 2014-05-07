@@ -44,5 +44,18 @@
 {% block footer %}
 	<script type="text/javascript" src="/static/libs/jquery.min.js"></script>
     <script type="text/javascript" src="/static/libs/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/js/filter.js"></script>
+
+    <script type="text/javascript">
+        function filter(element) {
+            var value = $(element).val().toUpperCase();
+
+            $("td").each(function() {
+                if ($(this).children().text().toUpperCase().search(value) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+    </script>
 {% endblock %}

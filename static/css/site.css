@@ -40,6 +40,45 @@ td {
   -webkit-box-shadow: none !important;
 }
 
+/*** MARKDOWN ***/
+/* Images */
+.markdown img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/* Captions */
+figcaption {
+    font-style: italic;
+    font-size: 85%;
+    max-width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* iframes */
+iframe {
+    display: block;
+    margin: 0 auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    max-width: 100%;
+}
+
+/* Headers */
+h1 {
+    margin-top: 40px;
+    font-size: 150%;
+}
+
+/* Paragraph font */
+p { font-size: 13; }
+
 /*** Responsiveness ***/
 @media screen and (max-width: 750px) {
 	.content-container {

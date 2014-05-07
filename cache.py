@@ -140,7 +140,7 @@ class CacheWriter:
         title = metas[0]
         description = metas[1]
         try:
-            image = metas[2]
+            image = metas[2].string.replace('<!--', '')
         except IndexError:
             image = None # no banner image - that's fine
         body = markdown.encode('ascii', 'ignore')

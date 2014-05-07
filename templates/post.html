@@ -30,9 +30,14 @@
 
 	<!-- Post Title -->
 	<div class="media page-header">
-	  <div class="media-body">
+        {% if collection.image %}
+        <a class="pull-left" href="/{{ collection.link }}"><img height="100px" class="media-object" src="/static/img/thumbs/{{ collection.image }}" alt=""/></a>
+	    {% endif %}
+        <div class="media-body">
 	    <h2 class="media-heading">{{ collection.title }}</h2>
-	    <h4>{{ collection.date }}</h4>
+        <small><em>{{ collection.description }}</em></small>
+          <br/>
+	    <small>{{ collection.date }}</small>
 	  </div>
 	</div>
 	
@@ -51,12 +56,15 @@
 {% block footer %}
 <script type="text/javascript" src="/static/libs/jquery.min.js"></script>
 <script type="text/javascript" src="/static/libs/bootstrap.min.js"></script>
-<script type="text/javascript" src="/static/js/analytics.js"></script>
-<script type="text/javascript" src="/static/libs/abigimage.min.js"></script>
 <script>
-	$(document).ready(function()
-	{
-		$('.thumbnail').find('a').abigimage();
-	})
+    $(document).ready(function() {
+        // Every image referenced from a Markdown document
+        $(".markdown img").each(function() {
+            // Let's put a caption if there is one
+            if($(this).attr("alt"))
+                $(this).wrap('<figure class="image"></figure>')
+                    .after('<figcaption>'+$(this).attr("alt")+'</figcaption>');
+            });
+    });
 </script>
 {% endblock %}
