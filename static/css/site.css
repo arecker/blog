@@ -54,7 +54,7 @@ td {
 /* Captions */
 figcaption {
     font-style: italic;
-    font-size: 85%;
+    font-size: 100%;
     max-width: 80%;
     margin: 0 auto;
     margin-bottom: 20px;
@@ -77,7 +77,7 @@ h1 {
 }
 
 /* Paragraph font */
-p { font-size: 13; }
+p { font-size: 14; }
 
 /*** Responsiveness ***/
 @media screen and (max-width: 750px) {
