@@ -77,7 +77,7 @@ h1 {
 }
 
 /* Paragraph font */
-p { font-size: 14pt; }
+p { font-size: 13pt; }
 
 /*** Responsiveness ***/
 @media screen and (max-width: 750px) {
