@@ -47,9 +47,9 @@ class Post:
     def __init__(self, title, date, description, body, image=None):
         self.title = decode(title)
         self.link = decode(slugify(title))
-        self.date = decode(date)
+        self.date = date
         self.description = decode(description)
-        self.image = decode(image)
+        self.image = image
         self.body = decode(body)
 
 
