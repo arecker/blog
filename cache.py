@@ -5,6 +5,7 @@ from slugify import slugify
 from BeautifulSoup import BeautifulSoup
 from markdown2 import markdown_path
 from jinja2 import Environment, FileSystemLoader
+from unidecode import unidecode as decode
 
 
 class ConfigurationModel:
@@ -44,10 +45,10 @@ class Friend:
 
 class Post:
     def __init__(self, title, date, description, body, image=None):
-        self.title = title.encode('ascii', 'ignore')
-        self.link = slugify(title).encode('ascii', 'ignore')
+        self.title = decode(title)
+        self.link = decode(slugify(title))
         self.date = date
-        self.description = description.encode('ascii', 'ignore')
+        self.description = decode(description)
         self.image = image
         self.body = body
 
@@ -143,7 +144,7 @@ class CacheWriter:
             image = metas[2].string.replace('<!--', '')
         except IndexError:
             image = None # no banner image - that's fine
-        body = markdown.encode('ascii', 'ignore')
+        body = decode(markdown)
         date = post.split('.')[0]
 
         return Post(
