@@ -4,33 +4,36 @@
 <title>Friends | Blog by Alex Recker</title>
 {% endblock %}
 
+{% block meta_description %}
+<meta name="description" content="This is my prestigious list of Internet buddies.  Make sure you check them out.">
+{% endblock %}
+
 {% block body %}
 	<!-- Heading -->
-	<div class="container-fluid section-heading">
+	<div class="container-fluid">
 		<div class="media">
 			<div class="media-body">
-				<h4 class="media-heading">My Internet buddies</h4>
-				<p><em>Won't you be my neighbor?</em></p>
+				<h4 class="media-heading">Here are some people I like</h4>
+				<p><em>Like to join my prestigious list of Internet buddies?  Send me an <a href="mailto:alex@reckerfamily.com">email</a></em></p>
 			</div>
 		</div><hr>
 	</div>
 
-	<!-- Friends List -->
-	<div class="container-fluid friends-body">
+	<!-- Projects -->
+	<div class="container-fluid projects-body">
 		<div class="row">
-			{% for friend in collection %}
-			<div class="col-md-6">
-				<div class="media">
-					<a class="pull-left" href="{{ friend.link }}">
-						<img class="media-object" src="/static/img/friends/{{ friend.image }}"/>
-					</a>
-					<div class="media-body">
-						<h4 class="media-heading">{{ friend.title }}</h4>
-						<p>{{ friend.subtitle }}</p>
-					</div>
-				</div>	
-			</div>
-			{% endfor %}
+			{% for project in collection %}
+		  <div class="col-sm-6 col-md-4">
+		    <div class="thumbnail">
+		      <a href="{{ project.link }}"><img src="/static/img/friends/{{ project.image }}" ></a>
+		      <div class="caption">
+		        <h3>{{ project.title }}</h3>
+		        <p><em>{{ project.subtitle }}</em></p>
+		        <p>{{ project.caption }}</p>
+		      </div>
+		    </div>
+		  </div>
+		    {% endfor %}
 		</div>
 	</div>
 {% endblock %}
