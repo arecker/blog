@@ -47,10 +47,10 @@ class Post:
     def __init__(self, title, date, description, body, image=None):
         self.title = decode(title)
         self.link = decode(slugify(title))
-        self.date = date
+        self.date = decode(date)
         self.description = decode(description)
-        self.image = image
-        self.body = body
+        self.image = decode(image)
+        self.body = decode(body)
 
 
 class CacheWriter:
@@ -141,10 +141,10 @@ class CacheWriter:
         title = metas[0]
         description = metas[1]
         try:
-            image = metas[2].string.replace('<!--', '')
+            image = metas[2].string.replace('<!--', '') #TODO: Not sure how this works
         except IndexError:
             image = None # no banner image - that's fine
-        body = decode(markdown)
+        body = markdown
         date = post.split('.')[0]
 
         return Post(
