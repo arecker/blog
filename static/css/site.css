@@ -1,3 +1,6 @@
+/* Font */
+* { font-family: 'Droid Serif', serif !important; }
+
 /* Circular Thumbnail Portrait */
 .circular {
 	width: 80px;
