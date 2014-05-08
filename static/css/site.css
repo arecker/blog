@@ -84,4 +84,13 @@ p { font-size: 12pt; }
 	.content-container {
 		max-width: 100%;
 	}
+
+    /* Archives Table */
+    .table-responsive {
+        border: 0 none;
+    }
+
+    td {
+        padding: 0;
+    }
 }
