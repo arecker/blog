@@ -40,6 +40,11 @@ td {
   -webkit-box-shadow: none !important;
 }
 
+/* Adds a bit of space between filter bar and table */
+.input-group {
+    margin-bottom: 15px;
+}
+
 /*** MARKDOWN ***/
 /* Images */
 .markdown img {
