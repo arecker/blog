@@ -14,7 +14,7 @@ def GetHome():
 
 @app.route("/sitemap.xml")
 def GetSiteMap():
-    xml = open(join(config.static, 'sitemap.xml'), 'r').read()
+    xml = open(join(config.cache, 'sitemap.xml'), 'r').read()
     return Response(xml, mimetype='text/xml')
 
 

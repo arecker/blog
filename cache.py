@@ -10,12 +10,13 @@ from unidecode import unidecode as decode
 
 class ConfigurationModel:
     def __init__(self):
-        filepath = splitext(__file__)[0]
-        self.pages = join(dirname(filepath), 'content', 'pages.json')
-        self.posts = join(dirname(filepath), 'content', 'posts')
-        self.templates = join(dirname(filepath), 'templates')
-        self.cache = join(dirname(filepath), 'cache')
-        self.static = join(dirname(filepath), 'static')
+        self.root = splitext(__file__)[0]
+        self.pages = join(dirname(self.root), 'content', 'pages.json')
+        self.posts = join(dirname(self.root), 'content', 'posts')
+        self.templates = join(dirname(self.root), 'templates')
+        self.cache = join(dirname(self.root), 'cache')
+        self.static = join(dirname(self.root), 'static')
+        self.url = 'alexrecker.com'
 
 
 class Headline:
@@ -53,6 +54,12 @@ class Post:
         self.body = decode(body)
 
 
+class SitemapItem:
+    def __init__(self, loc, changefreq = 'weekly'):
+        self.loc = 'http://' + loc
+        self.changefreq = changefreq
+
+
 class CacheWriter:
     def __init__(self):
         # Get Config Object
@@ -65,7 +72,8 @@ class CacheWriter:
         self.Friends = data["Friends"]
 
         # Read in list of posts
-        self.Posts = reversed(sorted(listdir(self.config.posts)))
+        self.PostFiles = reversed(sorted(listdir(self.config.posts)))
+        self.Posts = []
 
 
     def WriteHomePage(self):
@@ -115,17 +123,17 @@ class CacheWriter:
 
 
     def WritePosts(self):
-        posts = []
-        for post in self.Posts:
-            posts.append(
+        self.Posts = []
+        for post in self.PostFiles:
+            self.Posts.append(
                 self.CreatePost(post)
             )
 
         # Write to archives
-        self.WriteOutToTemplate(template_name='archives.html', collection=posts)
+        self.WriteOutToTemplate(template_name='archives.html', collection=self.Posts)
 
         # Write out to individual posts
-        for post in posts:
+        for post in self.Posts:
             self.WriteOutToTemplate(template_name='post.html', collection=post, post_name = str(post.link) + '.html')
 
 
@@ -156,7 +164,30 @@ class CacheWriter:
         )
 
 
-    def WriteOutToTemplate(self, template_name, collection, post_name=None):
+    def UpdateSitemap(self):
+        collection = []
+
+        # Homepage
+        collection.append(SitemapItem(
+            loc = self.config.url + '/'
+        ))
+
+        # Pages
+        for page in ['archives', 'projects', 'friends']: # TODO: Maybe jsonfiy these
+            collection.append(SitemapItem(
+                loc = self.config.url + '/' + page + '/'
+            ))
+
+        # Posts
+        for post in self.Posts:
+            collection.append(SitemapItem(
+                loc = self.config.url + '/' + post.link + '/'
+            ))
+
+        self.WriteOutToTemplate('sitemap.xml', collection)
+
+
+    def WriteOutToTemplate(self, template_name, collection, post_name=None, type = 'html'):
         ENV = Environment(loader=FileSystemLoader(self.config.templates))
         template = ENV.get_template(template_name)
 
@@ -175,4 +206,5 @@ if __name__ == '__main__':
     cw.WriteProjectsPage()
     cw.WriteFriendsPage()
     cw.WritePosts()
+    cw.UpdateSitemap()
 

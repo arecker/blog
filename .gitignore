@@ -4,3 +4,4 @@
 wsgi.py
 environment
 cache/*.html
+cache/*.xml
