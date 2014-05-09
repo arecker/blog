@@ -17,7 +17,7 @@
         <item>
             <title>{{ post.title }}</title>
             <link>http://alexrecker.com/{{ post.link}}</link>
-            <description>{{ post.description }}</description>
+            <description>{{ post.body }}</description>
             <author>alex@reckerfamily.com (Alex Recker)</author>
             <pubDate>{{ post.pubDate }}</pubDate>
             <guid>http://alexrecker.com/{{ post.link }}/</guid>
