@@ -164,7 +164,7 @@ class CacheWriter:
             date = date,
             description = description,
             image = image,
-            body = body
+            body = body,
         )
 
 
