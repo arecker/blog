@@ -194,6 +194,7 @@ class CacheWriter:
         if post_name is not None:
             template_name = post_name # Writing out to individual post file
 
+        print('+ Caching ' + template_name)
         with open(join(self.config.cache, template_name), 'wb') as file:
             file.write(template.render(
                 collection = collection
