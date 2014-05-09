@@ -56,6 +56,7 @@ class Post:
         self.image = image
         self.body = decode(body)
         self.pubDate = utils.formatdate(time.mktime(datetime.datetime.strptime(date, '%Y-%m-%d').timetuple()))
+        self.rssBody = self.body.replace('<', '&lt;').replace('>', '&gt;')
 
 
 class SitemapItem:
