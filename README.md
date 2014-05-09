@@ -7,6 +7,3 @@ All posts and page content are stored in markdown format in the *content* folder
 
 ***
 
-**TODO:**
-
-* Refactor older posts with new thumbnail CSS
