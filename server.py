@@ -17,6 +17,11 @@ def GetSiteMap():
     xml = open(join(config.cache, 'sitemap.xml'), 'r').read()
     return Response(xml, mimetype='text/xml')
 
+@app.route("/feed/")
+def GetFeed():
+    xml = open(join(config.cache, 'feed.xml'), 'r').read()
+    return Response(xml, mimetype='text/xml')
+
 
 @app.route("/robots.txt")
 def GetRobots():

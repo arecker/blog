@@ -6,6 +6,9 @@ from BeautifulSoup import BeautifulSoup
 from markdown2 import markdown_path
 from jinja2 import Environment, FileSystemLoader
 from unidecode import unidecode as decode
+import datetime
+import time
+from email import utils
 
 
 class ConfigurationModel:
@@ -52,6 +55,7 @@ class Post:
         self.description = decode(description)
         self.image = image
         self.body = decode(body)
+        self.pubDate = utils.formatdate(time.mktime(datetime.datetime.strptime(date, '%Y-%m-%d').timetuple()))
 
 
 class SitemapItem:
@@ -187,7 +191,11 @@ class CacheWriter:
         self.WriteOutToTemplate('sitemap.xml', collection)
 
 
-    def WriteOutToTemplate(self, template_name, collection, post_name=None, type = 'html'):
+    def UpdateFeed(self):
+        self.WriteOutToTemplate('feed.xml', collection = self.Posts)
+
+
+    def WriteOutToTemplate(self, template_name, collection, post_name=None):
         ENV = Environment(loader=FileSystemLoader(self.config.templates))
         template = ENV.get_template(template_name)
 
@@ -208,4 +216,5 @@ if __name__ == '__main__':
     cw.WriteFriendsPage()
     cw.WritePosts()
     cw.UpdateSitemap()
+    cw.UpdateFeed()
 
