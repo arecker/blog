@@ -1,4 +1,5 @@
 import json
+import sys
 from os.path import splitext, join, dirname
 from os import listdir
 from slugify import slugify
@@ -210,12 +211,28 @@ class CacheWriter:
             ))
 
 
-if __name__ == '__main__':
+
+### Commandline Interface
+import click
+@click.command()
+@click.option('--posts', 'depth', flag_value='posts', default=True, help="Updates posts files, archives, sitemap, and RSS feed")
+@click.option('--full', 'depth', flag_value='full', help="Updates everything")
+def HitIt(depth):
+    """
+        This is the master caching script for the blog.  It reads in everything from the content directory,
+        then pipes it through Jinja templates into the caching directory.
+    """
+    print('Updating Posts:')
     cw = CacheWriter()
-    cw.WriteHomePage()
-    cw.WriteProjectsPage()
-    cw.WriteFriendsPage()
     cw.WritePosts()
     cw.UpdateSitemap()
     cw.UpdateFeed()
 
+    if depth == 'full':
+        print('\nUpdating Pages:')
+        cw.WriteHomePage()
+        cw.WriteProjectsPage()
+        cw.WriteFriendsPage()
+
+if __name__ == '__main__':
+    HitIt()
