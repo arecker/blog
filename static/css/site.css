@@ -1,3 +1,6 @@
+/* Font */
+* { font-family: 'Open Sans', sans-serif; }
+
 /* Circular Thumbnail Portrait */
 .circular {
 	width: 80px;
