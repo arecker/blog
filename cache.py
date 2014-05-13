@@ -23,28 +23,12 @@ class ConfigurationModel:
         self.url = 'alexrecker.com'
 
 
-class Headline:
-    def __init__(self, title, image, caption, link):
+class Thumbnail:
+    def __init__(self, title, image, link, subtitle = None, caption = None):
         self.title = title
         self.image = image
-        self.caption = caption
-        self.link = link
-
-
-class Project:
-    def __init__(self, title, subtitle, caption, image, link):
-        self.title = title
         self.subtitle = subtitle
         self.caption = caption
-        self.image = image
-        self.link = link
-
-
-class Friend:
-    def __init__(self, title, subtitle, image, link):
-        self.title = title
-        self.subtitle = subtitle
-        self.image = image
         self.link = link
 
 
@@ -86,7 +70,7 @@ class CacheWriter:
         headlines = []
         for headline in self.Headlines:
             headlines.append(
-                Headline(
+                Thumbnail(
                     title = headline["title"],
                     image = headline["image"],
                     caption = headline["caption"],
@@ -101,7 +85,7 @@ class CacheWriter:
         projects = []
         for project in self.Projects:
             projects.append(
-                Project(
+                Thumbnail(
                     title = project["title"],
                     subtitle = project["subtitle"],
                     caption = project["caption"],
@@ -117,7 +101,7 @@ class CacheWriter:
         friends = []
         for friend in self.Friends:
             friends.append(
-                Friend(
+                Thumbnail(
                     title = friend["title"],
                     subtitle = friend["subtitle"],
                     image = friend["image"],
