@@ -1,3 +1,6 @@
+/* Font */
+* { font-family: 'Open Sans', sans-serif; }
+
 /* Circular Thumbnail Portrait */
 .circular {
 	width: 80px;
@@ -45,6 +48,11 @@ td {
     margin-bottom: 15px;
 }
 
+/* Adds some space between post thumbnail and title */
+.media-object {
+    margin-right: 10px;
+}
+
 /*** MARKDOWN ***/
 /* Images */
 .markdown img {
@@ -81,7 +89,7 @@ h1 {
     font-size: 150%;
 }
 
-/* Paragraph font */
+/* Paragraph font 
 p { font-size: 12pt; }
 
 /*** Responsiveness ***/

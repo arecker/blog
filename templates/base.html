@@ -9,6 +9,7 @@
     {% block meta_og_image %}<meta property="og:image" content="http://alexrecker.com/static/img/portrait.jpg"/>{% endblock %}
     {% block meta_canonical %}<link rel="canonical" href="http://alexrecker.com/">{% endblock %}
     <link rel="stylesheet" href="/static/libs/bootstrap.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,600' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/static/css/site.css" />
 </head>
 
@@ -32,7 +33,7 @@
                 <li><a href="/archives/"><span class="">Archives</span></a></li>
                 <li><a href="/projects/"><span class="">Projects</span></a></li>
                 <li><a href="/friends/"><span class="">Friends</span></a></li>
-                <li><a href="/feed/"><span class="">Subscribe</span></a></li>
+                <li><a href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://www.seocentro.com/cgi-bin/promotion/bookmark-rss/rss.pl?u='+c( 'http://alexrecker.com/feed/' ),'bookmark_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=480px,width=720px,scrollbars=1,resizable=1,alwaysRaised=1');a.setTimeout(function(){ d.focus()},300)})();" title="Social Bookmark"><span class="">Subscribe</span></a></li>
               </ul>
             </div>
           </div>
