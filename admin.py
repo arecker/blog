@@ -13,7 +13,7 @@ from email import utils
 
 
 class ConfigurationModel:
-    def __init__(self):
+    def __init__(self, test = False):
         self.root = splitext(__file__)[0]
         self.pages = join(dirname(self.root), 'content', 'pages.json')
         self.posts = join(dirname(self.root), 'content', 'posts')
@@ -40,7 +40,7 @@ class Post:
         self.description = decode(description)
         self.image = image
         self.body = decode(body)
-        self.pubDate = utils.formatdate(time.mktime(datetime.datetime.strptime(date, '%Y-%m-%d').timetuple()))
+        self.pubDate = utils.formatdate(time.mktime(datetime.datetime.strptime(date, '%Y-%m-%d').timetuple())) # Never touching this again.
         self.rssBody = self.body.replace('<', '&lt;').replace('>', '&gt;')
 
 
@@ -51,15 +51,21 @@ class SitemapItem:
 
 
 class CacheWriter:
-    def __init__(self):
+    def __init__(self, log = True, full = False, test = False):
+        # Save construction signature
+        self.log = log
+        self.full = full
+        self.test = test
+
         # Get Config Object
-        self.config = ConfigurationModel()
+        self.config = ConfigurationModel(test)
 
         # Read in json for page content
-        data = json.load(open(self.config.pages))
-        self.Headlines = data["Headlines"]
-        self.Projects = data["Projects"]
-        self.Friends = data["Friends"]
+        if self.full:
+            data = json.load(open(self.config.pages))
+            self.Headlines = data["Headlines"]
+            self.Projects = data["Projects"]
+            self.Friends = data["Friends"]
 
         # Read in list of posts
         self.PostFiles = reversed(sorted(listdir(self.config.posts)))
@@ -196,27 +202,41 @@ class CacheWriter:
 
 
 
-### Commandline Interface
+### Commandline Interface ###
 import click
-@click.command()
-@click.option('--posts', 'depth', flag_value='posts', default=True, help="Updates posts files, archives, sitemap, and RSS feed")
-@click.option('--full', 'depth', flag_value='full', help="Updates everything")
-def HitIt(depth):
+@click.group()
+def cli():
     """
-        This is the master caching script for the blog.  It reads in everything from the content directory,
-        then pipes it through Jinja templates into the caching directory.
+        This is the administration script for my blog.
+        It handles caching, emails, and testing
     """
-    print('Updating Posts:')
-    cw = CacheWriter()
-    cw.WritePosts()
-    cw.UpdateSitemap()
-    cw.UpdateFeed()
+    pass
 
-    if depth == 'full':
-        print('\nUpdating Pages:')
-        cw.WriteHomePage()
-        cw.WriteProjectsPage()
-        cw.WriteFriendsPage()
+
+@click.command()
+@click.option('--silent', is_flag=True, help="Supress output")
+@click.option('--full', is_flag=True, help="Refresh full site")
+def update(silent, full):
+    """Updates site cache"""
+    writer = CacheWriter(silent, full)
+
+
+@click.command()
+def email():
+    """Sends and manages email subscriptions"""
+    pass
+
+
+@click.command()
+def test():
+    """Runs site unit tests"""
+    pass
+
+
+cli.add_command(update)
+cli.add_command(email)
+cli.add_command(test)
+
 
 if __name__ == '__main__':
-    HitIt()
+    cli()
