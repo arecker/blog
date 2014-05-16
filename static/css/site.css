@@ -1,6 +1,3 @@
-/* Font */
-* { font-family: 'Open Sans', sans-serif; }
-
 /* Circular Thumbnail Portrait */
 .circular {
 	width: 80px;
@@ -89,8 +86,8 @@ h1 {
     font-size: 150%;
 }
 
-/* Paragraph font 
-p { font-size: 12pt; }
+/* Paragraph font */ 
+.markdown p { font-size: 12pt; }
 
 /*** Responsiveness ***/
 @media screen and (max-width: 750px) {
