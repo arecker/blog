@@ -52,16 +52,12 @@ class SitemapItem:
 
 class CacheWriter:
     def __init__(self, log = True, full = False, test = False):
-        # Save construction signature
-        self.log = log
-        self.full = full
-        self.test = test
 
         # Get Config Object
         self.config = ConfigurationModel(test)
 
         # Read in json for page content
-        if self.full:
+        if full:
             data = json.load(open(self.config.pages))
             self.Headlines = data["Headlines"]
             self.Projects = data["Projects"]
@@ -71,8 +67,14 @@ class CacheWriter:
         self.PostFiles = reversed(sorted(listdir(self.config.posts)))
         self.Posts = []
 
+        self.WritePosts(log)
+        if full:
+            self.WriteHomePage(log)
+            self.WriteProjectsPage(log)
+            self.WriteFriendsPage(log)
 
-    def WriteHomePage(self):
+
+    def WriteHomePage(self, log):
         headlines = []
         for headline in self.Headlines:
             headlines.append(
@@ -84,10 +86,10 @@ class CacheWriter:
                 )
             )
 
-        self.WriteOutToTemplate(template_name='home.html', collection=headlines)
+        self.WriteOutToTemplate(template_name='home.html', collection=headlines, log = log)
 
 
-    def WriteProjectsPage(self):
+    def WriteProjectsPage(self, log):
         projects = []
         for project in self.Projects:
             projects.append(
@@ -100,10 +102,10 @@ class CacheWriter:
                 )
             )
 
-        self.WriteOutToTemplate(template_name='projects.html', collection=projects)
+        self.WriteOutToTemplate(template_name='projects.html', collection=projects, log = log)
 
 
-    def WriteFriendsPage(self):
+    def WriteFriendsPage(self, log):
         friends = []
         for friend in self.Friends:
             friends.append(
@@ -115,10 +117,10 @@ class CacheWriter:
                 )
             )
 
-        self.WriteOutToTemplate(template_name='friends.html', collection=friends)
+        self.WriteOutToTemplate(template_name='friends.html', collection=friends, log = log)
 
 
-    def WritePosts(self):
+    def WritePosts(self, log):
         self.Posts = []
         for post in self.PostFiles:
             self.Posts.append(
@@ -126,11 +128,11 @@ class CacheWriter:
             )
 
         # Write to archives
-        self.WriteOutToTemplate(template_name='archives.html', collection=self.Posts)
+        self.WriteOutToTemplate(template_name='archives.html', collection=self.Posts, log = log)
 
         # Write out to individual posts
         for post in self.Posts:
-            self.WriteOutToTemplate(template_name='post.html', collection=post, post_name = str(post.link) + '.html')
+            self.WriteOutToTemplate(template_name='post.html', collection=post, post_name = str(post.link) + '.html', log = log)
 
 
     def CreatePost(self, post):
@@ -160,7 +162,7 @@ class CacheWriter:
         )
 
 
-    def UpdateSitemap(self):
+    def UpdateSitemap(self, log):
         collection = []
 
         # Homepage
@@ -180,21 +182,22 @@ class CacheWriter:
                 loc = self.config.url + '/' + post.link + '/'
             ))
 
-        self.WriteOutToTemplate('sitemap.xml', collection)
+        self.WriteOutToTemplate('sitemap.xml', collection, log = log)
 
 
     def UpdateFeed(self):
         self.WriteOutToTemplate('feed.xml', collection = self.Posts)
 
 
-    def WriteOutToTemplate(self, template_name, collection, post_name=None):
+    def WriteOutToTemplate(self, template_name, collection, log, post_name=None):
         ENV = Environment(loader=FileSystemLoader(self.config.templates))
         template = ENV.get_template(template_name)
 
         if post_name is not None:
             template_name = post_name # Writing out to individual post file
 
-        print('+ Caching ' + template_name)
+        if log:
+            print('+ Caching ' + template_name)
         with open(join(self.config.cache, template_name), 'wb') as file:
             file.write(template.render(
                 collection = collection
@@ -218,7 +221,10 @@ def cli():
 @click.option('--full', is_flag=True, help="Refresh full site")
 def update(silent, full):
     """Updates site cache"""
-    writer = CacheWriter(silent, full)
+    log = True
+    if silent:
+        log = False
+    writer = CacheWriter(log, full)
 
 
 @click.command()
