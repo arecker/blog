@@ -1,5 +1,5 @@
 from os.path import join
-from cache import ConfigurationModel
+from admin  import ConfigurationModel
 from flask import Flask, Response
 app = Flask(__name__)
 config = ConfigurationModel()
