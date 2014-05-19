@@ -26,6 +26,7 @@ class TestCacheWriter(unittest.TestCase):
     def test_cw_init(self):
         post_files = list(reversed(sorted(listdir(self.config.posts))))
         self.assertEqual(self.cw.PostFiles, post_files)
+        self.cw.Write()
 
 
 def run():

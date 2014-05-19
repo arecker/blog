@@ -27,7 +27,7 @@
 
 		<table class="table-responsive">
 			<tr>
-				{% for post_row in collection | batch(2) %}
+				{% for post_row in data | batch(2) %}
 				{% for post in post_row %}
 				<td>
 					<h3><a href="/{{ post.link }}">{{ post.title }}</a></h3>

@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {% block meta_title %}
-<title>{{ collection.title }} | Blog by Alex Recker</title>
+<title>{{ data.title }} | Blog by Alex Recker</title>
 {% endblock %}
 
 {% block meta_description %}
-<meta name="description" content="{{ collection.description }}">
+<meta name="description" content="{{ data.description }}">
 {% endblock %}
 
 {% block meta_og_image %}
-<meta property="og:image" content="http://alexrecker.com/static/img/{{ collection.body.banner }}"/>
+<meta property="og:image" content="http://alexrecker.com/static/img/{{ data.image }}"/>
 {% endblock %}
 
 {% block meta_canonical %}
-<link rel="canonical" href="http://alexrecker.com/{{ collection.link }}/">
+<link rel="canonical" href="http://alexrecker.com/{{ data.link }}/">
 {% endblock %}
 
 {% block body %}
@@ -30,24 +30,24 @@
 
 	<!-- Post Title -->
 	<div class="media page-header">
-        {% if collection.image %}
-        <a class="pull-left" href="/{{ collection.link }}"><img height="100px" class="media-object" src="/static/img/thumbs/{{ collection.image }}" alt=""/></a>
+        {% if data.image %}
+        <a class="pull-left" href="/{{ data.link }}"><img height="100px" class="media-object" src="/static/img/thumbs/{{ data.image }}" alt=""/></a>
 	    {% endif %}
         <div class="media-body">
-	    <h2 class="media-heading">{{ collection.title }}</h2>
-        <p>{{ collection.description }}</p>
+	    <h2 class="media-heading">{{ data.title }}</h2>
+        <p>{{ data.description }}</p>
 	  </div>
 	</div>
 	
 	<!-- Post Body -->
 	<div class="container-fluid markdown">
-		{{ collection.body }}
+		{{ data.body }}
 	</div>
 
 	<!-- Post Comments -->
 	<div class="container-fluid">
         <h3>Comments</h3>
-        <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ collection.link }}/" data-numposts="20" data-colorscheme="light"></div>
+        <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ data.link }}/" data-numposts="20" data-colorscheme="light"></div>
     </div>
 {% endblock %}
 
