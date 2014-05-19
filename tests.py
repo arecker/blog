@@ -30,6 +30,10 @@ class TestCacheWriter(unittest.TestCase):
 
 
 def run():
+    """
+    This method kind of sucks, but it's because of a bug in CLICK.
+    unittest.main() breaks the command argument for some reason
+    """
     test_classes_to_run = [TestPosts, TestCacheWriter]
 
     loader = unittest.TestLoader()
@@ -43,3 +47,7 @@ def run():
 
     runner = unittest.TextTestRunner()
     results = runner.run(big_suite)
+
+
+if __name__ == '__main__':
+    unittest.main()
