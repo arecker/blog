@@ -11,7 +11,7 @@ The site is managed by ```admin.py```, which takes four arguments:
 * ```update```: Updates the site cache
 * ```email```: Manages and triggers email subscription engine
 * ```test```: Runs unit tests
-* ```server```: Runs web server
+* ```server```: Runs the web server
 
 ***
 
