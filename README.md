@@ -1,6 +1,8 @@
 Blog
 ====
 
+![](https://travis-ci.org/arecker/Blog.svg?branch=master)
+
 This is my blog.
 
 It's the actual blog, posts and all, so it would really be of no use to you to clone this repo.
