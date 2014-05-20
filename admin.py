@@ -35,12 +35,12 @@ class Post:
             if thing != '\n':
                 metas.append(thing)
 
-        self.title = metas[0]
+        self.title =metas[0].replace('<!--', '')
         self.link = slugify(self.title)
         self.description = unidecode(metas[1])
         self.date = basename(file).split('.')[0]
         try:
-            self.image = metas[2]
+            self.image = metas[2].replace('<!--', '')
         except IndexError:
             self.image = None
         self.body = unidecode(html)
