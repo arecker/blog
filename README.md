@@ -3,7 +3,14 @@ Blog
 
 This is my blog.
 
-All posts and page content are stored in markdown format in the *content* folder.  When I want to update the site, I trigger the ```refresh.py``` script that stashes all of the site content in HTML.  That's about it.
+It's the actual blog, posts and all, so it would really be of no use to you to clone this repo.
+However, if you'd like to mimic the design, you are free to.
+
+The site is managed by ```admin.py```, which takes three arguments:
+
+* ```update [ --silent: supresses output ]```: Updates the site cache
+* ```email```: Manages and triggers email subscription engine
+* ```test```: Runs unit tests
 
 ***
 
