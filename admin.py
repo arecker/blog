@@ -1,4 +1,4 @@
-#region IMPORTS
+#region Imports
 from markdown2 import markdown_path
 from BeautifulSoup import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader
@@ -12,20 +12,61 @@ from email import utils
 import json
 import click
 import tests
+from flask import Flask, Response
 #endregion
 
-#region UPDATE
+#region Config Model
 class ConfigurationModel:
-    def __init__(self):
+    def __init__(self, test = False):
         self.root = splitext(__file__)[0]
         self.pages = join(dirname(self.root), 'content', 'pages.json')
         self.posts = join(dirname(self.root), 'content', 'posts')
         self.templates = join(dirname(self.root), 'templates')
-        self.cache = join(dirname(self.root), 'cache')
+        if test:
+            self.cache = join(dirname(self.root), 'test_cache')
+        else:
+            self.cache = join(dirname(self.root), 'cache')
         self.static = join(dirname(self.root), 'static')
         self.env = Environment(loader=FileSystemLoader(join(dirname(self.root), 'templates')))
+#endregion
+
+#region Server
+app = Flask(__name__)
+appconfig = ConfigurationModel()
+@app.route("/")
+def GetHome():
+    home_page = open(join(appconfig.cache, 'home.html'), 'r').read()
+    return home_page
 
 
+@app.route("/sitemap.xml")
+def GetSiteMap():
+    xml = open(join(appconfig.cache, 'sitemap.xml'), 'r').read()
+    return Response(xml, mimetype='text/xml')
+
+@app.route("/feed/")
+def GetFeed():
+    xml = open(join(appconfig.cache, 'feed.xml'), 'r').read()
+    return Response(xml, mimetype='text/xml')
+
+
+@app.route("/robots.txt")
+def GetRobots():
+    robots = open(join(appconfig.static, 'robots.txt'), 'r').read()
+    return Response(robots, mimetype='text')
+
+
+@app.route("/<slug>/")
+def GetPost(slug):
+    try:
+        post = open(join(appconfig.cache, slug + '.html'), 'r').read()
+        return post
+    except:
+        missing_page = open(join(appconfig.cache, '404.html'), 'r').read()
+        return missing_page
+#endregion
+
+#region Update
 class Post:
     def __init__(self, file):
         html = markdown_path(file)
@@ -197,13 +238,24 @@ def cli():
 
 
 @cli.command()
-@click.option('--silent', is_flag=True, help="Supress output")
+@click.option('--silent', is_flag=True, help="supress output")
 def update(silent):
     """
     Refreshes the content cache
     """
     cw = CacheWriter()
     cw.Write(silent)
+
+
+@cli.command()
+@click.option('--debug', is_flag=True, help="local debugging web server")
+def server(debug):
+    """
+    Runs web server
+    """
+    if debug:
+        app.debug = True
+    app.run()
 
 
 @cli.command()
