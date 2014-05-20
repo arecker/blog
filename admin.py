@@ -201,7 +201,7 @@ class CacheWriter:
     def Output(self, template, data):
         j_template = self.config.env.get_template(template)
         if template == 'post.html':
-            template = data.link
+            template = data.link + '.html'
         with open(join(self.config.cache, template), 'wb') as file:
             file.write(j_template.render(data = data))
             self.log.status("    + " + template)

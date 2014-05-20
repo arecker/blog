@@ -43,6 +43,18 @@ class TestCacheWriter(unittest.TestCase):
         self.assertEqual(actual, count)
 
 
+    def test_cache_file_names(self):
+        list = []
+        for post in self.cw.Posts:
+            list.append(post.link + '.html')
+        for page in ["archives.html", "friends.html", "projects.html", "home.html"]:
+            list.append(page)
+        for page in ["feed.xml", "sitemap.xml"]:
+            list.append(page)
+        list = sorted(list)
+        self.assertEqual(sorted(listdir(self.config.cache)), list)
+
+
     def tearDown(self):
         rmtree(self.config.cache)
 
@@ -83,12 +95,43 @@ class TestXML(unittest.TestCase):
     def tearDown(self):
         rmtree(self.config.cache)
 
+
+class TestURLRoutes(unittest.TestCase):
+    def setUp(self):
+        self.cw = CacheWriter()
+        self.cw.Write(silent = True)
+        from admin import app as Application
+        self.tester = Application.test_client()
+
+
+    def test_pages_route(self):
+        response = self.tester.get('/')
+        self.assertTrue("<title>Blog by Alex Recker</title>" in response.data)
+        response = self.tester.get('/feed/')
+        self.assertTrue('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' in response.data)
+        response = self.tester.get('/sitemap.xml')
+        self.assertTrue('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' in response.data)
+        response = self.tester.get('/friends/')
+        self.assertTrue('<title>Friends | Blog by Alex Recker</title>' in response.data)
+        response = self.tester.get('/projects/')
+        self.assertTrue('<title>Projects | Blog by Alex Recker</title>' in response.data)
+        response = self.tester.get('/archives/')
+        self.assertTrue('<title>Archives | Blog by Alex Recker</title>' in response.data)
+
+
+    def test_posts_route(self):
+        for post in self.cw.Posts:
+            response = self.tester.get('/' + post.link + '/')
+            self.assertTrue('<title>' + post.title + ' | Blog by Alex Recker</title>' in response.data)
+            self.assertTrue('<meta name="description" content="' + post.description + '">')
+
+
 def run():
     """
     This method kind of sucks, but it's because of a bug in CLICK.
     unittest.main() breaks the command argument for some reason
     """
-    test_classes_to_run = [TestPosts, TestCacheWriter,TestXML]
+    test_classes_to_run = [TestPosts, TestCacheWriter,TestXML, TestURLRoutes]
 
     loader = unittest.TestLoader()
 
