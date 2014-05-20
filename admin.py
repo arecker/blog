@@ -166,72 +166,45 @@ class CacheWriter:
 
 
     def Write(self, silent):
-        log = Logger(silent)
+        self.log = Logger(silent)
 
         # Individual Posts
-        log.status("Caching Posts")
-        template = self.config.env.get_template('post.html')
+        self.log.status("Caching Posts")
         for post in self.Posts:
-            with open(join(self.config.cache, post.link + '.html'), 'wb') as file:
-                file.write(template.render(
-                    data = post
-                ))
-            log.status("    + " + post.link + '.html')
+            self.Output("post.html", post)
 
         # Archives
-        log.status("Caching Archives")
-        template = self.config.env.get_template('archives.html')
-        with open(join(self.config.cache, 'archives.html'), 'wb') as file:
-            file.write(template.render(
-                data = self.Posts
-            ))
-        log.status("    + archives.html")
+        self.log.status("Caching Archives")
+        self.Output("archives.html", self.Posts)
 
         # RSS
-        log.status("Caching RSS")
-        template = self.config.env.get_template('feed.xml')
-        with open(join(self.config.cache, 'feed.xml'), 'wb') as file:
-            file.write(template.render(
-                data = self.Posts
-            ))
-        log.status("    + feed.xml")
+        self.log.status("Caching RSS")
+        self.Output("feed.xml", self.Posts)
 
         # Home
-        log.status("Caching Home")
-        template = self.config.env.get_template('home.html')
-        with open(join(self.config.cache, 'home.html'), 'wb') as file:
-            file.write(template.render(
-                data = self.Headlines
-            ))
-        log.status("    + home.html")
+        self.log.status("Caching Home")
+        self.Output("home.html", self.Headlines)
 
         # Projects
-        log.status("Caching Project")
-        template = self.config.env.get_template('projects.html')
-        with open(join(self.config.cache, 'projects.html'), 'wb') as file:
-            file.write(template.render(
-                data = self.Projects
-            ))
-        log.status("    + projects.html")
-
+        self.log.status("Caching Project")
+        self.Output("projects.html", self.Projects)
 
         # Friends
-        log.status("Caching Friends")
-        template = self.config.env.get_template('friends.html')
-        with open(join(self.config.cache, 'friends.html'), 'wb') as file:
-            file.write(template.render(
-                data = self.Friends
-            ))
-        log.status("    + friends.html")
+        self.log.status("Caching Friends")
+        self.Output("friends.html", self.Friends)
 
         # Sitemap
-        log.status("Caching Sitemap")
-        template = self.config.env.get_template('sitemap.xml')
-        with open(join(self.config.cache, 'sitemap.xml'), 'wb') as file:
-            file.write(template.render(
-                data = self.Sites
-            ))
-        log.status("    + sitemap.xml")
+        self.log.status("Caching Sitemap")
+        self.Output("sitemap.xml", self.Sites)
+
+
+    def Output(self, template, data):
+        j_template = self.config.env.get_template(template)
+        if template == 'post.html':
+            template = data.link
+        with open(join(self.config.cache, template), 'wb') as file:
+            file.write(j_template.render(data = data))
+            self.log.status("    + " + template)
 #endregion
 
 #region CLI

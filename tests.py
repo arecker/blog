@@ -79,6 +79,10 @@ class TestXML(unittest.TestCase):
 
         self.assertTrue(success)
 
+
+    def tearDown(self):
+        rmtree(self.config.cache)
+
 def run():
     """
     This method kind of sucks, but it's because of a bug in CLICK.
