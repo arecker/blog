@@ -1,5 +1,5 @@
 import unittest
-from models import ConfigurationModel, Post, CacheWriter
+from admin import ConfigurationModel, Post, CacheWriter
 from os import listdir
 from os.path import join
 
