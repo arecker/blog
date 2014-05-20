@@ -1,7 +1,9 @@
 import unittest
-from admin import ConfigurationModel, Post, CacheWriter
+from admin import *
 from os import listdir
 from os.path import join
+from shutil import rmtree
+from xml.etree import ElementTree
 
 
 class TestPosts(unittest.TestCase):
@@ -20,21 +22,68 @@ class TestPosts(unittest.TestCase):
 
 class TestCacheWriter(unittest.TestCase):
     def setUp(self):
-        self.cw = CacheWriter()
-        self.config = ConfigurationModel()
+        self.cw = CacheWriter(test = True)
+        self.config = ConfigurationModel(test = True)
+        self.cw.Write(silent = True)
+
 
     def test_cw_init(self):
         post_files = list(reversed(sorted(listdir(self.config.posts))))
         self.assertEqual(self.cw.PostFiles, post_files)
-        self.cw.Write()
 
+
+    def test_cache_count(self):
+        count = 0
+        for post in self.cw.Posts:
+            count = count + 1
+        for page in ["sitemap.xml", "feed.xml", "home.html", "friends.html", "projects.html", "archives.html"]:
+            count = count + 1
+        actual = len(listdir(self.config.cache))
+        self.assertEqual(actual, count)
+
+
+    def tearDown(self):
+        rmtree(self.config.cache)
+
+
+class TestXML(unittest.TestCase):
+    def setUp(self):
+        self.cw = CacheWriter(test = True)
+        self.config = ConfigurationModel(test = True)
+        self.cw.Write(silent = True)
+
+
+    def test_validate_rss_feed(self):
+        with open(join(self.config.cache, 'feed.xml'), 'r') as file:
+            rss_feed = file.read()
+
+        try:
+            feed = ElementTree.fromstring(rss_feed)
+            success = True
+        except:
+            success = False
+
+        self.assertTrue(success)
+
+
+    def test_validate_sitemap(self):
+        with open(join(self.config.cache, 'sitemap.xml'), 'r') as file:
+            sitemap = file.read()
+
+        try:
+            feed = ElementTree.fromstring(sitemap)
+            success = True
+        except:
+            success = False
+
+        self.assertTrue(success)
 
 def run():
     """
     This method kind of sucks, but it's because of a bug in CLICK.
     unittest.main() breaks the command argument for some reason
     """
-    test_classes_to_run = [TestPosts, TestCacheWriter]
+    test_classes_to_run = [TestPosts, TestCacheWriter,TestXML]
 
     loader = unittest.TestLoader()
 

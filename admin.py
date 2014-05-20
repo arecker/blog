@@ -2,8 +2,8 @@
 from markdown2 import markdown_path
 from BeautifulSoup import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader
-from os import listdir
-from os.path import splitext, join, dirname
+from os import listdir, makedirs
+from os.path import splitext, join, dirname, exists
 from ntpath import basename
 from slugify import slugify
 from unidecode import unidecode
@@ -23,9 +23,15 @@ class ConfigurationModel:
         self.posts = join(dirname(self.root), 'content', 'posts')
         self.templates = join(dirname(self.root), 'templates')
         if test:
-            self.cache = join(dirname(self.root), 'test_cache')
+            test_dir = join(dirname(self.root), 'test_cache')
+            if not exists(test_dir):
+                makedirs(test_dir)
+            self.cache = test_dir
         else:
-            self.cache = join(dirname(self.root), 'cache')
+            cache_dir = join(dirname(self.root), 'cache')
+            if not exists(cache_dir):
+                makedirs(cache_dir)
+            self.cache = cache_dir
         self.static = join(dirname(self.root), 'static')
         self.env = Environment(loader=FileSystemLoader(join(dirname(self.root), 'templates')))
 #endregion
@@ -109,8 +115,8 @@ class Logger:
 
 
 class CacheWriter:
-    def __init__(self):
-        self.config = ConfigurationModel()
+    def __init__(self, test = False):
+        self.config = ConfigurationModel(test)
 
         # Read in json for page content
         data = json.load(open(self.config.pages))

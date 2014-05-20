@@ -5,3 +5,4 @@ wsgi.py
 environment
 cache/*.html
 cache/*.xml
+test_cache
