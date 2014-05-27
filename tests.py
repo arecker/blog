@@ -6,19 +6,19 @@ from shutil import rmtree
 from xml.etree import ElementTree
 
 
-#class TestPosts(unittest.TestCase):
-#    def setUp(self):
-#        self.config = ConfigurationModel()
-#        self.test_post = Post(join(self.config.posts, '2014-04-03.md'))
+class TestPosts(unittest.TestCase):
+    def setUp(self):
+        self.config = ConfigurationModel()
+        self.test_post = Post(join(self.config.posts, '2014-04-03.md'))
 
 
-#    def test_parse_post_file(self):
-#        self.assertEqual(self.test_post.title, 'Welcome Home')
-#        self.assertEqual(self.test_post.date, '2014-04-03')
-#        self.assertEqual(self.test_post.description, 'Wordpress has served me well, but my soul longs for the wilderness.  Retreat with me into the backwoods of the Internet.')
-#        self.assertEqual(self.test_post.image, None)
-#        #self.assertEqual(self.test_post.pubDate, 'Thu, 03 Apr 2014 05:00:00 -0000')
-#        self.assertTrue('Thu, 03 Apr 2014' in self.test_post.pubDate)
+    def test_parse_post_file(self):
+        self.assertEqual(self.test_post.title, 'Welcome Home')
+        self.assertEqual(self.test_post.date, '2014-04-03')
+        self.assertEqual(self.test_post.description, 'Wordpress has served me well, but my soul longs for the wilderness.  Retreat with me into the backwoods of the Internet.')
+        self.assertEqual(self.test_post.image, None)
+        self.assertEqual(self.test_post.pubDate, 'Thu, 03 Apr 2014 05:00:00 -0000')
+        self.assertTrue('Thu, 03 Apr 2014' in self.test_post.pubDate)
 
 
 class TestCacheWriter(unittest.TestCase):
