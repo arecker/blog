@@ -40,30 +40,30 @@ class ConfigurationModel:
 app = Flask(__name__)
 appconfig = ConfigurationModel()
 @app.route("/")
-def GetHome():
+def get_home():
     home_page = open(join(appconfig.cache, 'home.html'), 'r').read()
     return home_page
 
 
 @app.route("/sitemap.xml")
-def GetSiteMap():
+def get_site_map():
     xml = open(join(appconfig.cache, 'sitemap.xml'), 'r').read()
     return Response(xml, mimetype='text/xml')
 
 @app.route("/feed/")
-def GetFeed():
+def get_feed():
     xml = open(join(appconfig.cache, 'feed.xml'), 'r').read()
     return Response(xml, mimetype='text/xml')
 
 
 @app.route("/robots.txt")
-def GetRobots():
+def get_robotss():
     robots = open(join(appconfig.static, 'robots.txt'), 'r').read()
     return Response(robots, mimetype='text')
 
 
 @app.route("/<slug>/")
-def GetPost(slug):
+def get_post(slug):
     try:
         post = open(join(appconfig.cache, slug + '.html'), 'r').read()
         return post
@@ -165,40 +165,40 @@ class CacheWriter:
             self.Sites.append(page)
 
 
-    def Write(self, silent):
+    def write(self, silent):
         self.log = Logger(silent)
 
         # Individual Posts
         self.log.status("Caching Posts")
         for post in self.Posts:
-            self.Output("post.html", post)
+            self.output("post.html", post)
 
         # Archives
         self.log.status("Caching Archives")
-        self.Output("archives.html", self.Posts)
+        self.output("archives.html", self.Posts)
 
         # RSS
         self.log.status("Caching RSS")
-        self.Output("feed.xml", self.Posts)
+        self.output("feed.xml", self.Posts)
 
         # Home
         self.log.status("Caching Home")
-        self.Output("home.html", self.Headlines)
+        self.output("home.html", self.Headlines)
 
         # Projects
         self.log.status("Caching Project")
-        self.Output("projects.html", self.Projects)
+        self.output("projects.html", self.Projects)
 
         # Friends
         self.log.status("Caching Friends")
-        self.Output("friends.html", self.Friends)
+        self.output("friends.html", self.Friends)
 
         # Sitemap
         self.log.status("Caching Sitemap")
-        self.Output("sitemap.xml", self.Sites)
+        self.output("sitemap.xml", self.Sites)
 
 
-    def Output(self, template, data):
+    def output(self, template, data):
         j_template = self.config.env.get_template(template)
         if template == 'post.html':
             template = data.link + '.html'
@@ -223,7 +223,7 @@ def update(silent):
     Refreshes the content cache
     """
     cw = CacheWriter()
-    cw.Write(silent)
+    cw.write(silent)
 
 
 @cli.command()

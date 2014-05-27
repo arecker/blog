@@ -25,7 +25,7 @@ class TestCacheWriter(unittest.TestCase):
     def setUp(self):
         self.cw = CacheWriter(test = True)
         self.config = ConfigurationModel(test = True)
-        self.cw.Write(silent = True)
+        self.cw.write(silent = True)
 
 
     def test_cw_init(self):
@@ -63,7 +63,7 @@ class TestXML(unittest.TestCase):
     def setUp(self):
         self.cw = CacheWriter(test = True)
         self.config = ConfigurationModel(test = True)
-        self.cw.Write(silent = True)
+        self.cw.write(silent = True)
 
 
     def test_validate_rss_feed(self):
@@ -99,7 +99,7 @@ class TestXML(unittest.TestCase):
 class TestURLRoutes(unittest.TestCase):
     def setUp(self):
         self.cw = CacheWriter()
-        self.cw.Write(silent = True)
+        self.cw.write(silent = True)
         from admin import app as Application
         self.tester = Application.test_client()
 
