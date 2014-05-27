@@ -220,7 +220,7 @@ def cli():
 @click.option('--silent', is_flag=True, help="supress output")
 def update(silent):
     """
-    Refreshes the content cache
+    refresh the content cache
     """
     cw = CacheWriter()
     cw.write(silent)
@@ -230,7 +230,7 @@ def update(silent):
 @click.option('--debug', is_flag=True, help="local debugging web server")
 def server(debug):
     """
-    Runs web server
+    run the web server
     """
     if debug:
         app.debug = True
@@ -240,7 +240,7 @@ def server(debug):
 @cli.command()
 def test():
     """
-    Runs unit tests
+    run unit tests
     """
     tests.run()
 
@@ -248,7 +248,7 @@ def test():
 @cli.command()
 def email():
     """
-    Manages the email subscription engine
+    manages the email subscription engine
     """
     pass
 
