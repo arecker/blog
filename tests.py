@@ -37,7 +37,7 @@ class TestCacheWriter(unittest.TestCase):
         count = 0
         for post in self.cw.Posts:
             count = count + 1
-        for page in ["sitemap.xml", "feed.xml", "home.html", "friends.html", "projects.html", "archives.html"]:
+        for page in ["404.html", "sitemap.xml", "feed.xml", "home.html", "friends.html", "projects.html", "archives.html"]:
             count = count + 1
         actual = len(listdir(self.config.cache))
         self.assertEqual(actual, count)
@@ -49,7 +49,7 @@ class TestCacheWriter(unittest.TestCase):
             list.append(post.link + '.html')
         for page in ["archives.html", "friends.html", "projects.html", "home.html"]:
             list.append(page)
-        for page in ["feed.xml", "sitemap.xml"]:
+        for page in ["feed.xml", "sitemap.xml", "404.html"]:
             list.append(page)
         list = sorted(list)
         self.assertEqual(sorted(listdir(self.config.cache)), list)
@@ -117,6 +117,8 @@ class TestURLRoutes(unittest.TestCase):
         self.assertTrue('<title>Projects | Blog by Alex Recker</title>' in response.data)
         response = self.tester.get('/archives/')
         self.assertTrue('<title>Archives | Blog by Alex Recker</title>' in response.data)
+        response = self.tester.get('/definitely-not-a-page/')
+        self.assertTrue('<title>Page Not Found | Blog by Alex Recker</title>' in response.data)
 
 
     def test_posts_route(self):

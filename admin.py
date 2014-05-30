@@ -197,6 +197,10 @@ class CacheWriter:
         self.log.status("Caching Sitemap")
         self.output("sitemap.xml", self.Sites)
 
+        # 404
+        self.log.status("Caching 404")
+        self.output("404.html", None)
+
 
     def output(self, template, data):
         j_template = self.config.env.get_template(template)
