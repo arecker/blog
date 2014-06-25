@@ -1,5 +1,5 @@
 import unittest
-from admin import *
+from blog import *
 from os import listdir
 from os.path import join
 from shutil import rmtree
@@ -100,7 +100,7 @@ class TestURLRoutes(unittest.TestCase):
     def setUp(self):
         self.cw = CacheWriter()
         self.cw.write(silent = True)
-        from admin import app as Application
+        from blog import app as Application
         self.tester = Application.test_client()
 
 
