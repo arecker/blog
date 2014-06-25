@@ -179,6 +179,12 @@ class CacheWriter:
             "data": None
         })
 
+        # Robots
+        cache_package.append({
+            "template": "robots.txt",
+            "data": None
+        })
+
         # Sitemap
         cache_package.append({
             "template": "sitemap.xml",

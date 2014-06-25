@@ -37,7 +37,7 @@ class TestCacheWriter(unittest.TestCase):
         count = 0
         for post in self.cw.Posts:
             count = count + 1
-        for page in ["404.html", "sitemap.xml", "feed.xml", "home.html"]:
+        for page in ["404.html", "sitemap.xml", "feed.xml", "home.html", "robots.txt"]:
             count = count + 1
         actual = len(listdir(self.config.cache))
         self.assertEqual(actual, count)
@@ -48,7 +48,7 @@ class TestCacheWriter(unittest.TestCase):
         for post in self.cw.Posts:
             list.append(post.link + '.html')
         list.append('home.html')
-        for page in ["feed.xml", "sitemap.xml", "404.html"]:
+        for page in ["feed.xml", "sitemap.xml", "404.html", "robots.txt"]:
             list.append(page)
         list = sorted(list)
         self.assertEqual(sorted(listdir(self.config.cache)), list)
