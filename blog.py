@@ -47,12 +47,15 @@ def get_home():
 
 @app.route("/<slug>/")
 def get_post(slug):
+    if slug == 'robots.txt':
+        with open(join(appconfig.cache, 'robots.txt'), 'r') as file:
+            return file.read()
     try: # Return html page
         with open(join(appconfig.cache, slug + '.html'), 'r') as file:
             return file.read()
     except IOError:
         try: # Return xml page
-            with open(join(appconfig.cache, slug + '.xml'), 'read') as file:
+            with open(join(appconfig.cache, slug + '.xml'), 'r') as file:
                 return Response(file.read(), mimetype='text/xml')
         except IOError: # Return txt page
             try:
