@@ -168,38 +168,60 @@ class CacheWriter:
     def write(self, silent):
         self.log = Logger(silent)
 
+        pages = []
+
         # Individual Posts
-        self.log.status("Caching Posts")
         for post in self.Posts:
-            self.output("post.html", post)
+            pages.append({
+                "template": "post.html",
+                "data": post
+            })
 
         # Archives
-        self.log.status("Caching Archives")
-        self.output("archives.html", self.Posts)
+        pages.append({
+            "template": "archives.html",
+            "data": self.Posts
+        })
 
         # RSS
-        self.log.status("Caching RSS")
-        self.output("feed.xml", self.Posts)
+        pages.append({
+            "template": "feed.xml",
+            "data": self.Posts
+        })
 
         # Home
-        self.log.status("Caching Home")
-        self.output("home.html", self.Headlines)
+        pages.append({
+            "template": "home.html",
+            "data": self.Headlines
+        })
 
         # Projects
-        self.log.status("Caching Project")
-        self.output("projects.html", self.Projects)
+        pages.append({
+            "template": "projects.html",
+            "data": self.Projects
+        })
 
         # Friends
-        self.log.status("Caching Friends")
-        self.output("friends.html", self.Friends)
+        pages.append({
+            "template": "friends.html",
+            "data": self.Friends
+        })
 
         # Sitemap
-        self.log.status("Caching Sitemap")
-        self.output("sitemap.xml", self.Sites)
+        pages.append({
+            "template": "sitemap.xml",
+            "data": self.Sites
+        })
 
         # 404
-        self.log.status("Caching 404")
-        self.output("404.html", None)
+        pages.append({
+            "template": "404.html",
+            "data": None
+        })
+
+        with click.progressbar(pages, label="Caching pages") as bar:
+            for item in bar:
+                self.output(item["template"], item["data"])
 
 
     def output(self, template, data):
@@ -208,7 +230,6 @@ class CacheWriter:
             template = data.link + '.html'
         with open(join(self.config.cache, template), 'wb') as file:
             file.write(j_template.render(data = data))
-            self.log.status("    + " + template)
 #endregion
 
 #region CLI
