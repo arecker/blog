@@ -147,62 +147,46 @@ class CacheWriter:
 
 
     def write(self, silent):
-        pages = []
+        cache_package = []
 
         # Individual Posts
         for post in self.Posts:
-            pages.append({
+            cache_package.append({
                 "template": "post.html",
                 "data": post
             })
 
-        # Archives
-        pages.append({
-            "template": "archives.html",
-            "data": self.Posts
+        # Homepage
+        home_data = {
+            "latest": self.Posts[0],
+            "posts": self.Posts,
+            "friends": self.Friends,
+            "projects": self.Projects
+        }
+        cache_package.append({
+            "template": "home.html",
+            "data": home_data
         })
 
         # RSS
-        pages.append({
+        cache_package.append({
             "template": "feed.xml",
-            "data": self.Posts
-        })
-
-        # Home
-        pages.append({
-            "template": "home.html",
-            "data": self.Headlines
-        })
-
-        # Projects
-        pages.append({
-            "template": "projects.html",
-            "data": self.Projects
-        })
-
-        # Friends
-        pages.append({
-            "template": "friends.html",
-            "data": self.Friends
-        })
-
-        # Sitemap
-        pages.append({
-            "template": "sitemap.xml",
-            "data": self.Sites
+            "data": self.Posts[0]
         })
 
         # 404
-        pages.append({
+        cache_package.append({
             "template": "404.html",
             "data": None
         })
 
+        # Sitemap
+
         if silent:
-            for item in pages:
+            for item in cache_package:
                 self.output(item["template"], item["data"])
         else:  
-            with click.progressbar(pages, label="Caching pages") as bar:
+            with click.progressbar(cache_package, label="Caching pages") as bar:
                 for item in bar:
                     self.output(item["template"], item["data"])
 

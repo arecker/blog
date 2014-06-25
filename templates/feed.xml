@@ -13,15 +13,13 @@
             <link>http://alexrecker.com</link>
             <url>http://alexrecker.com/static/img/portrait.jpg</url>
         </image>
-        {% for post in data %}
         <item>
-            <title>{{ post.title }}</title>
-            <link>http://alexrecker.com/{{ post.link}}</link>
-            <description>{{ post.rssBody }}</description>
+            <title>{{ data.title }}</title>
+            <link>http://alexrecker.com/{{ data.link}}</link>
+            <description>{{ data.rssBody }}</description>
             <author>alex@reckerfamily.com (Alex Recker)</author>
-            <pubDate>{{ post.pubDate }}</pubDate>
-            <guid>http://alexrecker.com/{{ post.link }}/</guid>
+            <pubDate>{{ data.pubDate }}</pubDate>
+            <guid>http://alexrecker.com/{{ data.link }}/</guid>
         </item>
-        {% endfor %}
     </channel>
 </rss>

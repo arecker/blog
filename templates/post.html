@@ -17,48 +17,51 @@
 {% endblock %}
 
 {% block body %}
-    <!-- Facebook Comments Crap -->
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script>
 
 	<!-- Post Title -->
-	<div class="media page-header">
-        {% if data.image %}
-        <a class="pull-left" href="/{{ data.link }}"><img height="100px" class="media-object" src="/static/img/thumbs/{{ data.image }}" alt=""/></a>
-	    {% endif %}
-        <div class="media-body">
-	    <h2 class="media-heading">{{ data.title }}</h2>
-        <p>{{ data.description }}</p>
-	  </div>
+	<div class="container main header">
+		<div class="page-header">
+			<h1>{{ data.title }}</h1>
+			<p>
+				{{ data.description }}
+			</p>
+		</div>
+		<hr>
 	</div>
-	
+
 	<!-- Post Body -->
-	<div class="container-fluid markdown">
+	<div class="container main body">
 		{{ data.body }}
 	</div>
 
 	<!-- Post Comments -->
-	<div class="container-fluid">
-        <h3>Comments</h3>
-        <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ data.link }}/" data-numposts="20" data-colorscheme="light"></div>
-    </div>
+	<div class="container main footer">
+
+	    <!-- Facebook Comments Script -->
+	    <div id="fb-root"></div>
+	    <script>(function(d, s, id) {
+	          var js, fjs = d.getElementsByTagName(s)[0];
+	          if (d.getElementById(id)) return;
+	          js = d.createElement(s); js.id = id;
+	          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
+	          fjs.parentNode.insertBefore(js, fjs);
+	        }(document, 'script', 'facebook-jssdk'));
+	    </script>
+
+		<div class="page-header">
+			<h1>Comments</h1>
+            <!-- Comments Widget -->
+            <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ data.link }}/" data-numposts="20" data-colorscheme="light"></div>
+		</div>
+	</div>
+
 {% endblock %}
 
 {% block footer %}
-<script type="text/javascript" src="/static/libs/jquery.min.js"></script>
-<script type="text/javascript" src="/static/libs/bootstrap.min.js"></script>
 <script>
+    // Convert alt properties to figure captions
     $(document).ready(function() {
-        // Every image referenced from a Markdown document
-        $(".markdown img").each(function() {
-            // Let's put a caption if there is one
+        $("img").each(function() {
             if($(this).attr("alt"))
                 $(this).wrap('<figure class="image"></figure>')
                     .after('<figcaption>'+$(this).attr("alt")+'</figcaption>');

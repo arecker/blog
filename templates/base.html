@@ -8,51 +8,42 @@
     {% block meta_description %}<meta name="description" content="Hi.  My name is Alex Recker.  I like to write words.">{% endblock %}
     {% block meta_og_image %}<meta property="og:image" content="http://alexrecker.com/static/img/portrait.jpg"/>{% endblock %}
     {% block meta_canonical %}<link rel="canonical" href="http://alexrecker.com/">{% endblock %}
+
     <link rel="stylesheet" href="/static/libs/bootstrap.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic' rel='stylesheet' type='text/css'>\
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/site.css" />
 </head>
 
 <body>
-    <!-- Navbar -->
-    <div class="container-fluid">
-        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand" href="/"><b>Blog</b> by Alex Recker</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="/"><span class="">Home</span></a></li>
-                <li><a href="/archives/"><span class="">Archives</span></a></li>
-                <li><a href="/projects/"><span class="">Projects</span></a></li>
-                <li><a href="/friends/"><span class="">Friends</span></a></li>
-                <li><a href="javascript:(function(){var a=window,b=document,c=encodeURIComponent,d=a.open('http://www.seocentro.com/cgi-bin/promotion/bookmark-rss/rss.pl?u='+c( 'http://alexrecker.com/feed/' ),'bookmark_popup','left='+((a.screenX||a.screenLeft)+10)+',top='+((a.screenY||a.screenTop)+10)+',height=480px,width=720px,scrollbars=1,resizable=1,alwaysRaised=1');a.setTimeout(function(){ d.focus()},300)})();" title="Social Bookmark"><span class="">Subscribe</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </nav>      
+    <!-- Sidebar-->
+    <div class="pull-left btn-group" id="sidebar">
+        <a href="/"<button type="button" class="btn btn-default btn-lg">
+            <i class="fa fa-home"></i>
+        </button></a>
+        <a href="http://www.seocentro.com/cgi-bin/promotion/bookmark-rss/rss.pl?u=http%3A%2F%2Falexrecker.com%2Ffeed%2F"><button type="button" class="btn btn-default btn-lg">
+            <i class="fa fa-rss"></i>
+        </button></a>
     </div>
 
-    <!-- Everything Goes Here -->
-    <div class="container-fluid content-container">
-        {% block body %}{% endblock %}
-    </div>
-
+	{% block body %}
+	{% endblock %}
 </body>
 
-
 <footer>
-    {% block footer %}
     <script type="text/javascript" src="/static/libs/jquery.min.js"></script>
-    <script type="text/javascript" src="/static/libs/bootstrap.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+        // Sidebar
+        $('#sidebar').affix({
+              offset: {
+                top: $('header').height()
+              }
+        }); 
+    </script>
+    {% block footer %}
     {% endblock %}
-    
+
     <!-- Google Analytics -->
     <script type="text/javascript">
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

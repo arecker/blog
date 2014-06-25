@@ -1,106 +1,72 @@
-/* Circular Thumbnail Portrait */
-.circular {
-	width: 80px;
-	height: 80px;
-	border-radius: 150px;
-	-webkit-border-radius: 150px;
-	-moz-border-radius: 150px;
-	background: url(/static/img/portrait-thumb.jpg) no-repeat;
+/* Content Containers */
+.main {
+    max-width: 800px;
 }
 
-/* Positions all content bodies */
-.content-container {
-	max-width: 60%;
-	margin-top: 100px;
+.header {
+    margin-top: 100px;
 }
 
-/* Removes frame from thumbnails */
-.thumbnail {
-	border: 0 none;
-	box-shadow: none;
+.body h1 {
+    font-size: 1.5em;
+    margin-top: 2em;
 }
 
-/* Removes underline from links */
-a {
-	text-decoration: none !important;
+.home  {
+    margin-bottom: 3em;
 }
 
-/* Pads table cells */
-td {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-    padding-bottom: 20px !important;
+.jumbo .jumbotron {
+    margin-top: 3em;
+    background-color: white;
+    background-image: url(/static/img/portrait.jpg);
+    background-position: 30% 25%;
+    background-size: 80%;
+    background-repeat: no-repeat;
 }
 
-/* Removes shadowy stuff from navbar */
-.navbar-inner, .navbar {
-  background-color: white !important; 
-  /*border: 0 !important;*/
-  box-shadow: none !important;
-  -webkit-box-shadow: none !important;
-}
+/* Font */
+* { font-family: 'Tinos', serif !important; }
+.fa { font-family: FontAwesome !important;}
+p, li { font-size: 120%;}
+h1 { font-weight: regular !important}
 
-/* Adds a bit of space between filter bar and table */
-.input-group {
-    margin-bottom: 15px;
-}
-
-/* Adds some space between post thumbnail and title */
-.media-object {
-    margin-right: 10px;
-}
-
-/*** MARKDOWN ***/
 /* Images */
-.markdown img {
+.body img {
     display: block;
     height: auto;
     max-width: 100%;
     margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-top: 2em;
+    margin-bottom: 1em;
 }
 
 /* Captions */
 figcaption {
     font-style: italic;
-    font-size: 100%;
+    font-size: 90%;
     max-width: 80%;
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 2em;
     text-align: center;
 }
 
-/* iframes */
+/* Iframes */
 iframe {
     display: block;
     margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 2em;
+    margin-bottom: 2em;
     max-width: 100%;
 }
 
-/* Headers */
-h1 {
-    margin-top: 40px;
-    font-size: 150%;
+/* Tooltips */
+.tooltip * {
+    font-size: 120%;
+    text-align: left;
 }
 
-/* Paragraph font */ 
-.markdown p { font-size: 12pt; }
-
-/*** Responsiveness ***/
-@media screen and (max-width: 750px) {
-	.content-container {
-		max-width: 100%;
-	}
-
-    /* Archives Table */
-    .table-responsive {
-        border: 0 none;
-    }
-
-    td {
-        padding: 0;
-    }
+/*Sidebar*/
+#sidebar {
+    margin-left: 1em;
 }

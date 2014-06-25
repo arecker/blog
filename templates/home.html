@@ -1,34 +1,111 @@
 {% extends "base.html" %}
 
 {% block body %}
-	<!-- Heading -->
-	<div class="container-fluid section-heading">
-		<div class="media">
-            <a class="pull-left" href="/">
-				<img class="media-object" height="50px" src="/static/img/thumbs/thumb-portrait.jpg"/>
-			</a>
-			<div class="media-body">
-				<h4 class="media-heading">Welcome to my Blog</h4>
-				<p><em>Come on in and make yourself comfortable.  There's plenty of things to read.</em></p>
-			</div>
-		</div><hr>
-	</div>
-
-
-	<!-- Headlines -->
-	<div class="container-fluid">
-		<div class="row">
-			{% for headline in data %}
-		  <div class="col-sm-6 col-md-4">
-		    <div class="thumbnail">
-		      <a href="{{ headline.link }}"><img src="/static/img/headlines/{{ headline.image }}" ></a>
-		      <div class="caption">
-		        <h3>{{ headline.title }}</h3>
-		        <p>{{ headline.caption }}</p>
-		      </div>
-		    </div>
-		  </div>
-		    {% endfor %}
+	<!-- Jumbotron -->
+	<div class="container main home jumbo">
+		<div class="jumbotron">
+		  <h1>Blog.</h1>
+		  <p>by Alex Recker</p>
 		</div>
 	</div>
+
+	<!-- Latest Post -->
+	<div class="container main home">
+		<div class="page-header">
+			<h1>Latest Post</h1>
+		</div>
+		<div class="media">
+		  {% if data.latest.image %}
+		  <a class="pull-left" href="{{ data.latest.link }}">
+		    <img class="media-object" src="{{ data.latest.image }}" width="100px">
+		  </a>
+		  {% endif %}
+		  <div class="media-body">
+		    <a href="{{ data.latest.link }}"><h4 class="media-heading lead">{{ data.latest.title }}</h4></a>
+		    <p>
+		    	{{ data.latest.description }}
+		    </p>
+		  </div>
+		</div>
+	</div>
+
+	<!-- Archives -->
+	<div class="container main home">
+		<div class="page-header">
+			<h1>Archives</h1>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon"><i class="fa fa-search"></i></span>
+			<input id="filter" class="form-control" type="text" placeholder="Filter" onkeyup="filter(this)" size="10"/>
+		</div>
+		<br>
+		<div class="panel panel-default">
+  			<div class="panel-body">
+				<p>
+				{% for post in data.posts %}
+					<a href="{{ post.link }}" data-toggle="tooltip" data-placement="top" title="{{ post.description }}">{{ post.title }} | </a>
+				{% endfor %}
+				</p>
+  			</div>
+		</div>
+	</div>
+
+	<!--Projects -->
+	<div class="container main home">
+		<div class="page-header">
+			<h1>Projects</h1>
+		</div>
+		{% for project in data.projects %}
+		<div class="media">
+			<a class="pull-left" href="{{ project.link }}">
+				<img src="/static/img/projects/{{ project.image }}" width="100px">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading lead">{{ project.title }} <small>{{ project.subtitle }}</small></h4>
+				<p>
+					{{ project.caption }}
+				</p>
+			</div>
+		</div>
+		{% endfor %}
+
+	<!-- Friends -->
+	<div class="container main home">
+		<div class="page-header">
+			<h1>Friends</h1>
+		</div>
+		{% for friend in data.friends %}
+		<div class="media">
+		  <a class="pull-left" href="{{ friend.link }}">
+		    <img class="media-object" src="http://alexrecker.com/static/img/friends/{{ friend.image }}" width="100px">
+		  </a>
+		  <div class="media-body">
+		    <h4 class="media-heading lead">{{ friend.title }}</h4>
+		    <p>
+		    	{{ friend.subtitle }}
+		    </p>
+		  </div>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+
+{% block footer %}
+	<script type="text/javascript">
+		// Initialize Tooltip
+		$('.panel').find('a').tooltip();
+
+		// Filter Binding
+		function filter(element) {
+            var value = $(element).val().toUpperCase();
+
+            $(".panel p").find('a').each(function() {
+                if ($(this).text().toUpperCase().search(value) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+	</script>
 {% endblock %}
