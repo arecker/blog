@@ -104,16 +104,6 @@ class Thumbnail:
         self.link = link
 
 
-class Logger:
-    def __init__(self, silent):
-        self.silent = silent
-
-
-    def status(self, message):
-        if not self.silent:
-            print(message)
-
-
 class CacheWriter:
     def __init__(self, test = False):
         self.config = ConfigurationModel(test)
@@ -166,8 +156,6 @@ class CacheWriter:
 
 
     def write(self, silent):
-        self.log = Logger(silent)
-
         pages = []
 
         # Individual Posts
@@ -219,9 +207,12 @@ class CacheWriter:
             "data": None
         })
 
-        with click.progressbar(pages, label="Caching pages") as bar:
-            for item in bar:
-                self.output(item["template"], item["data"])
+        if silent:
+            work = pages
+        else:
+            work = click.progressbar(pages, label="Caching pages")
+        for item in work:
+            self.output(item["template"], item["data"])
 
 
     def output(self, template, data):
