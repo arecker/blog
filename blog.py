@@ -208,11 +208,12 @@ class CacheWriter:
         })
 
         if silent:
-            work = pages
-        else:
-            work = click.progressbar(pages, label="Caching pages")
-        for item in work:
-            self.output(item["template"], item["data"])
+            for item in pages:
+                self.output(item["template"], item["data"])
+        else:  
+            with click.progressbar(pages, label="Caching pages") as bar:
+                for item in bar:
+                    self.output(item["template"], item["data"])
 
 
     def output(self, template, data):
