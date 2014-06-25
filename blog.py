@@ -45,31 +45,22 @@ def get_home():
     return home_page
 
 
-@app.route("/sitemap.xml")
-def get_site_map():
-    xml = open(join(appconfig.cache, 'sitemap.xml'), 'r').read()
-    return Response(xml, mimetype='text/xml')
-
-@app.route("/feed/")
-def get_feed():
-    xml = open(join(appconfig.cache, 'feed.xml'), 'r').read()
-    return Response(xml, mimetype='text/xml')
-
-
-@app.route("/robots.txt")
-def get_robotss():
-    robots = open(join(appconfig.static, 'robots.txt'), 'r').read()
-    return Response(robots, mimetype='text')
-
-
 @app.route("/<slug>/")
 def get_post(slug):
-    try:
-        post = open(join(appconfig.cache, slug + '.html'), 'r').read()
-        return post
-    except:
-        missing_page = open(join(appconfig.cache, '404.html'), 'r').read()
-        return missing_page
+    try: # Return html page
+        with open(join(appconfig.cache, slug + '.html'), 'r') as file:
+            return file.read()
+    except IOError:
+        try: # Return xml page
+            with open(join(appconfig.cache, slug + '.xml'), 'read') as file:
+                return Response(file.read(), mimetype='text/xml')
+        except IOError: # Return txt page
+            try:
+                with open(join(appconfig.cache, slug + '.txt'), 'r') as file:
+                    return file.read()
+            except IOError: # Return 404
+                with open(join(appconfig.cache, '404.html'), 'r') as file:
+                    return file.read()
 #endregion
 
 #region Update
@@ -228,7 +219,7 @@ class CacheWriter:
 @click.group()
 def cli():
     """
-    This is the admin script for my blog.
+    This is the script for my blog.  It does things.
     """
     pass
 
