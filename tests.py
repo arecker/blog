@@ -37,7 +37,7 @@ class TestCacheWriter(unittest.TestCase):
         count = 0
         for post in self.cw.Posts:
             count = count + 1
-        for page in ["404.html", "sitemap.xml", "feed.xml", "home.html", "friends.html", "projects.html", "archives.html"]:
+        for page in ["404.html", "sitemap.xml", "feed.xml", "home.html"]:
             count = count + 1
         actual = len(listdir(self.config.cache))
         self.assertEqual(actual, count)
@@ -47,8 +47,7 @@ class TestCacheWriter(unittest.TestCase):
         list = []
         for post in self.cw.Posts:
             list.append(post.link + '.html')
-        for page in ["archives.html", "friends.html", "projects.html", "home.html"]:
-            list.append(page)
+        list.append('home.html')
         for page in ["feed.xml", "sitemap.xml", "404.html"]:
             list.append(page)
         list = sorted(list)
@@ -109,14 +108,8 @@ class TestURLRoutes(unittest.TestCase):
         self.assertTrue("<title>Blog by Alex Recker</title>" in response.data)
         response = self.tester.get('/feed/')
         self.assertTrue('<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">' in response.data)
-        response = self.tester.get('/sitemap.xml')
+        response = self.tester.get('/sitemap/')
         self.assertTrue('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' in response.data)
-        response = self.tester.get('/friends/')
-        self.assertTrue('<title>Friends | Blog by Alex Recker</title>' in response.data)
-        response = self.tester.get('/projects/')
-        self.assertTrue('<title>Projects | Blog by Alex Recker</title>' in response.data)
-        response = self.tester.get('/archives/')
-        self.assertTrue('<title>Archives | Blog by Alex Recker</title>' in response.data)
         response = self.tester.get('/definitely-not-a-page/')
         self.assertTrue('<title>Page Not Found | Blog by Alex Recker</title>' in response.data)
 

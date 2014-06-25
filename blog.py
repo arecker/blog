@@ -142,8 +142,7 @@ class CacheWriter:
 
         for post in self.Posts:
             self.Sites.append('/' + post.link + '/')
-        for page in ['', '/archives/', '/friends/', '/projects/']:
-            self.Sites.append(page)
+        self.Sites.append('/')
 
 
     def write(self, silent):
@@ -181,6 +180,10 @@ class CacheWriter:
         })
 
         # Sitemap
+        cache_package.append({
+            "template": "sitemap.xml",
+            "data": self.Sites
+        })
 
         if silent:
             for item in cache_package:
