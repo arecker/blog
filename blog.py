@@ -49,7 +49,7 @@ def get_home():
 def get_post(slug):
     if slug == 'robots.txt':
         with open(join(appconfig.cache, 'robots.txt'), 'r') as file:
-            return file.read()
+            return Response(file.read(), mimetype='text/plain')
     try: # Return html page
         with open(join(appconfig.cache, slug + '.html'), 'r') as file:
             return file.read()
