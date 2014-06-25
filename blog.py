@@ -217,6 +217,8 @@ def update(silent):
     """
     refresh the content cache
     """
+    if not silent:
+        print('Assembling content...')
     cw = CacheWriter()
     cw.write(silent)
 
