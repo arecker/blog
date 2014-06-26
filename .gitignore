@@ -1,6 +1,7 @@
 *.pyc
 .env
 .idea
+.keys.json
 wsgi.py
 environment
 cache/*.html

@@ -12,6 +12,8 @@ from email import utils
 import json
 import click
 import tests
+import urllib2
+from tabulate import tabulate
 from flask import Flask, Response
 #endregion
 
@@ -251,12 +253,52 @@ def test():
     tests.run()
 
 
-@cli.command()
+@cli.group()
 def email():
     """
     manages the email subscription engine
     """
     pass
+
+
+@email.command()
+def list():
+    """
+    list subscribers
+    """
+    try:
+        with open(join(dirname(appconfig.root),'.keys.json')) as file:
+            data = json.load(file)
+            admin_key = data["admin"]
+    except IOError:
+        admin_key = click.prompt('Admin Key')
+    try:
+        returned = urllib2.urlopen("http://api.alexrecker.com/email/subscriber/list/?admin=" + admin_key)
+    except:
+        print("Cannot reach API")
+    data = json.load(returned)
+
+    count = len(data)
+    if count is 0:
+        print('There are no subscribers.')
+        exit()
+    elif count is 1:
+        print('There is 1 subscriber')
+        print("")
+    else:
+        print('There are ' + str(count) + ' subscribers.')
+        print("")
+
+    # Print Table
+    table = []
+    for sub in data:
+        table.append([sub["email"], sub["full_text"]])
+    print tabulate(table, headers=["Email", "Full Text"])
+    
+
+
+
+
 
 
 cli.add_command(update)
