@@ -15,7 +15,6 @@ import tests
 import urllib2
 from tabulate import tabulate
 from flask import Flask, Response
-import __builtin__
 #endregion
 
 #region Config Model
@@ -113,7 +112,7 @@ class CacheWriter:
         self.Projects = []
         self.FriendContent = data["Friends"]
         self.Friends = []
-        self.PostFiles = __builtin__.list(reversed(sorted(listdir(self.config.posts))))
+        self.PostFiles = list(reversed(sorted(listdir(self.config.posts))))
         self.Posts = []
         self.Sites = []
 
@@ -260,8 +259,8 @@ def email():
     """
     pass
 
-@email.command()
-def list():
+@email.command(name="list")
+def email_list():
     """
     list subscribers
     """

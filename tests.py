@@ -3,7 +3,6 @@ from blog import *
 from os import listdir
 from os.path import join
 from shutil import rmtree
-import __builtin__
 from xml.etree import ElementTree
 
 
@@ -30,7 +29,7 @@ class TestCacheWriter(unittest.TestCase):
 
 
     def test_cw_init(self):
-        post_files = __builtin__.list(reversed(sorted(listdir(self.config.posts))))
+        post_files = list(reversed(sorted(listdir(self.config.posts))))
         self.assertEqual(self.cw.PostFiles, post_files)
 
 
