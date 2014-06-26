@@ -15,6 +15,7 @@ import tests
 import urllib2
 from tabulate import tabulate
 from flask import Flask, Response
+import smtplib
 #endregion
 
 #region Config Model
@@ -101,53 +102,55 @@ class Thumbnail:
 
 
 class CacheWriter:
-    def __init__(self, test = False):
+    def __init__(self, test = False, posts_only=False):
         self.config = ConfigurationModel(test)
 
-        # Read in json for page content
-        data = json.load(open(self.config.pages))
-        self.HeadlineContent = data["Headlines"]
-        self.Headlines = []
-        self.ProjectContent = data["Projects"]
-        self.Projects = []
-        self.FriendContent = data["Friends"]
-        self.Friends = []
         self.PostFiles = list(reversed(sorted(listdir(self.config.posts))))
         self.Posts = []
-        self.Sites = []
-
         for file in self.PostFiles:
             self.Posts.append(Post(join(self.config.posts, file)))
 
-        for headline in self.HeadlineContent:
-            self.Headlines.append(Thumbnail(
-                title = headline["title"],
-                image = headline["image"],
-                caption = headline["caption"],
-                link = headline["link"]
-            ))
 
-        for project in self.ProjectContent:
-            self.Projects.append(Thumbnail(
-                title = project["title"],
-                subtitle = project["subtitle"],
-                image = project["image"],
-                caption = project["caption"],
-                link = project["link"]
-            ))
+        if not posts_only:
+            # Read in json for page content
+            data = json.load(open(self.config.pages))
+            self.HeadlineContent = data["Headlines"]
+            self.Headlines = []
+            self.ProjectContent = data["Projects"]
+            self.Projects = []
+            self.FriendContent = data["Friends"]
+            self.Friends = []
+            self.Sites = []
+
+            for headline in self.HeadlineContent:
+                self.Headlines.append(Thumbnail(
+                    title = headline["title"],
+                    image = headline["image"],
+                    caption = headline["caption"],
+                    link = headline["link"]
+                ))
+
+            for project in self.ProjectContent:
+                self.Projects.append(Thumbnail(
+                    title = project["title"],
+                    subtitle = project["subtitle"],
+                    image = project["image"],
+                    caption = project["caption"],
+                    link = project["link"]
+                ))
 
 
-        for friend in self.FriendContent:
-            self.Friends.append(Thumbnail(
-                title = friend["title"],
-                subtitle = friend["subtitle"],
-                image = friend["image"],
-                link = friend["link"]
-            ))
+            for friend in self.FriendContent:
+                self.Friends.append(Thumbnail(
+                    title = friend["title"],
+                    subtitle = friend["subtitle"],
+                    image = friend["image"],
+                    link = friend["link"]
+                ))
 
-        for post in self.Posts:
-            self.Sites.append('/' + post.link + '/')
-        self.Sites.append('/')
+            for post in self.Posts:
+                self.Sites.append('/' + post.link + '/')
+            self.Sites.append('/')
 
 
     def write(self, silent):
@@ -211,6 +214,13 @@ class CacheWriter:
             template = data.link + '.html'
         with open(join(self.config.cache, template), 'wb') as file:
             file.write(j_template.render(data = data))
+
+
+    @classmethod
+    def get_latest_post(cls):
+        return cls(posts_only=True).Posts[0]
+
+        
 #endregion
 
 #region CLI
@@ -259,10 +269,10 @@ def email():
     """
     pass
 
-@email.command(name="list")
-def email_list():
+
+def get_subscriber_list():
     """
-    list subscribers
+    Gets a list of email subscribers from API
     """
     try:
         with open(join(dirname(appconfig.root),'.keys.json')) as file:
@@ -274,8 +284,15 @@ def email_list():
         returned = urllib2.urlopen("http://api.alexrecker.com/email/subscriber/list/?admin=" + admin_key)
     except:
         print("Cannot reach API")
-    data = json.load(returned)
+    return json.load(returned)
 
+
+@email.command(name="list")
+def email_list():
+    """
+    list subscribers
+    """
+    data = get_subscriber_list()
     count = len(data)
     if count is 0:
         print('There are no subscribers.')
@@ -292,6 +309,57 @@ def email_list():
     for sub in data:
         table.append([sub["email"], sub["full_text"]])
     print tabulate(table, headers=["Email", "Full Text"])
+
+
+@email.command(name="send")
+def email_send():
+    """
+    sends latest blog post to subscribers
+    """
+    try:
+        with open(join(dirname(appconfig.root),'.keys.json')) as file:
+            data = json.load(file)
+            email = data["email"]
+            email_password = data["email_password"]
+    except IOError:
+        email = click.prompt('Email')
+        email_password = click.prompt('Password')
+
+    # Get Data
+    post = CacheWriter.get_latest_post()
+    subscribers = get_subscriber_list()
+
+    print('You are about to send out ' + str(len(subscribers)) + ' emails.')
+    print('Post: ' + post.title)
+    if not click.confirm('Church?'):
+        print('Whatever')
+        exit()
+
+    # Open Email Session
+    session = smtplib.SMTP('smtp.gmail.com', 587)
+    session.ehlo()
+    session.starttls()
+    session.login(email, email_password)
+    
+    # Write and Send
+    j_template = appconfig.env.get_template('email.html')
+    with click.progressbar(subscribers, label="Sending") as bar:
+        for sub in bar:
+            headers = "\r\n".join(["from: Alex Recker",
+                       "subject: " + post.title,
+                       "to: " + sub["email"],
+                       "mime-version: 1.0",
+                       "content-type: text/html"])
+            if sub["full_text"] is 0:
+                full = False
+            else:
+                full = True
+            unsubscribe = sub["unsubscribe_key"]
+            body = j_template.render(post = post, full = full, unsubscribe = unsubscribe)
+            content = headers + "\r\n\r\n" + body
+            session.sendmail(email, sub["email"], content)
+
+
     
 
 if __name__ == '__main__':

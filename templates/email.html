@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<style>
+		/* Font */
+		* { font-family: 'Tinos', serif !important; }
+		p, li { font-size: 120%;}
+		h1 { font-weight: regular !important}
+	</style>
+
+</head>
+<body>
+	<div class="container main">
+		<div class="page-header">
+			<h1>Blog <small>by Alex Recker</small></h1>
+		</div>
+		<div class="container post">
+			<h2>Can I Interest You in Some Totalitarianism?</h2>
+			<p>You have woken up in a world stifled by a massive totalitarian government. For once, let's not talk about the worthy implications. What would suck? What would be pretty good?</p>
+			<small>{{ post.date }}</small>
+			<p class="text-center"><a href="http://alexrecker.com/{{ post.link }}/">Read</a> | <a href="http://api.alexrecker.com/email/subscriber/delete?unsubscribe=31faa3cce9fd11e38a9a7054d2c3f756">Unsubscribe</a> | <a href="http://alexrecker.com/feed/">RSS</a></p>
+			<hr>
+			{% if full %}
+			<p>
+				{{ post.body }}
+			</p>
+			{% endif %}
+		</div>
+	</div>
+</body>

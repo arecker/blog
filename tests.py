@@ -54,6 +54,11 @@ class TestCacheWriter(unittest.TestCase):
         self.assertEqual(sorted(listdir(self.config.cache)), list)
 
 
+    def test_get_latest_post(self):
+        post = CacheWriter.get_latest_post()
+        self.assertTrue(isinstance(post, Post))
+
+
     def tearDown(self):
         rmtree(self.config.cache)
 
