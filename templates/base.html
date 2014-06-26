@@ -18,12 +18,14 @@
 <body>
     <!-- Sidebar-->
     <div class="pull-left btn-group" id="sidebar">
-        <a href="/"<button type="button" class="btn btn-default btn-lg">
+        <a href="/"<button type="button" class="btn btn-default">
             <i class="fa fa-home"></i>
         </button></a>
-        <a href="http://www.seocentro.com/cgi-bin/promotion/bookmark-rss/rss.pl?u=http%3A%2F%2Falexrecker.com%2Ffeed%2F"><button type="button" class="btn btn-default btn-lg">
-            <i class="fa fa-rss"></i>
-        </button></a>
+        <a href="http://www.seocentro.com/cgi-bin/promotion/bookmark-rss/rss.pl?u=http%3A%2F%2Falexrecker.com%2Ffeed%2F"><button type="button" class="btn btn-default">
+            <i class="fa fa-rss"></i></button></a>
+        <button type="button" id="subscribe" class="btn btn-default">
+            <i class="fa fa-envelope-o"></i>
+        </button>
     </div>
 
 	{% block body %}
@@ -39,7 +41,13 @@
               offset: {
                 top: $('header').height()
               }
-        }); 
+        });
+
+        // Launch Subscribe Widget
+        $('#subscribe').click(function(){
+            newwindow=window.open('http://subscribe.alexrecker.com','Subscribe by Email','height=450,width=400');
+        })
+
     </script>
     {% block footer %}
     {% endblock %}

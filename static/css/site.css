@@ -68,5 +68,6 @@ iframe {
 
 /*Sidebar*/
 #sidebar {
-    margin-left: 1em;
+    margin-left: 2em;
+    margin-top: 1em;
 }
