@@ -307,8 +307,8 @@ def email_list():
     # Print Table
     table = []
     for sub in data:
-        table.append([sub["email"], sub["full_text"]])
-    print tabulate(table, headers=["Email", "Full Text"])
+        table.append([sub["email"], sub["full_text"], sub["unsubscribe_key"]])
+    print tabulate(table, headers=["Email", "Full Text", "Key"])
 
 
 @email.command(name="send")
@@ -360,7 +360,19 @@ def email_send():
             session.sendmail(email, sub["email"], content)
 
 
+@email.command(name="delete")
+@click.option('--key', prompt="Unsubscribe Key")
+def email_delete(key):
+    """
+    deletes a subscriber (key required)
+    """
+    try:
+        urllib2.urlopen("http://api.alexrecker.com/email/subscriber/delete?unsubscribe=" + key)
+        print('Subscriber removed')
+    except:
+        print("Cannot reach API")
     
+
 
 if __name__ == '__main__':
     cli()
