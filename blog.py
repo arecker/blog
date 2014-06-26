@@ -15,6 +15,7 @@ import tests
 import urllib2
 from tabulate import tabulate
 from flask import Flask, Response
+import __builtin__
 #endregion
 
 #region Config Model
@@ -112,7 +113,7 @@ class CacheWriter:
         self.Projects = []
         self.FriendContent = data["Friends"]
         self.Friends = []
-        self.PostFiles = list(reversed(sorted(listdir(self.config.posts))))
+        self.PostFiles = __builtin__.list(reversed(sorted(listdir(self.config.posts))))
         self.Posts = []
         self.Sites = []
 
@@ -252,14 +253,12 @@ def test():
     """
     tests.run()
 
-
 @cli.group()
 def email():
     """
     manages the email subscription engine
     """
     pass
-
 
 @email.command()
 def list():
@@ -296,14 +295,6 @@ def list():
     print tabulate(table, headers=["Email", "Full Text"])
     
 
-
-
-
-
-
-cli.add_command(update)
-cli.add_command(test)
-cli.add_command(email)
 if __name__ == '__main__':
     cli()
 #endregion
