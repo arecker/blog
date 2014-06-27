@@ -344,7 +344,11 @@ def email_send(test=False):
     
     # Write and Send
     j_template = appconfig.env.get_template('email.html')
-    with click.progressbar(subscribers, label="Sending") as bar:
+    if test:
+        label = "Sending (test)"
+    else:
+        label = "Sending"
+    with click.progressbar(subscribers, label=label) as bar:
         for sub in bar:
             headers = "\r\n".join(["from: Alex Recker",
                        "subject: " + post.title,
