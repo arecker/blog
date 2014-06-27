@@ -8,3 +8,4 @@ cache/*.html
 cache/*.xml
 cache/*.txt
 test_cache
+test_emails
