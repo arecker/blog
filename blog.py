@@ -355,10 +355,7 @@ def email_send(test=False):
                        "to: " + sub["email"],
                        "mime-version: 1.0",
                        "content-type: text/html"])
-            if sub["full_text"] is 0:
-                full = False
-            else:
-                full = True
+            full = sub["full_text"]
             unsubscribe = sub["unsubscribe_key"]
             body = j_template.render(post = post, full = full, unsubscribe = unsubscribe)
             content = headers + "\r\n\r\n" + body
