@@ -312,7 +312,8 @@ def email_list():
 
 
 @email.command(name="send")
-def email_send():
+@click.option('--test', is_flag=True, help="writes out email to html files")
+def email_send(test=False):
     """
     sends latest blog post to subscribers
     """
@@ -343,21 +344,29 @@ def email_send():
     
     # Write and Send
     j_template = appconfig.env.get_template('email.html')
-    with click.progressbar(subscribers, label="Sending") as bar:
+    if test:
+        label = "Sending (test)"
+    else:
+        label = "Sending"
+    with click.progressbar(subscribers, label=label) as bar:
         for sub in bar:
             headers = "\r\n".join(["from: Alex Recker",
                        "subject: " + post.title,
                        "to: " + sub["email"],
                        "mime-version: 1.0",
                        "content-type: text/html"])
-            if sub["full_text"] is 0:
-                full = False
-            else:
-                full = True
+            full = sub["full_text"]
             unsubscribe = sub["unsubscribe_key"]
             body = j_template.render(post = post, full = full, unsubscribe = unsubscribe)
             content = headers + "\r\n\r\n" + body
-            session.sendmail(email, sub["email"], content)
+            if not test:
+                session.sendmail(email, sub["email"], content)
+            else:
+                test_dir = join(dirname(appconfig.root), 'test_emails')
+                if not exists(test_dir):
+                    makedirs(test_dir)
+                with open(join(test_dir, sub["email"] + '.html'), 'w+') as file:
+                    file.write(body)
 
 
 @email.command(name="delete")
