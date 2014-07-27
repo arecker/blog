@@ -18,6 +18,7 @@
 
 .jumbo .jumbotron {
     margin-top: 3em;
+    background-color: transparent;
 }
 
 img[src="/static/img/portrait.jpg"]{
