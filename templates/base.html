@@ -19,10 +19,11 @@
 <body>
     <!-- Sidebar-->
     <ul class="nav nav-tabs">
-        <li><a href="/" data-toggle="tooltip" data-placement="bottom" title="Home"><i class="fa fa-home"></i></a></li>
-        <li><a href="http://alexrecker.com/feed/" data-toggle="tooltip" data-placement="bottom" title="Subscribe by RSS"><i class="fa fa-rss"></i></a></li>
-        <li><a id="subscribe" href="" data-toggle="tooltip" data-placement="bottom" title="Subscribe by email"><i class="fa fa-envelope-o"></i></a></li>
-        <li><a href="http://twitter.com/alex_recker" data-toggle="tooltip" data-placement="bottom" title="Follow me on twitter"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a href="http://alexrecker.com/feed/"><i class="fa fa-rss"></i></a></li>
+        <li><a id="subscribe" href=""><i class="fa fa-envelope-o"></i></a></li>
+        <li><a href="http://twitter.com/alex_recker"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/arecker"><i class="fa fa-github"></i></a></li>
     </ul>
 
 	{% block body %}
@@ -33,14 +34,6 @@
     <script type="text/javascript" src="/static/libs/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script>
-        // Sidebar
-        /*$('#sidebar').affix({
-              offset: {
-                top: $('header').height()
-              }
-        });*/
-        // Tooltip
-        $('.nav-tabs').find('a').tooltip();
 
         // Launch Subscribe Widget
         $('#subscribe').click(function(){
