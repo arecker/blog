@@ -12,13 +12,16 @@
     margin-bottom: 3em;
 }
 
+.header {
+    margin-top: 2em;
+}
+
 .jumbo .jumbotron {
     margin-top: 3em;
-    background-color: white;
-    background-image: url(/static/img/portrait.jpg);
-    background-position: 30% 25%;
-    background-size: 80%;
-    background-repeat: no-repeat;
+}
+
+img[src="/static/img/portrait.jpg"]{
+    margin-right: 10px;
 }
 
 /* Font */
@@ -67,3 +70,6 @@ iframe {
     margin-left: 2em;
     margin-top: 1em;
 }
+
+.nav-tabs a, .nav-tabs a:visited, .nav-tabs a:active { color: black; }
+.nav-tabs a:hover { color: red; }

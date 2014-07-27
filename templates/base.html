@@ -17,16 +17,11 @@
 
 <body>
     <!-- Sidebar-->
-    <div class="pull-left btn-group" id="sidebar">
-        <a href="/"<button type="button" class="btn btn-default">
-            <i class="fa fa-home"></i>
-        </button></a>
-        <a href="http://www.seocentro.com/cgi-bin/promotion/bookmark-rss/rss.pl?u=http%3A%2F%2Falexrecker.com%2Ffeed%2F"><button type="button" class="btn btn-default">
-            <i class="fa fa-rss"></i></button></a>
-        <button type="button" id="subscribe" class="btn btn-default">
-            <i class="fa fa-envelope-o"></i>
-        </button>
-    </div>
+    <ul class="nav nav-tabs">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a href="http://alexrecker.com/feed/"><i class="fa fa-rss"></i></a></li>
+        <li><a id="subscribe" href=""><i class="fa fa-envelope-o"></i></a></li>
+    </ul>
 
 	{% block body %}
 	{% endblock %}
