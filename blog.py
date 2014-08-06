@@ -79,7 +79,7 @@ class Post:
             if thing != '\n':
                 metas.append(thing)
 
-        self.title =metas[0].replace('<!--', '')
+        self.title = metas[0].replace('<!--', '').replace('-->', '')
         self.link = slugify(self.title)
         self.description = unidecode(metas[1])
         self.date = basename(file).split('.')[0]

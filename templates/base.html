@@ -10,23 +10,21 @@
     {% block meta_canonical %}<link rel="canonical" href="http://alexrecker.com/">{% endblock %}
 
     <link rel="stylesheet" href="/static/libs/bootstrap.min.css" />
-    <link href='http://fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic' rel='stylesheet' type='text/css'>\
+    <link href='http://fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/site.css" />
+    <meta property="og:site_name" content="Blog by Alex Recker">
 </head>
 
 <body>
     <!-- Sidebar-->
-    <div class="pull-left btn-group" id="sidebar">
-        <a href="/"<button type="button" class="btn btn-default">
-            <i class="fa fa-home"></i>
-        </button></a>
-        <a href="http://www.seocentro.com/cgi-bin/promotion/bookmark-rss/rss.pl?u=http%3A%2F%2Falexrecker.com%2Ffeed%2F"><button type="button" class="btn btn-default">
-            <i class="fa fa-rss"></i></button></a>
-        <button type="button" id="subscribe" class="btn btn-default">
-            <i class="fa fa-envelope-o"></i>
-        </button>
-    </div>
+    <ul class="nav nav-tabs">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a href="http://alexrecker.com/feed/"><i class="fa fa-rss"></i></a></li>
+        <li><a id="subscribe" href=""><i class="fa fa-envelope-o"></i></a></li>
+        <li><a href="http://twitter.com/alex_recker"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/arecker"><i class="fa fa-github"></i></a></li>
+    </ul>
 
 	{% block body %}
 	{% endblock %}
@@ -36,12 +34,6 @@
     <script type="text/javascript" src="/static/libs/jquery.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script>
-        // Sidebar
-        $('#sidebar').affix({
-              offset: {
-                top: $('header').height()
-              }
-        });
 
         // Launch Subscribe Widget
         $('#subscribe').click(function(){

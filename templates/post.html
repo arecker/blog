@@ -6,10 +6,11 @@
 
 {% block meta_description %}
 <meta name="description" content="{{ data.description }}">
+<meta property="og:description" content="{{ data.description }}">
 {% endblock %}
 
 {% block meta_og_image %}
-<meta property="og:image" content="http://alexrecker.com/static/img/{{ data.image }}"/>
+<meta property="og:image" content="{{ data.image }}"/>
 {% endblock %}
 
 {% block meta_canonical %}
