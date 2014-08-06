@@ -13,15 +13,15 @@ However, if you'd like to mimic the design, you are free to.
 The easiest way to get a local build going is with ```python virtualenv```, which is probably available for your platform.  Once you have the ```virtualenv``` command in your bin, build a local environment and install the dependencies.
 
 ```bash
-cd Blog
-virtualenv .env && ./.env/bin/pip install -r requirements.txt
+$ cd Blog
+$ virtualenv .env && ./.env/bin/pip install -r requirements.txt
 ```
 
 Next, you can create a simple ```blog``` script as a wrapper for the virtual environment and ```blog.py```
 
 ```bash
 #!/bin/bash
-/path/to/blog/.env/bin/python "$@"
+/path/to/Blog/.env/bin/python /path/to/Blog/blog.py "$@"
 ```
 
 If all went well, you should have a callable ```blog``` script.
