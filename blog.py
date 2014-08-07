@@ -278,7 +278,7 @@ def get_subscriber_list():
         with open(join(dirname(appconfig.root),'.keys.json')) as file:
             data = json.load(file)
             admin_key = data["admin"]
-    except IOError:
+    except:
         admin_key = click.prompt('Admin Key')
     try:
         returned = urllib2.urlopen("http://api.alexrecker.com/email/subscriber/list/?admin=" + admin_key)
@@ -322,7 +322,7 @@ def email_send(test=False):
             data = json.load(file)
             email = data["email"]
             email_password = data["email_password"]
-    except IOError:
+    except:
         email = click.prompt('Email')
         email_password = click.prompt('Password')
 
