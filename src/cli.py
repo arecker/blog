@@ -180,9 +180,9 @@ def email_send(test=False):
 
     print('You are about to send out ' + str(len(subscribers)) + ' emails.')
     print('Post: ' + post.title)
-    #if not click.confirm('Church?'):
-    #    print('Whatever')
-    #    exit()
+    if not click.confirm('Church?'):
+        print('Whatever')
+        exit()
 
     # Open Email Session
     if not test:
@@ -191,30 +191,31 @@ def email_send(test=False):
         session.starttls()
         session.login(my_email, email_password)
 
-    for person in subscribers:
-        email = Email(
-            sender = "Alex Recker",
-            recipient = person["email"],
-            subject = post.title,
-            post = post,
-            unsubscribe_key = person["unsubscribe_key"],
-            full_text = person["full_text"]
-        )
+    with click.progressbar(subscribers,label="Sending...") as bar:
+        for person in bar:
+            email = Email(
+                sender = "Alex Recker",
+                recipient = person["email"],
+                subject = post.title,
+                post = post,
+                unsubscribe_key = person["unsubscribe_key"],
+                full_text = person["full_text"]
+            )
 
-        headers = "\r\n".join(["from: " + email.sender,
-                       "subject: " + email.subject,
-                       "to: " + email.recipient,
-                       "mime-version: 1.0",
-                       "content-type: text/html"])
+            headers = "\r\n".join(["from: " + email.sender,
+                           "subject: " + email.subject,
+                           "to: " + email.recipient,
+                           "mime-version: 1.0",
+                           "content-type: text/html"])
 
-        body = utility.get_html_from_template(template_name="email.html", data=email)
-        content = headers + "\r\n\r\n" + body
+            body = utility.get_html_from_template(template_name="email.html", data=email)
+            content = headers + "\r\n\r\n" + body
 
-        if not test:
-            session.sendmail(my_email, email.recipient, content)
-            session.close()
-        else:
-            utility.write_through_template(output_path='.', template_name="email.html", data=email, filename=email.recipient + '.html')
+            if not test:
+                session.sendmail(my_email, email.recipient, content)
+                session.close()
+            else:
+                utility.write_through_template(output_path='.', template_name="email.html", data=email, filename=email.recipient + '.html')
 
 
 if __name__ == '__main__':
