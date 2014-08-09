@@ -1,6 +1,8 @@
 Blog
 ====
 
+![](https://travis-ci.org/arecker/Blog.svg?branch=master)
+
 This is my blog.  It changes a lot, but this is what it happens to look like now.
 
 ### Building it Locally
@@ -63,6 +65,10 @@ This will generate an HTML file in the current directory and open it in your bro
 ### Publishing a post
 
 When the post is ready to be published, rename it according to the date (YYYY-MM-DD.md) and commit it to the ```posts``` directory.  The script should take care of the rest.
+
+### Unit Testing
+
+The unit tests are pretty self explanatory.  I'm just using the standard ```unittest.TestCase``` classes for now.  To run them, just launch the ```tests.py``` script using the virtual environment (```.env/bin/python```)
 
 ====
 
