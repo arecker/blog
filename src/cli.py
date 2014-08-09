@@ -1,11 +1,12 @@
 import click
-from models import Post, ContentItems
+from models import Post, ContentItems, Email
 import utility
 import time
 import webbrowser
-import urllib2
+import requests
 import json
 import tabulate
+import smtplib
 
 
 @click.group()
@@ -115,13 +116,7 @@ def email_list():
     """
     list email subscribers
     """
-    try:
-        key = utility.KeyManager.get_admin_key()
-        #data = json.loads(urllib2.urlopen("http://api.alexrecker.com/email/subscriber/list/?admin=" + key))
-        print(urllib2.urlopen("http://api.alexrecker.com/email/subscriber/list/?admin=" + key))
-    except urllib2.URLError:
-        click.echo("Cannot reach API right now.")
-
+    data = get_subscriber_list()
     # Print number
     count = len(data)
     if count is 0:
@@ -138,7 +133,89 @@ def email_list():
     table = []
     for sub in data:
         table.append([sub["email"], sub["full_text"], sub["unsubscribe_key"]])
-    print tabulate(table, headers=["Email", "Full Text", "Key"])
+    print tabulate.tabulate(table, headers=["Email", "Full Text", "Key"])
+
+
+def get_subscriber_list():
+    try:
+        key = utility.KeyManager.get_admin_key()
+        url = "http://api.alexrecker.com/email/subscriber/list/?admin=" + key
+        resp = requests.get(url=url)
+        data = json.loads(resp.text)
+        return data
+    except:
+        click.echo("Cannot reach API right now")
+
+
+@email.command(name="delete")
+@click.option('--key', prompt="Unsubscribe Key")
+def email_delete(key):
+    """
+    delete a subscriber (key required)
+    """
+    try:
+        url = "http://api.alexrecker.com/email/subscriber/delete?unsubscribe=" + key
+        resp = requests.get(url=url)
+        click.echo('Subscriber removed')
+    except:
+        click.echo("Cannot reach API right now")
+
+
+@email.command(name="send")
+@click.option('--test', is_flag=True, help="writes out email to html files")
+def email_send(test=False):
+    """
+    sends latest blog post to subscribers
+    """
+    try:
+        my_email = utility.KeyManager.get_email()
+        email_password = utility.KeyManager.get_email_password()
+    except:
+        my_email = click.prompt('Email')
+        email_password = click.prompt('Password')
+
+    # Get Data
+    post = Post(utility.PathGetter.get_abs_post_file_list()[-1])
+    subscribers = get_subscriber_list()
+
+    print('You are about to send out ' + str(len(subscribers)) + ' emails.')
+    print('Post: ' + post.title)
+    #if not click.confirm('Church?'):
+    #    print('Whatever')
+    #    exit()
+
+    # Open Email Session
+    if not test:
+        session = smtplib.SMTP('smtp.gmail.com', 587)
+        session.ehlo()
+        session.starttls()
+        session.login(my_email, email_password)
+
+    for person in subscribers:
+        email = Email(
+            sender = "Alex Recker",
+            recipient = person["email"],
+            subject = post.title,
+            post = post,
+            unsubscribe_key = person["unsubscribe_key"],
+            full_text = person["full_text"]
+        )
+
+        headers = "\r\n".join(["from: " + email.sender,
+                       "subject: " + email.subject,
+                       "to: " + email.recipient,
+                       "mime-version: 1.0",
+                       "content-type: text/html"])
+
+        body = utility.get_html_from_template(template_name="email.html", data=email)
+        content = headers + "\r\n\r\n" + body
+
+        if not test:
+            session.sendmail(my_email, email.recipient, content)
+            session.close()
+        else:
+            utility.write_through_template(output_path='.', template_name="email.html", data=email, filename=email.recipient + '.html')
+
 
 if __name__ == '__main__':
     cli()

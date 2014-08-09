@@ -61,6 +61,14 @@ def write_through_template(output_path, template_name, data, filename, templates
         file.write(output.encode('utf-8'))
 
 
+def get_html_from_template(template_name, data, templates_path=None):
+    if not templates_path:
+        templates_path = PathGetter.get_templates_directory()
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(templates_path))
+    j_template = env.get_template(template_name)
+    return j_template.render(data = data)
+
+
 def write_route(route_name, data, template_name, filename="index.html", public_root=None):
     if not public_root:
         public_root = PathGetter.get_public_directory()
@@ -85,7 +93,7 @@ class KeyManager:
 
     @staticmethod
     def get_admin_key():
-        return KeyManager.get_key_data()["admin"].encode('utf-8')
+        return KeyManager.get_key_data()["admin"]
 
 
     @staticmethod

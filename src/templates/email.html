@@ -18,13 +18,13 @@
 			<h1>Blog <small>by Alex Recker</small></h1>
 		</div>
 		<div class="container post">
-			<h2>{{ post.title }}</h2>
-			<p>{{ post.description }}</small>
-			<p class="text-center"><a href="http://alexrecker.com/{{ post.link }}/">Read</a> | <a href="http://api.alexrecker.com/email/subscriber/delete?unsubscribe={{ unsubscribe }}">Unsubscribe</a> | <a href="http://alexrecker.com/feed/">RSS</a></p>
+			<h2>{{ data.post.title }}</h2>
+			<p>{{ data.post.description }}</p>
+			<p class="text-center"><a href="http://alexrecker.com/{{ data.post.link }}/">Read</a> | <a href="http://api.alexrecker.com/email/subscriber/delete?unsubscribe={{ data.unsubscribe_key }}">Unsubscribe</a> | <a href="http://alexrecker.com/feed/">RSS</a></p>
 			<hr>
-			{% if full %}
+			{% if data.full_text %}
 			<p>
-				{{ post.body }}
+				{{ data.post.body }}
 			</p>
 			{% endif %}
 		</div>

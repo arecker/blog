@@ -74,9 +74,10 @@ class Project:
 
 
 class Email:
-    def __init__(self, sender, recipient, subject, post, unsubscribe_key):
+    def __init__(self, sender, recipient, subject, post, unsubscribe_key, full_text):
         self.sender = sender
         self.recipient = recipient
         self.subject = subject
         self.post = post
         self.unsubscribe_key = unsubscribe_key
+        self.full_text = full_text
