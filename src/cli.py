@@ -3,6 +3,9 @@ from models import Post, ContentItems
 import utility
 import time
 import webbrowser
+import urllib2
+import json
+import tabulate
 
 
 @click.group()
@@ -30,7 +33,8 @@ def cli_preview(file):
 
 
 @cli.command(name="refresh")
-def cli_refresh():
+@click.option('--silent', is_flag=True, help="supress output")
+def cli_refresh(silent):
     """
     refresh the content of the public folder
     """
@@ -38,16 +42,26 @@ def cli_refresh():
     # Posts
     posts = []
     posts_path = utility.PathGetter.get_posts_directory()
-    for file in utility.PathGetter.get_abs_post_file_list():
-        post = Post(file)
-        utility.write_route(route_name=post.link, data=post, template_name="post.html")
-        posts.append(post)
+
+    if silent:
+        for file in utility.PathGetter.get_abs_post_file_list():
+            post = Post(file)
+            utility.write_route(route_name=post.link, data=post, template_name="post.html")
+            posts.append(post)
+    else:
+        with click.progressbar(utility.PathGetter.get_abs_post_file_list(), label="Refreshing posts") as bar:
+            for item in bar:
+                post = Post(item)
+                utility.write_route(route_name=post.link, data=post, template_name="post.html")
+                posts.append(post)
+
     latest_post = posts[-1]
 
     # Homepage
+    if not silent:
+        click.echo("Refreshing home")
     content_path = utility.PathGetter.get_content_path()
     ci = ContentItems(content_path)
-
     home_data = {
         "latest": {
             "title": latest_post.title,
@@ -65,10 +79,66 @@ def cli_refresh():
     utility.write_through_template(output_path=public_dir, template_name="home.html", data=home_data, filename="index.html")
 
     # RSS
-    #latest_post.to_rss()
-    #utility.write_route(route_name="feed", data=latest_post, tempalte_name="feed.xml")
+    if not silent:
+        click.echo("Refreshing feed.xml")
+    latest_post.to_rss()
+    utility.write_route(route_name="feed", data=latest_post, template_name="feed.xml", filename="index.xml")
+
+    # Robots.txt
+    if not silent:
+        click.echo("Refreshing robots.txt")
+    utility.write_through_template(template_name="robots.txt", data=None, filename="robots.txt", output_path=utility.PathGetter.get_public_directory())
+
+    # Sitemap
+    links = []
+    if not silent:
+        click.echo("Refreshing sitemap.xml")
+    for post in posts:
+        links.append('http://alexrecker.com/' + post.link + '/')
+    links.append('http://alexrecker.com')
+    utility.write_through_template(template_name='sitemap.xml', data=links, filename="sitemap.xml", output_path=utility.PathGetter.get_public_directory())
+
+    if not silent:
+        click.echo('Done!')
 
 
+@cli.group()
+def email():
+    """
+    manage email subscribers
+    """
+    pass
+
+
+@email.command(name="list")
+def email_list():
+    """
+    list email subscribers
+    """
+    try:
+        key = utility.KeyManager.get_admin_key()
+        #data = json.loads(urllib2.urlopen("http://api.alexrecker.com/email/subscriber/list/?admin=" + key))
+        print(urllib2.urlopen("http://api.alexrecker.com/email/subscriber/list/?admin=" + key))
+    except urllib2.URLError:
+        click.echo("Cannot reach API right now.")
+
+    # Print number
+    count = len(data)
+    if count is 0:
+        print('There are no subscribers.')
+        exit()
+    elif count is 1:
+        print('There is 1 subscriber')
+        print("")
+    else:
+        print('There are ' + str(count) + ' subscribers.')
+        print("")
+
+    # Print Table
+    table = []
+    for sub in data:
+        table.append([sub["email"], sub["full_text"], sub["unsubscribe_key"]])
+    print tabulate(table, headers=["Email", "Full Text", "Key"])
 
 if __name__ == '__main__':
     cli()

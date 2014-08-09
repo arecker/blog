@@ -71,3 +71,12 @@ class Project:
         self.image = content_item["image"]
         self.caption = content_item["caption"]
         self.link = content_item["link"]
+
+
+class Email:
+    def __init__(self, sender, recipient, subject, post, unsubscribe_key):
+        self.sender = sender
+        self.recipient = recipient
+        self.subject = subject
+        self.post = post
+        self.unsubscribe_key = unsubscribe_key
