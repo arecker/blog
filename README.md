@@ -7,7 +7,7 @@ This is my blog.  It changes a lot, but this is what it happens to look like now
 
 To build this project locally, it is recomended to install [python virtualenv](https://pypi.python.org/pypi/virtualenv), which is likely available for your platform.
 
-Once that is going, clone the project locally and load up a new environment with the projects required dependencies:
+Once that is going, clone the project locally and load up a new environment with the project's required dependencies:
 
     $ git clone https://github.com/arecker/Blog.git
     $ cd Blog
