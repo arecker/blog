@@ -165,7 +165,7 @@ def email_delete(key):
 @click.option('--test', is_flag=True, help="writes out email to html files")
 def email_send(test=False):
     """
-    sends latest blog post to subscribers
+    send the blog post to subscribers
     """
     try:
         my_email = utility.KeyManager.get_email()
