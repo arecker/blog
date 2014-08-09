@@ -30,7 +30,7 @@ class Post:
             self.image = meta["image"][0]
         except KeyError:
             self.image = None
-            self.body = html
+        self.body = html
 
 
     def to_rss(self):
