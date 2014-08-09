@@ -64,6 +64,8 @@ This will generate an HTML file in the current directory and open it in your bro
 
 When the post is ready to be published, rename it according to the date (YYYY-MM-DD.md) and commit it to the ```posts``` directory.  The script should take care of the rest.
 
+====
+
 ### TODO:
 - Automate post publishing
 - Clean up email command
