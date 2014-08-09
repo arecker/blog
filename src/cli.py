@@ -99,8 +99,12 @@ def cli_refresh(silent):
     links.append('http://alexrecker.com')
     utility.write_through_template(template_name='sitemap.xml', data=links, filename="sitemap.xml", output_path=utility.PathGetter.get_public_directory())
 
+    # 404
+    if not silent:
+        click.echo("Refreshing 404.html")
     if not silent:
         click.echo('Done!')
+    utility.write_through_template(template_name="404.html", data=None, filename="404.html", output_path=utility.PathGetter.get_public_directory())
 
 
 @cli.group()
