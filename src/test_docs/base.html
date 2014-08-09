@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    {% block meta_title %}<title>Blog by Alex Recker</title>{% endblock %}
+    <link rel="icon" type="image/png" href="http://media.alexrecker.com/imgages/favicon.png"/>
+    {% block meta_description %}<meta name="description" content="Hi - my name is Alex Recker.  I like to write words.">{% endblock %}
+    <link href='http://fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* Content Containers */
+        .main {
+            max-width: 800px;
+        }
+
+        .body h1 {
+            font-size: 200%;
+            margin-top: 2em;
+        }
+
+        .home  {
+            margin-bottom: 3em;
+        }
+
+        .header {
+            margin-top: 2em;
+        }
+
+        .jumbo .jumbotron {
+            margin-top: 3em;
+            background-color: transparent;
+        }
+
+        img[src="/static/img/portrait.jpg"]{
+            margin-right: 10px;
+        }
+
+        /* Font */
+        h1, h2, h3, h4, p, li { font-family: 'Tinos', serif !important; }
+        .fa { font-family: FontAwesome !important;}
+        p, li { font-size: 120%;}
+        h1 { font-weight: regular !important}
+
+        /* Images */
+        .body img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            margin-top: 2em;
+            margin-bottom: 1em;
+        }
+
+        /* Captions */
+        figcaption {
+            font-style: italic;
+            font-size: 90%;
+            max-width: 80%;
+            margin: 0 auto;
+            margin-bottom: 2em;
+            text-align: center;
+        }
+
+        /* Iframes */
+        iframe {
+            display: block;
+            margin: 0 auto;
+            margin-top: 2em;
+            margin-bottom: 2em;
+            max-width: 100%;
+        }
+
+        /* Tooltips */
+        .tooltip * {
+            font-size: 120%;
+            text-align: left;
+        }
+
+        /*Sidebar*/
+        #sidebar {
+            margin-left: 2em;
+            margin-top: 1em;
+        }
+
+        .nav-tabs a, .nav-tabs a:visited, .nav-tabs a:active { color: black; }
+        .nav-tabs a:hover { color: red; }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar-->
+    <ul class="nav nav-tabs">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a id="rss" href=""><i class="fa fa-rss"></i></a></li>
+        <li><a id="subscribe" href=""><i class="fa fa-envelope-o"></i></a></li>
+        <li><a href="http://twitter.com/alex_recker"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/arecker"><i class="fa fa-github"></i></a></li>
+    </ul>
+
+	{% block body %}
+	{% endblock %}
+</body>
+
+<footer>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+
+        // Launch Subscribe Widget
+        $('#subscribe').click(function(){
+            var newwindow=window.open('http://subscribe.alexrecker.com','Subscribe by Email','height=450,width=400');
+        });
+
+        // Launch RSS Popup
+        $('#rss').click(function(){
+            var newwindow=window.open('http://alexrecker.com/feed/','Feed | Blog by Alex Recker','height=450,width=400');
+        });
+
+    </script>
+    {% block footer %}
+    {% endblock %}
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-42540208-6', 'alexrecker.com');
+        ga('send', 'pageview');
+    </script>
+
+</footer>

@@ -16,7 +16,7 @@ class Post:
     def __init__(self, file_path, date_override=None):
         md = markdown.Markdown(extensions = ['meta'])
         with open(file_path, 'r') as file:
-            html = md.convert(file.read())
+            html = md.convert(file.read().decode('utf-8'))
         meta = md.Meta
 
         if date_override:

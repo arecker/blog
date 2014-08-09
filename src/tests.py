@@ -1,10 +1,14 @@
 from models import Post, ContentItems
+import utility
 import unittest
+import os
+import ntpath
 
 
 class TestPost(unittest.TestCase):
     def setUp(self):
-        self.post = Post('test/1900-01-01.md')
+        file = os.path.join(utility.PathGetter.get_test_docs_directory(), '1900-01-01.md')
+        self.post = Post(file)
 
 
     def test_post_creation(self):
@@ -26,7 +30,8 @@ class TestPost(unittest.TestCase):
 
 class TestContentItems(unittest.TestCase):
     def setUp(self):
-        self.ci = ContentItems('test/pages.json')
+        file = os.path.join(utility.PathGetter.get_test_docs_directory(), 'pages.json')
+        self.ci = ContentItems(file)
 
 
     def test_projects(self):
@@ -39,6 +44,53 @@ class TestContentItems(unittest.TestCase):
         self.assertEqual(self.ci.friends[0].title, 'A Glorious Mystery')
         self.assertEqual(self.ci.friends[1].subtitle, 'Blog by Ben Parks')
         self.assertEqual(self.ci.friends[2].link, 'http://brewerdigital.com')
+
+
+class TestPathGetter(unittest.TestCase):
+    def setUp(self):
+        pass
+
+
+    def test_get_project_src(self):
+        actual = utility.PathGetter.get_project_src()
+        self.assertTrue(os.path.exists(actual))
+        self.assertTrue('src' in actual)
+        self.assertEqual(ntpath.basename(actual), 'src')
+
+
+    def test_get_posts_directory(self):
+        actual = utility.PathGetter.get_posts_directory()
+        self.assertTrue(os.path.exists(actual))
+        self.assertTrue('posts' in actual)
+        self.assertEqual(ntpath.basename(actual), 'posts')
+
+
+    def test_get_public_directory(self):
+        actual = utility.PathGetter.get_public_directory()
+        self.assertTrue(os.path.exists(actual))
+        self.assertTrue('public' in actual)
+        self.assertEqual(ntpath.basename(actual), 'public')
+
+
+    def test_get_content_path(self):
+        actual = utility.PathGetter.get_content_path()
+        self.assertTrue(os.path.exists(actual))
+        self.assertTrue('src/pages.json' in actual)
+        self.assertEqual(ntpath.basename(actual), 'pages.json')
+
+
+    def test_get_templates_directory(self):
+        actual = utility.PathGetter.get_templates_directory()
+        self.assertTrue(os.path.exists(actual))
+        self.assertTrue('src/templates' in actual)
+        self.assertEqual(ntpath.basename(actual), 'templates')
+
+
+    def test_get_test_docs_directory(self):
+        actual = utility.PathGetter.get_test_docs_directory()
+        self.assertTrue(os.path.exists(actual))
+        self.assertTrue('src/test_docs' in actual)
+        self.assertEqual(ntpath.basename(actual), 'test_docs')
 
 
 if __name__ == '__main__':

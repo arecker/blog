@@ -1,21 +1,57 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <h1>Yahtzee</h1>
-    <p>
-        <ul>
-            <li>Title: {{ data.title }}</li>
-            <li>Description: {{ data.description }}</li>
-            <li>Link: {{ data.link }}</li>
-            <li>Date: {{ data.date }}</li>
-        </ul>
-    </p>
-    <p>
-        {{ data.body }}
-    </p>
-</body>
-</html>
+{% extends "base.html" %}
+{% block meta_title %}<title>{{ data.title }} | Blog by Alex Recker</title>{% endblock %}
+{% block meta_description %}<meta name="description" content="{{ data.description }}">{% endblock %}
+{% block meta_canonical %}<link rel="canonical" href="http://alexrecker.com/{{ data.link }}/">{% endblock %}
+{% block body %}
+
+	<!-- Post Title -->
+	<div class="container main header">
+		<div class="page-header">
+			<h1>{{ data.title }}</h1>
+			<p>
+				{{ data.description }}
+			</p>
+		</div>
+		<hr>
+	</div>
+
+	<!-- Post Body -->
+	<div class="container main body">
+		{{ data.body }}
+	</div>
+
+	<!-- Post Comments -->
+	<div class="container main footer">
+
+	    <!-- Facebook Comments Script -->
+	    <div id="fb-root"></div>
+	    <script>(function(d, s, id) {
+	          var js, fjs = d.getElementsByTagName(s)[0];
+	          if (d.getElementById(id)) return;
+	          js = d.createElement(s); js.id = id;
+	          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
+	          fjs.parentNode.insertBefore(js, fjs);
+	        }(document, 'script', 'facebook-jssdk'));
+	    </script>
+
+		<div class="page-header">
+			<h1>Comments</h1>
+            <!-- Comments Widget -->
+            <div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ data.link }}/" data-numposts="20" data-colorscheme="light"></div>
+		</div>
+	</div>
+
+{% endblock %}
+
+{% block footer %}
+<script>
+    // Convert alt properties to figure captions
+    $(document).ready(function() {
+        $("img").each(function() {
+            if($(this).attr("alt"))
+                $(this).wrap('<figure class="image"></figure>')
+                    .after('<figcaption>'+$(this).attr("alt")+'</figcaption>');
+            });
+    });
+</script>
+{% endblock %}
