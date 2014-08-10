@@ -4,7 +4,7 @@ import shutil
 import json
 
 """
-This is a class for miscellaneous utility methods
+This is a place for miscellaneous utility methods
 """
 
 class PathGetter:
