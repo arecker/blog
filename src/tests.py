@@ -93,5 +93,29 @@ class TestPathGetter(unittest.TestCase):
         self.assertEqual(ntpath.basename(actual), 'test_docs')
 
 
+class TestKeyManager():
+    def setUp(self):
+        self.key_path = os.path.join(utility.PathGetter.get_test_docs_directory(), 'test_keys.json')
+
+
+    def test_get_admin_key(self):
+        actual = utility.KeyManager.get_admin_key(self.key_path)
+        self.assertEqual(actual, "babababababababab")
+
+
+    def test_get_app_key(self):
+        actual = utility.KeyManager.get_app_key(self.key_path)
+        self.assertEqual(actual, "lkajsdlfajsdlfja1234134")
+
+
+    def test_get_email(self):
+        actual = utility.KeyManager.get_email(self.key_path)
+        self.assertEqual(actual, "bob@test.com")
+
+
+    def test_get_email_password(self):
+        actual = utility.KeyManager.get_email_password(self.key_path)
+        self.assertEqual(actual, "bobMissesTheHood")
+
 if __name__ == '__main__':
 	unittest.main()

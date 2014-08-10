@@ -6,6 +6,7 @@ import email.utils
 import json
 import ntpath
 import slugify
+import utility
 
 
 class Post:
@@ -34,6 +35,9 @@ class Post:
 
 
     def to_rss(self):
+        """
+        Fills in RSS attributes (only needed for one post)
+        """
         self.rss_body = cgi.escape(self.body)
         self.rss_date = email.utils.formatdate(time.mktime(datetime.datetime.strptime(self.date, '%Y-%m-%d').timetuple())) # Never touching this again
 
@@ -74,6 +78,10 @@ class Project:
 
 
 class Email:
+    """
+    Definition class for an email.
+    Constructs header and email body
+    """
     def __init__(self, sender, recipient, subject, post, unsubscribe_key, full_text):
         self.sender = sender
         self.recipient = recipient
@@ -81,3 +89,12 @@ class Email:
         self.post = post
         self.unsubscribe_key = unsubscribe_key
         self.full_text = full_text
+
+        self.headers = "\r\n".join(["from: " + self.sender,
+                           "subject: " + self.subject,
+                           "to: " + self.recipient,
+                           "mime-version: 1.0",
+                           "content-type: text/html"])
+
+        self.body = utility.get_html_from_template(template_name="email.html", data=self)
+        self.content = self.headers + "\r\n\r\n" + self.body

@@ -206,17 +206,8 @@ def email_send(test=False):
                 full_text = person["full_text"]
             )
 
-            headers = "\r\n".join(["from: " + email.sender,
-                           "subject: " + email.subject,
-                           "to: " + email.recipient,
-                           "mime-version: 1.0",
-                           "content-type: text/html"])
-
-            body = utility.get_html_from_template(template_name="email.html", data=email)
-            content = headers + "\r\n\r\n" + body
-
             if not test:
-                session.sendmail(my_email, email.recipient, content)
+                session.sendmail(my_email, email.recipient, email.content)
                 session.close()
             else:
                 utility.write_through_template(output_path='.', template_name="email.html", data=email, filename=email.recipient + '.html')

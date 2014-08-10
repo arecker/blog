@@ -8,6 +8,9 @@ This is a class for miscellaneous utility methods
 """
 
 class PathGetter:
+    """
+    Returns paths needed in the project
+    """
     @staticmethod
     def get_project_src():
         return os.path.abspath(os.path.dirname(__file__))
@@ -52,12 +55,8 @@ class PathGetter:
 
 
 def write_through_template(output_path, template_name, data, filename, templates_path=None):
-    if not templates_path:
-        templates_path = PathGetter.get_templates_directory()
-    env = jinja2.Environment(loader=jinja2.FileSystemLoader(templates_path))
-    j_template = env.get_template(template_name)
+    output = get_html_from_template(template_name=template_name, data=data, templates_path=templates_path)
     with open(os.path.join(output_path, filename), 'wb') as file:
-        output = j_template.render(data = data)
         file.write(output.encode('utf-8'))
 
 
@@ -80,11 +79,15 @@ def write_route(route_name, data, template_name, filename="index.html", public_r
 
 
 class KeyManager:
+    """
+    Retrieves keys from .keys.json
+    """
     @staticmethod
-    def get_key_data():
+    def get_key_data(path_to_key_file):
+        if not path_to_key_file:
+            path_to_key_file = os.path.join(PathGetter.get_project_src(), '.keys.json')
         try:
-            file_path = os.path.join(PathGetter.get_project_src(), '.keys.json')
-            with open(file_path, 'r') as file:
+            with open(path_to_key_file, 'r') as file:
                 data = json.load(file)
             return data
         except:
@@ -92,20 +95,20 @@ class KeyManager:
 
 
     @staticmethod
-    def get_admin_key():
-        return KeyManager.get_key_data()["admin"]
+    def get_admin_key(path_to_key_file=None):
+        return KeyManager.get_key_data(path_to_key_file)["admin"]
 
 
     @staticmethod
-    def get_app_key():
-        return KeyManager.get_key_data()["app"]
+    def get_app_key(path_to_key_file=None):
+        return KeyManager.get_key_data(path_to_key_file)["app"]
 
 
     @staticmethod
-    def get_email():
-        return KeyManager.get_key_data()["email"]
+    def get_email(path_to_key_file=None):
+        return KeyManager.get_key_data(path_to_key_file)["email"]
 
 
     @staticmethod
-    def get_email_password():
-        return KeyManager.get_key_data()["email_password"]
+    def get_email_password(path_to_key_file=None):
+        return KeyManager.get_key_data(path_to_key_file)["email_password"]
