@@ -93,7 +93,7 @@ class TestPathGetter(unittest.TestCase):
         self.assertEqual(ntpath.basename(actual), 'test_docs')
 
 
-class TestKeyManager():
+class TestKeyManager(unittest.TestCase):
     def setUp(self):
         self.key_path = os.path.join(utility.PathGetter.get_test_docs_directory(), 'test_keys.json')
 
