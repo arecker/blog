@@ -2,6 +2,7 @@ import jinja2
 import os
 import shutil
 import json
+import binascii
 
 """
 This is a place for miscellaneous utility methods
@@ -112,3 +113,8 @@ class KeyManager:
     @staticmethod
     def get_email_password(path_to_key_file=None):
         return KeyManager.get_key_data(path_to_key_file)["email_password"]
+
+
+def get_string_from_hex(hex):
+    hex = hex.encode('ascii', 'strict')
+    return binascii.unhexlify(hex.replace(' ', '').replace('\n', ''))
