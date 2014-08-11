@@ -19,7 +19,7 @@ class Post:
         with open(file_path, 'r') as file:
             try: # Python 3.3: Strings are unicode
                 html = md.convert(file.read())
-            except AttributeError: # < 3.3: Strings need to be decoded
+            except: # < 3.X: Strings need to be decoded
                 html = md.convert(file.read().decode('utf-8'))
         meta = md.Meta
 
