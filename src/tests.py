@@ -137,8 +137,5 @@ class TestEmail(unittest.TestCase):
         self.assertTrue(expected in actual)
 
 
-
-
-
 if __name__ == '__main__':
 	unittest.main()
