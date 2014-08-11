@@ -1,4 +1,4 @@
-from models import Post, ContentItems
+from models import Post, ContentItems, Email
 import utility
 import unittest
 import os
@@ -116,6 +116,29 @@ class TestKeyManager(unittest.TestCase):
     def test_get_email_password(self):
         actual = utility.KeyManager.get_email_password(self.key_path)
         self.assertEqual(actual, "bobMissesTheHood")
+
+
+class TestEmail(unittest.TestCase):
+    def setUp(self):
+        # sender, recipient, subject, post, unsubscribe_key, full_text
+        post = Post(os.path.join(utility.PathGetter.get_test_docs_directory(), '1900-01-01.md'))
+        self.email = Email(
+            sender = 'Alex Recker',
+            recipient = 'bob@test.com',
+            unsubscribe_key = 'blablablaunsubscribekeyhash',
+            full_text = False,
+            post = post,
+            subject = post.title
+        )
+
+    def test_unsubscribe_link_in_email(self):
+        actual = utility.get_html_from_template(template_name="email.html", data = self.email)
+        expected = '<a href="http://api.alexrecker.com/email/subscriber/delete?unsubscribe=blablablaunsubscribekeyhash">Unsubscribe</a>'
+        self.assertTrue(expected in actual)
+
+
+
+
 
 if __name__ == '__main__':
 	unittest.main()
