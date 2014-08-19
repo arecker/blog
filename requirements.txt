@@ -6,4 +6,3 @@ click==2.5
 requests==2.3.0
 slugify==0.0.1
 tabulate==0.7.2
-wsgiref==0.1.2
