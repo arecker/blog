@@ -18,7 +18,10 @@ class Post:
         md = markdown.Markdown(extensions = ['meta'])
 
         # TODO: This is only python 2 compatible
-        html = md.convert(open(file_path).read().decode('UTF-8'))
+        try:
+            html = md.convert(open(file_path).read())
+        except:
+            html = md.convert(open(file_path).read().decode('UTF-8'))
         meta = md.Meta
 
         if date_override:
