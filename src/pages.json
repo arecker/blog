@@ -2,6 +2,13 @@
 
     "Projects": [
         {
+            "title": "Blog by Alex Recker",
+            "subtitle": "A Website",
+            "image": "http://media.alexrecker.com/images/myblog.png",
+            "caption": "That's right - all the code for this blog is just hanging out there.",
+            "link": "https://github.com/arecker/Blog"
+        },
+        {
             "title": "MJ Art Inspiration",
             "subtitle": "An Art Blog",
             "image": "http://media.alexrecker.com/images/mjart.png",
