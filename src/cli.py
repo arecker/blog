@@ -188,13 +188,6 @@ def email_send(test=False):
         print('Whatever')
         exit()
 
-    # Open Email Session
-    if not test:
-        session = smtplib.SMTP('smtp.gmail.com', 587)
-        session.ehlo()
-        session.starttls()
-        session.login(my_email, email_password)
-
     with click.progressbar(subscribers,label="Sending...") as bar:
         for person in bar:
             email = Email(
@@ -207,6 +200,10 @@ def email_send(test=False):
             )
 
             if not test:
+                session = smtplib.SMTP('smtp.gmail.com', 587)
+                session.ehlo()
+                session.starttls()
+                session.login(my_email, email_password)
                 session.sendmail(my_email, email.recipient, email.content)
                 session.close()
             else:

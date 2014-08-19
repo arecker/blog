@@ -99,3 +99,4 @@ class Email:
 
         self.body = utility.get_html_from_template(template_name="email.html", data=self)
         self.content = self.headers + "\r\n\r\n" + self.body
+        self.content = self.content.encode('ascii', 'ignore')
