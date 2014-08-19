@@ -17,7 +17,10 @@ class Post:
     def __init__(self, file_path, date_override=None):
         md = markdown.Markdown(extensions = ['meta'])
         with open(file_path, 'r') as file:
-            html = md.convert(file.read().decode('utf-8'))
+            try: # Python 3.3: Strings are unicode
+                html = md.convert(file.read())
+            except: # < 3.X: Strings need to be decoded
+                html = md.convert(file.read().decode('utf-8'))
         meta = md.Meta
 
         if date_override:

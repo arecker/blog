@@ -74,4 +74,3 @@ The unit tests are pretty self explanatory.  I'm just using the standard ```unit
 
 ### TODO:
 - Automate post publishing
-- Make compatible with python 3.3
