@@ -149,6 +149,7 @@ def get_subscriber_list():
         return data
     except:
         click.echo("Cannot reach API right now")
+        exit()
 
 
 @email.command(name="delete")
