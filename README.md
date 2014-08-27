@@ -2,6 +2,7 @@ Blog
 ====
 
 ![](https://travis-ci.org/arecker/Blog.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/arecker/Blog/badge.png)](https://coveralls.io/r/arecker/Blog)
 
 This is my blog.  It changes a lot, but this is what it happens to look like now.
 
