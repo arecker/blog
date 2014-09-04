@@ -111,12 +111,20 @@
 
         // Launch Subscribe Widget
         $('#subscribe').click(function(){
-            var newwindow=window.open('http://subscribe.alexrecker.com','Subscribe by Email','height=450,width=400');
+            try {
+                var newwindow=window.open('http://subscribe.alexrecker.com','Subscribe by Email','height=450,width=400');
+            } catch(e){
+                var newwindow=window.open('http://subscribe.alexrecker.com','_blank','height=450,width=400');
+            }
         })
 
         // Launch RSS Popup
         $('#feed').click(function(){
-            var newwindow = window.open('http://alexrecker.com/feed/','Feed | Blog by Alex Recker','height=450,width=400');
+            try {
+                var newwindow = window.open('http://alexrecker.com/feed/','Feed | Blog by Alex Recker','height=450,width=400');
+            } catch(e) {
+                var newwindow = window.open('http://alexrecker.com/feed/','_blank','height=450,width=400');
+            }
         });
 
     </script>
