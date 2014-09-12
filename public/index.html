@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Blog by Alex Recker</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
+    <meta name="description" content="Hi.  My name is Alex Recker.  I like to write words.">
+    <link rel="canonical" href="http://alexrecker.com/">
+    <link rel="stylesheet" href="http://bootswatch.com/sandstone/bootstrap.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* Content Containers */
+        .main {
+            max-width: 800px;
+        }
+
+        .body h1 {
+            font-size: 200%;
+            margin-top: 2em;
+        }
+
+        .home  {
+            margin-bottom: 3em;
+        }
+
+        .header {
+            margin-top: 2em;
+        }
+
+        .jumbo .jumbotron {
+            margin-top: 3em;
+            background-color: transparent;
+        }
+
+        img[src="http://media.alexrecker.com/images/portrait.jpg"]{
+            margin-right: 10px;
+        }
+
+        /* Font */
+        h1, h2, h3, h4, p, li { font-family: 'Tinos', serif !important; }
+        .fa { font-family: FontAwesome !important;}
+        p, li { font-size: 120%;}
+        h1 { font-weight: regular !important}
+
+        /* Images */
+        .body img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            margin-top: 2em;
+            margin-bottom: 1em;
+        }
+
+        /* Captions */
+        figcaption {
+            font-style: italic;
+            font-size: 90%;
+            max-width: 80%;
+            margin: 0 auto;
+            margin-bottom: 2em;
+            text-align: center;
+        }
+
+        /* Iframes */
+        iframe {
+            display: block;
+            margin: 0 auto;
+            margin-top: 2em;
+            margin-bottom: 2em;
+            max-width: 100%;
+        }
+
+        /* Tooltips */
+        .tooltip * {
+            font-size: 120%;
+            text-align: left;
+        }
+
+        /*Sidebar*/
+        #sidebar {
+            margin-left: 2em;
+            margin-top: 1em;
+        }
+
+        .nav-tabs a, .nav-tabs a:visited, .nav-tabs a:active { color: black; }
+        .nav-tabs a:hover { color: red; }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar-->
+    <ul class="nav nav-tabs">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a id="feed" href=""><i class="fa fa-rss"></i></a></li>
+        <li><a id="subscribe" href=""><i class="fa fa-envelope-o"></i></a></li>
+        <li><a href="http://twitter.com/alex_recker"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/arecker"><i class="fa fa-github"></i></a></li>
+    </ul>
+
+	
+	<!-- Jumbotron -->
+	<div class="container main home jumbo">
+		<div class="jumbotron">
+			<div class="media">
+			  <a class="pull-left" href="#">
+			    <img class="media-object" src="http://media.alexrecker.com/images/portrait.jpg" />
+			  </a>
+			  <div class="media-body">
+			    <h1 class="media-heading">Blog</h1>
+			    <h2>By Alex Recker</h2>
+			  </div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Latest Post -->
+	<div class="container main home">
+		<div class="page-header">
+			<h1>Latest Post</h1>
+		</div>
+		<div class="media">
+		  
+		  <a class="pull-left" href="style">
+		    <img class="media-object" src="https://www.python.org/~guido/images/IMG_2192.jpg" width="100px">
+		  </a>
+		  
+		  <div class="media-body">
+		    <a href="style"><h4 class="media-heading lead">Style</h4></a>
+		    <p>
+		    	Style talk - programming style that is.  What does your programming style say about your stance on moral responsibility?
+		    </p>
+		  </div>
+		</div>
+	</div>
+
+	<!-- Archives -->
+	<div class="container main home">
+		<div class="page-header">
+			<h1>Archives</h1>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon"><i class="fa fa-search"></i></span>
+			<input id="filter" class="form-control" type="text" placeholder="Filter" onkeyup="filter(this)" size="10"/>
+		</div>
+		<br>
+		<div class="panel panel-default">
+  			<div class="panel-body">
+				<p>
+				
+					<a href="style" data-toggle="tooltip" data-placement="top" title="Style talk - programming style that is.  What does your programming style say about your stance on moral responsibility?">Style</a>  |
+				
+					<a href="bronies" data-toggle="tooltip" data-placement="top" title="Bronies are all over the Internet, as well as the people who hate them.  After a brief catchup on what the heck the whole Brony thing is, let’s don our evolutionist hat and break this thing down on a natural level.">Bronies</a>  |
+				
+					<a href="wedding" data-toggle="tooltip" data-placement="top" title="We got married!  And we finally have photographic evidence.">Wedding</a>  |
+				
+					<a href="hercules" data-toggle="tooltip" data-placement="top" title="I review the movie Hercules, starring Dwayne ‘The Rock’ Johnson.  What I expected was to see my favorite wrestler beat elephants to death.  What I didn’t expect was a valuable lesson.">Hercules</a>  |
+				
+					<a href="coffee" data-toggle="tooltip" data-placement="top" title="I worked at Starbucks for about seven years.  The system is a lot simpler than you would think.  Here is everything you need to know to be a great customer at your local coffee shop.">Coffee</a>  |
+				
+					<a href="good-tv" data-toggle="tooltip" data-placement="top" title="Let's talk about TV.  Here are the three rules all good TV shows follow.">Good TV</a>  |
+				
+					<a href="can-i-interest-you-in-some-totalitarianism" data-toggle="tooltip" data-placement="top" title="You have woken up in a world stifled by a massive totalitarian government.  For once, let’s not talk about the worthy implications.  What would suck?  What would be pretty good?">Can I Interest You in Some Totalitarianism?</a>  |
+				
+					<a href="touching-base" data-toggle="tooltip" data-placement="top" title="Just keeping the blogger-reader connection alive with general thoughts and impressions of the direction of this blog.  Also, bulldozers and the use of the word ‘Programmy’.">Touching Base</a>  |
+				
+					<a href="these-chemical-analogies-are-terrible-part-1" data-toggle="tooltip" data-placement="top" title="As a lengthy final suicide note to the discipline of chemistry, I have decided to kick off a final brain dump of all the awful analogies that have helped me limp my way out with a degree.  In Part 1: What would a molecule do for a Klondike bar?">These Chemical Analogies are Terrible: Part 1</a>  |
+				
+					<a href="writing" data-toggle="tooltip" data-placement="top" title="I have always liked to write, but college writing classes led me to the comfortable pastures of amateur writing.  Here are some tips on how to be a mediocre writer.">Writing</a>  |
+				
+					<a href="chemistry" data-toggle="tooltip" data-placement="top" title="Blanking on a chemistry question this week spurred an identity crisis, a Breaking Bad reference, and a tender look back on all the chemists that have been a part of my life.">Chemistry</a>  |
+				
+					<a href="arguments" data-toggle="tooltip" data-placement="top" title="Don't be like that, bae.  This week, we discuss arguments.">Arguments</a>  |
+				
+					<a href="welcome-home" data-toggle="tooltip" data-placement="top" title="Wordpress has served me well, but my soul longs for the wilderness.  Retreat with me into the backwoods of the Internet.">Welcome Home</a>  |
+				
+					<a href="raising-a-child-who-plays-video-games" data-toggle="tooltip" data-placement="top" title="This week, a twenty-three year old kid tells you how to raise your child.">Raising a Child Who Plays Video Games</a>  |
+				
+					<a href="escape" data-toggle="tooltip" data-placement="top" title="I offer up my perfect escape plan up for authoritative critique. Did I just break the way we patrol our highways, or am I really an idiot?">Escape</a>  |
+				
+					<a href="glass" data-toggle="tooltip" data-placement="top" title="Google released an official list of "do's and don'ts" for Glass wearers. Let's get real, everyone. I think Papa Google is getting senile.">Glass</a>  |
+				
+					<a href="work" data-toggle="tooltip" data-placement="top" title="A late-night quicky: reflections on joining a modern workplace. How college students should view work.">Work</a>  |
+				
+					<a href="frozen" data-toggle="tooltip" data-placement="top" title="A review of the movie Frozen, followed by a totally unnecessary and gratuitously violent alternate-ending.">Frozen</a>  |
+				
+					<a href="google" data-toggle="tooltip" data-placement="top" title="A tedious discussion of my relationship with Google - as well as an admonishment for yours.">Google</a>  |
+				
+					<a href="noah" data-toggle="tooltip" data-placement="top" title="A tender look back on the life of the best little brother I've ever had.">Noah</a>  |
+				
+					<a href="the-miss-steak" data-toggle="tooltip" data-placement="top" title="Learn to cook one of the first edible meals that has ever left my humble kitchen. Let's try not to poison ourselves with this buttery steak sandwich.">The Miss-Steak</a>  |
+				
+					<a href="youtube" data-toggle="tooltip" data-placement="top" title="Thoughts on the direction of YouTube in Google's hands in the wake of the new comment system scandal.">YouTube</a>  |
+				
+					<a href="apartment-life" data-toggle="tooltip" data-placement="top" title="Catch a glimpse of my glamorous apartment life through my daily routine and a couple of pictures">Apartment Life</a>  |
+				
+					<a href="ikea" data-toggle="tooltip" data-placement="top" title="Having just moved in, I'd like to share my 4 rules to safely assembling Ikea furniture.">Ikea</a>  |
+				
+					<a href="engaged" data-toggle="tooltip" data-placement="top" title="Last Saturday, I got engaged with the help of a few very generous Redditors. Here is the story.">Engaged</a>  |
+				
+					<a href="the-vow" data-toggle="tooltip" data-placement="top" title="Review, and ultimately a snarky rewrite, of 'dramacomedy' The Vow. Let's fix this mess.">The Vow</a>  |
+				
+					<a href="anakin" data-toggle="tooltip" data-placement="top" title="Let's examine the psyche of everyone's favorite kid Jedi - Anakin Skywalker.">Anakin</a>  |
+				
+					<a href="sitcoms" data-toggle="tooltip" data-placement="top" title="Being a devoted Seinfeld fan, the idea of making room in my heart for another pop sensation portrayal of regular people set in New York irked me.">Sitcoms</a>  |
+				
+					<a href="skateboarding" data-toggle="tooltip" data-placement="top" title="A story about my first try at skateboarding. Getting the courage to try out the Olympic Skatepark in Schaumburg, I'm helped by two really friendly locals.-->">Skateboarding</a>  |
+				
+					<a href="obsessed-with-computers" data-toggle="tooltip" data-placement="top" title="A reflection on how four different, admittedly embarrassing, pursuits derailed my education and got me a job in computers.">Obsessed with Computers</a>  |
+				
+					<a href="computers-on-our-face" data-toggle="tooltip" data-placement="top" title="Official Promotional video for Google Glass, released this past February. Well this is interesting, Google">Computers on our Face</a>  |
+				
+					<a href="brace-for-ego" data-toggle="tooltip" data-placement="top" title="Let's try blogging.  First, some rules...">Brace for Ego</a>  |
+				
+				</p>
+  			</div>
+		</div>
+	</div>
+
+	<!--Projects -->
+	<div class="container main home">
+		<div class="page-header">
+			<h1>Projects</h1>
+		</div>
+		
+		<div class="media">
+			<a class="pull-left" href="https://github.com/arecker/Blog">
+				<img src="http://media.alexrecker.com/images/myblog.png" width="100px">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading lead">Blog by Alex Recker <small>A Website</small></h4>
+				<p>
+					That's right - all the code for this blog is just hanging out there.
+				</p>
+			</div>
+		</div>
+		
+		<div class="media">
+			<a class="pull-left" href="http://mjartinspiration.com">
+				<img src="http://media.alexrecker.com/images/mjart.png" width="100px">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading lead">MJ Art Inspiration <small>An Art Blog</small></h4>
+				<p>
+					A website I made for my beautiful muse, Marissa, to showcase her art.
+				</p>
+			</div>
+		</div>
+		
+		<div class="media">
+			<a class="pull-left" href="https://chrome.google.com/webstore/detail/corgi-break/eefgnnnhlmhhpbgcnklbhnkgdjokgncd">
+				<img src="http://media.alexrecker.com/images/corgi-break.png" width="100px">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading lead">Corgi-Break <small>A Chrome Extension</small></h4>
+				<p>
+					Getting burnt out?  Take a Corgi break, man. With images, imgur albums, and YouTube videos pulled fresh from /r/corgi, you are always just a click away from Corgi heaven.
+				</p>
+			</div>
+		</div>
+		
+		<div class="media">
+			<a class="pull-left" href="http://bobrosssearch.com">
+				<img src="http://media.alexrecker.com/images/bobross.jpg" width="100px">
+			</a>
+			<div class="media-body">
+				<h4 class="media-heading lead">Bob Ross Search <small>A Home Page</small></h4>
+				<p>
+					Begin every Internet browsing session with artistic wisdom from Bob Ross.  These artistic aphorisms will never fail to uplift, renew, and inspire.  Bookmark it today!
+				</p>
+			</div>
+		</div>
+		
+
+	<!-- Friends -->
+	<div class="container main home">
+		<div class="page-header">
+			<h1>Friends</h1>
+		</div>
+		
+		<div class="media">
+		  <a class="pull-left" href="http://thegloriousmystery.blogspot.com/">
+		    <img class="media-object" src="http://media.alexrecker.com/images/samloesch.jpg" width="100px">
+		  </a>
+		  <div class="media-body">
+		    <h4 class="media-heading lead">A Glorious Mystery</h4>
+		    <p>
+		    	Blog by Sam Loesch
+		    </p>
+		  </div>
+		</div>
+		
+		<div class="media">
+		  <a class="pull-left" href="http://benjaminnparks.blogspot.com/">
+		    <img class="media-object" src="http://media.alexrecker.com/images/benparks.jpg" width="100px">
+		  </a>
+		  <div class="media-body">
+		    <h4 class="media-heading lead">Trust Fall</h4>
+		    <p>
+		    	Blog by Ben Parks
+		    </p>
+		  </div>
+		</div>
+		
+		<div class="media">
+		  <a class="pull-left" href="http://brewerdigital.com">
+		    <img class="media-object" src="http://media.alexrecker.com/images/joelbear.jpg" width="100px">
+		  </a>
+		  <div class="media-body">
+		    <h4 class="media-heading lead">Joel Brewer</h4>
+		    <p>
+		    	Web Developer for Hire
+		    </p>
+		  </div>
+		</div>
+		
+		<div class="media">
+		  <a class="pull-left" href="http://www.micahchiang.com/">
+		    <img class="media-object" src="http://media.alexrecker.com/images/micah.jpg" width="100px">
+		  </a>
+		  <div class="media-body">
+		    <h4 class="media-heading lead">Digital Imaging Solutions</h4>
+		    <p>
+		    	Photograhpy by Micah Chiang
+		    </p>
+		  </div>
+		</div>
+		
+		<div class="media">
+		  <a class="pull-left" href="http://www.trackitsvalue.com">
+		    <img class="media-object" src="http://media.alexrecker.com/images/trackitsvalue.png" width="100px">
+		  </a>
+		  <div class="media-body">
+		    <h4 class="media-heading lead">trackitsvalue.com</h4>
+		    <p>
+		    	Personal Finance Tracking by freebyTech
+		    </p>
+		  </div>
+		</div>
+		
+	</div>
+
+	<!-- Tweets -->
+	<div class="container main home">
+		<div class="page-header">
+			<a class="twitter-timeline" href="https://twitter.com/alex_recker" data-widget-id="498811575940030464">Tweets by @alex_recker</a>
+			<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+		</div>
+	</div>
+
+</body>
+
+<footer>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+
+        // Launch Subscribe Widget
+        $('#subscribe').click(function(){
+            try {
+                var newwindow=window.open('http://subscribe.alexrecker.com','Subscribe by Email','height=450,width=400');
+            } catch(e){
+                var newwindow=window.open('http://subscribe.alexrecker.com','_blank','height=450,width=400');
+            }
+        })
+
+        // Launch RSS Popup
+        $('#feed').click(function(){
+            try {
+                var newwindow = window.open('http://alexrecker.com/feed/','Feed | Blog by Alex Recker','height=450,width=400');
+            } catch(e) {
+                var newwindow = window.open('http://alexrecker.com/feed/','_blank','height=450,width=400');
+            }
+        });
+
+    </script>
+    
+	<script type="text/javascript">
+		// Initialize Tooltip
+		$('.panel').find('a').tooltip();
+
+		// Filter Binding
+		function filter(element) {
+            var value = $(element).val().toUpperCase();
+
+            $(".panel p").find('a').each(function() {
+                if ($(this).text().toUpperCase().search(value) > -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+	</script>
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-42540208-6', 'alexrecker.com');
+        ga('send', 'pageview');
+    </script>
+</footer>

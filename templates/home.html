@@ -9,6 +9,18 @@
 
 	<!-- Temp -->
 	<link rel="stylesheet" href="style.css">
+
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js"></script>
+	<script src="http://dejans.net/bloxhover/bloxhover.jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('.hover').bloxhover({
+				effect: "square",
+				delay: 30
+			});
+		});
+	</script>
 </head>
 <body>
 	<div class="container-fluid main">
@@ -47,18 +59,22 @@
 
 		<div class="container projects">
 			<div class="row">
-				<div class="col-md-4">
-					<img src="http://media.alexrecker.com/images/weddingSite.png" width="200px">
+				<div class="col-md-4 hover">
+					<img src="http://media.alexrecker.com/images/weddingSite.png">
+					<div>Here is some text</div>
 				</div>
-				<div class="col-md-4">
-					<img src="http://media.alexrecker.com/images/mjArtInspiration.png" width="200px">
+				<div class="col-md-4 hover">
+					<img src="http://media.alexrecker.com/images/mjArtInspiration.png">
 				</div>
-				<div class="col-md-4">
-					<img src="http://media.alexrecker.com/images/corgiBreak.png" width="200px">
+				<div class="col-md-4 hover">
+					<img src="http://media.alexrecker.com/images/corgiBreak.png">
 				</div>
 			</div>
 		</div>
 
 	</div>
 </body>
+<footer>
+
+</footer>
 </html>

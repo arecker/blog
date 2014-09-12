@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Wedding | Blog by Alex Recker</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
+    <meta name="description" content="We got married!  And we finally have photographic evidence.">
+    <link rel="canonical" href="http://alexrecker.com/wedding/">
+    <link rel="stylesheet" href="http://bootswatch.com/sandstone/bootstrap.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* Content Containers */
+        .main {
+            max-width: 800px;
+        }
+
+        .body h1 {
+            font-size: 200%;
+            margin-top: 2em;
+        }
+
+        .home  {
+            margin-bottom: 3em;
+        }
+
+        .header {
+            margin-top: 2em;
+        }
+
+        .jumbo .jumbotron {
+            margin-top: 3em;
+            background-color: transparent;
+        }
+
+        img[src="http://media.alexrecker.com/images/portrait.jpg"]{
+            margin-right: 10px;
+        }
+
+        /* Font */
+        h1, h2, h3, h4, p, li { font-family: 'Tinos', serif !important; }
+        .fa { font-family: FontAwesome !important;}
+        p, li { font-size: 120%;}
+        h1 { font-weight: regular !important}
+
+        /* Images */
+        .body img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            margin-top: 2em;
+            margin-bottom: 1em;
+        }
+
+        /* Captions */
+        figcaption {
+            font-style: italic;
+            font-size: 90%;
+            max-width: 80%;
+            margin: 0 auto;
+            margin-bottom: 2em;
+            text-align: center;
+        }
+
+        /* Iframes */
+        iframe {
+            display: block;
+            margin: 0 auto;
+            margin-top: 2em;
+            margin-bottom: 2em;
+            max-width: 100%;
+        }
+
+        /* Tooltips */
+        .tooltip * {
+            font-size: 120%;
+            text-align: left;
+        }
+
+        /*Sidebar*/
+        #sidebar {
+            margin-left: 2em;
+            margin-top: 1em;
+        }
+
+        .nav-tabs a, .nav-tabs a:visited, .nav-tabs a:active { color: black; }
+        .nav-tabs a:hover { color: red; }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar-->
+    <ul class="nav nav-tabs">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a id="feed" href=""><i class="fa fa-rss"></i></a></li>
+        <li><a id="subscribe" href=""><i class="fa fa-envelope-o"></i></a></li>
+        <li><a href="http://twitter.com/alex_recker"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/arecker"><i class="fa fa-github"></i></a></li>
+    </ul>
+
+	
+
+	<!-- Post Title -->
+	<div class="container main header">
+		<div class="page-header">
+			<h1>Wedding</h1>
+			<p>
+				We got married!  And we finally have photographic evidence.
+			</p>
+		</div>
+		<hr>
+	</div>
+
+	<!-- Post Body -->
+	<div class="container main body">
+		<p>Greetings friends!</p>
+<p>After a few weeks of sifting, critiquing, formatting, copying, uploading, and archiving, we <em>finally</em> have the photos from our wedding.  I’ll tell you - for a day that seemed to have went by in a flash, I couldn’t be more grateful for the fantastic work of Amy and Brook to help fill in all the gaps.</p>
+<p>Marissa and I are so thankful for everyone that showed up.  Thanks for making our day special.  Help yourself to any of the shots you feel capture how fly you and your loved ones really are.  If you would like any prints, pick out the ones you like (they are numbered) and shoot marissa an <a href="mailto:marissa@reckerfamily.com">email</a>.</p>
+<p>Peace!</p>
+<p>Mr. and Mrs. Recker</p>
+<p class="text-center buttons">
+    <a href="http://alexandmarissa.com">
+        <button type="button" class="btn btn-lg btn-info">Click here to view photos</button>
+    </a>
+</p>
+
+<p><img src=http://alexandmarissa.com/images/231.jpg height=”500” /></p>
+	</div>
+
+	<!-- Post Comments -->
+	<div class="container main footer">
+
+	    <!-- Facebook Comments Script -->
+	    <div id="fb-root"></div>
+	    <script>(function(d, s, id) {
+	          var js, fjs = d.getElementsByTagName(s)[0];
+	          if (d.getElementById(id)) return;
+	          js = d.createElement(s); js.id = id;
+	          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
+	          fjs.parentNode.insertBefore(js, fjs);
+	        }(document, 'script', 'facebook-jssdk'));
+	    </script>
+
+		<div class="page-header">
+			<h1>Comments</h1>
+            <!-- Comments Widget -->
+            <div class="fb-comments container-fluid" data-href="http://alexrecker.com/wedding/" data-numposts="20" data-colorscheme="light"></div>
+		</div>
+	</div>
+
+
+</body>
+
+<footer>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+
+        // Launch Subscribe Widget
+        $('#subscribe').click(function(){
+            try {
+                var newwindow=window.open('http://subscribe.alexrecker.com','Subscribe by Email','height=450,width=400');
+            } catch(e){
+                var newwindow=window.open('http://subscribe.alexrecker.com','_blank','height=450,width=400');
+            }
+        })
+
+        // Launch RSS Popup
+        $('#feed').click(function(){
+            try {
+                var newwindow = window.open('http://alexrecker.com/feed/','Feed | Blog by Alex Recker','height=450,width=400');
+            } catch(e) {
+                var newwindow = window.open('http://alexrecker.com/feed/','_blank','height=450,width=400');
+            }
+        });
+
+    </script>
+    
+<script>
+    // Convert alt properties to figure captions
+    $(document).ready(function() {
+        $("img").each(function() {
+            if($(this).attr("alt"))
+                $(this).wrap('<figure class="image"></figure>')
+                    .after('<figcaption>'+$(this).attr("alt")+'</figcaption>');
+            });
+    });
+</script>
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-42540208-6', 'alexrecker.com');
+        ga('send', 'pageview');
+    </script>
+</footer>

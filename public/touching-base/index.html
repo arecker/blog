@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+    <title>Touching Base | Blog by Alex Recker</title>
+    <link rel="icon" type="image/png" href="/static/img/favicon.png"/>
+    <meta name="description" content="Just keeping the blogger-reader connection alive with general thoughts and impressions of the direction of this blog.  Also, bulldozers and the use of the word ‘Programmy’.">
+    <link rel="canonical" href="http://alexrecker.com/touching-base/">
+    <link rel="stylesheet" href="http://bootswatch.com/sandstone/bootstrap.min.css" />
+    <link href='http://fonts.googleapis.com/css?family=Tinos:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        /* Content Containers */
+        .main {
+            max-width: 800px;
+        }
+
+        .body h1 {
+            font-size: 200%;
+            margin-top: 2em;
+        }
+
+        .home  {
+            margin-bottom: 3em;
+        }
+
+        .header {
+            margin-top: 2em;
+        }
+
+        .jumbo .jumbotron {
+            margin-top: 3em;
+            background-color: transparent;
+        }
+
+        img[src="http://media.alexrecker.com/images/portrait.jpg"]{
+            margin-right: 10px;
+        }
+
+        /* Font */
+        h1, h2, h3, h4, p, li { font-family: 'Tinos', serif !important; }
+        .fa { font-family: FontAwesome !important;}
+        p, li { font-size: 120%;}
+        h1 { font-weight: regular !important}
+
+        /* Images */
+        .body img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            margin: 0 auto;
+            margin-top: 2em;
+            margin-bottom: 1em;
+        }
+
+        /* Captions */
+        figcaption {
+            font-style: italic;
+            font-size: 90%;
+            max-width: 80%;
+            margin: 0 auto;
+            margin-bottom: 2em;
+            text-align: center;
+        }
+
+        /* Iframes */
+        iframe {
+            display: block;
+            margin: 0 auto;
+            margin-top: 2em;
+            margin-bottom: 2em;
+            max-width: 100%;
+        }
+
+        /* Tooltips */
+        .tooltip * {
+            font-size: 120%;
+            text-align: left;
+        }
+
+        /*Sidebar*/
+        #sidebar {
+            margin-left: 2em;
+            margin-top: 1em;
+        }
+
+        .nav-tabs a, .nav-tabs a:visited, .nav-tabs a:active { color: black; }
+        .nav-tabs a:hover { color: red; }
+    </style>
+</head>
+
+<body>
+    <!-- Sidebar-->
+    <ul class="nav nav-tabs">
+        <li><a href="/"><i class="fa fa-home"></i></a></li>
+        <li><a id="feed" href=""><i class="fa fa-rss"></i></a></li>
+        <li><a id="subscribe" href=""><i class="fa fa-envelope-o"></i></a></li>
+        <li><a href="http://twitter.com/alex_recker"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="https://github.com/arecker"><i class="fa fa-github"></i></a></li>
+    </ul>
+
+	
+
+	<!-- Post Title -->
+	<div class="container main header">
+		<div class="page-header">
+			<h1>Touching Base</h1>
+			<p>
+				Just keeping the blogger-reader connection alive with general thoughts and impressions of the direction of this blog.  Also, bulldozers and the use of the word ‘Programmy’.
+			</p>
+		</div>
+		<hr>
+	</div>
+
+	<!-- Post Body -->
+	<div class="container main body">
+		<p>I’m taking a break from all the chemistry stuff for now.  If you thought that was just going to be my uninterrupted theme for eight months and that bummed you out, don’t worry.  I was imagining more it would just be a series that I visit periodically, appending whatever comes to mind.</p>
+<p>If you are one of those people who need <em>everything</em> to be in a series, then fine - just call this one <em>Short bursts of unrelated content</em>.</p>
+<p>I'm getting married in 17 days.  Maybe it's been nerves, but it's harder to focus on bigger themes (or do one thing for longer than two hours).  The most I feel like doing now is simply <em>Touching Bases</em>.  Mind if I touch yours, dear reader?</p>
+<h1>The direction of this blog</h1>
+<p>I have been thinking a lot about the direction of this blog - the first being the technology itself.  Since the migration away from Wordpress, I have already changed the underlying framework twice.  I submitted the new design to Reddit critics, and a general consensus admitted that though the idea was novel, it was kind of useless.  One user pointed out I was basically renting a bulldozer to help build a sandcastle.</p>
+<p><img alt="Or was it renting a bulldozer to build more bulldozers..." src="http://www.construction-machine.org/wp-content/uploads/2011/11/Bulldozers-Crawler-Tractors-and-Their-Advantages-Over-Wheeled-Tractors.jpg" /></p>
+<p>Since then, I have switched over to the micro framework <em>Flask</em>, but in the latest iterations I am even still under-using my framework.  As it turns out, you can put whatever you want in the address bar following the site address, like <code>alexrecker.com/yo-mommas-so-ugly/</code>, and my web server code basically just sticks a <code>.html</code> at the end of it.  If an error is thrown, it redirects you to a “missing page”.</p>
+<p><img alt="Now that I mention it, I don’t have a 404 page.  I am taking suggestions though." src="http://media02.hongkiat.com/funny-creative-error-404/27-error-404-page.jpg" /></p>
+<p>This happens to be the most important part of the site:</p>
+<pre><code>@app.route(“/&lt;slug&gt;/”)
+def get_post(slug):
+    try:
+        post = open(join(appconfig.cache, slug + '.html'), 'r').read()
+        return post
+    except:
+        missing_page = open(join(appconfig.cache, ‘404.html’), ‘r’).read()
+        return missing_page
+</code></pre>
+<p>When I actually want to write a post, I just create a new <code>.md</code> file named in year-month-date format and run a big <code>admin.py</code> script I wrote.  This sucks the text file in (along with every other page of the site), and pukes it through one of four templates that prettifies everything.  I’m not even really using a ton of javascript (just a glob or two).</p>
+<p>In the same spirit, I got tired of maintaining three files.  I combined <em>the entire site</em> into one file.  It sounds like it would be a lot of code, but it is only 260 lines.  You can check out the current version <a href="https://github.com/arecker/Blog/blob/master/admin.py">here</a>.</p>
+<p>I’m not sure if this design is amazing or retarded, but time will tell.  Ultimately, what determines the genius of a code design is how easy it is to maintain.  If you visit my page tomorrow and are greeted by the fine marketing material of America’s favorite male enhancement pill, then you may presume I am rethinking things.  But I am comforted by this - you can always break beautiful things, hack secure things, find weird cases for complicated things, and teach lazy programmers a lesson - but there is no good way to hack <em>stupid</em>.  There is literally no place to post or save information on my blog.  The comments are just iframes of Facebook and the search box is a dummy placeholder for text.</p>
+<p>And then there is the content side of things.  I have been seduced by my analytics page more than once.  I even considered the extreme solution of locking myself out of seeing the number of hits per second.   Refreshing the page all day encourages me to write click bait.  If I continue down this path of people-pleasing posts, in no time I will be just blatantly targeting the Farmville crowd.  <em>Thirty totally pimped out Farmville rigs.  #28 will make you LITERALLY PUKE all over yourself</em>.</p>
+<h1>Planned features</h1>
+<p>The biggest thing I am working on now is a way to subscribe by email.  I don’t think it is something that would be heavily used, but it just sounds like the most fun thing I could be working on right now.  It will probably look like a little popup window containing a single-page-app (dorks feel the need to call them <em>SPA’s</em>, which feels a lot harder to say than “single page app”).  In any case, if you live out of your email and you like to stay on top of blogs that way, it should be right up your alley.</p>
+<h1>Getting programmy</h1>
+<p>Speaking of code, this post is about “programmy” as I think I am going to get.  I don’t think I want to turn this into a development blog - 1 part because I still sort of suck at programming, and 2 parts because that kind of writing is not quite as cathartic as spewing hate about a dumb movie you saw or projecting ridiculous social theories.  All in all, the rule of thumb is that I never expose you to enough code talk to inspire Marissa to throw something at my head.</p>
+<h1>Guest writers</h1>
+<p>And, again, I open the door for guest writers.  If you are thinking about writing a blog yourself, the best thing to do is write a post for someone else’s blog.  It gives you the ability to better estimate the kind of commitment it is, and it gets you a decent number of readers to start off with.  If anyone would like to write something that would <em>not</em> get my domain flagged by the NSA or make my parents uncomfortable, send it off!</p>
+<p>So that’s it.  Consider all your bases touched, dear reader.  Goodnight, Internet friends.</p>
+	</div>
+
+	<!-- Post Comments -->
+	<div class="container main footer">
+
+	    <!-- Facebook Comments Script -->
+	    <div id="fb-root"></div>
+	    <script>(function(d, s, id) {
+	          var js, fjs = d.getElementsByTagName(s)[0];
+	          if (d.getElementById(id)) return;
+	          js = d.createElement(s); js.id = id;
+	          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
+	          fjs.parentNode.insertBefore(js, fjs);
+	        }(document, 'script', 'facebook-jssdk'));
+	    </script>
+
+		<div class="page-header">
+			<h1>Comments</h1>
+            <!-- Comments Widget -->
+            <div class="fb-comments container-fluid" data-href="http://alexrecker.com/touching-base/" data-numposts="20" data-colorscheme="light"></div>
+		</div>
+	</div>
+
+
+</body>
+
+<footer>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script>
+
+        // Launch Subscribe Widget
+        $('#subscribe').click(function(){
+            try {
+                var newwindow=window.open('http://subscribe.alexrecker.com','Subscribe by Email','height=450,width=400');
+            } catch(e){
+                var newwindow=window.open('http://subscribe.alexrecker.com','_blank','height=450,width=400');
+            }
+        })
+
+        // Launch RSS Popup
+        $('#feed').click(function(){
+            try {
+                var newwindow = window.open('http://alexrecker.com/feed/','Feed | Blog by Alex Recker','height=450,width=400');
+            } catch(e) {
+                var newwindow = window.open('http://alexrecker.com/feed/','_blank','height=450,width=400');
+            }
+        });
+
+    </script>
+    
+<script>
+    // Convert alt properties to figure captions
+    $(document).ready(function() {
+        $("img").each(function() {
+            if($(this).attr("alt"))
+                $(this).wrap('<figure class="image"></figure>')
+                    .after('<figcaption>'+$(this).attr("alt")+'</figcaption>');
+            });
+    });
+</script>
+
+
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-42540208-6', 'alexrecker.com');
+        ga('send', 'pageview');
+    </script>
+</footer>
