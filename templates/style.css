@@ -25,3 +25,22 @@
 img[src="http://media.alexrecker.com/images/portrait.jpg"]{
     margin-right: 10px;
 }
+
+.hover div p {
+	color: white;
+	text-align: center;
+}
+
+.hover div small {
+	color: white;
+	text-align: center;
+}
+
+.hover {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
