@@ -1,0 +1,5 @@
+Jinja2==2.7.3
+Markdown==2.4.1
+MarkupSafe==0.23
+click==2.5
+slugify==0.0.1
