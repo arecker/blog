@@ -132,6 +132,13 @@ class Post:
 		return datetime.datetime.strptime(name, "%Y-%m-%d").date()
 
 
+	def convert_alts_to_captions(self, path):
+		"""
+		parses html and creates figure/caption groups from img/alt tags
+		"""
+		pass
+
+
 class KeyManager:
 	AUTHENTICATED = True
 	try:
@@ -152,3 +159,6 @@ def cli():
     """
     pass
 
+
+if __name__ == '__main__':
+    cli()
