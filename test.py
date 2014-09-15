@@ -79,6 +79,9 @@ class PostTest(unittest.TestCase):
 		self.assertEqual(self.post.description, 'This is a test post, man.')
 		self.assertEqual(self.post.image, 'flyingMonkeys.jpeg')
 		self.assertTrue('This is the first line.' in self.post.body)
+		self.assertTrue(self.post.date.year, '1900')
+		self.assertTrue(self.post.date.month, '1')
+		self.assertTrue(self.post.date.day, '10')
 
 
 if __name__ == '__main__':

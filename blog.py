@@ -4,7 +4,7 @@ import os
 import json
 import markdown
 import slugify
-import codecs
+import datetime
 
 
 class Data:
@@ -89,6 +89,7 @@ class Post:
 	def __init__(self, path):
 		data = self.parse_post_from_md(path)
 		self.title = data.title
+		self.date = data.date
 		self.body = data.body
 		self.link = data.link
 		self.description = data.description
@@ -118,16 +119,17 @@ class Post:
 			data.image = meta["image"][0]
 		except KeyError:
 			data.image = None
+		data.date = self.parse_date_from_filename(path)
 
 		return data
 
 
-	def parse_date_from_filename(path):
+	def parse_date_from_filename(self, path):
 		"""
 		converts a post filename to a python datetime
 		"""
-		name, ext = os.path.splittext(os.path.basename(path))
-		return name
+		name, ext = os.path.splitext(os.path.basename(path))
+		return datetime.datetime.strptime(name, "%Y-%m-%d").date()
 
 
 class KeyManager:
