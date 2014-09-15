@@ -61,14 +61,6 @@ class UtilityTest(unittest.TestCase):
 	def test_read_in_json_from_path(self):
 		data = Utility.read_in_json_from_path(os.path.join(Utility.DOCS, 'test.json'))
 		self.assertEqual(data["poo"], "bah")
-		
-
-	def test_parse_date_from_filename(self):
-		filename = '1980-12-25.md'
-		result = Post.parse_date_from_filename(filename)
-		self.assertEqual(result.day, 25)
-		self.assertEqual(result.month, 12)
-		self.assertEqual(result.year, 1980)
 
 
 class PostTest(unittest.TestCase):
@@ -80,6 +72,14 @@ class PostTest(unittest.TestCase):
 
 	def tearDown(self):
 		pass
+
+
+	def test_parse_date_from_filename(self):
+		filename = '1980-12-25.md'
+		result = Post.parse_date_from_filename(filename)
+		self.assertEqual(result.day, 25)
+		self.assertEqual(result.month, 12)
+		self.assertEqual(result.year, 1980)
 
 
 	def test_post_init(self):
