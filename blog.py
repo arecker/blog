@@ -98,6 +98,10 @@ class Post:
 
 
 	def __unicode__(self):
+		return self.link
+
+
+	def __str__(self):
 		return self.link	
 
 
@@ -117,7 +121,7 @@ class Post:
 		meta = md.Meta
 
 		data = Data()
-		data.body = html
+		data.body = Post.convert_alts_to_captions(html)
 		data.title = meta["title"][0]
 		data.link = slugify.slugify(data.title)
 		data.description = meta["description"][0]
@@ -140,11 +144,11 @@ class Post:
 
 
 	@classmethod
-	def convert_alts_to_captions(cls, path):
+	def convert_alts_to_captions(cls, html):
 		"""
 		parses html and creates figure/caption groups from img/alt tags
 		"""
-		pass
+		return html
 
 
 	@staticmethod
@@ -188,9 +192,10 @@ def cli_refresh():
 	"""
 	refreshes html cache
 	"""
+	hopper = []
 	posts = Post.get_all_posts()
 	for post in posts:
-		print(post.date)
+		print(post)
 
 
 if __name__ == '__main__':
