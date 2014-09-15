@@ -3,7 +3,7 @@ import os
 import shutil
 
 
-from blog import Utility
+from blog import Utility, Post
 
 
 class Helpers:
@@ -62,6 +62,23 @@ class UtilityTest(unittest.TestCase):
 		data = Utility.read_in_json_from_path(os.path.join(Utility.DOCS, 'test.json'))
 		self.assertEqual(data["poo"], "bah")
 
+
+class PostTest(unittest.TestCase):
+
+	def setUp(self):
+		post_path = os.path.join(Utility.DOCS, '1900-01-10.md')
+		self.post = Post(post_path) 
+
+
+	def tearDown(self):
+		pass
+
+
+	def test_post_init(self):
+		self.assertEqual(self.post.title, 'The Great Test Post')
+		self.assertEqual(self.post.description, 'This is a test post, man.')
+		self.assertEqual(self.post.image, 'flyingMonkeys.jpeg')
+		self.assertTrue('This is the first line.' in self.post.body)
 
 
 if __name__ == '__main__':

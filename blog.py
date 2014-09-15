@@ -2,15 +2,13 @@ import click
 import jinja2
 import os
 import json
+import markdown
+import slugify
+import codecs
 
 
-@click.group()
-def cli():
-    """
-    This is the script for my blog.
-    It does things.
-    """
-    pass
+class Data:
+	pass
 
 
 class Utility:
@@ -70,6 +68,68 @@ class Utility:
 		return data
 
 
+class Homepage:
+	"""
+	this class reads in the homepage file
+	and creates a data packet
+	"""
+	def __init__(self, path=os.path.join(Utility.ROOT, 'homepage.json')):
+		data = Utility.read_in_json_from_path(path)
+		self.projects = data.projects
+		self.friends = data.friends
+		self.posts = None
+		self.latest = None
+
+
+class Post:
+	"""
+	this class holds the posts object,
+	as well as some other helpful post related methods
+	"""
+	def __init__(self, path):
+		data = self.parse_post_from_md(path)
+		self.title = data.title
+		self.body = data.body
+		self.link = data.link
+		self.description = data.description
+		self.image = data.image		
+
+
+	def parse_post_from_md(self, path):
+		"""
+		reads in file, parses to html, and returns
+		good stuff
+		"""
+
+		file = open(path, 'r')
+		contents = file.read()
+		file.close()
+
+		md = markdown.Markdown(extensions = ['extra', 'meta'])
+		html = md.convert(contents)
+		meta = md.Meta
+
+		data = Data()
+		data.body = html
+		data.title = meta["title"][0]
+		data.link = slugify.slugify(data.title)
+		data.description = meta["description"][0]
+		try:
+			data.image = meta["image"][0]
+		except KeyError:
+			data.image = None
+
+		return data
+
+
+	def parse_date_from_filename(path):
+		"""
+		converts a post filename to a python datetime
+		"""
+		name, ext = os.path.splittext(os.path.basename(path))
+		return name
+
+
 class KeyManager:
 	AUTHENTICATED = True
 	try:
@@ -80,4 +140,13 @@ class KeyManager:
 		EMAIL_PASSWORD = data["email_password"]
 	except IOError:
 		authenticated = False
+
+
+@click.group()
+def cli():
+    """
+    This is the script for my blog.
+    It does things.
+    """
+    pass
 
