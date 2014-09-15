@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	{% block meta_title %}<title>Blog</title>{% endblock %}
+	{% block meta_description %}<meta name="description" content="Hi.  My name is Alex Recker.  I like to write words.">{% endblock %}
+	<link rel="stylesheet" href="http://bootswatch.com/cosmo/bootstrap.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+	<style>
+		* {
+			font-family: 'Vollkorn', serif !important;
+			text-align: justify;
+		}
+
+		.fa { font-family: FontAwesome !important;}
+
+		.main, .archives, .projects {
+			max-width: 700px;
+			margin-top: 3em;
+			margin-bottom: 3em;
+		}
+
+		.hello {
+			max-width: 400px;
+			margin-top: 3em;
+			margin-bottom: 3em;
+		}
+
+		.jumbo .jumbotron {
+		    margin-top: 3em;
+		    background-color: transparent;
+		}
+
+		img[src="http://media.alexrecker.com/images/portrait.jpg"]{
+		    margin-right: 10px;
+		}
+
+		.hover div p {
+			color: white;
+			text-align: center;
+		}
+
+		.hover div small {
+			color: white;
+			text-align: center;
+		}
+
+		.hover {
+		    display:inline-block;
+		    float:none;
+		    /* reset the text-align */
+		    text-align:left;
+		    /* inline-block space fix */
+		    margin-right:-4px;
+		}
+	</style>
+
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="http://gsgd.co.uk/sandbox/jquery/easing/jquery.easing.1.3.js"></script>
+	<script src="http://dejans.net/bloxhover/bloxhover.jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('.hover').bloxhover({
+				effect: "square",
+				delay: 30,
+				color: 'rgb(1,1,1)',
+			});
+		});
+	</script>
+</head>
+<body>
+	{% block body %}
+
+	{% endblock %}
+</body>
+	<footer>
+		{% block footer %}
+		{% endblock %}
+	</footer>
+</html>
