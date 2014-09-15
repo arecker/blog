@@ -28,14 +28,14 @@ class Utility:
 
 
 	@staticmethod
-	def render_html_from_template(template, data):
+	def render_html_from_template(template, data, test=False):
 		"""
 		takes a template name and data
 		returns an html string
 		"""
-		env = jinja2.Environment(loader=jinja2.FileSystemLoader(TEMPLATES))
+		env = jinja2.Environment(loader=jinja2.FileSystemLoader(Utility.TEMPLATES))
 		if test:
-			env = jinja2.Environment(loader=jinja2.FileSystemLoader(DOCS))
+			env = jinja2.Environment(loader=jinja2.FileSystemLoader(Utility.DOCS))
 		j_template = env.get_template(template)
 		return j_template.render(data = data)
 
@@ -46,7 +46,7 @@ class Utility:
 		takes a template name, page data, and a page name
 		writes the page name to the path
 		"""
-		output = render_html_from_template(template=template, data=data, test=test)
+		output = Utility.render_html_from_template(template=template, data=data, test=test)
 		with open(os.path.join(path, name), 'wb') as file:
 			file.write(output)
 
@@ -59,4 +59,4 @@ class Utility:
 		"""
 		path = os.path.join(root, route)
 		os.makedirs(path)
-		write_page(template=template, data=data, name="index.html", path=path, test=test)
+		Utility.write_page(template=template, data=data, name="index.html", path=path, test=test)
