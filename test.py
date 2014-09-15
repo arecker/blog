@@ -58,6 +58,11 @@ class UtilityTest(unittest.TestCase):
 		self.assertTrue(self.check_file_for_dummy_title(os.path.join(self.public, 'im-a-route', 'index.html')))
 
 
+	def test_read_in_json_from_path(self):
+		data = Utility.read_in_json_from_path(os.path.join(Utility.DOCS, 'test.json'))
+		self.assertEqual(data["poo"], "bah")
+
+
 
 if __name__ == '__main__':
 	unittest.main()

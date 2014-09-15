@@ -1,6 +1,7 @@
 import click
 import jinja2
 import os
+import json
 
 
 @click.group()
@@ -60,3 +61,23 @@ class Utility:
 		path = os.path.join(root, route)
 		os.makedirs(path)
 		Utility.write_page(template=template, data=data, name="index.html", path=path, test=test)
+
+
+	@staticmethod
+	def read_in_json_from_path(path):
+		with open(path, 'r') as file:
+			data = json.load(file)
+		return data
+
+
+class KeyManager:
+	AUTHENTICATED = True
+	try:
+		data = Utility.read_in_json_from_path(os.path.join(Utility.ROOT, 'keys.json'))
+		ADMIN = data["admin"]
+		APP = data["app"]
+		EMAIL = data["email"]
+		EMAIL_PASSWORD = data["email_password"]
+	except IOError:
+		authenticated = False
+
