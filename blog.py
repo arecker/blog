@@ -96,7 +96,8 @@ class Post:
 		self.image = data.image		
 
 
-	def parse_post_from_md(self, path):
+	@classmethod
+	def parse_post_from_md(cls, path):
 		"""
 		reads in file, parses to html, and returns
 		good stuff
@@ -119,12 +120,13 @@ class Post:
 			data.image = meta["image"][0]
 		except KeyError:
 			data.image = None
-		data.date = self.parse_date_from_filename(path)
+		data.date = Post.parse_date_from_filename(path)
 
 		return data
 
 
-	def parse_date_from_filename(self, path):
+	@classmethod
+	def parse_date_from_filename(cls, path):
 		"""
 		converts a post filename to a python datetime
 		"""
@@ -132,7 +134,8 @@ class Post:
 		return datetime.datetime.strptime(name, "%Y-%m-%d").date()
 
 
-	def convert_alts_to_captions(self, path):
+	@classmethod
+	def convert_alts_to_captions(cls, path):
 		"""
 		parses html and creates figure/caption groups from img/alt tags
 		"""
