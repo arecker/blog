@@ -5,6 +5,7 @@ import json
 import markdown
 import slugify
 import datetime
+import codecs
 
 
 class Data:
@@ -75,8 +76,8 @@ class Homepage:
 	"""
 	def __init__(self, path=os.path.join(Utility.ROOT, 'homepage.json')):
 		data = Utility.read_in_json_from_path(path)
-		self.projects = data.projects
-		self.friends = data.friends
+		self.projects = data["projects"]
+		self.friends = data["friends"]
 		self.posts = None
 		self.latest = None
 
@@ -93,7 +94,11 @@ class Post:
 		self.body = data.body
 		self.link = data.link
 		self.description = data.description
-		self.image = data.image		
+		self.image = data.image
+
+
+	def __unicode__(self):
+		return self.link	
 
 
 	@classmethod
@@ -103,7 +108,7 @@ class Post:
 		good stuff
 		"""
 
-		file = open(path, 'r')
+		file = codecs.open(path, encoding="utf-8", mode="r")
 		contents = file.read()
 		file.close()
 
@@ -142,6 +147,21 @@ class Post:
 		pass
 
 
+	@staticmethod
+	def get_all_posts():
+		"""
+		returns a collection of post objects
+		ordered by descending date
+		"""
+		posts = []
+		files = os.listdir(Utility.POSTS)
+		for file in files:
+			posts.append(Post(os.path.join(Utility.POSTS, file)))
+		posts.sort(key=lambda x: x.date, reverse=True)
+		return posts
+
+
+
 class KeyManager:
 	AUTHENTICATED = True
 	try:
@@ -161,6 +181,16 @@ def cli():
     It does things.
     """
     pass
+
+
+@cli.command(name="refresh")
+def cli_refresh():
+	"""
+	refreshes html cache
+	"""
+	posts = Post.get_all_posts()
+	for post in posts:
+		print(post.date)
 
 
 if __name__ == '__main__':
