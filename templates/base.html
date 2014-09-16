@@ -9,6 +9,8 @@
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
 	<style>
+		.main { display: none; }
+
 		* {
 			font-family: 'Vollkorn', serif !important;
 			text-align: justify;
@@ -63,6 +65,8 @@
 	<script src="http://media.alexrecker.com/scripts/bloxhover.min.js"></script>
 	<script>
 		$(document).ready(function(){
+			$('.main').delay(500).fadeIn(1000);
+			
 			$('.panel').find('a').tooltip();
 
 			$('.hover').bloxhover({
