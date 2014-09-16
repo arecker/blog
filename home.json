@@ -5,6 +5,24 @@
 			"caption": "An Art Website",
 			"link": "http://mjartinspiration.com",
 			"image": "http://media.alexrecker.com/images/mjArtInspiration.png"
+		},
+		{
+			"title": "Corgi-Break",
+			"caption": "A Chrome Extension",
+			"link": "https://chrome.google.com/webstore/detail/corgi-break/eefgnnnhlmhhpbgcnklbhnkgdjokgncd",
+			"image": "http://media.alexrecker.com/images/corgiBreak.png"
+		},
+		{
+			"title": "Diplomacy",
+			"caption": "A Web Application",
+			"link": "http://diplomacy.alexrecker.com",
+			"image": "http://media.alexrecker.com/images/diplomacy.png"
+		},
+		{
+			"title": "We Got Married!",
+			"caption": "A Wedding Photo Website",
+			"link": "http://alexandmarissa.com",
+			"image": "http://media.alexrecker.com/images/weddingSite.png"
 		}
 	]
 }
