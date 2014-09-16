@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% block body %}
 	<div class="container-fluid main">
 
 		<!-- Jumbotron -->
@@ -35,7 +36,7 @@
 				<div class="panel-body">
 					<p>
 					{% for post in data.posts %}
-						<a href="{{ post.link }}" data-toggle="tooltip" data-placement="top" title="{{ post.title }}">{{ post.title }}</a>|
+						<a href="{{ post.link }}" data-toggle="tooltip" data-placement="top" title="{{ post.description }}">{{ post.title }} | </a>
 					{% endfor %}
 					</p>
 			</div>
@@ -63,7 +64,8 @@
 			</div>
 		</div>
 	</div>
-</body>
+
+{% endblock %}
 <footer>
 
 </footer>

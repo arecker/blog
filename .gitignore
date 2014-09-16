@@ -1,5 +1,5 @@
 .idea
 .env
 *.pyc
-src/.keys.json
+public/*
 .coverage

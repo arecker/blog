@@ -48,7 +48,7 @@ class Utility:
 		"""
 		output = Utility.render_html_from_template(template=template, data=data, test=test)
 		with open(os.path.join(path, name), 'wb') as file:
-			file.write(output)
+			file.write(output.encode('utf-8'))
 
 
 	@staticmethod
@@ -74,12 +74,20 @@ class Homepage:
 	this class reads in the homepage file
 	and creates a data packet
 	"""
-	def __init__(self, path=os.path.join(Utility.ROOT, 'homepage.json')):
+	def __init__(self, posts, path=os.path.join(Utility.ROOT, 'home.json')):
 		data = Utility.read_in_json_from_path(path)
-		self.projects = data["projects"]
-		self.friends = data["friends"]
-		self.posts = None
-		self.latest = None
+		self.projects = []
+		for project in data["projects"]:
+			data = Data()
+			data.title = project["title"]
+			data.caption = project["caption"]
+			data.link = project["link"]
+			data.image = project["image"]
+			self.projects.append(data)
+
+		#self.friends = data["friends"]
+		self.posts = posts
+		self.latest = posts[0]
 
 
 class Post:
@@ -148,6 +156,7 @@ class Post:
 		"""
 		parses html and creates figure/caption groups from img/alt tags
 		"""
+		# TODO: write this, man
 		return html
 
 
@@ -194,8 +203,10 @@ def cli_refresh():
 	"""
 	hopper = []
 	posts = Post.get_all_posts()
-	for post in posts:
-		print(post)
+	homepage = Homepage(posts=posts)
+	Utility.write_page(template="home.html", data=homepage, name="index.html")
+
+
 
 
 if __name__ == '__main__':
