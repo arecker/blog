@@ -23,6 +23,12 @@
 			"caption": "A Wedding Photo Website",
 			"link": "http://alexandmarissa.com",
 			"image": "http://media.alexrecker.com/images/weddingSite.png"
+		},
+		{
+			"title": "Bob Ross Search",
+			"caption": "A Homepage",
+			"link": "http://bobrosssearch.com",
+			"image": "http://media.alexrecker.com/images/bobRossSearch.png"
 		}
 	]
 }
