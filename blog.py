@@ -202,9 +202,18 @@ def cli_refresh():
 	refreshes html cache
 	"""
 	hopper = []
+
 	posts = Post.get_all_posts()
-	homepage = Homepage(posts=posts)
+
+	# Homepage
+	homepage = Homepage(posts=posts)	
 	Utility.write_page(template="home.html", data=homepage, name="index.html")
+
+	# Posts
+	#for post in posts:
+	#	Utility.write_route(template="post.html", data=post, route=post.link)
+
+
 
 
 
