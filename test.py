@@ -101,5 +101,10 @@ class PostTest(unittest.TestCase):
 		self.assertTrue(self.post.date.day, '10')
 
 
+	def test_convert_img_tags(self):
+		actual = Post.convert_alts_to_captions('<img src=source alt=capt>')
+		self.assertEqual(actual, '<figure class="image"><img alt="capt" src="source"/><figcaption>capt</figcaption></figure>')
+
+
 if __name__ == '__main__':
 	unittest.main()

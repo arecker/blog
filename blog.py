@@ -8,6 +8,7 @@ import datetime
 import codecs
 import shutil
 import BaseHTTPServer
+import bs4
 
 
 class Data:
@@ -168,9 +169,24 @@ class Post:
 	def convert_alts_to_captions(cls, html):
 		"""
 		parses html and creates figure/caption groups from img/alt tags
+		![alt tag]('src')
+
+		<img src="src" alt="">
+		<figure class="image">
+			<img alt="" src="">
+			<figcaption>Caption here</figcaption>
+		</figure>
 		"""
-		# TODO: write this, man
-		return html
+		soup = bs4.BeautifulSoup(html)
+		imgs = soup.find_all('img')
+		for tag in imgs:
+			src = tag['src']
+			alt = tag['alt']
+			tag.wrap(soup.new_tag('figure', { 'class': 'image'}))
+			tag.parent['class'] = 'image'
+			tag.insert_after(soup.new_tag('figcaption'))
+			tag.next_sibling.string = alt
+		return soup
 
 
 	@staticmethod
