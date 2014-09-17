@@ -186,7 +186,7 @@ class Post:
 			tag.parent['class'] = 'image'
 			tag.insert_after(soup.new_tag('figcaption'))
 			tag.next_sibling.string = alt
-		return soup
+		return soup.prettify()
 
 
 	@staticmethod
