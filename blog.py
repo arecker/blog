@@ -201,6 +201,7 @@ class KeyManager:
 
 
 class WebServer(BaseHTTPServer.BaseHTTPRequestHandler):
+	PAGE_NOT_FOUND = 'File Not Found, yo'
 
 	def do_GET(self):
 		if self.path == '/':
@@ -233,7 +234,7 @@ class WebServer(BaseHTTPServer.BaseHTTPRequestHandler):
 				file.close()
 			return
 		except IOError:
-			self.send_error(404, 'File Not Found, yo.')
+			self.send_error(404, PAGE_NOT_FOUND)
 
 
 @click.group()
@@ -275,7 +276,6 @@ def cli_serve():
 	ADDRESS = '127.0.0.1'
 	try:
 		os.chdir(Utility.PUBLIC)
-		PORT = 8000
 		server = BaseHTTPServer.HTTPServer((ADDRESS, PORT), WebServer)
 		print('Started listening on ' + ADDRESS + ':' + str(PORT))
 		server.serve_forever()
