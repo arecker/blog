@@ -7,8 +7,7 @@ import slugify
 import datetime
 import codecs
 import shutil
-import SimpleHTTPServer
-import SocketServer
+import BaseHTTPServer
 
 
 class Data:
@@ -201,6 +200,42 @@ class KeyManager:
 		authenticated = False
 
 
+class WebServer(BaseHTTPServer.BaseHTTPRequestHandler):
+
+	def do_GET(self):
+		if self.path == '/':
+			self.path = 'index.html'
+
+		try:
+			sendReply = False
+			if self.path.endswith(".html"):
+				mimetype='text/html'
+				sendReply = True
+			if self.path.endswith(".jpg"):
+				mimetype='image/jpg'
+				sendReply = True
+			if self.path.endswith(".gif"):
+				mimetype='image/gif'
+				sendReply = True
+			if self.path.endswith(".js"):
+				mimetype='application/javascript'
+				sendReply = True
+			if self.path.endswith(".css"):
+				mimetype='text/css'
+				sendReply = True
+
+			if sendReply:
+				file = open(os.curdir + os.sep + self.path) 
+				self.send_response(200)
+				self.send_header('Content-type',mimetype)
+				self.end_headers()
+				self.wfile.write(file.read())
+				file.close()
+			return
+		except IOError:
+			self.send_error(404, 'File Not Found, yo.')
+
+
 @click.group()
 def cli():
     """
@@ -236,15 +271,20 @@ def cli_serve():
 	"""
 	runs local web server
 	"""
-	os.chdir(Utility.PUBLIC)
 	PORT = 8000
-	Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
-	httpd = SocketServer.TCPServer(("", PORT), Handler)
-	print "serving at port", PORT
+	ADDRESS = '127.0.0.1'
 	try:
-		httpd.serve_forever()
+		os.chdir(Utility.PUBLIC)
+		PORT = 8000
+		server = BaseHTTPServer.HTTPServer((ADDRESS, PORT), WebServer)
+		print('Started listening on ' + ADDRESS + ':' + str(PORT))
+		server.serve_forever()
 	except KeyboardInterrupt:
-		print('got here')
+		try:
+			print('\nStopping')
+			server.socket_close()
+		except AttributeError:
+			pass
 
 
 if __name__ == '__main__':
