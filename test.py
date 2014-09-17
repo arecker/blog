@@ -63,6 +63,11 @@ class UtilityTest(unittest.TestCase):
 		self.assertEqual(data["poo"], "bah")
 
 
+	def test_rebuild_static(self):
+		Utility.rebuild_static(root=self.public)
+		self.assertTrue(os.path.exists(os.path.join(self.public, 'static')))
+
+
 class PostTest(unittest.TestCase):
 
 	def setUp(self):

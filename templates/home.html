@@ -29,7 +29,7 @@
 				<span class="input-group-addon">
 					<i class="fa fa-search"></i>
 				</span>
-				<input id="filter" class="form-control" type="text" placeholder="Filter" onkeyup="filter(this)" size="10"/>
+				<input id="filter" class="form-control" type="text" placeholder="Filter" onkeyup="Filter(this)" size="10"/>
 			</div>
 			<br>
 			<div class="panel panel-default">
@@ -66,7 +66,8 @@
 	</div>
 
 {% endblock %}
-<footer>
-
-</footer>
-</html>
+{% block footer %}
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+	<script src="http://media.alexrecker.com/scripts/bloxhover.min.js"></script>
+	<script src="/static/js/home.js"></script>
+{% endblock %}

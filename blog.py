@@ -6,6 +6,9 @@ import markdown
 import slugify
 import datetime
 import codecs
+import shutil
+import SimpleHTTPServer
+import SocketServer
 
 
 class Data:
@@ -60,6 +63,17 @@ class Utility:
 		path = os.path.join(root, route)
 		os.makedirs(path)
 		Utility.write_page(template=template, data=data, name="index.html", path=path, test=test)
+
+
+	@staticmethod
+	def rebuild_static(root=PUBLIC):
+		"""
+		Drops and recopies the static libs into a public folder
+		"""
+		target = os.path.join(root, 'static')
+		if os.path.exists(target):
+			shutil.rmtree(target)
+		shutil.copytree(os.path.join(Utility.ROOT, 'static'), target)
 
 
 	@staticmethod
@@ -205,6 +219,9 @@ def cli_refresh():
 
 	posts = Post.get_all_posts()
 
+	# Static Resources
+	Utility.rebuild_static()
+
 	# Homepage
 	homepage = Homepage(posts=posts)	
 	Utility.write_page(template="home.html", data=homepage, name="index.html")
@@ -214,8 +231,20 @@ def cli_refresh():
 	#	Utility.write_route(template="post.html", data=post, route=post.link)
 
 
-
-
+@cli.command(name="serve")
+def cli_serve():
+	"""
+	runs local web server
+	"""
+	os.chdir(Utility.PUBLIC)
+	PORT = 8000
+	Handler = SimpleHTTPServer.SimpleHTTPRequestHandler
+	httpd = SocketServer.TCPServer(("", PORT), Handler)
+	print "serving at port", PORT
+	try:
+		httpd.serve_forever()
+	except KeyboardInterrupt:
+		print('got here')
 
 
 if __name__ == '__main__':
