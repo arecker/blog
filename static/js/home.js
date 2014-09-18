@@ -4,18 +4,14 @@ function Filter(element) {
     $(".panel p").find('a').each(function() {
         if ($(this).text().toUpperCase().search(value) > -1) {
             $(this).show();
+            $(this).next().show();
         } else {
             $(this).hide();
+            $(this).next().hide();
         }
     });
 }
 
 $(document).ready(function(){
 	$('.panel').find('a').tooltip();
-
-	$('.hover').bloxhover({
-		effect: "square",
-		delay: 30,
-		color: 'rgb(1,1,1)',
-	});
 });

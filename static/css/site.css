@@ -17,6 +17,11 @@
 	margin-bottom: 3em;
 }
 
+.tooltip-inner {
+	text-align: left;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
+
 .jumbo .jumbotron {
     margin-top: 3em;
     background-color: transparent;
