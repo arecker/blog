@@ -7,8 +7,8 @@ import slugify
 import datetime
 import codecs
 import shutil
-import BaseHTTPServer
 import bs4
+import flask
 
 
 class Data:
@@ -234,6 +234,31 @@ class KeyManager:
 		authenticated = False
 
 
+class WebServer:
+	def __init__(self):
+		self.app = flask.Flask(__name__)
+		self.app.debug = True
+		self.app.add_url_rule('/', 'index', self.index)
+		self.app.add_url_rule('/<slug>/', 'slug', self.get_slug)
+		self.app.run()
+
+
+	def index(self):
+		return self.read_file('index.html')
+
+
+	def get_slug(self, slug):
+		try:
+			return self.read_file(slug)
+		except IOError:
+			return self.read_file(os.path.join(slug, 'index.html'))
+
+
+	def read_file(self, target):
+		with open(os.path.join(Utility.PUBLIC, target)) as file:
+			return file.read()
+
+
 @click.group()
 def cli():
     """
@@ -270,7 +295,7 @@ def cli_serve():
 	"""
 	runs local web server
 	"""
-	pass
+	server = WebServer()
 
 
 if __name__ == '__main__':
