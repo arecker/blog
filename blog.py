@@ -51,6 +51,7 @@ class Utility:
 		"""
 		output = Utility.render_html_from_template(template=template, data=data, test=test)
 		with open(os.path.join(path, name), 'wb') as file:
+			output = bs4.BeautifulSoup(output).prettify()
 			file.write(output.encode('utf-8'))
 
 
@@ -181,11 +182,15 @@ class Post:
 		imgs = soup.find_all('img')
 		for tag in imgs:
 			src = tag['src']
-			alt = tag['alt']
+			try:
+				alt = tag['alt']
+			except KeyError:
+				alt = None
 			tag.wrap(soup.new_tag('figure', { 'class': 'image'}))
 			tag.parent['class'] = 'image'
 			tag.insert_after(soup.new_tag('figcaption'))
-			tag.next_sibling.string = alt
+			if alt:
+				tag.next_sibling.string = alt
 		return soup.prettify()
 
 

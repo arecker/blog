@@ -3,8 +3,7 @@ import os
 import shutil
 import urllib2
 import BaseHTTPServer
-import subprocess
-
+import bs4
 
 
 from blog import Utility, Post, WebServer
@@ -30,7 +29,8 @@ class UtilityTest(unittest.TestCase):
 	def check_file_for_dummy_title(self, path):
 		with open(path) as file:
 			contents = file.read()
-		return '<title>Dummy</title>' in contents
+		soup = bs4.BeautifulSoup(contents)
+		return soup.title.string.strip() == 'Dummy'
 
 
 	def test_utility_paths(self):
