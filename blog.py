@@ -78,6 +78,19 @@ class Utility:
 
 
 	@staticmethod
+	def drop_public(root=PUBLIC):
+		"""
+		drops whole public directory
+		"""
+		for thing in os.listdir(root):
+			try:
+				shutil.rmtree(os.path.join(root, thing))
+			except:
+				os.remove(os.path.join(root, thing))
+
+
+
+	@staticmethod
 	def read_in_json_from_path(path):
 		with open(path, 'r') as file:
 			data = json.load(file)
@@ -221,43 +234,6 @@ class KeyManager:
 		authenticated = False
 
 
-class WebServer(BaseHTTPServer.BaseHTTPRequestHandler):
-	PAGE_NOT_FOUND = 'File Not Found, yo'
-
-	def do_GET(self):
-		if self.path == '/':
-			self.path = 'index.html'
-
-		try:
-			sendReply = False
-			if self.path.endswith(".html"):
-				mimetype='text/html'
-				sendReply = True
-			if self.path.endswith(".jpg"):
-				mimetype='image/jpg'
-				sendReply = True
-			if self.path.endswith(".gif"):
-				mimetype='image/gif'
-				sendReply = True
-			if self.path.endswith(".js"):
-				mimetype='application/javascript'
-				sendReply = True
-			if self.path.endswith(".css"):
-				mimetype='text/css'
-				sendReply = True
-
-			if sendReply:
-				file = open(os.curdir + os.sep + self.path) 
-				self.send_response(200)
-				self.send_header('Content-type',mimetype)
-				self.end_headers()
-				self.wfile.write(file.read())
-				file.close()
-			return
-		except IOError:
-			self.send_error(404, PAGE_NOT_FOUND)
-
-
 @click.group()
 def cli():
     """
@@ -275,6 +251,7 @@ def cli_refresh():
 	hopper = []
 
 	posts = Post.get_all_posts()
+	Utility.drop_public()
 
 	# Static Resources
 	Utility.rebuild_static()
@@ -284,8 +261,8 @@ def cli_refresh():
 	Utility.write_page(template="home.html", data=homepage, name="index.html")
 
 	# Posts
-	#for post in posts:
-	#	Utility.write_route(template="post.html", data=post, route=post.link)
+	for post in posts:
+		Utility.write_route(template="post.html", data=post, route=post.link)
 
 
 @cli.command(name="serve")
@@ -293,19 +270,7 @@ def cli_serve():
 	"""
 	runs local web server
 	"""
-	PORT = 8000
-	ADDRESS = '127.0.0.1'
-	try:
-		os.chdir(Utility.PUBLIC)
-		server = BaseHTTPServer.HTTPServer((ADDRESS, PORT), WebServer)
-		print('Started listening on ' + ADDRESS + ':' + str(PORT))
-		server.serve_forever()
-	except KeyboardInterrupt:
-		try:
-			print('\nStopping')
-			server.socket_close()
-		except AttributeError:
-			pass
+	pass
 
 
 if __name__ == '__main__':
