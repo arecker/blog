@@ -1,4 +1,4 @@
-* {
+p, h1, h2, h3, h4, h5, li {
 	font-family: 'Vollkorn', serif !important;
 	text-align: justify;
 }
@@ -31,21 +31,34 @@ img[src="http://media.alexrecker.com/images/portrait.jpg"]{
     margin-right: 10px;
 }
 
-.hover div p {
-	color: white;
-	text-align: center;
+ /* Images */
+.image img {
+    display: block;
+    height: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    margin-top: 2em;
+    margin-bottom: 1em;
 }
 
-.hover div small {
-	color: white;
-	text-align: center;
+/* Captions */
+figcaption {
+    font-style: italic;
+    font-size: 90%;
+    max-width: 80%;
+    margin: 0 auto;
+    margin-bottom: 2em;
+    text-align: center;
 }
 
-.hover {
-    display:inline-block;
-    float:none;
-    /* reset the text-align */
-    text-align:left;
-    /* inline-block space fix */
-    margin-right:-4px;
+.body h1 {
+	font-size: 24px;
+	font-weight: 300;
+	line-height: 1.4;
+	margin-top: 2em;
+}
+
+.body p {
+	font-size: 18px;
+	margin-bottom: 1em;
 }

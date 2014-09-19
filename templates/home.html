@@ -53,12 +53,8 @@
 			<div class="row text-center">
 			{% for project in data.projects %}
 				<a href="{{ project.link }}">
-					<div class="col-sm-4 hover">
+					<div class="col-sm-4">
 						<img src="{{ project.image }}" alt="{{ project.title }}">
-						<div class="container-fluid">
-							<p class="lead">{{ project.title }}</p>
-							<small>{{ project.caption }}</small>
-						</div>
 					</div>
 				</a>
 			{% endfor %}
