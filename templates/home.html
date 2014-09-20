@@ -16,6 +16,20 @@
 			</div>
 		</div>
 
+		<div class="page-header">
+			<div class="media">
+				{% if data.latest.image %}
+				<a class="pull-left" href="/{{ data.latest.link }}">
+					<img class="media-object" src="{{ data.latest.image }}" height="100px">
+				</a>
+				{% endif %}
+				<div class="media-body">
+					<h4 class="media-heading">{{ data.latest.title }}</h4>
+					<p>{{ data.latest.description }}</p>
+				</div>
+			</div>
+		</div>
+
 		<div class="container hello">
 			<p class="lead">
 				Hey - my name is Alex.  I made this blog because I like to write.
@@ -52,7 +66,7 @@
 		<div class="container projects">
 			<div class="row text-center">
 			{% for project in data.projects %}
-				<a href="{{ project.link }}">
+				<a class="thumbnail" href="{{ project.link }}">
 					<div class="col-sm-4">
 						<img src="{{ project.image }}" alt="{{ project.title }}">
 					</div>

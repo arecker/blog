@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% block meta_title %}<title>Blog | {{ data.title }}</title>{% endblock %}
+{% block meta_description %}<meta name="description" content="{{ data.description }}">{% endblock %}
 {% block body %}
 <div class="container-fluid main">
 	<div class="page-header">
