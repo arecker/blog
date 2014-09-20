@@ -12,6 +12,7 @@ import flask
 import requests
 import tabulate
 import smtplib
+import PyRSS2Gen
 
 
 class Data:
@@ -59,14 +60,24 @@ class Utility:
 
 
 	@staticmethod
-	def write_route(template, data, route, root=PUBLIC, test=False):
+	def write_route(template, data, route, root=PUBLIC, test=False, file_override="index.html"):
 		"""
 		creates a folder in public
 		and writes data into an index.html within that folder
 		"""
 		path = os.path.join(root, route)
 		os.makedirs(path)
-		Utility.write_page(template=template, data=data, name="index.html", path=path, test=test)
+		Utility.write_page(template=template, data=data, name=file_override, path=path, test=test)
+
+
+	@staticmethod
+	def create_feed_route(root=PUBLIC):
+		"""
+		PyRSS2Gen has it's own built in rss writer.
+		this method simply creates a folder for it's file
+		"""
+		path = os.path.join(root, 'feed')
+		os.makedirs(path)
 
 
 	@staticmethod
@@ -234,12 +245,42 @@ class Post:
 		return latest_post
 
 
+class RSSItem:
+	"""
+	a feed item is constructed with a post
+	converts post attributes to xml friendly
+	stuff
+	"""
+	def __init__(self, post):
+		self.post = post
+		self.rss = PyRSS2Gen.RSS2(
+			title = "Blog by Alex Recker",
+			link = "http://alexrecker.com",
+			description = "Hey - my name is Alex Recker.  I like to write words.",
+
+			items = [
+				PyRSS2Gen.RSSItem(
+			         title = self.post.title,
+			         link = "http://alexrecker.com/" + self.post.link,
+			         description = self.post.body,
+			         guid = PyRSS2Gen.Guid("http://alexrecker.com/" + self.post.link),
+			         pubDate = datetime.datetime.combine(self.post.date, datetime.datetime.min.time())
+			   	)
+			]
+		)
+
+	def write(self):
+		Utility.create_feed_route()
+		#with open(os.path.join(Utility.PUBLIC, 'feed', 'index.xml'), 'wb') as file:
+	#		self.rss_write_xml(file)
+		self.rss.write_xml(open(os.path.join(Utility.PUBLIC, 'feed', "index.xml"), "w"))
+
+
 class Email:
 	"""
 	Definition class for an email.
 	Constructs header and email body
 	"""
-	#def __init__(self, sender, recipient, subject, post, unsubscribe_key, full_text):
 	def __init__(self, data):
 		self.sender = 'Alex Recker'
 		self.recipient = data.email
@@ -313,6 +354,7 @@ class WebServer:
 
 def refresh_public():
 	posts = Post.get_all_posts()
+	latest = posts[0]
 	Utility.drop_public()
 
 	# Static Resources
@@ -325,6 +367,11 @@ def refresh_public():
 	# Posts
 	for post in posts:
 		Utility.write_route(template="post.html", data=post, route=post.link)
+
+	# RSS
+	#Utility.write_route(template="feed.xml", data=RSSItem(latest), route="feed", file_override="index.xml")
+	rss = RSSItem(latest)
+	rss.write()
 
 
 def get_subscriber_list():
