@@ -3,12 +3,13 @@
 <div class="container-fluid main">
 	<div class="page-header">
 		<h1>{{ data.title }}</h1>
+		<p><em>{{ data.description }}</em></p>
 	</div>
 	<div class="body">
 		{{ data.body }}
 	</div>
 	<hr>
-	<button type="button" class="btn btn-default"><i class="fa fa-long-arrow-left"></i> Back</button>
-	<button type="button" class="btn btn-danger"><i class="fa fa-bell"></i> Subscribe</button>
+	<a type="button" class="btn btn-default" href="/"><i class="fa fa-long-arrow-left"></i> Back</a>
+	<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#followModal"><i class="fa fa-bell"></i> Subscribe</button>
 </div>
 {% endblock %}

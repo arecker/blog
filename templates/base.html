@@ -12,10 +12,40 @@
 <body>
 	{% block body %}
 	{% endblock %}
+	<div id="followModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+	  			<div class="modal-header">
+	  				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	  				<h1 class="modal-title lead">Follow my Blog</h1>
+	  			</div>
+	  			<div class="modal-body">
+					<div id="subscribeMessage" class="alert" role="alert">I'll send you an email every time I do something new. Don't worry - you can unsubscribe at any time.</div>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+						<input id="subscribeEmail" type="text" class="form-control" placeholder="Email"><br>
+						<span class="input-group-btn">
+							<button id="subscribeButton" class="btn btn-primary" type="button">Go!</button>
+						</span>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input type="checkbox"> Send me the full text of blog posts
+						</label>
+					</div>
+	  			</div>
+	  			<div class="modal-footer">
+	  				<p class="text-muted pull-left"><i class="fa fa-rss"></i>Use RSS?  I do <a href="http://alexrecker.com/feed/">that</a> too</p>
+	  			</div>
+			</div>
+		</div>
+	</div>
 </body>
 <footer>
 	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="/static/js/APP_KEY.js"></script>
+	<script src="/static/js/app.js"></script>
 	{% block footer %}
 	{% endblock %}
 </footer>

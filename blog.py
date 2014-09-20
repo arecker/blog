@@ -259,22 +259,7 @@ class WebServer:
 			return file.read()
 
 
-@click.group()
-def cli():
-    """
-    This is the script for my blog.
-    It does things.
-    """
-    pass
-
-
-@cli.command(name="refresh")
-def cli_refresh():
-	"""
-	refreshes html cache
-	"""
-	hopper = []
-
+def refresh_public():
 	posts = Post.get_all_posts()
 	Utility.drop_public()
 
@@ -289,12 +274,31 @@ def cli_refresh():
 	for post in posts:
 		Utility.write_route(template="post.html", data=post, route=post.link)
 
+@click.group()
+def cli():
+    """
+    This is the script for my blog.
+    It does things.
+    """
+    pass
+
+
+@cli.command(name="refresh")
+def cli_refresh():
+	"""
+	refreshes html cache
+	"""
+	refresh_public()
+
 
 @cli.command(name="serve")
-def cli_serve():
+@click.option('-r', is_flag=True, help="refresh cache")
+def cli_serve(r=False):
 	"""
 	runs local web server
 	"""
+	if r:
+		refresh_public()
 	server = WebServer()
 
 

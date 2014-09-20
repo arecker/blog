@@ -3,3 +3,4 @@
 *.pyc
 public/*
 .coverage
+static/js/APP_KEY.js
