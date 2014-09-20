@@ -1,6 +1,10 @@
 Blog
 ====
 
+![travis](https://travis-ci.org/arecker/Blog.svg?branch=master)
+
+[![Coverage Status](http://img.shields.io/coveralls/arecker/Blog.svg)](https://coveralls.io/r/arecker/Blog?branch=master)
+
 This is my blog.  It's a bunch of markdown files, jinja templates, and one python script that does everything.
 
 ### Building it Locally
@@ -19,3 +23,8 @@ Next, create a bash-python wrapper for the blog script and place it somewhere in
 ```
 
 If all went well, ```blog``` should be a callable command.  It can be used to launch the local debuggin webserver, refresh the content cache, and even send emails.  There is more inline documentation in the script itself.
+
+### To Do
+
+- unit test coverage is still pretty abismal
+- finish homepage
