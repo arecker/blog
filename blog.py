@@ -9,6 +9,9 @@ import codecs
 import shutil
 import bs4
 import flask
+import requests
+import tabulate
+import smtplib
 
 
 class Data:
@@ -221,6 +224,55 @@ class Post:
 		return posts
 
 
+	@staticmethod
+	def get_latest_post():
+		"""
+		returns only the latest post
+		"""
+		latest_file = sorted(os.listdir(Utility.POSTS))[-1]
+		latest_post = Post(os.path.join(Utility.POSTS, latest_file))
+		return latest_post
+
+
+class Email:
+	"""
+	Definition class for an email.
+	Constructs header and email body
+	"""
+	#def __init__(self, sender, recipient, subject, post, unsubscribe_key, full_text):
+	def __init__(self, data):
+		self.sender = 'Alex Recker'
+		self.recipient = data.email
+		self.subject = data.post.title
+		self.post = data.post
+		self.unsubscribe_key = data.unsubscribe_key
+		self.full_text = data.full_text
+
+		self.headers = "\r\n".join(["from: " + self.sender,
+		"subject: " + self.subject,
+		"to: " + self.recipient,
+		"mime-version: 1.0",
+		"content-type: text/html"])
+
+
+	def send(self, test=False):
+		self.body = Utility.render_html_from_template(template="email.html", data=self)
+		self.content = self.headers + "\r\n\r\n" + self.body
+		self.content = self.content.encode('ascii', 'ignore')
+
+		if test:
+			Utility.write_page(template='email.html', data=self, name=self.recipient + '.html', path=os.curdir)
+			exit()
+
+		# logging in for each email is not ideal,
+		# but i was having issues keeping the tunnel open
+		session = smtplib.SMTP('smtp.gmail.com', 587)
+		session.ehlo()
+		session.starttls()
+		session.login(KeyManager.EMAIL, KeyManager.EMAIL_PASSWORD)
+		session.sendmail(KeyManager.EMAIL, self.recipient, self.content)
+		session.close()
+
 
 class KeyManager:
 	AUTHENTICATED = True
@@ -231,7 +283,7 @@ class KeyManager:
 		EMAIL = data["email"]
 		EMAIL_PASSWORD = data["email_password"]
 	except IOError:
-		authenticated = False
+		AUTHENTICATED = False
 
 
 class WebServer:
@@ -274,6 +326,19 @@ def refresh_public():
 	for post in posts:
 		Utility.write_route(template="post.html", data=post, route=post.link)
 
+
+def get_subscriber_list():
+    if KeyManager.AUTHENTICATED:
+        key = KeyManager.ADMIN
+        url = "http://api.alexrecker.com/email/subscriber/list/?admin=" + key
+        resp = requests.get(url=url)
+        data = json.loads(resp.text)
+        return data
+    else:
+        click.echo("this app is not authenticated")
+        exit()
+
+
 @click.group()
 def cli():
     """
@@ -302,5 +367,77 @@ def cli_serve(r=False):
 	server = WebServer()
 
 
+@cli.group(name="email")
+def cli_email():
+	"""
+	manages email subscribers
+	"""
+	pass
+
+
+@cli_email.command(name="list")
+def cli_email_list():
+	"""
+	lists subscribers
+	"""
+	data = get_subscriber_list()
+	count = len(data)
+	if count is 0:
+		print('There are no subscribers.')
+		exit()
+	elif count is 1:
+		print('There is 1 subscriber\n')
+	else:
+		print('There are ' + str(count) + ' subscribers.\n')
+
+	table = []
+	for sub in data:
+		table.append([sub["email"], sub["full_text"], sub["unsubscribe_key"]])
+	print(tabulate.tabulate(table, headers=["Email", "Full Text", "Key"]))
+
+
+@cli_email.command(name="delete")
+@click.option('--key', prompt="Unsubscribe Key")
+def email_delete(key):
+	"""
+	deletes a subscriber (key required)
+	"""
+	url = "http://api.alexrecker.com/email/subscriber/delete?unsubscribe=" + key
+	resp = requests.get(url=url)
+	click.echo('Subscriber removed') #TODO: handle server side error
+
+
+@cli_email.command(name="send")
+@click.option('--test', is_flag=True, help="writes out email to local html files")
+def email_send(test=False):
+	"""
+	sends latest post to subscribers
+	"""
+	if not KeyManager.AUTHENTICATED:
+		click.echo('this app is not authenticated')
+		exit()
+	latest = Post.get_latest_post()
+	emails = []
+
+	for sub in get_subscriber_list():
+		data = Data()
+		data.email = sub["email"]
+		data.unsubscribe_key = sub["unsubscribe_key"]
+		data.full_text = sub["full_text"]
+		data.post = latest
+		emails.append(Email(data))
+
+	print('You are about to send out ' + str(len(emails)) + ' emails.')
+	print('Post: ' + latest.title)
+	if not click.confirm('Church?'):
+		print('Whatever')
+		exit()
+
+	with click.progressbar(emails, label="Sending...") as bar:
+		for email in bar:
+			email.send()	
+
+
+
 if __name__ == '__main__':
-    cli()
+	cli()
