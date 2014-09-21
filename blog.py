@@ -270,9 +270,6 @@ class RSSItem:
 		)
 
 	def write(self):
-		Utility.create_feed_route()
-		#with open(os.path.join(Utility.PUBLIC, 'feed', 'index.xml'), 'wb') as file:
-	#		self.rss_write_xml(file)
 		self.rss.write_xml(open(os.path.join(Utility.PUBLIC, 'feed', "index.xml"), "w"))
 
 
@@ -370,6 +367,7 @@ def refresh_public():
 
 	# RSS
 	#Utility.write_route(template="feed.xml", data=RSSItem(latest), route="feed", file_override="index.xml")
+	Utility.create_feed_route()
 	rss = RSSItem(latest)
 	rss.write()
 
