@@ -6,7 +6,7 @@ import BaseHTTPServer
 import bs4
 
 
-from blog import Utility, Post, WebServer
+from blog import Utility, Post, WebServer, Email, Data
 
 
 class Helpers:
@@ -70,6 +70,13 @@ class UtilityTest(unittest.TestCase):
 	def test_rebuild_static(self):
 		Utility.rebuild_static(root=self.public)
 		self.assertTrue(os.path.exists(os.path.join(self.public, 'static')))
+		Utility.rebuild_static(root=self.public) # run again to test the 'if exists' block
+		self.assertTrue(os.path.exists(os.path.join(self.public, 'static')))
+
+
+	def test_create_feed_route(self):
+		Utility.create_feed_route(root=self.public)
+		self.assertTrue(os.path.exists(os.path.join(self.public, 'feed')))
 
 
 class PostTest(unittest.TestCase):
@@ -105,6 +112,24 @@ class PostTest(unittest.TestCase):
 		expected = u'<figure class="image">\n <img alt="capt" src="source"/>\n <figcaption>\n  capt\n </figcaption>\n</figure>'
 		actual = Post.convert_alts_to_captions('<img src=source alt=capt>')
 		self.assertEqual(actual, expected)
+
+
+class EmailTest(unittest.TestCase):
+	def setUp(self):
+		post_path = os.path.join(Utility.DOCS, '1900-01-10.md')
+		self.post = Post(post_path)
+		data = Data()
+		data.post = self.post
+		data.email = 'test_recipient@gmail.com'
+		data.unsubscribe_key = 'blah'
+		data.full_text = False
+		self.email = Email(data)
+
+
+	def test_creation(self):
+		self.assertEqual(self.email.recipient, 'test_recipient@gmail.com')
+		self.assertEqual(self.email.sender, 'Alex Recker')
+		self.assertEqual(self.email.post, self.post)
 
 
 if __name__ == '__main__':
