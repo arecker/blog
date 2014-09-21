@@ -16,19 +16,17 @@
 			</div>
 		</div>
 
-		<div class="page-header">
-			<div class="media">
-				{% if data.latest.image %}
-				<a class="pull-left" href="/{{ data.latest.link }}">
-					<img class="media-object" src="{{ data.latest.image }}" height="100px">
-				</a>
-				{% endif %}
-				<div class="media-body">
-					<h4 class="media-heading">{{ data.latest.title }}</h4>
-					<p>{{ data.latest.description }}</p>
-				</div>
-			</div>
+		<hr class="fancy">
+
+		<div class="page-header hello">
+		{% if data.latest.image %}
+			<img src="{{ data.latest.image }}" height="100px">
+		{% endif %}
+			<h1 class="lead"><a href="/{{ data.latest.link }}">{{ data.latest.title }}</a></h1>
+			<p>{{ data.latest.description }}</p>
 		</div>
+
+		<hr class="fancy">
 
 		<div class="container hello">
 			<p class="lead">

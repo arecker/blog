@@ -366,7 +366,6 @@ def refresh_public():
 		Utility.write_route(template="post.html", data=post, route=post.link)
 
 	# RSS
-	#Utility.write_route(template="feed.xml", data=RSSItem(latest), route="feed", file_override="index.xml")
 	Utility.create_feed_route()
 	rss = RSSItem(latest)
 	rss.write()
