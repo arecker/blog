@@ -7,11 +7,28 @@
 		</div>
 		{% if data.latest.image %}
 		<figure class="image">
-			<img src="{{ data.latest.image }}" height="200px"  alt="">	
+			<img src="{{ data.latest.image }}" height="100">	
 		</figure>
 		{% endif %}
 		<a href="{{ data.latest.link }}"><h1 class="lead">{{ data.latest.title }}</h1></a>
 		<p>{{ data.latest.description }}</p>
+
+		<hr class="fancy">
+
+		<div class="page-header">
+			<h1 class="lead">Archives</h1>
+		</div>
+
+		<table class="table">
+			<tbody>
+				{% for post in data.posts %}
+				<tr>
+					<td><a href="/{{ post.link }}">{{ post.title }}</a></td>
+					<td>{{ post.date }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
 
 	</div>
 
