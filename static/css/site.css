@@ -1,29 +1,16 @@
-.main p, .main h1, .main h2, .main h3, .main h4, .main h5, .main li {
+.main p, .main li {
 	font-family: 'Vollkorn', serif !important;
 	text-align: justify;
 }
 
-.fa { font-family: FontAwesome !important;}
+.lead, h1, h2, h3, h4, h5 {
+    font-family: 'Vollkorn', serif !important;
+}
 
-.main, .archives, .projects {
+.main {
 	max-width: 700px;
 	margin-top: 3em;
 	margin-bottom: 3em;
-}
-
-.hello {
-	max-width: 400px;
-	margin-top: 3em;
-	margin-bottom: 3em;
-}
-
-.jumbo .jumbotron {
-    margin-top: 3em;
-    background-color: transparent;
-}
-
-img[src="http://media.alexrecker.com/images/portrait.jpg"]{
-    margin-right: 10px;
 }
 
  /* Images */
