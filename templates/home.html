@@ -2,33 +2,52 @@
 {% block body %}
 	<div class="container-fluid main">
 
-		<div class="page-header">
-			<h1 class="lead">Latest Post</h1>
+		<div class="container-fluid banner">
+			<figure class="image">
+				<img src="http://media.alexrecker.com/images/portrait.jpg" class="img-circle" alt="">
+			</figure>
+			<h1>Blog by Alex</h1>
+			<h1>Recker</h1>
 		</div>
-		{% if data.latest.image %}
-		<figure class="image">
-			<img src="{{ data.latest.image }}" height="100">	
-		</figure>
-		{% endif %}
-		<a href="{{ data.latest.link }}"><h1 class="lead">{{ data.latest.title }}</h1></a>
-		<p>{{ data.latest.description }}</p>
 
 		<hr class="fancy">
 
-		<div class="page-header">
-			<h1 class="lead">Archives</h1>
+		<div class="container-fluid">
+			<div class="page-header">
+				{% if data.latest.image %}
+				<figure class="image">
+					<a href="/{{ data.latest.link }}">
+						<img src="{{ data.latest.image }}" height="100px">	
+					</a>
+				</figure>
+				{% endif %}
+				<h1 class="lead">
+					<a href="{{ data.latest.link }}">{{ data.latest.title }}</a>
+					<small class="pull-right">{{ data.latest.date.strftime("%B %d, %Y") }}</small>
+				</h1>
+				<p>{{ data.latest.description }}</p>
+			</div>
 		</div>
 
-		<table class="table">
-			<tbody>
-				{% for post in data.posts %}
-				<tr>
-					<td><a href="/{{ post.link }}">{{ post.title }}</a></td>
-					<td>{{ post.date }}</td>
-				</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+		<div class="container-fluid">
+			<div class="input-group">
+				<span class="input-group-addon">
+					<i class="fa fa-search"></i>
+				</span>
+				<input id="filter" class="form-control" type="text" placeholder="Filter" onkeyup="Filter(this)" size="10"/>
+			</div>
+			<br>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p>
+					{% for post in data.posts %}
+						<a href="{{ post.link }}">{{ post.title }}</a> 
+						<span> | </span> 
+					{% endfor %}
+					</p>
+				</div>
+			</div>
+		</div>
 
 	</div>
 
