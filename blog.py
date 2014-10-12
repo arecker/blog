@@ -240,9 +240,9 @@ class Post:
 		"""
 		returns only the latest post
 		"""
-		latest_file = sorted(os.listdir(Utility.POSTS))[-1]
-		latest_post = Post(os.path.join(Utility.POSTS, latest_file))
-		return latest_post
+		#latest_file = sorted(os.listdir(Utility.POSTS))[-1]
+		#latest_post = Post(os.path.join(Utility.POSTS, latest_file))
+		return Post.get_all_posts()[0]
 
 
 class RSSItem:
