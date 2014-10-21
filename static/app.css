@@ -1,0 +1,28 @@
+.main {
+	max-width: 500px;
+	margin-top: 3em;
+	margin-bottom: 3em;
+}
+
+.fancy { font-family: 'Vollkorn', serif !important;}
+
+/* Glyph, by Harry Roberts */
+		
+hr.fancy {
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+hr.fancy:after {
+    content: "§";
+    display: inline-block;
+    position: relative; 
+    top: -0.7em;  
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}

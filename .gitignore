@@ -1,7 +1,1 @@
-keys.json
-.idea
 .env
-*.pyc
-public/*
-.coverage
-static/js/APP_KEY.js

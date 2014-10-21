@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.min.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="/app.css">
+	<link rel="stylesheet" href="app.css">
 </head>
 <body>
 	<div class="container-fluid main">
@@ -22,16 +22,13 @@
 		</div> 
 
 		<div class="text-center">
-			{% if latest.image %}
 			<a href="#">
-				<img src="{{ latest.image }}" width="100%" class="img-rounded">			
+				<img src="http://content.internetvideoarchive.com/content/photos/7239/30405805_.jpg" width="100%" class="img-rounded">			
 			</a>
-			{% endif %}
 			<div class="page-header text-left">
-				<h1 class="lead fancy"><a href="{{ latest.link }}">{{ latest.title }}</a></h1>
-				<p class="fancy">{{ latest.date }}</p>
+				<h1 class="lead fancy"><a href="#">Clockwork Orange</a><span class="pull-right fancy ">October 12, 2014</span></h1>
 				<p class="fancy">
-					{{ latest.description }}
+					Time for a bit of the ‘ol Kubrick Week, eh readers? This week we take on the mental flogging that is Clockwork Orange. I’ll be rebuilding my sense of morality all week.
 				</p>
 			</div>
 		</div>
@@ -46,10 +43,8 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<p class="fancy">
-					{% for post in posts %}
-					<a title="{{ post.description }}" href="/{{ post.link }}">{{ post.title }}</a> 
+					<a href="#">Clockwork Orange</a> 
 					<span> | </span>
-					{% endfor %}
 				</p>
 			</div>
 		</div>
