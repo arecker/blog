@@ -2,7 +2,7 @@ from flask import Flask, render_template, Response
 import json
 import urllib2
 import os
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__)
 
 
 @app.route("/")
@@ -20,10 +20,10 @@ def get_feed():
 	return Response(res, mimetype='text/xml')
 
 
-@app.route('/<path:path>')
-def static_proxy(path):
-    # send_static_file will guess the correct MIME type
-    return app.send_static_file(os.path.join('static', path))
+@app.route("/<slug>/")
+def get_slug(slug):
+	data = json.load(urllib2.urlopen('http://api.alexrecker.com/post/' + slug))
+	return render_template('post.html', post=post)
 
 
 if __name__ == "__main__":

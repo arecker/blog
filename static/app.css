@@ -1,10 +1,12 @@
 .main {
-	max-width: 500px;
+	max-width: 600px;
 	margin-top: 3em;
 	margin-bottom: 3em;
 }
 
 .fancy { font-family: 'Vollkorn', serif !important;}
+
+.latest img { width: 100%;}
 
 /* Glyph, by Harry Roberts */
 		

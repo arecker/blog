@@ -3,32 +3,33 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Blog</title>
+	<meta charset="UTF-8">
 	<link rel="icon" type="image/gif" href="http://media.alexrecker.com/images/bro-favicon.gif">
 	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.min.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="/app.css">
+	<link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
 </head>
 <body>
 	<div class="container-fluid main">
 
 		<div class="text-center">
 			<figure class="image">
-				<img src="http://media.alexrecker.com/images/portrait.jpg" class="img-circle" alt="">
+				<img src="http://media.alexrecker.com/images/portrait.jpg" class="img-circle" alt="Blog by Alex Recker">
 			</figure>
 			<h1 class="fancy">Blog by</h1>
 			<h1 class="fancy">Alex Recker</h1>
 			<hr class="fancy">
 		</div> 
 
-		<div class="text-center">
+		<div class="latest text-center">
 			{% if latest.image %}
 			<a href="#">
-				<img src="{{ latest.image }}" width="100%" class="img-rounded">			
+				<img src="{{ latest.image }}" alt="{{ latest.title }}">			
 			</a>
 			{% endif %}
 			<div class="page-header text-left">
-				<h1 class="lead fancy"><a href="{{ latest.link }}">{{ latest.title }}</a></h1>
+				<h1 class="lead fancy"><a href="/{{ latest.link }}">{{ latest.title }}</a></h1>
 				<p class="fancy">{{ latest.date }}</p>
 				<p class="fancy">
 					{{ latest.description }}
