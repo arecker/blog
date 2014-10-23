@@ -1,18 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Blog</title>
-	<meta charset="UTF-8">
-	<link rel="icon" type="image/gif" href="http://media.alexrecker.com/images/bro-favicon.gif">
-	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.min.css">
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-	<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
-</head>
-<body>
-	<div class="container-fluid main">
-
+{% extends "base.html" %}
+{% block main %}
 		<div class="text-center">
 			<figure class="image">
 				<img src="http://media.alexrecker.com/images/portrait.jpg" class="img-circle" alt="Blog by Alex Recker">
@@ -54,6 +41,4 @@
 				</p>
 			</div>
 		</div>
-	</div>
-</body>
-</html>
+{% endblock %}

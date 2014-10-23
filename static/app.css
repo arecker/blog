@@ -8,8 +8,8 @@
 
 .latest img { width: 100%;}
 
-/* Glyph, by Harry Roberts */
-		
+
+/* That fancy HR thing*/		
 hr.fancy {
     padding: 0;
     border: none;
@@ -19,6 +19,7 @@ hr.fancy {
     margin-top: 3em;
     margin-bottom: 3em;
 }
+
 hr.fancy:after {
     content: "§";
     display: inline-block;

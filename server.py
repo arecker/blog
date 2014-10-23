@@ -23,7 +23,7 @@ def get_feed():
 @app.route("/<slug>/")
 def get_slug(slug):
 	data = json.load(urllib2.urlopen('http://api.alexrecker.com/post/' + slug))
-	return render_template('post.html', post=post)
+	return render_template('post.html', post=data)
 
 
 if __name__ == "__main__":
