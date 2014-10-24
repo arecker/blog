@@ -1,16 +1,21 @@
-var ViewModel = {
-	"archives": [],
-	"latest": undefined,
+var App = function(slug) {
+	slug = slug || "";
+	var self = this;
+	self.go = function(){
+		$.getJSON('http://api.alexrecker.com/post/' + slug, function(data){
+			var vm = {}
+			if (slug === undefined || slug === ""){
+				vm.posts = data;
+				vm.latest = vm.posts[0];
+			} else {
+				
+			}
+
+			ko.applyBindings(vm);
+		});
+	}
 }
 
-var RequestFactory = function(urlAfterSlash, bindTarget){
-	var urlRoot = "http://api.alexrecker.com/";
-	$.getJSON(urlRoot + bindTarget, function(data){
-		bindTarget = data
-	});
-}
 
-RequestFactory('', ViewModel.archives);
-ViewModel.latest = ViewModel.archives[0];
-
-ko.applyBindings(ViewModel);
+var App = new App();
+App.go();
