@@ -10,16 +10,13 @@
 		</div> 
 
 		<div class="latest text-center">
-			{% if latest.image %}
 			<a href="#">
-				<img src="{{ latest.image }}" alt="{{ latest.title }}">			
+				<img data-bind="attr { src: latest.image }" alt="">			
 			</a>
-			{% endif %}
 			<div class="page-header text-left">
-				<h1 class="lead fancy"><a href="/{{ latest.link }}">{{ latest.title }}</a></h1>
-				<p class="fancy">{{ latest.date }}</p>
-				<p class="fancy">
-					{{ latest.description }}
+				<h1 class="lead fancy"><a href="#" data-bind="text: latest.title"></a></h1>
+				<p class="fancy" data-bind="text: latest.date"></p>
+				<p class="fancy" data-bind="text: latest.description">
 				</p>
 			</div>
 		</div>
@@ -33,12 +30,13 @@
 		<br>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<p class="fancy">
-					{% for post in posts %}
-					<a title="{{ post.description }}" href="/{{ post.link }}">{{ post.title }}</a> 
+				<p class="fancy" data-bind="foreach: posts">
+					<a data-bind="text: title, attr { href: link, title: description }"></a> 
 					<span> | </span>
-					{% endfor %}
 				</p>
 			</div>
 		</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='home.js') }}"></script>
 {% endblock %}

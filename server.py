@@ -7,9 +7,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def get_home():
-	data = json.load(urllib2.urlopen('http://api.alexrecker.com/post/'))
-	latest = data[0]
-	return render_template('home.html', posts=data, latest=latest)
+	return render_template('home.html')
 
 
 @app.route("/feed/")
@@ -22,8 +20,17 @@ def get_feed():
 
 @app.route("/<slug>/")
 def get_slug(slug):
-	data = json.load(urllib2.urlopen('http://api.alexrecker.com/post/' + slug))
-	return render_template('post.html', post=data)
+	return render_template('post.html', slug=slug)
+
+
+def serialize_post(post):
+	return {
+		"title": post.title,
+		"link": post.link,
+		"date": post.date,
+		"description": post.description,
+		"image": post.image,
+	}
 
 
 if __name__ == "__main__":
