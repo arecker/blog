@@ -6,7 +6,7 @@
 	<link rel="icon" type="image/gif" href="http://media.alexrecker.com/images/bro-favicon.gif">
 	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.min.css">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
-	<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
 </head>
 <body>
@@ -14,4 +14,40 @@
 		{% block main %}
 		{% endblock %}
 	</div>
+	<div id="followModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+	  			<div class="modal-header">
+	  				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	  				<h1 class="modal-title lead fancy">Follow my Blog</h1>
+	  			</div>
+	  			<div class="modal-body">
+					<div id="subscribeMessage" class="alert" role="alert">
+						<p class="fancy">
+							I'll send you an email every time I do something new. Don't worry - you can unsubscribe at any time.
+						</p>
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+						<input id="subscribeEmail" type="text" class="form-control" placeholder="Email"><br>
+						<span class="input-group-btn">
+							<button id="subscribeButton" class="btn btn-primary" type="button">Go!</button>
+						</span>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input class="fancy" type="checkbox"> Send me the full text of blog posts
+						</label>
+					</div>
+	  			</div>
+	  			<div class="modal-footer">
+	  				<p class="text-muted pull-left"><i class="fa fa-rss"></i>Use RSS?  I do <a href="http://alexrecker.com/feed/">that</a> too</p>
+	  			</div>
+			</div>
+		</div>
+	</div>
 </body>
+<footer>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</footer>
