@@ -6,9 +6,22 @@ var Application = (function(){
 		$.getJSON(baseURL, function(data){
 
 			var vm = {
-				"posts": data,
-				"latest": data[0]
+				"posts": ko.observableArray(data),
+				"latest": data[0],
+				filter: ko.observable(""),
 			}
+
+			vm.filteredPosts = ko.computed(function() {
+			    var filter = this.filter().toLowerCase();
+			    if (!filter) {
+			        return this.posts();
+			    } else {
+			        return ko.utils.arrayFilter(this.posts(), function(item) {
+			            return item.title.toLowerCase().indexOf(filter) !== -1 ||
+			            	   item.description.toLowerCase().indexOf(filter) !== -1;
+			        });
+			    }
+			}, vm);
 
 			ko.applyBindings(vm);
 
@@ -31,7 +44,6 @@ var Application = (function(){
 
 		});
 	}
-
 
 	// Routing
 	var slug = $('#slug').val();
