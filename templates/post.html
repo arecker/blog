@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block main %}
 <div class="page-header">
-	<h1 class="fancy">{{ post.title }} <small class="fancy">{{ post.date }}</small></h1>
-	<p class="fancy">{{ post.description }}</p>
+	<h1 class="fancy" data-bind="text: title"></h1>
+	<p class="fancy" data-bind="text: description"></p>
+	<em class="fancy" data-bind="text: date"></em>
 </div>
-<div class="post-body">
-	{{ post.body | safe }}
+<div class="post-body" data-bind="html: body">
+
 </div>
 <hr>
 <div class="text-center">
@@ -30,7 +31,7 @@
 		<h1 class="fancy">Comments</h1>
 	</div>
 	<div class="container-fluid">
-		<div class="fb-comments container-fluid" data-href="http://alexrecker.com/{{ post.link }}/" data-numposts="20" data-colorscheme="light"></div>
+		<div data-bind="attr { 'data-href': 'http://alexrecker.com/' + link + '/' }" class="fb-comments container-fluid" data-numposts="20" data-colorscheme="light"></div>
 		</div>
 	</div>
 </div>
