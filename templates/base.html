@@ -22,26 +22,23 @@
 	  				<h1 class="modal-title lead fancy">Follow my Blog</h1>
 	  			</div>
 	  			<div class="modal-body">
-					<div id="subscribeMessage" class="alert" role="alert">
-						<p class="fancy">
-							I'll send you an email every time I do something new. Don't worry - you can unsubscribe at any time.
-						</p>
+					<div data-bind="text: subscribe.message, css { 'alert-warning': subscribe.negativeMessage() }" id="subscribeMessage" class="alert" role="alert">
 					</div>
-					<div class="input-group">
+					<div data-bind="css { 'has-warning': subscribe.badInput() }" class="input-group">
 						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-						<input id="subscribeEmail" type="text" class="form-control" placeholder="Email"><br>
+						<input data-bind="value: subscribe.email" id="subscribeEmail" type="text" class="form-control" placeholder="Email"><br>
 						<span class="input-group-btn">
-							<button id="subscribeButton" class="btn btn-primary" type="button">Go!</button>
+							<button data-bind="click: subscribe.go" id="subscribeButton" class="btn btn-primary" type="button">Go!</button>
 						</span>
 					</div>
 					<div class="checkbox">
 						<label>
-							<input class="fancy" type="checkbox"> Send me the full text of blog posts
+							<input data-bind="checked: subscribe.wantsFullText" class="fancy" type="checkbox"> Send me the full text of blog posts
 						</label>
 					</div>
 	  			</div>
 	  			<div class="modal-footer">
-	  				<p class="text-muted pull-left"><i class="fa fa-rss"></i>Use RSS?  I do <a href="http://alexrecker.com/feed/">that</a> too</p>
+	  				<p class="text-muted pull-left"><i class="fa fa-rss"></i>Use RSS?  I do <a href="/feed/">that</a> too</p>
 	  			</div>
 			</div>
 		</div>
