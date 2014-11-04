@@ -10,11 +10,11 @@
 		</div> 
 
 		<div class="latest text-center">
-			<a href="#">
-				<img data-bind="attr { src: latest.image }" alt="">			
+			<a data-bind="attr { href: latest.link }">
+				<img data-bind="attr { src: latest.image, href: latest.link }" alt="">			
 			</a>
 			<div class="page-header text-left">
-				<h1 class="lead fancy"><a href="#" data-bind="text: latest.title"></a></h1>
+				<h1 class="lead fancy"><a data-bind="text: latest.title, attr { href: latest.link }"></a></h1>
 				<p class="fancy" data-bind="text: latest.date"></p>
 				<p class="fancy" data-bind="text: latest.description">
 				</p>
