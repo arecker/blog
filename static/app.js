@@ -1,3 +1,4 @@
+$('.main').hide();
 var baseURL = "http://api.alexrecker.com/post/"
 var Homepage = function(){
 
