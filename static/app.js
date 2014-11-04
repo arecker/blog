@@ -1,3 +1,5 @@
+//$(document).ready(function(){$("body").hide().fadeIn(1000);});
+$('.main').hide();
 
 var baseURL = "http://api.alexrecker.com/post/"
 var Homepage = function(){
@@ -5,10 +7,12 @@ var Homepage = function(){
 	$.getJSON(baseURL, function(data){
 
 		var vm = {
-			"posts": ko.observableArray(data),
-			"latest": data[0],
+			posts: ko.observableArray(data),
+			latest: data[0],
 			filter: ko.observable(""),
 		}
+
+		vm.latest.date = moment(vm.latest.date).format('MMMM Do YYYY');
 
 		vm.filteredPosts = ko.computed(function() {
 		    var filter = this.filter().toLowerCase();
@@ -139,3 +143,5 @@ switch (slug) {
 	default:
 		page = new Postpage(slug);
 }
+
+$('.main').fadeIn(1000);
