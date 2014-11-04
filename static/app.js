@@ -54,7 +54,7 @@ var SubscribeApp = (function(){
 
 	function EmailIsValid(email){
         var regExp = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return regExp.test(self.email) && self.email != '';
+        return regExp.test(email) && email !== '' && email !== undefined;
 	}
 
 	// Properties
@@ -63,14 +63,61 @@ var SubscribeApp = (function(){
 	vm.message = ko.observable("I'll send you an email every time I do something new. Don't worry - you can unsubscribe at any time.");
 	vm.badInput = ko.observable(false);
 	vm.negativeMessage = ko.observable(false);
+	vm.successMessage = ko.observable(false);
+	vm.waiting = ko.observable(false);
 	
 	// Functions
 	vm.go = function(){
 		var email = vm.email();
 		var wantsFullText = vm.wantsFullText();
 		var emailIsValid = EmailIsValid(email);
+		vm.negativeMessage(false);
+		vm.successMessage(false);
+		vm.badInput = ko.observable(false);
 		if (emailIsValid){
-			// go
+
+			var key = "";
+
+	        try {
+	            key = APP_KEY;
+	        } catch(err) {
+	            alert('Blurrrrrrrrrrrthis thing is broken try again later.');
+	            return;
+	        }
+
+	        data = {
+	            "email": email,
+	            "full_text": wantsFullText
+	        }
+
+	        $.ajax({
+	            url: 'http://api.alexrecker.com/email/subscriber/add/?app=' + key,
+	            type: "POST",
+	            dataType: "json",
+	            data: JSON.stringify(data),
+
+	            beforeSend: function(){
+	                vm.waiting = ko.observable(true);
+	            },
+
+	            complete: function (jqXHR, textStatus) {
+	            	vm.waitin = ko.observable(false);
+	                switch (jqXHR.status) {
+	                    case 201:
+	                        vm.successMessage(true);
+	                        vm.message("Most Excellent!  Thanks for signing up");
+	                        break;
+	                    case 400:
+	                        vm.negativeMessage(true);
+	                        vm.message("Whaaaat?  You're already subscribed, ya dungus.");
+	                        break;
+	                    default:
+	                        vm.negativeMessage(true);
+	                        vm.message("Crap.  This thing is totally broken.  Try again later.")
+	                }
+	            }
+
+	        });
 		} else {
 			vm.badInput(true);
 			vm.negativeMessage(true);

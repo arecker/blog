@@ -63,3 +63,8 @@ figcaption {
     font-size: 13pt;
     text-align: justify;
 }
+
+/* Subscribe Modal */
+#subscribeMessage {
+    font-size: 13px;
+}
