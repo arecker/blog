@@ -1,6 +1,3 @@
-//$(document).ready(function(){$("body").hide().fadeIn(1000);});
-$('.main').hide();
-
 var baseURL = "http://api.alexrecker.com/post/"
 var Homepage = function(){
 
