@@ -1,0 +1,44 @@
+Title: Writing
+Description: I have always liked to write, but college writing classes led me to the comfortable pastures of amateur writing.  Here are some tips on how to be a mediocre writer.
+Image: http://media.alexrecker.com/images/writing.jpg
+Date: 5-22-2014 
+
+I like to write, but not everyone likes to read my writing.  I’m totally ok with that.  I’m full-fledged comfortable with being indexed as an amateur writer.
+
+I started getting excited about writing around when I was in fifth grade.  It was a magical time when I realized that writing wasn’t just a chore.  The teacher actually took the time to read things you wrote in your assignment.  Unlike the math practice sheets and the multiple choice history tests she would grade, a written assignment was the only time you held her full attention for longer than forty five seconds.
+
+It was the perfect time to cram in all kinds of smart ass remarks.  We were all in fifth grade - and we all remember how dull and cartoon-centric our senses of humor were.  But the chance to tell the teacher something directly appealed to me.  This alone was enough to motivate me to donate an extra hour or two for each writing assignment I took home.
+
+If I had proper *glory years* of writing, it would certainly be high school.  I wrote every word under the presumption that I was a raging genius, and I wasn’t challenged in those presumptions nearly often enough.  I may have tried harder than the other students, but I wish teachers had the gumption to call out the thesaurus held puppet strings more often.  The fact that I had no trouble writing a thousand flowery words on anything should have raised suspicion that I have given at least a thousand words of *though* to anything.  Whether it was *The Old Man and the Sea*, the discovery of oxygen, the deeds of Martin Luther, or what motivated Nathaniel Hawthorne to write the *Scarlett Letter*, I always had plenty to say.  Looking back, it’s easy to see why nobody really challenged me on my flowery language and transitional phrase smoke screens.  For a high school teacher, there is nothing more exhilarating than a student participating in something.  Apathy must be the single most ubiquitous weed in the garden of minds they’ve been given.  But at this point, writing meant only a bag of sunflower seeds and forty five minutes rattling the keyboard of my Windows 98 desktop computer.
+
+![You see an old computer, I see a 32 bit friend.](http://media.alexrecker.com/images/desktop98.gif)
+
+College kicked my butt.  Though watching my puppet show fall apart under collegiate scrutiny may have been painful at the time, that pill I swallowed was the healthiest medication I could have taken.  For whatever reason, my routine wasn’t working.  The faithful ritual of *scratch outline, sunflower seeds, and forty five minutes at a computer* wasn’t cutting it in the big leagues anymore.  It was a system I had relied on - a system that had earned me secondary school accolades and even got me into college, but no one here was impressed.  
+
+It turns out, college professors want you to actually communicate ideas.  I had learned how to word fence, play with words, assert a good understanding of sentence structure, and even flex a pretty respectable vocabulary, but I don’t think I ever had to actually communicate an idea. The few writing gen eds I took ensured that my sidecar dream of writing in a professional arena died on the vine.
+
+If this sounds sad, I don’t mean it to.  I wasn’t surprised that my writing style didn’t cut it in college.  If I were to illustrate my learning journey on an X Y axis, it would be a straight line from 1998 to 2014.  I haven’t changed a thing for about sixteen years. Writing anything is still just forty five minutes at a keyboard riding shotgun with a bag of sunflower seeds.  The truth is that I have never really challenged myself in communicating concrete ideas.  I may have learned to amuse a reader to some extent, make monotonous sentences a little more interesting, and carry an essay conversation, but I was severely malnourished in the primary purpose of professional writing.  I’m not very convincing, and being relentlessly ironic is not the same thing as convincing.
+
+If it means something to you, I’ve always followed some basic rules when writing.
+
+# 1. Don’t use a thesaurus
+One of the worst things you can do to a paper, in my opinion, is write it in full, then replace words with alternatives provided in a thesaurus.  Your paper should be a conversation.  Ripping out fifteen words and replacing them with ones you don’t know ruins the organic origin.  I kind of envision this process as performing fifteen organ transplants on one patient in a sitting.  If you switch out fifteen organs, one of them is bound to ‘reject the host’.  The same rings true with words.  If you replace fifteen of your words with ones you just learned, one of them is bound to raise suspicion.  And once you are pegged as a thesaurus transplant writer, no one will ever read you with enthusiasm again.
+
+In my opinion, word complexity should be evenly dispersed.  I organize all English words I know by complexity like so:
+
+* Level 0: Basic content fillers.  *You, the, and, this, please*.  The kind of words you would expect a four year old to have mastered.
+* Level 1: These words rest in a fleshy, but still minority part of general vocabulary.  They are easily the most important.  Words like *hostile, enigma, indignant,* and *infallible*.  Most of these should be digestible by adults.
+* Level 2: These words are obnoxious when used in repeated succession, because there is really no other place you could possibly learn them without a daily word-of-the-day email or jamming your finger at random in an Oxford dictionary.  These are words like *alacrity* and *acerbic*.
+
+In my opinion, a good paper should be an even dispersal of level 0’s and level 1’s, with only a modest garnish of level 2’s.
+
+# 2. Writing should flow
+Even if it is an assignment you don’t care for, everything you write should give you a little aesthetic satisfaction.  Good writing should feel good leaving your fingers.  If you don’t feel right about a paragraph you have just written, don’t hesitate to delete it.  Bad writing should always be deleted, not worked in.  Plus, you have probably written a number of average paragraphs that led you into a bad paragraph.  Never sign off on something that doesn’t make you feel right about it.  Everything should marginally sparkle.
+
+# 3. Don’t write if you are not feeling it
+Writing isn’t something you can just get into through beginning.  It’s not geometry - where you just have to ‘get into the mood’. If you don’t feel like writing, spare us all and just don’t write.  Unfortunately, you don’t always get to be your own boss with writing assignments and their deadlines.  Consequently, this rule might have to undergo a bit of a mutation - reading *Capitalize* on the moments you are really feeling it.  Do what you have to do, but never commit the crime of hiding your enthusiasm for an assignment.
+
+# 4. If you need to break rules, use dashes
+Dashes are magical.  They basically just serve as a license to kill - the rules of grammar.  Injecting mid-sentence dashes excuses all run on sentences, imbalanced clauses, and discontinuous punctuation.  Maybe it’s just the way I think, but dashes always feel good.
+
+So those are the four secrets to mediocre blogging-level writing.  If you have any other ideas, leave some feedback.

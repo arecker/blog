@@ -1,0 +1,36 @@
+Title: Computers on our Face
+Description: Official Promotional video for Google Glass, released this past February. Well this is interesting, Google
+Date: 7-30-2013
+Image: http://media.alexrecker.com/images/glassbanner2.jpg 
+
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/v1uyQZNg2vE" frameborder="0" allowfullscreen></iframe>
+
+Well this is interesting, Google.  Wearing glasses on your face that double as a smart phone.  It’s certainly the most idealistic product pitch I have seen in a while.  Imagine – seamlessly integrating your rich digital life with your vibrant, adventurous social life with a gadget fit for 007.
+
+Allow me to clear the air – I don’t like it.  I’ll qualify my opinion by illuminating that I am no longer a googlist (I was trying to conjugate that like the word racist, but whatever).  I used to hate everything that came out of google’s tower.  Why I finally started swallowing their possessive horse pills is another long conversation altogether (and a conversation that is actually pretty easy to tease out of me).  The point is that I am no longer an anti-google hippie.  I use gmail, chrome, hangouts – I’m even hip with the whole Google Docs thing.
+
+Even with my recent google-flavored indulgences in my tech diet, glass does not sit well with me.
+
+No – it’s not because of the whole give the already creepy guy an even more stealthy camera than his phone threat that presents itself (I could just here that same tagline of “Glass, take a video!” over the screams of a girl’s locker room).
+
+In fact, even the early customer prototypes of Glass have provoked privacy-related [concerns from Congress](http://www.fastcompany.com/3009432/tech-forecast/tracking-the-ban-on-google-glass).
+
+What offends me is how the whole project carries itself like a revolution of communication.  Computerworld reported:
+
+> People new to wearing computers on their faces are walking around the conference center, exaggeratedly nodding their heads to activate the devices, and taking pictures and video. They’re also reading email, checking weather reports and reviewing flight schedules — all without taking their smartphones out of their pockets.
+
+> “I’ve had this sense of freedom,” said Kelly Merrell, director of Android development for Mercury Intermedia. “I realized that with all the notifications I get, I had to keep pulling my phone out and checking it. Now it’s no longer an issue. It’s made me feel less reliant on my phone.”
+
+True – the user no longer needs to look down to communicate by text message…as long as you don’t need to respond to them either.  Check the weather, sports, and email all you want, but at some point you are going to have to actually respond to someone.  Nothing has changed, after all.  There is still going to be a tiny keyboard between you and someone else.
+
+So am I worried about seeing these things everywhere?  Here is my prediction – I would be surprised if I saw one outside of San Francisco.  It may be a thrilling new piece of technology that makes you feel like a crewman of the Starship Enterprise, but allow me to haunt you with another face-wearable device that was also supposed to revolutionize the way we communicate.
+
+![Hi there.  I was hoping the blinking light on my face would make me seem more driven and connected.  Also, it is pronounced POR-SHUH.](http://media.alexrecker.com/images/bluetoothguy.gif)
+
+So that is my piece.  I think you will see some idiot wearing these glasses just about as often as you see a bluetooth headset.  In the meantime, we should try to keep the first adopters of Glass out of our locker rooms.
+
+In a bit of fun, here is a video showing what a Microsoft spin on things would look like.
+
+<br>
+<iframe width="560" height="315" src="//www.youtube.com/embed/UGQkB_21heU" frameborder="0" allowfullscreen></iframe>
