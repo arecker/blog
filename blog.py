@@ -221,6 +221,7 @@ def cli_refresh():
     regenerate the site html cache
     """
     CacheWriter.drop_public()
+    CacheWriter.rebuild_static()
 
     # Posts
     posts = Post.get_all_posts()
@@ -253,7 +254,7 @@ def cli_deploy():
     """
     sync server's html cache with project's
     """
-    import pysftp
+    import pysftp # TODO: need to figure out how to delete/update files
     c = Config()
     key = c.SSH_KEY
     target = c.DEPLOY_PATH
@@ -261,8 +262,9 @@ def cli_deploy():
     port = c.SSH_PORT
     user = c.SSH_USER
     with pysftp.Connection(host=host, username=user, private_key=key, port=port) as sftp:
-        with sftp.cd(target):              # temporarily chdir to public
-            sftp.put(os.path.join(ROOT, 'requirements.txt'))  # upload file to public/ on remote
+        with sftp.cd(target):              
+            sftp.put_r(PUBLIC, target)
+
 
 
 @cli.group(name="mail")
