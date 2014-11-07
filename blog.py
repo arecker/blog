@@ -9,6 +9,9 @@ import datetime
 import jinja2
 import shutil
 import PyRSS2Gen
+import yaml
+import json
+import requests
 
 
 class Data:
@@ -21,6 +24,13 @@ POSTS = os.path.join(ROOT, 'posts')
 TEMPLATES = os.path.join(ROOT, 'templates')
 PUBLIC = os.path.join(ROOT, 'public')
 STATIC = os.path.join(ROOT, 'static')
+
+
+class Config:
+    def __init__(self):
+        stream = open(os.path.join(ROOT, ".config.yml"), 'r')
+        data = yaml.load(stream)
+        self.ADMIN = data["admin_key"]
 
 
 class CacheWriter:
@@ -249,12 +259,34 @@ def cli_mail():
     pass
 
 
+def get_subscriber_list():
+    key = Config().ADMIN
+    url = "http://api.alexrecker.com/email/subscriber/list/?admin=" + key
+    resp = requests.get(url=url)
+    data = json.loads(resp.text)
+    return data
+
+
 @cli_mail.command(name="list")
 def cli_mail_list():
     """
     list current subscribers
     """
-    pass
+    import tabulate
+    data = get_subscriber_list()
+    count = len(data)
+    if count is 0:
+        print('There are no subscribers.')
+        exit()
+    elif count is 1:
+        print('There is 1 subscriber\n')
+    else:
+        print('There are ' + str(count) + ' subscribers.\n')
+
+    table = []
+    for sub in data:
+        table.append([sub["email"], sub["full_text"], sub["unsubscribe_key"]])
+    print(tabulate.tabulate(table, headers=["Email", "Full Text", "Key"]))
 
 
 @cli_mail.command(name="add")
@@ -266,11 +298,14 @@ def cli_mail_add():
 
 
 @cli_mail.command(name="remove")
-def cli_mail_remove():
+@click.option('--key', prompt="Unsubscribe Key")
+def cli_mail_remove(key):
     """
-    remove a subscriber
+    deletes a subscriber (key required)
     """
-    pass
+    url = "http://api.alexrecker.com/email/subscriber/delete?unsubscribe=" + key
+    resp = requests.get(url=url)
+    click.echo('Subscriber removed') #TODO: handle server side error
 
 
 @cli_mail.command(name="latest")
