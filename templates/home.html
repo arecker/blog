@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block main %}
+		<div class="text-center">
+			<figure class="image">
+				<img src="http://media.alexrecker.com/images/portrait.jpg" class="img-circle" alt="Blog by Alex Recker">
+			</figure>
+			<h1 class="fancy">Blog by</h1>
+			<h1 class="fancy">Alex Recker</h1>
+			<hr class="fancy">
+		</div> 
+
+		<div class="latest text-center">
+			<a href="{{ data.latest.link }}">
+				<img src="{{ data.latest.image }}" alt="{{ data.latest.title }}">			
+			</a>
+			<div class="page-header text-left">
+				<h1 class="lead fancy"><a href="{{ data.latest.link }}">{{ data.latest.title }}</a></h1>
+				<p class="fancy">{{ data.latest.date_pretty }}</p>
+				<p class="fancy">{{ data.latest.description }}</p>
+			</div>
+		</div>
+
+		<div class="input-group">
+			<span class="input-group-addon">
+				<i class="fa fa-search"></i>
+			</span>
+			<input id="filter" class="form-control" type="text" placeholder="Filter" <input data-bind="value: filter, valueUpdate: 'afterkeydown'" size="10"/>
+		</div>
+		<br>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<p class="fancy">
+					{% for post in data.archives %}
+					<a href="{{ post.link }}">{{ post.title }}</a>
+					<span> | </span>
+					{% endfor %}
+				</p>
+			</div>
+		</div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}

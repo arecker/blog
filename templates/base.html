@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	{% block meta_title %}<title>Blog by Alex Recker</title>{% endblock %}
+	{% block meta_description %}<meta name="description" content="Hi - I'm Alex.  I like writing words.">{% endblock %}
+	<link rel="icon" type="image/gif" href="http://media.alexrecker.com/images/bro-favicon.gif">
+	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.min.css">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Vollkorn:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+	<div class="container-fluid main">
+		{% block main %}
+		{% endblock %}
+	</div>
+	<div id="followModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+	  			<div class="modal-header">
+	  				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	  				<h1 class="modal-title lead fancy">Follow my Blog</h1>
+	  			</div>
+	  			<div class="modal-body">
+					<div data-bind="text: subscribe.message, css { 'alert-warning': subscribe.negativeMessage(), 'alert-success': subscribe.successMessage() }" id="subscribeMessage" class="alert" role="alert">
+					</div>
+					<div data-bind="css { 'has-warning': subscribe.badInput() }" class="input-group">
+						<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+						<input data-bind="value: subscribe.email" id="subscribeEmail" type="text" class="form-control" placeholder="Email"><br>
+						<span class="input-group-btn">
+							<button data-bind="click: subscribe.go" id="subscribeButton" class="btn btn-primary" type="button"><span data-bind="visible: !subscribe.waiting()">Go!</span><i data-bind="visible: subscribe.waiting()" class="fa fa-refresh fa-spin"></i></button>
+						</span>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input data-bind="checked: subscribe.wantsFullText" class="fancy" type="checkbox"> Send me the full text of blog posts
+						</label>
+					</div>
+	  			</div>
+	  			<div class="modal-footer">
+	  				<p class="text-muted pull-left"><i class="fa fa-rss"></i>Use RSS?  I do <a href="/feed/">that</a> too</p>
+	  			</div>
+			</div>
+		</div>
+	</div>
+</body>
+<footer>
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
+	<script type="text/javascript">
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-42540208-6', 'alexrecker.com');
+        ga('send', 'pageview');
+    </script>
+    {% block scripts %}
+    {% endblock %}
+</footer>
+</html>
