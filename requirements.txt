@@ -12,7 +12,6 @@ itsdangerous==0.24
 markdown2==2.3.0
 paramiko==1.15.1
 pycrypto==2.6.1
-pysftp==0.2.8
 requests==2.4.3
 slugify==0.0.1
 tabulate==0.7.3
