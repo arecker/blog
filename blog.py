@@ -269,6 +269,9 @@ def cli_refresh():
     feed = RSSFeed(posts)
     feed.write()
 
+    # Sitemap
+    CacheWriter.write_page(template="sitemap.xml", data=posts, name="sitemap.xml")
+
 
 @cli.command(name="serve")
 def cli_serve():
