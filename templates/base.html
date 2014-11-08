@@ -3,7 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	{% block meta_title %}<title>Blog by Alex Recker</title>{% endblock %}
-	{% block meta_description %}<meta name="description" content="Hi - I'm Alex.  I like writing words.">{% endblock %}
+	{% block meta_og_title %}<meta name="og:title" content="Blog by Alex Recker" />{% endblock %}
+	{% block meta_description %}<meta name="description" content="Hi - I'm Alex.  I like writing words." />{% endblock %}
+	{% block meta_og_description %}<meta property="og:description" content="Hi - I'm Alex.  I like writing words." />{% endblock %}
+	{% block meta_og_image %}<meta property="og:image" content="http://media.alexrecker.com/images/portrait.jpg" />{% endblock %}
+	{% block meta_og_url %}<meta property="og:url" content="http://alexrecker.com/" />{% endblock %}
 	<link rel="icon" type="image/gif" href="http://media.alexrecker.com/images/bro-favicon.gif"/>
 	<link rel="stylesheet" href="http://bootswatch.com/yeti/bootstrap.min.css"/>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"/>

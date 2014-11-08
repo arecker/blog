@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% block meta_title %}<title>{{ data.title }} | Blog by Alex Recker</title>{% endblock %}
+{% block meta_og_title %}<meta property="og:title" content="{{ data.title }} | Blog by Alex Recker" />{% endblock %}
+{% block meta_description %}<meta name="description" content="{{ data.description }}" />{% endblock %}
+{% block meta_og_description %}<meta property="og:description" content="{{ data.description }}" />{% endblock %}
+{% block meta_og_image %}<meta property="og:image" content="{{ data.image }}" />{% endblock %}
+{% block meta_og_url %}<meta property="og:url" content="http://alexrecker.com/{{ data.link }}/" />{% endblock %}
 {% block main %}
 <div class="page-header">
 	<h1 class="fancy">{{ data.title }}</h1>
