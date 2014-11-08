@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Reality | Blog by Alex Recker</title>
+	<style>
+		#mainImage { width: 500px;}
+		.footer	a em{ font-size: 12px; }
+	</style>
+</head>
+<body>
+	<div class="main-container">
+		<img id="mainImage" src="http://media.alexrecker.com/images/journal1.jpg" alt="Reality" />
+		<h1>Reality | Blog by Alex Recker</h1>
+		<p><em>November 05, 2014</em></p>
+		<p>
+			My journal from high school. This is no ordinary journal, however. Judging by the eccentric handwriting, this thing must be full of philosophical howitzers.
+		</p>
+		<p>
+			<a href="http://alexrecker.com/{{ data.post.link }}/"><em>Read</em></a>
+		</p>
+		<hr />
+		{% if data.full_text %}
+		<p>
+			{{ data.post.body }}
+		</p>
+		<hr />
+		{% endif %}
+	</div>
+	<div class="footer">
+		<a href="http://api.alexrecker.com/email/subscriber/delete?unsubscribe={{ data.unsubscribe_key }}"><em>Unsubscribe from this Garbage</em></a>
+	</div>
+</body>
+</html>

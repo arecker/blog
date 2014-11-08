@@ -12,6 +12,7 @@ import PyRSS2Gen
 import yaml
 import json
 import requests
+import smtplib
 
 
 class Data:
@@ -32,6 +33,8 @@ class Config:
         data = yaml.load(stream)
         self.ADMIN = data["admin_key"]
         self.APP = data["app_key"]
+        self.EMAIL = data["email"]
+        self.EMAIL_PASS = data["email_password"]
 
 
 class CacheWriter:
@@ -180,6 +183,36 @@ class RSSFeed:
         self.feed.write_xml(open(os.path.join(PUBLIC, 'feed', "index.xml"), "w"))
 
 
+class Email:
+    def __init__(self, data):
+        self.sender = 'Alex Recker'
+        self.recipient = data.email
+        self.subject = data.post.title
+        self.post = data.post
+        self.unsubscribe_key = data.unsubscribe_key
+        self.full_text = data.full_text
+
+        self.headers = "\r\n".join(["from: " + self.sender,
+        "subject: " + self.subject,
+        "to: " + self.recipient,
+        "mime-version: 1.0",
+        "content-type: text/html"])
+
+
+    def send(self, test=False):
+        c = Config()
+        self.body = CacheWriter.render_html_from_template(template="email.html", data=self)
+        self.content = self.headers + "\r\n\r\n" + self.body
+        self.content = self.content.encode('ascii', 'ignore')
+
+        session = smtplib.SMTP('smtp.gmail.com', 587)
+        session.ehlo()
+        session.starttls()
+        session.login(c.EMAIL, c.EMAIL_PASS)
+        session.sendmail(c.EMAIL, self.recipient, self.content)
+        session.close()
+
+
 class WebServer:
     def __init__(self):
         import flask
@@ -317,7 +350,26 @@ def cli_mail_latest():
     """
     send latest post to subscribers
     """
-    pass
+    latest = Post.get_all_posts()[0]
+    emails = []
+
+    for sub in get_subscriber_list():
+        data = Data()
+        data.email = sub["email"]
+        data.unsubscribe_key = sub["unsubscribe_key"]
+        data.full_text = sub["full_text"]
+        data.post = latest
+        emails.append(Email(data))
+
+    print('You are about to send out ' + str(len(emails)) + ' emails.')
+    print('Post: ' + latest.title)
+    if not click.confirm('Church?'):
+        print('Whatever')
+        exit()
+
+    with click.progressbar(emails, label="Sending...") as bar:
+        for email in bar:
+            email.send()
 
 
 if __name__ == '__main__':
