@@ -31,11 +31,7 @@ class Config:
         stream = open(os.path.join(ROOT, ".config.yml"), 'r')
         data = yaml.load(stream)
         self.ADMIN = data["admin_key"]
-        self.SSH_KEY = data["ssh_key"]
-        self.DEPLOY_PATH = data["deploy_path"]
-        self.SSH_HOST = data["ssh_host"]
-        self.SSH_USER = data["ssh_user"]
-        self.SSH_PORT = data["ssh_port"]
+        self.APP = data["app_key"]
 
 
 class CacheWriter:
@@ -254,16 +250,8 @@ def cli_deploy():
     """
     sync server's html cache with project's
     """
-    import pysftp # TODO: need to figure out how to delete/update files
-    c = Config()
-    key = c.SSH_KEY
-    target = c.DEPLOY_PATH
-    host = c.SSH_HOST
-    port = c.SSH_PORT
-    user = c.SSH_USER
-    with pysftp.Connection(host=host, username=user, private_key=key, port=port) as sftp:
-        with sftp.cd(target):              
-            sftp.put_r(PUBLIC, target)
+    import subprocess
+    subprocess.call(os.path.join(ROOT, 'deploy.sh'))
 
 
 
