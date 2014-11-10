@@ -254,14 +254,14 @@ def cli_refresh():
     CacheWriter.rebuild_static()
 
     # Posts
-    click.echo(click.style('Gathering data', fg='green'))
+    click.echo(click.style('+ Gathering data', fg='green'))
     posts = Post.get_all_posts()
     home_data = Data()
     home_data.latest = posts[0]
     home_data.archives = posts
 
-    click.echo(click.style('Writing pages', fg='green'))
-    with click.progressbar(posts, label="writing posts") as bar:
+    click.echo(click.style('+ Writing pages', fg='green'))
+    with click.progressbar(posts, label="    writing posts") as bar:
         for post in bar:
             CacheWriter.write_route(template="post.html", data=post, route=post.link)
 
@@ -270,13 +270,13 @@ def cli_refresh():
         ("sitemap.xml", posts, "sitemap.xml")
     ]
 
-    with click.progressbar(other_pages, label="writing pages") as bar:
+    with click.progressbar(other_pages, label="    writing pages") as bar:
         for template, data, name in bar:
             CacheWriter.write_page(template=template, data=data, name=name)
 
 
     # RSS Feed
-    click.echo(click.style('Updating feed', fg='green'))
+    click.echo(click.style('+ Updating feed', fg='green'))
     CacheWriter.create_feed_route()
     feed = RSSFeed(posts)
     feed.write()
