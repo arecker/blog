@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Reality | Blog by Alex Recker</title>
+	<title>{{ data.post.title }} | Blog by Alex Recker</title>
 	<style>
 		#mainImage { width: 500px;}
 		.footer	a em{ font-size: 12px; }
@@ -10,11 +10,11 @@
 </head>
 <body>
 	<div class="main-container">
-		<img id="mainImage" src="http://media.alexrecker.com/images/journal1.jpg" alt="Reality" />
-		<h1>Reality | Blog by Alex Recker</h1>
-		<p><em>November 05, 2014</em></p>
+		<img id="mainImage" src="{{ data.post.image }}" alt="{{ data.post.title }}" />
+		<h1>{{ data.post.title }} | Blog by Alex Recker</h1>
+		<p><em>{{ data.post.date_pretty }}</em></p>
 		<p>
-			My journal from high school. This is no ordinary journal, however. Judging by the eccentric handwriting, this thing must be full of philosophical howitzers.
+			{{ data.post.description }}
 		</p>
 		<p>
 			<a href="http://alexrecker.com/{{ data.post.link }}/"><em>Read</em></a>
