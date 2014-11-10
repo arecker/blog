@@ -249,28 +249,37 @@ def cli_refresh():
     """
     regenerate the site html cache
     """
+    click.echo(click.style('Purging public folder', fg='green'))
     CacheWriter.drop_public()
     CacheWriter.rebuild_static()
 
     # Posts
+    click.echo(click.style('Gathering data', fg='green'))
     posts = Post.get_all_posts()
-    for post in posts:
-        CacheWriter.write_route(template="post.html", data=post, route=post.link)
-
-    # Home
     home_data = Data()
     home_data.latest = posts[0]
     home_data.archives = posts
-    CacheWriter.write_page(template="home.html", data=home_data, name="index.html")
+
+    click.echo(click.style('Writing pages', fg='green'))
+    with click.progressbar(posts, label="writing posts") as bar:
+        for post in bar:
+            CacheWriter.write_route(template="post.html", data=post, route=post.link)
+
+    other_pages = [
+        ("home.html", home_data, "index.html"),
+        ("sitemap.xml", posts, "sitemap.xml")
+    ]
+
+    with click.progressbar(other_pages, label="writing pages") as bar:
+        for template, data, name in bar:
+            CacheWriter.write_page(template=template, data=data, name=name)
 
 
     # RSS Feed
+    click.echo(click.style('Updating feed', fg='green'))
     CacheWriter.create_feed_route()
     feed = RSSFeed(posts)
     feed.write()
-
-    # Sitemap
-    CacheWriter.write_page(template="sitemap.xml", data=posts, name="sitemap.xml")
 
 
 @cli.command(name="serve")
@@ -287,6 +296,8 @@ def cli_deploy():
     sync server's html cache with project's
     """
     import subprocess
+    if not click.confirm('Are you sure you want to deploy the current public folder?'):
+        exit()
     os.environ['BLOG_PUBLIC_FOLDER'] = PUBLIC
     subprocess.call(os.path.join(ROOT, 'deploy.sh'))
 
