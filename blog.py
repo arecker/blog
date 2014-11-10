@@ -287,6 +287,7 @@ def cli_deploy():
     sync server's html cache with project's
     """
     import subprocess
+    os.environ['BLOG_PUBLIC_FOLDER'] = PUBLIC
     subprocess.call(os.path.join(ROOT, 'deploy.sh'))
 
 
