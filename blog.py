@@ -79,11 +79,12 @@ class CacheWriter:
         """
         Completely purge public folder
         """
-        for thing in os.listdir(root):
-            try:
-                shutil.rmtree(os.path.join(root, thing))
-            except:
-                os.remove(os.path.join(root, thing))
+        with click.progressbar(os.listdir(root), label="    purging") as bar: 
+            for thing in bar:
+                try:
+                    shutil.rmtree(os.path.join(root, thing))
+                except:
+                    os.remove(os.path.join(root, thing))
 
 
 
@@ -151,10 +152,12 @@ class Post:
         returns all post objects in order of date desc
         """
         posts = []
-        for file in os.listdir(POSTS):
-            file = os.path.join(POSTS, file)
-            if os.path.isfile(file) and os.path.splitext(file)[1] == '.md':
-                posts.append(Post(os.path.abspath(file)))
+        files = os.listdir(POSTS)
+        with click.progressbar(files, label="    building posts") as bar:
+            for file in bar:
+                file = os.path.join(POSTS, file)
+                if os.path.isfile(file) and os.path.splitext(file)[1] == '.md':
+                    posts.append(Post(os.path.abspath(file)))
 
         return sorted(posts, key=lambda x: x.date, reverse=True)
 
@@ -162,14 +165,15 @@ class Post:
 class RSSFeed:
     def __init__(self, posts):
         items = []
-        for post in posts:
-            items.append(PyRSS2Gen.RSSItem(
-                title = post.title,
-                link = "http://alexrecker.com/" + post.link,
-                description = post.description,
-                guid = PyRSS2Gen.Guid("http://alexrecker.com/" + post.link),
-                pubDate = datetime.datetime.fromtimestamp(time.mktime(post.date))
-            ))
+        with click.progressbar(posts, label="    building feed") as bar:
+            for post in bar:
+                items.append(PyRSS2Gen.RSSItem(
+                    title = post.title,
+                    link = "http://alexrecker.com/" + post.link,
+                    description = post.description,
+                    guid = PyRSS2Gen.Guid("http://alexrecker.com/" + post.link),
+                    pubDate = datetime.datetime.fromtimestamp(time.mktime(post.date))
+                ))
 
         self.feed = PyRSS2Gen.RSS2(
             title = "Blog by Alex Recker",
@@ -249,7 +253,7 @@ def cli_refresh():
     """
     regenerate the site html cache
     """
-    click.echo(click.style('Purging public folder', fg='green'))
+    click.echo(click.style('+ Purging public folder', fg='yellow'))
     CacheWriter.drop_public()
     CacheWriter.rebuild_static()
 
@@ -280,6 +284,8 @@ def cli_refresh():
     CacheWriter.create_feed_route()
     feed = RSSFeed(posts)
     feed.write()
+
+    click.echo(click.style('Done!', fg='green'))
 
 
 @cli.command(name="serve")
@@ -365,16 +371,18 @@ def cli_mail_latest():
     """
     send latest post to subscribers
     """
+    click.echo(click.style('+ Calculating last post', fg='green'))
     latest = Post.get_all_posts()[0]
     emails = []
 
-    for sub in get_subscriber_list():
-        data = Data()
-        data.email = sub["email"]
-        data.unsubscribe_key = sub["unsubscribe_key"]
-        data.full_text = sub["full_text"]
-        data.post = latest
-        emails.append(Email(data))
+    with click.progressbar(get_subscriber_list(), label="    building emails") as bar:
+        for sub in bar:
+            data = Data()
+            data.email = sub["email"]
+            data.unsubscribe_key = sub["unsubscribe_key"]
+            data.full_text = sub["full_text"]
+            data.post = latest
+            emails.append(Email(data))
 
     print('You are about to send out ' + str(len(emails)) + ' emails.')
     print('Post: ' + latest.title)
@@ -382,7 +390,8 @@ def cli_mail_latest():
         print('Whatever')
         exit()
 
-    with click.progressbar(emails, label="Sending...") as bar:
+    click.echo(click.style('+ Let\'r rip', fg='green'))
+    with click.progressbar(emails, label="    sending...") as bar:
         for email in bar:
             email.send()
 

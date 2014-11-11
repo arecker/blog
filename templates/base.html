@@ -16,10 +16,12 @@
 	<link rel="stylesheet" href="/static/app.css"/>
 </head>
 <body>
-	<div class="container-fluid main">
+	<div id="canvas">
+	</div>
+		<div class="container-fluid main">
 		{% block main %}
 		{% endblock %}
-	</div>
+		</div>
 	<div id="followModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
