@@ -4,7 +4,7 @@
 	margin-bottom: 3em;
 }
 
-.fancy { font-family: 'Droid Serif', serif !important;}
+.fancy { font-family: 'Lora', serif !important;}
 
 .latest img { width: 100%;}
 
@@ -53,7 +53,7 @@ figcaption {
 /* Post Page */
 .post-body h1, .post-body h2, .post-body h3, .post-body h4,
 .post-body p, .post-body li { 
-    font-family: 'Droid Serif', serif !important; 
+    font-family: 'Lora', serif !important; 
 }
 
 .post-body h1 { font-size: 200%; margin-top: 2em;}
