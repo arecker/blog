@@ -172,13 +172,15 @@ class RSSFeed:
                     link = "http://alexrecker.com/" + post.link,
                     description = post.description,
                     guid = PyRSS2Gen.Guid("http://alexrecker.com/" + post.link),
-                    pubDate = datetime.datetime.fromtimestamp(time.mktime(post.date))
+                    pubDate = datetime.datetime.fromtimestamp(time.mktime(post.date)),
+                    author = "alex@reckerfamily.com"
                 ))
 
         self.feed = PyRSS2Gen.RSS2(
             title = "Blog by Alex Recker",
             link = "http://alexrecker.com",
             description = "Hey - my name is Alex Recker.  I like to write words.",
+            image = PyRSS2Gen.Image(url='http://media.alexrecker.com/images/portrait.jpg', title='Blog by Alex Recker', link='alexrecker.com'),
             items = items
         )
 
@@ -235,7 +237,10 @@ class WebServer:
         try:
             return self.read_file(slug)
         except IOError:
-            return self.read_file(os.path.join(slug, 'index.html'))
+            try:
+                return self.read_file(os.path.join(slug, 'index.html'))
+            except IOError:
+                return self.read_file(os.path.join(slug, 'index.xml'))
 
 
     def read_file(self, target):
