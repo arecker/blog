@@ -1,77 +1,52 @@
- .main {
-	max-width: 600px;
-	margin-top: 3em;
-	margin-bottom: 3em;
+body {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
 }
 
-.fancy { font-family: 'Lora', serif !important;}
-
-.latest img { width: 100%;}
-
-
-/* That fancy HR thing*/		
-hr.fancy {
-    padding: 0;
-    border: none;
-    border-top: medium double #333;
-    color: #333;
-    text-align: center;
-    margin-top: 3em;
-    margin-bottom: 3em;
+.main {
+    max-width: 800px;
+    height: 100%;
 }
 
-hr.fancy:after {
-    content: "§";
-    display: inline-block;
-    position: relative; 
-    top: -0.7em;  
-    font-size: 1.5em;
-    padding: 0 0.25em;
-    background: white;
+.row { height: 100%; }
+
+.col-md-10 {
+    max-height: 500px;
+    overflow-y: scroll;
+    padding-right: 30px;
 }
 
- /* Images */
+.col-md-10 .page-header {
+    margin-top: 0;
+}
+
 .image img {
     display: block;
     height: auto;
+    margin: 2em auto 1em;
     max-width: 100%;
-    margin: 0 auto;
-    margin-top: 2em;
-    margin-bottom: 1em;
 }
 
-/* Captions */
 figcaption {
-    font-style: italic;
     font-size: 90%;
+    font-style: italic;
+    margin: 0 auto 2em;
     max-width: 80%;
-    margin: 0 auto;
-    margin-bottom: 2em;
     text-align: center;
-}
-
-/* Post Page */
-.post-body h1, .post-body h2, .post-body h3, .post-body h4,
-.post-body p, .post-body li { 
-    font-family: 'Lora', serif !important; 
 }
 
 .post-body h1 { font-size: 200%; margin-top: 2em;}
 .post-body h2 { font-size: 180%;}
 .post-body h2 { font-size: 150%;}
 .post-body p { 
-    font-size: 13pt;
-    text-align: justify;
+   font-size: 13pt;
 }
 
-/* Subscribe Modal */
-#subscribeMessage {
-    font-size: 13px;
-}
+/* Mobile */
+.mobile { display: none !important; }
 
-#canvas {
-    position: fixed;
-    width: 100%;
-    height:100vh;
-    z-index: -1;
+@media only screen and (max-device-width: 480px) {
+  .mobile { display: show; }
+  .mobile-hide { display: none !imporant; }
 }

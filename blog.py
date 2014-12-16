@@ -265,9 +265,7 @@ def cli_refresh():
     # Posts
     click.echo(click.style('+ Gathering data', fg='green'))
     posts = Post.get_all_posts()
-    home_data = Data()
-    home_data.latest = posts[0]
-    home_data.archives = posts
+    latest_data = posts[0]
 
     click.echo(click.style('+ Writing pages', fg='green'))
     with click.progressbar(posts, label="    writing posts") as bar:
@@ -275,9 +273,15 @@ def cli_refresh():
             CacheWriter.write_route(template="post.html", data=post, route=post.link)
 
     other_pages = [
-        ("home.html", home_data, "index.html"),
+        ("post.html", latest_data, "index.html"),
         ("sitemap.xml", posts, "sitemap.xml")
     ]
+
+    # Archives
+    CacheWriter.write_route(template="archives.html", data=posts, route="archives")
+
+    # About
+    CacheWriter.write_route(template="about.html", data=None, route="about")
 
     with click.progressbar(other_pages, label="    writing pages") as bar:
         for template, data, name in bar:

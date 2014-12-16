@@ -1,30 +1,28 @@
 {% extends "base.html" %}
-{% block meta_title %}<title>{{ data.title }} | Blog by Alex Recker</title>{% endblock %}
-{% block meta_og_title %}<meta property="og:title" content="{{ data.title }} | Blog by Alex Recker" />{% endblock %}
-{% block meta_description %}<meta name="description" content="{{ data.description }}" />{% endblock %}
-{% block meta_og_description %}<meta property="og:description" content="{{ data.description }}" />{% endblock %}
-{% block meta_og_image %}<meta property="og:image" content="{{ data.image }}" />{% endblock %}
-{% block meta_og_url %}<meta property="og:url" content="http://alexrecker.com/{{ data.link }}/" />{% endblock %}
 {% block main %}
+
 <div class="page-header">
-	<h1 class="fancy">{{ data.title }}</h1>
-	<p class="fancy">{{ data.description }}</p>
-	<em class="fancy">{{ data.date_pretty}}</em>
+	{% if data.image %}
+	<img src="{{ data.image }}" width="200px" />
+	{% endif %}
+	<h1>{{ data.title }}</h1>
+	<p>
+		{{ data.description }}
+	</p>
+	<p>
+		{{ data.date_pretty }} 
+	</p>
 </div>
+
 <div class="post-body">
-{{ data.body | safe }}
+	{{ data.body | safe }}	
 </div>
-<hr>
-<div class="text-center">
-	<div class="btn-group">
-	  <a href="/" type="button" class="btn btn-default fancy"><i class="fa fa-home"></i> Home</a>
-	  <a role="button" data-toggle="modal" data-target="#followModal" class="btn btn-default fancy"><i class="fa fa-bell"></i> Follow</a>
-	  <a role="button" href="mailto:alex@reckerfamily.com" class="btn btn-default fancy"><i class="fa fa-envelope"></i> Email</a>
-	</div>
+
+<div class="page-header">
+	<h1 class="lead">Comments</h1>
 </div>
-<hr class="fancy" />
-<div class="comments">
-	<div id="fb-root"></div>
+
+<div id="fb-root"></div>
 	<script>
 	(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
@@ -41,5 +39,5 @@
 		<div class="fb-comments container-fluid" data-numposts="20" data-colorscheme="light" data-href="http://alexrecker.com/{{ data.link }}/"></div>
 		</div>
 	</div>
-</div>
+    
 {% endblock %}
