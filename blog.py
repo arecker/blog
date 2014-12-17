@@ -283,6 +283,9 @@ def cli_refresh():
     # About
     CacheWriter.write_route(template="about.html", data=None, route="about")
 
+    # 404
+    CacheWriter.write_route(template="404.html", data=None, route="404")
+
     with click.progressbar(other_pages, label="    writing pages") as bar:
         for template, data, name in bar:
             CacheWriter.write_page(template=template, data=data, name=name)
