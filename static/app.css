@@ -44,9 +44,13 @@ figcaption {
 }
 
 /* Mobile */
-.mobile { display: none !important; }
+.show-mobile { display: none; }
+@media screen and (max-width: 750px) {
+    .hide-mobile {
+	display: none !important;
+    }
 
-@media only screen and (max-device-width: 480px) {
-  .mobile { display: show; }
-  .mobile-hide { display: none !imporant; }
+    .show-mobile {
+	display: block !important;
+    }
 }
