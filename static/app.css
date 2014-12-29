@@ -12,7 +12,7 @@ body {
 .row { height: 100%; }
 
 .col-md-10 {
-    max-height: 500px;
+    max-height: 80vh;
     overflow-y: scroll;
     padding-right: 30px;
 }
