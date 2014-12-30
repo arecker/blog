@@ -19,11 +19,13 @@ class Data:
     pass
 
 
-# Get Paths
+# Validate paths
 ROOT = os.path.dirname(os.path.realpath(__file__))
 POSTS = os.path.join(ROOT, 'posts')
 TEMPLATES = os.path.join(ROOT, 'templates')
 PUBLIC = os.path.join(ROOT, 'public')
+if not os.path.exists(PUBLIC):
+    os.makedirs(PUBLIC)
 STATIC = os.path.join(ROOT, 'static')
 
 
