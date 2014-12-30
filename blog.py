@@ -265,30 +265,32 @@ def cli_refresh():
     # Posts
     click.echo(click.style('+ Gathering data', fg='green'))
     posts = Post.get_all_posts()
-    latest_data = posts[0]
 
     click.echo(click.style('+ Writing pages', fg='green'))
-    with click.progressbar(posts, label="    writing posts") as bar:
-        for post in bar:
-            CacheWriter.write_route(template="post.html", data=post, route=post.link)
 
-    other_pages = [
-        ("post.html", latest_data, "index.html"),
-        ("sitemap.xml", posts, "sitemap.xml")
-    ]
+    packets = []
 
-    # Archives
-    CacheWriter.write_route(template="archives.html", data=posts, route="archives")
+    # Home and other static pages
+    home_data = Data()
+    home_data.posts = posts
+    home_data.latest = posts[0]
+    packets.append(("home.html", home_data, None, "index.html"),)
+    packets.append(("404.html", None, "404", None),)
+    packets.append(("sitemap.xml", posts, None, "sitemap.xml"),)
 
-    # About
-    CacheWriter.write_route(template="about.html", data=None, route="about")
+    # Post data
+    for post in posts:
+        packets.append(
+            ("post.html", post, post.link, 'index.html')
+        )
 
-    # 404
-    CacheWriter.write_route(template="404.html", data=None, route="404")
-
-    with click.progressbar(other_pages, label="    writing pages") as bar:
-        for template, data, name in bar:
-            CacheWriter.write_page(template=template, data=data, name=name)
+    # Write all the packets
+    with click.progressbar(packets, label="    writing pages") as bar:
+        for template, data, route, name in bar:
+            if route:
+                CacheWriter.write_route(template=template, data=data, route=route)
+            else:
+                CacheWriter.write_page(template=template, data=data, name=name)
 
 
     # RSS Feed

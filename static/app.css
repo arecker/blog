@@ -1,26 +1,21 @@
-body {
-    margin: 0;
-    height: 100%;
-    overflow: hidden;
+/* Typography */
+* { font-family: 'Vollkorn', serif !important; }
+.fa { font-family: 'fontawesome' !important; }
+code, pre { font-family: 'consolas', monospace !important; }
+
+.body {
+    font-size: 18px;
+    text-align: justify;
 }
 
+/* Containers */
 .main {
-    max-width: 800px;
-    height: 100%;
+    max-width: 700px;
+    margin-top: 3em;
+    margin-bottom: 3em;
 }
 
-.row { height: 100%; }
-
-.col-md-10 {
-    max-height: 80vh;
-    overflow-y: scroll;
-    padding-right: 30px;
-}
-
-.col-md-10 .page-header {
-    margin-top: 0;
-}
-
+/* Images */
 .image img {
     display: block;
     height: auto;
@@ -34,23 +29,4 @@ figcaption {
     margin: 0 auto 2em;
     max-width: 80%;
     text-align: center;
-}
-
-.post-body h1 { font-size: 200%; margin-top: 2em;}
-.post-body h2 { font-size: 180%;}
-.post-body h2 { font-size: 150%;}
-.post-body p { 
-   font-size: 13pt;
-}
-
-/* Mobile */
-.show-mobile { display: none; }
-@media screen and (max-width: 750px) {
-    .hide-mobile {
-	display: none !important;
-    }
-
-    .show-mobile {
-	display: block !important;
-    }
 }

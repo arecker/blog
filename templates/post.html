@@ -3,38 +3,41 @@
 
 <div class="page-header">
 	{% if data.image %}
-	<img src="{{ data.image }}" width="200px" />
+	<img src="{{ data.image }}" class="img-thumbnail">
 	{% endif %}
 	<h1>{{ data.title }}</h1>
-	<p>
-		{{ data.description }}
-	</p>
-	<p>
-		{{ data.date_pretty }} 
-	</p>
+	<em>{{ data.date_pretty }}</em>
+	<p>{{ data.description }}</p>
+	<ol class="breadcrumb">
+		<li><a href="/">Home</a></li>
+		<li class="active">{{ data.title }}</li>
+	</ol>
 </div>
 
-<div class="post-body">
+<div class="body">
 	{{ data.body | safe }}	
 </div>
 
+<hr>
+<h1 class="lead text-center"><a href="/">Home</a> | <a href="#" data-toggle="modal" data-target="#followModal">Subscribe</a> | <a href="mailto:alex@reckerfamily.com">Email</a></h1>
+<hr>
+
 <div class="page-header">
-	<h1 class="lead">Comments</h1>
+	<h1>Comments</h1>
 </div>
 
 <div id="fb-root"></div>
-	<script>
-	(function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-	</script>
-	<div class="container-fluid">
-		<div class="fb-comments container-fluid" data-numposts="20" data-colorscheme="light" data-href="http://alexrecker.com/{{ data.link }}/"></div>
-		</div>
+<script>
+(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=1479698765577737";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+</script>
+<div class="container-fluid">
+	<div class="fb-comments container-fluid" data-numposts="20" data-colorscheme="light" data-href="http://alexrecker.com/{{ data.link }}/"></div>
 	</div>
-    
+</div>
 {% endblock %}
