@@ -5,10 +5,10 @@ Date: 12-28-2014
 
 Hello brave readership.  I'm back after a long Christmas break to talk about stocks.  Bears.  Bulls.  Beets.  Battlestar Galactica?  I don't know anything about stocks.  Prior to being illuminated by the film *The Wolf of Wall Street*, I thought being a broker was as easy as wearing a sweaty button down shirt with the sleeves rolled up and shouting at people.  Apparently, I missed the bit about drinking martinis and random office orgies.
 
-In this movie, Leo plays the greedy, self-driven, pill-popping, yaht-tipping, booze-drinking (participle-using?) wall street stock broker Jordan Belfort.  He's a real guy too.  The movie is based on his memoir.  Belfort started a company that sells *pump and dump* stocks - really terrible investments that are artificially hyped so they will sell quickly.  After the company defrauded millions of dollars from their clients over about seven years, Belfort's company was taken down by the FBI.  All in all, it's a massively entertaining movie.  The film moves quickly, feels worldly, and features the most blissful Matthew McConaughey scene I have ever witnessed.  The only thing I want for Christmas this year is to learn that *this* scene was improvised.  (NSFW)
+In this movie, Leo plays the greedy, self-driven, pill-popping, yaht-tipping, booze-drinking (participle-using?) wall street stock broker Jordan Belfort.  He's a real guy too.  The movie is based on his memoir.  Belfort started a company that sells *pump and dump* stocks - really terrible investments that are artificially hyped so they will sell quickly.  After the company defrauded millions of dollars from their clients over about seven years, Belfort's company was taken down by the FBI.  All in all, it's a massively entertaining movie.  The film moves quickly, feels worldly, and features the most blissful Matthew McConaughey scene I have ever witnessed.  The only thing I want for Christmas this year is to learn that *this* scene was improvised.  *Pardon the ridiculous remix.  I was looking for a fragment of the scene that excluded his... other... advice*.
 
 <div class="embed-responsive embed-responsive-16by9">
-<iframe class="embed-responsive-item" src="http://www.youtube.com/embed/UTHlXb0PXh4" frameborder="0" allowfullscreen></iframe>
+<iframe class="embed-responsive-item" src="http://www.youtube.com/embed/VaNTcfOMSx8" frameborder="0" allowfullscreen></iframe>
 </div>
 
 <br />
