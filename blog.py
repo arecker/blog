@@ -13,6 +13,7 @@ import yaml
 import json
 import requests
 import smtplib
+import subprocess
 
 
 class Data:
@@ -37,6 +38,8 @@ class Config:
         self.APP = data["app_key"]
         self.EMAIL = data["email"]
         self.EMAIL_PASS = data["email_password"]
+        self.HOSTNAME = data["hostname"]
+        self.HOSTPATH = data["hostpath"]
 
 
 class CacheWriter:
@@ -314,11 +317,21 @@ def cli_deploy():
     """
     sync server's html cache with project's
     """
-    import subprocess
     if not click.confirm('Are you sure you want to deploy the current public folder?'):
         exit()
-    os.environ['BLOG_PUBLIC_FOLDER'] = PUBLIC
-    subprocess.call(os.path.join(ROOT, 'deploy.sh'))
+
+    config = Config()
+    args = [
+        "rsync",
+        "--delete",
+        "-rtvu",
+        PUBLIC,
+        config.HOSTNAME + ":" + config.HOSTPATH
+    ]
+
+    subprocess.call(args)
+
+    
 
 
 
