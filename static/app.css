@@ -2,7 +2,7 @@
 * { font-family: 'Vollkorn', serif !important; }
 .fa { font-family: 'fontawesome' !important; }
 code, pre { font-family: 'consolas', monospace !important; }
-.body { font-size: 18px; }
+.body, .media-body p { font-size: 18px; }
 .body p { text-align: justify; }
 
 /* Containers */
