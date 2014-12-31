@@ -81,7 +81,7 @@ class CacheWriter:
         """
         Completely purge public folder
         """
-        with click.progressbar(os.listdir(root), label="    purging") as bar: 
+        with click.progressbar(os.listdir(root), label="Purging public folder") as bar: 
             for thing in bar:
                 try:
                     shutil.rmtree(os.path.join(root, thing))
@@ -155,7 +155,7 @@ class Post:
         """
         posts = []
         files = os.listdir(POSTS)
-        with click.progressbar(files, label="    building posts") as bar:
+        with click.progressbar(files, label="Building posts       ") as bar:
             for file in bar:
                 file = os.path.join(POSTS, file)
                 if os.path.isfile(file) and os.path.splitext(file)[1] == '.md':
@@ -167,7 +167,7 @@ class Post:
 class RSSFeed:
     def __init__(self, posts):
         items = []
-        with click.progressbar(posts, label="    building feed") as bar:
+        with click.progressbar(posts, label="Writing RSS feed     ") as bar:
             for post in bar:
                 items.append(PyRSS2Gen.RSSItem(
                     title = post.title,
@@ -260,20 +260,14 @@ def cli_refresh():
     """
     regenerate the site html cache
     """
-    click.echo(click.style('+ Purging public folder', fg='yellow'))
     CacheWriter.drop_public()
     CacheWriter.rebuild_static()
-
-    # Posts
-    click.echo(click.style('+ Gathering data', fg='green'))
-    posts = Post.get_all_posts()
-
-    click.echo(click.style('+ Writing pages', fg='green'))
 
     packets = []
 
     # Home and other static pages
     home_data = Data()
+    posts = Post.get_all_posts()
     home_data.posts = posts
     home_data.latest = posts[0]
     packets.append(("home.html", home_data, None, "index.html"),)
@@ -287,7 +281,7 @@ def cli_refresh():
         )
 
     # Write all the packets
-    with click.progressbar(packets, label="    writing pages") as bar:
+    with click.progressbar(packets, label="Writing pages        ") as bar:
         for template, data, route, name in bar:
             if route:
                 CacheWriter.write_route(template=template, data=data, route=route)
@@ -296,7 +290,6 @@ def cli_refresh():
 
 
     # RSS Feed
-    click.echo(click.style('+ Updating feed', fg='green'))
     CacheWriter.create_feed_route()
     feed = RSSFeed(posts)
     feed.write()
@@ -387,7 +380,6 @@ def cli_mail_latest():
     """
     send latest post to subscribers
     """
-    click.echo(click.style('+ Calculating last post', fg='green'))
     latest = Post.get_all_posts()[0]
     emails = []
 
@@ -407,7 +399,7 @@ def cli_mail_latest():
         exit()
 
     click.echo(click.style('+ Let\'r rip', fg='green'))
-    with click.progressbar(emails, label="    sending...") as bar:
+    with click.progressbar(emails, label="Sending messages...") as bar:
         for email in bar:
             email.send()
 
