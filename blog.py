@@ -14,6 +14,7 @@ import json
 import requests
 import smtplib
 import subprocess
+import urlparse
 
 
 class Data:
@@ -40,6 +41,7 @@ class Config:
         self.EMAIL_PASS = data["email_password"]
         self.HOSTNAME = data["hostname"]
         self.HOSTPATH = data["hostpath"]
+        self.MEDIAPATH = data["mediapath"]
 
 
 class CacheWriter:
@@ -303,6 +305,33 @@ def cli_refresh():
 
     click.echo(click.style('Done!', fg='green'))
 
+
+@cli.command(name="image")
+@click.option("--path", prompt="Path to image", help="path/url to image")
+def cli_image(path):
+    """
+    upload image to media site
+    """
+    parsed_path = urlparse.urlparse(path)
+    config = Config()
+    target = config.HOSTNAME + ':' + config.MEDIAPATH
+    if parsed_path.netloc == '':
+        # Local file
+        args = [
+            "scp",
+            parsed_path.path,
+            target
+        ]
+        if click.confirm("Upload " + parsed_path.path + " to " + target + "?"): 
+            subprocess.call(args)
+        else:
+            print('Whatever.')
+            exit()
+    else:
+        print('Haven\'t implemented remote urls yet.')
+        exit()
+        
+    
 
 @cli.command(name="serve")
 def cli_serve():
