@@ -2,11 +2,8 @@
 * { font-family: 'Vollkorn', serif !important; }
 .fa { font-family: 'fontawesome' !important; }
 code, pre { font-family: 'consolas', monospace !important; }
-
-.body {
-    font-size: 18px;
-    text-align: justify;
-}
+.body { font-size: 18px; }
+.body p { text-align: justify; }
 
 /* Containers */
 .main {
