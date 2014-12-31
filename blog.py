@@ -346,16 +346,16 @@ def cli_deploy():
     """
     sync server's html cache with project's
     """
-    if not click.confirm('Are you sure you want to deploy the current public folder?'):
+    config = Config()
+    target = config.HOSTNAME + ':' + os.path.join(config.HOSTPATH, '') # add trailing slash if missing
+    if not click.confirm('Are you sure you want to deploy the current public folder to ' + target + '?'):
         exit()
 
-    config = Config()
     args = [
         "rsync",
-        "--delete",
-        "-rtvu",
-        PUBLIC,
-        config.HOSTNAME + ":" + config.HOSTPATH
+        "-av",
+        os.path.join(PUBLIC, ''),
+        target
     ]
 
     subprocess.call(args)
