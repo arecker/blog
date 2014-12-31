@@ -213,12 +213,16 @@ class Email:
         self.content = self.headers + "\r\n\r\n" + self.body
         self.content = self.content.encode('ascii', 'ignore')
 
-        session = smtplib.SMTP('smtp.gmail.com', 587)
-        session.ehlo()
-        session.starttls()
-        session.login(c.EMAIL, c.EMAIL_PASS)
-        session.sendmail(c.EMAIL, self.recipient, self.content)
-        session.close()
+        if not test:
+            session = smtplib.SMTP('smtp.gmail.com', 587)
+            session.ehlo()
+            session.starttls()
+            session.login(c.EMAIL, c.EMAIL_PASS)
+            session.sendmail(c.EMAIL, self.recipient, self.content)
+            session.close()
+        else:
+            CacheWriter.write_page(template="email.html", data=self, name=self.recipient + '.html', path=os.getcwd())
+            
 
 
 class WebServer:
@@ -376,7 +380,8 @@ def cli_mail_remove(key):
 
 
 @cli_mail.command(name="latest")
-def cli_mail_latest():
+@click.option('--test', is_flag=True, help="writes emails locally instead of sending them")
+def cli_mail_latest(test):
     """
     send latest post to subscribers
     """
@@ -394,14 +399,22 @@ def cli_mail_latest():
 
     print('You are about to send out ' + str(len(emails)) + ' emails.')
     print('Post: ' + latest.title)
+    if test:
+        print('(just testing)')
     if not click.confirm('Church?'):
         print('Whatever')
         exit()
 
     click.echo(click.style('+ Let\'r rip', fg='green'))
-    with click.progressbar(emails, label="Sending messages...") as bar:
+
+
+    if test:
+        progress_bar_label = "Sending messages (test)"
+    else:
+        progress_bar_label = "Sending messages"
+    with click.progressbar(emails, label=progress_bar_label) as bar:
         for email in bar:
-            email.send()
+            email.send(test=test)
 
 
 if __name__ == '__main__':
