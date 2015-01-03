@@ -231,13 +231,13 @@ class Email:
 
 
 class WebServer:
-    def __init__(self):
+    def __init__(self, address='127.0.0.1'):
         import flask
         self.app = flask.Flask(__name__)
         self.app.debug = True
         self.app.add_url_rule('/', 'index', self.index)
         self.app.add_url_rule('/<slug>/', 'slug', self.get_slug)
-        self.app.run()
+        self.app.run(host=address)
 
 
     def index(self):
@@ -334,11 +334,15 @@ def cli_image(path):
     
 
 @cli.command(name="serve")
-def cli_serve():
+@click.option('--external', is_flag=True, help="run server on all public interfaces")
+def cli_serve(external):
     """
     serve site locally
     """
-    server = WebServer()
+    if external:
+        server = WebServer(address="0.0.0.0")
+    else:
+        server = WebServer()
 
 
 @cli.command(name="deploy")
