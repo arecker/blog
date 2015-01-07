@@ -20,9 +20,8 @@ class Data:
 
 
 class Config:
-    def __init__(self):
-        config_target = os.path.join(os.path.expanduser("~"), ".blog.json")
-        with open(config_target) as stream:
+    def __init__(self, target=os.path.join(os.path.expanduser("~"), ".blog.json")):
+        with open(target) as stream:
             data = json.load(stream)
             self.posts = data["posts"]
             self.templates = data["templates"]

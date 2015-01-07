@@ -1,0 +1,6 @@
+{
+	"posts": "./posts",
+	"templates": "../templates",
+	"public": "./public",
+	"static": "../static"
+}

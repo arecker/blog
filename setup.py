@@ -20,6 +20,10 @@ setup(
         "flask"
     ],
 
+    test_requires = [
+      "nose"
+    ],
+
     entry_points = {
         'console_scripts': [
             'blog = blog.cli:main',
