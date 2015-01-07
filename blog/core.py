@@ -20,7 +20,10 @@ class Data:
 
 
 class Config:
-    def __init__(self, target=os.path.join(os.path.expanduser("~"), ".blog.json")):
+    def __init__(self):
+        target = os.environ.get('BLOG_CONFIG')
+        if not target:
+            target = os.path.join(os.path.expanduser("~"), ".blog.json")
         with open(target) as stream:
             data = json.load(stream)
             self.posts = data["posts"]
