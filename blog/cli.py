@@ -1,5 +1,5 @@
 import click
-from core import CacheWriter
+from core import CacheWriter, Config
 
 
 @click.group()
@@ -19,12 +19,28 @@ def main_refresh():
 
 
 @main.command(name="serve")
-def main_serve():
+@click.option('-r', is_flag=True, help='refresh site before serving')
+def main_serve(r):
     """
     serves public cache locally
     """
     import server
+    if r:
+        CacheWriter.refresh_public()
     server = server.WebServer()
+
+
+@main.command(name="deploy")
+@click.option('-r', is_flag=True, help='refresh site before deploying')
+def main_deploy(r):
+    """
+    deploys public folder to server
+    """
+    if r:
+        CacheWriter.refresh_public()
+    c = Config()
+    if not click.confirm('Deploy public folder to ' + c.deploy_host + ':' + c.deploy_path + '?'):
+        exit()
 
 
 if __name__ == '__main__':

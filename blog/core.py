@@ -30,6 +30,8 @@ class Config:
             self.templates = data["templates"]
             self.public = data["public"]
             self.static = data["static"]
+            self.deploy_host = data["deploy_host"]
+            self.deploy_path = data["deploy_path"]
 
         if not os.path.exists(self.public):
             os.makedirs(self.public)
