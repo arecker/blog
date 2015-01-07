@@ -9,9 +9,20 @@ setup(
     url='http://alexrecker.com',
     packages=['blog'],
     license='GPL',
+
+    install_requires = [
+        "jinja2",
+        "Markdown",
+        "slugify",
+        "beautifulsoup4",
+        "click",
+        "PyRSS2Gen",
+        "flask"
+    ],
+
     entry_points = {
         'console_scripts': [
-            'blog = blog.cli.main',
+            'blog = blog.cli:main',
         ]
     }
 )
