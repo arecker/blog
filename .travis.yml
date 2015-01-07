@@ -2,7 +2,7 @@ language: python
 python:
   - "2.7"
 env:
-  - BLOG_CONFIG="/home/travis/arecker/Blog/tests/testConfig.json"
+  - BLOG_CONFIG="./arecker/Blog/tests/testConfig.json"
 install: "python setup.py install"
 script:
   - "python setup.py nosetests"
