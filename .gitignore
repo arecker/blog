@@ -1,5 +1,4 @@
-.env
-.idea
-public/*
-.config.yml
-static/APP_KEY.js
+build
+dist
+.idea/
+*.egg-info
