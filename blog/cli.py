@@ -43,11 +43,22 @@ def main_deploy(r):
     """
     deploys public folder to server
     """
+    import subprocess
+    from os import path
     if r:
         CacheWriter.refresh_public()
-    c = Config()
-    if not click.confirm('Deploy public folder to ' + c.deploy_host + ':' + c.deploy_path + '?'):
+    config = Config()
+    target = config.deploy_host + ':' + path.join(config.deploy_path, '') # join ensures trailing slash :/
+    origin = path.join(config.public, '')
+    if not click.confirm('Deploy public folder to ' + config.deploy_host + ':' + config.deploy_path + '?'):
         exit()
+    args = [
+        "rsync",
+        "-av",
+        origin,
+        target
+    ]
+    subprocess.call(args)
 
 
 @main.group(name="mail")

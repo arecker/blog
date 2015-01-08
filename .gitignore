@@ -1,5 +1,6 @@
 build
 dist
+static/APP_KEY.js
 .idea/
 *.egg-info
 *.pyc
