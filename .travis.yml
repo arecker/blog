@@ -1,11 +1,8 @@
 language: python
 python:
   - "2.7"
-env:
-  - BLOG_CONFIG="$TRAVIS_BUILD_DIR/tests/testConfig.json"
 install:
   - "python setup.py install"
-  - "git clone https://github.com/arecker/Posts.git $TRAVIS_BUILD_DIR/tests/posts"
 script:
   - "python setup.py nosetests"
   - "blog"

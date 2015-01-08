@@ -1,8 +1,0 @@
-{
-	"posts": "./posts",
-	"templates": "../templates",
-	"public": "./public",
-	"static": "../static",
-  	"deploy_host": "blah",
-  	"deploy_path": "blah"
-}

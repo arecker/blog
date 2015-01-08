@@ -20,13 +20,20 @@ def main_refresh():
 
 @main.command(name="serve")
 @click.option('-r', is_flag=True, help='refresh site before serving')
-def main_serve(r):
+@click.option('-b', is_flag=True, help='open in default web browser')
+def main_serve(r, b):
     """
     serves public cache locally
     """
     import server
+    import threading
+    import webbrowser
     if r:
         CacheWriter.refresh_public()
+
+    if b:
+        url = "http://127.0.0.1:5000"
+        threading.Timer(1.25, lambda: webbrowser.open(url) ).start()
     server = server.WebServer()
 
 

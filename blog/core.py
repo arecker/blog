@@ -1,12 +1,12 @@
 import os
 import shutil
+import ConfigParser
 import time
 import datetime
 import codecs
 import markdown
 import slugify
 import bs4
-import json
 import jinja2
 import PyRSS2Gen
 import smtplib
@@ -20,21 +20,32 @@ class Data:
 
 
 class Config:
+    """
+    Wrapper class for ConfigParser object
+    put here so it can be reinitialized with a different path
+    """
     def __init__(self):
-        target = os.environ.get('BLOG_CONFIG')
-        if not target:
-            target = os.path.join(os.path.expanduser("~"), ".blog.json")
-        with open(target) as stream:
-            data = json.load(stream)
-            self.posts = data["posts"]
-            self.templates = data["templates"]
-            self.public = data["public"]
-            self.static = data["static"]
-            self.deploy_host = data["deploy_host"]
-            self.deploy_path = data["deploy_path"]
+        self._config = ConfigParser.ConfigParser()
+        self.default_path = os.path.join(os.path.expanduser("~"), ".blog")
+        self.read()
 
+        # Properties
+        self.public = self._config.get("paths", "public")
         if not os.path.exists(self.public):
             os.makedirs(self.public)
+        self.templates = self._config.get("paths", "templates")
+        self.static = self._config.get("paths", "static")
+        self.posts = self._config.get("paths", "posts")
+
+
+    def read(self, target=None):
+        if not target:
+            target = self.default_path
+        self._config.read(target)
+
+
+    def get(self, section, item):
+        return self._config.get(section, item)
 
 
 class CacheWriter:
@@ -54,37 +65,38 @@ class CacheWriter:
 
 
     @staticmethod
-    def write_route(template, data, route, root=Config().public, test=False, file_override="index.html"):
-        path = os.path.join(root, route)
+    def write_route(template, data, route, config=Config(), test=False, file_override="index.html"):
+        path = os.path.join(config.public, route)
         os.makedirs(path)
         CacheWriter.write_page(template=template, data=data, name=file_override, path=path)
 
 
     @staticmethod
-    def rebuild_static():
-        c = Config()
-        target = os.path.join(c.public, 'static')
+    def rebuild_static(config=None):
+        if not config:
+            config = Config()
+        target = os.path.join(config.public, 'static')
         if os.path.exists(target):
             shutil.rmtree(target)
-        shutil.copytree(c.static, target)
+        shutil.copytree(config.static, target)
 
 
     @staticmethod
-    def create_feed_route(root=Config().public):
-        path = os.path.join(root, 'feed')
+    def create_feed_route(config=Config()):
+        path = os.path.join(config.public, 'feed')
         os.makedirs(path)
 
 
     @staticmethod
-    def drop_public(root=Config().public):
+    def drop_public(config=Config()):
         """
         Completely purge public folder
         """
-        for thing in os.listdir(root):
+        for thing in os.listdir(config.public):
             try:
-                shutil.rmtree(os.path.join(root, thing))
+                shutil.rmtree(os.path.join(config.public, thing))
             except:
-                os.remove(os.path.join(root, thing))
+                os.remove(os.path.join(config.public, thing))
 
 
     @staticmethod
