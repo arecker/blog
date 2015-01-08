@@ -17,7 +17,9 @@ setup(
         "beautifulsoup4",
         "click",
         "PyRSS2Gen",
-        "flask"
+        "flask",
+        "requests",
+        "tabulate"
     ],
 
     test_requires = [

@@ -10,6 +10,8 @@ import bs4
 import jinja2
 import PyRSS2Gen
 import smtplib
+import requests
+import json
 
 
 class Data:
@@ -36,6 +38,9 @@ class Config:
         self.templates = self._config.get("paths", "templates")
         self.static = self._config.get("paths", "static")
         self.posts = self._config.get("paths", "posts")
+        self.deploy_host = self._config.get("deploy", "host")
+        self.deploy_path = self._config.get("deploy", "path")
+        self.api_key = self._config.get("api", "key")
 
 
     def read(self, target=None):
@@ -284,3 +289,11 @@ class Email:
             session.close()
         else:
             CacheWriter.write_page(template="email.html", data=self, name=self.recipient + '.html', path=os.getcwd())
+
+
+    @staticmethod
+    def get_subscriber_list(key):
+        url = "http://api.alexrecker.com/email/subscriber/list/?admin=" + key
+        resp = requests.get(url=url)
+        data = json.loads(resp.text)
+        return data
