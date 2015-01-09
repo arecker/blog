@@ -19,7 +19,8 @@ setup(
         "PyRSS2Gen",
         "flask",
         "requests",
-        "tabulate"
+        "tabulate",
+        "gi"
     ],
 
     test_requires = [
