@@ -10,8 +10,7 @@
 	{% if data.image %}
 	<img src="{{ data.image }}" class="img-thumbnail">
 	{% endif %}
-	<h1>{{ data.title }}</h1>
-	<em>{{ data.date_pretty }}</em>
+	<h1>{{ data.title }} <small>{{ data.date_pretty }}</small></h1>
 	<p>{{ data.description }}</p>
 	<ol class="breadcrumb">
 		<li><a href="/">Home</a></li>
