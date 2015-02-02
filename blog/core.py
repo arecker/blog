@@ -41,6 +41,8 @@ class Config:
         self.deploy_host = self._config.get("deploy", "host")
         self.deploy_path = self._config.get("deploy", "path")
         self.api_key = self._config.get("api", "key")
+        self.email_from = self._config.get("email", "from")
+        self.email_pass = self._config.get("email", "password")
 
 
     def read(self, target=None):
@@ -284,8 +286,8 @@ class Email:
             session = smtplib.SMTP('smtp.gmail.com', 587)
             session.ehlo()
             session.starttls()
-            session.login(c.EMAIL, c.EMAIL_PASS)
-            session.sendmail(c.EMAIL, self.recipient, self.content)
+            session.login(c.email_from, c.email_pass)
+            session.sendmail(c.email_from, self.recipient, self.content)
             session.close()
         else:
             CacheWriter.write_page(template="email.html", data=self, name=self.recipient + '.html', path=os.getcwd())

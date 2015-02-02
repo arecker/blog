@@ -21,7 +21,8 @@ def main_refresh():
 @main.command(name="serve")
 @click.option('-r', is_flag=True, help='refresh site before serving')
 @click.option('-b', is_flag=True, help='open in default web browser')
-def main_serve(r, b):
+@click.option('--address', help='bind address', default="127.0.0.1")
+def main_serve(r, b, address):
     """
     serves public cache locally
     """
@@ -34,7 +35,7 @@ def main_serve(r, b):
     if b:
         url = "http://127.0.0.1:5000"
         threading.Timer(1.25, lambda: webbrowser.open(url) ).start()
-    server = server.WebServer()
+    server = server.WebServer(address=address)
 
 
 @main.command(name="deploy")
