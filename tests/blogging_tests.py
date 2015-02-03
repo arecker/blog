@@ -1,8 +1,8 @@
-import unittest
+from django.test import TestCase
 import datetime
 from Blog.apps.Blogging import models
 
-class TestPost(unittest.TestCase):
+class TestPost(TestCase):
 
 
     def test_slug(self):
@@ -30,7 +30,3 @@ class TestPost(unittest.TestCase):
         should return empty string if no description yet
         """
         self.assertEquals('', models.Post().get_truncated_description())
-
-
-if __name__ == '__main__':
-    unittest.main()

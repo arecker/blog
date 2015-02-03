@@ -2,6 +2,8 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 TEMP_DIR = os.path.join(BASE_DIR, 'tmp')
+if not os.path.exists(TEMP_DIR):
+    os.makedirs(TEMP_DIR)
 
 SECRET_KEY = '[so secret]'
 
