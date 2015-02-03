@@ -17,6 +17,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_nose',
+    'epiceditor',
     'Blog.apps.Blogging'
 )
 

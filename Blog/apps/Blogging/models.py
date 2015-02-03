@@ -7,7 +7,7 @@ class Post(models.Model):
     slug = models.SlugField(verbose_name='Slug', max_length=120, unique=True, blank=True)
     date = models.DateField(verbose_name='Date', auto_created=True, db_index=True)
     published = models.BooleanField(verbose_name='Publish', default=False)
-    description = models.TextField(verbose_name='Description', blank=True, null=True)
+    description = models.TextField(max_length=160, verbose_name='Description', blank=True, null=True)
     body = models.TextField(verbose_name='Body', blank=True, null=True)
 
 
