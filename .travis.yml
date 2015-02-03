@@ -10,5 +10,6 @@ script:
   - python $TRAVIS_BUILD_DIR/scripts/dev_manage.py migrate
   - python $TRAVIS_BUILD_DIR/scripts/dev_manage.py syncdb --noinput
   - coverage run --source=Blog.apps $TRAVIS_BUILD_DIR/scripts/dev_manage.py test
+after_success: coveralls
 notifications:
   email: false
