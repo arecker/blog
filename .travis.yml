@@ -4,6 +4,9 @@ env: DJANGO_VERSION=1.7
 install: pip install -r requirements.txt --use-mirrors
 script:
   - python $TRAVIS_BUILD_DIR/scripts/dev_manage.py syncdb --noinput
+  - python $TRAVIS_BUILD_DIR/scripts/dev_manage.py makemigrations
+  - python $TRAVIS_BUILD_DIR/scripts/dev_manage.py migrate
+  - python $TRAVIS_BUILD_DIR/scripts/dev_manage.py syncdb --noinput
   - python $TRAVIS_BUILD_DIR/scripts/dev_manage.py test
 notifications:
   email: false
