@@ -25,5 +25,12 @@ class TestPost(unittest.TestCase):
         self.assertEquals(len(actual), 12)
 
 
+    def test_get_truncated_description_safe(self):
+        """
+        should return empty string if no description yet
+        """
+        self.assertEquals('', models.Post().get_truncated_description())
+
+
 if __name__ == '__main__':
     unittest.main()

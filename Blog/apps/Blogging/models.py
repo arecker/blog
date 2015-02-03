@@ -18,6 +18,8 @@ class Post(models.Model):
 
 
     def get_truncated_description(self, length=50, suffix='...'):
+        if not self.description:
+            return ''
         if len(self.description) <= length:
             return self.description
         else:
