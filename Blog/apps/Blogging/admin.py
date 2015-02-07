@@ -17,6 +17,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'date', 'get_truncated_description', 'published')
     list_filter = ('published',)
     search_fields = ('title', 'description')
+    ordering = ['-date']
     form = PostModelForm
 
 
