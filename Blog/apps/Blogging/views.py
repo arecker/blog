@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, HttpResponse
-from django.utils import feedgenerator
 from models import Post
+from feed import RSSFeed
 
 
 class Data:
@@ -20,19 +20,5 @@ def get_post(request, slug):
 
 
 def get_feed(request):
-    feed = feedgenerator.Rss201rev2Feed(
-        title='Blog by Alex Recker',
-        link='http://alexrecker.com',
-        description='Hey - my name is Alex Recker.  I like to write words.',
-        language=u'en',
-    )
-
-    for post in Post.objects.all_feed_items():
-        feed.add_item(
-            title=post['title'],
-            description=post['description'],
-            link='http://alexrecker.com/' + post['slug'] + '/'
-        )
-
-    str = feed.writeString('utf-8')
-    return HttpResponse(str)
+    feed = RSSFeed()
+    return HttpResponse(feed.write())

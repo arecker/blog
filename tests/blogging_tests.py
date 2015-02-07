@@ -30,3 +30,25 @@ class TestPost(TestCase):
         should return empty string if no description yet
         """
         self.assertEquals('', models.Post().get_truncated_description())
+
+
+    def test_convert_alts_to_captions(self):
+        def remove_white(str):
+            return str.replace('\n', '').replace(' ', '')
+
+
+        post = models.Post()
+        post.title = 'Test Caption Converter'
+        post.date = datetime.datetime.now()
+        post.description = 'This is a post to test the Caption COnverter'
+        post.body = """![This is the caption](http://media.alexrecker.com/images/portrait.jpg)"""
+
+        expected = u"""<figure class="image">
+            <img alt="This is the caption" src="http://media.alexrecker.com/images/portrait.jpg" />
+            <figcaption>This is the caption</figcaption>
+        </figure>
+        """
+
+        actual = post.render_html()
+
+        self.assertTrue(remove_white(expected) in remove_white(actual))

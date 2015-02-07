@@ -1,5 +1,6 @@
 Django==1.7.4
 Markdown==2.5.2
+PyRSS2Gen==1.1
 PyYAML==3.11
 Unidecode==0.04.17
 argparse==1.2.1
