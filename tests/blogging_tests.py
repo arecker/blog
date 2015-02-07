@@ -134,3 +134,12 @@ class TestPostManager(TestCase):
             self.assertTrue(feed != u'' or feed != '')
         except:
             TestPostManager.publish_all()
+
+
+    def test_all_archives(self):
+        archives = models.Post.objects.all_archives()
+        for item in archives:
+            self.assertTrue(item['title'] is not None)
+            self.assertTrue(item['slug'] is not None)
+
+        self.assertEquals(archives[0]['title'], 'Test Post 2')
