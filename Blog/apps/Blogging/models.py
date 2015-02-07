@@ -4,6 +4,15 @@ import markdown
 import bs4
 
 
+class PostManager(models.Manager):
+    def all_archives(self):
+        return Post.objects.values('title', 'slug').filter(published=True).order_by('-date')
+
+
+    def latest(self):
+        return Post.objects.filter(published=True).order_by('-date')[0]
+
+
 class Post(models.Model):
     title = models.CharField(verbose_name='Title', max_length=120)
     slug = models.SlugField(verbose_name='Slug', max_length=120, unique=True, blank=True)
@@ -12,6 +21,8 @@ class Post(models.Model):
     description = models.TextField(max_length=200, verbose_name='Description', blank=True, null=True)
     body = models.TextField(verbose_name='Body', blank=True, null=True)
     image_url = models.CharField(verbose_name='Image URL', max_length=160, blank=True, null=True)
+
+    objects = PostManager()
 
 
     def save(self, *args, **kwargs):

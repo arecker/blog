@@ -8,9 +8,8 @@ class Data:
 
 def get_home(request):
     data = Data()
-    posts = Post.objects.all().order_by('-date')
-    data.latest = posts[0]
-    data.posts = posts
+    data.posts = Post.objects.all_archives()
+    data.latest = Post.objects.latest()
     return render_to_response("blogging/home.html", { "data": data })
 
 

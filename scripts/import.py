@@ -24,9 +24,9 @@ def parse_post_from_path(path):
     data.date = datetime.datetime.fromtimestamp(time.mktime(timestamp))
 
     try:
-        data.image = meta["image"][0]
+        data.image_url = meta["image"][0]
     except KeyError:
-        data.image = None
+        data.image_url = None
 
     return data
 

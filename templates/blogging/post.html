@@ -2,10 +2,10 @@
 {% block body %}
 <div class="main container-fluid">
     <div class="page-header">
-	{% if data.image %}
-	    <img src="{{ data.image }}" class="img-thumbnail">
+	{% if data.image_url %}
+	    <img src="{{ data.image_url }}" class="img-thumbnail">
 	{% endif %}
-	    <h1>{{ data.title }} <small>{{ data.date_pretty }}</small></h1>
+	    <h1>{{ data.title }} <small>{{ data.date | date:'F j, Y' }}</small></h1>
 	    <p>{{ data.description }}</p>
 	    <ol class="breadcrumb">
 		    <li><a href="/">Home</a></li>

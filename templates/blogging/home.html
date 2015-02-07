@@ -6,12 +6,12 @@
         <h1>Blog <small>by Alex Recker</small></h1>
     </div>
     <div class="page-header">
-        <h1>{{ data.latest.title }} <small>{{ data.latest.date_pretty }}</small></h1>
+        <h1>{{ data.latest.title }} <small>{{ data.latest.date | date:'F j, Y' }}</small></h1>
     </div>
 
     <div class="media">
-        <a class="media-left" href="{{ data.latest.link }}">
-            <img src="{{ data.latest.image }}" alt="{{ data.latest.title }}" height="120">
+        <a class="media-left" href="/{{ data.latest.slug }}/">
+            <img src="{{ data.latest.image_url }}" alt="{{ data.latest.title }}" height="120">
         </a>
         <div class="media-body">
             <p>{{ data.latest.description }}</p>
@@ -31,11 +31,12 @@
     <br />
     <div class="panel panel-default">
         <div class="panel-body">
-        <p>
-        {% for post in data.posts %}
-            <a href="{{ post.link }}">{{ post.title }}</a><span> | </span>
-        {% endfor %}
-        </p>
+            <p>
+            {% for post in data.posts %}
+                <a href="/{{ post.slug }}/">{{ post.title }}</a><span> | </span>
+            {% endfor %}
+            </p>
+        </div>
     </div>
 </div>
 {% endblock %}
