@@ -9,6 +9,10 @@ class PostManager(models.Manager):
         return Post.objects.values('title', 'slug').filter(published=True).order_by('-date')
 
 
+    def all_feed_items(self):
+        return Post.objects.values('title', 'slug', 'description').filter(published=True).order_by('-date')
+
+
     def latest(self):
         return Post.objects.filter(published=True).order_by('-date')[0]
 

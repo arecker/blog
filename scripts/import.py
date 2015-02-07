@@ -32,7 +32,7 @@ def parse_post_from_path(path):
 
 
 def strip_meta(body):
-    return body
+    return '\n'.join(body.split('\n')[5:])
 
 
 for file in os.listdir(BLOG_PATH):
