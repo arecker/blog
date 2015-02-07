@@ -42,6 +42,12 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
+
+STATIC_URL = '/static/'
+
 ROOT_URLCONF = 'Blog.urls'
 WSGI_APPLICATION = 'Blog.wsgi.application'
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
@@ -58,5 +64,3 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
-STATIC_URL = '/static/'

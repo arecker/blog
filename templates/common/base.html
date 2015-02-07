@@ -1,19 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html>{% load staticfiles %}
 <head lang="en">
     <meta charset="UTF-8">
     <meta name="p:domain_verify" content="f2061b7690f2b29e747e773700e89268"/>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Blog by Alex Recker</title>
+    <link rel="icon" type="image/gif" href="http://media.alexrecker.com/images/bro-favicon.gif"/>
     {% block meta_title %}<title>Blog by Alex Recker</title>{% endblock %}
 	{% block meta_og_title %}<meta property="og:title" content="Blog by Alex Recker" />{% endblock %}
 	{% block meta_description %}<meta name="description" content="Hi - I'm Alex.  I like writing words." />{% endblock %}
 	{% block meta_og_description %}<meta property="og:description" content="Hi - I'm Alex.  I like writing words." />{% endblock %}
 	{% block meta_og_image %}<meta property="og:image" content="http://media.alexrecker.com/images/portrait.jpg" />{% endblock %}
 	{% block meta_og_url %}<meta property="og:url" content="http://alexrecker.com/" />{% endblock %}
+    <link rel="stylesheet" type='text/css' href="//bootswatch.com/yeti/bootstrap.min.css" />
+	<link rel="stylesheet" type='text/css' href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+	<link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Vollkorn:400,400italic,700,700italic' />
+    <link rel="stylesheet" type="text/css" href='{% static "css/site.css" %}' />
 </head>
 <body>
 {% block body %}
 {% endblock %}
+{% block scripts %}
+{% endblock %}
+<script type="text/javascript">
+var DeferGoogleAnalytics = function() {
+    var element = document.createElement("script");
+    element.src = "{% static "js/analytics.js" %}";
+    document.body.appendChild(element);
+};
+if (window.addEventListener)
+window.addEventListener("load", DeferGoogleAnalytics, false);
+else if (window.attachEvent)
+window.attachEvent("onload", DeferGoogleAnalytics);
+else window.onload = DeferGoogleAnalytics;
+</script>
 </body>
 </html>

@@ -9,6 +9,7 @@ class Post(models.Model):
     published = models.BooleanField(verbose_name='Publish', default=False)
     description = models.TextField(max_length=160, verbose_name='Description', blank=True, null=True)
     body = models.TextField(verbose_name='Body', blank=True, null=True)
+    image = models.CharField(verbose_name='Image', max_length=160, blank=True, null=True)
 
 
     def save(self, *args, **kwargs):
