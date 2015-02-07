@@ -1,5 +1,7 @@
 from django.db import models
 import slugify
+import markdown
+import bs4
 
 
 class Post(models.Model):
@@ -25,7 +27,40 @@ class Post(models.Model):
             return self.description
         else:
             return ' '.join(self.description[:length+1].split(' ')[0:-1]) + suffix
-    get_truncated_description.short_description = 'Description'
+
+
+    def convert_alts_to_captions(cls, html):
+        """
+        Converts alt attributes to captions
+
+        takes in one of these:
+        <img src="src.jpg" alt="This is an image" />
+
+        and returns one of these:
+        <figure class="image">
+            <img src="src.jpg" alt="This is an image" />
+            <figcaption>This is an image</figcaption>
+        </figure>
+        """
+        soup = bs4.BeautifulSoup(html)
+        imgs = soup.find_all('img')
+        for tag in imgs:
+            src = tag['src']
+            try:
+                alt = tag['alt']
+            except KeyError:
+                alt = None
+            tag.wrap(soup.new_tag('figure', { 'class': 'image'}))
+            tag.parent['class'] = 'image'
+            tag.insert_after(soup.new_tag('figcaption'))
+            if alt:
+                tag.next_sibling.string = alt
+        return soup.prettify()
+
+
+    def render_html(self):
+        md = markdown.Markdown()
+        return self.convert_alts_to_captions(md.convert(self.body))
 
 
     def __unicode__(self):

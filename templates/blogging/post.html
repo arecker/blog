@@ -1,0 +1,38 @@
+{% extends 'common/base.html' %}
+{% block body %}
+<div class="main container-fluid">
+    <div class="page-header">
+	{% if data.image %}
+	    <img src="{{ data.image }}" class="img-thumbnail">
+	{% endif %}
+	    <h1>{{ data.title }} <small>{{ data.date_pretty }}</small></h1>
+	    <p>{{ data.description }}</p>
+	    <ol class="breadcrumb">
+		    <li><a href="/">Home</a></li>
+		    <li class="active">{{ data.title }}</li>
+	    </ol>
+    </div>
+
+    <div class="body">
+        {{ data.render_html | safe }}
+    </div>
+
+    <hr>
+        <h1 class="lead text-center"><a href="/">Home</a> | <a href="#" data-toggle="modal" data-target="#followModal">Subscribe</a> | <a href="mailto:alex@reckerfamily.com">Email</a></h1>
+    <hr>
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'alexrecker'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+{% endblock %}

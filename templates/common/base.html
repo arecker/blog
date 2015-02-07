@@ -22,16 +22,26 @@
 {% block scripts %}
 {% endblock %}
 <script type="text/javascript">
-var DeferGoogleAnalytics = function() {
-    var element = document.createElement("script");
-    element.src = "{% static "js/analytics.js" %}";
-    document.body.appendChild(element);
+var AppendScripts = function(){
+    var paths = [
+        'https://code.jquery.com/jquery-2.1.3.min.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js',
+        'http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js',
+        '{% static "js/analytics.js" %}'
+    ];
+    for (var i=0 ; i<paths.length ; i++){
+        var element = document.createElement('script');
+        element.src = paths[i];
+        document.body.appendChild(element);
+    };
 };
-if (window.addEventListener)
-window.addEventListener("load", DeferGoogleAnalytics, false);
-else if (window.attachEvent)
-window.attachEvent("onload", DeferGoogleAnalytics);
-else window.onload = DeferGoogleAnalytics;
+if (window.addEventListener){
+    window.addEventListener("load", AppendScripts, false);
+} else if (window.attachEvent){
+    window.attachEvent("onload", AppendScripts);
+} else {
+    window.onload = AppendScripts;
+};
 </script>
 </body>
 </html>
