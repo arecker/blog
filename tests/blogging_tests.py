@@ -1,10 +1,8 @@
 from django.test import TestCase
 import datetime
-from Blog.apps.Blogging import models
+from Blog.apps.Blogging import models, feed
 
 class TestPost(TestCase):
-
-
     def test_slug(self):
         myPost = models.Post()
         myPost.title = 'This is my First Post'
@@ -52,3 +50,24 @@ class TestPost(TestCase):
         actual = post.render_html()
 
         self.assertTrue(remove_white(expected) in remove_white(actual))
+
+
+class TestFeed(TestCase):
+    def setUp(self):
+        post1 = models.Post()
+        post1.title = 'Test Post 1'
+        post1.date = datetime.datetime.now()
+        post1.description = 'this is test 1'
+        post1.save()
+        post2 = models.Post()
+        post2.title = 'Test Post 2'
+        post2.date = datetime.datetime.now()
+        post2.description = 'this is test 2'
+        post2.save()
+
+
+    def test_valid_feed(self):
+        # TODO: Validate RSS Somehow
+        output = feed.RSSFeed().write()
+        self.assertTrue(output is not None)
+        self.assertTrue(output != '' and output != u'')
