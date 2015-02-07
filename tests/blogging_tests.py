@@ -71,3 +71,66 @@ class TestFeed(TestCase):
         output = feed.RSSFeed().write()
         self.assertTrue(output is not None)
         self.assertTrue(output != '' and output != u'')
+
+
+class TestPostManager(TestCase):
+    def setUp(self):
+        post1 = models.Post()
+        post1.title = 'Test Post 1'
+        post1.date = datetime.datetime.now() - datetime.timedelta(days=1)
+        post1.description = 'this is test 1'
+        post1.published = True
+        post1.save()
+        post2 = models.Post()
+        post2.title = 'Test Post 2'
+        post2.date = datetime.datetime.now()
+        post2.description = 'this is test 2'
+        post2.published = True
+        post2.save()
+
+    @staticmethod
+    def unpublish_all():
+        for post in models.Post.objects.all():
+            post.published = False
+            post.save()
+
+    @staticmethod
+    def publish_all():
+        for post in models.Post.objects.all():
+            post.published = True
+            post.save()
+
+
+    def test_latest(self):
+        latest = models.Post.objects.latest()
+        self.assertEquals(latest.title, 'Test Post 2')
+
+
+    def test_latest_safe(self):
+        # Should return none if no published posts
+        TestPostManager.unpublish_all()
+
+        try:
+            latest = models.Post.objects.latest()
+            self.assertEquals(latest, None)
+        except:
+            TestPostManager.publish_all()
+
+
+    def test_all_feed_items(self):
+        feed = models.Post.objects.all_feed_items()
+        last_date = None
+        for item in feed:
+            if last_date:
+                self.assertTrue(item['date'] < last_date)
+            last_date = item['date']
+
+
+    def test_all_feed_items_safe(self):
+        TestPostManager.unpublish_all()
+        try:
+            feed = models.Post.objects.all_feed_items()
+            self.assertTrue(feed is not None)
+            self.assertTrue(feed != u'' or feed != '')
+        except:
+            TestPostManager.publish_all()

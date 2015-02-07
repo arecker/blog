@@ -14,7 +14,11 @@ class PostManager(models.Manager):
 
 
     def latest(self):
-        return Post.objects.filter(published=True).order_by('-date')[0]
+        latest = Post.objects.filter(published=True).order_by('-date')
+        if len(latest) > 0:
+            return latest[0]
+        else:
+            return None
 
 
 class Post(models.Model):
