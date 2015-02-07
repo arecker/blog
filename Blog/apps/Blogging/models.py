@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 import slugify
 import markdown
 import bs4
@@ -24,7 +25,7 @@ class PostManager(models.Manager):
 class Post(models.Model):
     title = models.CharField(verbose_name='Title', max_length=120)
     slug = models.SlugField(verbose_name='Slug', max_length=120, unique=True, blank=True)
-    date = models.DateField(verbose_name='Date', auto_created=True, db_index=True)
+    date = models.DateField(verbose_name='Date', db_index=True, default=datetime.datetime.now(), blank=True)
     published = models.BooleanField(verbose_name='Publish', default=False)
     description = models.TextField(max_length=200, verbose_name='Description', blank=True, null=True)
     body = models.TextField(verbose_name='Body', blank=True, null=True)

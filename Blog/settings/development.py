@@ -20,7 +20,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_nose',
     'epiceditor',
-    'Blog.apps.Blogging'
+    'Blog.apps.Blogging',
+    'Blog.apps.Subscribing'
 )
 
 MIDDLEWARE_CLASSES = (

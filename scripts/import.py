@@ -22,6 +22,7 @@ def parse_post_from_path(path):
     data.description = meta["description"][0]
     timestamp = time.strptime(meta["date"][0], "%m-%d-%Y")
     data.date = datetime.datetime.fromtimestamp(time.mktime(timestamp))
+    data.published = True
 
     try:
         data.image_url = meta["image"][0]
