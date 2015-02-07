@@ -2,6 +2,7 @@ from django.test import TestCase
 import datetime
 from Blog.apps.Blogging import models, feed
 
+
 class TestPost(TestCase):
     def test_slug(self):
         myPost = models.Post()
@@ -143,3 +144,31 @@ class TestPostManager(TestCase):
             self.assertTrue(item['slug'] is not None)
 
         self.assertEquals(archives[0]['title'], 'Test Post 2')
+
+
+class TestViews(TestCase):
+    def setUp(self):
+        post = models.Post()
+        post.title = 'The Only Post'
+        post.date = datetime.datetime.now()
+        post.description = 'This is the only test post in this suite.'
+        post.body = '# The Only Post'
+        post.save()
+        self.post = post
+
+
+    def test_get_home(self):
+        response = self.client.get('/')
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('<title>Blog by Alex Recker</title>' in response.content)
+
+
+    def test_get_post(self):
+        response = self.client.get('/' + self.post.slug + '/')
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('<title>The Only Post | Blog by Alex Recker</title>' in response.content)
+
+
+    def test_get_feed(self):
+        response = self.client.get('/feed/')
+        self.assertEquals(response.status_code, 200)
