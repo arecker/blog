@@ -27,6 +27,12 @@ class TestSubscriber(TestCase):
         self.assertTrue(sub.subscribe_date is not None)
 
 
+    def test_unicode_representation(self):
+        sub = models.Subscriber()
+        sub.email = 'canyouseeme@maybe.com'
+        self.assertEquals(str(sub), sub.email)
+
+
 class TestSubscriberAPI(APITestCase):
     def test_subscriber_add(self):
         data = {'email': 'test_subscriber_add@yahoo.com', 'full_text': 'false'}

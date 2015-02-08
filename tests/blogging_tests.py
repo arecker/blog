@@ -12,6 +12,13 @@ class TestPost(TestCase):
         self.assertEquals(myPost.slug, 'this-is-my-first-post')
 
 
+    def test_unicode(self):
+        myPost = models.Post()
+        myPost.title = 'This is my First Post'
+        myPost.date = datetime.datetime.now()
+        self.assertEquals(str(myPost), myPost.title)
+
+
     def test_get_truncated_description(self):
         myPost = models.Post()
         myPost.title = 'Another Post'
