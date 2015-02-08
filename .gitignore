@@ -2,3 +2,6 @@
 .idea
 tmp/*
 **/migrations/*
+production.py
+prod_manage.py
+prod_static
