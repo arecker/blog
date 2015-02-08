@@ -58,3 +58,21 @@ class TestSubscriberAPI(APITestCase):
         # Save it again
         response = self.client.post('/api/subscriber/?key=' + API_KEY, data, format='json')
         self.assertEqual(response.status_code, 400)
+
+
+    def test_unsubscribe(self):
+        data = {'email': 'dontLikeEmails@yahoo.com', 'full_text': 'false'}
+        response = self.client.post('/api/subscriber/?key=' + API_KEY, data, format='json')
+        self.assertEqual(response.status_code, 201)
+
+        # Get Key
+        unsub = models.Subscriber.objects.get(email='dontLikeEmails@yahoo.com').unsubscribe_key
+        self.assertTrue(unsub != '' and unsub is not None)
+
+        # Unsubscribe
+        response = self.client.get('/api/unsubscriber/?unsubscribe=' + unsub, format='json')
+        self.assertTrue(response.status_code, 201)
+
+        # Check DB
+        matching = models.Subscriber.objects.filter(email='dontLikeEmails@yahoo.com').count()
+        self.assertEquals(matching, 0)

@@ -45,3 +45,27 @@ def subscriber_add(request):
         serializer.save()
         return HttpResponse(status=201)
     return JSONResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def subscriber_remove(request):
+    """
+    Remove subscriber
+    """
+    # Ensure Right Request Type
+    if request.method != 'GET':
+        return HttpResponse(status=404)
+
+    # Retrieve Subscriber key
+    try:
+        unsubscribe_key = request.GET.get("unsubscribe")
+    except:
+        return HttpResponse(status=404)
+
+    # Delete Record
+    try:
+        delete_me = Subscriber.objects.get(unsubscribe_key=unsubscribe_key)
+        delete_me.delete()
+        return HttpResponse("Alrighty. You are all done with these emails.", status=201)
+    except:
+        return HttpResponse(status=500)

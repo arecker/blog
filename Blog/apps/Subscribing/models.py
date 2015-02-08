@@ -6,8 +6,8 @@ import datetime
 class Subscriber(models.Model):
     email = models.CharField(max_length=200, blank=None, unique=True, null=False)
     full_text = models.BooleanField(default=False)
-    unsubscribe_key = models.CharField(max_length=150, default=datetime.datetime.now())
-    subscribe_date = models.DateField(verbose_name='Date', auto_now_add=True, db_index=True, blank=True)
+    unsubscribe_key = models.CharField(max_length=150, blank=True)
+    subscribe_date = models.DateField(verbose_name='Date', default=datetime.datetime.now())
 
 
     def save(self, *args, **kwargs):
