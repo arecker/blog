@@ -29,14 +29,16 @@ def subscriber_add(request):
     data = JSONParser().parse(request)
     serializer = SubscriberSerializer(data=data)
 
+    if not serializer.is_valid():
+        return JSONResponse(serializer.errors, status=400)
+
     # Check if email is already there
     email = data["email"]
     if not len(Subscriber.objects.filter(email=email)) is 0:
         return HttpResponse(status=400)
-    if serializer.is_valid():
-        serializer.save()
-        return HttpResponse(status=201)
-    return JSONResponse(serializer.errors, status=400)
+
+    serializer.save()
+    return HttpResponse(status=201)
 
 
 @csrf_exempt
@@ -49,10 +51,9 @@ def subscriber_remove(request):
         return HttpResponse(status=404)
 
     # Retrieve Subscriber key
-    try:
-        unsubscribe_key = request.GET.get("unsubscribe")
-    except:
-        return HttpResponse(status=404)
+    unsubscribe_key = request.GET.get("unsubscribe")
+    if not unsubscribe_key:
+        return HttpResponse(status=400)
 
     # Delete Record
     try:

@@ -66,3 +66,25 @@ class TestSubscriberAPI(APITestCase):
         # Check DB
         matching = models.Subscriber.objects.filter(email='dontLikeEmails@yahoo.com').count()
         self.assertEquals(matching, 0)
+
+
+    def test_subscribe_bad_data(self):
+        data = {} # send empty data
+        response = self.client.post('/api/subscriber/', data, format='json')
+        self.assertEqual(response.status_code, 400)
+
+
+    def test_subscribe_bad_method(self):
+        data = {}
+        response = self.client.get('/api/subscriber/', data, format='json')
+        self.assertEquals(response.status_code, 404)
+
+
+    def test_unsubscribe_bad_method(self):
+        response = self.client.post('/api/unsubscriber/', format='json')
+        self.assertTrue(response.status_code, 404)
+
+
+    def test_unsubscribe_no_key(self):
+        response = self.client.get('/api/unsubscriber/', format='json')
+        self.assertEquals(response.status_code, 400)
