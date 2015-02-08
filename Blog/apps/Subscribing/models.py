@@ -1,4 +1,5 @@
 from django.db import models
+from Blog.apps.Blogging.models import Post
 from uuid import uuid1
 import datetime
 
@@ -19,3 +20,12 @@ class Subscriber(models.Model):
 
     def __unicode__(self):
         return self.email
+
+
+
+class Newsletter(models.Model):
+    subject = models.CharField(max_length=200)
+    sender = models.CharField(max_length=200, default='Alex Recker')
+    sender_address = models.CharField(max_length=200, default='alex@reckerfamily.com')
+    post = models.OneToOneField(Post)
+    sent = models.DateTimeField(default=datetime.datetime.now())

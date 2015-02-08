@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from models import Subscriber
+from models import Subscriber, Newsletter
 
 
 class SubscriberModelForm(forms.ModelForm):
@@ -18,4 +18,18 @@ class SubscriberAdmin(admin.ModelAdmin):
     form = SubscriberModelForm
 
 
+class NewsletterModelForm(forms.ModelForm):
+    class Meta:
+        model = Newsletter
+        exclude = ['sent']
+        fields = ['subject', 'sender', 'sender_address', 'post']
+
+
+class NewsletterAdmin(admin.ModelAdmin):
+    list_display = ['subject', 'post', 'sent']
+    ordering = ['-sent']
+    form = NewsletterModelForm
+
+
 admin.site.register(Subscriber, SubscriberAdmin)
+admin.site.register(Newsletter, NewsletterAdmin)
