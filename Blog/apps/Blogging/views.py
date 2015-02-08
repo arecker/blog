@@ -21,4 +21,4 @@ def get_post(request, slug):
 
 def get_feed(request):
     feed = RSSFeed()
-    return HttpResponse(feed.write())
+    return HttpResponse(feed.write(), content_type='application/xml')

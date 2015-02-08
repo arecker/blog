@@ -4,10 +4,6 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from models import Subscriber
 from serializers import SubscriberSerializer
-try:
-    from Blog.settings.production import API_KEY
-except ImportError:
-    from Blog.settings.development import API_KEY
 
 
 class JSONResponse(HttpResponse):
@@ -28,10 +24,6 @@ def subscriber_add(request):
     # Ensure Right Request Type
     if request.method != 'POST':
         return HttpResponse(status=404)
-
-    # Validate App Key
-    if API_KEY != request.GET.get("key"):
-        return HttpResponse(status=403)
 
     # Create and Save
     data = JSONParser().parse(request)

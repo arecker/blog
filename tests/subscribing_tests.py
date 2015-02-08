@@ -1,7 +1,6 @@
 from django.test import TestCase
 from rest_framework.test import APITestCase
 from Blog.apps.Subscribing import models
-from Blog.settings.development import API_KEY
 
 
 class TestSubscriber(TestCase):
@@ -31,38 +30,29 @@ class TestSubscriber(TestCase):
 class TestSubscriberAPI(APITestCase):
     def test_subscriber_add(self):
         data = {'email': 'test_subscriber_add@yahoo.com', 'full_text': 'false'}
-        response = self.client.post('/api/subscriber/?key=' + API_KEY, data, format='json')
+        response = self.client.post('/api/subscriber/', data, format='json')
         self.assertEqual(response.status_code, 201)
 
         matching = models.Subscriber.objects.filter(email='test_subscriber_add@yahoo.com')
         self.assertEquals(len(matching), 1)
 
 
-    def test_subscriber_add_no_key(self):
-        data = {'email': 'not_authenticated@yahoo.com', 'full_text': 'false'}
-        response = self.client.post('/api/subscriber/?key=' + 'bah', data, format='json')
-        self.assertEqual(response.status_code, 403)
-
-        matching = models.Subscriber.objects.filter(email='not_authenticated@yahoo.com')
-        self.assertEquals(len(matching), 0)
-
-
     def test_subscriber_add_duplicate(self):
         data = {'email': 'twice@yahoo.com', 'full_text': 'false'}
-        response = self.client.post('/api/subscriber/?key=' + API_KEY, data, format='json')
+        response = self.client.post('/api/subscriber/', data, format='json')
         self.assertEqual(response.status_code, 201)
 
         matching = models.Subscriber.objects.filter(email='twice@yahoo.com')
         self.assertEquals(len(matching), 1)
 
         # Save it again
-        response = self.client.post('/api/subscriber/?key=' + API_KEY, data, format='json')
+        response = self.client.post('/api/subscriber/', data, format='json')
         self.assertEqual(response.status_code, 400)
 
 
     def test_unsubscribe(self):
         data = {'email': 'dontLikeEmails@yahoo.com', 'full_text': 'false'}
-        response = self.client.post('/api/subscriber/?key=' + API_KEY, data, format='json')
+        response = self.client.post('/api/subscriber/', data, format='json')
         self.assertEqual(response.status_code, 201)
 
         # Get Key

@@ -24,7 +24,7 @@
     </div>
 
     <hr>
-        <h1 class="lead text-center"><a href="/">Home</a> | <a href="#" data-toggle="modal" data-target="#followModal">Subscribe</a> | <a href="mailto:alex@reckerfamily.com">Email</a></h1>
+        <h1 class="lead text-center"><a href="/">Home</a> | <a href="" data-toggle="modal" data-target="#followModal">Subscribe</a> | <a href="mailto:alex@reckerfamily.com">Email</a></h1>
     <hr>
 
     <div id="disqus_thread"></div>
@@ -40,5 +40,41 @@
         })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <!-- Follow Modal -->
+    <div id="followModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h1 class="modal-title lead fancy">Follow my Blog</h1>
+                </div>
+                <div class="modal-body">
+                    <div data-bind="text: subscribe.message, css { 'alert-warning': subscribe.negativeMessage(), 'alert-success': subscribe.successMessage() }" id="subscribeMessage" class="alert" role="alert"></div>
+                    <div data-bind="css { 'has-warning': subscribe.badInput() }" class="input-group">
+                        <span class="input-group-addon">
+                            <i class="fa fa-envelope"></i>
+                        </span>
+                        <input data-bind="value: subscribe.email" id="subscribeEmail" type="text" class="form-control" placeholder="Email" /><br />
+                        <span class="input-group-btn">
+                            <button data-bind="click: subscribe.go" id="subscribeButton" class="btn btn-primary" type="button">
+                            <span data-bind="visible: !subscribe.waiting()">Go!</span>
+                            <i data-bind="visible: subscribe.waiting()" class="fa fa-refresh fa-spin"></i></button>
+                        </span>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input data-bind="checked: subscribe.wantsFullText" class="fancy" type="checkbox" /> Send me the full text of blog posts
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <p class="text-muted pull-left"><i class="fa fa-rss"></i>Use RSS?  I do <a href="/feed/">that</a> too</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
