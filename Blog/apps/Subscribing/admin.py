@@ -22,7 +22,7 @@ class NewsletterModelForm(forms.ModelForm):
     class Meta:
         model = Newsletter
         exclude = ['sent']
-        fields = ['subject', 'sender', 'sender_address', 'post']
+        fields = ['subject', 'sender', 'sender_address', 'post', 'send']
 
 
 class NewsletterAdmin(admin.ModelAdmin):
