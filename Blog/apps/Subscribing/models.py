@@ -2,7 +2,6 @@ from django.db import models
 from Blog.apps.Blogging.models import Post
 from uuid import uuid1
 import datetime
-import tasks
 
 
 class Email:
