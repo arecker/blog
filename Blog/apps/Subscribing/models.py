@@ -28,5 +28,4 @@ class Newsletter(models.Model):
     sender = models.CharField(max_length=200, default='Alex Recker')
     sender_address = models.CharField(max_length=200, default='alex@reckerfamily.com')
     post = models.OneToOneField(Post)
-    sent = models.DateTimeField(default=datetime.datetime.now())
 

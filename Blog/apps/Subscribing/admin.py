@@ -21,14 +21,10 @@ class SubscriberAdmin(admin.ModelAdmin):
 class NewsletterModelForm(forms.ModelForm):
     class Meta:
         model = Newsletter
-        exclude = ['sent']
-        fields = ['subject', 'sender', 'sender_address', 'post', 'send']
 
 
 class NewsletterAdmin(admin.ModelAdmin):
-    list_display = ['subject', 'post', 'sent']
-    ordering = ['-sent']
-    form = NewsletterModelForm
+    list_display = ['subject', 'post']
 
 
 admin.site.register(Subscriber, SubscriberAdmin)
