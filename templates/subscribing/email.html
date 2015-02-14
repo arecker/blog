@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{{ post.title }} | Blog by Alex Recker</title>
+	<style>
+		#mainImage { width: 500px;}
+		.footer	a em{ font-size: 12px; }
+	</style>
+</head>
+<body>
+	<div class="main-container">
+		<img id="mainImage" src="{{ post.image }}" alt="{{ post.title }}" />
+		<h1>{{ post.title }} | Blog by Alex Recker</h1>
+		<p><em>{{ post.date_pretty }}</em></p>
+		<p>
+			{{ post.description }}
+		</p>
+		<p>
+			<a href="http://alexrecker.com/{{ post.slug }}/"><em>Read</em></a>
+		</p>
+		<hr />
+		{% if sub.full_text %}
+		<p>
+			{{ post.render_html | safe }}
+		</p>
+		<hr />
+		{% endif %}
+	</div>
+	<div class="footer">
+		<a href="http://alexrecker.com/api/unsubscriber/?unsubscribe={{ sub.unsubscribe_key }}"><em>Unsubscribe from this Garbage</em></a>
+	</div>
+</body>
+</html>
