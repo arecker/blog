@@ -38,21 +38,21 @@ class Newsletter(models.Model):
         import logging
         logger = logging.getLogger(__name__)
         try:
-            logger.info('EMAIL: Opening connection for newsletter {news_id}'.format(news_id=newsletter.pk))
+            logger.debug('EMAIL: Opening connection for newsletter {news_id}'.format(news_id=newsletter.pk))
             connection = get_connection()
             connection.open()
             for sub in subscribers:
-                sub.email='alex@reckerfamily.com'
                 html_content = render_to_string('subscribing/email.html', {'post': newsletter.post, 'sub': sub })
                 text_content = newsletter.post.body
                 msg = EmailMultiAlternatives(newsletter.subject, text_content, newsletter.sender_address, [sub.email], connection=connection)
                 msg.attach_alternative(html_content, "text/html")
                 try:
-                    logger.info('EMAIL: sending newsletter {news_id} to subscriber {sub_id}'.format(news_id=newsletter.pk, sub_id=sub.pk))
+                    logger.debug('EMAIL: sending newsletter {news_id} to subscriber {sub_id}'.format(news_id=newsletter.pk, sub_id=sub.pk))
                     msg.send()
                 except:
                     logger.error('EMAIL: error sending newsletter {news_id} to subscriber {sub_id}'.format(news_id=newsletter.pk, sub_id=sub.pk))
                     raise
+            logger.debug('EMAIL: closing connection for {news_id}'.format(news_id=newsletter.pk))
             connection.close()
         except:
             logger.error('EMAIL: error sending newsletter {news_id}'.format(news_id=newsletter.pk))
