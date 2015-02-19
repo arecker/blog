@@ -15,8 +15,11 @@ def get_home(request):
 
 
 def get_post(request, slug):
-    post = Post.objects.get(slug=slug)
-    return render_to_response('blogging/post.html', { 'data': post })
+    try:
+        post = Post.objects.get(slug=slug)
+        return render_to_response('blogging/post.html', { 'data': post })
+    except Post.DoesNotExist:
+        return render_to_response('common/404.html')
 
 
 def get_feed(request):
