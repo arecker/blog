@@ -1,42 +1,40 @@
 {% extends 'common/base.html' %}
 {% block body %}
-<div class="main container-fluid">
-    <div class="jumbotron text-center">
-        <img src="http://media.alexrecker.com/images/portrait.jpg" alt="Blog by Alex Recker" class="img-circle">
-        <h1>Blog <small>by Alex Recker</small></h1>
-    </div>
-    <div class="page-header">
-        <h1>{{ data.latest.title }} <small>{{ data.latest.date | date:'F j, Y' }}</small></h1>
-    </div>
+<body ng-app="Blog">
+    <!-- Top Banner -->
+    <img src="http://media.giphy.com/media/poiOz3yYCThiU/giphy.gif" height="50px" style="float: right" alt="America" />
+    <h1 class="huge">Blog by Alex Recker</h1>
+    <hr style="clear: both" />
 
-    <div class="media">
-        <a class="media-left" href="/{{ data.latest.slug }}/">
-            <img src="{{ data.latest.image_url }}" alt="{{ data.latest.title }}" height="120">
+    <!-- Latest Post -->
+    <figure>
+        <a href="/{{ data.latest.slug }}/">
+            <img style="float: left" width="240px" src="{{ data.latest.image_url }}" alt="{{ data.latest.title }}">
         </a>
-        <div class="media-body">
-            <p>{{ data.latest.description }}</p>
-        </div>
-    </div>
+    </figure>
+    <p>
+        <a href="/{{ data.latest.slug }}/"><h1>{{ data.latest.title }}</h1></a>
+        <p>{{ data.latest.date | date:'F j, Y' }}</p>
+        <p>{{ data.latest.description }}</p>
+    </p>
+    <br style="clear: both" />
 
-    <div class="page-header">
-        <h1>Archives</h1>
-    </div>
+    <!-- Subscribe -->
+    <hr />
+        <p>Want to <a href="#subscribeModal">subscribe</a> to this garbage?</p>
+    <hr />
 
-    <div class="input-group">
-        <span class="input-group-addon">
-            <i class="fa fa-search"></i>
-        </span>
-        <input id="filter" class="form-control" type="text" placeholder="Filter" onkeyup="filter(this)" size="10" />
-    </div>
-    <br />
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <p>
-            {% for post in data.posts %}
-                <a href="/{{ post.slug }}/">{{ post.title }}</a><span> | </span>
-            {% endfor %}
-            </p>
-        </div>
-    </div>
-</div>
+    <!-- Archives -->
+    <h1>Archives</h1>
+    <!-- TODO: Not working yet
+    <input style="width: 100%" type="text" placeholder="Filter" />
+    -->
+    <p>
+        {% for post in data.posts %}
+        <a href="/{{ post.slug }}/">{{ post.title }}</a>
+        {% endfor %}
+    </p>
+
+    {% include "subscribing/subscribeModal.html" %}
+</body>
 {% endblock %}

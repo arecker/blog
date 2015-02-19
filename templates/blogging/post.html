@@ -1,4 +1,5 @@
 {% extends 'common/base.html' %}
+
 {% block meta_title %}<title>{{ data.title }} | Blog by Alex Recker</title>{% endblock %}
 	{% block meta_og_title %}<meta property="og:title" content="{{ data.title }} | Blog by Alex Recker" />{% endblock %}
 	{% block meta_description %}<meta name="description" content="{{ data.description }}" />{% endblock %}
@@ -6,27 +7,33 @@
 	{% block meta_og_image %}<meta property="og:image" content="{{ data.image_url }}" />{% endblock %}
 	{% block meta_og_url %}<meta property="og:url" content="http://alexrecker.com/{{ data.slug }}/" />{% endblock %}
 {% block body %}
-<div class="main container-fluid">
-    <div class="page-header">
-	{% if data.image_url %}
-	    <img src="{{ data.image_url }}" class="img-thumbnail">
-	{% endif %}
-	    <h1>{{ data.title }} <small>{{ data.date | date:'F j, Y' }}</small></h1>
-	    <p>{{ data.description }}</p>
-	    <ol class="breadcrumb">
-		    <li><a href="/">Home</a></li>
-		    <li class="active">{{ data.title }}</li>
-	    </ol>
-    </div>
+<body ng-app="Blog">
+    <!-- Post Header -->
+    {% if data.image_url %}
+    <figure>
+        <img src="http://www.marriedtothesea.com/010713/real-sports-ball-dunking.gif" alt="">
+    </figure>
+    {% endif %}
+    <h1>{{ data.title }}</h1>
+    <p>{{ data.date | date:'F j, Y' }}</p>
+    <p>{{ data.description }}</p>
+    <hr/>
 
-    <div class="body">
-        {{ data.render_html | safe }}
-    </div>
+    <!-- Post Body -->
+    {{ data.render_html | safe }}
 
-    <hr>
-        <h1 class="lead text-center"><a href="/">Home</a> | <a href="" data-toggle="modal" data-target="#followModal">Subscribe</a> | <a href="mailto:alex@reckerfamily.com">Email</a></h1>
-    <hr>
+    <!-- Link Footer -->
+    <hr />
+    <ul class='nav-footer'>
+        <li><a href="/">Home</a></li>
+        <li><a href="#subscribeModal">Subscribe</a></li>
+        <li><a href="mailto:alex@reckerfamily.com">Email</a></li>
+    </ul>
+    <hr />
 
+    {% include "subscribing/subscribeModal.html" %}
+
+    <!-- Comments -->
     <div id="disqus_thread"></div>
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
@@ -40,41 +47,5 @@
         })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <!-- Follow Modal -->
-    <div id="followModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <h1 class="modal-title lead fancy">Follow my Blog</h1>
-                </div>
-                <div class="modal-body">
-                    <div data-bind="text: subscribe.message, css { 'alert-warning': subscribe.negativeMessage(), 'alert-success': subscribe.successMessage() }" id="subscribeMessage" class="alert" role="alert"></div>
-                    <div data-bind="css { 'has-warning': subscribe.badInput() }" class="input-group">
-                        <span class="input-group-addon">
-                            <i class="fa fa-envelope"></i>
-                        </span>
-                        <input data-bind="value: subscribe.email" id="subscribeEmail" type="text" class="form-control" placeholder="Email" /><br />
-                        <span class="input-group-btn">
-                            <button data-bind="click: subscribe.go" id="subscribeButton" class="btn btn-primary" type="button">
-                            <span data-bind="visible: !subscribe.waiting()">Go!</span>
-                            <i data-bind="visible: subscribe.waiting()" class="fa fa-refresh fa-spin"></i></button>
-                        </span>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input data-bind="checked: subscribe.wantsFullText" class="fancy" type="checkbox" /> Send me the full text of blog posts
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <p class="text-muted pull-left"><i class="fa fa-rss"></i>Use RSS?  I do <a href="/feed/">that</a> too</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</body>
 {% endblock %}
