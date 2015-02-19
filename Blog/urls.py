@@ -4,7 +4,7 @@ from django.contrib import admin
 urlpatterns = patterns('',
     url(r'^$', 'Blog.apps.Blogging.views.get_home', name='home'),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api/', include('Blog.apps.Subscribing.urls')),
+    url(r'^api/', include('Blog.api_urls')),
     url(r'^feed/$', 'Blog.apps.Blogging.views.get_feed', name='feed'),
     url(r'^(?P<slug>[^/]+)/$', 'Blog.apps.Blogging.views.get_post', name='post'),
 )
