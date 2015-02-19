@@ -1,7 +1,7 @@
 var Blog = angular.module('Blog', []);
 
 Blog.factory('apiService', function($http){
-	var endPoint = '/api/subscriber/';
+	var endPoint = '/api/subscriber/subscriber/';
 	return {
 		createSubscriber: function(data){
 			return $http.post(endPoint, data);

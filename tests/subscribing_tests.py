@@ -36,7 +36,7 @@ class TestSubscriber(TestCase):
 class TestSubscriberAPI(APITestCase):
     def test_subscriber_add(self):
         data = {'email': 'test_subscriber_add@yahoo.com', 'full_text': 'false'}
-        response = self.client.post('/api/subscriber/', data, format='json')
+        response = self.client.post('/api/subscriber/subscriber/', data, format='json')
         self.assertEqual(response.status_code, 201)
 
         matching = models.Subscriber.objects.filter(email='test_subscriber_add@yahoo.com')
@@ -45,20 +45,20 @@ class TestSubscriberAPI(APITestCase):
 
     def test_subscriber_add_duplicate(self):
         data = {'email': 'twice@yahoo.com', 'full_text': 'false'}
-        response = self.client.post('/api/subscriber/', data, format='json')
+        response = self.client.post('/api/subscriber/subscriber/', data, format='json')
         self.assertEqual(response.status_code, 201)
 
         matching = models.Subscriber.objects.filter(email='twice@yahoo.com')
         self.assertEquals(len(matching), 1)
 
         # Save it again
-        response = self.client.post('/api/subscriber/', data, format='json')
+        response = self.client.post('/api/subscriber/subscriber/', data, format='json')
         self.assertEqual(response.status_code, 400)
 
 
     def test_unsubscribe(self):
         data = {'email': 'dontLikeEmails@yahoo.com', 'full_text': 'false'}
-        response = self.client.post('/api/subscriber/', data, format='json')
+        response = self.client.post('/api/subscriber/subscriber/', data, format='json')
         self.assertEqual(response.status_code, 201)
 
         # Get Key
@@ -66,7 +66,7 @@ class TestSubscriberAPI(APITestCase):
         self.assertTrue(unsub != '' and unsub is not None)
 
         # Unsubscribe
-        response = self.client.get('/api/unsubscriber/?unsubscribe=' + unsub, format='json')
+        response = self.client.get('/api/subscriber/unsubscriber/?unsubscribe=' + unsub, format='json')
         self.assertTrue(response.status_code, 201)
 
         # Check DB
@@ -76,21 +76,21 @@ class TestSubscriberAPI(APITestCase):
 
     def test_subscribe_bad_data(self):
         data = {} # send empty data
-        response = self.client.post('/api/subscriber/', data, format='json')
+        response = self.client.post('/api/subscriber/subscriber/', data, format='json')
         self.assertEqual(response.status_code, 400)
 
 
     def test_subscribe_bad_method(self):
         data = {}
-        response = self.client.get('/api/subscriber/', data, format='json')
+        response = self.client.get('/api/subscriber/subscriber/', data, format='json')
         self.assertEquals(response.status_code, 404)
 
 
     def test_unsubscribe_bad_method(self):
-        response = self.client.post('/api/unsubscriber/', format='json')
+        response = self.client.post('/api/subscriber/unsubscriber/', format='json')
         self.assertTrue(response.status_code, 404)
 
 
     def test_unsubscribe_no_key(self):
-        response = self.client.get('/api/unsubscriber/', format='json')
+        response = self.client.get('/api/subscriber/unsubscriber/', format='json')
         self.assertEquals(response.status_code, 400)

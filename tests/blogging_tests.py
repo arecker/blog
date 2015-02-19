@@ -179,3 +179,8 @@ class TestViews(TestCase):
     def test_get_feed(self):
         response = self.client.get('/feed/')
         self.assertEquals(response.status_code, 200)
+
+
+    def test_404(self):
+        response = self.client.get('/thisIsNotABlogPost-woop-woop/')
+        self.assertTrue('<title>Page Not Found, Man | Blog by Alex Recker</title>' in response.content)
