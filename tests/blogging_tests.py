@@ -1,4 +1,5 @@
 from django.test import TestCase
+from rest_framework.test import APITestCase
 import datetime
 from Blog.apps.Blogging import models, feed
 
@@ -184,3 +185,27 @@ class TestViews(TestCase):
     def test_404(self):
         response = self.client.get('/thisIsNotABlogPost-woop-woop/')
         self.assertTrue('<title>Page Not Found, Man | Blog by Alex Recker</title>' in response.content)
+
+
+class TestBloggingAPI(APITestCase):
+    def setUp(self):
+        self.post_endpoint = '/api/blogging/post/'
+
+        post1 = models.Post()
+        post1.title = 'Test Post 1'
+        post1.date = datetime.datetime.now() - datetime.timedelta(days=1)
+        post1.description = 'this is test 1'
+        post1.published = True
+        post1.save()
+        post2 = models.Post()
+        post2.title = 'Test Post 2'
+        post2.date = datetime.datetime.now()
+        post2.description = 'this is test 2'
+        post2.published = True
+        post2.save()
+
+
+    def test_get_posts(self):
+        response = self.client.get(self.post_endpoint, format='json')
+        self.assertEqual(response.status_code, 200)
+
