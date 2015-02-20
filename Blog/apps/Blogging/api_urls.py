@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns('',
-    url(r'^$', 'Blog.apps.Blogging.views.get_archives', name='home'),
+urlpatterns = patterns('Blog.apps.Blogging.api_views.',
+    url(r'^post/$', 'get_posts', name='home'),
 )
