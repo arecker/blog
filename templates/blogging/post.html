@@ -11,7 +11,7 @@
     <!-- Post Header -->
     {% if data.image_url %}
     <figure>
-        <img src="http://www.marriedtothesea.com/010713/real-sports-ball-dunking.gif" alt="">
+        <img src="{{ data.image_url }}" alt="{{ data.title }}">
     </figure>
     {% endif %}
     <h1>{{ data.title }}</h1>
