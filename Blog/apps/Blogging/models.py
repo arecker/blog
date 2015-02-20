@@ -47,6 +47,7 @@ class Post(models.Model):
             return self.description
         else:
             return ' '.join(self.description[:length+1].split(' ')[0:-1]) + suffix
+    get_truncated_description.short_description = 'Description'
 
 
     def convert_alts_to_captions(cls, html):

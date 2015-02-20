@@ -21,6 +21,7 @@ INSTALLED_APPS = (
     'django_nose',
     'epiceditor',
     'Blog.apps.Blogging',
+    'Blog.apps.Quoting',
     'Blog.apps.Subscribing'
 )
 
