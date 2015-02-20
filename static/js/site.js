@@ -1,12 +1,16 @@
 var Blog = angular.module('Blog', []);
 
 Blog.factory('apiService', function($http){
-	var endPoint = '/api/subscribing/subscribe/';
+	var subscribeEndpoint = '/api/subscribing/subscribe/';
+	var postEndpoint = '/api/blogging/post/';
 	return {
 		createSubscriber: function(data){
-			return $http.post(endPoint, data);
+			return $http.post(subscribeEndpoint, data);
+		},
+		fetchArchives: function(){
+			return $http.get(postEndpoint);
 		}
-	}
+	};
 });
 
 Blog.controller('SubscribeController', function($scope, apiService){
@@ -26,22 +30,24 @@ Blog.controller('SubscribeController', function($scope, apiService){
 			full_text: $scope.fullText
 		};
 
-		apiService.createSubscriber(data)
-			
-			.success(function(data, status, headers, config){
+		apiService.createSubscriber(data).success(function(data, status, headers, config){
 				$scope.message = messageBag.success;
-			})
-
-			.error(function(data, status, headers, config){
-				switch (status) {
-					case 400:
-						$scope.message = messageBag.redundant;
-						break;
-					default:
-						$scope.message = messageBag.exception;
-						break;
-				};
-			});
+		}).error(function(data, status, headers, config){
+			switch (status) {
+				case 400:
+					$scope.message = messageBag.redundant;
+					break;
+				default:
+					$scope.message = messageBag.exception;
+					break;
+			};
+		});
 	};
 
+});
+
+Blog.controller('ArchivesController', function($scope, apiService){
+	apiService.fetchArchives().success(function(data, status, headers, config){
+			$scope.posts = data;
+	});
 });
