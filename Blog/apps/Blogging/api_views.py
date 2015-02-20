@@ -22,6 +22,6 @@ def get_posts(request):
         return HttpResponse(status=404)
 
     # Create and Save
-    data = Post.objects.all()
+    data = Post.objects.all_archives()
     serializer = PostArchiveSerializer(data, many=True)
     return JSONResponse(data=serializer.data)
