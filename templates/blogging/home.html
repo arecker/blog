@@ -19,21 +19,13 @@
     </p>
     <br style="clear: both" />
 
+    {% include "blogging/archives.html" %}
+
     <!-- Subscribe -->
     <hr />
         <p>Want to <a href="#subscribeModal">subscribe</a> to this garbage?</p>
     <hr />
-
-<!--     Archives
-<h1>Archives</h1>
-TODO: Not working yet
-<input style="width: 100%" type="text" placeholder="Filter" />
-<p>
-    {% for post in data.posts %}
-    <a href="/{{ post.slug }}/">{{ post.title }}</a>
-    {% endfor %}
-</p> -->
-    {% include "blogging/archives.html" %}
+    
     {% include "subscribing/subscribeModal.html" %}
 </body>
 {% endblock %}
