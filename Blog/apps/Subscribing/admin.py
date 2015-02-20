@@ -18,11 +18,6 @@ class SubscriberAdmin(admin.ModelAdmin):
     form = SubscriberModelForm
 
 
-class NewsletterModelForm(forms.ModelForm):
-    class Meta:
-        model = Newsletter
-
-
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = ['subject', 'post']
 
