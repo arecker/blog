@@ -1,6 +1,6 @@
 <!-- Archives -->{% verbatim %}
+<h1>Archives</h1>
 <div ng-controller="ArchivesController">
-	<br />
 	<input type="text" placeholder="Filter" style="width: 100%" ng-model="searchText" />
 	<p>
 		<span ng-repeat="post in posts | filter:searchText"> <a href="/{{ post.slug }}/">{{ post.title }}</a> </span>
