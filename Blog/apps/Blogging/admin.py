@@ -10,7 +10,7 @@ class PostModelForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ['slug']
-        fields = ['title', 'date', 'description', 'published', 'body']
+        fields = ['title', 'date', 'description', 'published', 'body', 'image_url']
 
 
 class PostAdmin(admin.ModelAdmin):
