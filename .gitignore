@@ -1,7 +1,5 @@
-*.pyc
 .idea
-tmp/*
-**/migrations/*
-production.py
-prod_manage.py
-prod_static
+*.pyc
+bower
+*.sqlite3
+prod_settings.py
