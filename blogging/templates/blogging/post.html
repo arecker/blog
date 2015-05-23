@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    <p>Title: {{ post.title }}</p>
-    <p>Slug: {{ post.slug }}</p>
-    <p>Description: {{ post.description}}</p>
-    <img src="{{ post.image_url }}" alt=""/>
-</body>
-</html>
+{% extends "common/base.html" %}
+{% block body %}
+    <h1>{{ post.title }}</h1>
+{% endblock %}

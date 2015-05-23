@@ -2,7 +2,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'swiggity swooty'
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*',]
 
 INSTALLED_APPS = (
@@ -16,6 +16,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Other Extensions
+    'djangobower',
 
     # Apps
     'blogging'
@@ -67,6 +70,16 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-STATICFILE_DIRS = (
-    os.path.join(BASE_DIR, 'static')
+STATICFILES_FINDERS = (
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    'djangobower.finders.BowerFinder',
+)
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'bower')
+BOWER_INSTALLED_APPS = (
+    'angular',
 )
