@@ -8,5 +8,6 @@ django-compressor==1.5
 django-epiceditor==0.2.3
 django-flat-theme==0.9.3
 djangorestframework==3.1.2
+gunicorn==19.3.0
 six==1.9.0
 wsgiref==0.1.2
