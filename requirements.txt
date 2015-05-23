@@ -1,0 +1,4 @@
+Django==1.8.2
+argparse==1.2.1
+django-flat-theme==0.9.3
+wsgiref==0.1.2
