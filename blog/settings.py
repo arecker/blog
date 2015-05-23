@@ -93,3 +93,9 @@ BOWER_INSTALLED_APPS = (
 REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
+
+
+try:
+    from prod_settings import *
+except ImportError:
+    pass
