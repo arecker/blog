@@ -1,1 +1,20 @@
-* { font-family: 'Monospace' !important; }
+.main  {
+    max-width: 650px;
+    margin-top: 3em;
+    margin-bottom: 3em;
+}
+
+figure img {
+    display: block;
+    height: auto;
+    margin: 2em auto 1em;
+    max-width: 100%;
+}
+
+figcaption {
+    font-size: 90%;
+    font-style: italic;
+    margin: 0 auto 2em;
+    max-width: 80%;
+    text-align: center;
+}

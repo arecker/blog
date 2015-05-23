@@ -5,7 +5,9 @@
     {% include "common/head.html" %}
 </head>
 <body>
-    {% block body %}{% endblock %}
+    <div class="main container-fluid">
+        {% block body %}{% endblock %}
+    </div>
     {% include "common/scripts.html" %}
 </body>
 </html>

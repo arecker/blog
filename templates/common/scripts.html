@@ -1,4 +1,28 @@
 {% load static %}
+{% load compress %}
+{% compress js %}
 <script type="text/javascript" src="{% static 'angular/angular.js' %}"></script>
 {% block scripts %}
 {% endblock %}
+{% endcompress %}
+{% compress js inline %}
+<script type="text/javascript">
+    var appendScripts = function(){
+        var paths = [
+            '{% static "js/ga.js" %}'
+        ], i, element;
+        for (i=0 ; i<paths.length ; i++){
+            element = document.createElement('script');
+            element.src = paths[i];
+            document.body.appendChild(element);
+        }
+    };
+    if (window.addEventListener){
+        window.addEventListener("load", appendScripts, false);
+    } else if (window.attachEvent){
+        window.attachEvent("onload", appendScripts);
+    } else {
+        window.onload = appendScripts;
+    }
+</script>
+{% endcompress %}

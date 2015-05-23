@@ -19,6 +19,9 @@ INSTALLED_APPS = (
 
     # Other Extensions
     'djangobower',
+    'compressor',
+    'epiceditor',
+    'rest_framework',
 
     # Apps
     'blogging'
@@ -70,10 +73,12 @@ USE_L10N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'prod_static')
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     'djangobower.finders.BowerFinder',
+    'compressor.finders.CompressorFinder',
 )
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
@@ -82,4 +87,9 @@ STATICFILES_DIRS = (
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'bower')
 BOWER_INSTALLED_APPS = (
     'angular',
+    'bootswatch-dist#sandstone'
 )
+
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10
+}
