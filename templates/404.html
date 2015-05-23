@@ -1,1 +1,11 @@
-not found, man.
+{% extends "common/base.html" %}
+{% block body %}
+<figure class="image">
+    {% load static %}
+    <img src="{% static 'img/cardgage.png' %}" alt="sir or madame" />
+    <caption>Four... oh... Four... those all numbers, aren't they?</caption>
+</figure>
+<div class="container-fluid text-center">
+    <h1>Page Not Found</h1>
+</div>
+{% endblock %}

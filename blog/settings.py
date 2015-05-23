@@ -3,6 +3,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'swiggity swooty'
 DEBUG = True
+COMPRESS_ENABLED = False
 ALLOWED_HOSTS = ['*',]
 
 INSTALLED_APPS = (
