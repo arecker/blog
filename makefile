@@ -5,6 +5,8 @@ all:
 
 install:
 	pip install -r requirements.txt
+	npm install
 
 test:
 	python manage.py test
+	grunt
