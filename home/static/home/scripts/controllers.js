@@ -1,13 +1,13 @@
 home
     .controller('latestController', function($scope, postService){
-        postService.fetchLatest().success(function(response){
-			$scope.post = response.results[0];
+        postService.fetchLatest().success(function(posts){
+			$scope.post = posts[0];
 	    });
     })
 
     .controller('archivesController', function($scope, postService){
-	    postService.fetchArchives().success(function(response){
-	        $scope.posts = response.results;
+	    postService.fetchArchives().success(function(posts){
+	        $scope.posts = posts;
 	    });
     })
 

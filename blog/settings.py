@@ -93,9 +93,9 @@ BOWER_INSTALLED_APPS = (
     'barberboy/vollkorn'
 )
 
-REST_FRAMEWORK = {
-    'PAGE_SIZE': 10
-}
+#REST_FRAMEWORK = {
+#    'PAGE_SIZE': 10
+#}
 
 
 try:
