@@ -3,7 +3,7 @@ python: "2.7"
 env: DJANGO_VERSION=1.8
 install:
   - sudo apt-get install -y nodejs
-  - sudo npm install -g bower
+  - sudo $(which npm) install -g bower
   - pip install -r requirements.txt
 script:
   - make
