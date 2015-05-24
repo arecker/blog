@@ -11,10 +11,8 @@
 <div class="page-header">
     <h1>{{ post.title }}</h1>
 </div>
-<p>
     {% autoescape off %}
     {{ post.body_html }}
     {% endautoescape %}
-</p>
 {% include "blogging/comments.html" %}
 {% endblock %}
