@@ -1,10 +1,32 @@
 from django.test import TestCase
+from django.conf import settings
 from .models import Post
 import datetime
+import os
 
 
 class PostTests(TestCase):
+    fixtures = [
+        os.path.join(settings.BASE_DIR, 'blogging', 'fixtures', 'posts.json')
+    ]
+
+
+    def test_natural_order(self):
+        """
+        Posts should naturally come back in order of newest to oldest
+        """
+        posts = Post.objects.all()
+        self.assertTrue(len(posts) > 1)
+        cursor = datetime.date.today()
+        for p in Post.objects.all():
+            self.assertTrue(p.date <= cursor)
+            cursor = p.date
+
+
     def test_convert_alts_to_captions(self):
+        """
+        Alt tags in markdown should be converted to figurecaptions
+        """
         def remove_white(str):
             return str.replace('\n', '').replace(' ', '')
 
@@ -23,5 +45,4 @@ class PostTests(TestCase):
         """
 
         actual = post.body_html
-
         self.assertTrue(remove_white(expected) in remove_white(actual))

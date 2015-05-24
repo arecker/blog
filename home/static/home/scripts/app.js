@@ -1,4 +1,4 @@
-(function(){
+(function(angular){
     angular.module('home', ['ngRoute']).config(function($routeProvider){
         $routeProvider.when('/', {
             templateUrl: '/static/home/views/latest.html',
@@ -11,4 +11,4 @@
             controller: 'subscribeController'
         });
     });
-}());
+}(angular));

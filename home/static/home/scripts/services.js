@@ -1,4 +1,4 @@
-(function(){
+(function(angular){
     angular.module('home').factory('postService', function($http){
         var postEndpoint = '/api/posts/';
         return {
@@ -10,4 +10,4 @@
             }
         };
     });
-}());
+}(angular));

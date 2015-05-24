@@ -2,9 +2,17 @@
     font-family: 'Vollkorn' !important;
 }
 
+.fa {
+    font-family: 'FontAwesome' !important;
+}
+
 p {
     margin-bottom: 2em;
     font-size: 18px;
+}
+
+.page-header, .nav {
+    margin-bottom: 2em;
 }
 
 .main  {

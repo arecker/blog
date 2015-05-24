@@ -90,12 +90,9 @@ BOWER_INSTALLED_APPS = (
     'angular',
     'angular-route',
     'bootswatch-dist#sandstone',
-    'barberboy/vollkorn'
+    'barberboy/vollkorn',
+    'fontawesome'
 )
-
-#REST_FRAMEWORK = {
-#    'PAGE_SIZE': 10
-#}
 
 
 try:

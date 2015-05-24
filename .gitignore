@@ -4,4 +4,3 @@ bower
 *.sqlite3
 prod_settings.py
 prod_static
-fixtures
