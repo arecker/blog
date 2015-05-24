@@ -1,4 +1,5 @@
-home.factory('postService', function($http){
+(function(){
+    angular.module('home').factory('postService', function($http){
         var postEndpoint = '/api/posts/';
         return {
             'fetchLatest': function(){
@@ -9,3 +10,4 @@ home.factory('postService', function($http){
             }
         };
     });
+}());
