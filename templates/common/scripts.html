@@ -1,6 +1,7 @@
 {% load static %}
 <script type="text/javascript" src="{% static 'angular/angular.js' %}"></script>
 <script type="text/javascript" src="{% static 'angular-route/angular-route.js' %}"></script>
+{% load compress %}
 {% compress js inline %}
 <script type="text/javascript">
     var appendScripts = function(){
