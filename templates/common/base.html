@@ -9,9 +9,9 @@
     <div class="main container-fluid">
         {% block body %}{% endblock %}
     </div>
-    {% include "common/scripts.html" %}
     {% load compress %}
     {% compress js %}
+    {% include "common/scripts.html" %}
     {% block scripts %}{% endblock %}
     {% endcompress %}
 </body>
