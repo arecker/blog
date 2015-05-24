@@ -1,1 +1,5 @@
-<h1>archives</h1>
+<dl ng-repeat="post in posts">
+    <dt><a ng-href="/{{ post.slug }}">{{ post.title }}</a></dt>
+    <dd>{{ post.description }}</dd>
+    <dd><em>{{ post.date | date: 'MMMM d, yyyy'}}</em></dd>
+</dl>
