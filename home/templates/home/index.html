@@ -3,4 +3,9 @@
 <div class="page-header">
     <h1>Blog <small>by Alex Recker</small></h1>
 </div>
+<div ng-view></div>
+{% endblock %}
+{% block scripts %}
+{% load static %}
+<script type="text/javascript" src="{% static 'home/scripts/app.js' %}"></script>
 {% endblock %}

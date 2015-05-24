@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="blog">
 <head>
     <meta charset="UTF-8">
     {% include "common/head.html" %}
@@ -10,5 +10,9 @@
         {% block body %}{% endblock %}
     </div>
     {% include "common/scripts.html" %}
+    {% load compress %}
+    {% compress js %}
+    {% block scripts %}{% endblock %}
+    {% endcompress %}
 </body>
 </html>
