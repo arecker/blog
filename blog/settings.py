@@ -2,7 +2,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'swiggity swooty'
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*',]
 
 INSTALLED_APPS = (
@@ -24,7 +24,8 @@ INSTALLED_APPS = (
     'rest_framework',
 
     # Apps
-    'blogging'
+    'blogging',
+    'home'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -87,7 +88,8 @@ STATICFILES_DIRS = (
 BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'bower')
 BOWER_INSTALLED_APPS = (
     'angular',
-    'bootswatch-dist#sandstone'
+    'bootswatch-dist#sandstone',
+    'barberboy/vollkorn'
 )
 
 REST_FRAMEWORK = {

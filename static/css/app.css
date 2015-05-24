@@ -1,3 +1,12 @@
+* {
+    font-family: 'Vollkorn' !important;
+}
+
+p {
+    margin-bottom: 2em;
+    font-size: 18px;
+}
+
 .main  {
     max-width: 650px;
     margin-top: 3em;
