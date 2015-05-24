@@ -1,7 +1,10 @@
 language: python
 python: "2.7"
 env: DJANGO_VERSION=1.8
-install: pip install -r requirements.txt
+install:
+  - sudo apt-get install -y nodejs nodejs-legacy
+  - sudo npm install -g bower
+  - pip install -r requirements.txt
 script:
   - make
   - make test
