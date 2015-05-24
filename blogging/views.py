@@ -11,5 +11,12 @@ def view_post(request, slug):
 
 
 class PostViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Post.objects.filter(published=True)
     serializer_class = PostSerializer
+    queryset = Post.objects.filter(published=True)
+
+    def get_queryset(self):
+        queryset = Post.objects.filter(published=True)
+        latest = self.request.query_params.get('latest', None)
+        if latest:
+            queryset = [queryset[0],]
+        return queryset
