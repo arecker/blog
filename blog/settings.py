@@ -25,6 +25,7 @@ INSTALLED_APPS = (
 
     # Apps
     'blogging',
+    'subscribing',
     'home'
 )
 
