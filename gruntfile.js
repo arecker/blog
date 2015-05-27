@@ -2,7 +2,6 @@ module.exports = function(grunt){
     grunt.initConfig({
 	jshint: {
 	    all: [
-		'./static/js/app.js',
 		'./*/static/*/scripts/*'
 	    ],
 	    options: {
