@@ -3,9 +3,6 @@ python: "2.7"
 env: DJANGO_VERSION=1.8
 install:
   - npm install -g bower grunt grunt-cli
-script:
-  - make install
-  - make test
-  - make
+script: tox
 notifications:
   email: false
