@@ -74,6 +74,12 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAdminUser',
+    )
+}
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'prod_static')
 STATICFILES_FINDERS = (

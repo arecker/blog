@@ -3,6 +3,7 @@ from .models import Post
 from .serializers import PostSerializer
 from .feed import RSSFeed
 from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
 
 
 def view_post(request, slug):
@@ -19,6 +20,7 @@ def view_post_feed(request):
 class PostViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.filter(published=True)
+    permission_classes = (AllowAny,)
 
     def get_queryset(self):
         queryset = Post.objects.filter(published=True)
