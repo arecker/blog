@@ -5,12 +5,15 @@
         <h1>Unsubscribe</h1>
         <p>Just click the big red button and I'll never bother you again.</p>
     </div>
-    <button class="btn btn-lrg btn-danger">Leave me alone!</button>
+    {% include "subscribing/ngUnsubscribe.html" %}
 </div>
 {% endblock %}
 {% block scripts %}
 <script>
-    UNSUBSCRIBE_KEY = {{ key }};
+    UNSUBSCRIBE_KEY = '{{ key }}';
 </script>
 {% load static %}
+<script type="text/javascript" src="{% static 'subscribing/scripts/app.js' %}"></script>
+<script type="text/javascript" src="{% static 'subscribing/scripts/controller.js' %}"></script>
+<script type="text/javascript" src="{% static 'subscribing/scripts/services.js' %}"></script>
 {% endblock %}
