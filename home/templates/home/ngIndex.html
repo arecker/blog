@@ -1,8 +1,4 @@
 {% verbatim %}
-<ul class="nav nav-pills" ng-controller="homeNavbarController">
-      <li role="presentation" ng-class="{ active: isActive('/')}"><a href="#/">Latest</a></li>
-      <li role="presentation" ng-class="{ active: isActive('/archives')}"><a href="#/archives">Archives</a></li>
-      <li role="presentation" ng-class="{ active: isActive('/subscribe')}"><a href="#/subscribe">Subscribe</a></li>
-    </ul><br/>
+<home-navbar></home-navbar>
 <div ng-view></div>
 {% endverbatim %}
