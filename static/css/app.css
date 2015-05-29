@@ -2,6 +2,10 @@
     font-family: 'Vollkorn' !important;
 }
 
+pre {
+    font-family: 'Monospace' !important;
+}
+
 .fa {
     font-family: 'FontAwesome' !important;
 }

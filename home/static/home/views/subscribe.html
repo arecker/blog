@@ -1,6 +1,11 @@
 <div class="row">
     <div class="col-md-6">
-        <p>I'll send you an email every time I do something new. Don't worry - you can unsubscribe at any time.</p>
+      <div
+         class="alert"
+         role="alert"
+         ng-class="{ 'alert-warning': alert === -1 , 'alert-danger': alert === -2, 'alert-success': alert === 1 }"
+         ng-bind="message">
+      </div>
         <p class="text-muted"><i class="fa fa-rss"></i> <a href="/feed/">Get RSS Feed</a></p>
     </div>
     <div class="col-md-6">

@@ -11,6 +11,18 @@
                     return $http.get(postEndpoint);
                 }
             };
+        })
+
+	.factory('subscriberService', function($http){
+            var subscriberEndpoint = '/api/subscribers/';
+            return {
+                create: function(email, fullText){
+                    return $http.post(subscriberEndpoint, {
+                        'email': email,
+                        'full_text': fullText
+                    });
+                }
+            };
         });
     
 }(angular));
