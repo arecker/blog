@@ -1,14 +1,18 @@
 from rest_framework import viewsets
 from rest_framework.permissions import BasePermission, IsAdminUser
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response, Http404
 from .models import Subscriber
 from .serializers import SubscriberSerializer
 
 
 def get_unsubscribe_view(request, key=None):
-    return render_to_response('subscribing/unsubscribe.html', {
-        'key': get_object_or_404(Subscriber, key=key).key
-    })
+    try:
+        Subscriber.objects.get(key=key)
+        return render_to_response('subscribing/unsubscribe.html', {
+            'key': key
+        })
+    except:
+        raise Http404()
 
 
 class SubscriberEndpointPermission(BasePermission):
