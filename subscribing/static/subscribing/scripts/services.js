@@ -8,7 +8,7 @@
                     var endPoint = '/api/subscribers/';
                     return $http.delete(endPoint + key);
                 }
-            }
+            };
         });
     
 }(angular));
