@@ -2,8 +2,8 @@
     font-family: 'Vollkorn' !important;
 }
 
-pre {
-    font-family: 'Monospace' !important;
+pre, code {
+    font-family: "Courier New", Courier, monospace !important;
 }
 
 .fa {
