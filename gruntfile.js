@@ -2,7 +2,7 @@ module.exports = function(grunt){
     grunt.initConfig({
 	jshint: {
 	    all: [
-		'./*/static/*/scripts/*'
+		'./*/static/*/scripts/*.js'
 	    ],
 	    options: {
 		curly: true,

@@ -7,7 +7,7 @@
                 restrict: 'E',
                 controller: 'homeNavbarController',
                 templateUrl: '/static/home/scripts/homeNavbar.html'
-            }
+            };
         });
     
 }(angular));
