@@ -3,7 +3,7 @@ from blogging.models import Post
 from .email import PostEmail
 import uuid
 import logging
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('django')
 
 
 class Subscriber(models.Model):
