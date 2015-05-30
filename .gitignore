@@ -6,4 +6,3 @@ prod_settings.py
 prod_static
 node_modules
 .tox
-temp/*
