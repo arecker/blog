@@ -1,5 +1,5 @@
 import PyRSS2Gen
-from models import Post
+from .models import Post
 import datetime
 
 
