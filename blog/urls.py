@@ -1,6 +1,6 @@
 from django.conf.urls import include, url
 from django.contrib import admin
-from api import router
+from .api import router
 from home.views import HomeIndexView
 from subscribing.views import get_unsubscribe_view
 
