@@ -190,10 +190,12 @@ ul li, ol li {
 					<td>
 						<h1><a href="http://alexrecker.com/{{ post.slug }}/">{{ post.title }}</a></h1>
 						<p>{{post.description }}</p>
-                        <img src="{{ post.image_url }}" alt="{{ post.title }}"/>
+                        <img height="200px" src="{{ post.image_url }}" alt="{{ post.title }}"/>
                         <hr/>
                         {% if subscriber.full_text %}
-                        {{ post.body_html }}
+						{% autoescape off %}
+        		        {{ post.body_html }}
+                        {% endautoescape %}
                         {% endif %}
 					</td>
 				</tr>
