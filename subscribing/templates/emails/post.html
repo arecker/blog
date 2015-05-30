@@ -3,7 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>{{ data.post.title }} | Blog by Alex Recker</title>
+<title>{{ post.title }} | Blog by Alex Recker</title>
 <style>
 /* -------------------------------------
 		GLOBAL
@@ -188,12 +188,12 @@ ul li, ol li {
 			<table>
 				<tr>
 					<td>
-						<h1><a href="http://alexrecker.com/{{ data.post.slug }}/">{{ data.post.title }}</a></h1>
-						<p>{{ data.post.description }}</p>
-                        <img src="{{ data.post.image_url }}" alt="{{ data.post.title }}"/>
+						<h1><a href="http://alexrecker.com/{{ post.slug }}/">{{ post.title }}</a></h1>
+						<p>{{post.description }}</p>
+                        <img src="{{ post.image_url }}" alt="{{ post.title }}"/>
                         <hr/>
-                        {% if data.subscriber.full_text %}
-                        {{ data.post.body_html }}
+                        {% if subscriber.full_text %}
+                        {{ post.body_html }}
                         {% endif %}
 					</td>
 				</tr>
@@ -218,7 +218,7 @@ ul li, ol li {
 				<table>
 					<tr>
 						<td align="center">
-							<p>Sick of these emails? <a href="http://alexrecker.com/unsubscribe/{{ data.subscriber.key }}/"><unsubscribe>Unsubscribe</unsubscribe></a>.
+							<p>Sick of these emails? <a href="http://alexrecker.com/unsubscribe/{{ subscriber.key }}/"><unsubscribe>Unsubscribe</unsubscribe></a>.
 							</p>
 						</td>
 					</tr>
