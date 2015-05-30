@@ -17,7 +17,10 @@ from django.utils.text import slugify
 from django.core import mail
 from django.utils import timezone
 import re
-import urlparse
+try:
+    from urlparse import urlparse
+except ImportError:
+    from urllib.parse import urlparse
 
 from subscribing.models import Subscriber, PostNewsletter
 from blogging.models import Post
@@ -74,7 +77,7 @@ class PostSubscriberTest(APITestCase):
         line = [ l for l in mail.outbox[0].body.splitlines() if 'Unsubscribe here' in l ][0]
         urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)
         self.assertEqual(len(urls), 1)
-        url = urlparse.urlparse(urls[0]).path
+        url = urlparse(urls[0]).path
         key = url.rsplit('/', 2)[1]
         return key
 
