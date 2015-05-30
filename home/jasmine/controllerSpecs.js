@@ -12,12 +12,6 @@ describe('home:controllers', function(){
 
         beforeEach(function () {
 
-            mockDependency = {
-                create: function () {
-                    
-                }
-            };
-
             var mockSubscriberService = function(){
                 this.create = function(email, fullText){
                     this._email = email;
