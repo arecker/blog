@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     'compressor',
     'epiceditor',
     'rest_framework',
+    'django_nose',
 
     # Apps
     'blogging',
@@ -60,6 +61,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'blog.wsgi.application'
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 DATABASES = {
     'default': {

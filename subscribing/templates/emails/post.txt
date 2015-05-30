@@ -1,11 +1,11 @@
-{{ data.post.title }}
+{{ post.title }}
 Blog by Alex Recker
-http://alexrecker.com/{{ data.post.slug }}/
+http://alexrecker.com/{{ post.slug }}/
 
-{% if data.subscriber.full_text %}
-{{ data.post.body }}
+{% if subscriber.full_text %}
+{{ post.body }}
 {% endif %}
 -----------------------------------------------------
 Check out my RSS feed -> http://alexrecker.com/feed/
-Sick of this?  Unsubscribe here -> http://alexrecker.com/unsubscribe/{{ data.subscriber.key }}/
+Sick of this?  Unsubscribe here -> http://alexrecker.com/unsubscribe/{{ subscriber.key }}/
 
