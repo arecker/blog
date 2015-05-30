@@ -3,6 +3,7 @@ module.exports = function(grunt){
         
 	jshint: {
 	    all: [
+                './static/scripts/*.js',
 		'./*/static/*/scripts/*.js',
                 './*/jasmine/*.js'
 	    ],
@@ -21,7 +22,10 @@ module.exports = function(grunt){
         
         jasmine: {
             pivotal: {
-                src: './*/static/*/scripts/*.js',
+                src: [
+                    './static/scripts/*.js',
+                    './*/static/*/scripts/*.js',
+                ],
                 options: {
                     specs: './*/jasmine/*.js',
                     vendor: [

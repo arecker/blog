@@ -1,5 +1,5 @@
 (function(angular){
-    angular.module('home', ['ngRoute'])
+    angular.module('home', ['ngRoute', 'shared'])
     
         .config(function($routeProvider, $httpProvider){
 

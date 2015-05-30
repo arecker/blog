@@ -1,6 +1,6 @@
 (function(angular){
 
-    angular.module('unsubscribe', [])
+    angular.module('unsubscribe', ['shared'])
 
         .config(function($httpProvider){
             $httpProvider.defaults.xsrfCookieName = 'csrftoken';

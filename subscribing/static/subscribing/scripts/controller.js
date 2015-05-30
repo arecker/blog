@@ -2,11 +2,11 @@
 
     angular.module('unsubscribe')
 
-        .controller('mainController', function($scope, unsubscribeService){
+        .controller('mainController', function($scope, subscriberService){
             $scope.showEmail = false;
             $scope.disable = false;
             $scope.hitIt = function(){
-                unsubscribeService.delete(UNSUBSCRIBE_KEY)
+                subscriberService.delete(UNSUBSCRIBE_KEY)
                     .success(function(){
                         $scope.message = 'Alrighty - you\'re all done with me.  I\'ll miss you!';
                         $scope.disable = true;

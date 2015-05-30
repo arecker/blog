@@ -2,13 +2,13 @@
     angular.module('home')
 
         .controller('latestController', function($scope, postService){
-            postService.fetchLatest().success(function(posts){
+            postService.latest().success(function(posts){
                 $scope.post = posts[0];
             });
         })
 
         .controller('archivesController', function($scope, postService){
-            postService.fetchArchives().success(function(posts){
+            postService.list().success(function(posts){
                 $scope.posts = posts;
 	    });
         })
