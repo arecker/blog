@@ -96,6 +96,7 @@ BOWER_COMPONENTS_ROOT = os.path.join(BASE_DIR, 'bower')
 BOWER_INSTALLED_APPS = (
     'angular',
     'angular-route',
+    'angular-mocks',
     'bootswatch-dist#sandstone',
     'barberboy/vollkorn',
     'fontawesome'

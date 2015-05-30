@@ -1,8 +1,10 @@
 module.exports = function(grunt){
     grunt.initConfig({
+        
 	jshint: {
 	    all: [
-		'./*/static/*/scripts/*.js'
+		'./*/static/*/scripts/*.js',
+                './*/jasmine/*.js'
 	    ],
 	    options: {
 		curly: true,
@@ -15,8 +17,25 @@ module.exports = function(grunt){
 		maxparams: 5,
 		futurehostile: true
 	    }
-	}
+	},
+        
+        jasmine: {
+            pivotal: {
+                src: './*/static/*/scripts/*.js',
+                options: {
+                    specs: './*/jasmine/*.js',
+                    vendor: [
+                        'bower/bower_components/angular/angular.js',
+                        'bower/bower_components/angular-route/angular-route.js',
+                        'bower/bower_components/angular-mocks/angular-mocks.js'
+                    ]
+                }
+            }
+        }
+        
     });
+    
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.registerTask('default', ['jshint']);
+    grunt.loadNpmTasks('grunt-contrib-jasmine')
+    grunt.registerTask('default', ['jshint', 'jasmine']);
 };
