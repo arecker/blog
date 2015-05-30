@@ -2,8 +2,6 @@ from django.db import models
 from blogging.models import Post
 from .email import PostEmail
 import uuid
-import logging
-logger = logging.getLogger('django')
 
 
 class Subscriber(models.Model):
@@ -32,5 +30,11 @@ class PostNewsletter(models.Model):
             for sub in Subscriber.objects.all():
                 PostEmail(sub, self.post).send()
                 self.send_on_save = False
-                logging.info('PostNewsletter {0} sent to {1}'.format(self.post.title, sub.email))
+                self._log(sub)
         super(PostNewsletter, self).save()
+
+
+    def _log(self, sub):
+        import logging
+        logger = logging.getLogger()
+        logger.info('PostNewsletter {0} sent to {1}'.format(self.post.title, sub.email))
