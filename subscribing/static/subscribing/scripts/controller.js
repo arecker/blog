@@ -3,14 +3,18 @@
     angular.module('unsubscribe')
 
         .controller('mainController', function($scope, unsubscribeService){
+            $scope.showEmail = false;
+            $scope.disable = false;
             $scope.hitIt = function(){
                 unsubscribeService.delete(UNSUBSCRIBE_KEY)
                     .success(function(){
-                        alert('gone!');
+                        $scope.message = 'Alrighty - you\'re all done with me.  I\'ll miss you!';
+                        $scope.disable = true;
                     })
 
                     .error(function(e){
-                        console.log(e);
+                        $scope.message = 'Crap.  Something went wrong.  Try to unsubscribe later, or just send me an email';
+                        $scope.showEmail = true;
                     });
             };
         });
