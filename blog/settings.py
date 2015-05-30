@@ -64,7 +64,7 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'temp', 'db.sqlite3'),
     }
 }
 
@@ -100,6 +100,10 @@ BOWER_INSTALLED_APPS = (
     'barberboy/vollkorn',
     'fontawesome'
 )
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'temp')
+EMAIL_FROM = 'alex@reckerfamily.com'
 
 
 try:

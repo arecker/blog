@@ -1,0 +1,11 @@
+{{ data.post.title }}
+Blog by Alex Recker
+http://alexrecker.com/{{ data.post.slug }}/
+
+{% if data.subscriber.full_text %}
+{{ data.post.body }}
+{% endif %}
+-----------------------------------------------------
+Check out my RSS feed -> http://alexrecker.com/feed/
+Sick of this?  Unsubscribe here -> http://alexrecker.com/unsubscribe/{{ data.subscriber.key }}/
+
