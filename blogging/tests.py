@@ -1,5 +1,8 @@
 from django.test import TestCase
 from django.conf import settings
+from rest_framework.test import APITestCase
+from rest_framework.test import APIClient
+from rest_framework import status
 from .models import Post
 import datetime
 import os
@@ -46,3 +49,34 @@ class PostTests(TestCase):
 
         actual = post.body_html
         self.assertTrue(remove_white(expected) in remove_white(actual))
+
+
+class PostAPITests(APITestCase):
+    fixtures = [
+        os.path.join(settings.BASE_DIR, 'blogging', 'fixtures', 'posts.json')
+    ]
+
+
+    def setUp(self):
+        self.client = APIClient()
+
+
+    def test_list(self):
+        response = self.client.get('/api/posts/', format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), Post.objects.all().count())
+
+
+    def test_forbidden_post(self):
+        response = self.client.post('/api/posts/', {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+    def test_forbidden_delete(self):
+        response = self.client.delete('/api/posts/rockford/', format='json')
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+    def test_forbidden_put(self):
+        response = self.client.put('/api/posts/rockford/', {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
