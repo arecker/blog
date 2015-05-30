@@ -8,7 +8,36 @@ describe('home:controllers', function(){
 
     describe('subscribeController', function(){
 
-        var $scope, mockSubscriberService;
+        var $scope;
+
+        beforeEach(function () {
+
+            mockDependency = {
+                create: function () {
+                    
+                }
+            };
+
+            var mockSubscriberService = function(){
+                this.create = function(email, fullText){
+                    this._email = email;
+                    this._fullText = fullText;
+
+                    return {
+                        success: function(){
+                            return {
+                                error: function(){}
+                            };
+                        }
+                    };
+                };
+            };
+
+            module(function ($provide) {
+                $provide.value('subscriberService', new mockSubscriberService());
+            });
+
+        });
 
         beforeEach(inject(function($rootScope, $controller){
             $scope = $rootScope.$new();
@@ -22,13 +51,16 @@ describe('home:controllers', function(){
             expect(actual).toBe(expected);
         });
 
-        // it('should pass the email and full text setting to the service', function(){
-        //     $scope.subscriber = {};
-        //     $scope.subscriber.email = 'test@email.com';
-        //     $scope.subscriber.fullText = true;
+        it('should pass the email and full text setting to the service', inject(function(subscriberService){
+            $scope.subscriber = {};
+            $scope.subscriber.email = 'test@email.com';
+            $scope.subscriber.fullText = true;
 
-        //     $scope.subscribeFormSubmit();
-        // });
+            $scope.subscribeFormSubmit();
+
+            expect(subscriberService._email).toBe('test@email.com');
+            expect(subscriberService._fullText).toBe(true);
+        }));
         
     });
 });
