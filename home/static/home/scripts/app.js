@@ -1,11 +1,8 @@
 (function(angular){
     angular.module('home', ['ngRoute', 'shared'])
     
-        .config(function($routeProvider, $httpProvider){
+        .config(function($routeProvider){
 
-            $httpProvider.defaults.xsrfCookieName = 'csrftoken';
-            $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-            
             $routeProvider
             
                 .when('/', {
