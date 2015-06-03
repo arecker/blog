@@ -51,6 +51,10 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                # Custom processors
+                'blog.processors.analytics',
+
+                # Regular processors
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -59,17 +63,6 @@ TEMPLATES = [
         },
     },
 ]
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    # Build in processors
-    "django.core.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-
-    # Custom processors
-    "blog.processors.analytics",
-)
 
 WSGI_APPLICATION = 'blog.wsgi.application'
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

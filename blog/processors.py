@@ -1,5 +1,6 @@
 from django.conf import settings
 
+
 def analytics(request):
     """
     Inject google analytics tracking code into context
