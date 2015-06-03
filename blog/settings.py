@@ -53,6 +53,7 @@ TEMPLATES = [
             'context_processors': [
                 # Custom processors
                 'blog.processors.analytics',
+                'blog.processors.domain',
 
                 # Regular processors
                 'django.template.context_processors.debug',
@@ -108,6 +109,8 @@ BOWER_INSTALLED_APPS = (
     'fontawesome'
 )
 
+
+SITE_DOMAIN = 'alexrecker.com'
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'temp')
 EMAIL_FROM = 'alex@reckerfamily.com'

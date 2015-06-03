@@ -13,3 +13,13 @@ def analytics(request):
             'GOOGLE_ANALYTICS_DOMAIN': ga_domain,
         }
     return {}
+
+
+def domain(request):
+    """
+    Inject site domain into context
+    """
+    domain = getattr(settings, 'SITE_DOMAIN', 'localhost:8000')
+    return {
+        'SITE_DOMAIN': domain
+    }

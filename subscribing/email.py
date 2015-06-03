@@ -12,7 +12,8 @@ class PostEmail(object):
 
         data = Context({
             'subscriber': subscriber,
-            'post': post
+            'post': post,
+            'SITE_DOMAIN': settings.SITE_DOMAIN # TODO: Crap
         })
 
         text_content = get_template('emails/post.txt').render(data)
