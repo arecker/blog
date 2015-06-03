@@ -18,6 +18,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
     ordering = ['-date']
     form = PostModelForm
+    prepopulated_fields = { 'slug': ['title']}
 
 
 admin.site.register(models.Post, PostAdmin)
