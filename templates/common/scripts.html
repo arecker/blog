@@ -1,25 +1,3 @@
 {% load static %}
 <script type="text/javascript" src="{% static 'angular/angular.js' %}"></script>
 <script type="text/javascript" src="{% static 'angular-route/angular-route.js' %}"></script>
-{% load compress %}
-{% compress js inline %}
-<script type="text/javascript">
-    var appendScripts = function(){
-        var paths = [
-            '{% static "resources/ga.js" %}'
-        ], i, element;
-        for (i=0 ; i<paths.length ; i++){
-            element = document.createElement('script');
-            element.src = paths[i];
-            document.body.appendChild(element);
-        }
-    };
-    if (window.addEventListener){
-        window.addEventListener("load", appendScripts, false);
-    } else if (window.attachEvent){
-        window.attachEvent("onload", appendScripts);
-    } else {
-        window.onload = appendScripts;
-    }
-</script>
-{% endcompress %}

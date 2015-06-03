@@ -14,5 +14,8 @@
     {% include "common/scripts.html" %}
     {% block scripts %}{% endblock %}
     {% endcompress %}
+    {% if GOOGLE_ANALYTICS_PROPERTY_ID %}
+    {% include "common/analytics.html" %}
+    {% endif %}
 </body>
 </html>

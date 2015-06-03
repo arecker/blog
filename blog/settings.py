@@ -60,6 +60,17 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+    # Build in processors
+    "django.core.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+
+    # Custom processors
+    "blog.processors.analytics",
+)
+
 WSGI_APPLICATION = 'blog.wsgi.application'
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
@@ -108,6 +119,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'temp')
 EMAIL_FROM = 'alex@reckerfamily.com'
 
+GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-42540208-6'
+GOOGLE_ANALYTICS_DOMAIN = 'alexrecker.com'
 
 try:
     from prod_settings import *

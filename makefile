@@ -10,3 +10,6 @@ test:
 	npm install
 	grunt
 	python manage.py test
+
+run:
+	python manage.py runserver
