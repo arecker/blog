@@ -67,6 +67,12 @@ class PostAPITests(APITestCase):
         self.assertEqual(len(response.data), Post.objects.all().count())
 
 
+    def test_list_latest(self):
+        response = self.client.get('/api/posts/?latest=true', format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
+
+
     def test_forbidden_post(self):
         response = self.client.post('/api/posts/', {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
@@ -80,3 +86,20 @@ class PostAPITests(APITestCase):
     def test_forbidden_put(self):
         response = self.client.put('/api/posts/rockford/', {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+class PostAPIEmptyTests(APITestCase):
+    """
+    ensures the API is ok if there is no
+    Issue #18
+    """
+    def test_list(self):
+        response = self.client.get('/api/posts/', format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
+
+
+    def test_list_latest(self):
+        response = self.client.get('/api/posts/?latest=true', format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)

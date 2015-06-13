@@ -26,5 +26,8 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
         queryset = Post.objects.filter(published=True)
         latest = self.request.query_params.get('latest', None)
         if latest:
-            queryset = [queryset[0],]
+            if queryset.count() > 0:
+                queryset = [queryset[0],]
+            else:
+                queryset = []
         return queryset
