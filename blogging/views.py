@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, get_object_or_404, HttpResponse
 from .models import Post
-from .serializers import PostSerializer
+from .serializers import PostSerializer, PostDetailSerializer
 from .feed import RSSFeed
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
@@ -22,6 +22,7 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Post.objects.filter(published=True)
     permission_classes = (AllowAny,)
 
+    
     def get_queryset(self):
         queryset = Post.objects.filter(published=True)
         latest = self.request.query_params.get('latest', None)
@@ -31,3 +32,10 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
             else:
                 queryset = []
         return queryset
+
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return PostSerializer
+        else:
+            return PostDetailSerializer
