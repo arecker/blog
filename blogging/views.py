@@ -19,19 +19,15 @@ def view_post_feed(request):
 
 class PostViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PostSerializer
-    queryset = Post.objects.filter(published=True)
+    queryset = Post.objects.published()
     permission_classes = (AllowAny,)
 
     
     def get_queryset(self):
-        queryset = Post.objects.filter(published=True)
         latest = self.request.query_params.get('latest', None)
         if latest:
-            if queryset.count() > 0:
-                queryset = [queryset[0],]
-            else:
-                queryset = []
-        return queryset
+            return Post.objects.latest_published()
+        return Post.objects.published()
 
 
     def get_serializer_class(self):

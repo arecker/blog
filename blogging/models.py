@@ -5,6 +5,22 @@ import markdown
 import bs4
 
 
+class PostManager(models.Manager):
+    def published(self):
+        return super(models.Manager, self).filter(published=True)
+
+    
+    def latest_published(self):
+        """
+        will return a one item list
+        becuase the API is expecting something iterable
+        """
+        published = self.published()
+        if published.count() < 1:
+            return []
+        return [ published.latest() ]
+            
+
 class Post(models.Model):
     title = models.CharField(max_length=120, unique=True)
     slug = models.SlugField(max_length=120, unique=True)
@@ -14,6 +30,7 @@ class Post(models.Model):
     body = models.TextField(blank=True, null=True)
     image_url = models.URLField(verbose_name='Image URL', blank=True, null=True)
 
+    objects = PostManager()
 
     def __unicode__(self):
         return self.title
@@ -59,3 +76,4 @@ class Post(models.Model):
 
     class Meta:
         ordering = ('-date',)
+        get_latest_by = 'date'
