@@ -18,6 +18,11 @@
                 .when('/subscribe', {
                     templateUrl: '/static/home/views/subscribe.html',
                     controller: 'subscribeController'
+                })
+
+                .when('/projects', {
+                    templateUrl: '/static/home/views/projects.html',
+                    controller: 'projectsController'
                 });
             
         });

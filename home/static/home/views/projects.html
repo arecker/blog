@@ -1,0 +1,11 @@
+<div class="row">
+  <div ng-repeat="project in projects" class="col-sm-6 col-md-4">
+    <a ng-href="{{ project.url }}">
+      <img width="200px" class="thumbnail" alt="{{ project.name }}" ng-src="{{ project.image }}" />
+    </a>
+    <div class="caption">
+      <h3>{{ project.name }}</h3>
+      <p>{{ project.description }}</p>
+    </div>
+  </div>
+</div>

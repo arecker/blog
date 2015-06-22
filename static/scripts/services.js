@@ -27,6 +27,15 @@
                     return $http.get(endPoint + '?latest=true');
                 }
             };
+        })
+
+        .factory('projectService', function($http){
+            var endPoint = '/api/projects/';
+            return {
+                list: function(){
+                    return $http.get(endPoint);
+                }
+            };
         });
     
 }(angular));

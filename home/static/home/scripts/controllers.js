@@ -48,6 +48,12 @@
             };
         })
 
+        .controller('projectsController', function($scope, projectService){
+            projectService.list().success(function(data){
+                $scope.projects = data;
+            });
+        })
+
         .controller('homeNavbarController', function($scope, $location){
             $scope.isActive = function(path){
                 return path === $location.path();
