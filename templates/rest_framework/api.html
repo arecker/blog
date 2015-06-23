@@ -1,1 +1,8 @@
 {% extends "rest_framework/base.html" %}
+{% block bootstrap_theme %}
+<link rel="stylesheet" href="http://bootswatch.com/united/bootstrap.min.css" type="text/css">
+{% endblock %}
+{% block branding %}
+<a class="navbar-brand" href="//{{ SITE_DOMAIN }}">Blog by Alex Recker</a>
+{% endblock %}
+
