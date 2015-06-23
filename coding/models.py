@@ -8,6 +8,7 @@ class Project(models.Model):
     image = models.ImageField(upload_to='coding/project', null=True, blank=True)
     url = models.URLField(verbose_name='URL', blank=True, null=True)
     added = models.DateField(default=timezone.now)
+    repo = models.URLField(verbose_name='Repository', blank=True, null=True)
 
 
     def __unicode__(self):

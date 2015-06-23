@@ -9,5 +9,6 @@ class ProjectSerializer(serializers.ModelSerializer):
             'name',
             'description',
             'image',
-            'url'
+            'url',
+            'repo'
         )
