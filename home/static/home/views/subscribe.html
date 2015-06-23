@@ -6,7 +6,9 @@
          ng-class="{ 'alert-warning': alert === -1 , 'alert-danger': alert === -2, 'alert-success': alert === 1 }"
          ng-bind="message">
       </div>
-        <p class="text-muted"><i class="fa fa-rss"></i> <a href="/feed/">Get RSS Feed</a></p>
+      <p>
+        <a class="btn btn-sm btn-primary" href="/feed/"><i class="fa fa-rss"></i> Get Feed</a>
+      </p>
     </div>
     <div class="col-md-6">
         <form name="subscribeForm" ng-submit="subscribeFormSubmit()">
