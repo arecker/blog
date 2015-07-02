@@ -32,7 +32,6 @@ class PostSubscriberTest(APITestCase):
         self.email = 'jonnystorm@gmail.com'
         self.full_text = False
 
-
     def _subscribe(self):
         data = {
             'email': self.email,
@@ -43,13 +42,11 @@ class PostSubscriberTest(APITestCase):
         self.assertEqual(Subscriber.objects.count(), 1)
         self.assertIsNotNone(Subscriber.objects.first().key)
 
-
     def _unsubscribe(self, key):
         count = Subscriber.objects.count()
         response = self.client.delete('/api/subscribers/{0}/'.format(key))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Subscriber.objects.count(), count - 1)
-
 
     def _create_post(self, title):
         count = Post.objects.count()
@@ -61,7 +58,6 @@ class PostSubscriberTest(APITestCase):
         self.assertEqual(Post.objects.count(), count + 1)
         return p
 
-
     def _create_newsletter(self, post):
         count = PostNewsletter.objects.count()
         n = PostNewsletter()
@@ -71,16 +67,20 @@ class PostSubscriberTest(APITestCase):
         n.save()
         self.assertEqual(PostNewsletter.objects.count(), count + 1)
 
-
     def _get_key_from_email(self):
         self.assertEqual(len(mail.outbox), 1)
-        line = [ l for l in mail.outbox[0].body.splitlines() if 'Unsubscribe here' in l ][0]
-        urls = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)
+        line = [
+            l for l in mail.outbox[0]
+            .body
+            .splitlines() if 'Unsubscribe here' in l][0]
+        urls = re.findall(
+            'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+',
+            line
+        )
         self.assertEqual(len(urls), 1)
         url = urlparse(urls[0]).path
         key = url.rsplit('/', 2)[1]
         return key
-
 
     def test_it(self):
         self._subscribe()
