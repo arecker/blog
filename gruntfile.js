@@ -30,6 +30,7 @@ module.exports = function(grunt){
                     specs: './*/jasmine/*.js',
                     vendor: [
                         'bower/bower_components/angular/angular.js',
+                        'bower/bower_components/ngInfiniteScroll/build/ng-infinite-scroll.min.js',
                         'bower/bower_components/angular-route/angular-route.js',
                         'bower/bower_components/angular-mocks/angular-mocks.js'
                     ]
@@ -40,6 +41,6 @@ module.exports = function(grunt){
     });
     
     grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-jasmine')
+    grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.registerTask('default', ['jshint', 'jasmine']);
 };
