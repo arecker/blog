@@ -15,9 +15,15 @@
                         $scope.posts,
                         data.results
                     );
+                    $scope.stopScrolling = $scope.posts.length >= data.count;
                 });
             };
-            $scope.nextPage();
+            $scope.filterType = function(){
+                $scope.stopScrolling = true;
+                postService.list().success(function(posts){
+                    $scope.posts = posts;
+                });
+            };
         })
 
         .controller('subscribeController', function($scope, subscriberService){

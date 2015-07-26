@@ -20,7 +20,7 @@
         .factory('postService', function($http){
             var endPoint = '/api/posts/',
                 nextPageEndpoint,
-                pageSize = 5,
+                pageSize = 20,
                 advancePage = function(url, params){
                     return $http.get(url, params).success(function(data){
                         nextPageEndpoint = data.next;
