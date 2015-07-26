@@ -8,9 +8,16 @@
         })
 
         .controller('archivesController', function($scope, postService){
-            postService.list().success(function(posts){
-                $scope.posts = posts;
-	    });
+            $scope.posts = [];
+            $scope.nextPage = function(){
+                postService.nextPage().success(function(data){
+                    Array.prototype.push.apply(
+                        $scope.posts,
+                        data.results
+                    );
+                });
+            };
+            $scope.nextPage();
         })
 
         .controller('subscribeController', function($scope, subscriberService){

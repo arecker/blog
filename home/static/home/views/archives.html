@@ -2,8 +2,10 @@
   <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
   <input ng-model="filterText" type="text" class="form-control" aria-describedby="basic-addon1">
 </div><br/>
-<dl ng-repeat="post in posts | filter: filterText">
+<div infinite-scroll='nextPage()' infinite-scroll-distance='2'>
+  <dl ng-repeat="post in posts | filter: filterText">
     <dt><a ng-href="/{{ post.slug }}">{{ post.title }}</a></dt>
     <dd>{{ post.description }}</dd>
     <dd><em>{{ post.date | date: 'MMMM d, yyyy'}}</em></dd>
-</dl>
+  </dl>
+</div>

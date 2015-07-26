@@ -1,5 +1,5 @@
 (function(angular){
-    angular.module('home', ['ngRoute', 'shared'])
+    angular.module('home', ['ngRoute', 'infinite-scroll', 'shared'])
     
         .config(function($routeProvider){
 

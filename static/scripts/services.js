@@ -18,13 +18,32 @@
         })
 
         .factory('postService', function($http){
-            var endPoint = '/api/posts/';
+            var endPoint = '/api/posts/',
+                nextPageEndpoint,
+                pageSize = 5,
+                advancePage = function(url, params){
+                    return $http.get(url, params).success(function(data){
+                        nextPageEndpoint = data.next;
+                    });
+                };
+            
             return {
                 list: function(){
                     return $http.get(endPoint);
                 },
+                nextPage: function(){
+                    if (nextPageEndpoint){
+                        return advancePage(nextPageEndpoint);
+                    } else {
+                        return advancePage(endPoint, {
+                            params: { limit: pageSize }
+                        });
+                    }
+                },
                 latest: function(){
-                    return $http.get(endPoint + '?latest=true');
+                    return $http.get(endPoint, {
+                        params: { latest: true }
+                    });
                 }
             };
         })
