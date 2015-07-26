@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import permalink
+from django.core.urlresolvers import reverse
 from django.utils import timezone
 import markdown
 import bs4
@@ -38,13 +38,8 @@ class Post(models.Model):
     def __unicode__(self):
         return self.title
 
-    @permalink
     def get_absolute_url(self):
-        return (
-            'view_blog_post',
-            None,
-            {'slug': self.slug}
-        )
+        return reverse('view_blog_post', args=[str(self.slug)])
 
     @property
     def body_html(self):
