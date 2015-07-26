@@ -7,7 +7,7 @@ import datetime
 class RSSFeed:
     def __init__(self):
         items = []
-        for post in Post.objects.filter(published=True):
+        for post in Post.objects.published():
             items.append(PyRSS2Gen.RSSItem(
                 title=post.title,
                 link='http://{0}/{1}/'.format(settings.SITE_DOMAIN, post.slug),
