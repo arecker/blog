@@ -5,11 +5,15 @@ from . import models
 
 
 class PostModelForm(forms.ModelForm):
-    body = forms.CharField(widget=AdminEpicEditorWidget(themes={'editor':'epic-light.css'}))
+    body = forms.CharField(
+        widget=AdminEpicEditorWidget(
+            themes={'editor': 'epic-light.css'}
+        )
+    )
 
     class Meta:
         model = models.Post
-        fields = ['title', 'slug', 'date', 'published', 'description', 'image_url', 'body']
+        exclude = []
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -18,7 +22,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'description')
     ordering = ['-date']
     form = PostModelForm
-    prepopulated_fields = { 'slug': ['title']}
+    prepopulated_fields = {'slug': ['title']}
 
 
 admin.site.register(models.Post, PostAdmin)
