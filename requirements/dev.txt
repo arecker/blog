@@ -1,0 +1,8 @@
+# Blessed version of Django
+Django==1.8.3
+
+-r common.txt
+
+# Dev packages
+ipdb
+ipython
