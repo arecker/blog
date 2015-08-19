@@ -18,7 +18,14 @@ class Author(models.Model):
         return self.name
 
 
+class PostQuerySet(models.QuerySet):
+    def published(self):
+        return self.filter(published=True)
+
+
 class Post(models.Model):
+    objects = PostQuerySet.as_manager()
+
     author = models.ForeignKey(Author)
     title = models.CharField(max_length=120, unique=True)
     slug = models.SlugField(max_length=120, unique=True)
@@ -44,7 +51,7 @@ class Post(models.Model):
         null=True,
         blank=True
     )
-    meta_image = models.ImageField(
+    meta_image_file = models.ImageField(
         verbose_name='Meta Image',
         upload_to='metas/',
         null=True,
@@ -52,6 +59,18 @@ class Post(models.Model):
     )
 
     # Helpers
+    @property
+    def meta_image(self):
+        if self.meta_image_file:
+            return self.meta_image_file.url
+        return self.meta_image_url
+
+    @property
+    def cover_image(self):
+        if self.cover_image_file:
+            return self.cover_image_file.url
+        return self.cover_image_url
+
     @classmethod
     def convert_alts_to_captions(cls, html):
         """

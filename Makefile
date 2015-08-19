@@ -10,3 +10,5 @@ migrate:
 	${manage} migrate
 run:
 	${manage} runserver
+test:
+	${manage} test
