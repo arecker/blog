@@ -8,6 +8,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
     # Admin plugins
+    'flat',
 
     # Builtins
     'django.contrib.admin',
