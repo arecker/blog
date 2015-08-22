@@ -27,7 +27,10 @@
   </head>
   <body>
     {% include "navigation.html" %}
-    {% block body %}
+    {% block header %}
+    {% include "header.html" %}
+    {% endblock %}
+    {% block content %}
     {% endblock %}
   </body>
 </html>

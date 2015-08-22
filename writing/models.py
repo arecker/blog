@@ -1,21 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 
 import markdown
 import bs4
-
-
-class Author(models.Model):
-    user = models.OneToOneField(User)
-
-    @property
-    def name(self):
-        return self.user.username
-
-    def __unicode__(self):
-        return self.name
 
 
 class PostQuerySet(models.QuerySet):
@@ -26,7 +14,6 @@ class PostQuerySet(models.QuerySet):
 class Post(models.Model):
     objects = PostQuerySet.as_manager()
 
-    author = models.ForeignKey(Author)
     title = models.CharField(max_length=120, unique=True)
     slug = models.SlugField(max_length=120, unique=True)
     date = models.DateField(default=timezone.now)

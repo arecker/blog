@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Author, Post
+from .models import Post
 from .forms import PostModelForm
 
 
@@ -14,5 +14,4 @@ class PostAdmin(admin.ModelAdmin):
     form = PostModelForm
 
 
-admin.site.register(Author)
 admin.site.register(Post, PostAdmin)
