@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 
+from uuid import uuid4
 import markdown
 import bs4
 
@@ -14,6 +15,12 @@ class PostQuerySet(models.QuerySet):
 class Post(models.Model):
     objects = PostQuerySet.as_manager()
 
+    uuid = models.UUIDField(
+        primary_key=True,
+        default=uuid4,
+        unique=True,
+        editable=False
+    )
     title = models.CharField(max_length=120, unique=True)
     slug = models.SlugField(max_length=120, unique=True)
     date = models.DateField(default=timezone.now)

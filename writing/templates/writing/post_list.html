@@ -6,5 +6,17 @@
 {% include 'header.html' with heading='archives' subheading='by Alex Recker' %}
 {% endblock %}
 {% block content %}
+{% if object_list %}
 {% include 'writing/post_page.html' with posts=object_list pager=page_obj %}
+{% else %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="page-header text-center">
+        <h1>(nothing here right now)</h1>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endblock %}
