@@ -5,7 +5,7 @@
 <meta name="description" content="{{ object.description }}" />
 <meta property="og:description" content="{{ object.description }}" />
 <meta property="og:image" content="{{ object.meta_image }}" />
-<meta property="og:url" content="http://{{ SITE_DOMAIN }}{{ object.get_absolute_url }}/" />
+<meta property="og:url" content="http://{{ SITE_DOMAIN }}{{ object.get_absolute_url }}" />
 {% endblock %}
 {% block header %}
 {% include 'header.html' with heading=object.title subheading=object.description date=object.date post=True image=object.cover_image %}
