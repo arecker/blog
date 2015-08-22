@@ -1,12 +1,14 @@
-<!-- Page Header -->
 <header class="intro-header" style="background-image: url('http://ilikewall.com/wp-content/uploads/2015/05/black-wallpapers.jpg')">
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="site-heading">
-          <h1>blog</h1>
+          <h1>{{ heading }}</h1>
           <hr class="small">
-          <span class="subheading">by Alex Recker</span>
+          <span class="subheading">{{ subheading }}</span>
+          {% if date %}
+          <span class="meta">{{ date | date }}</span>
+          {% endif %}
         </div>
       </div>
     </div>

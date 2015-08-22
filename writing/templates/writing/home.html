@@ -1,52 +1,7 @@
 {% extends "base.html" %}
+{% block header %}
+{% include 'header.html' with heading='blog' subheading='by Alex Recker' %}
+{% endblock %}
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            Bedbugs
-          </h2>
-          <h3 class="post-subtitle">
-            An embittered account of our war with orchid knoll over bedbugs. You decide who the real parasite is!
-          </h3>
-        </a>
-        <p class="post-meta">Posted by <a href="#">Alex Recker</a> on July 24, 2015</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            Rockford
-          </h2>
-          <h3 class="post-subtitle">
-            Farewell, Rockford. It was a pleasure being your citizen for two years.
-          </h3>
-        </a>
-        <p class="post-meta">Posted by <a href="#">Alex Recker</a> on April 8, 2015</p>
-      </div>
-      <hr>
-      <div class="post-preview">
-        <a href="post.html">
-          <h2 class="post-title">
-            Sports
-          </h2>
-          <h3 class="post-subtitle">
-            You are probably expecting a 'you suck if you are watching the superbowl' post. You're wrong, reader. I'm turning over a new leaf. I'm ready to rejoin society with new found empathy.
-          </h3>
-        </a>
-        <p class="post-meta">Posted by <a href="#">Alex Recker</a> on February 1, 2015</p>
-      </div>
-      <hr>
-      <hr>
-      <!-- Pager -->
-      <ul class="pager">
-        <li class="next">
-          <a href="{% url 'post-list' %}">Older Posts &rarr;</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
+{% include "writing/post_page.html" with posts=posts %}
 {% endblock %}

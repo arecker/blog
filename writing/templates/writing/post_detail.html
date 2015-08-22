@@ -1,7 +1,20 @@
 {% extends "base.html" %}
+{% block header %}
+{% include 'header.html' with heading=object.title subheading=object.description date=object.date %}
+{% endblock %}
 {% block content %}
-<h1>{{ object.title }}</h1>
-{% autoescape off %}
-{{ object.body_html }}
-{% endautoescape %}
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        {% autoescape off %}
+        {{ object.body_html }}
+        {% endautoescape %}
+      </div>
+    </div>
+  </div>
+</article>
+{% endblock %}
+{% block footer %}
+{% include "footer.html" with comments=1 %}
 {% endblock %}

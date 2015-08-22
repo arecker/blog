@@ -2,10 +2,9 @@
 {% block meta_title %}
 <title>Archives | Blog by Alex Recker</title>
 {% endblock %}
+{% block header %}
+{% include 'header.html' with heading='archives' subheading='by Alex Recker' %}
+{% endblock %}
 {% block content %}
-<ul>
-  {% for post in object_list %}
-  <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
+{% include 'writing/post_page.html' with posts=object_list %}
 {% endblock %}

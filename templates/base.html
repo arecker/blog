@@ -32,5 +32,13 @@
     {% endblock %}
     {% block content %}
     {% endblock %}
+    {% block footer %}
+    {% include "footer.html" %}
+    {% endblock %}
+    {% block scripts %}
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/clean-blog.min.js' %}"></script>
+    {% endblock %}
   </body>
 </html>
