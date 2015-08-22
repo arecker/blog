@@ -1,6 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render_to_response, HttpResponse
+from django.template import RequestContext
 
 from viewing.models import Photo
 from .models import Post
@@ -18,10 +19,10 @@ def index(request):
 
     return render_to_response(
         'writing/home.html',
-        context={
+        RequestContext(request, {
             'posts': posts,
             'image': image
-        }
+        })
     )
 
 
