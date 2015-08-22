@@ -17,21 +17,23 @@ class BaseEmail(object):
         self.content = content
 
     def mass_send(self):
-        try:
-            message = (
+        messages = []
+        for r in self.recipients:
+            messages.append((
                 self.subject,
                 self.content,
                 self.sender,
-                self.recipients,
-            )
-            send_mass_mail((message, ))
+                [r],
+            ))
+        try:
+            send_mass_mail(tuple(messages))
             logger.info('Emailed "{0}" to {1}'.format(
                 self.subject, len(self.recipients)
             ))
 
         except Exception as e:
             logger.error('Error sending "{0}": {1}'.format(
-                self.subject, self.recipients[0], e.message
+                self.subject, e.message
             ))
 
     def send(self):
