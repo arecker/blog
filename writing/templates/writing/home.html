@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base.html" %}{% load static %}
 {% block header %}
 {% include 'header.html' with heading='blog' subheading='by Alex Recker' %}
 {% endblock %}
@@ -14,7 +14,7 @@
       <p>
         Thanks for visiting.  Make yourself at home!
       </p>
-      <img class="img-circle" alt="portrait" src="http://media.alexrecker.com/images/portrait.jpg"/>
+      <img class="img-circle" alt="portrait" src="{% static 'img/portrait.jpg' %}"/>
       <hr/>
     </div>
   </div>
