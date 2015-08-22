@@ -21,10 +21,12 @@ INSTALLED_APPS = (
 
     # 3rd Party
     'pagedown',
+    'django_forms_bootstrap',
 
     # Apps
     'writing',
     'viewing',
+    'subscribing'
 )
 
 MIDDLEWARE_CLASSES = (

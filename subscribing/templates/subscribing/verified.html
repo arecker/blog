@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block header %}
+{% include 'header.html' with heading='verified' subheading='' %}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="page-header text-center">
+        <h1>Your email has been verified</h1>
+        <p>It turns out you <em>are</em> a human after all.  Thanks for letting me check!</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

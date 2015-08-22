@@ -1,0 +1,11 @@
+Hi There!
+
+I saw you recently subscribed to my site, {{ SITE_DOMAIN }}.  I really appreciate that.  Readers like you are the lifeblood of a blog.
+
+Could you do me a quick favor?  I need to verify that you are a human being.  Just click the link below, then we should be all good.
+
+http://{{ SITE_DOMAIN }}{% url 'verify' subscriber.key %}
+
+Thanks,
+
+Alex
