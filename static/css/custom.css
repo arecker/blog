@@ -12,3 +12,11 @@ figcaption {
     max-width: 80%;
     text-align: center;
 }
+
+.post-heading, .site-heading, .subheading, .post-heading .meta {
+    text-shadow: 0px 0px 3px #000;
+}
+
+.site-heading hr {
+    display: none;
+}

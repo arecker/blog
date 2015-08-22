@@ -23,6 +23,7 @@ INSTALLED_APPS = (
 
     # Apps
     'writing',
+    'viewing',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -77,6 +78,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+MEDIA_URL = '/media/'
 
 SITE_DOMAIN = 'alexrecker.com'
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block header %}
-{% include 'header.html' with heading=object.title subheading=object.description date=object.date post=True %}
+{% include 'header.html' with heading=object.title subheading=object.description date=object.date post=True image=object.cover_image %}
 {% endblock %}
 {% block content %}
 <article>
