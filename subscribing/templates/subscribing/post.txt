@@ -1,0 +1,13 @@
+Hey Friends,
+
+I posted a new blog article entitled "{{ post.title }}".  You can read it here:
+
+http://{{ SITE_DOMAIN }}{{ post.get_absolute_url }}
+
+Thanks,
+
+Alex
+
+**************************************************************************
+Sick of getting these emails?  You can always go here to unsubscribe:
+http://{{ SITE_DOMAIN }}{% url 'unsubscribe' subscriber.key %}

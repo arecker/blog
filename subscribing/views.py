@@ -20,6 +20,12 @@ def subscribe(request):
     )
 
 
+def unsubscribe(request, key):
+    subscriber = Subscriber.objects.get(pk=key)
+    subscriber.delete()
+    return render_to_response('subscribing/goodbye.html', {})
+
+
 def verify(self, key=None):
     subscriber = Subscriber.objects.get(pk=key)
     subscriber.verify()

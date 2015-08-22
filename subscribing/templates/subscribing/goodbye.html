@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block header %}
+{% include 'header.html' with heading='unsubscribe' subheading='' %}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="page-header">
+        <h1>You have been unscubscribed from my mailing list</h1>
+        <p>
+          Sorry to see you go, friend.  But I get it - I know it's you and not me.
+        </p>
+        <p>
+          If you got here by mistake, you can subscribe again <a href="{% url 'subscribe' %}">here.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

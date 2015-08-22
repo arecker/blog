@@ -6,18 +6,23 @@ from . import views
 
 urlpatterns = [
     url(
-        r'^subscribe/$',
+        r'^$',
         views.subscribe,
         name='subscribe'
     ),
     url(
-        r'^subscribe/thanks/$',
+        r'^thanks/$',
         TemplateView.as_view(template_name='subscribing/thanks.html'),
         name='subscribe-thanks'
     ),
     url(
-        r'^subscribe/verify/(?P<key>[^/]+)/$',
+        r'^verify/(?P<key>[^/]+)/$',
         views.verify,
         name='verify'
+    ),
+    url(
+        r'^unsubscribe/(?P<key>[^/]+)/$',
+        views.unsubscribe,
+        name='unsubscribe'
     )
 ]

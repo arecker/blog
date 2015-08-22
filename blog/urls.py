@@ -25,6 +25,6 @@ urlpatterns = [
     ),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include('subscribing.urls')),
+    url(r'^subscribe/', include('subscribing.urls')),
     url(r'^', include('writing.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

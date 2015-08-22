@@ -3,7 +3,7 @@ import logging
 
 from uuid import uuid4
 
-from .email import VerifySubscriberEmail
+from .email import VerifySubscriberEmail, PostEmail
 
 
 logger = logging.getLogger()
@@ -37,6 +37,9 @@ class Subscriber(models.Model):
             logger.error('error verifying {0}: {1}'.format(
                 self.email, e.message
             ))
+
+    def send_post(self, post):
+        PostEmail(self, post).send()
 
     def __unicode__(self):
         return self.email
