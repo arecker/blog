@@ -77,7 +77,7 @@ class Post(models.Model):
             <figcaption>This is an image</figcaption>
         </figure>
         """
-        soup = bs4.BeautifulSoup(html)
+        soup = bs4.BeautifulSoup(html, "html.parser")
         imgs = soup.find_all('img')
         for tag in imgs:
             try:
