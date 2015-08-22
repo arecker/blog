@@ -6,5 +6,5 @@
 {% include 'header.html' with heading='archives' subheading='by Alex Recker' %}
 {% endblock %}
 {% block content %}
-{% include 'writing/post_page.html' with posts=object_list %}
+{% include 'writing/post_page.html' with posts=object_list pager=page_obj %}
 {% endblock %}
