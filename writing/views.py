@@ -1,9 +1,10 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, HttpResponse
 
 from viewing.models import Photo
 from .models import Post
+from .feed import RSSFeed
 
 
 def index(request):
@@ -22,6 +23,11 @@ def index(request):
             'image': image
         }
     )
+
+
+def feed(request):
+    stream = RSSFeed()
+    return HttpResponse(stream.write(), content_type='application/xml')
 
 
 class PostListView(ListView):

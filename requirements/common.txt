@@ -2,3 +2,4 @@ Markdown==2.6.2
 beautifulsoup4==4.4.0
 Pillow==2.9.0
 django-flat-theme==0.9.5
+PyRSS2Gen==1.1

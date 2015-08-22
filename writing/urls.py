@@ -10,6 +10,11 @@ urlpatterns = [
         name='home'
     ),
     url(
+        r'^feed/$',
+        views.feed,
+        name='feed'
+    ),
+    url(
         r'^archives/$',
         views.PostListView.as_view(),
         name='post-list'
