@@ -1,7 +1,6 @@
 from django.core.mail import send_mass_mail, send_mail
 from django.conf import settings
 from django.template.loader import get_template
-from django.template import Context
 
 import logging
 
@@ -77,3 +76,15 @@ class PostEmail(BaseEmail):
             recipients=[subscriber.email, ],
             content=content
         )
+
+
+class NewsletterEmail(BaseEmail):
+    def __init__(self, newsletter, recipients):
+        super(NewsletterEmail, self).__init__(
+            subject=newsletter.subject,
+            recipients=[r.email for r in recipients],
+            content=newsletter.content
+        )
+
+    def send(self):
+        super(NewsletterEmail, self).mass_send()

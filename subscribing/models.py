@@ -3,7 +3,7 @@ import logging
 
 from uuid import uuid4
 
-from .email import VerifySubscriberEmail, PostEmail
+from .email import VerifySubscriberEmail, PostEmail, NewsletterEmail
 
 
 logger = logging.getLogger()
@@ -43,3 +43,14 @@ class Subscriber(models.Model):
 
     def __unicode__(self):
         return self.email
+
+
+class Newsletter(models.Model):
+    subject = models.CharField(max_length=200)
+    content = models.TextField(blank=True)
+
+    def send(self, recipients):
+        NewsletterEmail(self, recipients).send()
+
+    def __unicode__(self):
+        return self.subject
