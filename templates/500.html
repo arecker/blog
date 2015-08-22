@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block header %}
+{% include 'header.html' with heading='' subheading='' static_image='img/bsod.jpg' %}
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <div class="page-header">
+        <h1>Crap</h1>
+        <p>
+          Something bad happened.  Don't worry - I've already told your mother about it.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

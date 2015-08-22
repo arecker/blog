@@ -1,5 +1,8 @@
 {% if image %}
 <header class="intro-header" style="background-image: url({{ image }})">
+{% load static %}
+{% elif static_image %}
+<header class="intro-header" style="background-image: url({% static static_image %})">
 {% else %}
 {% load static %}
 <header class="intro-header" style="background-image: url('{% static 'img/black.jpg' %}')">

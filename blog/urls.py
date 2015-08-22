@@ -28,3 +28,15 @@ urlpatterns = [
     url(r'^subscribe/', include('subscribing.urls')),
     url(r'^', include('writing.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += [
+        url(
+            r'^testing/404/$',
+            TemplateView.as_view(template_name='404.html')
+        ),
+        url(
+            r'^testing/500/$',
+            TemplateView.as_view(template_name='500.html')
+        )
+    ]
