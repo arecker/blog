@@ -1,10 +1,10 @@
 {% load staticfiles %}
 {% if image %}
-<header class="intro-header lazy" data-original="{{ image }}" style="background-image: url('{% static 'img/black.jpg' %}')">
+<header class="intro-header lazy" data-original="{{ image }}">
 {% elif static_image %}
-<header class="intro-header lazy" data-original="{% static static_image %}" style="background-image: url({% static 'img/black.jpg' %})">
+<header class="intro-header lazy" data-original="{% static static_image %}">
 {% else %}
-<header class="intro-header" style="background-image: url('{% static 'img/black.jpg' %}')">
+<header class="intro-header lazy" data-original="{% static 'img/black.jpg' %}">
 {% endif %}
   <div class="container">
     <div class="row">
