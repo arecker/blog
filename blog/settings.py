@@ -22,6 +22,7 @@ INSTALLED_APPS = (
     # 3rd Party
     'pagedown',
     'django_forms_bootstrap',
+    'compressor',
 
     # Apps
     'writing',
@@ -83,8 +84,14 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'prod_static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
+)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
