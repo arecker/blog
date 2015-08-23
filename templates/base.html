@@ -44,7 +44,8 @@
     {% compress js %}
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/clean-blog.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lazyload.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
     {% endcompress %}
     {% if GOOGLE_ANALYTICS_PROPERTY_ID %}
     {% compress js inline %}
