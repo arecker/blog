@@ -4,7 +4,7 @@
 <meta property="og:title" content="{{ object.title }} | Blog by Alex Recker" />
 <meta name="description" content="{{ object.description }}" />
 <meta property="og:description" content="{{ object.description }}" />
-<meta property="og:image" content="{{ object.meta_image }}" />
+<meta property="og:image" content="http://{{ SITE_DOMAIN}}{{ object.meta_image }}" />
 <meta property="og:url" content="http://{{ SITE_DOMAIN }}{{ object.get_absolute_url }}" />
 {% endblock %}
 {% block header %}
