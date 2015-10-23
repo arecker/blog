@@ -1,6 +1,7 @@
 from django.views.generic import ListView, DetailView
 from django.shortcuts import render_to_response, HttpResponse
 from django.template import RequestContext
+from django.http import Http404
 
 from viewing.models import Photo
 from .models import Post
@@ -50,6 +51,6 @@ class PostDetailView(DetailView):
         authenticated = self.request.user.is_authenticated()
 
         if not published and not authenticated:
-            raise Post.DoesNotExist
+            raise Http404
 
         return context
