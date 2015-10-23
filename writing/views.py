@@ -1,5 +1,4 @@
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
+from django.views.generic import ListView, DetailView
 from django.shortcuts import render_to_response, HttpResponse
 from django.template import RequestContext
 
@@ -41,3 +40,16 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        '''
+        only display previews if the user is authenticated
+        '''
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        published = context['post'].published
+        authenticated = self.request.user.is_authenticated()
+
+        if not published and not authenticated:
+            raise Post.DoesNotExist
+
+        return context
