@@ -2,6 +2,8 @@ from django.core.mail import send_mass_mail, send_mail
 from django.conf import settings
 from django.template.loader import get_template
 
+from post_office import mail
+
 import logging
 
 
@@ -37,13 +39,12 @@ class BaseEmail(object):
             ))
 
     def send(self):
+        self.recipients = ['alex@reckerfamily.com', ]
         try:
-            send_mail(
-                self.subject,
-                self.content,
-                self.sender,
-                self.recipients
-            )
+            mail.send(self.recipients,
+                      self.sender,
+                      self.subject,
+                      self.content)
         except Exception as e:
             logger.error('Error sending "{0}" to {1}: {2}'.format(
                 self.subject, self.recipients[0], e.message

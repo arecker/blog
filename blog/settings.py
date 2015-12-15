@@ -23,6 +23,8 @@ INSTALLED_APPS = (
     'pagedown',
     'django_forms_bootstrap',
     'compressor',
+    'sorl.thumbnail',
+    'post_office',
 
     # Apps
     'writing',
