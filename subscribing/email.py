@@ -39,7 +39,6 @@ class BaseEmail(object):
             ))
 
     def send(self):
-        self.recipients = ['alex@reckerfamily.com', ]
         try:
             mail.send(self.recipients,
                       self.sender,
