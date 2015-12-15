@@ -43,8 +43,8 @@ class BaseEmail(object):
         try:
             mail.send(self.recipients,
                       self.sender,
-                      self.subject,
-                      self.content)
+                      subject=self.subject,
+                      message=self.content)
         except Exception as e:
             logger.error('Error sending "{0}" to {1}: {2}'.format(
                 self.subject, self.recipients[0], e.message
