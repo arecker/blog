@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from post_office.admin import Email, Log, EmailTemplate
 from .models import Subscriber, Newsletter
 
 
@@ -33,3 +33,6 @@ class SubscriberAdmin(admin.ModelAdmin):
 
 admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(Newsletter, NewsletterAdmin)
+admin.site.unregister(Email)
+admin.site.unregister(Log)
+admin.site.unregister(EmailTemplate)
