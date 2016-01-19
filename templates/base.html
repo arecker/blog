@@ -31,6 +31,11 @@
     <![endif]-->
   </head>
   <body>
+    {% if FACEBOOK_APP_ID %}
+    {% compress js inline %}
+    {% include "facebook.html" %}
+    {% endcompress %}
+    {% endif %}
     {% include "navigation.html" %}
     {% block header %}
     {% include "header.html" %}

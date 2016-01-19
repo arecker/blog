@@ -15,6 +15,16 @@ def analytics(request):
     return {}
 
 
+def facebook(request):
+    """
+    Inject facebook app id into context
+    """
+    fb_id = getattr(settings, 'FACEBOOK_APP_ID', False)
+    if not settings.DEBUG and fb_id:
+        return {'FACEBOOK_APP_ID': fb_id}
+    return {}
+
+
 def domain(request):
     """
     Inject site domain into context

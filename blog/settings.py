@@ -63,6 +63,7 @@ TEMPLATES = [
                 # Custom Processors
                 'blog.processors.analytics',
                 'blog.processors.domain',
+                'blog.processors.facebook',
             ],
         },
     },
@@ -106,6 +107,7 @@ EMAIL_FROM = 'alex@reckerfamily.com'
 
 GOOGLE_ANALYTICS_PROPERTY_ID = 'UA-42540208-6'
 GOOGLE_ANALYTICS_DOMAIN = 'alexrecker.com'
+FACEBOOK_APP_ID = '1959693110922779'
 
 try:
     from prod_settings import *
