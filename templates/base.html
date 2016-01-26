@@ -13,6 +13,7 @@
     <meta property="og:description" content="Hi - I'm Alex.  I like writing words." />
     <meta property="og:image" content="http://{{ SITE_DOMAIN }}{% static 'img/portrait.jpg' %}" />
     <meta property="og:url" content="http://{{ SITE_DOMAIN }}/" />
+    <meta property="fb:app_id" content="{{ FACEBOOK_APP_ID }}" />
     {% endblock %}
     {% compress css %}
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet"/>
