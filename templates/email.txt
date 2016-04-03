@@ -1,0 +1,6 @@
+{{ body }}
+
+Subscriber: {{ recipient.email }}
+
+Verify Link: {{ recipient.verify_link }}
+Unsubscribe Link: {{ recipient.unsubscribe_link }}
