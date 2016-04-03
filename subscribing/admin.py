@@ -58,3 +58,11 @@ class EmailAdmin(admin.ModelAdmin):
 
 admin.site.register(Subscriber, SubscriberAdmin)
 admin.site.register(Email, EmailAdmin)
+
+try:
+    from mailer.models import Message, DontSendEntry, MessageLog
+    admin.site.unregister(Message)
+    admin.site.unregister(DontSendEntry)
+    admin.site.unregister(MessageLog)
+except ImportError:
+    pass
