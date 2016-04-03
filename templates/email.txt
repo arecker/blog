@@ -1,6 +1,6 @@
 {{ body }}
 
-Subscriber: {{ recipient.email }}
+------------------------------------------------------------------------
 
-Verify Link: {{ recipient.verify_link }}
-Unsubscribe Link: {{ recipient.unsubscribe_link }}
+Tires of getting these emails?  Click the link to unsubscribe.
+{{ recipient.unsubscribe_link }}
