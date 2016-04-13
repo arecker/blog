@@ -9,10 +9,7 @@ if not SECRET_KEY:
 
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ.get('HOST')]
-if not ALLOWED_HOSTS:
-    ALLOWED_HOSTS = ['*']
-    print('no allowed hosts.  falling back to *')
+ALLOWED_HOSTS = [os.environ.get('HOST'), ]
 
 DB_NAME = os.environ.get('DB_NAME', None)
 DB_USER = os.environ.get('DB_USER', None)
@@ -25,7 +22,7 @@ if all([DB_NAME, DB_USER, DB_PASS]):
            'NAME': DB_NAME,
             'USER': DB_USER,
             'PASSWORD': DB_PASS,
-            'HOST': 'db',
+            'HOST': 'localhost',
             'PORT': '5432',
         }
     }
