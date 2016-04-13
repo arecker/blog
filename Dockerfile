@@ -7,17 +7,17 @@ RUN apt-get update && apt-get install -y \
     postgresql-client python-psycopg2 \
     gcc
 
-RUN mkdir -p /srv/src
-COPY . /srv/src
+RUN mkdir -p /srv
+ADD requirements /srv/requirements
+RUN pip install -r /srv/requirements/prod.txt
 
 RUN mkdir -p /srv/logs
 RUN touch /srv/logs/blog.log
 
+RUN mkdir -p /srv/src
+ADD . /srv/src
+RUN find /srv/src -name "*.pyc" -exec rm -rf {} \;
+
 VOLUME [/srv/logs/]
-
-WORKDIR /srv/src
-RUN pip install -r requirements/prod.txt
-
 EXPOSE 8000
-
 ENTRYPOINT /srv/src/docker.sh
