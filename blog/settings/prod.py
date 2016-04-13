@@ -3,9 +3,6 @@ from .common import *
 import os
 
 SECRET_KEY = os.environ.get('SECRET_KEY', None)
-if not SECRET_KEY:
-    from .dev import SECRET_KEY
-    print('no secret key.  falling back to dev')
 
 DEBUG = False
 
@@ -15,20 +12,16 @@ DB_NAME = os.environ.get('DB_NAME', None)
 DB_USER = os.environ.get('DB_USER', None)
 DB_PASS = os.environ.get('DB_PASS', None)
 
-if all([DB_NAME, DB_USER, DB_PASS]):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-           'NAME': DB_NAME,
-            'USER': DB_USER,
-            'PASSWORD': DB_PASS,
-            'HOST': 'db',
-            'PORT': '5432',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASS,
+        'HOST': 'db',
+        'PORT': '5432',
     }
-else:
-    print('no db creds found.  falling back to dev')
-    from .dev import DATABASES
+}
 
 STATIC_ROOT = '/srv/static/'
 MEDIA_ROOT = '/srv/media/'
