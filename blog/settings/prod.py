@@ -11,8 +11,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = [os.environ.get('HOST')]
 if not ALLOWED_HOSTS:
-    from .dev import ALLOWED_HOSTS
-    print('no allowed hosts.  falling back to dev')
+    ALLOWED_HOSTS = ['*']
+    print('no allowed hosts.  falling back to *')
 
 DB_NAME = os.environ.get('DB_NAME', None)
 DB_USER = os.environ.get('DB_USER', None)
