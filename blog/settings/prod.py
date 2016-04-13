@@ -22,7 +22,7 @@ if all([DB_NAME, DB_USER, DB_PASS]):
            'NAME': DB_NAME,
             'USER': DB_USER,
             'PASSWORD': DB_PASS,
-            'HOST': 'localhost',
+            'HOST': 'db',
             'PORT': '5432',
         }
     }
