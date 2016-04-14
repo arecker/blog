@@ -23,8 +23,8 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = '/srv/static/'
-MEDIA_ROOT = '/srv/media/'
+STATIC_ROOT = '/srv/static/static/'
+MEDIA_ROOT = '/srv/static/media/'
 
 LOGGING = {
     'version': 1,

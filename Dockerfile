@@ -18,7 +18,8 @@ RUN mkdir -p /srv/src
 ADD . /srv/src
 RUN find /srv/src -name "*.pyc" -exec rm -rf {} \;
 RUN rm -r /srv/src/temp/*
+RUN mkdir -p /srv/static
 
-VOLUME [/srv/logs/]
+VOLUME [/srv/logs/, /srv/static/]
 EXPOSE 8000
 ENTRYPOINT /srv/src/docker.sh
