@@ -17,6 +17,7 @@ RUN touch /srv/logs/blog.log
 RUN mkdir -p /srv/src
 ADD . /srv/src
 RUN find /srv/src -name "*.pyc" -exec rm -rf {} \;
+RUN rm -r /srv/src/temp/*
 
 VOLUME [/srv/logs/]
 EXPOSE 8000
