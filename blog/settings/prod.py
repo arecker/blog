@@ -2,22 +2,19 @@ from .common import *
 
 import os
 
-SECRET_KEY = os.environ.get('SECRET_KEY', None)
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ.get('HOST'), ]
-
-DB_NAME = os.environ.get('DB_NAME', None)
-DB_USER = os.environ.get('DB_USER', None)
-DB_PASS = os.environ.get('DB_PASS', None)
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS.append(os.environ.get('HOST'))
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DB_NAME,
-        'USER': DB_USER,
-        'PASSWORD': DB_PASS,
+        'NAME': os.environ.get('DB_NAME', None),
+        'USER': os.environ.get('DB_USER', None),
+        'PASSWORD': os.environ.get('DB_PASS', None),
         'HOST': 'db',
         'PORT': '5432',
     }
@@ -59,12 +56,15 @@ LOGGING = {
     }
 }
 
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#         'LOCATION': '127.0.0.1:11211',
-#     }
-# }
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {

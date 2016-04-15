@@ -1,5 +1,6 @@
 -r common.txt
 
 psycopg2==2.6.1
-python-memcached==1.57
 gunicorn==19.4.5
+django-redis==4.4.1
+redis==2.10.5
