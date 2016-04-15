@@ -6,4 +6,8 @@ from models import Subscriber
 class SubscriberSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscriber
-        fields = ('email', 'key', 'pk', 'subscribed', 'is_verified')
+        fields = ('email',
+                  'verify_key',
+                  'pk',
+                  'subscribed',
+                  'is_verified')
