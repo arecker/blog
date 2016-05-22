@@ -33,9 +33,9 @@ class FortuneCookieViewSet(BaseViewSetMixin, viewsets.ReadOnlyModelViewSet):
 
 
 def random_image(request):
-    try:
-        image = Image.objects.pluck()
-    except Image.DoesNotExist:
+    image = Image.objects.pluck()
+
+    if not image:
         return Http404()
 
     with open(image.file.path) as file:
