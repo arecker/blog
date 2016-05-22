@@ -1,11 +1,10 @@
 from rest_framework import viewsets, decorators
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
+from django.http import HttpResponse, Http404
 
-from content.models import Document, Image, FortuneCookie
-from serializers import (DocumentSerializer,
-                         ImageSerializer,
-                         FortuneCookieSerializer)
+from content.models import FortuneCookie, Image
+from serializers import FortuneCookieSerializer
 
 
 class BaseViewSetMixin(object):
@@ -28,16 +27,16 @@ class BaseViewSetMixin(object):
             raise NotFound
 
 
-class DocumentViewSet(BaseViewSetMixin, viewsets.ReadOnlyModelViewSet):
-    queryset = Document.objects.all()
-    serializer_class = DocumentSerializer
-
-
-class ImageViewSet(BaseViewSetMixin, viewsets.ReadOnlyModelViewSet):
-    queryset = Image.objects.all()
-    serializer_class = ImageSerializer
-
-
 class FortuneCookieViewSet(BaseViewSetMixin, viewsets.ReadOnlyModelViewSet):
     queryset = FortuneCookie.objects.all()
     serializer_class = FortuneCookieSerializer
+
+
+def random_image(request):
+    try:
+        image = Image.objects.pluck()
+    except Image.DoesNotExist:
+        return Http404()
+
+    with open(image.file.path) as file:
+        return HttpResponse(file.read(), content_type='image/png')

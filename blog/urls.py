@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 
 from api import ROUTER
+from content.views import random_image
 from subscribing.views import unsubscribe, verify
 
 
@@ -13,6 +14,8 @@ urlpatterns = [
 
     url(r'^verify/(?P<key>[^/]+)/$', verify, name='verify'),
     url(r'^unsubscribe/(?P<key>[^/]+)/$', unsubscribe, name='unsubscribe'),
+
+    url(r'^random-image/$', random_image, name='random-image'),
 
 ]
 
