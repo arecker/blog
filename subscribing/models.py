@@ -130,6 +130,9 @@ class Email(models.Model):
     def send(self):
         recipients = Subscriber.objects.receiving_mail()
 
+        if self.is_sent:
+            return
+
         for r in recipients:
             template = get_template('email.txt')
             rendered_body = template.render({'recipient': r,
