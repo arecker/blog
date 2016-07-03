@@ -2,5 +2,5 @@
 
 ------------------------------------------------------------------------
 
-Tires of getting these emails?  Click the link to unsubscribe.
+Tired of getting these emails?  Click the link to unsubscribe.
 {{ recipient.unsubscribe_link }}
