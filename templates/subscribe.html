@@ -87,11 +87,15 @@
 	   }
 
 	   render() {
+	       if (this.state.showSuccess) {
+		   return (
+		       <div className="alert alert-success">
+			 Thanks!  You should receive an email in a bit.
+		       </div>
+		   )
+	       }
 	       return (
 		   <form className="form-inline" onSubmit={this.submit}>
-		     <div className={this.state.showSuccess ? '' : 'hidden'}>
-		       <div className="alert alert-success">Thanks!  You should receive an email in a bit.</div>
-		     </div>
 		     <div className={this.state.showFailure ? '' : 'hidden'}>
 		       <div className="alert alert-danger">{this.state.errorMessage}</div>
 		     </div>
