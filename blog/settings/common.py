@@ -14,8 +14,7 @@ INSTALLED_APPS = ['django.contrib.admin',  # Django Apps
                   'rest_framework',
 
                   'content',    # Project Apps
-                  'subscribing'
-                  ]
+                  'subscribing']
 
 MIDDLEWARE_CLASSES = ['django.middleware.security.SecurityMiddleware',
                       'django.contrib.sessions.middleware.SessionMiddleware',
@@ -24,7 +23,6 @@ MIDDLEWARE_CLASSES = ['django.middleware.security.SecurityMiddleware',
                       'django.contrib.auth.middleware.AuthenticationMiddleware',
                       'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
                       'django.contrib.messages.middleware.MessageMiddleware',
-                      'corsheaders.middleware.CorsMiddleware',
                       'django.middleware.clickjacking.XFrameOptionsMiddleware']
 
 ROOT_URLCONF = 'blog.urls'
