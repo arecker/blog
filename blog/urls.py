@@ -5,13 +5,14 @@ from django.contrib import admin
 
 from api import ROUTER
 from content.views import random_image
-from subscribing.views import unsubscribe, verify
+from subscribing.views import unsubscribe, verify, NewSubscriberView
 
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include(ROUTER.urls)),
 
+    url(r'^subscribe/$', NewSubscriberView.as_view()),
     url(r'^verify/(?P<key>[^/]+)/$', verify, name='verify'),
     url(r'^unsubscribe/(?P<key>[^/]+)/$', unsubscribe, name='unsubscribe'),
 

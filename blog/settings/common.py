@@ -12,7 +12,6 @@ INSTALLED_APPS = ['django.contrib.admin',  # Django Apps
 
                   'sorl.thumbnail',  # 3rd Party Apps
                   'rest_framework',
-                  'corsheaders',
 
                   'content',    # Project Apps
                   'subscribing'
@@ -45,8 +44,6 @@ TEMPLATES = [
         },
     },
 ]
-
-CORS_ORIGIN_WHITELIST = ('alexrecker.com',)
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Chicago'

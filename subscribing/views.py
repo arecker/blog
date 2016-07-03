@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework import permissions
 from django.http import Http404, HttpResponse
+from django.views.generic import TemplateView
 
 
 from models import Subscriber
@@ -39,3 +40,7 @@ def unsubscribe(request, key):
 
     target.unsubscribe()
     return HttpResponse('You have been unsubscribed')
+
+
+class NewSubscriberView(TemplateView):
+    template_name = 'subscribe.html'

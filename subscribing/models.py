@@ -36,7 +36,7 @@ class Subscriber(models.Model):
     unsubscribe_key = models.UUIDField(default=uuid4,
                                        editable=False)
 
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 

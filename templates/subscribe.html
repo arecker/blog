@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Subscribe</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <style>
+     .container-fluid {max-width: 700px; }
+     .hidden { display: none; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.2.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.0.0.min.js" integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0=" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="page-header">
+	<h1>Enter your email to subscribe</h1>
+	<p class="lead">
+	  I'll send you an email every time I do something new.  <br/>
+	  Don't worry - you'll be able to unsubscribe at any time.
+	</p>
+      </div>
+      <div id="subscribeForm" class="container-fluid"></div>
+      <script type="text/babel">
+
+       class SubscribeForm extends React.Component {
+	   constructor(props) {
+	       super(props);
+
+	       this.state = {
+		   showSuccess: false,
+		   showFailure: false,
+		   errorMessage: ''
+	       };
+
+	       this.submit = this.submit.bind(this);
+	       this.handleEmailChange = this.handleEmailChange.bind(this);
+	   }
+
+	   submit(event) {
+	       var self = this;
+
+	       event.preventDefault();
+
+	       $.ajax({
+		   url: this.props.api,
+		   method: 'POST',
+		   data: {
+		       email: this.state.email,
+		       csrfmiddlewaretoken: '{{ csrf_token }}'
+		   },
+
+		   statusCode: {
+		       400: function() {
+			   self.setState({
+			       errorMessage: 'That email already exists.'
+			   });
+		       },
+		       500: function() {
+			   self.setState({
+			       errorMessage: 'Something bad happened.'
+			   });
+		       }
+		   },
+
+		   success: function() {
+		       self.setState({
+			   showSuccess: true,
+			   showFailure: false
+		       });
+		   },
+
+		   error: function() {
+		       self.setState({
+			   showSuccess: false,
+			   showFailure: true
+		       });
+		   }
+	       });
+	   }
+
+	   handleEmailChange(event) {
+	       this.setState({email: event.target.value})
+	   }
+
+	   render() {
+	       return (
+		   <form className="form-inline" onSubmit={this.submit}>
+		     <div className={this.state.showSuccess ? '' : 'hidden'}>
+		       <div className="alert alert-success">Thanks!  You should receive an email in a bit.</div>
+		     </div>
+		     <div className={this.state.showFailure ? '' : 'hidden'}>
+		       <div className="alert alert-danger">{this.state.errorMessage}</div>
+		     </div>
+		     <div className="form-group">
+			<input type="email"
+			       className="form-control"
+			       placeholder="you@email.com"
+			       onChange={this.handleEmailChange}/>
+		      </div>
+		      <button type="submit" className="btn btn-default">Submit</button>
+		    </form>
+	       )
+	   }
+
+	}
+
+	ReactDOM.render(<SubscribeForm api="/api/subscribers/"/>, document.getElementById('subscribeForm'))
+
+      </script>
+    </div>
+  </body>
+</html>
