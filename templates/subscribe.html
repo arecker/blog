@@ -112,7 +112,10 @@
 
 	}
 
-	ReactDOM.render(<SubscribeForm api="{% url 'api:subscriber-list' %}"/>, document.getElementById('subscribeForm'))
+       ReactDOM.render(
+	   <SubscribeForm api="{% url 'api:subscriber-list' %}"/>,
+	   document.getElementById('subscribeForm')
+       );
 
       </script>
     </div>
