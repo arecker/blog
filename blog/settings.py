@@ -4,7 +4,7 @@ from os.path import dirname, join, abspath
 SECRET_KEY = 'thats-so-raven'
 
 
-BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
+BASE_DIR = dirname(dirname(abspath(__file__)))
 
 INSTALLED_APPS = ['django.contrib.admin',  # Django Apps
                   'django.contrib.auth',
