@@ -1,6 +1,9 @@
 from os.path import dirname, join, abspath
 
 
+SECRET_KEY = 'thats-so-raven'
+
+
 BASE_DIR = dirname(dirname(dirname(abspath(__file__))))
 
 INSTALLED_APPS = ['django.contrib.admin',  # Django Apps
@@ -54,3 +57,8 @@ MEDIA_URL = '/media/'
 
 # protocol, domain, no trailing slash
 URL_BASE = 'https://backend.alexrecker.com'
+
+try:
+    from prod_settings import *
+except ImportError:
+    pass
