@@ -56,7 +56,7 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 # protocol, domain, no trailing slash
-URL_BASE = 'https://backend.alexrecker.com'
+URL_BASE = 'http://backend.alexrecker.com'
 
 try:
     from prod_settings import *
