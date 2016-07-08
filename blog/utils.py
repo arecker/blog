@@ -17,4 +17,4 @@ def to_full_url(relative_url=''):
 
 
 def shorten_url(long_url=''):
-    return Shortener('Tinyurl').short(long_url)
+    return Shortener('Tinyurl', timeout=10).short(long_url)
