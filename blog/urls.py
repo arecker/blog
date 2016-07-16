@@ -16,7 +16,7 @@ urlpatterns = [
     url(r'^verify/(?P<key>[^/]+)/$', verify, name='verify'),
     url(r'^unsubscribe/(?P<key>[^/]+)/$', unsubscribe, name='unsubscribe'),
 
-    url(r'^random-image/$', random_image, name='random-image'),
+    url(r'^random.png$', random_image, name='random-image'),
 
 ]
 

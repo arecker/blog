@@ -29,7 +29,7 @@ class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now=True)
 
-    in_random = models.BooleanField(default=False,
+    in_random = models.BooleanField(default=True,
                                     verbose_name='Include in random')
 
     class Meta:
