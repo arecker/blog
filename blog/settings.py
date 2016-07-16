@@ -1,8 +1,7 @@
 from os.path import dirname, join, abspath
 
-
 SECRET_KEY = 'thats-so-raven'
-
+DEBUG = True
 
 BASE_DIR = dirname(dirname(abspath(__file__)))
 
@@ -45,6 +44,14 @@ TEMPLATES = [
         },
     },
 ]
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'America/Chicago'
