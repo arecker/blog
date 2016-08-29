@@ -15,7 +15,6 @@ INSTALLED_APPS = ['django.contrib.admin',  # Django Apps
                   'sorl.thumbnail',  # 3rd Party Apps
                   'rest_framework',
 
-                  'content',    # Project Apps
                   'subscribing']
 
 MIDDLEWARE_CLASSES = ['django.middleware.security.SecurityMiddleware',
