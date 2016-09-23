@@ -1,0 +1,191 @@
+#+TITLE: Marketing on Reddit
+
+Reddit is pretty much the only website I ever visit these days. Since
+it is technically just a collection links to other websites, you could
+say that I visit a lot of places on the web. This may be true, but it
+all begins with reddit.com
+
+Reddit is simply a place to post links. People who post need accounts,
+and people with accounts can provide feedback in the form of positive
+and negative votes. The highest voted links bubble to the top, and the
+lowest fall to the bottom. When this is practiced on a huge scale,
+what you get is a bustling website where at any given time, you can
+view the top 100 or so coolest things on the Internet.
+
+Additionally, the site provides a comment forum underneath each
+link. The comments function the same way. They are voteable, and the
+highest comments float to the top. Naturally, at any given time in a
+thread the most poignant or funny comment in the whole batch is
+readily available at the top.
+
+Subreddits are interest-based groups on Reddit. They are moderated by
+the users that created them (and anyone can create one). They decide
+on what their group is all about, and people who share their interest
+can subscribe to the subreddit.
+
+But there are plenty of places you can read about how Reddit works. In
+fact, I really should have just pointed you toward this video, which
+does a much better job explaining things than I do.
+
+#+BEGIN_HTML
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/tlI022aUWQQ" frameborder="0"
+allowfullscreen></iframe>
+#+END_HTML
+
+So there is your summary of Reddit. I can imagine that when the
+website first got going in June of 2005, it was a pretty rad little
+e-hole in the wall. But sadly, as it grew to be one of the most
+visited active websites, some couldn't see past the website’s value as
+just another marketing opportunity . I get nauseous whenever I come
+across a blog post titled something like /The Secret to Getting TONS
+of Web Traffic from Reddit/.
+
+#+CAPTION: It’s kind of like Facebook, only with fewer icebucket challenge videos
+[[./images/reddit-screenshot.png]]
+
+It’s time to fight back, dear reader - and the only way I really know
+how to combat misinformation is with education. Here are five things
+to keep in mind to market on Reddit - and not be a dick.
+
+* 1. You actually have to be a /redditor/
+
+You have to make an account to post or comment on anything. There’s
+not much to it. It’s your typical silly username + password + optional
+email verification.
+
+At this point in the Reddit immigration, idiot marketing guys choose a
+name like StupidTechBlog_CheckForUpdates or ZING_marketing . To cite
+Reddit’s sitewide rules,
+
+#+BEGIN_QUOTE
+It's perfectly fine to be a redditor with a website, it's not okay to
+be a website with a reddit account.
+#+END_QUOTE
+
+I’d say calling your new user account ‘HipNewWebsite’ to advertise
+your hip new website is not really a great start. Make a username that
+you actually like.
+
+I couldn’t tell you why, but there are a number of running jokes when
+it comes to usernames. One trend dictates that they be (1) in all caps
+(2) word delimited by underscores (3) depicting something horribly
+gruesome or crass. I suppose it’s so we can witness these types of
+wonderful exchanges:
+
+#+BEGIN_QUOTE
+~POTATO_IN_MY_BUTT~: Hey guys, I’m going through a hard time now. The
+girl I have been in love with forever has just confessed to me that
+she struggles with depression. How do I handle this?
+
+~BEAR_CIRCUMCISER~: Don’t catch yourself letting your feelings affect
+your counsel. It would probably be best to talk to one of her friends
+just to make sure you stay honest and unbiased.
+
+~CLOWN_PEDOPHILE~: BEAR_CIRCUMCISER is right. It sounds like she is in
+no condition to begin a relationship anyway.
+#+END_QUOTE
+
+Isn’t it wonderful? I’ve read a totally illuminating breakdown on the
+ENRON scandal from a guy who went by MIDGET_PUNCHER. Reading something
+interesting and thoughtful from a twisted username never gets old.
+
+* 2. Comment on things that don’t have to do with you
+
+One of the first things a redditor will probably do when they come
+across someone is look at their comment history - especially if you
+are buying something from them or exchanging services.
+
+Some users do nothing but piss people off. They leave horrible
+degrading comments in the most innocent of threads. A good tipoff to
+one of these guys is that their comment history is filled with nothing
+but mean, banned, and poorly voted comments.
+
+Likewise, if you have nothing in your comment history but comments
+about your product, you are going to look by a spammer. Believe it or
+not, a comment history like this is grounds for permanent banning from
+the site. You have to mix things up a bit.
+
+One of the easiest ways to get a decent comment history going is
+through /r/AskReddit. It’s simply a subreddit for people to post
+general questions in hopes of a ton of redditors answering in the
+comments. For now, don’t try to get in on the 2000-3000 pointers on
+the front page. Click the ‘new’ tab at the top to see the questions
+that are just flowing in. They may be strange, poorly worded, and
+hopeless when it comes to getting to the front page - but they usually
+get at least a dozen comments. Answer as many as you want to. When you
+get a reply, follow up. Be brief and ‘laid back’, since the stakes
+aren’t really that high in the new section.
+
+Sometimes while commenting it’s tempting to get in fights with
+people. You may delude yourself into thinking you will look really
+awesome if you win , but nobody really wins an Internet fight, do
+they? Fights are petty and make for terrible threads. Let things roll
+of your back. If someone zings you and their hurtful comment is
+getting upvoted, it’s probably just that you are in the wrong
+subreddit.
+
+Use your brain. Don’t try to crack a joke in /r/AskScience. Don’t make
+fun of Christians in /r/christianity. Just find a more appropriate
+subreddit for your views, and your witty self will be ruling that
+subreddit’s frontpage in no time.
+
+* 3. Respect the moderators. Ask them before doing stuff
+
+So you are getting pretty comfortable with Reddit at this point. You
+are getting to the point where you want to make a post about a product
+of yours.
+
+Before you slap in with your shameless advertisement, message the
+subreddit’s moderators . There is an envelope icon toward the right of
+every subreddit. Clicking it initiates a private message to the people
+that run that subreddit.
+
+Politely explain who you are, what your product is, then ask if you
+can post about it. If you cannot, a good moderator will guide you to a
+more appropriate subreddit.
+
+Each subreddit has rules too. They are kept in the sidebar. Most
+subreddits even have bots that automatically remove links that don’t
+follow rules, so make sure your review them before posting anything.
+
+* 4. Don’t ‘pitch’. Just talk.
+
+Finally. Here is the great secret to getting a ton of hits from
+Reddit. Are you ready?
+
+1. Have a great idea
+2. Don't be a tool
+
+The truth is that there is no secret. If you have a great idea, it
+will do great there. If it doesn’t, take it to another
+subreddit. Also, don’t be a tool. Nobody will give a snobbish pitch
+the time of day.
+
+You have probably heard of Imgur . It’s a massive image hosting
+site. Not many people may know that it was created for reddit. The
+site was announced by ~MrGrim~ in a simple post titled /My Gift to
+Reddit: I created an image hosting service that doesn't suck. What do
+you think?/
+
+You can read the thread [[http://www.reddit.com/r/reddit.com/comments/7zlyd/my_gift_to_reddit_i_created_an_image_hosting][here]].
+
+There was no marketing material or viral video. It was just some dude
+who was fed up with all the other image hosts and set out to make one
+that didn’t suck.
+
+I guess this section should be relabeled Make sure your idea doesn’t
+suck.
+
+* Closing
+
+If you are a vibrant, tan marketing guru who is trying to ‘crack
+Reddit’, I would start with dampening that mohawk of yours. Not seeing
+the site as a web traffic piñata is the secret, you cologne-covered
+nimrod.
+
+And to the rest of you - especially if you don’t have a marketing bone
+in your body - there is still plenty for you on reddit . Come hang out
+with MAKES_OUT_WITH_HORSES and others like him.
+
+Goodnight, readership. Peace.

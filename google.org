@@ -1,0 +1,175 @@
+#+TITLE: Google
+
+I know it’s a little early in the blogging period, but I’m going to
+riff off the soapbox while it’s still fresh. Lately, between the
+man-handling of YouTube and the big updates to Hangouts, Google has
+been taking a lot of my attention. Maybe some context first.
+
+* Early Frustrations
+
+This time two years ago, I hated Google. I was a noisy one man army
+who was the first to spit on everything they made. All of the
+frustration was there, but I had absolutely nothing to back it
+up. That is because this time two years ago, I also had no idea how to
+use a computer. If a file wasn’t on my desktop in an easily
+recognizable picture, it didn’t exist. The compass icon at the bottom
+of my mac dock was simply called “the internet”. No joke – I once
+deleted my entire iTunes library because I thought the folder looked
+unimportant.
+
+#+CAPTION: You guys are doing it all wrong. The Internet is THIS one.
+[[./images/safari.png]]
+
+But all of the frustration was still there. And good frustrations lead
+to well-formed opinions. After trying out Google Chrome in a dark
+closet far away from my more tech-savvy friends, I had to admit that
+it was pretty slick. There were plenty more greener pastures for me in
+Google’s meadow. After signing up for Gmail, I no longer had to put up
+with having to clear unread emails on both my phone and my computer
+(and for my fellow cavemen still dwelling in the dark recesses of a
+Comcast email address, I’d invite you to take your first hit of an
+IMAP capable inbox). I’ll be the first to admit that Google is just
+impressive in some things. You should have seen me when I updated the
+Hangouts app on my phone – I was giggling like an anime heroine when I
+found that I could now smoothly handle SMS and MMS through my favorite
+messaging app. The fact that I can set a calendar appointment with an
+address, causing Google to omnisciently offer to navigate me there
+promptly twenty-five minutes before a twenty-minute drive is slick. We
+have all been impressed by Google, who has built a well-earned
+reputation of being the Thompson Tank of indexing web-driven data.
+
+#+CAPTION: Google Now is like Siri – except it doesn’t repeat everything you say - you know - like an idiot.
+[[./images/google-now.png]]
+
+* The New Apple
+
+But since when did Google users become the new Apple? Maybe that’s
+confusing.
+
+Pretend for a second that I don’t think Apple products suck (and if
+you didn’t know that, just play with your smart phone for a minute or
+two while I stuff all the doves back into my coat sleeve). To mac
+users out there – whenever you happen to be around computer people, do
+you ever get the impression that they just automatically don’t like
+you? Non-coincidentally, I’d imagine it starts to set in soon after
+you out yourself with the sticker on your car or the time you let the
+phrase /cheapen the user experience/ slip.
+
+#+CAPTION: User experience is too precious to be cheapened. I’m just wondering why you haven’t printed this out and brought it to the lady that cuts your hair.
+[[./images/applehaircut.jpg]]
+
+But maybe you do use Apple and you’re not a douche about it. I’m all
+about someone using what works for them. But my point is that Apple’s
+advertising campaign is what gave you a bad reputation – which is
+earning you all kinds of smug passive aggression from everyone at Best
+Buy.
+
+People hate your company because it uses so many resources that didn’t
+go into software to focus on advertising. It was clear Apple’s chief
+agenda was to create a culture – a walled garden of individuals who
+always began any definition of themselves with their Apple ID and
+password – even if it meant cutting some corners and shipping some
+products out that just didn’t work. While the obvious Think Different
+slogan was a clear stance of aloofness from the beginning, even the
+fact that they wrote an operating system exclusive to their own
+hardware perpetuated the dogma that Apple thought they were special.
+
+If I am hitting any nerves here, allow me to skip the pin-pricks and
+just cut straight to the epidural. You are not unique because you use
+Apple products. You are not creative because you use Apple
+products. You do not think differently because you use Apple products.
+
+Stop laughing, Google users. I’m just about to get to you. In fact,
+the rhyme between this song of vanity and the one you guys are
+pitching is more rhythmic than you’d like to admit.
+
+#+BEGIN_HTML
+<p> The Google user pocket is <a
+ href="http://money.cnn.com/2013/08/20/technology/enterprise/google-states/">
+ definitively wealthy </a> , mainly <a
+ href="http://www.jeffbullas.com/wp-content/uploads/2012/06/Google+-vs-Facebook.jpg">
+ twenty-something year old males </a> .  Go ahead and do what I just
+ did – take a minute to dig around the web for writers staking the
+ claim that Google+ users are <a
+ href="http://www.businessinsider.com/google-users-just-nicer-2011-7">
+ smarter and nicer </a> than everyone else (and no – I wasn’t unfair
+ with the wording.  I was actually just plagiarizing the title of the
+ article I linked to).  </p>
+#+END_HTML
+
+I hope Google continues to flex the muscles that brought them to the
+big time, but I’m going to take an Internet minute here to call Google
+users out. You are not smarter because you use Google. Your
+relationships are not more meaningful because you use Google+. You are
+not the only one who really needs email because you use Gmail. You are
+not more aware because you use Google.
+
+* The Fragmented Life
+
+Google’s popular One Account. All of Google philosophy comes to mind
+here. It is Google’s goal to fulfill every information and
+communication need you have -
+
+So they can better advertise to you . You did know Google’s primary
+income is coming from people who want to sell you things – don’t you?
+And you’re aware that Google makes so much money because in the time
+you can check your email, search for the nearest drug store, and blast
+your No Strings Attached album in the privacy of your locked car,
+Google has already shown you a dozen products you don’t yet own. This
+an extremely tantalizing opportunity for companies who want you to buy
+things. Why settle for a television commercial every twenty minutes
+that is easily circumvented by TiVo or a bathroom break. Thanks to
+Google, the shakers can be a part of your every day life. They are
+just as present when you RSVP to a wedding as they are when you are
+writing your research paper.
+
+And they are learning about you . Every search, paste, link, and
+cookie with your IP address on it becomes a resource for teaching
+advertisers how to influence you. In Google’s world, you are the
+product. The real customers go unnoticed – having access to more
+information than decades worth of surveys.
+
+I didn’t mean to be so dramatic. I just have to say it – because so
+many people don’t know this is Google’s flagship enterprise. They are
+not just being nice to you. They don’t care about your videos, school
+assignments, and calendar events. This is just the bait to get you to
+see a product you don’t yet own.
+
+But I shouldn’t be so dark about it. I actually don’t mind the extra
+set of eyes on my Amazon shopping if it means I don’t have to ever see
+one of those hot, sexy Christian singles ads. But mark my words, if
+you are going to sell my information, you better have some damn good
+bait to lure me in.
+
+#+CAPTION: Very subtle, Facebook. I know it was you because I listed myself as a Christian. I wonder if that’s a heterosexual set of feet underneath those impeccably clean bedsheets.
+[[./images/bedfeet.jpg]]
+
+* To Each, Their Own
+
+Which is, ultimately, my point. If you are going to use a Google app
+or an iDevice, do it because it works for you. If these people want to
+own your life and sell your information to all kinds of invisible
+demons and predators that are poisoning our culture from the gut out,
+make them work for it. Don’t buy into the culture: the reason Apple
+users are so special – the charm of a true Googler – the… musk… of an
+Internet Explorer. The point is – don’t be such a cheap
+product. Choose your jersey before the game, but always be ready to
+jump ship. Nobody owns you. It’s all about finding ways to make your
+life easier.
+
+So Google is looking for the one unifying identity that brings
+everything together. One account - right? Google overlooked
+something. The common denominator is you. And you are so much bigger
+than what Google can index. You are too unique to just be summarized
+under the quaint, easily-amused clan of Googlers . You might use a mac
+to work on, but that’s not what makes you really creative. I’m sick of
+seeing bumper stickers and company logo decals in place of beautiful
+handwriting, truly gifted multitaskers, and ideas so off-putting that
+they just can’t be unoriginal.
+
+Forget Google. Forget Apple. Forget Facebook. Just get things done,
+and whatever can’t keep up with you, throw it in the garbage next to
+your junkmail and the chicken breast you overcooked.
+
+Off the soapbox now. Thank you for your attention, dear readers. Now
+if you’ll excuse me – I have another chicken breast to burn.

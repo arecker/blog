@@ -1,0 +1,251 @@
+#+TITLE: These Chemical Analogies are Terrible: Part 1
+
+I decided to go through with writing a final suicide note to
+chemistry. After my final falling out with the discipline that
+nourished me for most of my life, a period of brooding introspection
+showed me a need to give it a proper goodbye - a goodbye I have
+decided to sign and deliver with a final brain dump of all the awful
+analogies that have sustained me throughout the years.
+
+“Analogy” isn’t even the right word for it. I’m not even sure that
+“allegory” fully captures the true delusion that characterized these
+long, cumbersome stories that I would flash the frontal lobe of my
+weary brain with. I believe Hitler said that if you tell people
+something loudly enough and long enough, they will eventually take it
+to be true. I must have had over a hundred little Hitlers in my head
+yelling You understand it! Next concept!
+
+These were shameful little guilty pleasures I would retreat
+to. Nothing gave me more comfort in my college life than closing the
+unforgiving textbook, stashing away half-finished homework, and
+weaving a shimmering web of false-understanding.
+
+* If you are a chemist, look away
+
+I can’t stress this enough: if you are a chemist, a professional, a
+researcher, or just a faithful combatant in the war against the
+perpetuation of ignorance, then for the love of Schrodinger, just look
+away .
+
+The true professionals among us never need an analogy to embarrass a
+higher truth. A perfect argument sings truth, just as a perfect design
+doesn’t need an explanation. Great, elegant solutions should exude
+their coherent beauty and cut through the darkness like a brilliant,
+proud lighthouse.
+
+-- or, you could just wait for an idiot like me to compare it to
+something that happened in “The Suite Life of Zach and Cody” --
+
+That being said, I’m writing for pretty much anyone with the aptitude
+needed to track with an episode of Psyche . This is for the Walmart
+shoppers and the Jay Leno watchers. My goal isn’t to get you to
+understand chemistry. There is no shortcuts in doing that. My goal is
+to show you what you can learn from it.
+
+If you don't normally like science, just give this a try. Believe me -
+if I can understand this, you can.
+
+* What would a molecule do for a Klondike bar?
+
+This week is going to be kind of deep (deep, like Bullet-for-my
+Valentine deep - or first-week-of-philosophy-101 deep). A fitting
+place to begin this mysterious journey of exhibition is the most
+fundamental question anyone can ask: Why does anything do anything?
+Teachers often make the mistake of beginning with the more sobering
+and wondrous examples of this question being answered. Why did we drop
+the Atomic bomb on Japan? Why does the salmon swim upstream to die?
+Fun for the good students, but we are bad students, remember? We just
+want to talk about urine.
+
+What would it take to get you to wet your pants in public? Go ahead
+and name your price. Whisper into the soft glow of your computer the
+compensation you would need to voluntarily wet your pants in
+public. Is it a hundred dollars? A single doge coin? A side hug from
+Jennifer Lawrence? Though some would consider the spectacle of
+themselves publicly “accidenting” to be priceless, I believe we all
+have our price.
+
+* The party game
+
+Now let us bring in the kind of guy that can ruin any chill party game
+by recording everyone else’s answers in a spreadsheet. He is probably
+seated with his new Surface Tablet close at hand, donning a ripe Big
+Bang Theory t shirt, and vehemently insisting that the Zune player was
+divinely more innovative than the iPhone ever was.
+
+So Sir Neckbeard wants to enter everyone’s responses to the fun pee
+question into a crisp spreadsheet, but he complains that the variety
+of everybody’s zainy compensatory scenarios don’t make for a very
+normalized data set. There will be no way to get any funless numerical
+data from the set. He calls the column “ H ”, because it’s the first
+letter in Heidi Kluhm’s name, for all we know. He demands that
+everyone translate their answer to a numerical value. People go around
+shouting arbitrary numbers to scale their response, ranging from 1 to
+1 million. But his administrative yammering is silenced by a small,
+still response in particular.
+
+“Negative ten.” Sir Neckbeard recoils in disgust. Who had the gall to
+corrupt his dataset with a negative number? The crowd parts, revealing
+a newborn baby sitting on the floor. Sir Neckbeard crosses his
+Cheeto-dusted arms and confronts the baby.
+
+“Um, kind sir? You gave me a negative number.” The baby, with uncanny
+dexterity, furrows an aged brow and nods.
+
+“Of course I did, stupid,” he retorted between the calm, collected
+tounging of a wad of chewing tobacco. “I was going to piss my pants
+anyway. That’s what I do. I’m a baby. Make sense?”
+
+The crowd cheered defiantly as Sir Neckbeard tipped his Fedora to the
+animated baby stranger. Sir Neckbeard relinquished to his Surface to
+make a very important change to his spreadsheet. He changed the column
+title from H to Delta H .
+
+Needless to say, this is turning into one weird party. But my bizarre
+ruined-party-game-saved-by-demon-possessed-baby analogy hopefully
+succeeds in introducing the idea of the Delta H in chemistry.
+
+* Say “enthalpic”
+
+Chemists call this enthalpy . If the word means about as much to you
+as a tribal tattoo, don’t sweat it. Part of me even suspects that this
+noun was made up just so we can have the privilege of using its sultry
+adjective counterpart - enthalpic . You can’t say enthalpic too many
+times. Go ahead. While we are whispering things into the soft, fleshy
+glow of our computer monitors, go ahead and whisper that one too.
+
+But enthalpy, in lack of an endless possibility of better words I
+could have chosen, is simply what a molecule would do for a Klondike
+bar . More broadly, it is what it would take for something to do
+something. And Sir Neckbeard? He’s certainly based on a true
+story. There were hundreds of thousands of them that put their broken
+hearts and throbbing heads together to come up with the biggest
+buzzkill spreadsheet imaginable. It’s not just for one “what would it
+take to get you to wet yourself” question either. Modern science has
+surveyed thousands of molecules most of the bizarre questions that
+they could come up with, converting them to a nearly arbitrary number.
+
+And the weird, snarky benjamin-button baby? That was just to enforce
+the reality that some people are going to be wetting themselves later
+that afternoon whether you offer them money or not. This is why we
+have to call the value the change in enthalpy - because it’s not
+always going to be positive.
+
+Here is a snippet of that list. Note that the “questions” are rarely
+worthy of the party game rotation. Usually, they are something along
+the lines of “How much would it take to get you to explode into gas?”
+Chemists are weird sometimes.
+
+#+CAPTION: What would it take to get me to make myself? This survey was hardly worth the Panera gift card.
+[[./images/enthalpy-decompose.gif]]
+
+Also note that when your are only answering questions for yourself,
+you are kind of limited in what questions you can put in
+circulation. In all the individual examples, the questions usually can
+just be “How much to absolutely destroy yourself” or “How much to just
+make yourself from scratch”.
+
+* Kissing cousins
+
+kipping all the important overhead work of applying this to reality,
+we can steal away and learn some more important relationships having
+to do with enthalpy. Imagine you are asked another party question. How
+much would it take for you to kiss your cousin? Upfront, you would
+expect the answers to be universally high numbers. But Sir Neckbeard
+has left and there have already been enough Natty Lites in circulation
+to loosen things up a bit. Most people would hate to kiss their
+cousin. Some people have cousins that wouldn’t mind it (Europeans,
+probably). Some people admit in a beer-soaked confessional that they
+would love to kiss their cousin. Things get complicated.
+
+But for the spreadsheet we are making, we don’t really have a social
+responsibility to reflect any of the psychological travesties at
+bay. The way I see it, you just take the Delta H for cousin 1, the
+Delta H for cousin two, and add them right up. If you get two normal
+God-fearing cousins, there you go - no kiss. That Delta H is high
+enough for Baseball and Apple Pie to feel safe again. If you get a
+cousin who is really into it and a cousin who is more of a
+"left-leaning conservative", you may or may not get a kiss. If you get
+two cousins that are wayyy into it - well, just call a cab. That means
+this party has gotten way too Craig’s List for your taste. If you
+leave now, you might even be able to share a cab with man-baby.
+
+The underlying principle, setting all kissing-cousins aside, is that
+the net enthalpy for a reaction is simply the sum of enthalpies .
+
+We said all that before, remember? Just add up the Detla H ’s. The
+same applies for asking in multiples, fractions, and all types of
+weird abominations and perversions of the analogy that will not be
+discussed in this blog.
+
+* What about not peeing on yourself?
+
+So you are sharing a cigar with man-baby and waiting for your cab when
+you see Sir Neckbeard triumphantly emerge from the bushes to once
+again confront man baby. He waves his revised spreadsheet in front of
+man-baby, who gives it a careless glance through a thick wall of cigar
+smoke.
+
+“I have revised the data set!” squeals Sir Neckbeard. Man baby
+stiffens his leathery jaw, demanding an explanation with his steely
+eyes.
+
+“The new question is thus: *What would it take to get you to not pee
+on yourself.” sneered Sir Neckbeard.
+
+Man baby pauses to contemplate the new thought. To not pee on
+himself... “Well... I guess it would just be the opposite of whatever
+I said for the other question. Since I was planning on peeing myself
+later, it would be kind of a hassle to stop me from doing it.”
+
+Neckbeard shakes his jowls in celebration. “AHA! That makes your
+answer positive . It is once again a normalized data set.”
+
+Though you are in the middle of wrestling tobacco induced hysteria
+from whatever hardcore Cuban contraband Man baby lit up for you, you
+manage do communicate one small incongruity you noticed with
+Neckbeard’s new data set.
+
+“Then wouldn’t everyone else’s number have to be negative?”
+
+Sir Neckbeard casts down his Surface , shattering it on the patio. He
+bows his head in fatal defeat. You don’t get a chance to relish in
+your victory, sadly, because your are tripping like nobody’s business
+on shady Cuban tobacco. But man-baby is faithful spread the word to
+everyone in the house. They all agree that if the question were
+reversed, their answers would be negative - since none of them were
+planning on wetting themselves later.
+
+The principle: whatever a molecule has “submitted” as his answer to
+the party question, the value can just be negated to reflect its
+answer to the reversed question.
+
+* Building an equation
+
+So we have actually been building an equation. It’s the equation that
+predicts if something is going to do something. Just as we assigned
+what a molecule would do for a Klondike bar the name Delta H , we can
+take a step back and take a look at the broader question, of which I
+will paraphrase by quoting Ice T - Is it about to go down?
+
+Ice T’s question isn’t so much concerned with the molecule’s answer in
+particular, although that will help with the final answer. Ice T is
+more concerned with the public self-wetting as a phenomenon -
+witnessed alike by the wetter, the guy who paid the wetter, and
+upwards of 100,000 YouTubers.
+
+The answer to Ice T’s question is assigned the letter G . Much like
+our letter H , the number reflects how likely it is about to go down
+. A negative number means it most certainly is, while a positive
+number means it probably isn’t.
+
+As of now, we have only pieced together the H and the G , making our
+equation rather simple:
+
+[[./images/gibbssofar.png]]
+
+Ice T’s question is only using what is in Neckbeard’s spreadsheet, or
+the sum of H’s from all the parties involved in the public stunt. Next
+week or so, we will cover what else we need to consider in answering
+Ice T’s profound question, which will undoubtedly involve a return to
+the worst Craig’s List party you have ever attended.
