@@ -1,4 +1,4 @@
-#+TITLE: Blog by Alex Recker
+#+Title: Blog by Alex Recker
 #+DESCRIPTION: Hi, I'm Alex.  I like to write words.
 #+RSS_IMAGE_URL: http://backend.alexrecker.com/media/images/portrait.jpg
 #+RSS_FEED_URL: http://alexrecker.com/feed/index.xml
@@ -28,6 +28,11 @@
   This is a random image from my life.  Click it to view another one.
 
   #+BEGIN_HTML
+  <style>
+    #randomImage {
+      cursor: pointer;
+    }
+  </style>
   <script>
   function updateImage() {
     var elem = document.getElementById('randomImage');
@@ -35,7 +40,7 @@
   }
   </script>
   <br/>
-  <a href="#" onclick="updateImage()"/>
+  <a target="_blank" onclick="updateImage()"/>
     <img id="randomImage" src="/random.png" alt="random" />
   </a>
   <br/>
