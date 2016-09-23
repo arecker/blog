@@ -23,9 +23,21 @@
   - Send me an email at [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (use my [[file:documents/pgp.txt][pgp]] key if you'd like)
   - Find me on [[https://github.com/arecker/][github]] or [[https://twitter.com/alex_recker][twiter]]
 
+  -----
+
+  This is a random image from my life.  Click it to view another one.
+
   #+BEGIN_HTML
+  <script>
+  function updateImage() {
+    var elem = document.getElementById('randomImage');
+    elem.src = '/random.png?' + new Date().getTime();
+  }
+  </script>
   <br/>
-  <img src="/random.png" alt="random" />
+  <a href="#" onclick="updateImage()"/>
+    <img id="randomImage" src="/random.png" alt="random" />
+  </a>
   <br/>
   #+END_HTML
 
