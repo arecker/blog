@@ -11,9 +11,7 @@
   :END:
 
   Thanks for checking out my blog.  You should stick around and read
-  some things.  You can follow my blog with my [[http://alexrecker.com/feed/][rss feed]].
-
-  Here are a few ways you can follow my blog:
+  some things.  Here are a few ways you can follow my blog:
 
   - By tracking my [[http://alexrecker.com/feed/][rss feed]]
   - By signing up for my [[http://alexrecker.com/subscribe/][email updates]]
