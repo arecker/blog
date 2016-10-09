@@ -9,7 +9,7 @@
   traveling.  Just take a look my Google Maps data since graduating
   college.
 
-  #+CAPTION: This aeriel view would make you think I'm a nomad that lives along I-90.
+  #+CAPTION: This aerial view would make you think I'm a nomad that lives along I-90.
   [[file:images/well-traveled.jpg]]
 
   I haven't been on an airplane in probably a decade.  I've never
