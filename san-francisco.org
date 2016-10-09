@@ -1,5 +1,21 @@
 #+TITLE: San Francisco
 #+DATE: <2016-10-09 Sun>
+#+STARTUP: showeverything
+
+* Introduction
+
+  My job is sending me to San Francisco for training.  While this
+  doesn't sound like a big deal to some, I haven't done a lot of
+  traveling.  Just take a look my Google Maps data since graduating
+  college.
+
+  #+CAPTION: This aeriel view would make you think I'm a nomad that lives along I-90.
+  [[file:images/well-traveled.jpg]]
+
+  I haven't been on an airplane in probably a decade.  I've never
+  traveled alone.  I really have no idea how airports or other cities
+  work.  For your amusement, I've decided to document my trip as I go,
+  providing emphasis on my mistakes and confusion.
 
 * O'Hare Airport - 5:50 PM CST
 
