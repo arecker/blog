@@ -171,6 +171,9 @@
   a neck pillow in public, most social contracts don't apply to you.
   Sorry buddy.
 
+  #+CAPTION: Nothing but the sound of polite snoring and shifting neck pillows.
+  [[file:images/booked-flight.jpg]]
+
   I'm going to pretend to sleep now.  On the outside, I'll be a cool,
   disinterested air traveler.  On the inside, I'm just a little kid
   pretending he's on a spaceship barreling towards Mars.
