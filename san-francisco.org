@@ -19,6 +19,8 @@
 
 * Sunday 5:50 PM CST - O'Hare Airport
 
+  [[file:images/ohare-workstation.jpg]]
+
   I departed this afternoon from Madison's only airport.  It was
   quaint, and just about everything the air travel experience should
   be.  Even the fellow that makes you remove your belt and shoes under
@@ -124,6 +126,8 @@
 
 * Sunday 9:46 PM CST - 30,000 ft. above the United States
 
+  [[file:images/midflight-workstation.jpg]]
+
   I get the impression that people who fly are supposed to appear
   disinterested.  I'm doing my best to fit in, but it's all just so
   exciting.  I'm attentive to everything mumbled over the airport
@@ -131,6 +135,9 @@
   on the runway.  My face is practically pressed on the glass when the
   plane banks, revealing a wildly new perspective of the familiar
   Chicago skyline.
+
+  #+CAPTION: Or the familiar Madison skyline - if it even qualifies as a "skyline".  The lakes look so tiny from up here.
+  [[file:images/in-the-air.jpg]]
 
   I finally get to ride in a plane big enough for me to stand in - not
   that I'll be doing much standing.  The plane is 100% booked.  I kept
@@ -167,12 +174,18 @@
   didn't have any toothpaste.  I also realized I don't know where
   anything is.
 
-  I mimed several fake phonecalls while I did my best to look like I
+  I mimed several fake phone calls while I did my best to look like I
   was intentionally walking in zig zags.  I already have a good
   navigation tip for you all: Market Street is the really big road
   with all the signs that say "Market Street".  Sometimes you have to
   put down Google Maps and just use what little self awareness you
   have at your disposal.
+
+  #+CAPTION: Is this market street?
+  [[file:images/market-street.jpg]]
+
+  #+CAPTION: Oh - this must be market street.
+  [[file:images/real-market-street.jpg]]
 
   I have about an hour until work starts.  I'm going to use it to
   catch up on emails and sponge my dried out brain with this delicious
