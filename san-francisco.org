@@ -147,7 +147,7 @@
   Chicago skyline.
 
   #+CAPTION: Or the familiar Madison skyline - if it even qualifies as a "skyline".  The lakes look so tiny from up here.
-  [[file:images/in-the-air.jpg]]
+  [[file:images/madison-skyline.jpg]]
 
   I finally get to ride in a plane big enough for me to stand in - not
   that I'll be doing much standing.  The plane is 100% booked.  I kept
