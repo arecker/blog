@@ -1,4 +1,4 @@
-#+Title: Blog by Alex Recker
+#+TITLE: Blog by Alex Recker
 #+DESCRIPTION: Hi, I'm Alex.  I like to write words.
 #+RSS_IMAGE_URL: http://backend.alexrecker.com/media/images/portrait.jpg
 #+RSS_FEED_URL: http://alexrecker.com/feed/index.xml
@@ -45,6 +45,17 @@
   #+END_HTML
 
   -----
+
+* [[file:san-francisco.org][San Francisco]]
+  :PROPERTIES:
+  :PUBDATE:  <2016-10-09 Sun>
+  :RSS_PERMALINK: san-francisco.html
+  :ID:       03143152-6CF6-44E6-B692-1ACB9606D7E9
+  :END:
+
+  My company sent me on a trip to San Francisco.
+
+  October 9, 2016
 
 * [[file:the-baby.org][The Baby]]
   :PROPERTIES:
