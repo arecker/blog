@@ -214,9 +214,9 @@
 
   I met up with coworker Dave and we wandered around the city a bit,
   then we finally made our way to the office.  It's right next to a
-  Chai shop, so the dizzying smell of gingerbread and spices.  I'm
-  already accustomed to the Zendesk style, but as you would expect,
-  they go all out for their Headquarters.
+  Chai shop, so the dizzying smell of gingerbread and spices follows
+  you everywhere.  I'm already accustomed to the Zendesk style, but as
+  you would expect, they go all out for their Headquarters.
 
   [[file:images/zen-1.jpg]]
 
