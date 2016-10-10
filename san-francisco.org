@@ -30,12 +30,16 @@
   When I arrived at the gate, we soon were shepherded to an airplane
   that was so small, it looked like it was cut out of a museum exhibit
   meant to teach kids about flight.  It was a proper metal cigar tube
-  with wings.  But after buckling into my prime window seat, we were
-  asked to leave.  The pilot called it a "VIP movement".  Apparently
-  there was somebody traveling through O'Hare airport who was so
-  important that all other planes needed to wait until he was done.
-  The unenthused stewardist clarified that it was President Barack
-  Obama.
+  with wings.
+
+  #+CAPTION: My brave steed, apparently.
+  [[file:images/cigar-tube-with-wings.jpg]]
+
+  But after buckling into my prime window seat, we were asked to
+  leave.  The pilot called it a "VIP movement".  Apparently there was
+  somebody traveling through O'Hare airport who was so important that
+  all other planes needed to wait until he was done.  The unenthused
+  stewardist clarified that it was President Barack Obama.
 
   "Thanks Obama!" I whispered.  Nobody acknowledged my joke.  Perhaps
   it was too "on the nose".
@@ -59,6 +63,9 @@
   complicated.  My target gate number looked like a foot note out of
   an obscure academic journal.  I followed its promise through a
   churning sea of angry, weary people.
+
+  #+CAPTION: Just look at these savages...
+  [[file:images/ohare-the-zoo.jpg]]
 
   To my horror, arriving at gate H-11-A I beheld the great walkway
   retracting.  Despite what I had been assured, my connecting flight
@@ -116,6 +123,9 @@
   plane leaves in two hours."  My mouth dropped in amazement.  "And
   feel free to tell that angry guy that you got the last seat."
 
+  #+CAPTION: I would have traded it for free surgery.  Maybe he could surgically make my upper body look stronger...
+  [[file:images/last-ticket.jpg]]
+
   Which brings me here - Dear Reader.  Hunched over a wobbly table for
   one, charging my phone at a sticky power outlet that I may or may not
   have stabbed somebody for.  And I can't help but feel lucky.  Now if
@@ -167,6 +177,8 @@
 
 * Monday 7:51 AM PDT, Equator Coffee Shop, Market St.
 
+  [[file:images/coffee-shop-workstation.jpg]]
+
   Well against all odds, I made it. Sorry I don't have any pictures of
   my digs yet.  I rolled into the hotel at what was biologically 2AM,
   threw my stuff on the ground, and just sort of collapsed.  Five
@@ -190,3 +202,5 @@
   I have about an hour until work starts.  I'm going to use it to
   catch up on emails and sponge my dried out brain with this delicious
   hipster fair-trade organic coffee.
+
+  [[file:images/into-the-fog.jpg]]
