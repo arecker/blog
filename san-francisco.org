@@ -17,7 +17,7 @@
   work.  For your amusement, I've decided to document my trip as I go,
   focusing on my mistakes and confusion.
 
-* Sunday 5:50 PM CST - O'Hare Airport
+* Sunday 5:50 PM, - O'Hare Airport
 
   [[file:images/ohare-workstation.jpg]]
 
@@ -134,7 +134,7 @@
   Francisco - unless Obama manages to screw that up too.  Thanks,
   Obama.
 
-* Sunday 9:46 PM CST - 30,000 ft. above the United States
+* Sunday 9:46 PM, 30,000 ft. above the United States
 
   [[file:images/midflight-workstation.jpg]]
 
@@ -178,7 +178,7 @@
   disinterested air traveler.  On the inside, I'm just a little kid
   pretending he's on a spaceship barreling towards Mars.
 
-* Monday 7:51 AM PDT, Equator Coffee Shop, Market St.
+* Monday 7:51 AM, Equator Coffee Shop, Market St.
 
   [[file:images/coffee-shop-workstation.jpg]]
 
@@ -208,7 +208,7 @@
 
   [[file:images/into-the-fog.jpg]]
 
-* 9:30 AM PDT, Zendesk HQ
+* 9:30 AM, Zendesk HQ
 
   [[file:images/zendesk-station.jpg]]
 
@@ -226,3 +226,31 @@
 
   Toothpaste, deodorant, granola, and coffee are starting to make me
   feel human again.
+
+* 8:19 PM, Hotel Abri
+
+  [[file:images/hotel-workstation.jpg]]
+
+  Today was a marathon.  I really haven't stopped moving all day.  It
+  was incredible getting to spend so much time with probably some of
+  the brightest people in IT I've ever met, but maintaining that level
+  of focus was exhausted.
+
+  In need of healing, I staggered over to Katayana Ramen - a boisterous
+  hole in the wall three blocks north of my hotel.  I could hear their
+  dubsteb playing from across the street.
+
+  [[file:images/katayana-outside.jpg]]
+
+  I ordered a bowl of ramen.  The waitress instead brought me a new
+  reason to leave my hotel this week.
+
+  #+CAPTION: If this bowl of ramen were one of the Black Eyed Peas, it would be Fergie.
+  [[file:images/katayana-ramen.jpg]]
+
+  This bowl of food healed me.  At the bottom was some uneaten nori
+  and my soul.
+
+  So here I am in my hotel again.  I can't move.  I see my running
+  shoes in the corner.  The notion of running right now is equally
+  hilarious and nauseating.
