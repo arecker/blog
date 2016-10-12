@@ -257,6 +257,8 @@
 
 * Tuesday 8:46 PM, Somewhere in Chinatown
 
+  [[file:images/chinatown-workstation.jpg]]
+
   Due to my shyness, I dread every minute I spend outside my hotel
   room.  Every night, I'm tempted to spend all night poking around the
   Internet and falling asleep under a bag of sunflower seeds.
@@ -270,9 +272,15 @@
   into the crisp night in search of Chinatown.  I slipped into the
   first restaurant that smelled like fish.
 
+  #+CAPTION: Chinatown
+  [[file:images/chinatown.jpg]]
+
   I don't remember the name, but I can tell you that the fish that
   ended up in my stir-fry was staring back at me through an aquarium
   minutes before I devoured his family.
+
+  #+CAPTION: Hi - my name is Alex, and I'll be your apex predator today...
+  [[file:images/fishtank.jpg]]
 
   My fortune cookie reads, /The evening promises romantic interests/.
   Since my wife isn't around, I don't see that coming true - unless
@@ -282,3 +290,6 @@
   streets are steep.  I can't find my hotel room on the first try.
   But there is delicious food out there, and that is worth the
   adventure.
+
+  #+CAPTION: Romance, indeed
+  [[file:images/seafood-bowl.jpg]]
