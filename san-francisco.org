@@ -275,9 +275,9 @@
   #+CAPTION: Chinatown
   [[file:images/chinatown.jpg]]
 
-  I don't remember the name, but I can tell you that the fish that
-  ended up in my stir-fry was staring back at me through an aquarium
-  minutes before I devoured his family.
+  I don't remember the name of the place, but I can tell you that the
+  fish that ended up in my stir-fry was staring back at me through an
+  aquarium minutes before I devoured him and his friends.
 
   #+CAPTION: Hi - my name is Alex, and I'll be your apex predator today...
   [[file:images/fishtank.jpg]]
@@ -287,8 +287,8 @@
   we're still talking about food.
 
   The city is different.  Nobody carries my favorite beer.  The
-  streets are steep.  I can't find my hotel room on the first try.
-  But there is delicious food out there, and that is worth the
+  streets are steep.  I can't seem to find my hotel room on the first
+  try.  But there is delicious food out there, and that is worth the
   adventure.
 
   #+CAPTION: Romance, indeed
