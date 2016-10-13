@@ -19,7 +19,7 @@
   Here are a few ways you can contact me:
 
   - Send me an email at [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (use my [[file:documents/pgp.txt][pgp]] key if you'd like)
-  - Find me on [[https://github.com/arecker/][github]] or [[https://twitter.com/alex_recker][twiter]]
+  - Find me on [[https://github.com/arecker/][github]] or [[https://twitter.com/alex_recker][twitter]]
 
   -----
 
