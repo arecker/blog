@@ -29,17 +29,18 @@
 
   When I arrived at the gate, we soon were shepherded to an airplane
   that was so small, it looked like it was cut out of a museum exhibit
-  meant to teach kids about flight.  It was a proper metal cigar tube
-  with wings.
+  meant to teach kids about airplanes.  It was a proper metal cigar
+  tube with wings.
 
   #+CAPTION: My brave steed, apparently.
   [[file:images/cigar-tube-with-wings.jpg]]
 
   But after buckling into my prime window seat, we were asked to
-  leave.  The pilot called it a "VIP movement".  Apparently there was
-  somebody traveling through O'Hare airport who was so important that
-  all other planes needed to wait until he was done.  The unenthused
-  stewardist clarified that it was President Barack Obama.
+  leave.  The pilot called the delay a "VIP movement".  Apparently
+  there was somebody traveling through O'Hare airport who was so
+  important that all other planes needed to wait until he was done.
+  The unenthused stewardist clarified that it was President Barack
+  Obama.
 
   "Thanks Obama!" I whispered.  Nobody acknowledged my joke.  Perhaps
   it was too "on the nose".
@@ -248,8 +249,7 @@
   #+CAPTION: If this bowl of ramen were one of the Black Eyed Peas, it would be Fergie.
   [[file:images/katayana-ramen.jpg]]
 
-  This bowl of food may have changed my life.  At the bottom was some
-  uneaten nori and my soul.
+  This bowl of food may have changed my life.
 
   So here I am in my hotel again.  I can't move.  I see my running
   shoes in the corner.  What a fool I was when I packed those!  The
@@ -260,8 +260,8 @@
   [[file:images/chinatown-workstation.jpg]]
 
   Due to my shyness, I dread every minute I spend outside my hotel
-  room.  Every night, I'm tempted to spend all night poking around the
-  Internet and falling asleep under a bag of sunflower seeds.
+  room.  I'm tempted to spend all night poking around the Internet and
+  falling asleep under a bag of sunflower seeds.
 
   The food is the only thing that gets me to step outside at night.  I
   quickly discovered that carefully planning meals and routes with
@@ -277,7 +277,7 @@
 
   I don't remember the name of the place, but I can tell you that the
   fish that ended up in my stir-fry was staring back at me through an
-  aquarium minutes before I devoured him and his friends.
+  aquarium minutes before.
 
   #+CAPTION: Hi - my name is Alex, and I'll be your apex predator today...
   [[file:images/fishtank.jpg]]
@@ -314,7 +314,7 @@
   [[file:images/vietnamese-food.jpg]]
 
   That cup of bright orange liquid is /not/ some kind of pumpkin
-  spiced latte.  It's a Thai iced tea, which was laced with enough
+  spiced latte.  It's a Thai iced tea which was laced with enough
   caffeine to restart somebody's heart.
 
   After work I set out for the North East side once again in search of
@@ -327,8 +327,8 @@
   [[file:images/ramen-underground.jpg]]
 
   I ordered the house sake.  The waitress brought me a shot glass in a
-  tiny wood box, then overflowed the glass, letting the precious sake
-  I had purchased fill the box.  I panicked, and asked the family's
+  tiny wooden box, then overflowed the glass, letting the precious
+  sake I had purchased spill out.  I panicked, and asked the family's
   slack channel for advice.
 
   #+BEGIN_QUOTE
@@ -338,9 +338,9 @@
   like an idiot?
   #+END_QUOTE
 
-  My wife looked into it, and explained that this was the traditional
-  way to pour sake.  It is a reflection on the restaurant's
-  generosity.  And they /were/ generous.
+  My wife did some research, and explained that this was the
+  traditional way to pour sake.  It is a reflection on the
+  restaurant's generosity.  And they /were/ generous.
 
   [[file:images/ramen-underground-food.jpg]]
 
@@ -353,3 +353,70 @@
   [[file:images/pier-of-sanfran.jpg]]
 
   San Francisco has been generous, and has left my cup overflowing.
+
+* Saturday 3:23 AM, 30,000 ft. above the United States
+
+  Was I supposed to be home in Wisconsin about six hours ago?
+  Absolutely.  What am I still doing in a plane?  I'll use that as my
+  cliffhanger.
+
+  Thursday was great.  Dave and I had the last of our training
+  sessions, then ate lunch at a taco booth.  Then after work, I met
+  the one and only Drew Hannay at my hotel for some rascally fun in
+  the city.
+
+  I pictured Drew being a cool San Francisco local that was ready to
+  whisk me away to a magical underground sushi restaurant, or show me
+  where the Twitter employees held their fight club.  But Drew knew
+  San Francisco about as well as I did.  His compass was more accurate
+  than mine, so at least he was kind of useful.
+
+  Drew and I plunked into another random Chinese restaurant and spent
+  the meal reminiscing about our college days.  He reminded me of a
+  funny story.  Around the time of our Freshman year, Google released
+  Chrome and, being the fanboy he was, Drew was trying to get everyone
+  in his dorm to adopt it.  I was resistant to change, since I barely
+  knew how to use my computer and I didn't know how to migrate my
+  Safari bookmarks to anything else.
+
+  Drew found many creative ways to get Chrome in my dock, but I always
+  managed to delete it.  Finally, he had checkmate when he installed
+  chrome and used OSX wizardry to give it the same icon as my beloved
+  Safari.  I don't even think I realized it right away.  I guess the
+  real punchline is that six years later, we're both Software
+  Engineers and we're chatting in a bar in the bay area.
+
+  I was touched that Drew drove all the way up from San Jose to eat
+  Chinese food and get lost in the Tenderloin with his old college
+  suite-mate.  He's the real deal.
+
+  Friday is where things got kind of disorienting.  I was awoken by an
+  automated call from American Airlines at 6 AM.  The robocaller
+  mercillesly informed me that my flight has been cancelled, and I was
+  to fly out at midnight.  It's 3:45 AM right now, so by my watch, I
+  have about another six hours before I can see my family again.
+
+  Or who knows.  Maybe I'll get another mysterious robocall telling me
+  that my connecting flight is canceled too.  Maybe I'll have to live
+  at O'Hare permanently.
+
+* Sunday 8:56 PM, Home
+
+  Finally home.  I walked in my front door yesterday around 11 AM, and
+  I've basically been asleep since.  To be honest, I don't even
+  remember being in O'Hare.  At some point, I took a picture of this
+  sandwich, thinking it was a joke or something.
+
+  [[file:images/subway.jpg]]
+
+  My little family met me at the baggage claim.  My son looked twice
+  as big as he did only a week ago.
+
+  [[file:images/family-greeting.jpg]]
+
+  I think it's safe to say that traveling is out of my system.  Two
+  connecting flights in twenty-four hours will do that to you, I
+  guess.  Take a look at my map now!  I worked hard to put that blip
+  there on the west coast.
+
+  [[file:images/san-fran-map.png]]!
