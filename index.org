@@ -48,14 +48,14 @@
 
 * [[file:san-francisco.org][San Francisco]]
   :PROPERTIES:
-  :PUBDATE:  <2016-10-09 Sun>
+  :PUBDATE:  <2016-10-16 Sun>
   :RSS_PERMALINK: san-francisco.html
   :ID:       03143152-6CF6-44E6-B692-1ACB9606D7E9
   :END:
 
   My company sent me on a trip to San Francisco.
 
-  October 9, 2016
+  October 16, 2016
 
 * [[file:the-baby.org][The Baby]]
   :PROPERTIES:
