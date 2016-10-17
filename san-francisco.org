@@ -392,7 +392,7 @@
 
   Friday is where things got kind of disorienting.  I was awoken by an
   automated call from American Airlines at 6 AM.  The robocaller
-  mercillesly informed me that my flight has been cancelled, and I was
+  mercillesly informed me that my flight has been canceled, and I was
   to fly out at midnight.  It's 3:45 AM right now, so by my watch, I
   have about another six hours before I can see my family again.
 
@@ -419,4 +419,4 @@
   guess.  Take a look at my map now!  I worked hard to put that blip
   there on the west coast.
 
-  [[file:images/san-fran-map.png]]!
+  [[file:images/san-fran-map.png]]
