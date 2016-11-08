@@ -25,24 +25,24 @@
 
   This is a random image from my life.  Click it to view another one.
 
-  #+BEGIN_HTML
+  #+BEGIN_EXPORT html
   <style>
     #randomImage {
-      cursor: pointer;
+    cursor: pointer;
     }
   </style>
   <script>
-  function updateImage() {
+    function updateImage() {
     var elem = document.getElementById('randomImage');
     elem.src = '/random.png?' + new Date().getTime();
-  }
+    }
   </script>
   <br/>
   <a target="_blank" onclick="updateImage()"/>
-    <img id="randomImage" src="/random.png" alt="random" />
+  <img id="randomImage" src="/random.png" alt="random" />
   </a>
   <br/>
-  #+END_HTML
+  #+END_EXPORT
 
   -----
 
