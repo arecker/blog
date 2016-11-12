@@ -1,6 +1,6 @@
 #+TITLE: Blog by Alex Recker
 #+DESCRIPTION: Hi, I'm Alex.  I like to write words.
-#+RSS_IMAGE_URL: http://backend.alexrecker.com/media/images/portrait.jpg
+#+RSS_IMAGE_URL: https://s.gravatar.com/avatar/906958a3a6a8558d34cad5eb00f2f484?s=80
 #+RSS_FEED_URL: http://alexrecker.com/feed/index.xml
 #+STARTUP: showall
 
