@@ -60,7 +60,7 @@ said, dovecot is difficult to configure.  My container borrowed
 largely from [[https://xdeb.org/node/1607][this blog post]], and I wasn't motivated enough to
 configure something more secure.  After all, dovecot exists here to
 simply serve the mail from the container to the host over the
-published, local port.
+published port.
 
 At this point, you may not see any mail yet.  The initial sync takes
 quite a bit of time, depending on your mailbox.
