@@ -2,205 +2,205 @@
 #+DESCRIPTION: Hi, I'm Alex.  I like to write words.
 #+RSS_IMAGE_URL: https://s.gravatar.com/avatar/906958a3a6a8558d34cad5eb00f2f484?s=80
 #+RSS_FEED_URL: http://alexrecker.com/feed/index.xml
-#+STARTUP: showall
+#+STARTUP: showall indent
 
 * Welcome							      :norss:
-  :PROPERTIES:
+:PROPERTIES:
   :ID:       73B94CB8-73BF-4203-88B0-8C840216FC27
   :PUBDATE:  <2016-07-18 Mon 10:28>
   :END:
 
-  Thanks for checking out my blog.  You should stick around and read
-  some things.  Here are a few ways you can follow my blog:
+Thanks for checking out my blog.  You should stick around and read
+some things.  Here are a few ways you can follow my blog:
 
-  - By tracking my [[http://alexrecker.com/feed/][rss feed]]
-  - By signing up for my [[http://alexrecker.com/subscribe/][email updates]]
+- By tracking my [[http://alexrecker.com/feed/][rss feed]]
+- By signing up for my [[http://alexrecker.com/subscribe/][email updates]]
 
-  Here are a few ways you can contact me:
+Here are a few ways you can contact me:
 
-  - Send me an email at [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (use my [[file:documents/pgp.txt][pgp]] key if you'd like)
-  - Find me on [[https://github.com/arecker/][github]] or [[https://twitter.com/alex_recker][twitter]]
+- Send me an email at [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (use my [[file:documents/pgp.txt][pgp]] key if you'd like)
+- Find me on [[https://github.com/arecker/][github]] or [[https://twitter.com/alex_recker][twitter]]
 
-  -----
+-----
 
-  This is a random image from my life.  Click it to view another one.
+This is a random image from my life.  Click it to view another one.
 
-  #+BEGIN_EXPORT html
-  <style>
-    #randomImage {
-    cursor: pointer;
-    }
-  </style>
-  <script>
-    function updateImage() {
+#+BEGIN_EXPORT html
+<style>
+  #randomImage {
+  cursor: pointer;
+  }
+</style>
+<script>
+  function updateImage() {
     var elem = document.getElementById('randomImage');
     elem.src = '/random.png?' + new Date().getTime();
-    }
-  </script>
-  <br/>
-  <a target="_blank" onclick="updateImage()"/>
+  }
+</script>
+<br/>
+<a target="_blank" onclick="updateImage()"/>
   <img id="randomImage" src="/random.png" alt="random" />
-  </a>
-  <br/>
-  #+END_EXPORT
+</a>
+<br/>
+#+END_EXPORT
 
-  -----
+-----
 
 * [[file:san-francisco.org][San Francisco]]
-  :PROPERTIES:
+:PROPERTIES:
   :PUBDATE:  <2016-10-16 Sun>
   :RSS_PERMALINK: san-francisco.html
   :ID:       03143152-6CF6-44E6-B692-1ACB9606D7E9
   :END:
 
-  My company sent me on a trip to San Francisco.
+My company sent me on a trip to San Francisco.
 
-  October 16, 2016
+October 16, 2016
 
 * [[file:the-baby.org][The Baby]]
-  :PROPERTIES:
+:PROPERTIES:
   :PUBDATE:  <2016-07-22 Fri>
   :ID:       585AC4D0-21CF-40DD-A240-211167DF5D28
   :RSS_PERMALINK: the-baby.html
   :END:
 
-  We had a baby.  Here is the recap.
+We had a baby.  Here is the recap.
 
-  July 22, 2016
+July 22, 2016
 
 * [[file:anxiety.org][Anxiety]]
-  :PROPERTIES:
+:PROPERTIES:
   :PUBDATE:  <2016-01-26 Tue>
   :RSS_PERMALINK: anxiety.html
   :ID:       3ae906a9-847c-42ed-9bf7-5667db09e700
   :END:
 
-  Hoping to inspire a new attitude toward medication and mental
-  health, my wife bravely shares her personal journey of discovering
-  her anxiety disorder.
+Hoping to inspire a new attitude toward medication and mental health,
+my wife bravely shares her personal journey of discovering her anxiety
+disorder.
 
-  January 26, 2016
+January 26, 2016
 
 * [[file:selenium-bus-pass.org][Using Selenium to Buy a Bus Pass]]
-  :PROPERTIES:
+:PROPERTIES:
   :PUBDATE:  <2016-01-12 Tue>
   :RSS_PERMALINK: selenium-bus-pass.html
   :ID:       1abe0196-e849-41e3-bc88-4fa67069ab11
   :END:
 
-  A brief tutorial of my new favorite Selenium script.
+A brief tutorial of my new favorite Selenium script.
 
-  January 12, 2016
+January 12, 2016
 
 * [[file:our-new-sid-meiers-civilization-inspired-budget.org][Our New Sid Meier's Civilization Inspired Budget]]
-  :PROPERTIES:
+:PROPERTIES:
   :RSS_PERMALINK: our-new-sid-meiers-civilization-inspired-budget.html
   :PUBDATE:  <2015-11-15 Sun>
   :ID:       0500dcfc-a874-48c9-b78c-eea3b5bfd815
   :END:
 
-  My wife and I were inspired by Sid Meier's Civilization to look at
-  our finances differently. Here is our new system
+My wife and I were inspired by Sid Meier's Civilization to look at our
+finances differently. Here is our new system
 
-  November 13, 2015
+November 13, 2015
 
 * [[file:jane.org][Jane]]
-  :PROPERTIES:
+:PROPERTIES:
   :RSS_PERMALINK: jane.html
   :PUBDATE:  <2015-10-25 Sun>
   :ID:       a10b2c1b-5892-45e3-83c8-012d0a0c979d
   :END:
 
-  An interview with my mother, Jane Recker.
+An interview with my mother, Jane Recker.
 
-  October 25, 2015
+October 25, 2015
 
 * [[file:seinfeld.org][Seinfeld]]
-  :PROPERTIES:
-  :PUBDATE:  <2015-09-09 Wed>
-  :RSS_PERMALINK: seinfeld.html
-  :ID:       5c467edc-40a4-41b6-afdc-a8c56530e1e9
-  :END:
+:PROPERTIES:
+:PUBDATE:  <2015-09-09 Wed>
+:RSS_PERMALINK: seinfeld.html
+:ID:       5c467edc-40a4-41b6-afdc-a8c56530e1e9
+:END:
 
-  The early seasons of Seinfeld - are these episodes evidence of a
-  Sitcom finding its stride, or a prologue to the lives of the four
-  people that surrendered to a life about nothing?
+The early seasons of Seinfeld - are these episodes evidence of a
+Sitcom finding its stride, or a prologue to the lives of the four
+people that surrendered to a life about nothing?
 
-  September 9, 2015
+September 9, 2015
 
 * [[file:bedbugs.org][Bedbugs]]
-  :PROPERTIES:
-  :RSS_PERMALINK: bedbugs.html
-  :PUBDATE:  <2015-07-24 Fri>
-  :ID:       9370D57E-9609-4D23-B145-E97F59AD8C75
-  :END:
+:PROPERTIES:
+:RSS_PERMALINK: bedbugs.html
+:PUBDATE:  <2015-07-24 Fri>
+:ID:       9370D57E-9609-4D23-B145-E97F59AD8C75
+:END:
 
-  An embittered account of our war with orchid knoll over
-  bedbugs. You decide who the real parasite is!
+An embittered account of our war with orchid knoll over bedbugs. You
+decide who the real parasite is!
 
-  July 24, 2015
+July 24, 2015
 
 * [[file:rockford.org][Rockford]]
-  :PROPERTIES:
-  :RSS_PERMALINK: rockford.html
-  :PUBDATE:  <2015-04-08 Wed>
-  :ID:       916B1F4F-AD19-48AF-990B-5E8BAB6D29FD
-  :END:
+:PROPERTIES:
+:RSS_PERMALINK: rockford.html
+:PUBDATE:  <2015-04-08 Wed>
+:ID:       916B1F4F-AD19-48AF-990B-5E8BAB6D29FD
+:END:
 
-  Farewell, Rockford.  It was a pleasure being your citizen for two
-  years.
+Farewell, Rockford.  It was a pleasure being your citizen for two
+years.
 
-  April 8, 2015
+April 8, 2015
 
 * [[file:sports.org][Sports]]
-  :PROPERTIES:
-  :PUBDATE:  <2015-02-01 Sun>
-  :RSS_PERMALINK: sports.html
-  :ID:       03B13581-FEB9-4D34-9329-75FAB4B24A5B
-  :END:
+:PROPERTIES:
+:PUBDATE:  <2015-02-01 Sun>
+:RSS_PERMALINK: sports.html
+:ID:       03B13581-FEB9-4D34-9329-75FAB4B24A5B
+:END:
 
-  You are probably expecting a 'you suck if you are watching the
-  superbowl' post.  You're wrong, reader.  I'm turning over a new
-  leaf.  I'm ready to rejoin society with new found empathy.
+You are probably expecting a 'you suck if you are watching the
+superbowl' post.  You're wrong, reader.  I'm turning over a new leaf.
+I'm ready to rejoin society with new found empathy.
 
-  February 1, 2015
+February 1, 2015
 
 * [[file:weight.org][Weight]]
-  :PROPERTIES:
-  :PUBDATE:  <2015-01-03 Sat>
-  :RSS_PERMALINK: weight.html
-  :ID:       78CD73C2-2ED0-4F00-881C-A6CCE8E10931
-  :END:
+:PROPERTIES:
+:PUBDATE:  <2015-01-03 Sat>
+:RSS_PERMALINK: weight.html
+:ID:       78CD73C2-2ED0-4F00-881C-A6CCE8E10931
+:END:
 
-  Happy new year, everybody.  It's the season for gym memberships.  I
-  hope you all don't mind, but I got a head start.  I share my
-  mediocre weight loss journey to date.
+Happy new year, everybody.  It's the season for gym memberships.  I
+hope you all don't mind, but I got a head start.  I share my
+mediocre weight loss journey to date.
 
-  January 3, 2015
+January 3, 2015
 
 * [[file:wolf-wall-street.org][The Wolf of Wall Street]]
-  :PROPERTIES:
-  :PUBDATE:  <2014-12-28 Sun>
-  :RSS_PERMALINK: wolf-wall-street.html
-  :ID:       E7A5E60E-DB1D-4336-BC41-8AA26668D764
-  :END:
+:PROPERTIES:
+:PUBDATE:  <2014-12-28 Sun>
+:RSS_PERMALINK: wolf-wall-street.html
+:ID:       E7A5E60E-DB1D-4336-BC41-8AA26668D764
+:END:
 
-  I say some words about the movie The Wolf of Wall Street.
+I say some words about the movie The Wolf of Wall Street.
 
-  December 28, 2014
+December 28, 2014
 
 * [[file:linux.org][Linux]]
-  :PROPERTIES:
-  :PUBDATE:  <2014-11-24 Mon>
-  :RSS_PERMALINK: linux.html
-  :ID:       5E58A8CA-079F-43AB-867A-F074CE285009
-  :END:
+:PROPERTIES:
+:PUBDATE:  <2014-11-24 Mon>
+:RSS_PERMALINK: linux.html
+:ID:       5E58A8CA-079F-43AB-867A-F074CE285009
+:END:
 
-  Let's talk about Linux.  Where did it come from?  What can it do
-  for you?  How long does your beard need to grow before you can get
-  it to work?
+Let's talk about Linux.  Where did it come from?  What can it do for
+you?  How long does your beard need to grow before you can get it to
+work?
 
-  November 24, 2014
+November 24, 2014
 
 * [[file:pride.org][Pride]]
   :PROPERTIES:

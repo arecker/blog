@@ -1,0 +1,107 @@
+#+TITLE: Email with Gnus and Docker
+#+STARTUP: indent showall
+#+OPTIONS: toc:nil num:nil
+
+* Running the Docker Container
+
+To simply my configuration, I threw together a docker container for
+downloading and serving mail locally.  It's simply a dovecot server
+wired up to a Maildir that syncs to a gmail account.  You can check it
+out [[https://github.com/arecker/mailman][here]].
+
+Just install docker on your machine and run it, supplying =IMAP_USER=
+and =IMAP_PASSWORD= as environment variables.
+
+#+BEGIN_SRC sh
+  docker run \
+         --restart always \
+         --name mailman \
+         -p 127.0.0.1:143:143 \
+         --env IMAP_USER="you@gmail.com" \
+         --env IMAP_PASSWORD="yoursecretpassword" \
+         -d arecker/mailman:latest
+#+END_SRC
+
+The container will immediately get to work downloading your mailbox to
+a docker volume, kept in =/home/docker/Maildir=.  Because we published
+port 143, we also have access to the dovecot server.
+
+You can test the configuration with =mutt= using this minimal =.muttrc=.
+
+#+BEGIN_EXAMPLE
+  set mbox_type   = Maildir
+  set folder      = imap://127.0.0.1
+  set spoolfile	= imap://127.0.0.1
+  set imap_user	= docker
+  set imap_pass	= frozenfish
+#+END_EXAMPLE
+
+Is that a hard-coded password?  Yes it is.  Dovecot's documentation is
+dense, and this happened to be the first configuration that I managed
+to get working.  If you know better, you are free to take a whack at
+it.
+
+If you can see an INBOX after running =mutt=, that means everything
+worked.  You probably won't see your emails yet.  The initial sync
+takes quite a bit of time, depending on the size of your mailbox.
+
+* Adding the Method to Gnus
+
+Now that our mail server is running, we can add it to Gnus as a mail
+source.  My configuration looks like this.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'gnus-secondary-select-methods
+               '(nnimap "mail"
+                        (nnimap-stream network)
+                        (nnimap-address "localhost")
+                        (nnimap-server-port 143)
+                        (nnimap-authenticator login)))
+#+END_SRC
+
+If you'd like to avoid getting prompted by emacs for login
+credentials, you can leave this in your =~/.authinfo=.
+
+#+BEGIN_EXAMPLE
+  machine localhost login docker password frozenfish port 143
+#+END_EXAMPLE
+
+Once that's in, just launch Gnus.  You should now be able to browse
+your new containerized local mail server.
+
+* Multiple Accounts
+
+The beautiful thing about a containerized configuration you can run an
+isolated instance for each mail account you need to serve to Gnus.
+
+I have a =mailman-personal= and a =mailman-work= containers running on
+different ports.
+
+#+BEGIN_EXAMPLE
+  arecker@localhost:~$ docker ps
+  CONTAINER ID        IMAGE                    COMMAND                  CREATED             STATUS              PORTS                     NAMES
+  520c6662abb7        arecker/mailman:latest   "/usr/bin/supervisord"   2 hours ago         Up 30 minutes       127.0.0.1:8144->143/tcp   mailman-work
+  34443de7d812        arecker/mailman:latest   "/usr/bin/supervisord"   2 hours ago         Up 31 minutes       127.0.0.1:8143->143/tcp   mailman-personal
+#+END_EXAMPLE
+
+And a =personal= and =work= IMAP select method added to Gnus.
+
+#+BEGIN_SRC emacs-lisp
+  (add-to-list 'gnus-secondary-select-methods
+               '(nnimap "personal"
+                        (nnimap-stream network)
+                        (nnimap-address "localhost")
+                        (nnimap-server-port 8143)
+                        (nnimap-authenticator login)))
+
+  (add-to-list 'gnus-secondary-select-methods
+               '(nnimap "work"
+                        (nnimap-stream network)
+                        (nnimap-address "localhost")
+                        (nnimap-server-port 8144)
+                        (nnimap-authenticator login)))
+#+END_SRC
+
+The result is fast mail reading in Gnus with no headaches!
+
+[[file:images/gnus.png]]
