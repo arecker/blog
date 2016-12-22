@@ -42,17 +42,6 @@ This is a random image from my life.  Click it to view another one.
 
 -----
 
-* [[file:email-gnus-docker.org][Email with Gnus and Docker]]
-:PROPERTIES:
-:PUBDATE:  <2016-12-21 Wed>
-:RSS_PERMALINK: email-gnus-docker.html
-:END:
-
-I moved my offlineimap/dovecot setup to a tidy docker container.  Gnus
-is much happier now.
-
-December 21, 2016
-
 * [[file:san-francisco.org][San Francisco]]
 :PROPERTIES:
 :PUBDATE:  <2016-10-16 Sun>
