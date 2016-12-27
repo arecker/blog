@@ -5,6 +5,10 @@
 #+STARTUP: showall indent
 
 * Welcome							      :norss:
+:PROPERTIES:
+:ID:       0E7E46E9-349B-4776-8094-B35F751CD901
+:PUBDATE:  <2016-12-27 Tue 12:36>
+:END:
 
 Thanks for checking out my blog.  You should stick around and read
 some things.  Here are a few ways you can follow my blog:
@@ -30,12 +34,12 @@ This is a random image from my life.  Click it to view another one.
 <script>
   function updateImage() {
     var elem = document.getElementById('randomImage');
-    elem.src = '/random.png?' + new Date().getTime();
+    elem.src = '//alexrecker.com/random.png?' + new Date().getTime();
   }
 </script>
 <br/>
 <a target="_blank" onclick="updateImage()"/>
-  <img id="randomImage" src="/random.png" alt="random" />
+  <img id="randomImage" src="//alexrecker.com/random.png" alt="random" />
 </a>
 <br/>
 #+END_EXPORT

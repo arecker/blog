@@ -167,7 +167,7 @@ throws a payment validation error. Call me a miser, but I didn't feel
 like giving away my /real/ credit card number just for the sake of a
 demo.
 
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 <video autoplay="" class="share-video" id="share-video" loop="" muted="" poster="https://thumbs.gfycat.com/ImpossibleIncredibleAnchovy-poster.jpg">
  <source id="webmSource" src="https://zippy.gfycat.com/ImpossibleIncredibleAnchovy.webm" type="video/webm">
   <source id="mp4Source" src="https://zippy.gfycat.com/ImpossibleIncredibleAnchovy.mp4" type="video/mp4">
@@ -175,7 +175,7 @@ demo.
   </source>
  </source>
 </video>
-#+END_HTML
+#+END_EXPORT
 
 * Taking it Further
 
