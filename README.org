@@ -1,21 +1,4 @@
 #+TITLE: Blog
 #+STARTUP: indent
 
-This is blog, built with org mode.  You can see the org side [[https://github.com/arecker/emacs.d#blog][here]].
-This is just where I keep all the writing.
-
-The docker container is simply an nginx proxy with some minor tweaks.
-
-- Redirects =/<slug>/= to =/<slug>.html=
-- Sends =/random.png= to a linked =random.png= container.
-- Sends =/subscribe/= to a linked =subscribah= container.
-
-#+BEGIN_SRC sh
-  docker run \
-         --name blog \
-         --link random.png:random.png \
-         --link subscribah:subscribah \
-         -v ~/.alexrecker.com:/usr/share/nginx/html:ro \
-         -p 127.0.0.1:80:80 \
-         -d arecker/blog:latest
-#+END_SRC
+This is my blog, man.
