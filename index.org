@@ -32,6 +32,7 @@ This is a random image from my life.  Click it to view another one.
 <script>
   function updateImage() {
     var elem = document.getElementById('randomImage');
+    elem.src = '/images/loading.gif';
     elem.src = '/random.png?' + new Date().getTime();
   }
   updateImage();
