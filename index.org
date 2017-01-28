@@ -11,35 +11,12 @@
 :END:
 
 Thanks for checking out my blog.  You should stick around and read
-some things.  Here are a few ways you can follow my blog by tracking
-my [[file:feed/index.xml][rss feed]].
+some things.  You can follow my blog using my [[file:feed/index.xml][rss feed]].
 
 Here are a few ways you can contact me:
 
 - Send me an email at [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (use my [[file:documents/pgp.txt][pgp]] key if you'd like)
-- Find me on [[https://github.com/arecker/][github]] or [[https://twitter.com/alex_recker][twitter]]
-
------
-
-This is a random image from my life.  Click it to view another one.
-
-#+BEGIN_EXPORT html
-<br/>
-<a target="_blank" onclick="updateImage()"/>
-  <img id="randomImage" style="cursor: pointer;" src="/images/loading.gif" alt="random" />
-</a>
-<br/>
-<script>
-  function updateImage() {
-    var elem = document.getElementById('randomImage');
-    elem.src = '/images/loading.gif';
-    elem.src = '/random.png?' + new Date().getTime();
-  }
-  updateImage();
-</script>
-#+END_EXPORT
-
------
+- Find me on [[https://github.com/arecker/][github]] or [[https://twitter.com/alex_recker][twitter]]o
 
 * [[file:san-francisco.org][San Francisco]]
 :PROPERTIES:
