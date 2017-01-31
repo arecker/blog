@@ -18,6 +18,34 @@ Here are a few ways you can contact me:
 - Send me an email at [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (use my [[file:documents/pgp.txt][pgp]] key if you'd like)
 - Find me on [[https://github.com/arecker/][github]] or [[https://twitter.com/alex_recker][twitter]]
 
+-----
+
+#+BEGIN_EXPORT html
+<img id="randomImage" />
+<script>
+function loadingImage() {
+    document.getElementById('randomImage').src = '/images/loading.gif';
+}
+
+function updateImage() {
+    var request = new XMLHttpRequest(),
+	url = 'https://m1znw3c54l.execute-api.us-west-2.amazonaws.com/v1/random-image/';
+
+    request.onreadystatechange = function() {
+	if (request.readyState == XMLHttpRequest.DONE) {
+	    console.log(request.responseText);
+	}
+    };
+
+    loadingImage();
+    request.open('GET', url, true);
+    request.send()
+}
+</script>
+#+END_EXPORT
+
+-----
+
 * [[file:san-francisco.org][San Francisco]]
 :PROPERTIES:
 :PUBDATE:  <2016-10-16 Sun>
