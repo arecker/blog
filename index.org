@@ -21,27 +21,12 @@ Here are a few ways you can contact me:
 -----
 
 #+BEGIN_EXPORT html
-<img id="randomImage" />
-<script>
-function loadingImage() {
-    document.getElementById('randomImage').src = '/images/loading.gif';
-}
-
-function updateImage() {
-    var request = new XMLHttpRequest(),
-	url = 'https://m1znw3c54l.execute-api.us-west-2.amazonaws.com/v1/random-image/';
-
-    request.onreadystatechange = function() {
-	if (request.readyState == XMLHttpRequest.DONE) {
-	    console.log(request.responseText);
-	}
-    };
-
-    loadingImage();
-    request.open('GET', url, true);
-    request.send()
-}
-</script>
+<a target="_blank" onclick="blog.cycleRandomImage()"/>
+<img id="randomImage"
+     style="cursor: pointer;"
+     alt="random-image" />
+</a>
+<script>blog.cycleRandomImage();</script>
 #+END_EXPORT
 
 -----
