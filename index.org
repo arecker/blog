@@ -26,7 +26,8 @@ Enjoy a random image from my life.  Click it to view another.
 <a target="_blank" onclick="blog.cycleRandomImage()"/>
 <img id="randomImage"
      style="cursor: pointer;"
-     alt="random-image" />
+     alt="random-image"
+     src="./images/loading.gif" />
 </a>
 <script>blog.cycleRandomImage();</script>
 #+END_EXPORT
