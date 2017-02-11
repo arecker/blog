@@ -1,4 +1,4 @@
-var blog = (function () {
+var blog = (function (apiURL) {
 
   var api = {},
 
@@ -10,14 +10,20 @@ var blog = (function () {
 	getRandomImageElement().src = '/images/loading.gif';
       },
 
+      toImgSrc = function(base64) {
+	return 'data:image/png;base64,' + base64.replace(/["]+/g, '');
+      },
+
       displayRandomImage = function() {
 	var request = new XMLHttpRequest();
+
 	request.onreadystatechange = function() {
 	  if (request.readyState == XMLHttpRequest.DONE) {
-	    getRandomImageElement().src = 'data:image/png;base64,' + request.responseText.replace(/["]+/g, '')
+	    getRandomImageElement().src = toImgSrc(request.responseText);
 	  }
 	};
-	request.open('GET', 'https://ndgz5xamgb.execute-api.us-west-2.amazonaws.com/dev/', true);
+
+	request.open('GET', apiURL, true);
 	request.send()
       };
 
@@ -28,4 +34,4 @@ var blog = (function () {
 
   return api;
 
-}());
+}('https://ndgz5xamgb.execute-api.us-west-2.amazonaws.com/dev/'));
