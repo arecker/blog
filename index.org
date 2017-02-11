@@ -20,6 +20,8 @@ Here are a few ways you can contact me:
 
 -----
 
+Enjoy a random image from my life.  Click it to view another.
+
 #+BEGIN_EXPORT html
 <a target="_blank" onclick="blog.cycleRandomImage()"/>
 <img id="randomImage"
