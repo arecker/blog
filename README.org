@@ -1,4 +1,3 @@
 #+TITLE: Blog
-#+STARTUP: indent
 
 This is my blog, man.
