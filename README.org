@@ -1,3 +1,0 @@
-#+TITLE: Blog
-
-This is my blog, man.
