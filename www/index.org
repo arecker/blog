@@ -1,0 +1,19 @@
+#+TITLE: Home
+#+OPTIONS: ^:nil
+
+* Welcome
+
+  Hey there!  My name is Alex Recker.  Welcome to my personal website.
+  It gives me joy to provide a space on the web without tracking,
+  cookies, advertisements, or scripts.  You are totally anonymous, my
+  amigo.  Now help yourself to some content.
+
+  [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] | [[https://twitter.com/alex_recker][@alex_recker]] | [[https://github.com/arecker][arecker]] | [[file:pgp.txt][pgp]]
+
+  [[file:images/me.jpeg]]
+
+* Posts
+
+** [[file:uhh-yeah-dude.org][Uhh Yeah Dude]]
+
+A long overdue written tribute to my favorite podcast.
