@@ -19,12 +19,12 @@ plays them out.
 
 But who are they, and what are they doing?  /Uhh Yeah Dude/ is simply
 a conversation between Hollywood locals Jonathan Larroquette and Seth
-Romatelli.  They weave between satire, commentary, story telling,
-venting all as part of mediation on their tagline, "America through
+Romatelli.  They weave between satire, commentary, story telling, and
+venting all as part of a mediation on their tagline, "America through
 the eyes of two /American/ Americans."  There are absolutely no inside
-or context that needs to be revisited, because somehow despite doing
-this show since February of 2006, Seth and Jonathan remain fixated on
-the present and the future.
+jokes or context that needs to be revisited, because somehow despite
+doing this show since February of 2006, Seth and Jonathan remain
+fixated on the present and the future.
 
 "Comedy Podcast" falls so short in describing what they do.  /Uhh Yeah
 Dude/ is a performance art.  You haven't lived until you've listened
@@ -47,18 +47,19 @@ snicking on the couch with them.  And that familiarity is no
 accident - it's earned through numerous live shows and accessibility
 to their listeners.  They even have a toll free voicemail that they
 encourage listeners to call at any time or day.  They repeat the phone
-number so often, it feels like a catch phrase.  My wife this number
-about a week before my birthday with a pretty open ended request to
-give me a shoutout or text me "Happy Birthday".  You can imagine my
-excitement when I found that Seth had left me a two minute long
-voicemail where he leisurely read the day's horoscopes from his local
-newspaper.
+number so often, it feels like a catch phrase.  My wife called this
+number about a week before my birthday with a pretty open ended
+request to give me a shoutout or text me "Happy Birthday".  You can
+imagine my excitement when I found that Seth had left me a two minute
+long voicemail where he leisurely read the day's horoscopes from his
+local newspaper.
 
 #+BEGIN_HTML
-  <audio controls>
-    <source src="audio/uydvoicemail.ogg" type="audio/ogg">
-  </audio
-  <br/>
+  <div>
+    <audio controls style="display: table; margin: 0 auto;">
+      <source src="audio/uydvoicemail.ogg" type="audio/ogg">
+    </audio
+  </div>
 #+END_HTML
 
 I don't know what else I can say about Uhh Yeah Dude.  I don't have a
