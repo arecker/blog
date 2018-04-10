@@ -38,8 +38,8 @@ life went.  Laughter is inevitable, but the second you confine the
 show to "comedy podcast", it will surprise you with something
 genuinely poignant, touching, and honest.  While no newspaper
 headline, Craigslist personal, or Internet ad is safe from their
-wandering banter, their originality and authenticity remains the
-constant force that ties the show together.  Seth and Jonathan's deep
+wandering banter, their originality and authenticity remain the
+constant forces that tie the show together.  Seth and Jonathan's deep
 understanding of each other is palpable, and even contagious to the
 point where you feel like you are in that East Hollywood apartment
 snicking on the couch with them.
@@ -54,6 +54,13 @@ kind of shoutout.  You can imagine my excitement when I found that
 Seth had left me a two minute long voicemail where he leisurely read
 the horoscopes from his local newspaper.
 
+I don't know what else I can say about /Uhh Yeah Dude/, but somehow
+leaving it in a brief "top five podcasts" list doesn't cut it.  This
+podcast is like no other.  It's original, hilarious, thought
+provoking, and a regular source of amusement and rejuvenation that I
+have come to cherish.  It's time you fasten your seatbelt and give
+/Uhh Yeah Dude/ a try.
+
 #+BEGIN_HTML
   <div>
     <audio controls style="display: table; margin: 0 auto;">
@@ -61,10 +68,3 @@ the horoscopes from his local newspaper.
     </audio
   </div>
 #+END_HTML
-
-I don't know what else I can say about /Uhh Yeah Dude/, but somehow
-leaving it in a brief "top five podcasts" list doesn't cut it.  This
-podcast is like no other.  It's original, hilarious, thought
-provoking, and a regular source of amusement and rejuvenation that I
-have come to cherish.  It's time you fasten your seatbelt and give
-/Uhh Yeah Dude/ a try.

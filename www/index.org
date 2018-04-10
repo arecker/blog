@@ -3,10 +3,9 @@
 
 * Welcome
 
-  Hey there!  My name is Alex Recker.  Welcome to my personal website.
-  It gives me joy to provide a space on the web without tracking,
-  cookies, advertisements, or scripts.  You are totally anonymous, my
-  amigo.  Now help yourself to some content.
+  Hey there!  My name is Alex Recker.  Welcome to my personal
+  website.  I really appreciate the Internet traffic, amigo.  Now help
+  yourself to some content!
 
   [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] | [[https://twitter.com/alex_recker][@alex_recker]] | [[https://github.com/arecker][arecker]] | [[file:pgp.txt][pgp]]
 
