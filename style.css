@@ -22,3 +22,9 @@ h1, h2, h3 {
 #org-div-home-and-up a:first-of-type {
     display: none;
 }
+
+#postamble {
+    font-size: 14px;
+    margin-top: 5px;
+    border-top: 1px solid black;
+}
