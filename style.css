@@ -26,5 +26,5 @@ h1, h2, h3 {
 #postamble {
     font-size: 14px;
     margin-top: 5px;
-    border-top: 1px solid black;
+    border-top: 1px solid #444;
 }
