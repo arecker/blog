@@ -7,7 +7,14 @@
   website.  I really appreciate the Internet traffic, amigo.  Now help
   yourself to some content!
 
-  [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] | [[https://twitter.com/alex_recker][@alex_recker]] | [[https://github.com/arecker][arecker]] | [[file:pgp.txt][pgp]]
+  Here are some ways you can contact me:
+
+  - [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]]
+  - [[https://twitter.com/alex_recker][@alex_recker]]
+  - [[https://github.com/arecker][arecker]]
+  - [[file:pgp.txt][pgp]]
+
+  Or you can creep on my [[https://jenkins.alexrecker.com/blog/][Jenkins Server]]
 
   [[file:images/me.jpeg]]
 
