@@ -14,7 +14,7 @@
   - [[https://github.com/arecker][arecker]]
   - [[file:pgp.txt][pgp]]
 
-  Or you can creep on my [[https://jenkins.alexrecker.com/blog/][Jenkins Server]]
+  Or you can creep on my [[https://jenkins.alexrecker.com/job/blog/][Jenkins Server]]
 
   [[file:images/me.jpeg]]
 
