@@ -2,7 +2,7 @@
 (require 'ox-html)
 (require 'ox-publish)
 (let* ((base-directory command-line-default-directory)
-       (publishing-directory (concat (file-name-as-directory base-directory) "site"))
+       (publishing-directory (substitute-in-file-name "$HOME/.www.alexrecker.com"))
        (org-publish-project-alist `(("blog-html"
 				     :html-link-home "/"
 				     :base-directory ,base-directory
