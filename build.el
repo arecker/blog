@@ -1,6 +1,10 @@
 #!/usr/bin/emacs --script
 (require 'ox-html)
 (require 'ox-publish)
+
+(setq make-backup-files nil
+      auto-save-default nil)
+
 (let* ((base-directory command-line-default-directory)
        (publishing-directory (substitute-in-file-name "$HOME/.www.alexrecker.com"))
        (org-publish-project-alist `(("blog-html"
