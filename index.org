@@ -3,18 +3,12 @@
 
 * Welcome
 
-  Hey there!  My name is Alex Recker.  Welcome to my personal
-  website.  I really appreciate the Internet traffic, amigo.  Now help
-  yourself to some content!
-
-  Here are some ways you can contact me:
-
-  - [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]]
-  - [[https://twitter.com/alex_recker][@alex_recker]]
-  - [[https://github.com/arecker][arecker]]
-  - [[file:pgp.txt][pgp]]
-
-  Or you can creep on my [[https://jenkins.alexrecker.com/job/blog/][Jenkins Server]]
+  Hey there!  My name is Alex Recker.  Welcome to my personal website.
+  I really appreciate the Internet traffic, amigo.  Now help yourself
+  to some content!  If you want to talk, send me an email at
+  [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (you can use my [[file:pgp.txt][pgp key]] if you are into that),
+  follow me on twitter at [[https://twitter.com/alex_recker][@alex_recker]], or follow me on GitHub at
+  [[https://github.com/arecker][arecker]].
 
   [[file:images/me.jpeg]]
 
