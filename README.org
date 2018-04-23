@@ -1,0 +1,5 @@
+#+TITLE: Blog
+
+This is my blog, man.
+
+[[https://jenkins.alexrecker.com/job/blog/][file:https://jenkins.alexrecker.com/job/blog/badge/icon]]
