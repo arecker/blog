@@ -5,7 +5,8 @@
 (setq make-backup-files nil
       auto-save-default nil)
 
-(let* ((base-directory command-line-default-directory)
+(let* ((user-full-name "Alex Recker")
+       (base-directory command-line-default-directory)
        (publishing-directory (substitute-in-file-name "$HOME/.www.alexrecker.com"))
        (org-publish-project-alist `(("blog-html"
 				     :html-link-home "/"
