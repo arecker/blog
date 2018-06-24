@@ -1,13 +1,12 @@
 #!/usr/bin/emacs --script
 (require 'ox-html)
 (require 'ox-publish)
-
-(setq make-backup-files nil
-      auto-save-default nil)
-
 (let* ((user-full-name "Alex Recker")
+       (make-backup-files nil)
+       (auto-save-default nil)
        (base-directory command-line-default-directory)
-       (publishing-directory (substitute-in-file-name "$HOME/.www.alexrecker.com"))
+       (publishing-directory (make-temp-file "blog" 't))
+       (bucket (or (getenv "S3_BUCKET") (error "$S3_BUCKET not set")))
        (org-publish-project-alist `(("blog-html"
 				     :html-link-home "/"
 				     :base-directory ,base-directory
@@ -26,5 +25,7 @@
 				     :recursive t
 				     )
 				    ("blog" :components ("blog-html" "blog-static")))))
-  (org-publish "blog" 't))
-
+  (org-publish "blog" 't)
+  (shell-command (format "aws s3 sync %s s3://%s --delete" publishing-directory bucket))
+  (delete-directory publishing-directory 't)
+  (message "Finished!"))
