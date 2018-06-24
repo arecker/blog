@@ -1,7 +1,11 @@
 image: debian:latest
 
 before_script:
-  - apt-get update && apt-get install -y emacs
+  - apt-get update && apt-get install -y emacs python python-pip
+  - pip install awscli
 
 build:
   script: $CI_PROJECT_DIR/build.el
+
+publish:
+  script: which aws
