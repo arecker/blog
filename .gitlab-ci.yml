@@ -6,5 +6,6 @@ before_script:
 
 publish:
   script:
+    - which emacs
     - $CI_PROJECT_DIR/build.el
     - aws s3 sync $HOME/.www.alexrecker.com s3://$S3_BUCKET --delete
