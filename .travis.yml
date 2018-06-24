@@ -3,6 +3,6 @@ sudo: required
 addons:
   apt:
     packages:
-      - emacs26
+      - emacs
 script: $TRAVIS_BUILD_DIR/build.el
-after_success: echo "SUCCEEDED"
+after_success: aws s3 sync $HOME/.www.alexrecker.com s3://$S3_BUCKET --delete
