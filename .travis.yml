@@ -4,3 +4,4 @@ addons:
   apt:
     packages:
       - emacs26
+script: $TRAVIS_BUILD_DIR/build.el
