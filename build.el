@@ -1,4 +1,4 @@
-#!emacs --script
+#!/usr/bin/emacs --script
 (require 'ox-html)
 (require 'ox-publish)
 
