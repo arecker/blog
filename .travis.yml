@@ -4,5 +4,8 @@ addons:
   apt:
     packages:
       - emacs
+before_script:
+  - pip install --user awscli
+  - export PATH=$PATH:$HOME/.local/bin
 script: $TRAVIS_BUILD_DIR/build.el
 after_success: aws s3 sync $HOME/.www.alexrecker.com s3://$S3_BUCKET --delete
