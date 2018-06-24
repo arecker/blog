@@ -1,5 +1,5 @@
 before_script:
-  - apt-get update && apt-get install emacs
+  - apt-get update && apt-get install -y emacs
 
 build:
   script: $CI_PROJECT_DIR/build.el
