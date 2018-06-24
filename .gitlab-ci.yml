@@ -1,7 +1,7 @@
-image: debian:latest
+image: silex/emacs:latest
 
 before_script:
-  - apt-get update && apt-get install -y emacs python python-pip
+  - apt-get update && apt-get install -y python python-pip
   - pip install awscli
 
 publish:
