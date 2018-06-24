@@ -1,7 +1,7 @@
 image: debian:latest
 
 before_script:
-  - apt-get update && apt-get install -y emacs26 python python-pip
+  - apt-get update && apt-get install -y emacs python python-pip
   - pip install awscli
 
 publish:
