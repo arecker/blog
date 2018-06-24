@@ -5,6 +5,4 @@ before_script:
   - pip install awscli
 
 publish:
-  script:
-    - $CI_PROJECT_DIR/build.el
-    - aws s3 sync $HOME/.www.alexrecker.com s3://$S3_BUCKET --delete
+  script: $CI_PROJECT_DIR/build.el
