@@ -22,8 +22,7 @@
 				     :base-extension "css\\|jpg\\|jpeg\\|gif\\|png\\|txt\\|ogg\\|js"
 				     :publishing-directory ,publishing-directory
 				     :publishing-function org-publish-attachment
-				     :recursive t
-				     )
+				     :recursive t)
 				    ("blog" :components ("blog-html" "blog-static")))))
   (org-publish "blog" 't)
   (shell-command (format "aws s3 sync %s s3://%s --delete" publishing-directory bucket))
