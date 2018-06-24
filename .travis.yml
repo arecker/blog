@@ -5,3 +5,4 @@ addons:
     packages:
       - emacs26
 script: $TRAVIS_BUILD_DIR/build.el
+after_success: echo "SUCCEEDED"
