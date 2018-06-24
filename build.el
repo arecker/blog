@@ -26,5 +26,5 @@
 				     :recursive t
 				     )
 				    ("blog" :components ("blog-html" "blog-static")))))
-  (org-publish "blog"))
+  (org-publish "blog" 't))
 
