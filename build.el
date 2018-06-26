@@ -7,6 +7,7 @@
        (base-directory command-line-default-directory)
        (publishing-directory (make-temp-file "blog" 't))
        (bucket (or (getenv "S3_BUCKET") (error "$S3_BUCKET not set")))
+       (s3command (format "aws s3 sync %s s3://%s --delete" publishing-directory bucket))
        (org-publish-project-alist `(("blog-html"
 				     :html-link-home "/"
 				     :base-directory ,base-directory
@@ -25,6 +26,9 @@
 				     :recursive t)
 				    ("blog" :components ("blog-html" "blog-static")))))
   (org-publish "blog" 't)
-  (shell-command (format "aws s3 sync %s s3://%s --delete" publishing-directory bucket))
+  (with-temp-buffer
+    (shell-command s3command nil (current-buffer))
+    (unless (string= "" (buffer-string))
+      (error (format "Oops: %s" (buffer-string)))))
   (delete-directory publishing-directory 't)
   (message "Finished!"))
