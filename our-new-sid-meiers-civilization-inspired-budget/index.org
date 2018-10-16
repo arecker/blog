@@ -71,7 +71,7 @@ take over everyone.
 Each turn, the game tracks your income and expenses in food, gold, and
 happiness. They are shown in an indicator bar like this.
 
-[[.../images/civbar.png]]
+[[../images/civbar.png]]
 
 The numbers beside the gold coin represent how much gold you have in
 total, as well as how much you are making or losing every
