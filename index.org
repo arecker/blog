@@ -3,17 +3,22 @@
 
 * Welcome
 
-  Hey there!  My name is Alex Recker.  Welcome to my personal website.
-  I really appreciate the Internet traffic, amigo.  Now help yourself
-  to some content!  If you want to talk, send me an email at
-  [[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (you can use my [[file:pgp.txt][pgp key]] if you are into that),
-  follow me on twitter at [[https://twitter.com/alex_recker][@alex_recker]], or follow me on GitHub at
-  [[https://github.com/arecker][arecker]].
+Hey there!  My name is Alex Recker.  Welcome to my personal website.
+I really appreciate the Internet traffic, amigo.  Now help yourself to
+some content!  If you want to talk, send me an email at
+[[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (you can use my [[file:pgp.txt][pgp key]] if you are into that),
+follow me on twitter at [[https://twitter.com/alex_recker][@alex_recker]], or follow me on GitHub at
+[[https://github.com/arecker][arecker]].
 
-  [[file:images/me.jpeg]]
+[[file:images/me.jpeg]]
 
 * Posts
 
 ** [[file:uhh-yeah-dude.org][Uhh Yeah Dude]]
 
-   A long overdue written tribute to my favorite podcast.
+A long overdue written tribute to my favorite podcast.
+
+** [[file:our-new-sid-meiers-civilization-inspired-budget/index.org][Civ Budget]]
+
+My wife and I were inspired by Sid Meier's Civilization to look at our
+finances differently.  Here is our new system
