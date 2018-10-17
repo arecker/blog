@@ -4,6 +4,7 @@ h1, h2, h3, h4, h5, p, li, a {
 
 pre {
     font-family: 'Lucida Console', Monaco, monospace;
+    font-size: 11px;
 }
 
 body {
