@@ -1,6 +1,6 @@
 #+TITLE: Using Selenium to Buy a Bus Pass
 #+SUBTITLE: A brief tutorial of my new favorite Selenium script.
-#+DATE: <2016-01-12 Tue>
+#+DATE: 1-12-2016
 
 I take the bus everyday. It's terrific. There's nothing better than
 getting a full sixty minutes everyday to close your eyes, drink

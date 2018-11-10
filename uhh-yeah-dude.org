@@ -1,4 +1,6 @@
 #+TITLE: Uhh Yeah Dude
+#+SUBTITLE: A long overdue written tribute to my favorite podcast.
+#+DATE: 3-31-2018
 
 [[file:images/uyd.jpg]]
 
