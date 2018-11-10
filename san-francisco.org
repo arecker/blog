@@ -1,6 +1,6 @@
 #+TITLE: San Francisco
 #+SUBTITLE: My company sent me on a trip to San Francisco.
-#+DATE: 10-9-2016
+#+DATE: 2016-10-9
 #+STARTUP: showeverything
 
 * Introduction
