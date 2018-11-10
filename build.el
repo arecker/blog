@@ -1,7 +1,14 @@
 #!/usr/bin/emacs --script
 (require 'ox-html)
 (require 'ox-publish)
+(require 'package)
+
+
+
 (let* ((user-full-name "Alex Recker")
+       (package-archives
+	'(("gnu" . "https://elpa.gnu.org/packages/")
+	  ("melpa" . "https://melpa.org/packages/")))
        (make-backup-files nil)
        (auto-save-default nil)
        (base-directory command-line-default-directory)
@@ -25,6 +32,8 @@
 				     :publishing-function org-publish-attachment
 				     :recursive t)
 				    ("blog" :components ("blog-html" "blog-static")))))
+  (package-refresh-contents)
+  (package-install 'htmlize)
   (org-publish "blog" 't)
   (with-temp-buffer
     (shell-command s3command nil (current-buffer))
