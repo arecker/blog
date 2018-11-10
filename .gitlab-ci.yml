@@ -1,3 +1,3 @@
-image: arecker/blog:latest
+image: arecker/workstation:latest
 publish:
   script: $CI_PROJECT_DIR/build.el
