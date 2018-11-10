@@ -3,8 +3,6 @@
 (require 'ox-publish)
 (require 'package)
 
-
-
 (let* ((user-full-name "Alex Recker")
        (package-archives
 	'(("gnu" . "https://elpa.gnu.org/packages/")
