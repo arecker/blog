@@ -25,7 +25,7 @@
 				     :with-toc nil)
 				    ("blog-static"
 				     :base-directory ,base-directory
-				     :base-extension "css\\|jpg\\|jpeg\\|gif\\|png\\|txt\\|ogg\\|js"
+				     :base-extension "css\\|jpg\\|jpeg\\|gif\\|png\\|txt\\|ogg\\|js\\|webm"
 				     :publishing-directory ,publishing-directory
 				     :publishing-function org-publish-attachment
 				     :recursive t)
