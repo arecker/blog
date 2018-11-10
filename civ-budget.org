@@ -1,5 +1,4 @@
 #+TITLE: Our New Sid Meier's Civilization Inspired Budget
-#+HTML_HEAD_EXTRA: <link rel="stylesheet" type="text/css" href="../style.css" />
 #+SUBTITLE: My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system
 #+STARTUP: showall
 
@@ -72,14 +71,14 @@ take over everyone.
 Each turn, the game tracks your income and expenses in food, gold, and
 happiness. They are shown in an indicator bar like this.
 
-[[../images/civbar.png]]
+[[file:images/civbar.png]]
 
 The numbers beside the gold coin represent how much gold you have in
 total, as well as how much you are making or losing every
 turn. Mousing over the gold coin shows a more granular breakdown of
 where all your spoils are going.
 
-[[../images/civgold.png]]
+[[file:images/civgold.png]]
 
 Certain buildings or factions cost gold to maintain, just as certain
 buildings make gold. Each source of gain and loss is part of how much
@@ -110,7 +109,7 @@ My first thought was Netflix. It's $8 a month, and it is setup to just
 take money out of my PayPal account. In a scenario like this, Netflix
 would continue to get their money. I made a table like this.
 
-[[../images/spreadsheet1.png]]
+[[file:images/spreadsheet1.png]]
 
 By taking the amount due on each bill ($8), the number of days per
 bill (30 - roughly a month), I could get the amount of money Netflix
@@ -120,7 +119,7 @@ Now another automatic expense. I own the domain [[http://alexrecker.com][alexrec
 costs me $10 a year. My domain provider withdraws money from my
 account when they need it. I added it to the table.
 
-[[../images/spreadsheet1.png]]
+[[file:images/spreadsheet1.png]]
 
 Using the same method, it is clear that [[http://alexrecker.com][alexrecker.com]] costs me $0.03
 a day. A sum of column D will give me a net loss of all my bills per
@@ -148,7 +147,7 @@ semi-regular expenses as well.
 
 I opened a new LibreOffice spreadsheet that looked like this.
 
-[[../images/spreadsheet3.png]]
+[[file:images/spreadsheet3.png]]
 
 This was where I kept track of my daily expenses. All I needed was the
 date, a description of what it was (to jog my memory if I was to go
@@ -181,7 +180,7 @@ the month.
 I rigged up the spreadsheet to give me these numbers on a summary
 page.
 
-[[../images/spreadsheet4.png]]
+[[file:images/spreadsheet4.png]]
 
 This sheet told me the running total for that day, the week, the
 month, and the year. When I first started, all four numbers were
@@ -226,32 +225,32 @@ painful.
 
 Our dashboard lists the purchases we made that day.
 
-[[../images/moolah1.png]]
+[[file:images/moolah1.png]]
 
 When we make a purchase, there is a form that flips out from the
 top. It was very important to me that this form include as /little/
 information as possible.
 
-[[../images/moolah2.png]]
+[[file:images/moolah2.png]]
 
 Beside it, there is a widget to show us the running total for the day,
 week, month, and year.
 
-[[../images/moolah3.png]]
+[[file:images/moolah3.png]]
 
 Here is the fun part. I made a few graphs to give us an idea of how we
 are doing. This is a graph that shows us what our total was each day,
 along with the corresponding day from last week. This is valuable when
 we are picking which days we are going to go out to eat.
 
-[[../images/moolah4.png]]
+[[file:images/moolah4.png]]
 
 This is a break down of all the expenses and sources of income that
 make up our magic number that opens each day with a positive
 amount. The slices are automated expenses mixed with automated income,
 but I plan on color coding it to make it a little easier to see.
 
-[[../images/moolah5.png]]
+[[file:images/moolah5.png]]
 
 This graph shows the progression of what the yearly savings number was
 on any given day. I'm still waiting for this one to even out, but once
@@ -259,7 +258,7 @@ it does, it should give us a good idea of how much we are saving in
 the long run. Ideally, we would like it to slowly climb despite daily
 flux.
 
-[[../images/moolah6.png]]
+[[file:images/moolah6.png]]
 
 So that's our Civ inspired budget. I'm sure you have a system of your
 own, but I wanted to share ours just in case you are still shopping
