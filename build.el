@@ -30,6 +30,7 @@
 				     :publishing-function org-publish-attachment
 				     :recursive t)
 				    ("blog" :components ("blog-html" "blog-static")))))
+  (package-initialize)
   (package-refresh-contents)
   (package-install 'htmlize)
   (org-publish "blog" 't)
