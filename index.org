@@ -30,3 +30,8 @@ finances differently.  Here is our new system
 ** [[file:jane.org][Jane]]
 
 An Interview with my mother, Jane Recker
+
+** [[file:noah.org][Noah]]
+
+A tender look back on the life of the best little brother I've ever
+had.
