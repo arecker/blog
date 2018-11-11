@@ -1,6 +1,6 @@
 #+TITLE: Jane
 #+SUBTITLE: An Interview with my mother, Jane Recker
-#+DATE: 2015-10-25
+#+DATE: <2015-10-25 Sun>
 
 #+BEGIN_QUOTE
 Thanks for doing this, Mom.  OK - first question.  Let's first talk

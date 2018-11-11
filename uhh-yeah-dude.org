@@ -1,6 +1,6 @@
 #+TITLE: Uhh Yeah Dude
 #+SUBTITLE: A long overdue written tribute to my favorite podcast.
-#+DATE: 2018-3-31
+#+DATE: <2018-03-31 Sat>
 
 [[file:images/uyd.jpg]]
 

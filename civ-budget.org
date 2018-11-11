@@ -1,7 +1,7 @@
 #+TITLE: Our New Sid Meier's Civilization Inspired Budget
 #+SUBTITLE: My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system
 #+STARTUP: showall
-#+DATE: 2015-11-15
+#+DATE: <2015-11-15 Sun>
 
 *Edit*: Hi everybody.  I had no idea our little experiment would get
 so much attention.  I've rebooted the project in hopes of turning it

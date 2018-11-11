@@ -17,7 +17,6 @@
 				     :html-link-home "/"
 				     :base-directory ,base-directory
 				     :base-extension "org"
-				     :html-head-extra "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />"
 				     :publishing-directory ,publishing-directory
 				     :publishing-function org-html-publish-to-html
 				     :recursive t
