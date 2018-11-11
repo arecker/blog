@@ -1,4 +1,0 @@
-image: arecker/emacs:latest
-
-publish:
-  script: $CI_PROJECT_DIR/build.el
