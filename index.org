@@ -15,6 +15,55 @@ follow me on twitter at [[https://twitter.com/alex_recker][@alex_recker]], or fo
 
 * Posts
 
+#+BEGIN_SRC emacs-lisp :exports results :results value
+  (defun blog-post-files ()
+    (directory-files "." nil "\\.org"))
+    (blog-post-files)
+
+  (defun parse-file-into-data (filename)
+    (with-temp-buffer
+      (insert-file-contents filename)
+      (org-mode)
+      (org-element-parse-buffer)))
+
+  (defun parse-element (el)
+    (let ((key (org-element-property :key el))
+	  (val (org-element-property :value el)))
+      (cond ((string-equal key "DATE") (list :date val))
+	    ((string-equal key "TITLE") (list :title val))
+	    ((string-equal key "SUBTITLE") (list :subtitle val)))))
+
+  (defun extract-title-and-date (filename)
+    (let ((data (parse-file-into-data filename)))
+      (apply #'append (org-element-map data 'keyword 'parse-element))))
+
+  (defun blog-post-files ()
+    (mapcar 'extract-title-and-date
+	    (remove-if (lambda (f)
+			 (string-equal "index.org" f))
+		       (directory-files "." nil ".org"))))
+
+  (defun format-post-as-row (post)
+    (list (getf post :title "None")
+	  (getf post :subtitle "None")
+	  (getf post :date "None")))
+
+  (defun list-posts-as-table ()
+    (mapcar 'format-post-as-row (parsed-blog-posts)))
+
+  (append '(("Name" "Description" "Date") hline) (list-posts-as-table))
+#+END_SRC
+
+#+RESULTS:
+| Name                                             | Description                                                                                                          | Date             |
+|--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+------------------|
+| Our New Sid Meier's Civilization Inspired Budget | My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system | <2015-11-15 Sun> |
+| Jane                                             | An Interview with my mother, Jane Recker                                                                             | <2015-10-25 Sun> |
+| Noah                                             | A tender look back on the life of the best little brother I've ever had                                              | <2013-12-05 Thu> |
+| San Francisco                                    | My company sent me on a trip to San Francisco.                                                                       | <2016-10-09 Sun> |
+| Using Selenium to Buy a Bus Pass                 | A brief tutorial of my new favorite Selenium script.                                                                 | <2016-01-12 Tue> |
+| Uhh Yeah Dude                                    | A long overdue written tribute to my favorite podcast.                                                               | <2018-03-31 Sat> |
+
 ** [[file:uhh-yeah-dude.org][Uhh Yeah Dude]]
 
 A long overdue written tribute to my favorite podcast.
