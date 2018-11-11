@@ -63,10 +63,4 @@ provoking, and a regular source of amusement and rejuvenation that I
 have come to cherish.  It's time you fasten your seatbelt and give
 /Uhh Yeah Dude/ a try.
 
-#+BEGIN_HTML
-  <div>
-    <audio controls style="display: table; margin: 0 auto;">
-      <source src="audio/uydvoicemail.ogg" type="audio/ogg">
-    </audio
-  </div>
-#+END_HTML
+[[file:audio/uydvoicemail.ogg][seth's voicemail]]
