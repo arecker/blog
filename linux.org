@@ -276,11 +276,11 @@ more than 800 games have been produced for Linux. It still pales in
 comparison to what's out for Windows, but Gabe Newell has clearly
 outlined his intention to move the future of PC gaming to Linux.
 
-#+BEGIN_HTML
+#+BEGIN_EXPORT html
 <div class="embed-responsive embed-responsive-16by9"> <iframe
 width="560" height="315" class="embed-responsive-item"
 src="https://www.youtube.com/embed/rCGMiT0CQAI"> </iframe> </div>
-#+END_HTML
+#+END_EXPORT
 
 Lastly, you shouldn't use Linux if you don't know how to search the
 Internet for answers. Many Linux users would probably scream at me for
