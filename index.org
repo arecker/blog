@@ -6,10 +6,7 @@
 
 Hey there!  My name is Alex Recker.  Welcome to my personal website.
 I really appreciate the Internet traffic, amigo.  Now help yourself to
-some content!  If you want to talk, send me an email at
-[[mailto:alex@reckerfamily.com][alex@reckerfamily.com]] (you can use my [[file:pgp.txt][pgp key]] if you are into that),
-follow me on twitter at [[https://twitter.com/alex_recker][@alex_recker]], or follow me on GitHub at
-[[https://github.com/arecker][arecker]].
+some content!
 
 [[file:images/me.jpeg]]
 
@@ -48,7 +45,9 @@ follow me on twitter at [[https://twitter.com/alex_recker][@alex_recker]], or fo
 				 (first (alist-get :title p))
 				 (first (alist-get :subtitle p))
 				 (first (alist-get :date p)))
-		       (list (format "[[file:%s][%s]]" file title) subtitle date)))
+		       (list (format "[[file:%s][%s]]" file title)
+			     subtitle
+			     (format-time-string "%Y-%m-%d" (date-to-time date)))))
 		   (sorted-blog-posts))))
       (apply #'append '(("Title" "Description" "Date") hline) (list blog-posts))))
 
@@ -56,11 +55,20 @@ follow me on twitter at [[https://twitter.com/alex_recker][@alex_recker]], or fo
 #+END_SRC
 
 #+RESULTS:
-| Title                                            | Description                                                                                                          | Date             |
-|--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+------------------|
-| [[file:uhh-yeah-dude.org][Uhh Yeah Dude]]                                    | A long overdue written tribute to my favorite podcast.                                                               | <2018-03-31 Sat> |
-| [[file:san-francisco.org][San Francisco]]                                    | My company sent me on a trip to San Francisco.                                                                       | <2016-10-09 Sun> |
-| [[file:selenium-bus-pass.org][Using Selenium to Buy a Bus Pass]]                 | A brief tutorial of my new favorite Selenium script.                                                                 | <2016-01-12 Tue> |
-| [[file:civ-budget.org][Our New Sid Meier's Civilization Inspired Budget]] | My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system | <2015-11-15 Sun> |
-| [[file:jane.org][Jane]]                                             | An Interview with my mother, Jane Recker                                                                             | <2015-10-25 Sun> |
-| [[file:noah.org][Noah]]                                             | A tender look back on the life of the best little brother I've ever had                                              | <2013-12-05 Thu> |
+| Title                                            | Description                                                                                                          |       Date |
+|--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+------------|
+| [[file:uhh-yeah-dude.org][Uhh Yeah Dude]]                                    | A long overdue written tribute to my favorite podcast.                                                               | 2018-03-30 |
+| [[file:san-francisco.org][San Francisco]]                                    | My company sent me on a trip to San Francisco.                                                                       | 2016-10-08 |
+| [[file:selenium-bus-pass.org][Using Selenium to Buy a Bus Pass]]                 | A brief tutorial of my new favorite Selenium script.                                                                 | 2016-01-11 |
+| [[file:civ-budget.org][Our New Sid Meier's Civilization Inspired Budget]] | My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system | 2015-11-14 |
+| [[file:jane.org][Jane]]                                             | An Interview with my mother, Jane Recker                                                                             | 2015-10-24 |
+| [[file:noah.org][Noah]]                                             | A tender look back on the life of the best little brother I've ever had                                              | 2013-12-04 |
+
+* Programming Videos
+
+| Title             | Description                                                           | Length |       Date |
+|-------------------+-----------------------------------------------------------------------+--------+------------|
+| [[https://youtu.be/r1jHLsPUs4E][phishing]]          | Let's make our own phishing scam.                                     |  14:19 | 2016-05-30 |
+| [[https://youtu.be/Kxm1SO8VLoc][hacking wordpress]] | Let's brute force our way into a WordPress powered cat blog.          |  20:39 | 2016-05-17 |
+| [[https://youtu.be/9jCnHgDrgRY][the wall]]          | Watch me code a django site for strangers to post their own messages. |  22:00 | 2016-05-15 |
+| [[https://youtu.be/40dlU7jzaTI][fizz buzz]]         | Watch me stumble through the famous fizz buzz problem                 |  14:31 | 2016-05-13 |
