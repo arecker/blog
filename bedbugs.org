@@ -1,0 +1,399 @@
+#+TITLE: Bedbugs
+#+DATE: <2015-07-24 Fri>
+#+SUBTITLE: An embittered account of our war with orchid knoll over bedbugs. You decide who the real parasite is!
+
+#+BEGIN_QUOTE
+It's hard to stay mad, when there's so much beauty in the
+world. Sometimes I feel like I'm seeing it all at once, and it's too
+much, my heart fills up like a balloon that's about to burst... And
+then I remember to relax, and stop trying to hold on to it, and then
+it flows through me like rain and I can't feel anything but gratitude
+for every single moment of my stupid little life... You have no idea
+what I'm talking about, I'm sure. But don't worry... you will someday.
+#+END_QUOTE
+
+That's a quote from /American Beauty/ that has been really resonating
+with me lately. But unlike Lester Burnham, it's not all the beauty in
+this world that makes my heart want to give out. It's the
+stupidity. And I find it very easy to get mad.
+
+Let me back up a bit - a few nights ago I was upstairs yammering on my
+computer. Marissa was at work, and the hours were starting to roll
+over into the single digits. I thought it best I turn in for the
+night.
+
+Then I noticed a bug on the wall. It was rust colored and about the
+size of one of those round slips of paper that fall out of a hole
+puncher. It moved slowly and deliberately on the wall in plain
+site. Living in Wisconsin for two months, we were already acquainted
+with the exotic bugs here on the lakeside.
+
+I reached for a post-it note and pressed it over the creature's
+body. Its carapace popped, sending a streak of crimson blood down the
+wall. Boy scouts out there will back me up, but when you find an
+insect filled with human blood, you google it.
+
+#+BEGIN_QUOTE
+blood beetle
+#+END_QUOTE
+
+Search.  Loading...
+
+#+BEGIN_QUOTE
+Did you mean *Bed Bugs*?
+#+END_QUOTE
+
+Oh God, I hope I didn't. I clicked the Images tab and felt my mouth
+gape in horror. Hundreds of thumbnails of similar looking bugs. Rust
+colored, flat, and filled with blood.
+
+#+CAPTION: Sidenote: next time you search for an insect on Google Images, take note of how many hits include a colony of said insect living inside somebody's brain.
+[[file:images/bedbug1.jpg]]
+
+Our apartment had bed bugs. When my wife got home from work, we spend
+the next few hours sifting through our bed sheets and thumbing the
+cracks in our walls. The bodies began to stack up. We found about four
+that night.
+
+Catching a bedbug is very easy. The ones you can actually see are
+almost proud to be caught. Finding a bed bug on your wall feels sort
+of like walking in front of someone while there picture is being
+taken. I could imagine their little brown mouths hissing um... excuse
+me? You can't really count on crushing a bed bug to death. You should
+probably keep it intact anyway so it can be identified by a
+professional. The way to do it is by just taking a piece of scotch
+tape and folding it over its body. Then it just kind of lives the rest
+of its life pressed in that tape. They can go for months without
+eating, so the one's we caught are probably still alive.
+
+#+BEGIN_EXPORT html
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/pIQvB"><a
+href="https://imgur.com/a/pIQvB">Bed Bugs</a></blockquote><script
+async src="https://s.imgur.com/min/embed.js" charset="utf-8"></script>
+#+END_EXPORT
+
+The next day, I turned to the loving arms of the Internet for
+information. If you've never researched bed bugs, I'd recommend
+it. They are fascinating.
+
+Get this - most people don't react to the bites at all. They don't
+carry any diseases of any kind. Occasionally the local anesthetic they
+administer to a host causes mild allergic reactions. They are
+attracted to carbon dioxide, which is why they tend to gather in
+bedrooms.
+
+Most 'meals' occur in rows. This is because the bedbug starts feeding
+furthest from his home, then times the bites with your night time
+stirring.
+
+Clutter facilitates their survival, but good hygiene doesn't provide
+any advantage. Most people pick them up from hotels. They are very
+difficult to treat. Chemicals simply cause them to scatter. A
+professional treatment involves sniffing dogs and three separate days
+of intense sterile heat and chemical application.
+
+We sent off an email to our building manager and waited. In the
+meantime, we mentioned the incident to a neighbor of ours. She
+mentioned that our neighbors several doors down were displaced from
+their apartment for the same reason. Marissa and I were relieved. It
+was the first time we didn't feel like this was all our fault. We
+could finally stop mentally tracing our steps. We were simply the
+victim of a larger problem in the building.
+
+That night I was taking Ollie outside when I noticed two healthy adult
+bed bugs sprawled out proudly in the hallway of our building. I guess
+my eyes were fine tuned to spot them after three straight nights of
+scouring my own apartment. The inspector was coming to our apartment
+tomorrow, so I figured he would be interested in knowing that I found
+bugs in the hallway. I bagged them and added them to the pile. With
+the purest of intentions, my wife penned some neighborly advice with a
+sharpie.
+
+#+BEGIN_QUOTE
+Warning! We found bed bugs in the hallway. Please check your beds and
+let [manager's name] know if you find any!
+#+END_QUOTE
+
+She even drew a little bed bug on it as a kind of stationary. I added
+to it by taping one of the subdued specimens to the note for further
+visual aid.
+
+To our surprise, the note was removed immediately. My wife texted our
+manager to see if she knew anything about it.
+
+#+BEGIN_QUOTE
+Marissa: Hey [manager]! Did you take down the bed bugs sign by the
+mailbox?
+
+Manager: Yes we are not sure what the bugs are yet and we need to have
+someone come inspect before you get everyone all worried. Please do
+not put up another note.
+#+END_QUOTE
+
+Fair enough - I guess it's not 100% confirmed that these blood filled
+bugs we are finding around our bed are actually bed bugs . After all,
+maybe our building has a massive south american bat infestation and
+these bugs are the rare and exotic bat ticks that look deceptively
+similar.
+
+Marissa took the opportunity to ask about our neighbors.
+
+#+BEGIN_QUOTE
+Marissa: OK that makes sense but isn't [neighbor's number] moved out
+because of them? I feel like you need to let everyone know if that is
+the case.
+
+Manager: No [neighbor's number] is on vacation. When we find out if
+there is a problem the issue will be addressed and those tenants
+affected will be notified.
+#+END_QUOTE
+
+Cryptic, right? We were puzzled. Despite finding bugs in the hallway,
+our building manager was very precise in wording - /those tenants
+affected/. Wouldn't it be reasonable to send out a flier warning
+people? Maybe some helpful tips on securing and checking their unit?
+I've lived in enough dorms and apartments at this point in my life to
+know what the protocol is.
+
+But fine - our landlord doesn't like to call something that gallops a
+horse. They were apparently still waiting for a professional to rule
+out /zebra/.
+
+The inspector found several more bugs in our room and confirmed their
+identity. At that point, my wife and I had no interest in where they
+were. You can only stand guard for so long before you physically need
+to switch off that part of your brain. We had both developed something
+the bedbug survivor community refers to as /Bed Bug PTSD/. The
+shooting fear that sits you up in bed and compels you to run a
+flashlight over your legs one last time. The horrible visions of those
+brown little bugs swarming your neck and arms the second you close
+your eyes. It's terrible living like this.
+
+But they were indeed bed bugs. The inspector was particularly
+interested in the bugs I found in the hallway.
+
+That's it - case closed, right? Send in the dogs. Tell everyone to bag
+their clothes and hide their babies. Despite being forbidden from
+/visually/ informing neighbor's, everyone already knew. Our building
+had bed bugs. We should be allowed to tell people now, right?
+
+I returned from work to find a note taped to my door.
+
+#+BEGIN_QUOTE
+Tenants,
+
+Tomorrow is our annual pest inspection. Please have your apartments
+ready to be inspected.
+
+Your Building Manager
+#+END_QUOTE
+
+Annual pest inspection? These people are kidding right? They have yet
+to distribute the term 'bed bug' in an official communication. At this
+point, the reluctance to acknowledge an actual problem in the building
+is starting to creep me out. Our manager's tip-toeing was starting to
+anger me, but another resident beat me to the punch. That night,
+another note was slipped underneath our door.
+
+#+BEGIN_QUOTE
+NOTICE FROM A CONCERNED TENANT:
+
+This is not an "annual" inspection. There have been two confirmed
+cases of bed bugs on the 2nd floor within the past few weeks. The
+property manager would not allow a sign to be posted on the bulletin
+board, so I am slipping this under your door. If the bugs have spread
+to your apartment, this is due to negligence on the property manager's
+part in not informing you earlier so that you could take the necessary
+precautions.
+#+END_QUOTE
+
+As I finished the note, I felt as if I was about to witness a car
+accident. Every word of it is true - and the note didn't even mention
+the bugs I found in the hallway.
+
+The next morning we awoke to the sound of pounding on the door. My
+clock read 6:45 AM. The distinct sound of a fist throwing against the
+door shook the house. It was the kind of knocking that would come from
+a swat team about to fill the building with gas. Both my wife and I,
+recovering from a horrible head cold, were reluctant to answer. By the
+time I trudged downstairs, the knocking had subsided and a single
+white sheet of paper lay on the ground.
+
+#+BEGIN_QUOTE
+You guys should really get your facts straight before you go writing
+nasty notes and slipping them under everyone's door. I only do what I
+am told around here and that is it! The management company knows
+everything that goes on in this building and I just do what I am told.
+
+To put a letter under everyone's door that personally attacks a person
+is not very Christian like, especially when your note is a lie.
+
+Here is the office # XXX.XXX.XXXX so you can call them with any
+issues, oh wait you already have! Maybe you should try again!
+#+END_QUOTE
+
+I was dazed. Was I dreaming? Had I been killed by bed bugs last night
+and was just experiencing a bizarre last-moments hallucination? How
+could an adult actually write something like this?
+
+First of all, we did not write the NOTICE FROM A CONCERNED TENANT. I
+won't deny that I fist pumped when I saw it and envied the kahones of
+the author, but sadly I cannot take credit for it.
+
+Secondly, did this need to be given to us at 6:45 in the morning?
+
+Thinking I had, at the very least, a decent noise complaint on my
+hands. I reached out to the corporate office Wisconsin Lakefront
+Property Management located in California of all places. Nice.
+
+The claims our manager made in the ridiculous letter were true. Both
+Marissa and I had reached out by phone and email at least once a day
+for a week. And that was before the Wisconsin Lakefront Properties
+one-man gestapo tried to breach my door that morning.
+
+My phone rang around lunch time. I answered it in my car. The
+conversation was too exhausting to recount, but the woman from the
+corporate offices was one of those people that things they are
+incapable of losing an argument - even if they don't try.
+
+We quibbled at length about the their responsibility to disclose pest
+infestation. I'm no lawyer - I don't even watch Law and Order. The
+point of my argument was wouldn't it be helpful to warn people? Why
+are you guys trying so hard to keep it a secret from people? The point
+of her's was that the infestation was only in two units . This woman
+thought it was entirely reasonable that the pests infested our
+neighbor's place, then sent a few bugs twelve doors down the hallway
+to our place - ignoring all the other units. There - only two units
+are infested.
+
+It was one of those arguments that I thought I would win by just
+getting the other person to say their viewpoint out loud. How wrong
+was I!
+
+But what about the bugs I found in the hallway? Oh those?
+Those... were not in the report she received from the inspector. She
+assured me she would double check, but in the meantime, since there
+were no other infestations, there is no need to alert other people.
+
+But... but... wouldn't they need to be told about the problem before
+they bothered checking their own unit? Whatever - you can't argue with
+this kind of talk. It was clear that they were not interested in
+alerting people about the bed bugs. They are undoubtedly just trying
+to keep the whole thing under wraps so they will not have to pay to
+treat the whole building. It's ridiculously evil, but I can get over
+it.
+
+The woman was ready to hang up when I squeezed out one more
+question. I'm going to do my best to paraphrase what happened without
+somehow making her look more obtuse than she actually was.
+
+#+BEGIN_QUOTE
+Me: "Did you read my complaint's about [manager's] letter?"
+
+Her: "Which one was that again?"
+
+Me: "The one she left us at 6:45 this morning. She was pounding on our
+door. Do you condone that kind of thing?"
+
+Her: "Well... I would have to know the details of it all"
+
+Me: "So given the right context, you think that's ok?"
+
+Her: "Don't put words in my mouth."
+
+Me: "Is it really that hard to say it was inappropriate of her to do
+that? Has anyone ever pounded on your door early in the morning?"
+
+Her: "I don't have to answer that."
+
+Me: "You know she tried to use our faith to coerce us into feeling
+guilty. Is that ok to do?"
+
+Her: "What do you mean?"
+
+Me: "She accused us of passing out notes and said it wasn't very
+christian of us."
+
+Her: "Well isn't that true? I've heard the same about christians."
+
+Me: "Look, this was harassment and we don't want it to happen again."
+
+Her: "Well, you should be understanding of what [manager] is feeling
+right now."
+#+END_QUOTE
+
+After a few more leaky arguments, stubborn rejections, and plain
+buffoonery, the woman hung up on me. Jerry Seinfeld is right - hanging
+up one someone with a smartphone is not nearly as satisfying as it
+used to be with a real phone.
+
+Meanwhile, my wife got an equally warm reply from our apartment
+manager.
+
+#+BEGIN_QUOTE
+Marissa: We did not put the notes under everyone's door. There are
+many frustrated tenants like us.
+
+Manager: This is my personal cell phone #. If you need to reach me for
+an orchid knoll matter you need to call the office @ XXX.XXX.XXXX and
+your call will be returned within 24 hours during normal business
+hours which are monday-friday 8-4. Have a good day and no more replies
+will be given from this # for any reason.
+#+END_QUOTE
+
+My wife spoke to our neighbors - who were ground zero for the
+infestation. Apparently they had bought a mattress that managed to
+scoop up a few bed bug pilgrims in a moving truck. By the time they
+discovered them, there was a full blown nest living in their bed. They
+told us they would be fined $600 for every unit affected . I pray that
+whichever judge has to tie this all up is struck with the inherent
+stupidity of proving who is to blame for onboarding barely macroscopic
+insects.
+
+So here we are - sharing our home with likely hundreds of tiny rust
+coloured roommates that get drunk on our blood every night, as well as
+a building manager that feels like she can pound on our door in the
+middle of the night. The only thing our manager has communicated was a
+brief forward of our scheduled bed bug treatments allowing with a
+harrowing $150 fine if our apartment is not "prepared properly."
+
+I'm going to be honest with you, dear reader. I'm not built for this
+kind of thing. I haven't been this stressed since I tried watching The
+Wire . I go to sleep with psychosomatic tingling all over my body and
+I wake up with a knot in my stomach that wretches tighter every time I
+pass our building manager's apartment. Murmurs of lawsuits and
+fabricated fines fill the hallways these days. I wasn't built for
+drama.
+
+Which is why I can promise you I don't mean to just air my dirty
+laundry out on my blog for the sake of dirty laundry. You can only
+take the slings and arrows of a greedy property conglomerate and a
+landlord with a twisted interpretation of their responsibilities for
+so long before you need to just say everything at once. I think I just
+needed to drop my entire argument in one place, satirize it, then walk
+away.
+
+After all of this, my best conclusion is that Wisconsin Lakefront
+Properties LLC is run by bed bugs. Maybe it was run by humans at one
+point, but bed bugs moved in, killed them, and just decided to front
+prime bedbug real estate as human living developments. Maybe our
+landlord is a humanoid robot being controlled by millions of bed
+bugs. Maybe they will eventually control all of us.
+
+If any of that is the case, I really can't blame them. We all are just
+doing what we can to survive. Ironically, the bed bugs themselves come
+out being the most considerate players in this drama. They don't carry
+diseases, only feed when we are sleeping, and are kind enough to numb
+the pain before they take a modest amount of blood. When you look at
+it like that, they don't seem like parasites. They are more like
+symbiotes .
+
+I'm pretty much done fighting. If our landlord manages to stick us
+with some stupid fine or my rent mysteriously goes up for no reason, I
+am sure that I don't have the energy to fight these people. I'm ready
+to just relax and stop trying to hold on to being right. I'm ready to
+stop feeling wronged and start feeling grateful again. Do you know
+what I'm talking about? I hope you do someday.
+
+And now for the obligatory cliche. Goodnight, readers. Don't let the
+bedbugs bite.

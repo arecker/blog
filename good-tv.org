@@ -1,0 +1,211 @@
+#+TITLE: Good TV
+#+DATE: <2014-06-28 Sat>
+#+SUBTITLE: Let's talk about TV. Here are the three rules all good TV shows follow.
+
+* I got married, etc.
+
+Hi readers. Since we last spoke, I went and made myself monogamous. I
+have never worn a ring in my life - I’m not a huge fan of wearing
+things on my hands (unless they are fingerless gloves and I am totally
+HACKING the PLAN3T), but other than that married life is fantastic. I
+owe you all a full recount of everything that went down, so I am going
+to hold out on you until we get the pictures from the photographer. I
+promise I will make a big, beautiful HTML page will all of the full
+resolution photos available for download. Wouldn’t you just rather
+hear about it all in one shot anyway?
+
+We had a quaint honeymoon in Rockford, IL. The real honeymoon was a 20
+lb loaf of bread with half legs that we named “Ollie”
+
+#+CAPTION: Eat your heart out.
+[[file:images/oliver.jpg]]
+
+Other than ordering pizza and romping with this little bundle of
+heartworm medication, my wife and I began our march that week through
+all five seasons of the acclaimed TV show Breaking Bad.
+
+* Too good to spoil
+
+We absolutely love it. Additionally, watching such an amazing show has
+got me thinking about my standard for good TV. After mauling it over,
+I have come up with three rules good TV must always follow.
+
+I also have plenty of examples, but that comes with a spoiler
+warning. Ethically, I have chosen the show Dexter to receive the brunt
+of my spoilers because, frankly, the show is a complete waste of time
+and you are better off finding that out without the eight season
+investment of your precious time. In all other cases and examples, I
+think I can get by without hurting any of the shows I consider too
+good to spoil.
+
+* 1. All characters should be intentionally reusable and able to stand on their own.
+
+What I mean by this is there should be no characters that only exist
+to send more important characters down a certain direction. My
+favorite example of this sin is in a character in Dexter named
+Rankin - a boating convenience store clerk. To provide context, Dexter
+is scraping the bottom of a multi-episode emotional breakdown that is
+keeping him from killing. Dexter has a short interaction with Rankin
+that ends with Rankin leaning in and shouting at Dexter - this is a
+direct quote - “Your dead wife can suck my” (and you can infer the
+rest).
+
+Dexter kills the man. The less thoughtful part of American may have
+sat at the edge of their seats, but I was furious. Did the writers of
+Dexter really think they could break Dexter’s cold blooded murder cold
+spell with a disposable character ? The reason I was offended so much
+by this plot device is that Rankin only existed to antagonize
+Dexter. He had absolutely no human readable reason to say that to
+Dexter. Not even a horrible, selfish person would think to say that
+kind of thing to Dexter.
+
+#+CAPTION: I don’t care if that IS your catch phrase Rankin. Dexter is going through a lot right now.
+[[file:images/rankin.jpg]]
+
+Another awful example of cardboard characterization in the show is
+Cody, Rita’s bizarrely generic grade school son. Cody is a walking Ken
+doll who only serves to show us that Dexter can frolick with kids. I
+will give the writers credit in actually using his emo older sister -
+I think her name was Assturd - in something other that a /Hey look
+Dexter is such a family man what a great guyyyyyyyy/ scene.
+
+What I mean is that characters should be able to stand alone. You
+can’t just manipulate the emotions of your viewers by bringing in
+meaningless characters like Rankin to do things that no one would ever
+do in real life. No one could ever care about Rankin. If Rankin was a
+protagonist of his own spinoff show, no one would ever watch it.
+
+A great example of a character everyone hates (done right) is Skyler
+White. She is intolerable for the first threeish seasons of Breaking
+Bad, but there is actually something wrong with her.
+
+The reason why Skyler is so selfish is because she suffers from victim
+playing. No matter what situation she is in, she can skillfully
+manipulate her own perspective so that she always believes herself to
+be victim. This allows her to always avoid seeing her own faults. It’s
+a real psychological behavior, and it is why you cannot stand her.
+
+I think specifically of a scene in which Skyler is trying to break
+into an apartment that is not hers. She does this by skillfully
+overwhelming a locksmith guy with ‘how bad her day has been’. This
+kind of manipulation comes easy to victim players.
+
+The point is that the writers took time to weave in actual behavior
+patterns to each character - and not just with Skyler. I feel every
+character in Breaking Bad could easily be the star of their own
+novella.
+
+#+CAPTION: Especially this guy. I would read the hell out of that novella.
+[[file:images/saul.png]]
+
+* 2. No seasons should end with a cliffhanger. Period.
+
+Picture a room full of writers. They are under a lot of pressure to
+finish up a season in a way that will lock viewership for next
+season. They get up to the last episode. In the final blocks of
+writing, they face a dark temptation. What if we killed off this
+character, the BAM. Screen goes black? .
+
+Cliffhangers are cheap, easy to write, and often go unpunished in
+TV. Everybody talks about the next morning because, in truth, they add
+a lot of tension to a series finale. But nobody ever talks about the
+consequence of that tense moment in the next season.
+
+So your show returns after a long hiatus, and you are so excited to
+curl up in your snuggie and enjoy the long-awaited continuation of
+your favorite show. But the season premier drags. There is a lot of
+business talk and hemm-hawing, which doesn’t really advance the plot
+much. The show ends and you are disappointed. How could a show that
+ended so well last season open drop the ball so hard this season?
+
+Remember that cliffhanger? The writers flew too close to the sun, dear
+reader. They could have saved all that cool tension and plot potential
+for this season, but instead, they had to write a cliffhanger. Now
+they have to start a brand new season and there is nothing but
+cleanup, followup, and resolution to kick off a new season of
+inevitable mediocrity.
+
+Cliffhangers come from writers that are not thinking about the
+future. Great TV shows do not use them.
+
+Those who watch House of Cards can tell me off the top of their head
+what happened in the premier of season 2 that changed everything . Now
+picture it happening in the finale of Season 1. Sure - it would make
+the episode more exciting. You would call it a night and fall asleep
+thinking about how awesome your new favorite TV show is. But by the
+next time you sat down to binge watch it, you would have to sit
+through at least three episodes that do nothing but reel about the big
+cliffhanger from last season.
+
+You can’t just kill characters, then black out the screen. You can’t
+just announce that one of the characters was a robot all along, then
+roll the credits. Sure - your viewers will return next season, but you
+have just made it exponentially more difficult to please them.
+
+Take the show Dexter. Season 1-3 all ended elegantly. Dexter kills the
+baddy he has been hunting all season, then a relaxing clip of him
+sipping a beer on his boat plays us out over some groovy latin smooth
+jazz.
+
+But not season 4. Nope. The season begins to end just as the others
+have, save for five seconds panning over his murdered
+girlfriend. Sure - America went crazy. But no body remembers much
+about the show after that because the writers no longer had anything
+to offer. They hadn’t designed Dexter or any of the character to deal
+with a cliffhanger like that, so what follows is awkward, fabricated,
+and down-spiraling.
+
+* 3. TV shows should end lovingly.
+
+I am a big fan of Seinfeld. One of my favorite things to do is putz
+around on the Internet while all 9 seasons play on shuffle on a second
+monitor. Given that pastime, I have probably seen every episode at
+least eight times.
+
+But there is always one episode that I skip - the finale. The final
+episode of Seinfeld. It breaks my heart, reader, but I cannot stand
+this episode.
+
+In this zainy misadventure, the gang are arrested for making fun of a
+fat guy, then convicted to jail sentence at the testimony of every
+character that they have crossed.
+
+Some would call this fitting irony. Hey - a show about nothing
+actually ends with something. I call it abuse. I followed a group of
+friends through nine seasons of petty banter and hilarious social
+commentary, and had, in a sense, made a home in Jerry’s
+apartment. What irks me about the final episode is how far away it is
+from home. There is nothing familiar about the ending scenes. There is
+no homage paid to the faithful backdrop of 129 West 81st Street, 5A
+. The show ended awkwardly, abruptly, and far from home.
+
+Do you know how it should have ended? The episode before would have
+been perfect. It was simply a montage of great scenes from the show,
+followed by a classy farewell from the king if funny himself. I say
+just close the curtains there.
+
+One show that ended surprisingly well, considering its spotty track
+record was Scrubs - and I can fully disclose it because it’s not
+really revealing of anything. JD leaves Sacred Heart hospital after a
+long tender flashback of all the good times he’s had. Then, as he
+exits the hospital, he sees his future projected on a banner, where we
+are vaguely promised that he eventually goes on to marry his
+on-and-off lover Elliot and stay in touch with all his good friends
+into old age.
+
+(and I know there is another season after that. I have not watched it
+because I refuse to acknowledge that it exists. I would advise you do
+the same).
+
+#+CAPTION: In the last season, JD dreams that he is the puppet of a team of writers that have absolutely nothing interesting to add to an already great TV show.
+[[file:images/scrubs.jpg]]
+
+Your TV show should end lovingly. As a TV writer, you have a sacred
+responsibility to reward your loyal viewers with the resolution they
+deserve - especially if your show was about mostly nothing.
+
+* Conclusion
+
+I haven’t seen the ending of Breaking Bad yet. We are only on
+Season 4. But knowing that it is officially the highest rated series
+in TV history, I’m feeling pretty good about things.
