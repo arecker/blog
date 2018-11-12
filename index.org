@@ -15,77 +15,122 @@ follow me on twitter at [[https://twitter.com/alex_recker][@alex_recker]], or fo
 
 * Posts
 
-#+BEGIN_SRC emacs-lisp :exports results :results value
-  (defun blog-post-files ()
-    (directory-files "." nil "\\.org"))
-    (blog-post-files)
+** TODO Babel Index Generation
 
-  (defun parse-file-into-data (filename)
-    (with-temp-buffer
-      (insert-file-contents filename)
-      (org-mode)
-      (org-element-parse-buffer)))
+Generate a list of blog post files.
 
-  (defun parse-element (el)
-    (let ((key (org-element-property :key el))
-	  (val (org-element-property :value el)))
-      (cond ((string-equal key "DATE") (list :date val))
-	    ((string-equal key "TITLE") (list :title val))
-	    ((string-equal key "SUBTITLE") (list :subtitle val)))))
-
-  (defun extract-title-and-date (filename)
-    (let ((data (parse-file-into-data filename)))
-      (apply #'append (org-element-map data 'keyword 'parse-element))))
-
-  (defun blog-post-files ()
-    (mapcar 'extract-title-and-date
-	    (remove-if (lambda (f)
-			 (string-equal "index.org" f))
-		       (directory-files "." nil ".org"))))
-
-  (defun format-post-as-row (post)
-    (list (getf post :title "None")
-	  (getf post :subtitle "None")
-	  (getf post :date "None")))
-
-  (defun list-posts-as-table ()
-    (mapcar 'format-post-as-row (parsed-blog-posts)))
-
-  (append '(("Name" "Description" "Date") hline) (list-posts-as-table))
+#+NAME: blog-post-files
+#+BEGIN_SRC emacs-lisp :results list
+  (let ((not-these			; this is lazy, I know.  I can't figure out the regex
+	 '(".#index.org" "index.org")))
+    (remove-if (lambda (f) (member f not-these)) (directory-files "." nil ".org")))
 #+END_SRC
 
 #+RESULTS:
-| Name                                             | Description                                                                                                          | Date             |
-|--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+------------------|
-| Our New Sid Meier's Civilization Inspired Budget | My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system | <2015-11-15 Sun> |
-| Jane                                             | An Interview with my mother, Jane Recker                                                                             | <2015-10-25 Sun> |
-| Noah                                             | A tender look back on the life of the best little brother I've ever had                                              | <2013-12-05 Thu> |
-| San Francisco                                    | My company sent me on a trip to San Francisco.                                                                       | <2016-10-09 Sun> |
-| Using Selenium to Buy a Bus Pass                 | A brief tutorial of my new favorite Selenium script.                                                                 | <2016-01-12 Tue> |
-| Uhh Yeah Dude                                    | A long overdue written tribute to my favorite podcast.                                                               | <2018-03-31 Sat> |
+- civ-budget.org
+- jane.org
+- noah.org
+- san-francisco.org
+- selenium-bus-pass.org
+- uhh-yeah-dude.org
 
-** [[file:uhh-yeah-dude.org][Uhh Yeah Dude]]
+This one's a doozy - retrieve the title, subtitle, and date from each
+document.
 
-A long overdue written tribute to my favorite podcast.
+#+BEGIN_SRC emacs-lisp :var blog-post-files=blog-post-files :results list
+  (mapcar (lambda (f)
+	    (let ((data (with-temp-buffer
+			  (insert-file-contents f)
+			  (org-mode)
+			  (org-element-parse-buffer))))
+	      (org-element-map data 'keyword (lambda (el)
+					       (let ((key (org-element-property :key el))
+						     (val (org-element-property :value el)))
+						 (cond ((string-equal key "TITLE") (list :title val))
+						       ((string-equal key "SUBTITLE") (list :subtitle val))
+						       ((string-equal key "DATE") (list :date val))))))))
+	  blog-post-files)
+#+END_SRC
 
-** [[file:san-francisco.org][San Francisco]]
+#+RESULTS:
+- ((:title "Our New Sid Meier's Civilization Inspired Budget") (:subtitle "My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system") (:date "<2015-11-15 Sun>"))
+- ((:title "Jane") (:subtitle "An Interview with my mother, Jane Recker") (:date "<2015-10-25 Sun>"))
+- ((:title "Noah") (:subtitle "A tender look back on the life of the best little brother I've ever had") (:date "<2013-12-05 Thu>"))
+- ((:title "San Francisco") (:subtitle "My company sent me on a trip to San Francisco.") (:date "<2016-10-09 Sun>"))
+- ((:title "Using Selenium to Buy a Bus Pass") (:subtitle "A brief tutorial of my new favorite Selenium script.") (:date "<2016-01-12 Tue>"))
+- ((:title "Uhh Yeah Dude") (:subtitle "A long overdue written tribute to my favorite podcast.") (:date "<2018-03-31 Sat>"))
 
-My company sent me on a trip to San Francisco.
+ #+BEGIN_SRC emacs-lisp :exports results :results value
+   (defun blog-post-files ()
+     (directory-files "." nil "\\.org"))
+     (blog-post-files)
 
-** [[file:selenium-bus-pass.org][Selenium Bus Pass]]
+   (defun parse-file-into-data (filename)
+     (with-temp-buffer
+       (insert-file-contents filename)
+       (org-mode)
+       (org-element-parse-buffer)))
 
-A brief tutorial of my new favorite Selenium script.
+   (defun parse-element (el)
+     (let ((key (org-element-property :key el))
+	   (val (org-element-property :value el)))
+       (cond ((string-equal key "DATE") (list :date val))
+	     ((string-equal key "TITLE") (list :title val))
+	     ((string-equal key "SUBTITLE") (list :subtitle val)))))
 
-** [[file:civ-budget.org][Civ Budget]]
+   (defun extract-title-and-date (filename)
+     (let ((data (parse-file-into-data filename)))
+       (apply #'append (org-element-map data 'keyword 'parse-element))))
 
-My wife and I were inspired by Sid Meier's Civilization to look at our
-finances differently.  Here is our new system
+   (defun blog-post-files ()
+     (mapcar 'extract-title-and-date
+	     (remove-if (lambda (f)
+			  (string-equal "index.org" f))
+			(directory-files "." nil ".org"))))
 
-** [[file:jane.org][Jane]]
+   (defun format-post-as-row (post)
+     (list (getf post :title "None")
+	   (getf post :subtitle "None")
+	   (getf post :date "None")))
 
-An Interview with my mother, Jane Recker
+   (defun list-posts-as-table ()
+     (mapcar 'format-post-as-row (parsed-blog-posts)))
 
-** [[file:noah.org][Noah]]
+   (append '(("Name" "Description" "Date") hline) (list-posts-as-table))
+ #+END_SRC
 
-A tender look back on the life of the best little brother I've ever
-had.
+ #+RESULTS:
+ | Name                                             | Description                                                                                                          | Date             |
+ |--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+------------------|
+ | Our New Sid Meier's Civilization Inspired Budget | My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system | <2015-11-15 Sun> |
+ | Jane                                             | An Interview with my mother, Jane Recker                                                                             | <2015-10-25 Sun> |
+ | Noah                                             | A tender look back on the life of the best little brother I've ever had                                              | <2013-12-05 Thu> |
+ | San Francisco                                    | My company sent me on a trip to San Francisco.                                                                       | <2016-10-09 Sun> |
+ | Using Selenium to Buy a Bus Pass                 | A brief tutorial of my new favorite Selenium script.                                                                 | <2016-01-12 Tue> |
+ | Uhh Yeah Dude                                    | A long overdue written tribute to my favorite podcast.                                                               | <2018-03-31 Sat> |
+
+*** [[file:uhh-yeah-dude.org][Uhh Yeah Dude]]
+
+ A long overdue written tribute to my favorite podcast.
+
+*** [[file:san-francisco.org][San Francisco]]
+
+ My company sent me on a trip to San Francisco.
+
+*** [[file:selenium-bus-pass.org][Selenium Bus Pass]]
+
+ A brief tutorial of my new favorite Selenium script.
+
+*** [[file:civ-budget.org][Civ Budget]]
+
+ My wife and I were inspired by Sid Meier's Civilization to look at our
+ finances differently.  Here is our new system
+
+*** [[file:jane.org][Jane]]
+
+ An Interview with my mother, Jane Recker
+
+*** [[file:noah.org][Noah]]
+
+ A tender look back on the life of the best little brother I've ever
+ had.
