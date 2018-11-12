@@ -1,0 +1,208 @@
+#+TITLE: The Baby
+#+SUBTITLE: We had a baby last week.  Here is the recap.
+#+DESCRIPTION: We had a baby last week.  Here is the recap.
+#+DATE: <2016-07-18 Mon>
+#+STARTUP: showall
+
+My wife and I found out we were expecting last fall.  It was a
+complete surprise to us.  If it were really up to us, we would have
+waited a few years.  But it didn't take us long to get caught up in
+the excitement of our coming baby boy.  Maybe I would even get
+motivated to finally move that 40ft Ethernet cable out of our hallway.
+
+* Labor
+
+Nine months later, we were killing time between contractions at home
+before finally rolling into the hospital at 1 AM.I had never watched
+a birth before.I should have probably prepared by watching one on
+YouTube.I'll save you the grizzly details obviously, but here are
+some observations that surprised me.
+
+** Epidurals are the Real Miracle
+
+Leading up to the epidural, everything felt like it was right out of a
+medical drama.  My wife and I were stuck in triage for a few hours
+while she was considerably dilated.  She handled it like a champ,
+and left some pretty good nail marks in my arm.
+
+But starting with the way the anesthesiologist
+casually slid a metal cable into my wife's spine, things got
+weirdly informal.
+
+The labor pains were no more, and nurses and doctors began to
+calmly float in and out of our room.  My wife was napping, surfing
+the web, and even joking during contractions that looked
+devastating judging by the graphs and instruments.
+
+Part of me expected the birth to happen in the middle of the
+night - maybe I would be wearing scrubs and sitting in a dimly lit
+observation deck.  It hadn't dawned on me that it could instead
+happen on a sunny Friday in the middle of the afternoon in about
+fifteen minutes.
+
+** Everything Else Feels Kind of Medieval
+
+After being so floored by the precision and technology of an
+epidural, the assisted labor by contrast looked purely medieval.
+
+One of the nurses told us our child would need a vacuum delivery[fn:1].
+This "vacuum" was literally just a suction cup connected to a hand
+pump.  One nurse would plant it on the baby's head like a plunger
+while the other nurse squeezed a hand pump.  At a few points, the
+plunger would lose suction and make a hilarious /flubpf/ sound.
+
+Meanwhile, plunger nurse is twisting the baby's head way harder
+than I thought was possible - like the way James Bond would wrench
+a goon's head around during a covert op.
+
+But they tell me that babies are a lot tougher than they look.
+Those weird soft spots in their head and pliable shoulders are
+designed to facilitate being hiked out of the female body like a
+Nerf football.
+
+The procedure leaves the baby's head shaped like a cone.  I'm happy
+to report after only 10 days, he no longer looks like one of the
+aliens from /XCOM/.
+
+** Nurses Know Everything
+
+If you're like me, you've wondered when an actual adult sits you
+down and explains how to do everything you'll need to do to take
+care of the new human in your life.  The answer is a lot simpler
+than it sounds - it's basically every nurse that walks into the
+hospital room.
+
+Five minutes with any given nurse was easily worth more than the
+couple of hours of natal care videos we watched.  Nurses are a
+godsend.
+
+** Hello World!
+
+The staff was happy to let us play our own music.  Like good
+Wisconsinites, we played /Bon Iver/.  My son was born to the song
+/Holocene/.  It was by chance, but given the music video[fn:2] follows a
+young boy who wakes up in a rural cabin and wanders around a
+breath-taking wilderness scene, I don't think we could have made a
+better choice.
+
+Rodney was born at 2:12 PM on July 8th, 2016.  He weighed 7 lbs, 2
+oz.  He opened his enormous blue eyes immediately.  He was
+perfect.  My eyes immediately welled up with gratitude.
+
+#+CAPTION: Then he promptly began to look confused.
+#+ATTR_LATEX: :float nil
+[[file:images/rodney-and-mom.jpg]]
+
+#+CAPTION: Rodney and his tired, sweaty family.
+#+ATTR_LATEX: :float nil
+[[file:images/rodney-and-family.jpg]]
+
+Family filed in and out of the room all weekend.
+
+#+CAPTION: Rodney and his Grandma Redalen
+#+ATTR_LATEX: :float nil
+[[file:images/rodney-and-grandma.jpg]]
+
+#+CAPTION: Rodney and his Grandma Recker
+#+ATTR_LATEX: :float nil
+[[file:images/rodney-and-grandma-recker.jpg]]
+
+#+CAPTION: Rodney and his Grandpa Redalen
+#+ATTR_LATEX: :float nil
+[[file:images/rodney-and-grandpa-redalen.jpg]]
+
+#+CAPTION: My dad with his new fishing buddy
+#+ATTR_LATEX: :float nil
+[[file:images/rodney-and-grandpa-recker.jpg]]
+
+* Going Home
+
+We spent not even three full days in the hospital.Time behaves
+weirdly there.It had felt like we had been living there for
+months.
+
+I was a little irked at how unofficial his naming felt.For some
+reason, I was picturing a giant server room where we entered
+~RODNEY~ into a console attached to a Deep Thought[fn:3] style super
+computer.In reality, it was just a sheet of paper that I filled
+out on my lap.
+
+#+CAPTION: We look like we know what we're doing, right?
+#+ATTR_LATEX: :float nil
+[[file:images/heading-home-with-rodney.jpg]]
+
+But nothing felt weirder than putting him in the car for the first
+time.At that moment, it was clear to me that the fairy tail of
+sitting in a clean white room with no sense of time and nothing to
+do but stare into your baby's face was over.Now I had to mow the
+lawn.I had to fill up the fridge.I still had to move that
+Ethernet cable out of the hallway.
+
+But friends, neighbors, and family to the rescue!Our fridge was
+stocked with more food than we've ever had in the house.I love the
+people in my life.Getting less than five hours of sleep isn't so
+bad when you can slink downstairs in the middle of the night and eat
+a spoonful of chicken pot pie, a handful of chips, and a grilled
+chicken sandwich on the way back up the stairs.
+
+* Advice
+
+You get a lot of advice when you are getting ready to have the baby,
+and it's almost always spontaneous.I'm not complaining.I'm
+touched that so many people in my life were so eager to leave me
+with their own nugget of wisdom, but inevitably people started to
+repeat each other.
+
+One such nugget Marissa and I heard a lot was "/Your life is about
+to change./"I'd try to politely nod and thank them for the sage
+advice, but sometimes I couldn't help myself from messing with
+them.I'd patronize them in return by asking things like, "You
+mean I won't be able to throw house parties on the weekends?What
+about the 3 AM cock fights I like to host in my backyard on
+Wednesdays?How is my life going to change there?"
+
+#+BEGIN_QUOTE
+You could not step twice into the same river-- Heraclitus[fn:4]
+#+END_QUOTE
+
+Is my life about to change?That's true on any given day.Even
+when we can point to a nostalgic time in which our lives felt
+stable, I think it's only because we're not remembering all the
+things that we worried about day to day.Rose tinted glasses will
+do that to you.
+
+Rodney was not born in a vacuum.He wasn't born in a castle in the
+middle of a fairy tail.He'll grow up in a house next to a busy
+road and a Burger King.The floor creeks, the kitchen still has
+some sharp corners, and there is still a 40 ft Ethernet cable
+tangled on the floor in the middle of our upstairs hallway.My life
+probably will never feel the same.If it were a river, stepping
+into it would probably feel a little different every day.But his
+Mother can do anything, his dad is obsessed with him, and his furry
+older brother would probably already jump off a bridge for him.
+
+#+CAPTION: Ollie meets his little brother
+#+ATTR_LATEX: :float none
+[[file:images/ollie-and-rodney.jpg]]
+
+We hadn't planned on being parents, but we had no idea what we were
+missing.I feel like I've spent a few hours a day just staring at
+his face.My wife and I are constantly nudging each other every time
+he stretches, yawns, or even has an impressive fart.
+
+Hey everybody - this is my son.He changed my life.I'm a freakin'
+dad.
+
+#+ATTR_LATEX: :float none
+[[file:images/rodney.jpg]]
+
+* Footnotes
+
+[fn:4] He is cited by Plato in Cratylus, 402a
+
+[fn:3] "Deep Thought" was the name of the super computer built in /The
+Hitchhiker's Guide to the Galaxy/ to find the meaning of life.
+
+[fn:2] [[https://www.youtube.com/watch?v=TWcyIpul8OE]["Holocene", by Bon Iver]]
+
+[fn:1] [[http://www.mayoclinic.org/tests-procedures/vacuum-extraction/basics/definition/prc-20020448][Vacuum Extraction (Mayo Clinic)]]
