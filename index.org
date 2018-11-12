@@ -15,66 +15,52 @@ follow me on twitter at [[https://twitter.com/alex_recker][@alex_recker]], or fo
 
 * Posts
 
-** TODO Babel Index Generation
+#+BEGIN_SRC emacs-lisp :results value :exports results
+  (defun blog-post-files ()
+    (let ((not-these			; this is lazy, I know.  I can't figure out the regex
+	   '(".#index.org" "index.org")))
+      (remove-if (lambda (f) (member f not-these)) (directory-files "." nil ".org"))))
 
-Generate a list of blog post files.
+  (defun blog-posts ()
+    (mapcar (lambda (f)
+	      (let ((data (with-temp-buffer
+			    (insert-file-contents f)
+			    (org-mode)
+			    (org-element-parse-buffer))))
+		(append `((:file , f)) (org-element-map data 'keyword (lambda (el)
+									(let ((key (org-element-property :key el))
+									      (val (org-element-property :value el)))
+									  (cond ((string-equal key "TITLE") (list :title val))
+										((string-equal key "SUBTITLE") (list :subtitle val))
+										((string-equal key "DATE") (list :date val)))))))))
+	    (blog-post-files)))
 
-#+NAME: blog-post-files
-#+BEGIN_SRC emacs-lisp :results list :exports both
-  (let ((not-these			; this is lazy, I know.  I can't figure out the regex
-	 '(".#index.org" "index.org")))
-    (remove-if (lambda (f) (member f not-these)) (directory-files "." nil ".org")))
+  (defun sorted-blog-posts ()
+    (sort (blog-posts) (lambda (p1 p2)
+			 (not (time-less-p (date-to-time (first (alist-get :date p1)))
+					   (date-to-time (first (alist-get :date p2))))))))
+
+  (defun blog-posts-table ()
+    (let ((blog-posts
+	   (mapcar (lambda (p)
+		     (multiple-value-bind (file title subtitle date)
+			 (values (first (alist-get :file p))
+				 (first (alist-get :title p))
+				 (first (alist-get :subtitle p))
+				 (first (alist-get :date p)))
+		       (list (format "[[file:%s][%s]]" file title) subtitle date)))
+		   (sorted-blog-posts))))
+      (apply #'append '(("Title" "Description" "Date") hline) (list blog-posts))))
+
+  (blog-posts-table)
 #+END_SRC
 
-This one's a doozy - retrieve the title, subtitle, and date from each
-document.
-
-#+NAME: blog-posts
-#+BEGIN_SRC emacs-lisp :var blog-post-files=blog-post-files :results list :exports both
-  (mapcar (lambda (f)
-	    (let ((data (with-temp-buffer
-			  (insert-file-contents f)
-			  (org-mode)
-			  (org-element-parse-buffer))))
-	      (append `((:file , f)) (org-element-map data 'keyword (lambda (el)
-					       (let ((key (org-element-property :key el))
-						     (val (org-element-property :value el)))
-						 (cond ((string-equal key "TITLE") (list :title val))
-						       ((string-equal key "SUBTITLE") (list :subtitle val))
-						       ((string-equal key "DATE") (list :date val)))))))))
-	  blog-post-files)
-#+END_SRC
-
-#+RESULTS: blog-posts
-- ((:file "civ-budget.org") (:title "Our New Sid Meier's Civilization Inspired Budget") (:subtitle "My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system") (:date "<2015-11-15 Sun>"))
-- ((:file "jane.org") (:title "Jane") (:subtitle "An Interview with my mother, Jane Recker") (:date "<2015-10-25 Sun>"))
-- ((:file "noah.org") (:title "Noah") (:subtitle "A tender look back on the life of the best little brother I've ever had") (:date "<2013-12-05 Thu>"))
-- ((:file "san-francisco.org") (:title "San Francisco") (:subtitle "My company sent me on a trip to San Francisco.") (:date "<2016-10-09 Sun>"))
-- ((:file "selenium-bus-pass.org") (:title "Using Selenium to Buy a Bus Pass") (:subtitle "A brief tutorial of my new favorite Selenium script.") (:date "<2016-01-12 Tue>"))
-- ((:file "uhh-yeah-dude.org") (:title "Uhh Yeah Dude") (:subtitle "A long overdue written tribute to my favorite podcast.") (:date "<2018-03-31 Sat>"))
-
-*** [[file:uhh-yeah-dude.org][Uhh Yeah Dude]]
-
- A long overdue written tribute to my favorite podcast.
-
-*** [[file:san-francisco.org][San Francisco]]
-
- My company sent me on a trip to San Francisco.
-
-*** [[file:selenium-bus-pass.org][Selenium Bus Pass]]
-
- A brief tutorial of my new favorite Selenium script.
-
-*** [[file:civ-budget.org][Civ Budget]]
-
- My wife and I were inspired by Sid Meier's Civilization to look at our
- finances differently.  Here is our new system
-
-*** [[file:jane.org][Jane]]
-
- An Interview with my mother, Jane Recker
-
-*** [[file:noah.org][Noah]]
-
- A tender look back on the life of the best little brother I've ever
- had.
+#+RESULTS:
+| Title                                            | Description                                                                                                          | Date             |
+|--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------+------------------|
+| [[file:uhh-yeah-dude.org][Uhh Yeah Dude]]                                    | A long overdue written tribute to my favorite podcast.                                                               | <2018-03-31 Sat> |
+| [[file:san-francisco.org][San Francisco]]                                    | My company sent me on a trip to San Francisco.                                                                       | <2016-10-09 Sun> |
+| [[file:selenium-bus-pass.org][Using Selenium to Buy a Bus Pass]]                 | A brief tutorial of my new favorite Selenium script.                                                                 | <2016-01-12 Tue> |
+| [[file:civ-budget.org][Our New Sid Meier's Civilization Inspired Budget]] | My wife and I were inspired by Sid Meier's Civilization to look at our finances differently.  Here is our new system | <2015-11-15 Sun> |
+| [[file:jane.org][Jane]]                                             | An Interview with my mother, Jane Recker                                                                             | <2015-10-25 Sun> |
+| [[file:noah.org][Noah]]                                             | A tender look back on the life of the best little brother I've ever had                                              | <2013-12-05 Thu> |
