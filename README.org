@@ -1,4 +1,4 @@
 #+TITLE: Blog
 
-My blog is still hosted at the same 'ol [[https://www.alexrecker.com][alexrecker.com]], but the code
-that powers it has been moved to my [[https://github.com/arecker/emacs.d][emacs.d]] repository.
+This is the script that renders my blog, sourcing my personal
+documents.
