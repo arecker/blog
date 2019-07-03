@@ -14,7 +14,7 @@
 	  <h1><%= entry.date %></h1>
 	  <%= entry.body %>
 	</article>
-	<hr/>
+	<% if entry != @entries.last %><hr/><% end %>
 	<% end %>
       </main>
     </div>
