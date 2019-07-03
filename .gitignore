@@ -1,3 +1,8 @@
-site
-*.egg-info
-*/__pycache__/*
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/

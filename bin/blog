@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'blog'
+
+if ARGV.length != 3
+  puts <<~HELP
+    blog <path/to/journal> <path/to/output/directory> <path/to/template>
+  HELP
+  exit 1
+end
+
+Blog.build!(ARGV[0], ARGV[1], ARGV[2])

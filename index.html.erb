@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>alexrecker.com</title>
+    <link href="site.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="site">
+      <img alt="banner" src="banner.jpg"/>
+      <main class="content-wrapper">
+	<% @entries.each do |entry| %>
+	<article class="site-content">
+	  <h1><%= entry.date %></h1>
+	  <%= entry.body %>
+	</article>
+	<hr/>
+	<% end %>
+      </main>
+    </div>
+  </body>
+</html>
