@@ -21,8 +21,16 @@ module Blog
       @text = text
     end
 
+    def title
+      date.strftime('%A, %B %-e %Y')
+    end
+
+    def slug
+      date.strftime('%Y-%m-%d')
+    end
+
     def date
-      Date.strptime(@datestamp, '%Y-%m-%d %A').strftime('%A, %B %-e %Y')
+      Date.strptime(@datestamp, '%Y-%m-%d %A')
     end
 
     def body

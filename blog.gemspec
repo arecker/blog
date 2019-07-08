@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_runtime_dependency 'htmlbeautifier'
   spec.add_runtime_dependency 'org-ruby'
+  spec.add_runtime_dependency 'rss'
 end

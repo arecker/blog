@@ -11,7 +11,7 @@
       <main class="content-wrapper">
 	<% @entries.each do |entry| %>
 	<article class="site-content">
-	  <h1><%= entry.date %></h1>
+	  <h1 id="<%= entry.slug %>"><%= entry.title %></h1>
 	  <%= entry.body %>
 	</article>
 	<% if entry != @entries.last %><hr/><% end %>

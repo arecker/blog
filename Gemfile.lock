@@ -4,6 +4,7 @@ PATH
     blog (0.1.0)
       htmlbeautifier
       org-ruby
+      rss
 
 GEM
   remote: https://rubygems.org/
@@ -12,6 +13,7 @@ GEM
     org-ruby (0.9.12)
       rubypants (~> 0.2)
     rake (10.5.0)
+    rss (0.2.8)
     rubypants (0.7.0)
 
 PLATFORMS
