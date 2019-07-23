@@ -11,3 +11,4 @@ module Blog
     Site.new(output_directory, entries, template_path).build!
   end
 end
+
