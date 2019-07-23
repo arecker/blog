@@ -35,8 +35,7 @@ module Blog
         @entries.each do |entry|
           maker.items.new_item do |item|
             item.link = "https://www.alexrecker.com/##{entry.slug}"
-            item.title = entry.title
-            item.description = entry.description if entry.tags?
+            item.title = entry.feed_title
             item.updated = Time.parse(entry.date.to_s)
           end
         end

@@ -31,6 +31,14 @@ module Blog
       date.strftime('%A, %B %-e %Y')
     end
 
+    def feed_title
+      if tags?
+        "#{title} - #{description}"
+      else
+        title
+      end
+    end
+
     def slug
       date.strftime('%Y-%m-%d')
     end
