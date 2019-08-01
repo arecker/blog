@@ -8,14 +8,18 @@ module Blog
   class Entry
     def self.last_five_from_file(file)
       journal = Orgmode::Parser.load(file)
-      headlines = journal.headlines.reverse
-      last_five = headlines.reject { |h| h.tags.include? 'private' }.take(5)
-      last_five.map do |h|
+      filter_headlines(journal).take(5).map do |h|
         Entry.new(
           h.output_text,
           h.body_lines.drop(1).collect(&:output_text).join(' '),
           tags: h.tags
         )
+      end
+    end
+
+    def self.filter_headlines(journal)
+      journal.headlines.reverse.reject do |headline|
+        headline.tags.include?('private') || headline.level != 3
       end
     end
 
