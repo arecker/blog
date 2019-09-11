@@ -1,0 +1,13 @@
+---
+title: Home
+---
+<div class="card mb-3">
+  <div class="card-body">
+    <h2 class="card-title lead">Latest Entries</h2>
+    <ul class="list-group list-group-flush">
+      {% for post in site.posts limit:5 %}
+      <li class="list-group-item"><a href="{{ post.url }}">{{ post.title }}</a> - {{ post.tags | join: ', ' }}</li>
+      {% endfor %}
+    </ul>  
+  </div>
+</div>

@@ -1,5 +1,0 @@
-#+TITLE: Blog
-
-This used to be where my [[https://www.alexrecker.com][personal website]] lives.  Now it's just an org
-mode publishing project in my [[https://github.com/arecker/emacs.d][emacs configuration]], so go there if
-you're interested.
