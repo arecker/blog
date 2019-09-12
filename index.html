@@ -8,6 +8,35 @@ title: Home
       {% for post in site.posts limit:5 %}
       <li class="list-group-item"><a href="{{ post.url }}">{{ post.title }}</a> - {{ post.tags | join: ', ' }}</li>
       {% endfor %}
-    </ul>  
+    </ul>
+  </div>
+</div>
+<div class="card mb-3">
+  <div class="card-body">
+    <h2 class="card-title lead">Statistics</h2>
+    <div class="row">
+      <div class="col-sm">
+	<table class="table table-borderless">
+	  <tbody>
+	    <tr>
+	      <td><strong>Total Entries</strong></td>
+	      <td>{{ site.data.stats.total_entries }}</td>
+	    </tr>
+	    <tr>
+	      <td><strong>Total Word Count</strong></td>
+	      <td>{{ site.data.stats.total_word_count }}</td>
+	    </tr>
+	    <tr>
+	      <td><strong>Average Daily Word Count</strong></td>
+	      <td>{{ site.data.stats.average_word_count }}</td>
+	    </tr>
+	    <tr>
+	      <td><strong>Top Three Tags</strong></td>
+	      <td>{{ site.data.stats.top_three_tags | join: ', ' }}</td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+    </div>
   </div>
 </div>
