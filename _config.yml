@@ -6,8 +6,10 @@ plugins:
   - jekyll-feed
 
 exclude:
+  - .travis.yml
   - Gemfile
   - Gemfile.lock
+  - s3_website.yml
 
 defaults:
   -

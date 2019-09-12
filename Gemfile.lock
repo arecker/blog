@@ -3,8 +3,24 @@ GEM
   specs:
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    aws-eventstream (1.0.3)
+    aws-sdk (2.11.352)
+      aws-sdk-resources (= 2.11.352)
+    aws-sdk-core (2.11.352)
+      aws-sigv4 (~> 1.0)
+      jmespath (~> 1.0)
+    aws-sdk-resources (2.11.352)
+      aws-sdk-core (= 2.11.352)
+    aws-sigv4 (1.1.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
     colorator (1.1.0)
+    colored (1.2)
     concurrent-ruby (1.1.5)
+    configure-s3-website (2.3.0)
+      aws-sdk (~> 2)
+      deep_merge (~> 1.0.0)
+    deep_merge (1.0.1)
+    dotenv (1.0.2)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
@@ -31,10 +47,9 @@ GEM
       jekyll (~> 3.3)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
-    jekyll-seo-tag (2.5.0)
-      jekyll (~> 3.3)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
+    jmespath (1.4.0)
     kramdown (1.17.0)
     liquid (4.0.0)
     listen (3.1.5)
@@ -42,10 +57,6 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
     mercenary (0.3.6)
-    minima (2.5.0)
-      jekyll (~> 3.5)
-      jekyll-feed (~> 0.9)
-      jekyll-seo-tag (~> 2.1)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (3.1.1)
@@ -54,12 +65,18 @@ GEM
       ffi (~> 1.0)
     rouge (2.2.1)
     ruby_dep (1.5.0)
+    s3_website (3.4.0)
+      colored (= 1.2)
+      configure-s3-website (= 2.3.0)
+      dotenv (~> 1.0)
+      thor (~> 0.18)
     safe_yaml (1.0.5)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+    thor (0.20.3)
 
 PLATFORMS
   ruby
@@ -67,8 +84,7 @@ PLATFORMS
 DEPENDENCIES
   jekyll (~> 3.8.5)
   jekyll-feed (~> 0.6)
-  minima (~> 2.0)
-  tzinfo-data
+  s3_website
 
 BUNDLED WITH
    2.0.2
