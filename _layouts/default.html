@@ -16,7 +16,7 @@
 	  {% else %}
 	  <h1 class="">{{ page.title }}</h1>
 	  <p class="text-muted">
-	    {{ page.tags | join: ', ' }}
+	    {{ page.excerpt }}
 	  </p>
 	  <p class="text-muted">
 	    <a href="{% link index.html %}">⟵ home</a>

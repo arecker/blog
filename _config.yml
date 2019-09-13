@@ -1,3 +1,7 @@
+title: Alex Recker's Journal
+author: Alex Recker
+url: https://www.alexrecker.com
+
 permalink: /:year-:month-:day:output_ext
 
 markdown: kramdown
