@@ -22,7 +22,7 @@ module Blog
     end
 
     def required_keys
-      %w[journal_path posts_path]
+      %w[journal_path posts_dir]
     end
 
     def initialize(data)

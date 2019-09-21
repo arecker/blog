@@ -11,7 +11,7 @@ module Blog
 
     def self.default_logger
       logger = Logger.new(STDOUT)
-      logger.level = Logger::DEBUG
+      logger.level = Logger::INFO
       logger.formatter = proc do |severity, _datetime, _progname, msg|
         "#{severity.ljust(5)}: #{msg}\n"
       end
