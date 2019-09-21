@@ -53,6 +53,10 @@ module Blog
       File.expand_path(@data.fetch('blog_repo'))
     end
 
+    def log_level
+      @data.fetch('log_level', 'INFO').upcase
+    end
+
     private
 
     def missing_fields

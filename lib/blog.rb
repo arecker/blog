@@ -16,6 +16,8 @@ module Blog
   def self.go_go_gadget_publish!
     logger.info 'starting publisher'
     config = Blog::Config.load_from_file || exit(1)
+    Blog::Log::level = config.log_level
+    logger.debug "set log level to #{config.log_level}"
 
     logger.info 'validating config'
     exit 1 unless config.validate!

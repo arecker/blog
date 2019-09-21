@@ -17,5 +17,14 @@ module Blog
       end
       logger
     end
+
+    def self.level=(setting)
+      @logger.level = case setting.upcase
+                      when 'DEBUG'
+                        Logger::DEBUG
+                      else
+                        Logger::INFO
+                      end
+    end
   end
 end
