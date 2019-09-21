@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'highline/import'
+
 # Blog
 module Blog
   require_relative 'blog/config'
@@ -44,5 +46,9 @@ module Blog
       exit 1
     end
     logger.info "untracked files: #{Blog::Git.untracked_files.to_and_list}"
+    unless HighLine.agree('Proceed? (Y/N)')
+      logger.error 'cancelled, exiting'
+      exit 1
+    end
   end
 end
