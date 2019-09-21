@@ -14,7 +14,11 @@ module Blog
     end
 
     def self.changes
-      @git.status.changed
+      @git.status.changed.to_a
+    end
+
+    def self.untracked_files
+      @git.status.untracked.keys
     end
   end
 end

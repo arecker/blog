@@ -43,5 +43,6 @@ module Blog
       logger.error 'no changes to blog repo, nothing to do!'
       exit 1
     end
+    logger.info "untracked files: #{Blog::Git.untracked_files.to_and_list}"
   end
 end
