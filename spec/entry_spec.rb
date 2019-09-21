@@ -48,40 +48,4 @@ describe Blog::Entry do
     TEXT
     expect(entry.body_text).to eq(expected.strip)
   end
-
-  it 'converts the body text to HTML' do
-    text = <<~TEXT
-      *** 2019-09-13 Friday :thunderstorms:bulgogi:pto:
-
-      Dear /Journal/,
-    TEXT
-    parser = Orgmode::Parser.new(text)
-    entry = Blog::Entry.new(parser.headlines.first)
-    expected = <<~TEXT
-      <p>Dear <i>Journal</i>,</p>
-    TEXT
-    expect(entry.body_html).to eq(expected)
-  end
-
-  it 'converts the entry to HTML' do
-    text = <<~TEXT
-      *** 2019-09-13 Friday :thunderstorms:bulgogi:pto:
-
-      Dear Journal,
-
-      This is only a test.
-    TEXT
-    parser = Orgmode::Parser.new(text)
-    entry = Blog::Entry.new(parser.headlines.first)
-    expected = <<~TEXT
-      ---
-      title: Friday, September 13 2019
-      tags: [thunderstorms,bulgogi,pto]
-      excerpt: thunderstorms, bulgogi, and pto
-      ---
-      <p>Dear Journal,</p>
-      <p>This is only a test.</p>
-    TEXT
-    expect(entry.to_html.strip).to eq(expected.strip)
-  end
 end

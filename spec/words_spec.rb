@@ -37,4 +37,10 @@ describe Blog::Words do
 
     expect(text.word_count).to eq(154)
   end
+
+  it 'should prettify a path' do
+    actual = '/Users/butthead/tmp'.pretty_path('/Users/butthead')
+    expected = '~/tmp'
+    expect(actual).to eq expected
+  end
 end

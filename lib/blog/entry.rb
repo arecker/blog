@@ -35,7 +35,7 @@ module Blog
     end
 
     def body_text
-      @headline.body_lines.drop(1).collect(&:output_text).join("\n").strip
+      @headline.body_lines.drop(1).collect(&:output_text).join(' ')
     end
 
     def body_html

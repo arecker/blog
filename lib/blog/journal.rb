@@ -6,6 +6,7 @@ module Blog
   # Journal
   class Journal
     def self.from_file(path)
+      Blog.logger.info "loading journal from #{path}"
       new(Orgmode::Parser.load(path))
     end
 

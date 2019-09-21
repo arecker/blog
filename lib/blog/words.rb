@@ -23,6 +23,11 @@ module Blog
     def self.word_count_from_string(str)
       str.gsub(/[^-a-zA-Z]/, ' ').split.size
     end
+
+    def self.prettify_path(path, home = nil)
+      home ||= File.expand_path('~/')
+      path.sub(home, '~')
+    end
   end
 end
 
@@ -44,5 +49,9 @@ end
 class String
   def word_count
     Blog::Words.word_count_from_string(self)
+  end
+
+  def pretty_path(home = nil)
+    Blog::Words.prettify_path(self, home)
   end
 end
