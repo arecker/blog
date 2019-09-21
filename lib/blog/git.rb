@@ -12,5 +12,9 @@ module Blog
     def self.dirty?
       @git.status.changed.any?
     end
+
+    def self.changes
+      @git.status.changed
+    end
   end
 end

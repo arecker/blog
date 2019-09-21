@@ -35,5 +35,11 @@ module Blog
       logger.debug "writing #{entry.title} to #{target.pretty_path}"
       File.open(target, 'w+') { |f| f.write(entry.to_html) }
     end
+
+    logger.info 'reviewing changes'
+    unless Blog::Git.changes.any?
+      logger.error 'no changes to blog repo, nothing to do!'
+      exit 1
+    end
   end
 end
