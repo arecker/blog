@@ -22,7 +22,7 @@ module Blog
     end
 
     def required_keys
-      %w[journal_path posts_dir]
+      %w[journal_path posts_dir blog_repo]
     end
 
     def initialize(data)
@@ -47,6 +47,10 @@ module Blog
 
     def posts_dir
       File.expand_path(@data.fetch('posts_dir'))
+    end
+
+    def blog_repo
+      File.expand_path(@data.fetch('blog_repo'))
     end
 
     private

@@ -4,6 +4,7 @@
 module Blog
   require_relative 'blog/config'
   require_relative 'blog/entry'
+  require_relative 'blog/git'
   require_relative 'blog/journal'
   require_relative 'blog/log'
   require_relative 'blog/words'
@@ -17,7 +18,14 @@ module Blog
     config = Blog::Config.load_from_file || exit(1)
 
     logger.info 'validating config'
-    config.validate!
+    exit 1 unless config.validate!
+
+    logger.info 'checking status of blog repo'
+    Blog::Git.repo_path = config.blog_repo
+    if Blog::Git.dirty?
+      logger.error 'blog repo has uncommited changes!'
+      exit 1
+    end
 
     journal = Blog::Journal.from_file(config.journal_path)
 
