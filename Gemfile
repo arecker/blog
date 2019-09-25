@@ -3,7 +3,6 @@
 source 'https://rubygems.org'
 
 gem 'git'
-gem 'highline'
 gem 'jekyll', '~> 3.8.5'
 gem 'org-ruby'
 gem 'rake'

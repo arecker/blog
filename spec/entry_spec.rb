@@ -30,22 +30,4 @@ describe Blog::Entry do
     entry = Blog::Entry.new(parser.headlines.first)
     expect(entry.filename).to eq('2030-01-02-2030-01-02.html.html')
   end
-
-  it 'extract the body text from the entry' do
-    text = <<~TEXT
-      *** 2019-09-13 Friday :thunderstorms:bulgogi:pto:
-
-      Dear Journal,
-
-      Good morning everyone!  Happy Friday to you, reader.
-    TEXT
-    parser = Orgmode::Parser.new(text)
-    entry = Blog::Entry.new(parser.headlines.first)
-    expected = <<~TEXT
-      Dear Journal,
-
-      Good morning everyone!  Happy Friday to you, reader.
-    TEXT
-    expect(entry.body_text).to eq(expected.strip)
-  end
 end

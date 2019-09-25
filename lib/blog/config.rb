@@ -57,6 +57,10 @@ module Blog
       @data.fetch('log_level', 'INFO').upcase
     end
 
+    def use_git?
+      @data.fetch('use_git', 'true').to_s.downcase == 'true'
+    end
+
     private
 
     def missing_fields

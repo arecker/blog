@@ -6,7 +6,6 @@ module Blog
   # Journal
   class Journal
     def self.from_file(path)
-      Blog.logger.info "loading journal from #{path.pretty_path}"
       new(Orgmode::Parser.load(path))
     end
 
@@ -14,15 +13,27 @@ module Blog
       @parser = parser
     end
 
-    def entries
-      @entries ||= all_entries.select(&:public?).sort_by(&:date).reverse
+    def public_entries
+      @public_entries ||= all_entries.select(&:public?).sort_by(&:date).reverse
     end
 
-    private
+    def private_entries
+      @private_entries ||= all_entries.reject(&:public?).sort_by(&:date).reverse
+    end
+
+    def write_public_entries!(dir)
+      public_entries.each do |entry|
+        target = File.join(dir, entry.filename)
+        Blog.logger.debug "writing #{entry.title} to #{target.pretty_path}"
+        File.open(target, 'w+') { |f| f.write(entry.to_html) }
+      end
+    end
 
     def all_entries
       entry_headlines.map { |h| Entry.new(h) }
     end
+
+    private
 
     def entry_headlines
       @parser.headlines.select { |h| h.level == 3 }

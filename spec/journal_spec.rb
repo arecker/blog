@@ -26,13 +26,13 @@ describe Blog::Entry do
   it 'should sort the blog entries by date' do
     parser = Orgmode::Parser.new(@text)
     journal = Blog::Journal.new(parser)
-    expect(journal.entries.first.tags).to eq(%w[plex cables strongbad])
+    expect(journal.public_entries.first.tags).to eq(%w[plex cables strongbad])
   end
 
   it 'should filter out private entries' do
     parser = Orgmode::Parser.new(@text)
     journal = Blog::Journal.new(parser)
-    matching = journal.entries.select { |e| e.tags.include? 'private' }
+    matching = journal.public_entries.select { |e| e.tags.include? 'private' }
     expect(matching.any?).to be false
   end
 end
