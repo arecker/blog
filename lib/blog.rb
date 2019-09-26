@@ -33,7 +33,7 @@ module Blog
     logger.info "writing #{journal.public_entries.count.pretty} public entries"
     journal.write_public_entries! config.posts_dir
 
-    Blog::Stats.write_stats! journal, "/Users/arecker/Desktop/stats.json"
+    Blog::Stats.write_stats! journal, config.stats_path
 
     logger.info 'reviewing changes'
     repo.validate_changed!
