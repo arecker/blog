@@ -1,5 +1,6 @@
 # frozen_literal_string: true
 
+require 'date'
 require 'json'
 
 module Blog
@@ -120,31 +121,53 @@ module Blog
     # StreakCruncher
     class StreakCruncher < BaseCruncher
       def stats_key
-        'streaks'
+        'days'
       end
 
       def crunch
         @logger.debug 'calculating streaks'
         {
-          current: entry_dates_grouped_by_streak[0].count.pretty,
-          longest: longest_streak.pretty
+          streaks: longest_streaks,
+          draughts: longest_draughts
         }
       end
 
       private
 
-      def longest_streak
-        entry_dates_grouped_by_streak.map(&:count).max
+      def longest_streaks
+        streaks.take(3).map do |count, dates|
+          [count.pretty, dates]
+        end
+      end
+
+      def longest_draughts
+        draughts.take(3).map do |count, dates|
+          [count.pretty, dates]
+        end
+      end
+
+      def draughts
+        _draughts = []
+        entry_dates.each_cons(2).each do |curr, nxt|
+          next if nxt.nil? || curr == nxt.next_day
+          _draughts << [(curr - nxt).to_i, [nxt, curr]]
+        end
+        _draughts.sort_by { |d| d[0] }.reverse
+      end
+
+      def streaks
+        _streaks = []
+        entry_dates.slice_when do |prev, curr|
+          curr != prev - 1
+        end.each do |dates|
+          first, last = dates.min, dates.max
+          _streaks << [(last - first).to_i, [first, last]]
+        end
+        _streaks.sort_by { |d| d[0] }.reverse
       end
 
       def entry_dates
         all_entries.collect(&:date).reverse
-      end
-
-      def entry_dates_grouped_by_streak
-        entry_dates.slice_when do |prev, curr|
-          curr != prev - 1
-        end.to_a
       end
     end
 
