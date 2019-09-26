@@ -136,13 +136,21 @@ module Blog
 
       def longest_streaks
         streaks.take(3).map do |count, dates|
-          [count.pretty, dates]
+          {
+            days: count.pretty,
+            start: dates[0],
+            end: dates[1]
+          }
         end
       end
 
       def longest_draughts
         draughts.take(3).map do |count, dates|
-          [count.pretty, dates]
+          {
+            days: count.pretty,
+            start: dates[0],
+            end: dates[1]
+          }
         end
       end
 
