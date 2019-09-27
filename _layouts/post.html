@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% include head.html %}
+    <title>{{ site.title }} | {{ page.title }}</title>
+  </head>
+  <body>
+    <div class="container mt-5 mb-5">
+      <div class="row">
+	<div class="col-md-8 offset-md-2">
+	  <h1>{{ page.title }}</h1>
+	  <p class="text-muted">{{ page.excerpt }}</p>
+	  <p class="text-muted">
+	    <a href="{% link index.html %}">⟵ home</a>
+	  </p>
+	  <hr/>
+	  {{ content }}
+	  <ul class="nav nav-fill">
+	    {% if page.next %}
+	    <li class="nav-item">
+	      <a class="nav-link float-left" href="{{ page.next.url }}">
+		⟵ {{ page.next.title}}
+	      </a>
+	    </li>
+	    {% endif %}
+	    {% if page.previous %}
+	    <li class="nav-item">
+	      <a class="nav-link float-right" href="{{ page.previous.url }}">
+		{{ page.previous.title}} ⟶
+	      </a>
+	    </li>
+	    {% endif %}
+	  </ul>
+	</div>
+      </div>
+    </div>
+  </body>
+</html>

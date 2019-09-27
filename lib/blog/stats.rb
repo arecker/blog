@@ -195,19 +195,17 @@ module Blog
       private
 
       def top_three
-        tags_by_count.reverse.take(3).map do |k, v|
-          "#{k} (#{v.pretty})"
-        end
+        tags_by_count.take(3)
       end
 
       def tags_by_count
-        counts = Hash.new(0)
+        tags = Hash.new([])
         public_entries.each do |entry|
-          entry.tags.each do |v|
-            counts[v] += 1
+          entry.tags.each do |t|
+            tags[t] = tags[t] + [entry.date]
           end
         end
-        counts.sort_by { |k, v| [v, k] }
+        tags.sort_by { |_t, dates| dates.count }.reverse
       end
     end
   end

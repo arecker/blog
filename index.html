@@ -6,45 +6,121 @@ title: Home
     <h2 class="card-title lead">Latest Entries</h2>
     <ul class="list-group list-group-flush">
       {% for post in site.posts limit:5 %}
-      <li class="list-group-item"><a href="{{ post.url }}">{{ post.title }}</a> - {{ post.excerpt }}</li>
+      <li class="list-group-item">
+	<a href="{{ post.url }}">{{ post.title }}</a> - {{ post.excerpt }}
+      </li>
       {% endfor %}
     </ul>
   </div>
 </div>
+
 <div class="card mb-3">
   <div class="card-body">
-    <h2 class="card-title lead">Statistics</h2>
-    <hr/>
+    <h2 class="card-title lead">Stats</h2>
     <div class="row">
-      <div class="col-sm">
-	<table class="table table-borderless">
-	  <tbody>
-	    <tr>
-	      <td><strong>Total Entries</strong></td>
-	      <td>{{ site.data.stats.total_entries }}</td>
-	    </tr>
-	    <tr>
-	      <td><strong>Total Word Count</strong></td>
-	      <td>{{ site.data.stats.total_word_count }}</td>
-	    </tr>
-	    <tr>
-	      <td><strong>Average Daily Word Count</strong></td>
-	      <td>{{ site.data.stats.average_word_count }}</td>
-	    </tr>
-	    <tr>
-	      <td><strong>Current Streak</strong></td>
-	      <td>{{ site.data.stats.current_streak }} day(s)</td>
-	    </tr>
-	    <tr>
-	      <td><strong>Longest Streak</strong></td>
-	      <td>{{ site.data.stats.longest_streak }} day(s)</td>
-	    </tr>
-	    <tr>
-	      <td><strong>Top Three Tags</strong></td>
-	      <td>{{ site.data.stats.top_three_tags | join: ', ' }}</td>
-	    </tr>
-	  </tbody>
-	</table>
+      <div class="col-sm mb-3 mt-3">
+	<div class="table-responsive">
+	  <table class="table">
+	    <thead>
+	      <tr>
+		<th scope="col">Count</th>
+		<th scope="col">Public Entries</th>
+		<th scope="col">Private Entries</th>
+		<th scope="col">All Entries</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr>
+		<td>Number of Posts</td>
+		<td>{{ site.data.stats.posts.public }}</td>
+		<td>{{ site.data.stats.posts.private }}</td>
+		<td>{{ site.data.stats.posts.all }}</td>
+	      </tr>
+	      <tr>
+		<td>Average Daily Word Count</td>
+		<td>{{ site.data.stats.words.public.average }}</td>
+		<td>{{ site.data.stats.words.private.average }}</td>
+		<td>{{ site.data.stats.words.all.average }}</td>
+	      </tr>
+	      <tr>
+		<td>Total Word Count</td>
+		<td>{{ site.data.stats.words.public.total }}</td>
+		<td>{{ site.data.stats.words.private.total }}</td>
+		<td>{{ site.data.stats.words.all.total }}</td>
+	      </tr>
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm mb-3">
+	<div class="table-responsive">
+	  <table class="table">
+	    <thead>
+	      <tr>
+		<th scope="col">Streak Days</th>
+		<th scope="col">First Post</th>
+		<th scope="col">Last Post</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {% for streak in site.data.stats.days.streaks %}
+	      <tr>
+		<td>{{ streak.days }}</td>
+		<td>{{ streak.start | date:'%A, %B %-e %Y' }}</td>
+		<td>{{ streak.end | date:'%A, %B %-e %Y'}}</td>
+	      </tr>
+	      {% endfor %}
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm mb-3">
+	<div class="table-responsive">
+	  <table class="table">
+	    <thead>
+	      <tr>
+		<th scope="col">Dry Spell Days</th>
+		<th scope="col">First Post</th>
+		<th scope="col">Last Post</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {% for item in site.data.stats.days.draughts %}
+	      <tr>
+		<td>{{ item.days }}</td>
+		<td>{{ item.start | date:'%A, %B %-e %Y'}}</td>
+		<td>{{ item.end | date:'%A, %B %-e %Y'}}</td>
+	      </tr>
+	      {% endfor %}
+	    </tbody>
+	  </table>
+	</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm mb-3">
+	<div class="table-responsive">
+	  <table class="table">
+	    <thead>
+	      <tr>
+		<th scope="col">Tag</th>
+		<th scope="col">Number of Posts</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {% for item in site.data.stats.tags.top %}
+	      <tr>
+		<td>{{ item[0] }}</td>
+		<td>{{ item[1].size }}</td>
+	      </tr>
+	      {% endfor %}
+	    </tbody>
+	  </table>
+	</div>
       </div>
     </div>
   </div>
