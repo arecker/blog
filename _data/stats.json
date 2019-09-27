@@ -39,9 +39,9 @@
   "days": {
     "streaks": [
       {
-        "days": "32",
+        "days": "33",
         "start": "2019-08-25",
-        "end": "2019-09-26"
+        "end": "2019-09-27"
       },
       {
         "days": "26",
@@ -74,21 +74,21 @@
   },
   "words": {
     "public": {
-      "average": "680",
-      "total": "55,792"
+      "average": "681",
+      "total": "56,552"
     },
     "private": {
       "average": "511",
       "total": "31,699"
     },
     "all": {
-      "average": "608",
-      "total": "87,491"
+      "average": "609",
+      "total": "88,251"
     }
   },
   "posts": {
-    "public": "82",
+    "public": "83",
     "private": "62",
-    "all": "144"
+    "all": "145"
   }
 }
