@@ -13,8 +13,12 @@ exclude:
   - .travis.yml
   - Gemfile
   - Gemfile.lock
+  - README.org
+  - Rakefile
+  - bin
   - lib
   - s3_website.yml
+  - spec
   - vendor
 
 defaults:
