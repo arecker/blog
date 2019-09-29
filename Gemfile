@@ -7,7 +7,7 @@ gem 'jekyll', '~> 3.8.5'
 gem 'org-ruby'
 gem 'rake'
 gem 'rspec'
-gem 'slack-ruby-client'
+gem 'slack-notifier'
 
 group :jekyll_plugins do
   gem 'jekyll-feed', '~> 0.6'

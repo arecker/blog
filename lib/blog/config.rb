@@ -80,6 +80,10 @@ module Blog
       }
     end
 
+    def slacks
+      @data.fetch('slacks', [])
+    end
+
     private
 
     def s3_id_cmd

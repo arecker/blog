@@ -8,6 +8,7 @@ module Blog
   require_relative 'blog/journal'
   require_relative 'blog/log'
   require_relative 'blog/s3'
+  require_relative 'blog/slack'
   require_relative 'blog/stats'
   require_relative 'blog/words'
 
@@ -44,5 +45,10 @@ module Blog
 
     Blog.logger.info "publishing #{config.site_dir.pretty_path} to s3://#{config.bucket}/"
     Blog::S3.publish config.site_dir, config.bucket, config.aws_creds
+
+    # config.slacks.each do |info|
+    #   url = `#{info.fetch('webhook_cmd')}`.strip
+    #   Blog::Slacky.post info.fetch('channel'), url
+    # end
   end
 end
