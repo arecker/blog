@@ -1,15 +1,89 @@
 ---
 title: Home
 ---
-<div class="card mb-3">
-  <div class="card-body">
-    <h2 class="card-title lead">Latest Entries</h2>
-    <ul class="list-group list-group-flush">
-      {% for post in site.posts limit:5 %}
-      <li class="list-group-item">
-	<a href="{{ post.url }}">{{ post.title }}</a> - {{ post.excerpt }}
-      </li>
-      {% endfor %}
-    </ul>
+<div class="col-md-4 offset-md-2">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Latest Entries</h5>
+      <ul class="list-group list-group-flush">
+	{% for post in site.posts limit:5 %}
+	<li class="list-group-item">
+	  <a href="{{ post.url }}">{{ post.excerpt }}</a>
+	</li>
+	{% endfor %}
+      </ul>
+    </div>
   </div>
 </div>
+<div class="col-md-4">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Stats</h5>
+      <hr/>
+      <div class="table-responsive">
+	<table class="table table-sm table-borderless">
+	  <caption>Wordcount</caption>
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>All</th>
+	      <th class="text-muted">Public</th>
+	      <th class="text-muted">Private</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th>Total</th>
+	      <td>{{ site.data.stats.words.all.total }}</td>
+	      <td class="text-muted">{{ site.data.stats.words.public.total }}</td>
+	      <td class="text-muted">{{ site.data.stats.words.private.total }}</td>
+	    </tr>
+	    <tr>
+	      <th>Average</th>
+	      <td>{{ site.data.stats.words.all.average }}</td>
+	      <td class="text-muted">{{ site.data.stats.words.public.average }}</td>
+	      <td class="text-muted">{{ site.data.stats.words.private.average }}</td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+
+      <div class="table-responsive">
+	<table class="table table-sm table-borderless">
+	  <caption>Consecutive Days</caption>
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>Days</th>
+	      <th class="text-muted">Last</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th>Current Streak</th>
+	      <td>{{ site.data.stats.days.current.days] }}</td>
+	      <td class="text-muted">
+		{{ site.data.stats.days.current.end }}
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>Longest Streak</th>
+	      <td>{{ site.data.stats.days.streaks.first.days] }}</td>
+	      <td class="text-muted">
+		{{ site.data.stats.days.streaks.first.end }}
+	      </td>
+	    </tr>
+	    <tr>
+	      <th>Longest Dry Spell</th>
+	      <td>{{ site.data.stats.days.draughts.first.days] }}</td>
+	      <td class="text-muted">
+		{{ site.data.stats.days.draughts.first.end }}
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+    </div>
+  </div>
+</div>
+

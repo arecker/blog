@@ -127,6 +127,7 @@ module Blog
       def crunch
         @logger.debug 'calculating streaks'
         {
+          current: current_streak,
           streaks: longest_streaks,
           draughts: longest_draughts
         }
@@ -135,13 +136,23 @@ module Blog
       private
 
       def longest_streaks
-        streaks.take(3).map do |count, dates|
+        streaks.sort_by { |d| d[0] }.reverse.take(3).map do |count, dates|
           {
             days: count.pretty,
             start: dates[0],
             end: dates[1]
           }
         end
+      end
+
+      def current_streak
+        streaks.take(1).map do |count, dates|
+          {
+            days: count.pretty,
+            start: dates[0],
+            end: dates[1]
+          }
+        end.first
       end
 
       def longest_draughts
@@ -171,7 +182,7 @@ module Blog
           first, last = dates.min, dates.max
           _streaks << [(last - first).to_i, [first, last]]
         end
-        _streaks.sort_by { |d| d[0] }.reverse
+        _streaks
       end
 
       def entry_dates
