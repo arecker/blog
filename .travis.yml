@@ -3,9 +3,9 @@ language: ruby
 jdk:
   - openjdk8
 
-script: bundle exec jekyll build
-
-after_success: bundle exec s3_website push
+script:
+  - bundle exec rake test
+  - bundle exec jekyll build
 
 notifications:
   email: false

@@ -13,6 +13,7 @@ exclude:
   - .travis.yml
   - Gemfile
   - Gemfile.lock
+  - lib
   - s3_website.yml
   - vendor
 
