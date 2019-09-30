@@ -7,6 +7,7 @@ module Blog
   require_relative 'blog/config'
   require_relative 'blog/entry'
   require_relative 'blog/git'
+  require_relative 'blog/jekyll'
   require_relative 'blog/journal'
   require_relative 'blog/log'
   require_relative 'blog/s3'
@@ -27,6 +28,8 @@ module Blog
     journal = Blog::Journal.from_file(config.journal_path)
     logger.info "writing #{journal.public_entries.count.pretty} public entries"
     journal.write_public_entries! config.posts_dir
+    logger.info "building jekyll"
+    Blog::Jekyll.build(config)
     Blog::Stats.write_stats! journal, config.stats_path
   end
 
@@ -39,18 +42,25 @@ module Blog
     git.commit
   end
 
-  def self.go_go_gadget_publish!
-    # Blog.logger.info "publishing #{config.site_dir.pretty_path} to s3://#{config.bucket}/"
-    # Blog::S3.publish config.site_dir, config.bucket, config.aws_creds
-
-    # config.slacks.each do |info|
-    #   url = `#{info.fetch('webhook_cmd')}`.strip
-    #   Blog::Slacky.post info.fetch('channel'), url
-    # end
+  def self.publish!
+    logger.info "publishing #{config.site_dir.pretty_path} to s3://#{config.bucket}/"
+    Blog::S3.publish config.site_dir, config.bucket, config.aws_creds
   end
 
-  def self.repo
-    @repo ||= Blog::Git.new(config)
+  def self.slack!
+    logger.info "parsing #{config.journal_path.pretty_path}"
+    journal = Blog::Journal.from_file(config.journal_path)
+    latest = journal.public_entries.first
+    logger.info "fetched latest entry: #{latest.excerpt}"
+    config.slacks.each do |info|
+      Blog::Slacky.post(latest, `#{info['webhook_cmd']}`, info)
+    end
+  end
+
+  def self.everything!
+    build!
+    commit!
+    publish!
   end
 
   def self.config

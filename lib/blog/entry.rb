@@ -22,6 +22,10 @@ module Blog
       @date ||= Date.strptime(@headline.headline_text, '%Y-%m-%d %A')
     end
 
+    def excerpt
+      tags.to_and_list
+    end
+
     def date_slug
       date.strftime('%Y-%m-%d')
     end
@@ -32,6 +36,10 @@ module Blog
 
     def filename
       "#{date_slug}-#{date_slug}.html.html"
+    end
+
+    def permalink
+      "https://www.alexrecker.com/#{date_slug}.html"
     end
 
     def body_text
@@ -47,7 +55,7 @@ module Blog
         ---
         title: #{title}
         tags: [#{tags.join(',')}]
-        excerpt: #{tags.to_and_list}
+        excerpt: #{excerpt}
         ---
         #{body_html}
       HTML
