@@ -8,13 +8,15 @@ module Blog
     attr_reader :data
 
     def self.config_path
-      File.expand_path('~/.publisher.yml')
+      File.expand_path('~/.blog.yml')
     end
 
     def self.load_from_file
       if File.file? config_path
         Blog.logger.info "loading config from #{config_path.pretty_path}"
-        new(YAML.load_file(config_path) || {})
+        config = new(YAML.load_file(config_path) || {})
+        config.validate!
+        config
       else
         Blog.logger.error "#{config_path.pretty_path} not found!"
         nil

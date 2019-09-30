@@ -2,6 +2,8 @@
 
 # Blog
 module Blog
+  require 'fileutils'
+
   require_relative 'blog/config'
   require_relative 'blog/entry'
   require_relative 'blog/git'
@@ -16,39 +18,31 @@ module Blog
     Blog::Log.logger
   end
 
-  def self.go_go_gadget_publish!
-    logger.info 'starting publisher'
-    config = Blog::Config.load_from_file || exit(1)
+  def self.build!
     logger.level = config.log_level
     logger.debug "set log level to #{config.log_level}"
-
-    logger.info 'validating config'
-    exit 1 unless config.validate!
-
-    logger.info "checking status of repo at #{config.blog_repo.pretty_path}"
-    repo = Blog::Git.new(config)
-    exit 1 unless repo.validate_clean!
-
-    logger.info "loading journal from #{config.journal_path.pretty_path}"
+    logger.info "deleting #{config.site_dir.pretty_path}"
+    FileUtils.rm_rf(config.site_dir)
+    logger.info "parsing #{config.journal_path.pretty_path}"
     journal = Blog::Journal.from_file(config.journal_path)
-
     logger.info "writing #{journal.public_entries.count.pretty} public entries"
     journal.write_public_entries! config.posts_dir
-
     Blog::Stats.write_stats! journal, config.stats_path
+  end
 
-    logger.info 'reviewing changes'
-    repo.validate_changed!
-
-    logger.info 'delaying 5 seconds'
-    sleep 5
-
-    Blog.logger.info "publishing #{config.site_dir.pretty_path} to s3://#{config.bucket}/"
-    Blog::S3.publish config.site_dir, config.bucket, config.aws_creds
+  def self.go_go_gadget_publish!
+    # Blog.logger.info "publishing #{config.site_dir.pretty_path} to s3://#{config.bucket}/"
+    # Blog::S3.publish config.site_dir, config.bucket, config.aws_creds
 
     # config.slacks.each do |info|
     #   url = `#{info.fetch('webhook_cmd')}`.strip
     #   Blog::Slacky.post info.fetch('channel'), url
     # end
+  end
+
+  private
+
+  def self.config
+    @config ||= Blog::Config.load_from_file
   end
 end
