@@ -30,6 +30,15 @@ module Blog
     Blog::Stats.write_stats! journal, config.stats_path
   end
 
+  def self.commit!
+    git = Blog::Git.new(config.blog_repo)
+    logger.info "getting untracked post from #{config.blog_repo.pretty_path}"
+    added = git.one_and_only_untracked_post
+    exit 1 if added.nil?
+    logger.info "committing #{added}"
+    git.commit
+  end
+
   def self.go_go_gadget_publish!
     # Blog.logger.info "publishing #{config.site_dir.pretty_path} to s3://#{config.bucket}/"
     # Blog::S3.publish config.site_dir, config.bucket, config.aws_creds
@@ -40,7 +49,9 @@ module Blog
     # end
   end
 
-  private
+  def self.repo
+    @repo ||= Blog::Git.new(config)
+  end
 
   def self.config
     @config ||= Blog::Config.load_from_file

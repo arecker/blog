@@ -1,23 +1,4 @@
 {
-  "words": {
-    "public": {
-      "average": "686",
-      "total": "58,273"
-    },
-    "private": {
-      "average": "511",
-      "total": "31,699"
-    },
-    "all": {
-      "average": "612",
-      "total": "89,972"
-    }
-  },
-  "posts": {
-    "public": "85",
-    "private": "62",
-    "all": "147"
-  },
   "tags": {
     "top": [
       [
@@ -57,15 +38,15 @@
   },
   "days": {
     "current": {
-      "days": "35",
+      "days": "36",
       "start": "2019-08-25",
-      "end": "2019-09-29"
+      "end": "2019-09-30"
     },
     "streaks": [
       {
-        "days": "35",
+        "days": "36",
         "start": "2019-08-25",
-        "end": "2019-09-29"
+        "end": "2019-09-30"
       },
       {
         "days": "26",
@@ -95,5 +76,24 @@
         "end": "2019-07-01"
       }
     ]
+  },
+  "words": {
+    "public": {
+      "average": "678",
+      "total": "58,274"
+    },
+    "private": {
+      "average": "511",
+      "total": "31,699"
+    },
+    "all": {
+      "average": "608",
+      "total": "89,973"
+    }
+  },
+  "posts": {
+    "public": "86",
+    "private": "62",
+    "all": "148"
   }
 }
