@@ -29,7 +29,7 @@ module Blog
 
     def commit
       untracked = one_and_only_untracked_post
-      @client.add(untracked)
+      @client.add
       @client.commit("[auto] #{untracked}")
       @client.push
     end

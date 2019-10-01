@@ -24,7 +24,10 @@ module Blog
     end
 
     def required_keys
-      %w[journal_path stats_path posts_dir blog_repo bucket aws_access_key_id_cmd aws_secret_access_key_cmd]
+      [
+        'journal_path', 'stats_path', 'posts_dir', 'blog_repo', 'bucket',
+        'aws_access_key_id_cmd', 'aws_secret_access_key_cmd'
+      ]
     end
 
     def initialize(data)
@@ -76,6 +79,20 @@ module Blog
         's3_id' => `#{s3_id_cmd}`.strip,
         's3_secret' => `#{s3_secret_cmd}`.strip
       }
+    end
+
+    def twitter_creds
+      twitter = @data.fetch('twitter')
+      creds = {}
+      [
+        'access_token_secret',
+        'access_token',
+        'consumer_api_key',
+        'consumer_api_secret'
+      ].each do |key|
+        creds[key] = `#{twitter.fetch(key + '_cmd')}`.strip
+      end
+      creds
     end
 
     def slacks

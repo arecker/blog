@@ -13,6 +13,7 @@ module Blog
   require_relative 'blog/s3'
   require_relative 'blog/slack'
   require_relative 'blog/stats'
+  require_relative 'blog/twitter'
   require_relative 'blog/words'
 
   def self.logger
@@ -57,10 +58,20 @@ module Blog
     end
   end
 
+  def self.tweet!
+    logger.info "parsing #{config.journal_path.pretty_path}"
+    journal = Blog::Journal.from_file(config.journal_path)
+    latest = journal.public_entries.first
+    logger.info "fetched latest entry: #{latest.excerpt}"
+    Blog::Twitter.post(latest, config.twitter_creds)
+  end
+
   def self.everything!
     build!
     commit!
     publish!
+    slack!
+    tweet!
   end
 
   def self.config

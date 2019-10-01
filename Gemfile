@@ -8,6 +8,7 @@ gem 'org-ruby'
 gem 'rake'
 gem 'rspec'
 gem 'slack-notifier'
+gem 'twitter'
 
 group :jekyll_plugins do
   gem 'jekyll-feed', '~> 0.6'
