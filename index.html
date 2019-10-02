@@ -20,6 +20,29 @@ title: Home
     <div class="card-body">
       <h5 class="card-title">Stats</h5>
       <hr/>
+
+      <div class="table-responsive">
+	<table class="table table-sm table-borderless">
+	  <caption>Posts</caption>
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th>All</th>
+	      <th class="text-muted">Public</th>
+	      <th class="text-muted">Private</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <th>Count</th>
+	      <td>{{ site.data.stats.posts.all }}</td>
+	      <td class="text-muted">{{ site.data.stats.posts.public }}</td>
+	      <td class="text-muted">{{ site.data.stats.posts.private }}</td>
+	    </tr>
+	  </tbody>
+	</table>
+      </div>
+
       <div class="table-responsive">
 	<table class="table table-sm table-borderless">
 	  <caption>Wordcount</caption>
