@@ -29,9 +29,9 @@ module Blog
     journal = Blog::Journal.from_file(config.journal_path)
     logger.info "writing #{journal.public_entries.count.pretty} public entries"
     journal.write_public_entries! config.posts_dir
+    Blog::Stats.write_stats! journal, config.stats_path
     logger.info "building jekyll"
     Blog::Jekyll.build(config)
-    Blog::Stats.write_stats! journal, config.stats_path
   end
 
   def self.commit!
