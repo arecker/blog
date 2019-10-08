@@ -14,6 +14,10 @@ module Blog
       date.strftime('%A, %B %-e %Y')
     end
 
+    def subtitle
+      @headline.property_drawer['SUBTITLE']
+    end
+
     def tags
       @tags ||= @headline.tags
     end
@@ -23,7 +27,11 @@ module Blog
     end
 
     def excerpt
-      tags.to_and_list
+      if subtitle.nil?
+        tags.to_and_list
+      else
+        subtitle
+      end
     end
 
     def date_slug
@@ -56,6 +64,7 @@ module Blog
         title: #{title}
         tags: [#{tags.join(',')}]
         excerpt: #{excerpt}
+        word_count: #{body_text.word_count.pretty}
         ---
         #{body_html}
       HTML
