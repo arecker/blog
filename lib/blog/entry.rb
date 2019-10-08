@@ -62,6 +62,7 @@ module Blog
       <<~HTML
         ---
         title: #{title}
+        named: #{!subtitle.nil?}
         tags: [#{tags.join(',')}]
         excerpt: #{excerpt}
         word_count: #{body_text.word_count.pretty}

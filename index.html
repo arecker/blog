@@ -1,112 +1,60 @@
 ---
 title: Home
 ---
-<div class="col-md-4 offset-md-2">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Latest Entries</h5>
-      <ul class="list-group list-group-flush">
-	{% for post in site.posts limit:5 %}
-	<li class="list-group-item">
-	  <a href="{{ post.url }}">{{ post.excerpt }}</a>
-	</li>
-	{% endfor %}
+<div class="col-md-8 offset-md-2 mb-3">
+  <h2>Stats</h2>
+  <div class="table-responsive">
+    <table class="table table-borderless table-sm">
+      <thead>
+	<th></th>
+	<th>All</th>
+	<th class="text-muted">Public</th>
+	<th class="text-muted">Private</th>
+      </thead>
+      <tbody>
+	<tr>
+	  <th>Entry Count</th>
+	  <td>{{ site.data.stats.posts.all }}</td>
+	  <td class="text-muted">{{ site.data.stats.posts.public }}</td>
+	  <td class="text-muted">{{ site.data.stats.posts.private }}</td>
+	</tr>
+	<tr>
+	  <th>Total Word Count</th>
+	  <td>{{ site.data.stats.words.all.total }}</td>
+	  <td class="text-muted">{{ site.data.stats.words.public.total }}</td>
+	  <td class="text-muted">{{ site.data.stats.words.private.total }}</td>
+	</tr>
+	<tr>
+	  <th>Average Word Count</th>
+	  <td>{{ site.data.stats.words.all.average }}</td>
+	  <td class="text-muted">{{ site.data.stats.words.public.average }}</td>
+	  <td class="text-muted">{{ site.data.stats.words.private.average }}</td>
+	</tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="col-md-8 offset-md-2">
+  <h2>Entries</h2>
+  <div class="row">
+    <div class="col-md-12">
+      {% for post in site.posts %}
+      {% capture this_month %}{{ post.date | date: '%B %Y' }}{% endcapture %}
+      {% capture next_month %}{{ post.previous.date | date: '%B %Y' }}{% endcapture %}
+      {% if forloop.first %}
+      <h3 class="lead">{{ post.date | date: '%B %Y' }}</h3>
+      <ul class="list-unstyled">
+      {% endif %}
+      <li><a href="{{ post.url }}">{{ post.excerpt }}</a><span class="float-lg-right d-none d-lg-block">{{ post.title }}</span></li>
+      {% if this_month != next_month %}
       </ul>
+      <h3 class="lead"> {{ next_month }}</h3>
+      <ul class="list-unstyled">
+      {% endif %}
+      {% if forloop.last %}
+      </ul>
+      {% endif %}
+      {% endfor %}
     </div>
   </div>
-</div>
-<div class="col-md-4">
-  <div class="card">
-    <div class="card-body">
-      <h5 class="card-title">Stats</h5>
-      <hr/>
-
-      <div class="table-responsive">
-	<table class="table table-sm table-borderless">
-	  <caption>Posts</caption>
-	  <thead>
-	    <tr>
-	      <th></th>
-	      <th>All</th>
-	      <th class="text-muted">Public</th>
-	      <th class="text-muted">Private</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <th>Count</th>
-	      <td>{{ site.data.stats.posts.all }}</td>
-	      <td class="text-muted">{{ site.data.stats.posts.public }}</td>
-	      <td class="text-muted">{{ site.data.stats.posts.private }}</td>
-	    </tr>
-	  </tbody>
-	</table>
-      </div>
-
-      <div class="table-responsive">
-	<table class="table table-sm table-borderless">
-	  <caption>Wordcount</caption>
-	  <thead>
-	    <tr>
-	      <th></th>
-	      <th>All</th>
-	      <th class="text-muted">Public</th>
-	      <th class="text-muted">Private</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <th>Total</th>
-	      <td>{{ site.data.stats.words.all.total }}</td>
-	      <td class="text-muted">{{ site.data.stats.words.public.total }}</td>
-	      <td class="text-muted">{{ site.data.stats.words.private.total }}</td>
-	    </tr>
-	    <tr>
-	      <th>Average</th>
-	      <td>{{ site.data.stats.words.all.average }}</td>
-	      <td class="text-muted">{{ site.data.stats.words.public.average }}</td>
-	      <td class="text-muted">{{ site.data.stats.words.private.average }}</td>
-	    </tr>
-	  </tbody>
-	</table>
-      </div>
-
-      <div class="table-responsive">
-	<table class="table table-sm table-borderless">
-	  <caption>Consecutive Days</caption>
-	  <thead>
-	    <tr>
-	      <th></th>
-	      <th>Days</th>
-	      <th class="text-muted">Last</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <th>Current Streak</th>
-	      <td>{{ site.data.stats.days.current.days }}</td>
-	      <td class="text-muted">
-		{{ site.data.stats.days.current.end }}
-	      </td>
-	    </tr>
-	    <tr>
-	      <th>Longest Streak</th>
-	      <td>{{ site.data.stats.days.streaks.first.days }}</td>
-	      <td class="text-muted">
-		{{ site.data.stats.days.streaks.first.end }}
-	      </td>
-	    </tr>
-	    <tr>
-	      <th>Longest Dry Spell</th>
-	      <td>{{ site.data.stats.days.draughts.first.days }}</td>
-	      <td class="text-muted">
-		{{ site.data.stats.days.draughts.first.end }}
-	      </td>
-	    </tr>
-	  </tbody>
-	</table>
-      </div>
-    </div>
-  </div>
-</div>
-
+</div>  
