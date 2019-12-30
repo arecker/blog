@@ -44,15 +44,15 @@
   },
   "days": {
     "current": {
-      "days": "126",
+      "days": "127",
       "start": "2019-08-25",
-      "end": "2019-12-29"
+      "end": "2019-12-30"
     },
     "streaks": [
       {
-        "days": "126",
+        "days": "127",
         "start": "2019-08-25",
-        "end": "2019-12-29"
+        "end": "2019-12-30"
       },
       {
         "days": "26",
@@ -85,21 +85,21 @@
   },
   "words": {
     "public": {
-      "average": "897",
-      "total": "157,861"
+      "average": "898",
+      "total": "159,018"
     },
     "private": {
       "average": "511",
       "total": "31,699"
     },
     "all": {
-      "average": "796",
-      "total": "189,560"
+      "average": "798",
+      "total": "190,717"
     }
   },
   "posts": {
-    "public": "176",
+    "public": "177",
     "private": "62",
-    "all": "238"
+    "all": "239"
   }
 }
