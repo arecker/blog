@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-11-12 Mon 07:36 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Clockwork Orange</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alex Recker" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">Clockwork Orange
+<br />
+<span class="subtitle">Time for a bit of the ‘ol Kubrick Week, eh readers?  This week we take on the mental flogging that is Clockwork Orange.  I’ll be rebuilding my sense of morality all week.</span>
+</h1>
+
+<div id="outline-container-org6f83493" class="outline-2">
+<h2 id="org6f83493">Alex's Thoughts</h2>
+<div class="outline-text-2" id="text-org6f83493">
+<p>
+Now this is more what I expected from Kubrick week. I had no idea what
+to expect, and - in a way - I still have no idea what I’ve just
+watched. I had to take some extra time to digest this movie.
+</p>
+
+<p>
+Clockwork Orange was intense, provocative, and cryptic. It follows a
+teenage boy through a dystopia future, detailing his obsession with
+sex and violence. While out on one of his capers, Alex is betrayed by
+his friends and nabbed by the police. He effortlessly demonstrates his
+charisma in prison, which attracts the attention of a shady doctor who
+offers to heal him of his ‘violence addiction’.
+</p>
+
+<p>
+Alex happily agrees and is subjected to a week of graphic films and
+induced nausea. When the experiment concludes, he is left broken and
+depressed, helpless against a wave of reflex sickness when he looks at
+a women or is confronted with violence. It eventually takes a failed
+suicide attempt for the doctors to recollect Alex and reverse the
+treatment.
+</p>
+
+
+<div class="figure">
+<p><img src="images/marinafight.png" alt="marinafight.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>There were also plenty of scenes that made me feel like I was watching Jackass</p>
+</div>
+
+<p>
+Normally in movies, books, and cartoons we are taught that there are
+two kinds of desires. There’s the finer part of you, and the animal in
+you. The finer part of you likes jazz, fresh salads, and reading. The
+animal in you likes fart jokes, drinking way too much beer, and
+flexing in the mirror.
+</p>
+
+<p>
+For as long as I can remember I have been under the impression that my
+desires split at this fork in the road. But watching this movie was
+the first time I’ve been brought to challenge that assumption.
+</p>
+
+<p>
+What if, as Kubrick teases, there is basically one type of desire?
+What if the same part of you that enjoys your dad’s old Coltrane tapes
+is fundamentally the same part of you that enjoys popping a really big
+blister? What if an art student admiring the Mona Lisa is no different
+that one monkey admiring another’s fecal smearing? What if we are all
+basically animals?
+</p>
+
+<p>
+This is how I view Alex. He is a human being given the power to see
+through this false dichotomy. To him, watching a naked women frolic in
+his bedroom is appreciated with the same fervor as the masterpiece of
+Beethoven’s ninth.
+</p>
+
+<p>
+OK - take the art in the movie. Everybody’s home is shamelessly
+decorated with gratuitously sexual art (exaggerated breasts, graphic
+sex scenes, sculpted genitals, etc). I don’t think Kubrick was just
+trying to be weird.
+</p>
+
+<p>
+I think the paintings looked different exclusively to Alex. The home
+owners in the movie would have defended their innocence - “I like the
+colors and textures,” - that kind of thing.
+</p>
+
+<p>
+But Alex thinks this is hilarious. At one point in the movie, he even
+picks up a large statue of a phallus and jeers at the homeowner,
+“Naughty Naughty!” It’s as if Alex saw right through her claim to fine
+taste and was mocking the real reason she was drawn to piece.
+</p>
+
+<p>
+There is another scene where Alex is grossly fascinated with the
+Bible. Though the reverend praises him for his piety, we see that Alex
+is simply drawn to the sex and violence littered throughout all of
+Scripture. Again, he is seeing the real reason people pick up the
+Bible.
+</p>
+
+<p>
+The offensive suggestion here is that there are no finer tastes. There
+is only one type of desire. We are just animals wandering a big
+jungle, surrounding ourselves with things that arouse us. And if that
+were really true, every piece of art might as well be a giant phallus.
+</p>
+
+<p>
+It’s a dark perspective, but we can take a minute to appreciate the
+challenge. Think about it - if someone studied your attraction to your
+husband or wife and hypothesized that it’s simply a chemical
+attraction, would you be able to prove them wrong?
+</p>
+
+<p>
+Clockwork Orange makes a crisis out of something too many people take
+for granted. We proudly defend our humanity saying, “Look! I can
+choose what I do!” But examining this with the same suspicion Alex
+had, we really don’t have any choice at all. We can either give
+ourselves pleasure, or withhold ourselves pleasure. We cannot change
+what gives us pleasure. If that were true, by the film’s standards, ‘A
+man that cannot choose is not really a man at all.’
+</p>
+
+<p>
+If we cannot change what gives us pleasure, then what is really that
+moral about simply withholding pleasure? I’m thinking of the moment
+when the scientists parade the “cured” prisoner in front of an
+audience. They marvel as a naked woman flaunts herself in front of
+Alex, but he is too sick to lay a finger on her. Meanwhile, everyone
+in the audience is free to stare at her beauty.
+</p>
+
+<p>
+The film is very dirty, but does a great job of equivocating the
+classical sense of morality over a back drop of visually fascinating
+screen work.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4364681" class="outline-2">
+<h2 id="org4364681">Alex's Rating</h2>
+<div class="outline-text-2" id="text-org4364681">
+<p>
+Excellent film, as long as you don’t mind a bit of the ‘ol ultra
+violence. (I think I’m also going to be stuck on the “/little bit of
+the ‘ol/” thing for a while. I can’t stop saying it).
+</p>
+
+<p>
+10/10
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3f066be" class="outline-2">
+<h2 id="org3f066be">Marissa's Thoughts</h2>
+<div class="outline-text-2" id="text-org3f066be">
+<p>
+Alex and I were particularly excited when the movie A Clockwork Orange
+was next up in our list of Kubrick movies. The little we knew about
+the movie was that it is particularly odd and quirky. After just
+finishing Barry Lyndon, we were excited for some classic Kubrick
+weirdness. After watching A Clockwork Orange we were definitely not
+disappointed.
+</p>
+
+<p>
+While watching the movie it seemed like at every turn was something
+unexplained or unexpected. It left quite a lot to process and try to
+dissect to find Kubricks intentions. But, there was one scene in
+particular in the film that I based most of my understanding of the
+movie off of. There was a moment when the main character Alex was in
+his room. On his wall there was a rather errotic painting and below
+the painting was his pet snake sitting on a branch hung on the
+wall. But below that was a small sculpture of four Jesus figures with
+their arms around one another. I couldn’t help but think that this
+must be symbolic. The painting on the wall was at the highest point of
+the symbolic hierarchy, which I assumed represented the desires of
+man, then next was the snake, which I assumed represented Satan and
+sin, and finally were the four Jesus figures, representing goodness,
+purity, and godliness. This theme seemed to continue throughout the
+rest of the film. The most important component of each character's
+life seemed to be their sexuality and their desires based on the
+physicality of the people around them. This was sadly clear after
+several rape scenes in the film. Then it seemed that the second most
+significant component of each characters’ lives were any other desires
+and finally, last on the totem pole, was anything that involved
+benefiting the people around them.
+</p>
+
+<p>
+This flip in significance of the various parts of life relates to the
+other main point that I got from this movie. This second point is the
+question of what truly makes a man moral, or how do we define the
+morality of man. This movie creatively forces that question upon the
+audience after portraying a character as immoral and then making they
+seem moral and vise versa. There is also a large portion of the movie
+dedicated to an experiment that tries to use science as a way to make
+an immoral person moral. The character Alex finds himself in jail and
+then in the experimental process of correcting him into being a decent
+human being. What the film ends up with is that science was not able
+to ultimately be the decider in whether or not a man is moral. But the
+question of what truly does make human beings moral or immoral is
+something that you will have to decide for yourselves after seeing A
+Clockwork Orange.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org266d007" class="outline-2">
+<h2 id="org266d007">Marissa's Rating</h2>
+<div class="outline-text-2" id="text-org266d007">
+<p>
+A Clockwork Orange is a beautiful film with fantastic music, fantastic
+acting, and an extremely creative story that asks one of the most
+profound questions possible for humanity. Overall I think i’ll have to
+agree with Alex that the movie is a 10/10.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2014-10-11 Sat 00:00</p>
+<p class="author">Author: Alex Recker</p>
+<p class="date">Created: 2018-11-12 Mon 07:36</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-11-12 Mon 07:36 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Using Selenium to Buy a Bus Pass</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alex Recker" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">Using Selenium to Buy a Bus Pass
+<br />
+<span class="subtitle">A brief tutorial of my new favorite Selenium script.</span>
+</h1>
+<p>
+I take the bus everyday. It's terrific. There's nothing better than
+getting a full sixty minutes everyday to close your eyes, drink
+coffee, and get lost in a podcast before work.
+</p>
+
+<p>
+I wish I could say that <i>purchasing</i> bus passes from Madison's website
+was just as relaxing. Because my wife picks me up from work in the
+afternoon, it is most cost effective for me to buy a new Adult 10 Ride
+voucher every two weeks. Every two weeks, I have to dig through their
+crusty website to find their purchase form. All in all, there are
+about six pages across two different domains - each loaded with their
+own set of over-crowded menus and repetitive forms.
+</p>
+
+<p>
+I am sure I was using the site wrong. At one point I tried to make a
+persistent account. I bailed half way through, fearing I was
+<i>actually</i> about to sign up for a miracle pill or a magazine
+subscription.
+</p>
+
+<div id="outline-container-orgcad664f" class="outline-2">
+<h2 id="orgcad664f">The Year of Automation</h2>
+<div class="outline-text-2" id="text-orgcad664f">
+<p>
+There had to be another way! Sure, perhaps the old 2015 Alex would
+have just endured this bi-weekly punishment. But this is 2016,
+damnit. Even typing those numbers in this blog post makes me feel like
+I am living in a science fiction novel.
+</p>
+
+<p>
+This year, I decided not to put up with this chore. I decided to
+adapt, survive, and make a Selenium script that would traverse this
+awful website for me.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3549922" class="outline-2">
+<h2 id="org3549922">Selenium</h2>
+<div class="outline-text-2" id="text-org3549922">
+<p>
+Selenium is a terrific little service that allows you to
+programatically navigate web pages. It is a great choice for
+integration testing and end-to-end testing when you need more granular
+control over your browser.
+</p>
+
+<p>
+Selenium is available in most languages. I went with the <a href="http://selenium-python.readthedocs.org/">python wrapper</a>.
+</p>
+
+<p>
+As a warning, this is essentially a web-scraper. Scripts that
+programatically navigate websites work best with plainly-named ID tags
+and simple, native HTML widgets. The fewer bells and whistles, the
+better. This makes a municipal website like <a href="http://www.cityofmadison.com">www.cityofmadison.com</a> a
+great candidate for Selenium automation.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1d86b35" class="outline-2">
+<h2 id="org1d86b35">Building <code>busbot</code></h2>
+<div class="outline-text-2" id="text-org1d86b35">
+<p>
+Let's walk through <code>busbot</code>.  Here is the basic skelaton of a script.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a020f0;">from</span> selenium <span style="color: #a020f0;">import</span> webdriver
+
+<span style="color: #a0522d;">driver</span> = webdriver.Firefox()
+driver.get(<span style="color: #8b2252;">'http://google.com'</span>)
+</pre>
+</div>
+
+<p>
+Running this script (after installing the <code>selenium</code> pip package) will
+open Firefox to the Google homepage.
+</p>
+
+<p>
+Instead of the Google homepage, let's go to the first page of the
+ordering process - <a href="https://www.cityofmadison.com/epayment/metro/busPass/index.cfm">this url</a>. Here we see our first obstacle - the
+dreaded "Terms and Conditions".
+</p>
+
+
+<div class="figure">
+<p><img src="images/terms.png" alt="terms.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>To their credit, this is much better than the iTunes one</p>
+</div>
+
+<p>
+This is easy enough with Selenium. We can select the element by ID,
+click it, then do the same with the "confirm" button.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a020f0;">from</span> selenium <span style="color: #a020f0;">import</span> webdriver
+
+<span style="color: #a0522d;">driver</span> = webdriver.Firefox()
+
+driver.get(<span style="color: #8b2252;">'https://www.cityofmadison.com'</span>
+           <span style="color: #8b2252;">'/epayment/metro/busPass/index.cfm'</span>)
+
+<span style="color: #a0522d;">checkbox</span> = driver.find_element_by_id(<span style="color: #8b2252;">'acceptTerms'</span>)
+checkbox.click()
+<span style="color: #a0522d;">submit</span> = driver.find_element_by_id(<span style="color: #8b2252;">'submit'</span>)
+submit.click()
+</pre>
+</div>
+
+<p>
+Works like a charm. The program passes the confirmation and follows a
+redirection to the next page.
+</p>
+
+
+<div class="figure">
+<p><img src="images/selenium1.png" alt="selenium1.png" />
+</p>
+</div>
+
+<p>
+Now we need to enter the quantity of tickets. We can grab the "Adult
+10-Ride" quantity input by its unique ID and send text input.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a0522d;">quantity_text</span> = driver.find_element_by_id(<span style="color: #8b2252;">'product_62'</span>)
+quantity_text.send_keys(<span style="color: #8b2252;">'1'</span>)
+</pre>
+</div>
+
+<p>
+Further down on the page, we find our first contact information form.
+</p>
+
+
+<div class="figure">
+<p><img src="images/selenium2.png" alt="selenium2.png" />
+</p>
+</div>
+
+<p>
+These fields are missing ID's. Do we slink away in defeat? Of course
+not. Selenium's API has ample methods for retrieving elements from the
+DOM. As it happens, each input has a unique <code>name</code> attribute.
+</p>
+
+<p>
+We simply need to retrieve each input by its <code>name</code> attribute and send
+it text, just as we did before. But the iterative nature of this form
+gives us a chance to be fancy. I chose to put each value in a
+name/value <code>dict</code> and iterate over each pair.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a0522d;">fields</span> = {<span style="color: #8b2252;">'name'</span>: <span style="color: #8b2252;">'Alex Recker'</span>,
+          <span style="color: #8b2252;">'Address'</span>: <span style="color: #8b2252;">'123 Sesame St'</span>,
+          <span style="color: #8b2252;">'City'</span>: <span style="color: #8b2252;">'Madison'</span>,
+          <span style="color: #8b2252;">'Zip'</span>: <span style="color: #8b2252;">'53704'</span>,
+          <span style="color: #8b2252;">'email'</span>: <span style="color: #8b2252;">'alex@reckerfamily.com'</span>}
+
+<span style="color: #a020f0;">for</span> name, value <span style="color: #a020f0;">in</span> fields.items():
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a0522d;">elem</span> = driver.find_element_by_name(name)
+<span style="background-color: #f2f2f2;"> </span>   elem.send_keys(value)
+</pre>
+</div>
+
+<p>
+What about "State"? This isn't a text field on the page, so sending
+input via the keyboard will not get it to select "WI". We need to
+treat the dropdown differently. We can select the element, then search
+for child elements by tag name, which we expect to be option
+elements. Selenium will return a list, allowing us to iteratively
+inspect and click a qualifying <code>option</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a0522d;">fields</span> = {<span style="color: #8b2252;">'name'</span>: <span style="color: #8b2252;">'Alex Recker'</span>,
+          <span style="color: #8b2252;">'Address'</span>: <span style="color: #8b2252;">'123 Sesame St'</span>,
+          <span style="color: #8b2252;">'City'</span>: <span style="color: #8b2252;">'Madison'</span>,
+          <span style="color: #8b2252;">'State'</span>: <span style="color: #8b2252;">'WI'</span>,
+          <span style="color: #8b2252;">'Zip'</span>: <span style="color: #8b2252;">'53704'</span>,
+          <span style="color: #8b2252;">'email'</span>: <span style="color: #8b2252;">'alex@reckerfamily.com'</span>}
+
+<span style="color: #a020f0;">for</span> name, value <span style="color: #a020f0;">in</span> fields.items():
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a0522d;">elem</span> = driver.find_element_by_name(name)
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">if</span> name == <span style="color: #8b2252;">'State'</span>:  <span style="color: #b22222;"># </span><span style="color: #b22222;">State Dropdown</span>
+        <span style="color: #a020f0;">for</span> option <span style="color: #a020f0;">in</span> elem.find_elements_by_tag_name(<span style="color: #8b2252;">'option'</span>):
+            <span style="color: #a020f0;">if</span> option.get_attribute(<span style="color: #8b2252;">'value'</span>) == value:
+                option.click()
+                <span style="color: #a020f0;">break</span>
+<span style="background-color: #f2f2f2;"> </span>   <span style="color: #a020f0;">else</span>:
+        elem.send_keys(value)
+</pre>
+</div>
+
+<p>
+Next, we tick the "Shipping information same as Contact Information"
+option and submit the form.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">driver.find_element_by_name(<span style="color: #8b2252;">'notice'</span>).click()  <span style="color: #b22222;"># </span><span style="color: #b22222;">same as billing address...</span>
+driver.find_element_by_id(<span style="color: #8b2252;">'submit'</span>).click()
+</pre>
+</div>
+
+<p>
+The rest of the code is rinse and repeat. I've <a href="https://github.com/arecker/busbot">cleaned up the project</a>
+and modified it to read personal data out of a YAML file before
+execution - just in any fellow public transit warriors want to use it
+themselves.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org37e12ca" class="outline-2">
+<h2 id="org37e12ca">Look, Mah - No Hands</h2>
+<div class="outline-text-2" id="text-org37e12ca">
+<p>
+Here is a demo of the whole run through using fake data. The last page
+throws a payment validation error. Call me a miser, but I didn't feel
+like giving away my <i>real</i> credit card number just for the sake of a
+demo.
+</p>
+
+<p>
+<a href="vids/buspass.webm">vids/buspass.webm</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgdc7a380" class="outline-2">
+<h2 id="orgdc7a380">Taking it Further</h2>
+<div class="outline-text-2" id="text-orgdc7a380">
+<p>
+Looking <a href="http://selenium-python.readthedocs.org/">Selenium's python API</a>, it's not hard to imagine how to take
+this further.
+</p>
+
+<ul class="org-ul">
+<li>Validating payment information before submit with <code>assert</code> and exceptions</li>
+<li>Custom configs to purchase with different options (card or check)</li>
+<li>Hooking into <code>crontab</code> for a truly automated experience</li>
+</ul>
+
+<p>
+Next time you find yourself wrestling with a website that should have
+died decades ago, consider putting Selenium to work and getting on the
+automation bus.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2016-01-12 Tue 00:00</p>
+<p class="author">Author: Alex Recker</p>
+<p class="date">Created: 2018-11-12 Mon 07:36</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

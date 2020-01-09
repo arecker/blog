@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-11-12 Mon 07:36 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rockford</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alex Recker" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">Rockford
+<br />
+<span class="subtitle">Farewell, Rockford.  It was a pleasure being your citizen for two years.</span>
+</h1>
+<p>
+Rockford used to seem like the edge of the world to me. As kids, we
+only went all the way out here when Kelly managed to stutter her way
+into the regional spelling bee. One year, we made a whole day of the
+event, bringing packed lunches and everything we would need to spend
+the entire day in Rockford for the spelling tournament. Kelly was
+eliminated on the worst word - <i>premier</i>.
+</p>
+
+<p>
+Don't feel too bad, Kelly. I actually had to look up the spelling just
+now.
+</p>
+
+<p>
+I'm nearing the end of my stay in Rockford, and as the moving date is
+getting closer, I'm seeing now that it is probably going to be a lot
+harder to bid farewell to the edge of the world than I had
+anticipated. I had a wonderful time here. Rockford is a unique place.
+</p>
+
+<p>
+My imminent departure got me thinking about some of my favorite spots
+in Rockford.
+</p>
+
+<div id="outline-container-orgbafb25b" class="outline-2">
+<h2 id="orgbafb25b">Beacon Hill</h2>
+<div class="outline-text-2" id="text-orgbafb25b">
+
+<div class="figure">
+<p><img src="images/beaconhill.jpg" alt="beaconhill.jpg" />
+</p>
+</div>
+
+<p>
+I've lived about two years in Beacon Hill apartments. Around when I
+was moving in, it was rumored that there was a stabbing the week
+before. As a result, people at work began to refer to it
+affectionately as <i>stabby heights</i>. Sorry to let you all down, but I
+didn't witness a single stabbing.
+</p>
+
+<p>
+The scariest it got for me was on a hot summer night while I was
+taking out the trash. Before I tossed the bag into the dumpster, two
+beady little eyes caught my attention. I put down the bag and focused
+on the little glimmer in the darkness. Slowly, a little face formed
+around the dark, round, unblinking eyes. I recoiled in fear. For some
+reason, my first thought was <i>Oh my gosh, there is a kid hanging out
+in this dumpster</i>.
+</p>
+
+<p>
+"Hey - what are you doing in there! Get out of there!." The kid just
+sat there motionless. The stirring of his jaw revealed he was chewing
+something.
+</p>
+
+<p>
+"Stop eating the trash! It's not good for you!" I shouted. No response
+from the dark stranger. I took out my phone, remembering I had a
+flashlight app.
+</p>
+
+<p>
+With my flashlight out, I could see the face belonged to a raccoon. I
+had been talking to a raccoon. It's a shame there were no
+witnesses. I'm sure any bystander would have been amused hearing me
+shout "Stop eating garbage, it's not good for you!' at a raccoon in
+the dumpster.
+</p>
+
+<p>
+But like I said, as far as violent and dangerous encounters, it could
+have gotten much worse than a self-righteous scolding of a woodland
+creature by my dumpster. I had a great time living in Beacon Hill. The
+staff was warm, cordial, and always prompt. My neighbors were great
+people too.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0f4b08d" class="outline-2">
+<h2 id="org0f4b08d">Blackhawk Forest Preserve</h2>
+<div class="outline-text-2" id="text-org0f4b08d">
+
+<div class="figure">
+<p><img src="images/blackhawk.jpg" alt="blackhawk.jpg" />
+</p>
+</div>
+
+<p>
+Rockford will always be the town where I discovered my ability to get
+in shape. Most of the sweat and tears were shed on the treadmill in
+the back corner of the Planet Fitness on Alpine Road, but occasionally
+my wife would convince me to go for a jog outside.
+</p>
+
+<p>
+I hate running outside, but there was plenty of beautiful scenery at
+the Blackhawk Forest Preserve to take my mind off my own exercise
+preferences. Someone once aptly described it to me as where the Calvin
+and Hobbes comics really should have taken place.
+</p>
+
+<p>
+I had heard about an interesting phone app that could spice up the
+outdoor running I dreaded. Zombie Run turned your run into an
+interactive audio book where you spent the duration of your workout
+surviving as a courier in a zombie apocalypse. It was pretty
+immersive, incorporating your speed, direction, and music play list
+into the experience.
+</p>
+
+<p>
+I tried it out. Marissa wanted to run at a more casual pace, so we
+split up. The plan was that I would turn back after a mile and a half,
+making it a three mile run that would end at the car.
+</p>
+
+<p>
+I must have gotten a little distracted by my zombie audio book. The
+adrenaline of running for my life had carried me five miles to where
+the trail ended. Mystified and exhausted, I paced around the woods for
+a few minutes wondering how I would make it back before sunset. Making
+matters worse, I had the only set of car keys, so my wife was to be
+stranded until I returned.
+</p>
+
+<p>
+My wife had to call the police. A squad car found me huddled up in
+some playground equipment. My wife had taken shelter from the wind in
+a Port-o-potty.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc2618a1" class="outline-2">
+<h2 id="orgc2618a1">Five Forks</h2>
+<div class="outline-text-2" id="text-orgc2618a1">
+
+<div class="figure">
+<p><img src="images/fiveforks.jpg" alt="fiveforks.jpg" />
+</p>
+</div>
+
+<p>
+Five Forks is our favorite restaurant in Rockford. Don't let the tiny
+plates and the emphasis on lunch fool you. It's filling - and sure to
+put you in a good food coma.
+</p>
+
+<p>
+When the recent tornados passed through Rockford, I didn't know it was
+such a big deal. We were supposed to celebrate my wife's birthday that
+night, and I had already gotten my dress clothes on. My wife,
+nervously watching the radar, recommended we stayed home.
+</p>
+
+<p>
+Stay home? Did I put on uncomfortable dress pants for nothing? I don't
+think so. I wasn't having that at all. So I was the reason we stupidly
+ventured out in a tornado hail storm to eat shrimp toast and duck.
+</p>
+
+<p>
+The tornado missed us, but my wife still teases me about how cavalier
+this restaurant made me feel during one of the worst tornados Rockford
+has ever experienced.
+</p>
+
+<p>
+Seriously, try this place out - but make sure hell isn't raining from
+the sky first.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgb3783c7" class="outline-2">
+<h2 id="orgb3783c7">Jo-Jo's Pizza and Pub</h2>
+<div class="outline-text-2" id="text-orgb3783c7">
+
+<div class="figure">
+<p><img src="images/jojo.jpg" alt="jojo.jpg" />
+</p>
+</div>
+
+<p>
+This is where Marissa works, but before my wife made her way behind
+the bar, it was our favorite place to hang out.
+</p>
+
+<p>
+Jo-Jo's is a bar that, from the outside, seems surgically attached to
+a laundromat. Inside, it's a comfortable, personal paradise. My wife
+and I have had the best talks over Joe's deep dish pizza. The hot
+wings are good too, but I have a hard time talking while eating those.
+</p>
+
+<p>
+I've told a few people this before, but I really think everyone could
+use a good bar. I'm blown away by how many people I've met at Jo-Jo's
+during the short time Marissa has worked there compared to the two
+years I've been living in Rockford.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcae350a" class="outline-2">
+<h2 id="orgcae350a">Closing</h2>
+<div class="outline-text-2" id="text-orgcae350a">
+<p>
+We had some good times in Rockford. I recently celebrated with my work
+friends at Jo-Jo's, and when I had finally managed to pull the axe out
+of  my forehead  the following  day, I  found a  text from  one of  my
+co-workers. I think it's brilliant,  so I'm going to completely hijack
+it.
+</p>
+
+<blockquote>
+<p>
+As the boy scout saying goes, leave the campsite in better condition
+than you found it. I'm a better person for having known you.
+</p>
+</blockquote>
+
+<p>
+I was deeply humbled, and for the first time it caused me to reflect
+on the affect I had on Rockford. I was overcome with the feeling that
+the people of Rockford gave me so much more than I ever thought to
+give back. Albeit a little late in our stay, I really hope I have
+somehow left it better than I had found it. Not just the city either -
+but the people. As we move to Madison in about a month, I'm encouraged
+to get another chance with another campsite.
+</p>
+
+<p>
+Rockford, you certainly left me better than you had found me. Thanks
+for the good times.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2015-04-08 Wed 00:00</p>
+<p class="author">Author: Alex Recker</p>
+<p class="date">Created: 2018-11-12 Mon 07:36</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

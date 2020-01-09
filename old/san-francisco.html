@@ -1,0 +1,957 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-11-12 Mon 07:35 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>San Francisco</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Alex Recker" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href=""> UP </a>
+ |
+ <a accesskey="H" href="/"> HOME </a>
+</div><div id="content">
+<h1 class="title">San Francisco
+<br />
+<span class="subtitle">My company sent me on a trip to San Francisco.</span>
+</h1>
+
+<div id="outline-container-orgf274ba3" class="outline-2">
+<h2 id="orgf274ba3">Introduction</h2>
+<div class="outline-text-2" id="text-orgf274ba3">
+<p>
+My job is sending me to San Francisco for training.  While this
+doesn't sound like a big deal to some, I haven't done a lot of
+traveling.  Just take a look my Google Maps data since graduating
+college.
+</p>
+
+
+<div class="figure">
+<p><img src="images/well-traveled.jpg" alt="well-traveled.jpg" />
+</p>
+<p><span class="figure-number">Figure 1: </span>This aerial view would make you think I'm a nomad that lives along I-90.</p>
+</div>
+
+<p>
+I haven't been on an airplane in probably a decade.  I've never
+traveled alone.  I really have no idea how airports or other cities
+work.  For your amusement, I've decided to document my trip as I go,
+focusing on my mistakes and confusion.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2fe10b8" class="outline-2">
+<h2 id="org2fe10b8">Sunday 5:50 PM, - O'Hare Airport</h2>
+<div class="outline-text-2" id="text-org2fe10b8">
+
+<div class="figure">
+<p><img src="images/ohare-workstation.jpg" alt="ohare-workstation.jpg" />
+</p>
+</div>
+
+<p>
+I departed this afternoon from Madison's only airport.  It was
+quaint, and just about everything the air travel experience should
+be.  Even the fellow that makes you remove your belt and shoes under
+threat of a baton beating was no more authoritative than they should
+be.
+</p>
+
+<p>
+When I arrived at the gate, we soon were shepherded to an airplane
+that was so small, it looked like it was cut out of a museum exhibit
+meant to teach kids about airplanes.  It was a proper metal cigar
+tube with wings.
+</p>
+
+
+<div class="figure">
+<p><img src="images/cigar-tube-with-wings.jpg" alt="cigar-tube-with-wings.jpg" />
+</p>
+<p><span class="figure-number">Figure 3: </span>My brave steed, apparently.</p>
+</div>
+
+<p>
+But after buckling into my prime window seat, we were asked to
+leave.  The pilot called the delay a "VIP movement".  Apparently
+there was somebody traveling through O'Hare airport who was so
+important that all other planes needed to wait until he was done.
+The unenthused stewardist clarified that it was President Barack
+Obama.
+</p>
+
+<p>
+"Thanks Obama!" I whispered.  Nobody acknowledged my joke.  Perhaps
+it was too "on the nose".
+</p>
+
+<p>
+After milling around in the airport for another hour, we were told
+to board in the same fashion.  Pavement, stairs, window seat,
+seat belts, and finally lift off.
+</p>
+
+<p>
+The flight was comically quick.  We were only in the air for
+twenty-seven minutes.  I swear I've made the same drive in only two
+hours.  During the flight, we were assured that since the delay
+affected all flights in an out of Chicago, any connecting flights
+were likely still viable.  That was good news, but I figured I had
+better just treat it like it was still the same time printed on my
+ticket.
+</p>
+
+<p>
+O'Hare, in contrast to the Dane County regional airport, is a war
+zone.  People were practically stabbing each other for AC outlets.
+Parents shoving Mcdonalds cheeseburgers into their kids' mouths.
+Additionally, navigating this airport was considerably more
+complicated.  My target gate number looked like a foot note out of
+an obscure academic journal.  I followed its promise through a
+churning sea of angry, weary people.
+</p>
+
+
+<div class="figure">
+<p><img src="images/ohare-the-zoo.jpg" alt="ohare-the-zoo.jpg" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Just look at these savages&#x2026;</p>
+</div>
+
+<p>
+To my horror, arriving at gate H-11-A I beheld the great walkway
+retracting.  Despite what I had been assured, my connecting flight
+hat not been delayed.  It was still taking off at 5:00 PM, and I had
+arrived at 5:10 PM.
+</p>
+
+<p>
+As I waddled over to the desk, relinquishing my wife's blue polka
+dotted bag to the ground, a furious bald man stepped in line in
+front of me.  Veins swelled around his temples.  He had that "I'm
+about to make a scene" look about him.
+</p>
+
+<p>
+"We need to be on that plane!"  He yelled and pointed his big
+muscular arm at the attendant.
+</p>
+
+<p>
+"Sir, we closed the gate ten minutes ago.  The walkway has already
+been retracted.  That's not possible."
+</p>
+
+<p>
+"Well get us on another flight!" he hollared.  His laser-guided
+trimmed goatee seemed to bristle.  The attendant yammered at a
+keyboard.  I knew what the answer would be before she said it.
+</p>
+
+<p>
+"There are no more seats on that flight, sir."  The man clenched his
+fists.  His female companion, clad in glossy exercise clothes rolled
+up behind her.  She read his frustration and joined in the
+beratement.
+</p>
+
+<p>
+"I don't see how it's our fault that Obama delayed our flight!
+That's not fair."
+</p>
+
+<p>
+"Thanks, Obama" I whispered again.  They did not acknowledge my
+joke.  I pulled out my phone and stared at my lock-screen.
+</p>
+
+<p>
+"Look!  We're doctors!  We NEED to be in San Francisco tomorrow
+because we have patients to treat!  Are you guys going to treat our
+patients instead?"
+</p>
+
+<p>
+My thoughts drifted.  I imagined walking into a doctor's office
+being greeted by an American Airline's employee.  "Good morning.
+Your doctor's flight was delayed, so the airline sent me to check
+your prostate."
+</p>
+
+<p>
+"Honey," yelled baldy.  "They don't give a RAT'S ASS about us."  The
+two stormed away.  I sauntered up to the counter after them.
+</p>
+
+<p>
+"Hi&#x2026; I think I have the same problem as that angry guy."  The
+attendant smirked as I continued, handing her my ticket.  "I was
+supposed to be on that connecting flight."  She proceeded to work on
+the computer.
+</p>
+
+<p>
+Wanting to capitalize on our rapport, I added "&#x2026;and I'm not a
+doctor, so feel free to take your time."  The woman started
+laughing.
+</p>
+
+<p>
+"Don't worry about it - you were put on the next flight out.  Your
+plane leaves in two hours."  My mouth dropped in amazement.  "And
+feel free to tell that angry guy that you got the last seat."
+</p>
+
+
+<div class="figure">
+<p><img src="images/last-ticket.jpg" alt="last-ticket.jpg" />
+</p>
+<p><span class="figure-number">Figure 5: </span>I would have traded it for free surgery.  Maybe he could surgically make my upper body look stronger&#x2026;</p>
+</div>
+
+<p>
+Which brings me here - Dear Reader.  Hunched over a wobbly table for
+one, charging my phone at a sticky power outlet that I may or may not
+have stabbed somebody for.  And I can't help but feel lucky.  Now if
+you'll excuse me, I need to get to gate <code>H-EE-V-31.2 article
+4b. (iii)</code>.  Hopefully sometime tonight I'll be somewhere in San
+Francisco - unless Obama manages to screw that up too.  Thanks,
+Obama.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4953ab5" class="outline-2">
+<h2 id="org4953ab5">Sunday 9:46 PM, 30,000 ft. above the United States</h2>
+<div class="outline-text-2" id="text-org4953ab5">
+
+<div class="figure">
+<p><img src="images/midflight-workstation.jpg" alt="midflight-workstation.jpg" />
+</p>
+</div>
+
+<p>
+I get the impression that people who fly are supposed to appear
+disinterested.  I'm doing my best to fit in, but it's all just so
+exciting.  I'm attentive to everything mumbled over the airport
+loudspeaker.  I smirk as the plane lurches forward like a spaceship
+on the runway.  My face is practically pressed on the glass when the
+plane banks, revealing a wildly new perspective of the familiar
+Chicago skyline.
+</p>
+
+
+<div class="figure">
+<p><img src="images/madison-skyline.jpg" alt="madison-skyline.jpg" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Or the familiar Madison skyline - if it even qualifies as a "skyline".  The lakes look so tiny from up here.</p>
+</div>
+
+<p>
+I finally get to ride in a plane big enough for me to stand in - not
+that I'll be doing much standing.  The plane is 100% booked.  I kept
+an eye out for the angry doctor duo from earlier.  Part of me feels
+guilty for taking what could have been their seat.  Part of me
+wonders if I have any blood on my hands.  Let's hope for the sake of
+my conscience that they were just plastic surgeons and they were
+late for a tattoo removal or something.
+</p>
+
+<p>
+Everything on an airplane seems a lot tinier than I remember.  I
+feel like I've been making T-rex arms for the past three hours.  I
+could get a little more room if I tipped my seat back, but we've
+been in the air for at least an hour and I feel like that would be
+totally unfair to the guy behind me.  Everybody knows that if you
+don't change your seat within the first five seconds of sitting
+down, you really can't change it at all.  It's a binding social
+contract.  The guy behind probably has his heart set on keeping the
+extra 1.5 inches of leg room.
+</p>
+
+<p>
+Correction.  He has a neck-pillow.  Everybody knows that if you use
+a neck pillow in public, most social contracts don't apply to you.
+Sorry buddy.
+</p>
+
+
+<div class="figure">
+<p><img src="images/booked-flight.jpg" alt="booked-flight.jpg" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Nothing but the sound of polite snoring and shifting neck pillows.</p>
+</div>
+
+<p>
+I'm going to pretend to sleep now.  On the outside, I'll be a cool,
+disinterested air traveler.  On the inside, I'm just a little kid
+pretending he's on a spaceship barreling towards Mars.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5ba0186" class="outline-2">
+<h2 id="org5ba0186">Monday 7:51 AM, Equator Coffee Shop, Market St.</h2>
+<div class="outline-text-2" id="text-org5ba0186">
+
+<div class="figure">
+<p><img src="images/coffee-shop-workstation.jpg" alt="coffee-shop-workstation.jpg" />
+</p>
+</div>
+
+<p>
+Well against all odds, I made it. Sorry I don't have any pictures of
+my digs yet.  I rolled into the hotel at what was biologically 2AM,
+threw my stuff on the ground, and just sort of collapsed.  Five
+hours later, I my phone stirred me from my coma and I realized I
+didn't have any toothpaste.  I also realized I don't know where
+anything is.
+</p>
+
+<p>
+I mimed several fake phone calls while I did my best to look like I
+was intentionally walking in zig zags.  I already have a good
+navigation tip for you all: Market Street is the really big road
+with all the signs that say "Market Street".  Sometimes you have to
+put down Google Maps and just use what little self awareness you
+have at your disposal.
+</p>
+
+
+<div class="figure">
+<p><img src="images/market-street.jpg" alt="market-street.jpg" />
+</p>
+<p><span class="figure-number">Figure 10: </span>Is this market street?</p>
+</div>
+
+
+<div class="figure">
+<p><img src="images/real-market-street.jpg" alt="real-market-street.jpg" />
+</p>
+<p><span class="figure-number">Figure 11: </span>Oh - this must be market street.</p>
+</div>
+
+<p>
+I have about an hour until work starts.  I'm going to use it to
+catch up on emails and sponge my dried out brain with this delicious
+hipster fair-trade organic coffee.
+</p>
+
+
+<div class="figure">
+<p><img src="images/into-the-fog.jpg" alt="into-the-fog.jpg" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5b0e4ff" class="outline-2">
+<h2 id="org5b0e4ff">Monday 9:30 AM, Zendesk HQ</h2>
+<div class="outline-text-2" id="text-org5b0e4ff">
+<p>
+<img src="images/zendesk-station.jpg" alt="zendesk-station.jpg" />]]
+</p>
+
+<p>
+I met up with coworker Dave and we wandered around the city a bit,
+then we finally made our way to the office.  It's right next to a
+Chai shop, so the dizzying smell of gingerbread and spices follows
+you everywhere.  I'm already accustomed to the Zendesk style, but as
+you would expect, they go all out for their Headquarters.
+</p>
+
+
+<div class="figure">
+<p><img src="images/zen-1.jpg" alt="zen-1.jpg" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="images/zen-2.jpg" alt="zen-2.jpg" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="images/zen-3.jpg" alt="zen-3.jpg" />
+</p>
+</div>
+
+<p>
+Toothpaste, deodorant, granola, and coffee are starting to make me
+feel human again.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1dc439a" class="outline-2">
+<h2 id="org1dc439a">Monday 8:19 PM, Hotel Abri</h2>
+<div class="outline-text-2" id="text-org1dc439a">
+
+<div class="figure">
+<p><img src="images/hotel-workstation.jpg" alt="hotel-workstation.jpg" />
+</p>
+</div>
+
+<p>
+Today was a marathon.I really haven't stopped moving all day.It
+was incredible getting to spend so much time with probably some of
+the brightest people in IT I've ever met, but maintaining that level
+of focus was exhausting.
+</p>
+
+<p>
+In need of healing, I staggered over to Katayana Ramen - a boisterous
+hole in the wall three blocks north of my hotel.I could hear their
+dubsteb playing from across the street.
+</p>
+
+
+<div class="figure">
+<p><img src="images/katayana-outside.jpg" alt="katayana-outside.jpg" />
+</p>
+</div>
+
+<p>
+I ordered a bowl of ramen.The waitress brought me a new reason to
+leave my hotel this week.
+</p>
+
+
+<div class="figure">
+<p><img src="images/katayana-ramen.jpg" alt="katayana-ramen.jpg" />
+</p>
+<p><span class="figure-number">Figure 18: </span>If this bowl of ramen were one of the Black Eyed Peas, it would be Fergie.</p>
+</div>
+
+<p>
+This bowl of food may have changed my life.
+</p>
+
+<p>
+So here I am in my hotel again.I can't move.I see my running
+shoes in the corner.What a fool I was when I packed those!The
+idea of running right now is equally hilarious and nauseating.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9f620e9" class="outline-2">
+<h2 id="org9f620e9">Tuesday 8:46 PM, Somewhere in Chinatown</h2>
+<div class="outline-text-2" id="text-org9f620e9">
+
+<div class="figure">
+<p><img src="images/chinatown-workstation.jpg" alt="chinatown-workstation.jpg" />
+</p>
+</div>
+
+<p>
+Due to my shyness, I dread every minute I spend outside my hotel
+room.I'm tempted to spend all night poking around the Internet and
+falling asleep under a bag of sunflower seeds.
+</p>
+
+<p>
+The food is the only thing that gets me to step outside at night.I
+quickly discovered that carefully planning meals and routes with
+Google maps is not the way to experience the city.The information
+isn't fresh, and most of the reviews are overly cynical.
+</p>
+
+<p>
+Today, I downloaded a compass app onto my watch and ventured out
+into the crisp night in search of Chinatown.I slipped into the
+first restaurant that smelled like fish.
+</p>
+
+
+<div class="figure">
+<p><img src="images/chinatown.jpg" alt="chinatown.jpg" />
+</p>
+<p><span class="figure-number">Figure 20: </span>Chinatown</p>
+</div>
+
+<p>
+I don't remember the name of the place, but I can tell you that the
+fish that ended up in my stir-fry was staring back at me through an
+aquarium minutes before.
+</p>
+
+
+<div class="figure">
+<p><img src="images/fishtank.jpg" alt="fishtank.jpg" />
+</p>
+<p><span class="figure-number">Figure 21: </span>Hi - my name is Alex, and I'll be your apex predator today&#x2026;</p>
+</div>
+
+<p>
+My fortune cookie reads, <i>The evening promises romantic interests</i>.
+Since my wife isn't around, I don't see that coming true - unless
+we're still talking about food.
+</p>
+
+<p>
+The city is different.Nobody carries my favorite beer.The
+streets are steep.I can't seem to find my hotel room on the first
+try.But there is delicious food out there, and that is worth the
+adventure.
+</p>
+
+
+<div class="figure">
+<p><img src="images/seafood-bowl.jpg" alt="seafood-bowl.jpg" />
+</p>
+<p><span class="figure-number">Figure 22: </span>Romance, indeed</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6fc5036" class="outline-2">
+<h2 id="org6fc5036">Thursday 8:01 AM, Zendesk HQ</h2>
+<div class="outline-text-2" id="text-org6fc5036">
+
+<div class="figure">
+<p><img src="images/feather-workstation.jpg" alt="feather-workstation.jpg" />
+</p>
+</div>
+
+<p>
+There is a magical room at the end of the 2nd floor of the Zendesk
+building called "Feather".Besides the comfy couches and video game
+themed pillows, the entire wall facing the street is glass.With
+all the interesting characters that stumble down market street, this
+room is people watching paradise.
+</p>
+
+
+<div class="figure">
+<p><img src="images/people-watching.jpg" alt="people-watching.jpg" />
+</p>
+</div>
+
+<p>
+Don't worry, I'm not pretending to work.I got here a few minutes
+early to catch up on the old blog.
+</p>
+
+<p>
+Yesterday, Nick treated me and Dave to Vietnamese food.
+</p>
+
+
+<div class="figure">
+<p><img src="images/vietnamese-food.jpg" alt="vietnamese-food.jpg" />
+</p>
+</div>
+
+<p>
+That cup of bright orange liquid is <i>not</i> some kind of pumpkin
+spiced latte.It's a Thai iced tea which was laced with enough
+caffeine to restart somebody's heart.
+</p>
+
+<p>
+After work I set out for the North East side once again in search of
+<i>The Ramen Underground</i>.It's not very flashy, but I could tell my
+the number of people waiting in line that I was onto something good.
+I penned my name on a little whiteboard hanging on the window, then
+waited outside for twenty minutes before I was led to a tiny seat at
+the bar.
+</p>
+
+
+<div class="figure">
+<p><img src="images/ramen-underground.jpg" alt="ramen-underground.jpg" />
+</p>
+</div>
+
+<p>
+I ordered the house sake.The waitress brought me a shot glass in a
+tiny wooden box, then overflowed the glass, letting the precious
+sake I had purchased spill out.I panicked, and asked the family's
+slack channel for advice.
+</p>
+
+<blockquote>
+<p>
+I have a cultural emergency.I just ordered sake at a Ramen shop,
+and they put the little shot glass in a wooden box and made it
+overflow.Am I allowed to drink what's in the box, or will I look
+like an idiot?
+</p>
+</blockquote>
+
+<p>
+My wife did some research, and explained that this was the
+traditional way to pour sake.It is a reflection on the
+restaurant's generosity.And they <i>were</i> generous.
+</p>
+
+
+<div class="figure">
+<p><img src="images/ramen-underground-food.jpg" alt="ramen-underground-food.jpg" />
+</p>
+</div>
+
+<p>
+After dinner, I walked to the pier to burn off some calories.
+</p>
+
+
+<div class="figure">
+<p><img src="images/golden-gate.jpg" alt="golden-gate.jpg" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="images/port-of-sanfran.jpg" alt="port-of-sanfran.jpg" />
+</p>
+</div>
+
+<p>
+San Francisco has been generous, and has left my cup overflowing.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3b71125" class="outline-2">
+<h2 id="org3b71125">Saturday 3:23 AM, 30,000 ft. above the United States</h2>
+<div class="outline-text-2" id="text-org3b71125">
+<p>
+Was I supposed to be home in Wisconsin about six hours ago?
+Absolutely.What am I still doing in a plane?I'll use that as my
+cliffhanger.
+</p>
+
+<p>
+Thursday was great.Dave and I had the last of our training
+sessions, then ate lunch at a taco booth.Then after work, I met
+the one and only Drew Hannay at my hotel for some rascally fun in
+the city.
+</p>
+
+<p>
+I pictured Drew being a cool San Francisco local that was ready to
+whisk me away to a magical underground sushi restaurant, or show me
+where the Twitter employees held their fight club.But Drew knew
+San Francisco about as well as I did.His compass was more accurate
+than mine, so at least he was kind of useful.
+</p>
+
+<p>
+Drew and I plunked into another random Chinese restaurant and spent
+the meal reminiscing about our college days.He reminded me of a
+funny story.Around the time of our Freshman year, Google released
+Chrome and, being the fanboy he was, Drew was trying to get everyone
+in his dorm to adopt it.I was resistant to change, since I barely
+knew how to use my computer and I didn't know how to migrate my
+Safari bookmarks to anything else.
+</p>
+
+<p>
+Drew found many creative ways to get Chrome in my dock, but I always
+managed to delete it.Finally, he had checkmate when he installed
+chrome and used OSX wizardry to give it the same icon as my beloved
+Safari.I don't even think I realized it right away.I guess the
+real punchline is that six years later, we're both Software
+Engineers and we're chatting in a bar in the bay area.
+</p>
+
+<p>
+I was touched that Drew drove all the way up from San Jose to eat
+Chinese food and get lost in the Tenderloin with his old college
+suite-mate.He's the real deal.
+</p>
+
+<p>
+Friday is where things got kind of disorienting.I was awoken by an
+automated call from American Airlines at 6 AM.The robocaller
+mercillesly informed me that my flight has been canceled, and I was
+to fly out at midnight.It's 3:45 AM right now, so by my watch, I
+have about another six hours before I can see my family again.
+</p>
+
+<p>
+Or who knows.Maybe I'll get another mysterious robocall telling me
+that my connecting flight is canceled too.Maybe I'll have to live
+at O'Hare permanently.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgac59fa7" class="outline-2">
+<h2 id="orgac59fa7">Sunday 8:56 PM, Home</h2>
+<div class="outline-text-2" id="text-orgac59fa7">
+<p>
+Finally home.I walked in my front door yesterday around 11 AM, and
+I've basically been asleep since.To be honest, I don't even
+remember being in O'Hare.At some point, I took a picture of this
+sandwich, thinking it was a joke or something.
+</p>
+
+
+<div class="figure">
+<p><img src="images/subway.jpg" alt="subway.jpg" />
+</p>
+</div>
+
+<p>
+My little family met me at the baggage claim.My son looked twice
+as big as he did only a week ago.
+</p>
+
+
+<div class="figure">
+<p><img src="images/family-greeting.jpg" alt="family-greeting.jpg" />
+</p>
+</div>
+
+<p>
+I think it's safe to say that traveling is out of my system.Two
+connecting flights in twenty-four hours will do that to you, I
+guess.Take a look at my map now!I worked hard to put that blip
+there on the west coast.
+</p>
+
+
+<div class="figure">
+<p><img src="images/san-fran-map.png" alt="san-fran-map.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 2016-10-09 Sun 00:00</p>
+<p class="author">Author: Alex Recker</p>
+<p class="date">Created: 2018-11-12 Mon 07:35</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
