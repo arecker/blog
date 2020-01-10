@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'commander'
 gem 'git'
 gem 'jekyll', '~> 3.8.5'
 gem 'org-ruby'

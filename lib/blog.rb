@@ -4,13 +4,13 @@
 module Blog
   require 'fileutils'
 
+  require_relative 'blog/cli'
   require_relative 'blog/config'
   require_relative 'blog/entry'
   require_relative 'blog/git'
   require_relative 'blog/jekyll'
   require_relative 'blog/journal'
   require_relative 'blog/log'
-  require_relative 'blog/s3'
   require_relative 'blog/slack'
   require_relative 'blog/stats'
   require_relative 'blog/twitter'
@@ -43,11 +43,6 @@ module Blog
     git.commit
   end
 
-  def self.publish!
-    logger.info "publishing #{config.site_dir.pretty_path} to s3://#{config.bucket}/"
-    Blog::S3.publish config.site_dir, config.bucket, config.aws_creds
-  end
-
   def self.slack!
     logger.info "parsing #{config.journal_path.pretty_path}"
     journal = Blog::Journal.from_file(config.journal_path)
@@ -69,7 +64,6 @@ module Blog
   def self.everything!
     build!
     commit!
-    publish!
     slack!
     tweet!
   end

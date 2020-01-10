@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'bundler'
 require 'yaml'
 
 module Blog
@@ -7,11 +8,7 @@ module Blog
   class Config
     attr_reader :data
 
-    def self.config_path
-      File.expand_path('~/.blog.yml')
-    end
-
-    def self.load_from_file
+    def self.load_from_file(config_path = File.expand_path('~/.blog.yml'))
       if File.file? config_path
         Blog.logger.info "loading config from #{config_path.pretty_path}"
         config = new(YAML.load_file(config_path) || {})
@@ -25,8 +22,7 @@ module Blog
 
     def required_keys
       [
-        'journal_path', 'stats_path', 'posts_dir', 'blog_repo', 'bucket',
-        'aws_access_key_id_cmd', 'aws_secret_access_key_cmd'
+        'journal_path'
       ]
     end
 
@@ -51,7 +47,7 @@ module Blog
     end
 
     def posts_dir
-      File.expand_path(@data.fetch('posts_dir'))
+      File.join blog_repo, '_posts'
     end
 
     def site_dir
@@ -59,26 +55,15 @@ module Blog
     end
 
     def blog_repo
-      File.expand_path(@data.fetch('blog_repo'))
+      Bundler.root.to_s
     end
 
     def stats_path
-      File.expand_path(@data.fetch('stats_path'))
+      File.join blog_repo, '_data/stats.json'
     end
 
     def log_level
       @data.fetch('log_level', 'INFO').upcase
-    end
-
-    def bucket
-      @bucket ||= @data.fetch('bucket')
-    end
-
-    def aws_creds
-      @aws_creds ||= {
-        's3_id' => `#{s3_id_cmd}`.strip,
-        's3_secret' => `#{s3_secret_cmd}`.strip
-      }
     end
 
     def twitter_creds
@@ -100,14 +85,6 @@ module Blog
     end
 
     private
-
-    def s3_id_cmd
-      @data.fetch('aws_access_key_id_cmd')
-    end
-
-    def s3_secret_cmd
-      @data.fetch('aws_secret_access_key_cmd')
-    end
 
     def missing_fields
       required_keys.reject { |k| @data.key? k }
