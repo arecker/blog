@@ -15,23 +15,20 @@ module Blog
     end
 
     def subtitle
-      @headline.property_drawer['SUBTITLE']
+      @subtitle ||= @headline.headline_text.split(' ').drop(2).join(' ')
     end
+
+    alias excerpt subtitle
 
     def tags
       @tags ||= @headline.tags
     end
 
     def date
-      @date ||= Date.strptime(@headline.headline_text, '%Y-%m-%d %A')
-    end
-
-    def excerpt
-      if subtitle.nil?
-        tags.to_and_list
-      else
-        subtitle
-      end
+      @date ||= Date.strptime(
+        @headline.headline_text.split(' ').take(2).join(' '),
+        '%Y-%m-%d %A'
+      )
     end
 
     def date_slug
@@ -39,7 +36,7 @@ module Blog
     end
 
     def public?
-      !@headline.tags.include? 'private'
+      !tags.include? 'private'
     end
 
     def filename
@@ -62,8 +59,6 @@ module Blog
       <<~HTML
         ---
         title: #{title}
-        named: #{!subtitle.nil?}
-        tags: [#{tags.join(',')}]
         excerpt: #{excerpt}
         word_count: #{body_text.word_count.pretty}
         ---
