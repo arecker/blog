@@ -15,6 +15,19 @@ describe Blog::Words do
     expect(1_000_000.pretty).to eq('1,000,000')
   end
 
+  it 'should turn a string into a list of words' do
+    expect('this is a test'.words).to eq(%w[this is a test])
+    text = <<~TEXT
+  THIS
+  IS  
+  A  
+  TEST   
+  WITH     
+  NEWLINES  
+    TEXT
+    expect(text.words).to eq(%w[THIS IS A TEST WITH NEWLINES])
+  end
+
   it 'should get the word count from a string' do
     text = <<~TEXT
       Hey Journal,
@@ -35,7 +48,7 @@ describe Blog::Words do
       it goes.
     TEXT
 
-    expect(text.word_count).to eq(154)
+    expect(text.word_count).to eq(148)
   end
 
   it 'should prettify a path' do

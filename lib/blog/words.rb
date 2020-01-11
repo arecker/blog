@@ -20,13 +20,13 @@ module Blog
       number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
     end
 
-    def self.word_count_from_string(str)
-      str.gsub(/[^-a-zA-Z]/, ' ').split.size
-    end
-
     def self.prettify_path(path, home = nil)
       home ||= File.expand_path('~/')
       path.sub(home, '~')
+    end
+
+    def self.to_word_list(str)
+      str.split(' ')
     end
   end
 end
@@ -47,8 +47,12 @@ end
 
 # String extensions
 class String
+  def words
+    Blog::Words.to_word_list(self)
+  end
+
   def word_count
-    Blog::Words.word_count_from_string(self)
+    Blog::Words.to_word_list(self).count
   end
 
   def pretty_path(home = nil)
