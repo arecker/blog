@@ -9,6 +9,10 @@ module Blog
       new(Orgmode::Parser.load(path))
     end
 
+    def logger
+      Blog::Log.logger
+    end
+
     def initialize(parser)
       @parser = parser
     end
@@ -24,7 +28,7 @@ module Blog
     def write_public_entries!(dir)
       public_entries.each do |entry|
         target = File.join(dir, entry.filename)
-        Blog.logger.debug "writing #{entry.title} to #{target.pretty_path}"
+        logger.debug "writing #{entry.title} to #{target.pretty_path}"
         File.open(target, 'w+') { |f| f.write(entry.to_html) }
       end
     end

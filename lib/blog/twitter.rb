@@ -13,7 +13,7 @@ module Blog
         settings.access_token_secret = creds['access_token_secret']
       end
       message = "#{entry.excerpt}\n#{entry.title}\n#{entry.permalink}"
-      Blog.logger.info "tweeting #{entry.excerpt}"
+      Blog::Log.logger.info "tweeting #{entry.excerpt}"
       client.update(message)
     end
   end

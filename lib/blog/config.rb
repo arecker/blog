@@ -8,42 +8,18 @@ module Blog
   class Config
     attr_reader :data
 
-    def self.load_from_file(config_path = File.expand_path('~/.blog.yml'))
-      if File.file? config_path
-        Blog.logger.info "loading config from #{config_path.pretty_path}"
-        config = new(YAML.load_file(config_path) || {})
-        config.validate!
-        config
-      else
-        Blog.logger.error "#{config_path.pretty_path} not found!"
-        nil
-      end
+    def self.load_from_file(config_path = File.expand_path('~/.blog.yml'),
+                            journal_path = File.expand_path('~/Documents/journal.org'))
+      new(YAML.load_file(config_path) || {}, journal_path)
     end
 
-    def required_keys
-      [
-        'journal_path'
-      ]
-    end
-
-    def initialize(data)
+    def initialize(data, journal_path)
       @data = data
-    end
-
-    def validate!
-      missing = missing_fields
-
-      if missing.any?
-        Blog.logger.error "missing configuration: #{missing_fields.to_and_list}"
-        false
-      else
-        Blog.logger.info 'configuration is valid'
-        true
-      end
+      @journal_path = journal_path
     end
 
     def journal_path
-      File.expand_path(@data.fetch('journal_path'))
+      File.expand_path(@journal_path)
     end
 
     def posts_dir

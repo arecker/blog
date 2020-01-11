@@ -6,11 +6,15 @@ require 'json'
 module Blog
   # Stats
   module Stats
+    def self.logger
+      @logger ||= Blog::Log.logger
+    end
+
     def self.write_stats!(journal, path)
-      Blog.logger.info 'gathering stats'
+      logger.info 'gathering stats'
       stats = gather_stats(journal)
 
-      Blog.logger.info "writing stats to #{path.pretty_path}"
+      logger.info "writing stats to #{path.pretty_path}"
       File.open(path, 'w+') do |f|
         f.write(JSON.pretty_generate(stats))
       end
@@ -33,7 +37,7 @@ module Blog
 
       def initialize(journal)
         @journal = journal
-        @logger = Blog.logger
+        @logger = Blog::Log.logger
       end
 
       private

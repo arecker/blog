@@ -13,7 +13,7 @@ module Blog
       logger = Logger.new(STDOUT)
       logger.level = Logger::INFO
       logger.formatter = proc do |severity, _datetime, _progname, msg|
-        "#{severity.ljust(5)}: #{msg}\n"
+        "blog: #{msg}\n"
       end
       logger
     end
