@@ -53,6 +53,18 @@ module Blog
       git.commit
     end
 
+    def slack
+      logger.info "fetched latest entry: #{latest.excerpt}"
+      config.slacks.each do |info|
+        Blog::Slacky.post(latest, `#{info['webhook_cmd']}`, info)
+      end
+    end
+
+    def tweet
+      logger.info "fetched latest entry: #{latest.excerpt}"
+      Blog::Twitter.post(latest, config.twitter_creds)
+    end
+
     def run
       program :name, 'blog'
       program :version, 'v0.0.0'
@@ -88,13 +100,7 @@ module Blog
         c.syntax = 'slack'
         c.description = 'send slack notifications'
         c.action do |_args, _options|
-          logger.info "parsing #{config.journal_path.pretty_path}"
-          journal = Blog::Journal.from_file(config.journal_path)
-          latest = journal.public_entries.first
-          logger.info "fetched latest entry: #{latest.excerpt}"
-          config.slacks.each do |info|
-            Blog::Slacky.post(latest, `#{info['webhook_cmd']}`, info)
-          end
+          slack
         end
       end
 
@@ -102,11 +108,7 @@ module Blog
         c.syntax = 'tweet'
         c.description = 'send tweet notifications'
         c.action do |_args, _options|
-          logger.info "parsing #{config.journal_path.pretty_path}"
-          journal = Blog::Journal.from_file(config.journal_path)
-          latest = journal.public_entries.first
-          logger.info "fetched latest entry: #{latest.excerpt}"
-          Blog::Twitter.post(latest, config.twitter_creds)
+          tweet
         end
       end
 
