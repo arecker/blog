@@ -1,21 +1,21 @@
 {
   "words": {
     "public": {
-      "average": "894",
-      "total": "173,389"
+      "average": "895",
+      "total": "174,503"
     },
     "private": {
       "average": "493",
       "total": "30,546"
     },
     "all": {
-      "average": "797",
-      "total": "203,935"
+      "average": "798",
+      "total": "205,049"
     }
   },
   "posts": {
-    "public": "194",
+    "public": "195",
     "private": "62",
-    "all": "256"
+    "all": "257"
   }
 }
