@@ -21,6 +21,8 @@ GEM
     forwardable-extended (2.6.0)
     git (1.5.0)
     highline (2.0.3)
+    htmlbeautifier (1.3.1)
+    htmlcompressor (0.4.0)
     http (3.3.0)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -49,6 +51,10 @@ GEM
       jekyll (~> 3.3)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
+    jekyll-tidy (0.2.2)
+      htmlbeautifier
+      htmlcompressor
+      jekyll
     jekyll-watch (2.2.1)
       listen (~> 3.0)
     kramdown (1.17.0)
@@ -123,6 +129,7 @@ DEPENDENCIES
   git
   jekyll (~> 3.8.5)
   jekyll-feed (~> 0.6)
+  jekyll-tidy
   org-ruby
   pry
   rake
