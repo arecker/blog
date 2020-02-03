@@ -1,41 +1,31 @@
 ---
 title: Home
 ---
+<style>
+ .jumbotron {
+     background:transparent !important;
+     margin-bottom: 0;
+ }
+</style>
 <div class="col-md-8 offset-md-2 mb-3">
-  <h2>Stats</h2>
-  <div class="table-responsive">
-    <table class="table table-borderless table-sm">
-      <thead>
-	<th></th>
-	<th>All</th>
-	<th class="text-muted">Public</th>
-	<th class="text-muted">Private</th>
-      </thead>
-      <tbody>
-	<tr>
-	  <th>Entry Count</th>
-	  <td>{{ site.data.stats.posts.all }}</td>
-	  <td class="text-muted">{{ site.data.stats.posts.public }}</td>
-	  <td class="text-muted">{{ site.data.stats.posts.private }}</td>
-	</tr>
-	<tr>
-	  <th>Total Word Count</th>
-	  <td>{{ site.data.stats.words.all.total }}</td>
-	  <td class="text-muted">{{ site.data.stats.words.public.total }}</td>
-	  <td class="text-muted">{{ site.data.stats.words.private.total }}</td>
-	</tr>
-	<tr>
-	  <th>Average Word Count</th>
-	  <td>{{ site.data.stats.words.all.average }}</td>
-	  <td class="text-muted">{{ site.data.stats.words.public.average }}</td>
-	  <td class="text-muted">{{ site.data.stats.words.private.average }}</td>
-	</tr>
-      </tbody>
-    </table>
+  <div class="jumbotron">
+    <p class="lead">
+      Hello!  My name is Alex Recker, and this is my public online journal.
+    </p>
+    <p class="lead">
+      To date, I have published <strong>{{ site.data.stats.posts }}</strong>
+      entries for a total of <strong>{{ site.data.stats.words.total }}</strong> words.
+    </p>
+    <p class="lead">
+      Currently, my streak is <strong>{{ site.data.stats.days.days }}</strong> consecutive days of writing,
+      and my current average word count per post is <strong>{{ site.data.stats.words.average }}</strong>.
+    </p>
+    <p class="lead">
+      Follow along with <a href="https://www.twitter.com/alex_recker">twitter</a>, <a href="https://www.instagram.com/alex_recker/">instagram</a>, or <a href="https://www.alexrecker.com/feed.xml">rss</a>.  If you want to chat, feel free to send me an <a href="mailto:alex@reckerfamily.com">email</a> or find me on <a href="https://github.com/arecker/">github</a>.  Thanks for reading!
+    </p>
   </div>
 </div>
 <div class="col-md-8 offset-md-2">
-  <h2>Entries</h2>
   <div class="row">
     <div class="col-md-12">
       {%- include post_list.html -%}

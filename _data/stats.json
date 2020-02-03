@@ -1,21 +1,12 @@
 {
-  "words": {
-    "public": {
-      "average": "914",
-      "total": "193,750"
-    },
-    "private": {
-      "average": "493",
-      "total": "30,546"
-    },
-    "all": {
-      "average": "819",
-      "total": "224,296"
-    }
+  "days": {
+    "days": "162",
+    "start": "2019-08-25",
+    "end": "2020-02-03"
   },
-  "posts": {
-    "public": "212",
-    "private": "62",
-    "all": "274"
-  }
+  "words": {
+    "average": "914",
+    "total": "193,748"
+  },
+  "posts": "212"
 }

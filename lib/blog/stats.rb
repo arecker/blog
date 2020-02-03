@@ -53,16 +53,8 @@ module Blog
         numlist.inject(0) { |sum, x| sum + x }
       end
 
-      def private_entries
-        journal.private_entries
-      end
-
       def public_entries
         journal.public_entries
-      end
-
-      def all_entries
-        journal.all_entries
       end
     end
 
@@ -74,11 +66,7 @@ module Blog
 
       def crunch
         @logger.debug 'calculating post count'
-        {
-          public: public_entries.count.pretty,
-          private: private_entries.count.pretty,
-          all: all_entries.count.pretty
-        }
+        public_entries.count.pretty
       end
     end
 
@@ -90,35 +78,46 @@ module Blog
 
       def crunch
         @logger.debug 'calculating word count'
+        total_counts = public_entries.collect(&:body_text).map(&:word_count)
         {
-          public: {
-            average: average(public_wordcounts).pretty,
-            total: total(public_wordcounts).pretty
-          },
-          private: {
-            average: average(private_wordcounts).pretty,
-            total: total(private_wordcounts).pretty
-          },
-          all: {
-            average: average(total_wordcounts).pretty,
-            total: total(total_wordcounts).pretty
-          }
+          average: average(total_counts).pretty,
+          total: total(total_counts).pretty
         }
+      end
+    end
+
+    # Streak Cruncher
+    class StreakCruncher < BaseCruncher
+      def stats_key
+        'days'
+      end
+
+      def crunch
+        @logger.debug 'calculating streaks'
+        streaks.take(1).map do |count, dates|
+          {
+            days: count.pretty,
+            start: dates[0],
+            end: dates[1]
+          }
+        end.first
       end
 
       private
 
-      def total_wordcounts(entries = nil)
-        entries ||= all_entries
-        entries.collect(&:body_text).map(&:word_count)
+      def streaks
+        _streaks = []
+        entry_dates.slice_when do |prev, curr|
+          curr != prev - 1
+        end.each do |dates|
+          first, last = dates.min, dates.max
+          _streaks << [(last - first).to_i, [first, last]]
+        end
+        _streaks
       end
 
-      def private_wordcounts
-        total_wordcounts(private_entries)
-      end
-
-      def public_wordcounts
-        total_wordcounts(public_entries)
+      def entry_dates
+        public_entries.collect(&:date)
       end
     end
   end
