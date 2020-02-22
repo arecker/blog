@@ -1,0 +1,26 @@
+<div class="ui two column stackable grid">
+  {%- for post in site.posts -%}
+  {%- capture this_month -%}{{ post.date | date: '%B %Y' }}{%- endcapture -%}
+  {%- capture next_month -%}{{ post.previous.date | date: '%B %Y' }}{%- endcapture -%}
+
+  {%- if forloop.first -%}
+  <div class="center aligned column">
+    <h3>{{ this_month }}</h3>
+    <div class="ui huge link list">
+  {%- endif -%}
+      <a class="item" href="{{ post.url }}">{{ post.excerpt }}</a>
+      
+  {%- if this_month != next_month -%}
+    </div>
+  </div>
+  <div class="center aligned column">
+    <h3>{{ next_month }}</h3>
+    <div class="ui huge link list">
+      {%- endif -%}
+
+      {%- if forloop.last -%}
+    </div>
+  </div>
+  {%- endif -%}
+  {%- endfor -%}
+</div>

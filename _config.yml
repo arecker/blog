@@ -22,15 +22,15 @@ exclude:
   - vendor
 
 defaults:
+  # -
+  #   scope:
+  #     path: ""
+  #     type: posts
+  #   values:
+  #     layout: post
   -
     scope:
       path: ""
-      type: posts
-    values:
-      layout: post
-  -
-    scope:
-      path: ""
-      type: pages
+      # type: pages
     values:
       layout: page

@@ -1,34 +1,28 @@
 ---
-title: Home
+title: Journal
+excerpt: by Alex Recker
+slug: index.html
 ---
-<style>
- .jumbotron {
-     background:transparent !important;
-     margin-bottom: 0;
- }
-</style>
-<div class="col-md-8 offset-md-2 mb-3">
-  <div class="jumbotron">
-    <p class="lead">
-      Hello!  My name is Alex Recker, and this is my public online journal.
-    </p>
-    <p class="lead">
-      To date, I have published <strong>{{ site.data.stats.posts }}</strong>
-      entries for a total of <strong>{{ site.data.stats.words.total }}</strong> words.
-    </p>
-    <p class="lead">
-      Currently, my streak is <strong>{{ site.data.stats.days.days }}</strong> consecutive days of writing,
-      and my current average word count per post is <strong>{{ site.data.stats.words.average }}</strong>.
-    </p>
-    <p class="lead">
-      Follow along with <a href="https://www.twitter.com/alex_recker">twitter</a>, <a href="https://www.instagram.com/alex_recker/">instagram</a>, or <a href="https://www.alexrecker.com/feed.xml">rss</a>.  If you want to chat, feel free to send me an <a href="mailto:alex@reckerfamily.com">email</a> or find me on <a href="https://github.com/arecker/">github</a>.  Thanks for reading!
-    </p>
-  </div>
+<div class="ui text container">
+  <img src="me.jpg" class="ui centered circular small image">
+  <h2 class="ui header ui center aligned">
+    I'm Alex Recker
+  </h2>
+  <p class="ui center aligned">
+    This is my pulic online journal.  I write 1,000 words every day.
+    I write about computers, food, kids, dogs, and anything else I
+    come across.
+  </p>
+  <p>
+    If you have any questions about this website or my life, send me
+    an email at <a href="mailto:alex@reckerfamily.com">alex@reckerfamily.com</a>
+  </p>
 </div>
-<div class="col-md-8 offset-md-2">
-  <div class="row">
-    <div class="col-md-12">
-      {%- include post_list.html -%}
-    </div>
-  </div>
-</div>  
+<br/><br/><br/>
+<div class="ui container">
+  {% include stats.html %}  
+</div>
+<div class="ui container">
+  {% include posts.html %}  
+</div>
+
