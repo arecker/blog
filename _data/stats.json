@@ -1,8 +1,8 @@
 {
   "days": {
-    "days": "185",
+    "days": "186",
     "start": "2019-08-25",
-    "end": "2020-02-26"
+    "end": "2020-02-27"
   },
   "topics": [
     [
@@ -15,6 +15,10 @@
     ],
     [
       "Intel woes",
+      1
+    ],
+    [
+      "a beer with rodney",
       1
     ],
     [
@@ -463,6 +467,10 @@
     ],
     [
       "coffee in church",
+      1
+    ],
+    [
+      "coffee shops",
       1
     ],
     [
@@ -1842,6 +1850,10 @@
       4
     ],
     [
+      "soup from a bag",
+      1
+    ],
+    [
       "spiderman",
       3
     ],
@@ -2256,7 +2268,7 @@
   ],
   "words": {
     "average": "943",
-    "total": "221,579"
+    "total": "222,606"
   },
-  "posts": "235"
+  "posts": "236"
 }
