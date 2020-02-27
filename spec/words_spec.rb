@@ -10,6 +10,17 @@ describe Blog::Words do
     expect(%w[a b c d].to_and_list).to eq('a, b, c, and d')
   end
 
+  it 'should make an array an and list' do
+    expect('one'.to_and_array).to eq(%w[one])
+    expect('one and two'.to_and_array).to eq(%w[one two])
+    expect('one two three'.to_and_array).to eq(['one two three'])
+    expect('one, two, and three'.to_and_array).to eq(%w[one two three])
+  end
+
+  it 'should make an array a weighted list' do
+    expect(%w[alex alex alex recker].to_weighted_list).to eq([['alex', 3], ['recker', 1]])
+  end
+
   it 'should make a pretty number from an integer' do
     expect(1_200.pretty).to eq('1,200')
     expect(1_000_000.pretty).to eq('1,000,000')

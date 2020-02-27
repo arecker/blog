@@ -86,6 +86,19 @@ module Blog
       end
     end
 
+    # TopicWordCruncher
+    class TopicWordCruncher < BaseCruncher
+      def stats_key
+        'topics'
+      end
+
+      def crunch
+        @logger.debug 'building weighted topic list'
+        topics = public_entries.collect { |e| e.subtitle.to_and_array }.flatten
+        topics.sort.to_weighted_list
+      end
+    end
+
     # Streak Cruncher
     class StreakCruncher < BaseCruncher
       def stats_key

@@ -16,6 +16,11 @@ module Blog
       end
     end
 
+    def self.and_list_to_array(str)
+      str = str.gsub(' and ', ', ')
+      str.split(',').map(&:strip).reject(&:empty?)
+    end
+
     def self.prettify_number(number)
       number.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
     end
@@ -28,6 +33,12 @@ module Blog
     def self.to_word_list(str)
       str.split(' ')
     end
+
+    def self.to_weighted_list(arr)
+      arr.uniq.map do |word|
+        [word, arr.count(word)]
+      end
+    end
   end
 end
 
@@ -35,6 +46,10 @@ end
 class Array
   def to_and_list
     Blog::Words.array_to_and_list(self)
+  end
+
+  def to_weighted_list
+    Blog::Words.to_weighted_list(self)
   end
 end
 
@@ -57,5 +72,9 @@ class String
 
   def pretty_path(home = nil)
     Blog::Words.prettify_path(self, home)
+  end
+
+  def to_and_array
+    Blog::Words.and_list_to_array(self)
   end
 end
