@@ -5,8 +5,8 @@
 
   {%- if forloop.first -%}
   <div class="center aligned column">
-    <h3>{{ this_month }}</h3>
-    <div class="ui huge link list">
+    <h3 class="ui large header">{{ this_month }}</h3>
+    <div class="ui middle aligned large link list">
   {%- endif -%}
       <a class="item" href="{{ post.url }}">{{ post.excerpt }}</a>
       
@@ -14,8 +14,8 @@
     </div>
   </div>
   <div class="center aligned column">
-    <h3>{{ next_month }}</h3>
-    <div class="ui huge link list">
+    <h3 class="ui large header">{{ next_month }}</h3>
+    <div class="ui middle aligned large link list">
       {%- endif -%}
 
       {%- if forloop.last -%}

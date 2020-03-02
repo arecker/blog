@@ -7,18 +7,18 @@
   </head>
   <body>
     {%- include nav.html here="index.html" -%}
-    <div class="ui container {% if is_post == 'yes' %}text{% endif %}">
+    <div class="ui container {% if is_post == 'yes' %}{% endif %}">
       {{ content }}
       {% if is_post == 'yes' %}
       <div class="ui fluid two borderless  menu">
 	{%- if page.next -%}
 	<a href="{{ page.next.url }}" class="left item">
-	  <i class="angle left icon"></i> {{ page.next.excerpt }}
+	  <i class="angle left icon"></i>
 	</a>
 	{%- endif -%}
 	{%- if page.previous -%}
 	<a href="{{ page.previous.url }}" class="right item">
-	  {{ page.previous.excerpt }} <i class="angle right icon"></i>
+	  <i class="angle right icon"></i>
 	</a>
 	{%- endif -%}
       </div>
