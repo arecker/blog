@@ -18,32 +18,32 @@ module Blog
     end
 
     def validate!
-      logger.info "validating unstaged changes to #{config.blog_repo.pretty_path}"
+      @logger.info "validating unstaged changes to #{config.blog_repo.pretty_path}"
       if changed & expected == expected
-        logger.info "validation passed, staging: #{changed}"
+        @logger.info "validation passed, staging: #{changed}"
       else
-        logger.error "validation failed, unexpected changed: #{changed}"
+        @logger.error "validation failed, unexpected changed: #{changed}"
         exit 1
       end
     end
 
     def commit!
       commit = '[auto] Automatic Publish}'
-      logger.info "writing commit: #{commit}"
+      @logger.info "writing commit: #{commit}"
       @client.add
       @client.commit(commit)
-      logger.info "pushing commit"
-      # @client.push
+      @logger.info 'pushing commit'
+      @client.push
     end
 
     private
 
     def expected
-      ["journal.org", "_data/stats.json"]
+      ['journal.org', '_data/stats.json']
     end
 
     def changed
-      @client.status.changed { |f| f.first }
+      @client.status.changed.collect(&:first)
     end
   end
 end
