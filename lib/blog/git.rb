@@ -18,7 +18,7 @@ module Blog
     end
 
     def validate!
-      @logger.info "validating unstaged changes to #{config.blog_repo.pretty_path}"
+      @logger.info 'validating unstaged changes'
       if changed & expected == expected
         @logger.info "validation passed, staging: #{changed}"
       else

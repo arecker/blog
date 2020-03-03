@@ -60,7 +60,6 @@ module Blog
         ---
         title: #{title}
         excerpt: #{excerpt}
-        word_count: #{body_text.word_count.pretty}
         ---
         #{body_html}
       HTML
