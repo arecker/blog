@@ -42,11 +42,7 @@ module Blog
 
     def commit
       git = Blog::Git.new(config.blog_repo)
-      logger.info "getting untracked post from #{config.blog_repo.pretty_path}"
-      added = git.one_and_only_untracked_post
-      exit 1 if added.nil?
-      logger.info "committing #{added}"
-      git.commit
+      git.run!
     end
 
     def slack

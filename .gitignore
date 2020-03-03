@@ -2,4 +2,5 @@ _site
 .sass-cache
 .jekyll-metadata
 words.txt
+_posts/*.html
 /.DS_Store
