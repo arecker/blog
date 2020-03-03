@@ -12,16 +12,12 @@ module Blog
       Blog::Log.logger
     end
 
-    def journal_path
-      @journal_path ||= File.expand_path '~/Documents/journal.org'
-    end
-
     def config_path
       @config_path ||= File.expand_path '~/.blog.yml'
     end
 
     def config
-      Blog::Config.load_from_file(config_path, journal_path)
+      Blog::Config.load_from_file(config_path)
     end
 
     def journal
@@ -71,10 +67,6 @@ module Blog
       program :description, 'script to generate and publish my blog'
 
       default_command :all
-
-      global_option '--journal FILE', String, 'path to journal.org' do |file|
-        @journal_path = file
-      end
 
       global_option '--config FILE', String, 'path to blog.yml' do |file|
         @config_path = file

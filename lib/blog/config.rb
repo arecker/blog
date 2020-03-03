@@ -8,18 +8,16 @@ module Blog
   class Config
     attr_reader :data
 
-    def self.load_from_file(config_path = File.expand_path('~/.blog.yml'),
-                            journal_path = File.expand_path('~/Documents/journal.org'))
-      new(YAML.load_file(config_path) || {}, journal_path)
+    def self.load_from_file(config_path = File.expand_path('~/.blog.yml'))
+      new(YAML.load_file(config_path) || {})
     end
 
-    def initialize(data, journal_path)
+    def initialize(data)
       @data = data
-      @journal_path = journal_path
     end
 
     def journal_path
-      File.expand_path(@journal_path)
+      File.join blog_repo, 'journal.org'
     end
 
     def posts_dir
