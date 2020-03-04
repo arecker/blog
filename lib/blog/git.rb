@@ -17,7 +17,7 @@ module Blog
     end
 
     def commit!
-      commit = '[auto] Automatic Publish}'
+      commit = '[auto] Automatic Publish'
       @logger.info "writing commit: #{commit}"
       @client.add
       @client.commit(commit)
