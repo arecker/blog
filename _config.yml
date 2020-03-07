@@ -7,7 +7,12 @@ permalink: /:year-:month-:day:output_ext
 markdown: kramdown
 
 plugins:
+  - jekyll-analytics
   - jekyll-feed
+
+jekyll_analytics:
+  GoogleAnalytics:
+    id: UA-42540208-6
 
 exclude:
   - .travis.yml
@@ -16,8 +21,8 @@ exclude:
   - README.org
   - Rakefile
   - bin
+  - gem
   - lib
-  - s3_website.yml
   - spec
   - vendor
 
