@@ -1,3 +1,9 @@
+PATH
+  remote: gem
+  specs:
+    jekyll-recker (0.1.0)
+      jekyll (~> 3.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -137,6 +143,7 @@ DEPENDENCIES
   jekyll-analytics
   jekyll-feed (~> 0.6)
   jekyll-org
+  jekyll-recker!
   jekyll-tidy
   org-ruby
   pry

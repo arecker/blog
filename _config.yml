@@ -1,7 +1,7 @@
 title: Alex Recker's Journal
 author: Alex Recker
 url: https://www.alexrecker.com
-# theme: jekyll-recker
+theme: jekyll-recker
 permalink: /:year-:month-:day:output_ext
 
 markdown: kramdown
@@ -27,15 +27,15 @@ exclude:
   - vendor
 
 defaults:
-  # -
-  #   scope:
-  #     path: ""
-  #     type: posts
-  #   values:
-  #     layout: post
   -
     scope:
       path: ""
-      # type: pages
+      type: posts
+    values:
+      layout: post
+  -
+    scope:
+      path: ""
+      type: pages
     values:
       layout: page

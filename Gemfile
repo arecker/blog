@@ -13,9 +13,9 @@ gem 'twitter'
 
 group :jekyll_plugins do
   gem 'jekyll-analytics'
-  # gem 'jekyll-blog', path: 'gem'
   gem 'jekyll-feed', '~> 0.6'
   gem 'jekyll-org'
+  gem 'jekyll-recker', path: 'gem'
   gem 'jekyll-tidy'
 end
 

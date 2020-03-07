@@ -3,10 +3,10 @@
     <div class="sub header">{{ page.excerpt }}</div>
   </h1>
   <div class="ui huge breadcrumb">
-    <a href="{% link site.baseurl %}" class="section">
+    <a href="{{ site.baseurl }}" class="section">
       <i class="home icon"></i>
     </a>
     <i class="right angle icon divider"></i>
-    <div class="active section">{{ page.url }}</div>
+    <div class="active section">{{ page.slug }}</div>
   </div>
 </div>
