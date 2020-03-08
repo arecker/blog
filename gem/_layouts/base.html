@@ -4,13 +4,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q=" crossorigin="anonymous" />
-    <link href="/assets/main.css" rel="stylesheet"/>
+    <link href="/assets/jekyll-recker.css" rel="stylesheet"/>
     <title>{{ site.title }} | {{ page.title }}</title>    
   </head>
   <body>
     <div class="ui container">
       {%- include nav.html %}
       {{ content }}
+    </div>
+    <div class="ui vertical footer segment">
+      <div class="ui center aligned container">
+	<div class="ui horizontal small divided link list">
+	  <p>
+	    powered by <a href="https://jekyllrb.com/">jekyll</a>,
+	    using the <a href="{% link gem/README.org %}">jekyll-recker</a> theme
+	  </p>
+	</div>
+      </div>
     </div>
   </body>
 </html>

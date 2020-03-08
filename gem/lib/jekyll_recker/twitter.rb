@@ -22,13 +22,13 @@ module Jekyll
       end
 
       def latest
-        @latest ||= site.posts.docs.last
+        @latest ||= Configuration.site.posts.docs.last
       end
 
       private
 
       def tweet_body
-        url = File.join Jekyll.configuration['url'], latest.url
+        url = File.join Configuration.jekyll['url'], latest.url
         <<~TWEET
           #{latest.data['excerpt']}
           #{latest.data['title']}
@@ -51,7 +51,7 @@ module Jekyll
       end
 
       def extract_from_config
-        values = cred_fieldnames.map { |k| shell(config["#{k}_cmd"]) }
+        values = cred_fieldnames.map { |k| shell(Configuration.twitter["#{k}_cmd"]) }
         Hash[cred_fieldnames.zip(values)] unless values.any? { |v| v.nil? || v.empty? }
       end
 
@@ -67,16 +67,6 @@ module Jekyll
           'consumer_api_key',
           'consumer_api_secret'
         ]
-      end
-
-      def config
-        @config ||= Jekyll.configuration.fetch('recker', {}).fetch('twitter', {})
-      end
-
-      def site
-        @site = Jekyll::Site.new(Jekyll.configuration)
-        @site.process
-        @site
       end
     end
   end

@@ -10,10 +10,14 @@ markdown: kramdown
 plugins:
   - jekyll-analytics
   - jekyll-feed
+  - jekyll-org
 
 jekyll_analytics:
   GoogleAnalytics:
     id: UA-42540208-6
+
+include:
+  - gem/README.org
 
 exclude:
   - .travis.yml
@@ -22,7 +26,6 @@ exclude:
   - README.org
   - Rakefile
   - bin
-  - gem
   - lib
   - spec
   - vendor
