@@ -14,7 +14,7 @@ group :jekyll_plugins do
   gem 'jekyll-analytics'
   gem 'jekyll-feed', '~> 0.6'
   gem 'jekyll-org'
-  gem 'jekyll-recker', path: 'gem'
+  gem 'jekyll-recker', git: 'https://github.com/arecker/jekyll-recker.git'
   gem 'jekyll-tidy'
 end
 

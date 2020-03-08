@@ -1,6 +1,9 @@
 baseurl: /
 title: Alex Recker's Journal
 author: Alex Recker
+email: alex@reckerfamily.com
+twitter: alex_recker
+github: arecker
 url: https://www.alexrecker.com
 theme: jekyll-recker
 permalink: /:year-:month-:day:output_ext
@@ -15,9 +18,6 @@ plugins:
 jekyll_analytics:
   GoogleAnalytics:
     id: UA-42540208-6
-
-include:
-  - gem/README.org
 
 exclude:
   - .travis.yml
