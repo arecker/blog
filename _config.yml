@@ -27,6 +27,13 @@ exclude:
   - spec
   - vendor
 
+recker:
+  twitter:
+    access_token_secret_cmd: pass twitter/reckerbot/access-token-secret
+    access_token_cmd: pass twitter/reckerbot/access-token
+    consumer_api_key_cmd: pass twitter/reckerbot/consumer-api-key
+    consumer_api_secret_cmd: pass twitter/reckerbot/consumer-api-secret-key
+  
 defaults:
   -
     scope:

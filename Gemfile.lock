@@ -3,6 +3,7 @@ PATH
   specs:
     jekyll-recker (0.1.0)
       jekyll (~> 3.8)
+      twitter
 
 GEM
   remote: https://rubygems.org/
