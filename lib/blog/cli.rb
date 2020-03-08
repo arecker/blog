@@ -52,11 +52,6 @@ module Blog
       end
     end
 
-    def tweet
-      logger.info "fetched latest entry: #{latest.excerpt}"
-      Blog::Twitter.post(latest, config.twitter_creds)
-    end
-
     def run
       program :name, 'blog'
       program :version, 'v0.0.0'
@@ -92,22 +87,13 @@ module Blog
         end
       end
 
-      command :tweet do |c|
-        c.syntax = 'tweet'
-        c.description = 'send tweet notifications'
-        c.action do |_args, _options|
-          tweet
-        end
-      end
-
       command :all do |c|
         c.syntax = 'all'
-        c.description = 'build, commit, slack, and tweet'
+        c.description = 'build, commit, and slack'
         c.action do |_args, _options|
           build
           commit
           slack
-          tweet
         end
       end
 

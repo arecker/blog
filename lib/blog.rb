@@ -11,6 +11,5 @@ module Blog
   require_relative 'blog/log'
   require_relative 'blog/slack'
   require_relative 'blog/stats'
-  require_relative 'blog/twitter'
   require_relative 'blog/words'
 end

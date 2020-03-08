@@ -151,7 +151,6 @@ DEPENDENCIES
   rake
   rspec
   slack-notifier
-  twitter
 
 BUNDLED WITH
    2.1.4

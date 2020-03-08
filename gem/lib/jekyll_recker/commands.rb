@@ -12,8 +12,8 @@ module Jekyll
                 client = Jekyll::Recker::Twitter.new
                 Jekyll.logger.info 'discovering credentials'
                 client.discover_credentials!
-                Jekyll.logger.info "tweeting #{client.latest.title}"
-                client.post_latest
+                Jekyll.logger.info "tweeting #{client.latest.data['title']}"
+                client.post_latest!
               rescue => e
                 Jekyll.logger.abort_with e.message
               end
