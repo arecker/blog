@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/arecker/jekyll-recker.git
-  revision: bd8b85cf95f3e3d2cd6526302cb0095b6033dfda
+  revision: ac09a1c22a44533c57fe09834dfa935af22cb650
   specs:
     jekyll-recker (0.1.0)
       jekyll (~> 3.8)
