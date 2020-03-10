@@ -1,9 +1,9 @@
-baseurl: /
+baseurl: ''
 title: Alex Recker's Journal
 author: Alex Recker
 email: alex@reckerfamily.com
-twitter: alex_recker
-github: arecker
+twitter_username: alex_recker
+github_username: arecker
 url: https://www.alexrecker.com
 theme: jekyll-recker
 permalink: /:year-:month-:day:output_ext
