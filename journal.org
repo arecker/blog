@@ -24123,7 +24123,7 @@ punches and kicks as if you were in the fight.
 After my last meeting of the day, I put Rodney down for a nap and
 fixed a cup of ginseng in the kitchen.  I returned to my desk, baiting
 the dogs to follow me with two training treats in hopes that they
-would hang out upstairs with me.  Sadly, after gobbling down the
+swould hang out upstairs with me.  Sadly, after gobbling down the
 crumbled up treats in my hand, they flew back down the stairs.
 
 "It's nothing personal," consoled Marissa.  "Our neighbors take the
@@ -24161,10 +24161,10 @@ Returning home, I released Rodney into the living room to watch TV,
 and while Marissa painted in the basement, I began cooking the pizzas.
 I cut the dough ball into sections and set them aside to proof on a
 mat while my oven pre-heated to 500 degrees.  The pizza stone still
-smelled of grill smoke, remnants of the last time I tried this over
-this past summer.  I flattened the dough, and using only my hands,
-spread the dough balls into little disks, taking extra care to leave a
-plump & round crust around the outside.
+smelled of grill smoke, remnants of the last time I tried this last
+summer.  I flattened the dough, and using only my hands, spread the
+dough balls into little disks, taking extra care to leave a plump &
+round crust around the outside.
 
 "So pizzas are probably going to start coming out of the oven," I
 called down to Marissa.  "I really didn't put too much thought into
@@ -24193,7 +24193,7 @@ finished cleaning the kitchen up at 9, leaving plenty of time for me
 to attack this week's IT project.
 
 When we last left off a week ago, I assembled the new parts I bought
-for the NAS, but they would't boot.  Out of frustration, I returned
+for the NAS, but they wouldn't boot.  Out of frustration, I returned
 everything and just decided to try to slim down the parts I already
 had with the goal of doing away with the giant, heavy, towering case
 balanced on the top shelf.
@@ -24208,7 +24208,7 @@ mount.  I spent the rest of the evening rearranging things on my
 shelf, trying to find a configuration that hid the cables without
 putting to much strain on the plugs.
 
-I hit the big red switch on my powerstrip.  The modem, router, and pi
+I hit the big red switch on my power strip.  The modem, router, and pi
 cluster powered on, but the NAS was silent.  The fan wasn't spinning
 either.  Using a long VGA cable, I plugged the board into the monitor
 on my desk.  Still nothing.
