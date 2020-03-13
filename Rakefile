@@ -7,6 +7,33 @@ RSpec::Core::RakeTask.new(:spec)
 
 task default: :spec
 
+class JournalConverter
+  def initialize
+    config = Blog::Config.load_from_file
+    @journal = Blog::Journal.from_file(config.journal_path)
+  end
+
+  def convert
+    @journal.all_entries.each do |e|
+      target = "_posts/#{e.date_slug}-#{e.date_slug}.html.org"
+      content = <<~CONTENT
+        #+TITLE: #{e.excerpt}
+
+        #{e.body_text.gsub("\n ", "\n").strip}
+      CONTENT
+      open(target, 'w') do |f|
+        f.puts content
+      end
+    end
+  end
+end
+
+desc 'convert journal.org to jekyll posts'
+task :convert do
+  converter = JournalConverter.new
+  converter.convert
+end
+
 desc 'generate wordcloud image'
 task :wordcloud do
   config = Blog::Config.load_from_file
