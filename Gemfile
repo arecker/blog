@@ -2,6 +2,7 @@
 
 source 'https://rubygems.org'
 
+gem 'bump'
 gem 'commander'
 gem 'git'
 gem 'jekyll', '~> 3.8.5'
