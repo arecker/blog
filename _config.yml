@@ -32,6 +32,7 @@ exclude:
   - jekyll-recker.gemspec
   - journal.org
   - lib
+  - pkg
   - spec
   - vendor
   - words.txt

@@ -7,7 +7,6 @@ gem 'git'
 gem 'jekyll', '~> 3.8.5'
 gem 'org-ruby'
 gem 'pandoc-ruby'
-gem 'rake'
 gem 'rspec'
 gem 'slack-notifier'
 

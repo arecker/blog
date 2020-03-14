@@ -3,3 +3,4 @@ _site
 .jekyll-metadata
 words.txt
 /.DS_Store
+/pkg/
