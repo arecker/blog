@@ -43,7 +43,18 @@ recker:
     access_token_cmd: pass twitter/reckerbot/access-token
     consumer_api_key_cmd: pass twitter/reckerbot/consumer-api-key
     consumer_api_secret_cmd: pass twitter/reckerbot/consumer-api-secret-key
-  
+  slack:
+    reckerfamily:
+      channel: '#blog'
+      username: 'reckerbot'
+      emoji: ':reckerbot:'
+      webhook_cmd: pass slack/reckerfamily/webhook | tail -1
+    redalenfamily:
+      channel: '#blog'
+      username: 'reckerbot'
+      emoji: ':reckerbot:'
+      webhook_cmd: pass slack/reckerfamily/webhook | tail -1
+
 defaults:
   -
     scope:

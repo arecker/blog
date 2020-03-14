@@ -14,6 +14,10 @@ module Jekyll
         recker.fetch('twitter', {})
       end
 
+      def self.slack
+        recker.fetch('slack', {})
+      end
+
       def self.site
         @site = Jekyll::Site.new(jekyll)
         @site.reset
