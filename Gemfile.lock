@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/arecker/jekyll-recker.git
-  revision: b0b4562d971bdbf3d14601ddcec13017a376ee47
+  revision: 54246beb5b9db5f7f6e057b2d676169394a1f1e7
   specs:
     jekyll-recker (0.1.0)
       jekyll (~> 3.8)
@@ -14,7 +14,7 @@ GEM
     buftok (0.2.0)
     coderay (1.1.2)
     colorator (1.1.0)
-    commander (4.5.1)
+    commander (4.5.2)
       highline (~> 2.0.0)
     concurrent-ruby (1.1.6)
     diff-lcs (1.3)
@@ -64,10 +64,6 @@ GEM
     jekyll-analytics (0.1.12)
     jekyll-feed (0.13.0)
       jekyll (>= 3.7, < 5.0)
-    jekyll-org (1.1.1)
-      jekyll (>= 3.5.0)
-      json
-      org-ruby (>= 0.9.12)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
     jekyll-tidy (0.2.2)
@@ -76,7 +72,6 @@ GEM
       jekyll
     jekyll-watch (2.2.1)
       listen (~> 3.0)
-    json (2.3.0)
     kramdown (1.17.0)
     liquid (4.0.3)
     listen (3.2.1)
@@ -90,6 +85,7 @@ GEM
     naught (1.1.0)
     org-ruby (0.9.12)
       rubypants (~> 0.2)
+    pandoc-ruby (2.0.2)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     pry (0.12.2)
@@ -108,7 +104,7 @@ GEM
       rspec-mocks (~> 3.9.0)
     rspec-core (3.9.1)
       rspec-support (~> 3.9.1)
-    rspec-expectations (3.9.0)
+    rspec-expectations (3.9.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
     rspec-mocks (3.9.1)
@@ -149,10 +145,10 @@ DEPENDENCIES
   jekyll (~> 3.8.5)
   jekyll-analytics
   jekyll-feed (~> 0.6)
-  jekyll-org
   jekyll-recker!
   jekyll-tidy
   org-ruby
+  pandoc-ruby
   pry
   rake
   rspec

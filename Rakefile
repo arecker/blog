@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rspec/core/rake_task'
+require 'pandoc-ruby'
 require_relative './lib/blog'
 
 RSpec::Core::RakeTask.new(:spec)
@@ -15,16 +16,28 @@ class JournalConverter
 
   def convert
     @journal.all_entries.each do |e|
-      target = "_posts/#{e.date_slug}-#{e.date_slug}.html.org"
+      target = "_posts/#{e.date_slug}-#{e.date_slug}.html.md"
       content = <<~CONTENT
-        #+TITLE: #{e.excerpt}
+        ---
+        title: #{e.excerpt}
+        ---
 
-        #{e.body_text.gsub("\n ", "\n").strip}
+        #{body(e)}
       CONTENT
       open(target, 'w') do |f|
         f.puts content
       end
     end
+  end
+
+  def body(entry)
+    content = entry.body_text.gsub("\n ", "\n").strip
+    pandoc = PandocRuby.new(
+      content,
+      :reference_links,
+      from: :org, to: 'markdown-smart'
+    )
+    pandoc.convert
   end
 end
 
