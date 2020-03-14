@@ -12,7 +12,7 @@ Add =jekyll-recker= to the =jekyll_plugins= group of your =Gemfile=.
 
 #+BEGIN_SRC ruby
   group :jekyll_plugins do
-    gem 'jekyll-recker', :git => 'https://github.com/arecker/jekyll-recker.git'
+    gem 'jekyll-recker'
   end
 #+END_SRC
 
