@@ -1,5 +1,6 @@
 baseurl: ''
-title: Alex Recker's Journal
+title: Journal
+description: daily, public journal by Alex Recker
 author: Alex Recker
 email: alex@reckerfamily.com
 twitter_username: alex_recker
@@ -13,6 +14,8 @@ markdown: kramdown
 plugins:
   - jekyll-analytics
   - jekyll-feed
+  - jekyll-org
+  - jekyll-recker
 
 jekyll_analytics:
   GoogleAnalytics:
@@ -20,14 +23,18 @@ jekyll_analytics:
 
 exclude:
   - .travis.yml
+  - CNAME
   - Gemfile
   - Gemfile.lock
-  - README.org
+  - LICENSE
   - Rakefile
   - bin
+  - jekyll-recker.gemspec
+  - journal.org
   - lib
   - spec
   - vendor
+  - words.txt
 
 recker:
   twitter:

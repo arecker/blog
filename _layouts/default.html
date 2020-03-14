@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha256-9mbkOfVho3ZPXfM7W8sV2SndrGDuh7wuyLjtsWeTI1Q=" crossorigin="anonymous" />
+    <link href="/assets/jekyll-recker.css" rel="stylesheet"/>
+    <title>
+      {{ site.title }} | {% if page.title != nil %}{{ page.title }}{% else %}{{ site.description }}{% endif %}
+    </title>    
+  </head>
+  <body>
+    <div class="ui container">
+      {{ content }}
+    </div>
+    <div class="ui vertical footer segment">
+      <div class="ui center aligned container">
+	<div class="ui horizontal large divided link list">
+	  <div class="ui buttons">
+	    <a class="ui circular rss basic button" href="/feed.xml"><i class="rss icon"></i></a>
+	    <a class="ui circular email basic button" href="mailto:{{ site.email }}"><i class="envelope icon"></i></a>
+	    <a class="ui circular twitter basic button" href="https://www.twitter.com/{{ site.twitter_username }}"><i class="twitter icon"></i></a>
+	    <a class="ui circular github basic button" href="https://www.github.com/{{ site.github_username }}"><i class="github icon"></i></a>
+	  </div>
+	</div>
+      </div>
+      <div class="ui center aligned container">
+	<div class="ui centered mini">
+	  <p>
+	    powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">jekyll</a> &
+	    <a title="Alex Recker's custom jekyll plugin" href="{{ site.baseurl }}{% link README.org %}">jekyll-recker</a>
+	  </p>
+	</div>
+      </div>
+    </div>
+  </body>
+</html>

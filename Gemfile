@@ -14,8 +14,9 @@ gem 'slack-notifier'
 group :jekyll_plugins do
   gem 'jekyll-analytics'
   gem 'jekyll-feed', '~> 0.6'
-  gem 'jekyll-recker', git: 'https://github.com/arecker/jekyll-recker.git'
+  gem 'jekyll-org'
   gem 'jekyll-tidy'
+  gemspec
 end
 
 group :dev do

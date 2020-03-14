@@ -1,0 +1,12 @@
+---
+layout: default
+---
+<div class="ui container">
+  {% capture datestring %}{{ page.date | date: '%A, %B %d %Y' }}{% endcapture %}
+  {%- include nav.html slug=page.slug title=datestring subtitle=page.title %}
+  <div class="ui container">
+    {{ content }}
+    {%- include pager.html %}
+  </div>
+</div>
+
