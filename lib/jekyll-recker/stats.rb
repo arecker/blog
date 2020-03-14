@@ -9,6 +9,7 @@ module Jekyll
         stats = {}
         BaseCruncher.descendants.each do |cruncher_class|
           cruncher = cruncher_class.new(site)
+          Recker.info "crunching stats.#{cruncher.stats_key}"
           stats[cruncher.stats_key] = cruncher.crunch
         end
         stats

@@ -56,7 +56,6 @@ module Jekyll
       end
 
       def shell(cmd)
-        Jekyll.logger.info "running command: #{cmd}"
         `#{cmd}`.strip
       end
 

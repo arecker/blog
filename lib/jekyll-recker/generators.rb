@@ -6,6 +6,7 @@ module Jekyll
       # StatsGenerator
       class StatsGenerator < Jekyll::Generator
         def generate(site)
+          Recker.info 'generating site statistics'
           site.data['stats'] = Stats.crunch(site)
         end
       end

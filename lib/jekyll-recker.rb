@@ -6,6 +6,7 @@ module Jekyll
     require 'jekyll-recker/commands.rb'
     require 'jekyll-recker/configuration.rb'
     require 'jekyll-recker/generators.rb'
+    require 'jekyll-recker/log.rb'
     require 'jekyll-recker/stats.rb'
     require 'jekyll-recker/tags.rb'
     require 'jekyll-recker/twitter.rb'
