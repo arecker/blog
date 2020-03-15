@@ -1,12 +1,21 @@
 ---
 layout: default
 ---
-<div class="ui container">
-  {% capture datestring %}{{ page.date | date: '%A, %B %d %Y' }}{% endcapture %}
-  {%- include nav.html slug=page.slug title=datestring subtitle=page.title %}
-  <div class="ui container">
-    {{ content }}
-    {%- include pager.html %}
-  </div>
-</div>
-
+{% capture datestring %}{{ page.date | date: '%A, %B %d %Y' }}{% endcapture %}
+{% include header.html title=datestring subtitle=page.title %}
+<hr/>
+{% include nav.html %}
+<hr/>
+{{ content }}
+<nav class="clearfix">
+  {%- if page.next -%}
+  <a href="{{ page.next.url }}">
+    ⟵ {{ page.next.slug }}
+  </a>
+  {%- endif -%}
+  {%- if page.previous -%}
+  <a class="float-right" href="{{ page.previous.url }}">
+      {{ page.previous.slug }} ⟶
+  </a>
+</nav>
+{%- endif -%}

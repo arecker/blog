@@ -6,7 +6,7 @@
 
 This is the jekyll plugin for my personal website.
 
-* Installation
+** Installation
 
 Add =jekyll-recker= to the =jekyll_plugins= group of your =Gemfile=.
 
@@ -37,11 +37,11 @@ bundle install
 bundle exec jekyll serve
 #+END_SRC
 
-* Usage
+** Usage
 
-** Commands
+*** Commands
 
-*** =slack=
+**** =slack=
 
 The =slack= command posts a slack message advertising the latest
 published jekyll blog post using a private incoming webhook.
@@ -117,7 +117,7 @@ https://www.alexrecker.com/2020-03-15.html
 END MESSAGE 
 #+END_EXAMPLE
 
-*** =tweet=
+**** =tweet=
 
 The =tweet= command tweets a link to the latest published jekyll blog
 post.
@@ -164,18 +164,12 @@ https://www.alexrecker.com/2020-03-15.html
 END TWEET 
 #+END_EXAMPLE
 
-** Generators
+*** Generators
 
-*** =stats=
+**** =stats=
 
 On build time, =jekyll-recker= calculates and stores the following
-stats in the =site.data.stats= object, which are by default rendered in a
-widget on the home page layout.
-
-[[assets/images/example-stats.png]]
-
-If you'd like, you can override the template with your own stats
-widget by providing your own =_includes/stats.html=.
+stats in the =site.data.stats= object
 
 | Field Name      | Field Description                                    |
 |-----------------+------------------------------------------------------|
@@ -186,11 +180,9 @@ widget by providing your own =_includes/stats.html=.
 | =days.start=    | First day of current streak.                         |
 | =days.end=      | Last day of current streak.                          |
 
-Example:
+Use these variables to render your own page of neat writing statistics!
 
 #+BEGIN_SRC html
-    <!-- _includes/stats.html -->
-
     <table>
       <tr>
         <th>Total Posts</th>

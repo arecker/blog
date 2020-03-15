@@ -18,8 +18,7 @@ Gem::Specification.new do |spec|
     'README.org',
     Dir['_includes/**/*.html'],
     Dir['_layouts/**/*.html'],
-    Dir['_sass/**/*.sass'],
-    Dir['assets/**/*.*'],
+    Dir['assets/jekyll-recker.scss'],
     Dir['lib/**/*.rb'],
   ].flatten
 

@@ -1,21 +1,9 @@
 ---
 layout: default
 ---
-<div class="ui container">
-  {%- include nav.html slug="index.html" title=site.title subtitle=site.description %}
-  <div class="ui text container center aligned">
-    {{ content }}
-  </div>
-  <br/>
-  <div class="ui container center aligned segment">
-    {% include stats.html %}  
-  </div>
-  <br/>
-  <div class="ui container">
-    <img class="ui fluid image" src="{{ site.baseurl }}assets/images/words.png">
-  </div>
-  <br/>
-  <div class="ui container">
-    {% include archive.html %}
-  </div>
-</div>
+{% include header.html title=site.title subtitle=site.description %}
+<hr/>
+{% include nav.html %}
+<hr/>
+{{ content }}
+

@@ -1,3 +1,100 @@
 ---
 ---
-@import "{{ site.theme }}"
+// @import 'https://fonts.googleapis.com/css?family=Titillium+Web&display=swap';
+@import 'https://fonts.googleapis.com/css?family=Open+Sans&display=swap';
+@import 'https://fonts.googleapis.com/css?family=Inconsolata&display=swap';
+
+.float-right {
+    float: right;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+ul.unstyled {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 40px auto;
+    max-width: 800px;
+    line-height: 1.6;
+    font-size: 18px;
+    color: #444;
+    padding: 0 10px;
+}
+
+h1, h2, h3 {
+    line-height: 1.2;
+}
+
+header {
+    h1 {
+	margin-bottom: 9px;
+    }
+    
+    p {
+	margin-top: 9px;
+    }
+}
+
+figure {
+    img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	vertical-align: top;
+	height: auto;
+	max-width: 100%;
+    }
+
+    figcaption {
+	text-align: center;
+    }
+}
+
+nav {
+    a {
+	margin-right: 10px;
+    }
+
+    a.active {
+	color: black !important;
+    }
+
+    span {
+	color: #6f7370;
+    }
+}
+
+a {
+    text-decoration: none !important;
+    color: #008083 !important;
+
+    :hover {
+	text-decoration: underline !important;
+    }
+
+    :active {
+	color: #6f7370 !important;
+    }
+}
+
+* {
+    // font-family: 'Titillium Web', sans-serif !important;
+    font-family: 'Open Sans', 'sans-serif' !important;
+}
+
+code, pre, pre span {
+    font-family: Inconsolata, monospace !important;
+}
+
+pre, pre span {
+    font-size: 14px;
+}
+

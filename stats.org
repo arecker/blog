@@ -1,0 +1,20 @@
+#+TITLE: stats
+#+LAYOUT: page
+#+DESCRIPTION: some interesting writing statistics
+#+PERMALINK: stats.html
+#+LIQUID: enabled
+#+SLUG: stats.html
+#+ACTIVE: stats
+
+#+BEGIN_SRC yaml
+words:
+  total: {{ site.data.stats.words.total }} # total number of words
+  average: {{ site.data.stats.words.average }} # average words per entry
+
+entries:
+  total: {{ site.data.stats.posts }} # total number of entries
+  consecutive:
+    days: {{ site.data.stats.days.days }} # number of consecutive, daily entries
+    start: {{ site.data.stats.days.start }} # first day of streak
+    end: {{ site.data.stats.days.end }} # last day of streak
+#+END_SRC

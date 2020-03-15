@@ -1,0 +1,17 @@
+---
+layout: page
+title: archive
+description: archive of journal entries
+slug: archive.html
+permalink: archive.html
+active: archive
+---
+<figure>
+  <img alt="words" src="{{ site.baseurl }}/assets/images/words.png" />
+</figure>
+<ul class="unstyled">
+  {%- for post in site.posts %}
+  {%- capture datestring %}{{ post.date | date: '%Y-%m-%d' }}{% endcapture %}
+  <li>{{ datestring }} - <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {%- endfor %}
+</ul>

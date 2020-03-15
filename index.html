@@ -1,15 +1,48 @@
 ---
 slug: index.html
 layout: home
+active: index
 ---
-<img src="{{ site.baseurl }}assets/images/me.jpg" class="ui centered circular small image">
-<h2 class="ui header ui center aligned">
-  I'm Alex Recker
-</h2>
-<p class="ui justified">
-  And welcome to my online public journal.  I write <strong>1000 words</strong> every
-  morning on topics ranging from computers, cooking, kids, dogs,
-  living in Madison, and anything else I come across in my daily
-  life.  Pleace reach out if you have any questions about my life,
-  or if you just want to chat.  Thanks for visiting.
+
+<figure>
+  <img src="{{ site.baseurl }}assets/images/me.jpg" alt="I'm Alex Recker">
+  <figcaption>
+    <h2>I'm Alex Recker</h2>
+  </figcaption>
+</figure>
+
+<p>
+  Welcome to my online public journal.  I write <strong>1000</strong> every
+  morning with topics ranging from computers, cooking, raising kids,
+  living in Madison, being Dutch, and everything else I come across in
+  my daily life.
 </p>
+
+<p>
+  I love chatting with people, especially over email.  Check out the
+  <a href="{% link contact.html %}">contact</a> page for my email as
+  well as some other ways to keep tabs on me.
+</p>
+
+<p>
+  Do statistics get you going?  I track my word count and consecutive
+  daily entries over on the <a href="{% link stats.org %}">stats</a>
+  page.
+</p>
+
+<p>
+  Like to read code?  Check out my jekyll plugin <a href="{% link README.org %}">jekyll-recker</a> -
+  home to my slack & twitter integrations, custom generators, and all
+  my other custom crap.
+</p>
+
+<p>
+  Thanks for stopping by, and I hope to see you tomorrow morning!
+</p>
+
+<h2>Recent Posts</h2>
+<ul class="unstyled">
+  {%- for post in site.posts limit:10 %}
+  <li>{{ post.date | date: '%Y-%m-%d' }} - <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {%- endfor %}
+</ul>
