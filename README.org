@@ -41,6 +41,82 @@ bundle exec jekyll serve
 
 ** Commands
 
+*** =slack=
+
+The =slack= command posts a slack message advertising the latest
+published jekyll blog post using a private incoming webhook.
+
+Configure _config.yml
+
+#+BEGIN_SRC yaml
+  # _config.yml
+  recker:
+    slack:
+      MyTeam:
+        channel: '#blogs'   # required!
+        username: 'blogbot' # required!
+        emoji: ':robot:'    # required!
+#+END_SRC
+
+Multiple teams are supported too!
+
+#+BEGIN_SRC yaml
+  # _config.yml
+  recker:
+    slack:
+      MyTeamA:
+        channel: '#blogs'   # required!
+        username: 'blogbot' # required!
+        emoji: ':robot:'    # required!
+      MyTeamB:
+        channel: '#blogs'   # required!
+        username: 'blogbot' # required!
+        emoji: ':robot:'    # required!
+      MyTeamC:
+        channel: '#blogs'   # required!
+        username: 'blogbot' # required!
+        emoji: ':robot:'    # required!
+#+END_SRC
+
+
+Supply the private webhook through an environment variable.
+
+#+BEGIN_SRC sh
+  export SLACK_MYTEAM_WEBHOOK="https://..."  # SLACK_ + <MyTeam.upcase> + _WEBHOOK
+#+END_SRC
+
+Alternatively, add the command with which to retrieve the webhook in
+_config.yml
+
+#+BEGIN_SRC yaml
+  # _config.yml
+  recker:
+    slack:
+      MyTeam:
+        webhook_cmd: cat secrets/my-teams-secret-webhook.txt
+#+END_SRC
+
+Run =bundle exec jekyll slack= to let it rip!
+
+[[assets/images/example-slack.png]]
+
+Using the =--dry= flag, you can preview the message post without
+actually posting anything.
+
+#+BEGIN_EXAMPLE
+arecker@25732-arecker:~/src/blog$ be jekyll slack --dry
+Configuration file: /Users/arecker/src/blog/_config.yml
+jekyll-recker: reckerfamily: discovering webhook 
+Configuration file: /Users/arecker/src/blog/_config.yml
+jekyll-recker: reckerfamily: posting drag racing, windshield wipers, and alex's painting tips 
+jekyll-recker: postign in dry mode, printing message 
+jekyll-recker: BEGIN MESSAGE
+Sunday, March 15 2020
+drag racing, windshield wipers, and alex's painting tips
+https://www.alexrecker.com/2020-03-15.html
+END MESSAGE 
+#+END_EXAMPLE
+
 *** =tweet=
 
 The =tweet= command tweets a link to the latest published jekyll blog
@@ -70,6 +146,23 @@ recker:
 Run =bundle exec jekyll tweet= to let it rip!
 
 [[assets/images/example-tweet.png]]
+
+Using the =--dry= flag, you can test your configuration without
+actually tweeting anything.
+
+#+BEGIN_EXAMPLE
+arecker@25732-arecker:~/src/blog$ be jekyll tweet --dry
+jekyll-recker: discovering credentials 
+Configuration file: /Users/arecker/src/blog/_config.yml
+Configuration file: /Users/arecker/src/blog/_config.yml
+jekyll-recker: tweeting drag racing, windshield wipers, and alex's painting tips 
+jekyll-recker: tweeting in dry mode, printing message 
+jekyll-recker: BEGIN TWEET
+Sunday, March 15 2020
+drag racing, windshield wipers, and alex's painting tips
+https://www.alexrecker.com/2020-03-15.html
+END TWEET 
+#+END_EXAMPLE
 
 ** Generators
 

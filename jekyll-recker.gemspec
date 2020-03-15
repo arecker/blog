@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
   ].flatten
 
   spec.add_runtime_dependency 'jekyll', '~> 3.8'
+  spec.add_runtime_dependency 'slack-notifier'
   spec.add_runtime_dependency 'twitter'
 
   spec.add_development_dependency 'bundler'

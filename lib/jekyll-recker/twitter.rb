@@ -1,28 +1,33 @@
 # frozen_string_literal: true
+
 require 'twitter'
 
 module Jekyll
   module Recker
     # Twitter Client
     class Twitter
-      class CannotFindCreds < StandardError
-        def initialize(msg = 'could not find twitter credentials')
-          super
-        end
+      def initialize(dry: false)
+        @dry = dry
       end
 
       def discover_credentials!
         @creds = extract_from_env || extract_from_config
-        raise CannotFindCreds if @creds.nil?
+        raise ReckerError, 'cannot find twitter credentials!' if @creds.nil?
+
         set_credentials!
       end
 
       def post_latest!
-        @client.update(tweet_body)
+        if @dry
+          Recker.info('tweeting in dry mode, printing message')
+          Recker.info("BEGIN TWEET\n#{tweet_body.strip}\nEND TWEET")
+        else
+          @client.update(tweet_body)
+        end
       end
 
       def latest
-        @latest ||= Configuration.site.posts.docs.last
+        Configuration.latest_post
       end
 
       private
@@ -47,12 +52,20 @@ module Jekyll
 
       def extract_from_env
         values = cred_fieldnames.map { |k| ENV[k.upcase] }
-        Hash[cred_fieldnames.zip(values)] unless values.any? { |v| v.nil? || v.empty? }
+
+        return nil if values.any? { |v| v.nil? || v.empty? }
+
+        Hash[cred_fieldnames.zip(values)]
       end
 
       def extract_from_config
-        values = cred_fieldnames.map { |k| shell(Configuration.twitter["#{k}_cmd"]) }
-        Hash[cred_fieldnames.zip(values)] unless values.any? { |v| v.nil? || v.empty? }
+        values = cred_fieldnames.map do |k|
+          Recker.shell(Configuration.twitter["#{k}_cmd"])
+        end
+
+        return nil if values.any? { |v| v.nil? || v.empty? }
+
+        Hash[cred_fieldnames.zip(values)]
       end
 
       def shell(cmd)
@@ -60,11 +73,11 @@ module Jekyll
       end
 
       def cred_fieldnames
-        [
-          'access_token_secret',
-          'access_token',
-          'consumer_api_key',
-          'consumer_api_secret'
+        %w[
+          access_token_secret
+          access_token
+          consumer_api_key
+          consumer_api_secret
         ]
       end
     end

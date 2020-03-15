@@ -1,7 +1,12 @@
 # frozen_string_literal: true
 
 module Jekyll
+  # Recker
   module Recker
+    def self.debug(msg)
+      Jekyll.logger.debug("jekyll-recker: #{msg}")
+    end
+
     def self.info(msg)
       Jekyll.logger.info("jekyll-recker: #{msg}")
     end

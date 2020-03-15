@@ -24,6 +24,10 @@ module Jekyll
         @site.read
         @site
       end
+
+      def self.latest_post
+        @latest_post ||= site.posts.docs.last
+      end
     end
   end
 end
