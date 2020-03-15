@@ -30,7 +30,7 @@ module Jekyll
       def tweet_body
         url = File.join Configuration.jekyll['url'], latest.url
         <<~TWEET
-          #{latest.data['excerpt']}
+          #{latest.data['date'].strftime('%A, %B %-d %Y')}
           #{latest.data['title']}
           #{url}
         TWEET
