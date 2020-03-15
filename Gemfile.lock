@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jekyll-recker (0.3.0)
+    jekyll-recker (0.4.0)
       jekyll (~> 3.8)
       slack-notifier
       twitter
