@@ -60,16 +60,12 @@ module Jekyll
 
       def extract_from_config
         values = cred_fieldnames.map do |k|
-          Recker.shell(Configuration.twitter["#{k}_cmd"])
+          Recker.shell(Configuration.twitter["#{k}_cmd"]).strip
         end
 
         return nil if values.any? { |v| v.nil? || v.empty? }
 
         Hash[cred_fieldnames.zip(values)]
-      end
-
-      def shell(cmd)
-        `#{cmd}`.strip
       end
 
       def cred_fieldnames
