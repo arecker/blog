@@ -3,5 +3,5 @@
   <a href="{% link archive.html %}" class="{% if page.active == 'archive' %}active{% endif %}">archive</a>
   <a href="{% link stats.org %}" class="{% if page.active == 'stats' %}active{% endif %}">stats</a>
   <a href="{% link contact.html %}" class="{% if page.active == 'contact' %}active{% endif %}">contact</a>
-  <span class="float-right">{{ page.slug }}</span>
+  <span class="float-right hide-on-mobile">{{ page.slug }}</span>
 </nav> 
