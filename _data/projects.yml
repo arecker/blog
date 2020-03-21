@@ -1,0 +1,14 @@
+- name: Recker Family Cookbook
+  description: A open source, plain text cookbook built with readthedocs.
+  link: https://github.com/arecker/cookbook/
+  image: cookbook.png
+
+- name: Hashtag Party
+  description: Useful tool for corralling Instagram hashtags into your clipboard
+  link: https://demo.alexrecker.com/hashtag-party/
+  image: hashtag.png
+
+- name: Bob Ross Search
+  description: A homepage with a google search and wisdom from Bob Ross
+  link: https://github.com/arecker/bobrosssearch.com
+  image: bob.png

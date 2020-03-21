@@ -1,0 +1,14 @@
+---
+layout: page
+title: projects
+description: things I've made
+permalink: projects.html
+slug: projects.html
+active: projects
+---
+{%- for project in site.data.projects -%}
+<h2><a href="{{ project.link }}">{{ project.name }}</a></h2>
+<p>{{ project.description }}</p>
+<img src="{{ site.baseurl }}assets/images/{{ project.image }}" alt="{{ project.name }}">
+{%- endfor -%}
+
