@@ -8,6 +8,14 @@
   link: https://demo.alexrecker.com/hashtag-party/
   image: hashtag.png
 
+- name: Emacs
+  description: |
+    OK, maybe I'm stretching the definition of "project", but I've
+    been using emacs for a really long time, and I maintain a very
+    well-documented configuration file.
+  link: https://github.com/arecker/emacs.d/
+  image: emacs.png
+
 - name: Bob Ross Search
   description: A homepage with a google search and wisdom from Bob Ross
   link: https://github.com/arecker/bobrosssearch.com
