@@ -24,7 +24,7 @@ module Jekyll
           end
         end
       end
-      
+
       # Slack
       class Slack < Jekyll::Command
         class << self
