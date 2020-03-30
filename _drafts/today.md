@@ -2,6 +2,14 @@
 title: notes for today
 ---
 
+Ran to the paint store for Marissa.  It's kind of a weird system now -
+you call the store, then the guy leaves your paint order on the
+sidewalk outside the store, but you're not allowed in.  Took Rodney
+with, he sat in the back seat in his pajamas, just happy to be
+somewhere other than at home.  Asked, "Rodney stay in car?" when we
+were parked in the driveway.  "We'll go for a drive somewhere dude I
+promise."
+
 A little peeved with Madison.  There is a growing, swirling ocean of
 garbage growing in my shed.  I dread taking our garbage out, because
 it means I have to tend to it and prune it.
