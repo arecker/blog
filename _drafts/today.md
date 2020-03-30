@@ -18,5 +18,5 @@ is the superior beer, always.  It's practically the La Croix of beers.
 And Rodney was glad that I was back to Amstel as well.  I remember the
 first time he saw the PBR cans in the fridge, he was immediately
 bummed he couldn't practice opening it for me.  Today, he opened the
-fridge and brought a Diet Coke to Marissa and a biertje for me.  I
-think if he brings me a beer every day, we're cool, no matter what.
+fridge and brought a Diet Coke to Marissa and a biertje for me.  And
+he felt like something was restored in the grand order of things.
