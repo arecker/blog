@@ -4,7 +4,8 @@
 #+STARTUP: showall
 #+DESCRIPTION: my website's custom jekyll plugin
 
-This is the jekyll plugin for my personal website.
+This is the jekyll plugin for my personal website.  Source code
+available on [[https://github.com/arecker/blog][github]].
 
 ** Installation
 
