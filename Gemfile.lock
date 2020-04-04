@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jekyll-recker (1.2.0)
+    jekyll-recker (1.2.1)
       jekyll (~> 3.8)
       slack-notifier
       twitter
@@ -31,7 +31,7 @@ GEM
     forwardable-extended (2.6.0)
     htmlbeautifier (1.3.1)
     htmlcompressor (0.4.0)
-    http (4.3.0)
+    http (4.4.1)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
       http-form_data (~> 2.2)
@@ -133,7 +133,7 @@ GEM
       simple_oauth (~> 0.3.0)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.6)
+    unf_ext (0.0.7.7)
 
 PLATFORMS
   ruby
