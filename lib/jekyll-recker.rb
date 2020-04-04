@@ -5,11 +5,13 @@ require 'jekyll'
 module Jekyll
   # Recker
   module Recker
+    require 'jekyll-recker/logger.rb'
+    require 'jekyll-recker/mixins.rb'
+
     require 'jekyll-recker/commands.rb'
     require 'jekyll-recker/configuration.rb'
     require 'jekyll-recker/error.rb'
     require 'jekyll-recker/generators.rb'
-    require 'jekyll-recker/log.rb'
     require 'jekyll-recker/shell.rb'
     require 'jekyll-recker/slack.rb'
     require 'jekyll-recker/stats.rb'

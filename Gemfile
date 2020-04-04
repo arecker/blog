@@ -15,4 +15,5 @@ end
 
 group :dev do
   gem 'pry'
+  gem 'rspec'
 end

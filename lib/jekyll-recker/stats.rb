@@ -6,11 +6,13 @@ module Jekyll
   module Recker
     # Stats
     module Stats
+      include Jekyll::Recker::LoggingMixin
+
       def self.crunch(site)
         stats = {}
         BaseCruncher.descendants.each do |cruncher_class|
           cruncher = cruncher_class.new(site)
-          Recker.info "crunching stats.#{cruncher.stats_key}"
+          logger.info "crunching stats.#{cruncher.stats_key}"
           stats[cruncher.stats_key] = cruncher.crunch
         end
         stats
@@ -19,10 +21,7 @@ module Jekyll
       # Base Cruncher
       class BaseCruncher
         include Jekyll::Filters
-
-        def self.descendants
-          ObjectSpace.each_object(Class).select { |klass| klass < self }
-        end
+        include DescendantsMixin
 
         def initialize(site)
           @site = site

@@ -6,6 +6,8 @@ module Jekyll
   module Recker
     # Twitter Client
     class Twitter
+      include LoggingMixin
+
       def initialize(dry: false)
         @dry = dry
       end
@@ -19,8 +21,8 @@ module Jekyll
 
       def post_latest!
         if @dry
-          Recker.info('tweeting in dry mode, printing message')
-          Recker.info("BEGIN TWEET\n#{tweet_body.strip}\nEND TWEET")
+          logger.info('tweeting in dry mode, printing message')
+          logger.info("BEGIN TWEET\n#{tweet_body.strip}\nEND TWEET")
         else
           @client.update(tweet_body)
         end

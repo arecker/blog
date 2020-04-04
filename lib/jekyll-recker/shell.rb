@@ -9,7 +9,6 @@ module Jekyll
     class ShellCommandFailed < ReckerError; end
 
     def self.shell(cmd)
-      Recker.debug("running shell command \`#{cmd}\`")
       out, err, status = Open3.capture3(cmd)
       return out if status.success?
 

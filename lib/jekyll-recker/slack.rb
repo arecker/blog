@@ -7,6 +7,8 @@ module Jekyll
   module Recker
     # Slack
     class Slack
+      include Jekyll::Recker::LoggingMixin
+
       def self.each_in_config(dry: false)
         Configuration.slack.map do |key, body|
           yield new(key, body, dry: dry)
@@ -33,8 +35,8 @@ module Jekyll
 
       def post_latest!
         if @dry
-          Recker.info('postign in dry mode, printing message')
-          Recker.info("BEGIN MESSAGE\n#{message_body.strip}\nEND MESSAGE")
+          logger.info('postign in dry mode, printing message')
+          logger.info("BEGIN MESSAGE\n#{message_body.strip}\nEND MESSAGE")
         else
           ::Slack::Notifier.new(
             @webhook.strip,

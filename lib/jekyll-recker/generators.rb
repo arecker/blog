@@ -5,8 +5,10 @@ module Jekyll
     module Generators
       # StatsGenerator
       class StatsGenerator < Jekyll::Generator
+        include Jekyll::Recker::LoggingMixin
+
         def generate(site)
-          Recker.info 'generating site statistics'
+          logger.info 'generating site statistics'
           site.data['stats'] = Stats.crunch(site)
         end
       end
