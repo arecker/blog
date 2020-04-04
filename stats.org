@@ -1,6 +1,6 @@
-#+TITLE: stats
+#+TITLE: Stats
 #+LAYOUT: page
-#+DESCRIPTION: some interesting writing statistics
+#+DESCRIPTION: Some interesting writing statistics
 #+PERMALINK: stats.html
 #+LIQUID: enabled
 #+SLUG: stats.html

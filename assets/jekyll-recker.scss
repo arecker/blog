@@ -1,6 +1,5 @@
 ---
 ---
-// @import 'https://fonts.googleapis.com/css?family=Titillium+Web&display=swap';
 @import 'https://fonts.googleapis.com/css?family=Open+Sans&display=swap';
 @import 'https://fonts.googleapis.com/css?family=Inconsolata&display=swap';
 
@@ -44,10 +43,12 @@ h1, h2, h3 {
 }
 
 header {
+    text-transform: lowercase;
+
     h1 {
 	margin-bottom: 9px;
     }
-    
+
     p {
 	margin-top: 9px;
     }
