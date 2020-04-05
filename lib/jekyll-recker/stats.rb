@@ -94,7 +94,7 @@ module Jekyll
           entry_dates.slice_when do |prev, curr|
             curr != prev - 1
           end.each do |dates|
-            first, last = dates.min, dates.max
+            first, last = dates.minmax
             _streaks << [(last - first).to_i, [first, last]]
           end
           _streaks

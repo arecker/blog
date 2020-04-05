@@ -1,0 +1,5 @@
+--no-private
+--asset screenshots:screenshots
+-
+README.md
+lib/**/*.rb

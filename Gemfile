@@ -2,18 +2,20 @@
 
 source 'https://rubygems.org'
 
-gem 'bump'
 gem 'jekyll', '~> 3.8.5'
 
 group :jekyll_plugins do
   gem 'jekyll-analytics'
   gem 'jekyll-feed', '~> 0.6'
-  gem 'jekyll-org'
   gem 'jekyll-tidy'
+  gem 'yard'
   gemspec
 end
 
 group :dev do
+  gem 'bump'
   gem 'pry'
+  gem 'rake'
   gem 'rspec'
+  gem 'rubocop'
 end

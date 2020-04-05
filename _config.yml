@@ -10,11 +10,11 @@ theme: jekyll-recker
 permalink: /:year-:month-:day:output_ext
 
 markdown: kramdown
+highlighter: rouge
 
 plugins:
   - jekyll-analytics
   - jekyll-feed
-  - jekyll-org
   - jekyll-recker
 
 jekyll_analytics:
@@ -23,6 +23,9 @@ jekyll_analytics:
 
 exclude:
   - .travis.yml
+  - .yardoc
+  - .yardoc
+  - .yardopts
   - CNAME
   - Gemfile
   - Gemfile.lock
