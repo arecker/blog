@@ -5,6 +5,7 @@ module Jekyll
     module Commands
       # Slack
       class Slack < Jekyll::Command
+        include LoggingMixin
         class << self
           def init_with_program(prog)
             prog.command(:slack) do |c|
@@ -13,13 +14,13 @@ module Jekyll
               c.option 'dry', '-d', '--dry', 'print message instead of posting'
               c.action do |_args, options|
                 Recker::Slack.each_in_config(dry: options['dry']) do |client|
-                  Recker.info "#{client.key}: discovering webhook"
+                  logger.info "#{client.key}: discovering webhook"
                   client.discover_webhook!
-                  Recker.info "#{client.key}: posting #{client.latest.data['title']}"
+                  logger.info "#{client.key}: posting #{client.latest.data['title']}"
                   client.post_latest!
                 end
               rescue ReckerError => e
-                Recker.abort_with e.message
+                logger.abort_with e.message
               end
             end
           end

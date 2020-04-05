@@ -8,5 +8,3 @@ require 'rubocop/rake_task'
 RSpec::Core::RakeTask.new(:spec)
 
 RuboCop::RakeTask.new
-
-task build: %i[rubocop spec]
