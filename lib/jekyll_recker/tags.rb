@@ -3,7 +3,9 @@
 module Jekyll
   module Recker
     module Tags
-      # Version
+      # Returns the VERSION of the running jekyll-recker gem.
+      #
+      # {{ recker_version }}
       class Version < Liquid::Tag
         def render(_context)
           VERSION
