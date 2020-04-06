@@ -6,7 +6,7 @@ module Jekyll
   module Recker
     # Stats
     module Stats
-      include Jekyll::Recker::LoggingMixin
+      include Jekyll::Recker::Mixins::Logging
 
       def self.crunch(site)
         stats = {}
@@ -21,7 +21,7 @@ module Jekyll
       # Base Cruncher
       class BaseCruncher
         include Jekyll::Filters
-        include DescendantsMixin
+        include Mixins::Descendants
 
         def initialize(site)
           @site = site
@@ -42,32 +42,6 @@ module Jekyll
 
         def entries
           @site.posts.docs.select(&:published?)
-        end
-      end
-
-      # PostCountCruncher
-      class PostCountCruncher < BaseCruncher
-        def stats_key
-          'posts'
-        end
-
-        def crunch
-          entries.count.pretty
-        end
-      end
-
-      # WordCountCruncher
-      class WordCountCruncher < BaseCruncher
-        def stats_key
-          'words'
-        end
-
-        def crunch
-          total_counts = entries.collect(&:content).map { |c| number_of_words(c) }
-          {
-            'average' => average(total_counts).pretty,
-            'total' => total(total_counts).pretty
-          }
         end
       end
 

@@ -6,7 +6,7 @@ module Jekyll
   module Recker
     # Twitter Client
     class Twitter
-      include LoggingMixin
+      include Mixins::Logging
 
       def initialize(dry: false)
         @dry = dry

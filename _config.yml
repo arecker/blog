@@ -22,6 +22,7 @@ jekyll_analytics:
     id: UA-42540208-6
 
 exclude:
+  - .rubocop.yml
   - .travis.yml
   - .yardoc
   - .yardoc

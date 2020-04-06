@@ -7,7 +7,7 @@ module Jekyll
   module Recker
     # Slack
     class Slack
-      include Jekyll::Recker::LoggingMixin
+      include Jekyll::Recker::Mixins::Logging
 
       def self.each_in_config(dry: false)
         Configuration.slack.map do |key, body|
