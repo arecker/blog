@@ -3,8 +3,10 @@
 module Jekyll
   module Recker
     module Generators
-      # Base Stats Methods
-      module BaseStatsGenerator
+      # Stats Module
+      #
+      # Functions for stats generators.
+      module Stats
         include Mixins::Logging
         include Jekyll::Filters
 
@@ -23,11 +25,19 @@ module Jekyll
           raise NotImplementedError, '#crunch not implemented!'
         end
 
+        # Calculates the average of a list of numbers.
+        #
+        # @param [Array<Numeric>] numlist list of numbers to be averaged.
+        # @return [Numeric] rounded, calculated average of numlist.
         def average(numlist)
           calc = numlist.inject { |sum, el| sum + el }.to_f / numlist.size
           calc.round
         end
 
+        # Calculates the total of a list of numbers.
+        #
+        # @param [Array<Numeric>] numlist list of numbers to be totaled.
+        # @return [Numeric] calculated total of numlist.
         def total(numlist)
           numlist.inject(0) { |sum, x| sum + x }
         end
@@ -39,7 +49,7 @@ module Jekyll
 
       # Post Count Generator
       class PostCount < Jekyll::Generator
-        include BaseStatsGenerator
+        include Stats
 
         KEY = 'posts'
 
@@ -50,7 +60,7 @@ module Jekyll
 
       # Word Count Generator
       class Words < Jekyll::Generator
-        include BaseStatsGenerator
+        include Stats
 
         KEY = 'words'
 
@@ -65,7 +75,7 @@ module Jekyll
 
       # Streak Count Generator
       class Streaks < Jekyll::Generator
-        include BaseStatsGenerator
+        include Stats
 
         KEY = 'days'
 
