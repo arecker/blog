@@ -6,6 +6,7 @@ module Jekyll
       # Stats Module
       #
       # Functions for stats generators.
+      # @abstract
       module Stats
         include Mixins::Logging
         include Jekyll::Filters
