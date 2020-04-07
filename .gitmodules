@@ -1,0 +1,3 @@
+[submodule "jekyll-recker"]
+	path = jekyll-recker
+	url = git@github.com:arecker/jekyll-recker.git
