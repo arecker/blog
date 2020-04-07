@@ -22,24 +22,10 @@ jekyll_analytics:
     id: UA-42540208-6
 
 exclude:
-  - .rubocop.yml
-  - .travis.yml
-  - .yardoc
-  - .yardoc
-  - .yardopts
-  - CNAME
   - Gemfile
   - Gemfile.lock
   - LICENSE
-  - Rakefile
-  - bin
-  - jekyll-recker.gemspec
-  - journal.org
-  - lib
-  - pkg
-  - spec
-  - vendor
-  - words.txt
+  - README.md
 
 recker:
   twitter:
