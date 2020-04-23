@@ -2,13 +2,6 @@
 title: notes for today
 ---
 
-Marissa came back from the hospital with some good news.  "They're
-going to let us induce, and we can pick any day after May 4."  Made
-sense to us why the hospital would want to induce, but just relieved
-to hear them say it.  And kind of floored at how soon that's coming.
-"I suddenly realized I won't be working for very much longer.  That's
-only two whole weeks."
-
 Had a pending Target online order to pick up.  Marissa sat down at the
 computer.  "I'm going to see if I can add butter, we're running low."
 Clicked around their website.  "Nope.  No butter.  Just a lot of weird
@@ -21,27 +14,6 @@ website if nobody is buying it in the store.  That's gotta be why
 there's almost no choices."  Smiled, satisfied with my own theory.
 
 "Ohhhhh that makes sense.  Man Target sucks."
-
----
-
-Finally got to work on the chicken with Rodney.  It thawed overnight,
-and together at the cutting board we separated the thighs, breasts,
-and wings and threw the rest in the pot for stock.
-
-"See these?  These are the wings."  I held my arms outstretched to
-mimic the bird on the cutting board, and Rodney did likewise.
-
-Had a few bumps in the impromptu homeschool lesson.  Was showing
-Rodney the chicken's heart, and it rolled onto the floor where a
-hungry Ziggy was waiting to gobble it up, as if I had just dropped a
-regular piece of gristle.  "That was a raw chicken heart, you
-monster," I said.  She stared at me blankly, licking her lips.  "She's
-a wild animal dude, I can't believe she ate that."
-
-Rodney got off his ladder to help, touching a few surfaces with his
-gloved hand on the way down.  I mentally tagged each place so I could
-clean it with Windex after our activity.  Held him up by the armpits
-to the sink to wash up.
 
 ---
 
