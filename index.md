@@ -18,7 +18,7 @@ find my email on the [contact] page, as well as some other ways to
 creep on me.
 
 Do statistics get you going?  I track my word count and consecutive
-daily entries over on the [stats] page.  I'm particularly proud of
+daily entries over on the [archive] page.  I'm particularly proud of
 that one.
 
 Like to read code?  Check out my jekyll plugin [jekyll-recker].  It's
@@ -39,4 +39,4 @@ Thanks for stopping by, and I hope to see you tomorrow morning!
 [contact]: {% link contact.md %}
 [jekyll-recker]: https://github.com/arecker/jekyll-recker/
 [projects]: {% link projects.md %}
-[stats]: {% link stats.md %}
+[archive]: {% link archive.md %}

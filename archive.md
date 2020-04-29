@@ -1,11 +1,13 @@
 ---
-title: Stats
 layout: page
-description: Some interesting writing statistics
-permalink: stats.html
-slug: stats.html
-active: stats
+title: Archive
+description: Archive of journal entries
+slug: archive.html
+permalink: archive.html
+active: archive
 ---
+
+## Stats
 
 ```yaml
 words:
@@ -19,3 +21,12 @@ entries:
     start: {{ site.data.stats.days.start }} # first day of streak
     end: {{ site.data.stats.days.end }} # last day of streak
 ```
+
+## Posts
+
+<ul class="unstyled">
+  {%- for post in site.posts %}
+  {%- capture datestring %}{{ post.date | date: '%Y-%m-%d' }}{% endcapture %}
+  <li>{{ datestring }} - <a href="{{ post.url }}">{{ post.title }}</a></li>
+  {%- endfor %}
+</ul>
