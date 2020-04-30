@@ -72,6 +72,13 @@ enough to get you trashed twice, especially since you'll be kind of a
 light weight."  Immediately apologized.  Think that speaks to what
 she's going through.
 
+Nervous about this time, since I know how painful it was.  I'd almost
+rather go into it the first time again.
+
+"That hormone that's supposed to make you forget the pain of
+childbirth?  I don't think you got enough.  Or maybe it doesn't work
+on you."
+
 ---
 
 Decided to move ahead with our movie pick.  Currently in Spider-Man
