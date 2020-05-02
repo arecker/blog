@@ -26,7 +26,7 @@ me.  Other projects are featured on my [projects] page.
 
 Thanks for stopping by, and I hope to see you tomorrow morning!
 
-## Recent Posts
+## Recent Entries
 
 <ul class="unstyled">
   {%- for post in site.posts limit:10 %}
