@@ -2,68 +2,89 @@
 title: notes for today
 ---
 
-Found some time in the morning to work on a project.  Cleaning up our
-family photos.  Google photos is great for just backing everything up
-in a reliable place, but it can be a bit exhaustive, especially as
-Marissa's art photos get synced up there, and usually we take a four
-or five pictures of everything.  Set up an album of favorites that
-gets automatically synced to our computers as rotating wallpaper.  A
-fun project, because I think anything that helps us enjoy old photos
-is time well spent.  Sort of like my version of scrap booking.
+"My post was pretty gloomy today, don't expect to feel uplifted."
+
+Laughed.  "Well we had a bad day yesterday."
+
+"Which was weird, because Friday was the best day ever.  We had the
+best day ever, immediately followed by the worst day ever."
+
+Sunday was the average of the two.  Went to Hy-Vee to pick up
+supplies.  Getting chilly out, so decided to make soup.  Although this
+trip was mostly beer.  It's wonderful to get a drinking buddy back.
+It has been liberating to open the throttle up on the beer runs and
+get more variety.
+
+Also mixed in some more pickled items, grabbing some pickled asparagus
+and red peppers.  Still learning how to shop for shelf life, and I
+think for some stuff canned is not always the answer.  Have been
+dissapointed with canned vegetables, so giving pickling a try.
+
+After all, that's why pickling was invented, right?  So things could
+keep on the shelf.
 
 ---
 
-Oven is driving me up the wall.  Wouldn't light yesterday before
-dinner.  Thought I figured it out and it was because the washer was
-running.  Marissa even confirmed they're on the same circuit.  Stopped
-the washer and it still wouldn't light.  Questioning if it's even
-broken.  "Maybe it's always had a hard time warming up and we never
-noticed.  I usually just walk away and let it do it's thing.  Maybe
-it's not broken."
-
-Lost my temper over it.  Feeling ripped off.  Feeling like I just
-rolled over and let the repair guy take my money without doing
-anything.  Feeling like I don't understand enough of the problem.  And
-also of course, feel cheated that this happened in a time where
-cooking has to be planned in advanced.
+Made soup with a loaf of sourdough beer bread.  Melted cheese on top.
+"This tastes so good right now I could cry."  Finished up dinner
+before conducting a round of mother's day calls.
 
 ---
 
-Met on the porch for a beer.  "This one is going to be a really weepy
-one, just warning you," as we were getting Miles into a new onesie to
-meet outside.
+Responded to an interesting email that has been sitting in my inbox.
+A complete stranger stumbled upon an old blog post I wrote about
+Seinfeld outlining a theory around how all the characters change.  A
+thoughtful email, felt bad because I saw it in my inbox on the way to
+the delivery room and finally had time to sit down and do it justice.
 
-Stopped in the kitchen to slice of some bread, which turned out after
-all.  Munched on bread and drank beer on the back porch.
+Discussing how sitcom characters change, and what that can do for a
+show as special as Seinfeld.  Kind of neat thinking about this stuff
+again.
 
-"It was a rough one today.  Feel guilty about losing patience with the
-dogs.  Took them on a walk, but I was a little tough on them.  It was
-like I was in dog trainer mode the entire time."
+I think for sitcoms, it's a remarkable task to make it _bearable_
+after the twelfth or thirteen pass.  Submit the Office as evidence.
+But it's really something when a show can still make you think, and
+certain scenes and moments just nag at your brain until you can work
+them into your understanding of the show.
 
-"And you feel like you kind of wasted your own little slice of alone
-time?"
+Lately I've been thinking about moments in the Seinfeld history that
+criticize itself.  The most obvious is the story arch where Jerry and
+George pitch the show _Jerry_, which is obviously a meta story line
+for pitching Seinfeld.
 
-"Yeah."
+But then there's episodes like the bizarro world.  Elaine breaks up
+with her boyfriend, suggesting they be friends instead, and he
+surprisingly takes her up on it.  Elaine meets his friend group, and
+they have their own versions of Kramer, George, and Newman, and
+they're all kind to each other, they read books, they donate to
+charity.  I feel like that was a comment on the show, as if to say
+"look at how strange nice people appear in this universe we've made!"
 
-"I feel guilty that I kept Rodney inside all morning and we didn't do
-anything fun.  Thanks for playing outside with him."
+The finale is another example of this.  And the way they ended
+Seinfeld was very anti-sitcom.  Fans have come to expect that in a
+finale, a tribute is owed to them for sticking with the show for so
+long.  But the Seinfeld finale was self-critical.  "See these
+characters you've come to know, love, and identify with?  They're
+monstrous people - we tricked you."  I think that's why people hated
+the ending so much.  Maybe they should've just went out on the clip
+show instead.
 
-"How about we do high's and low's?"
+---
 
-"Good question."
+Snacks will be provided at this meeting.  A Belgian beer, some cut up
+gouda, and a Blueberry muffin waiting upstairs.  "Happy Mother's day"
 
-"My high was playing sports with Rodney in the backyard.  It was
-really fun to connect with him.  My low is probably how I'm feeling
-now.  I'm tired, and I'm still sore.  I'm angry at how hard this is on
-my body.  I feel like I spend all day just feeding him."
+"... or not!  I don't want to violate our pact of not doing things for
+each other."
 
-"I got some good me-time in today.  It was fun working on our
-automatic photo gallery, I made some good progress on it.  Also the
-bread is exciting.  The starter is working really well.  Low is
-probably the oven.  I'm disappointed that I lost my temper over it,
-and I feel like we're just stuck - it's not quite broken enough to fix
-or replace, but I don't have confidence in it."
+"I've liked the small little things.  I'll always accept those."
 
-Silently chewed bread for a minute.  "You were right.  We just need
-more data points.  I'll just have to try making a loaf of sourdough
-bread every night until we get a better sense of how often it breaks."
+"OK, so we're amending the pact?"
+
+"Yes - no planning required.  Just small things throughout the day.
+I'll accept this."
+
+Planned upcoming work around the house.  Set a goal for this week to
+put down grass seed in the backyard, and even some hay.  "Hay is ugly,
+and a pain in the ass, but at least Rodney will be able to play out
+there, that's the most important thing."
