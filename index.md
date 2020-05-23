@@ -4,36 +4,94 @@ layout: home
 active: index
 ---
 
-<figure class="float-left hide-on-mobile">
-  <img src="{{ site.baseurl }}assets/images/me.jpg" alt="I'm Alex Recker">
+{% assign latest = site.posts.first %}
+
+## Today's Post - [{{ latest.date | date: '%A, %B %d %Y' }}]({{ latest.url }})
+
+{% if latest.image %}
+<figure>
+  <a href="{{ latest.url }}">
+    <img alt="{{ latest.title }}" src="{{ site.baseurl }}assets/images/{{ latest.image }}"/>
+  </a>
+  <figcaption>
+    <p>{{ latest.title }}</p>
+  </figcaption>
 </figure>
+{% endif %}
 
-## Hi!  I'm Alex Recker
+---
 
-Welcome to my online public journal.  I write **1000 words** every
-morning, topics ranging from computers, cooking, raising kids, living
-in Madison, being Dutch, and everything else I come across in my daily
-life.  I love chatting with people, especially over email.
+## Statistics
 
-Do statistics get you going?  I track my word count and consecutive
-daily entries over on the [archive] page.  I'm particularly proud of
-that one.
+Total Number of Words
+: {{ site.data.stats.words.total }}
 
-Like to read code?  Check out my jekyll plugin [jekyll-recker].  It's
-got twitter and slack integration, custom generators, and a bunch of
-other custom crap that - let's be honest - are probably only useful to
-me.  Other projects are featured on my [projects] page.
+Average Words per Entry
+: {{ site.data.stats.words.average }}
 
-Thanks for stopping by, and I hope to see you tomorrow morning!
+Total Number of Entries
+: {{ site.data.stats.posts }}
 
-## Recent Entries
+Number of Consecutive Daily Entries
+: {{ site.data.stats.days.days }}
+
+---
+
+## Entries
 
 <ul class="unstyled">
-  {%- for post in site.posts limit:10 %}
+  {%- for post in site.posts %}
   <li>{{ post.date | date: '%Y-%m-%d' }} - <a href="{{ post.url }}">{{ post.title }}</a></li>
   {%- endfor %}
 </ul>
 
-[jekyll-recker]: https://github.com/arecker/jekyll-recker/
-[projects]: {% link projects.md %}
-[archive]: {% link archive.md %}
+---
+
+## Other Writings
+
+- [Anxiety] - Hoping to inspire a new attitude toward medication and
+  mental health, my wife bravely shares her personal journey of
+  discovering her anxiety disorder.
+- [Our New Sid Meier's Civilization Inspired Budget] - My wife and I
+  were inspired by Sid Meier's Civilization to look at our finances
+  differently. Here is our new system.  Featured in [lifehacker].
+- [Clockwork Orange] - My wife and I review the movie _Clockwork
+  Orange_.
+- [Eyes Wide Shut] - My wife and I review the movie _Eyes Wide Shut_.
+- [Full Metal Jacket] - My wife and I review the movie _Full Metal
+  Jacket_.
+- [Jane] - I interview my mother, Jane Recker.
+- [Linux] - Let's talk about Linux.  Where did it come from?  What can
+  it do for you?  How long does your beard need to grow before you can
+  get it to work?
+- [Noah] - A tender look back on the life of the best little brother
+  I've ever had - my dog Noah.
+- [Rockford] - Farewell, Rockford.  It was a pleasure being your
+  citizen for two years.
+- [San Francisco] - My company sent me on a trip to San Francisco.
+- [Seinfeld] - The early seasons of Seinfeld - are these episodes
+  evidence of a Sitcom finding its stride, or a prologue to the lives of
+  the four people that surrendered to a life about nothing?
+- [The Selenium Bus Pass] - A brief tutorial of my new favorite
+  Selenium script.
+- [My Corgi] - My wife takes the blogging soapbox from me this week as
+  my very first guest writer.  She reflects on the top five lessons
+  she has learned in owning a dog.
+- [Uhh Yeah Dude] - A long overdue written tribute to my favorite
+  podcast.
+
+[Anxiety]: {% link old/anxiety.html %}
+[Clockwork Orange]: {% link old/clockwork-orange.html %}
+[Eyes Wide Shut]: {% link old/eyes-wide-shut.html %}
+[Full Metal Jacket]: {% link old/full-metal-jacket.html %}
+[Jane]: {% link old/jane.html %}
+[Linux]: {% link old/linux.html %}
+[My Corgi]: {% link old/the-top-5-ways-that-my-corgi-has-taught-me-how-to-be-a-better-person.html %}
+[Noah]: {% link old/noah.html %}
+[Our New Sid Meier's Civilization Inspired Budget]: {% link old/civ-budget.html %}
+[Rockford]: {% link old/rockford.html %}
+[San Francisco]: {% link old/san-francisco.html %}
+[Seinfeld]: {% link old/seinfeld.html %}
+[The Selenium Bus Pass]: {% link old/selenium-bus-pass.html %}
+[Uhh Yeah Dude]: {% link old/uhh-yeah-dude.html %}
+[lifehacker]: https://lifehacker.com/the-civilization-inspired-budget-gives-you-instant-feed-1742835068
