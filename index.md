@@ -6,44 +6,25 @@ active: index
 
 {% assign latest = site.posts.first %}
 
-## Today's Post - [{{ latest.date | date: '%A, %B %d %Y' }}]({{ latest.url }})
+## Today's Post
 
 {% if latest.image %}
-<figure>
-  <a href="{{ latest.url }}">
-    <img alt="{{ latest.title }}" src="{{ site.baseurl }}assets/images/{{ latest.image }}"/>
-  </a>
-  <figcaption>
-    <p>{{ latest.title }}</p>
-  </figcaption>
-</figure>
+{% capture caption %}{{ latest.date | uyd_date }} | {{ latest.title }}{% endcapture %}
+{% include figure.html url=latest.url filename=latest.image alt=latest.title caption=caption %}
+{% else %}
+[{{ caption }}]({{ latest.url }})
 {% endif %}
-
----
-
-## Statistics
-
-Total Number of Words
-: {{ site.data.stats.words.total }}
-
-Average Words per Entry
-: {{ site.data.stats.words.average }}
-
-Total Number of Entries
-: {{ site.data.stats.posts }}
-
-Number of Consecutive Daily Entries
-: {{ site.data.stats.days.days }}
-
----
 
 ## Entries
 
-<ul class="unstyled">
-  {%- for post in site.posts %}
-  <li>{{ post.date | date: '%Y-%m-%d' }} - <a href="{{ post.url }}">{{ post.title }}</a></li>
-  {%- endfor %}
-</ul>
+    Total Words: {{ site.data.stats.words.total }}
+    Average Words: {{ site.data.stats.words.average }}
+    Total Entries: {{ site.data.stats.posts }}
+    Consecutive Entries:  {{ site.data.stats.days.days }}
+
+{% for post in site.posts %}
+- {{ post.date | date: '%Y-%m-%d' }} - [{{ post.title }}]({{ post.url }})
+{%- endfor %}
 
 ---
 
