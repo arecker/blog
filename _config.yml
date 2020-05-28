@@ -31,6 +31,11 @@ exclude:
   - jekyll-recker
 
 recker:
+  facebook:
+    access_token_cmd: pass facebook/reckerbot/access-token
+    app_access_token_cmd: pass facebook/reckerbot/app-access-token
+    app_id_cmd: pass facebook/reckerbot/app-id
+    app_secret_cmd: pass facebook/reckerbot/app-secret
   twitter:
     access_token_secret_cmd: pass twitter/reckerbot/access-token-secret
     access_token_cmd: pass twitter/reckerbot/access-token
