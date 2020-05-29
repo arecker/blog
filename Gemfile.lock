@@ -1,7 +1,7 @@
 PATH
   remote: jekyll-recker
   specs:
-    jekyll-recker (1.5.0)
+    jekyll-recker (1.6.0)
       jekyll (~> 3.8)
       koala
       slack-notifier
