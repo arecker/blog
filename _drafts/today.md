@@ -1,4 +1,0 @@
----
-title: notes for today
----
-
