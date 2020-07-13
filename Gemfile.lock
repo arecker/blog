@@ -1,8 +1,10 @@
 PATH
   remote: jekyll-recker
   specs:
-    jekyll-recker (1.10.0)
+    jekyll-recker (1.11.0)
+      fastimage
       jekyll (~> 3.8)
+      mini_magick
       slack-notifier
       twitter
 
@@ -21,6 +23,7 @@ GEM
       http_parser.rb (~> 0.6.0)
     equalizer (0.0.11)
     eventmachine (1.2.7)
+    fastimage (2.1.7)
     ffi (1.12.2)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
@@ -73,6 +76,7 @@ GEM
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     mercenary (0.3.6)
+    mini_magick (4.10.1)
     multipart-post (2.1.1)
     naught (1.1.0)
     pathutil (0.16.2)
