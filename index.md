@@ -15,13 +15,6 @@ active: index
 [{{ caption }}]({{ latest.url }})
 {% endif %}
 
-## Stats
-
-    Total Words: {{ site.data.stats.words.total | pretty }}
-    Average Words: {{ site.data.stats.words.average | pretty }}
-    Total Entries: {{ site.data.stats.posts | pretty }}
-    Consecutive Entries:  {{ site.data.stats.days.days | pretty }}
-
 ## Entries
 
 {% for post in site.posts %}
