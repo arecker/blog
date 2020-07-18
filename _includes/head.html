@@ -1,0 +1,21 @@
+{%- capture title %}{{ include.title | default: page.title }}{%- endcapture %}
+{%- capture description %}{{ include.description | default: site.description }}{%- endcapture %}
+{%- capture image %}{{ include.image | default: page.image }}{%- endcapture %}
+<head>
+  <meta charset="UTF-8"/>
+  <title>{{ title }} | {{ description }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@{{ site.twitter_username }}" />
+  <meta name="twitter:title" content="{{ include.title }}" />
+  <meta name="twitter:description" content="{{ include.description }}" />
+  <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ title }}"/>
+  <meta property="og:description" content="{{ description }}" />
+  {%- if image %}
+  <meta name="twitter:image" content="{{ site.url }}{{ site.base_url }}/assets/images/{{ image }}"/>
+  <meta property="og:image" content="{{ site.url }}{{ site.base_url }}/assets/images/{{ image }}"/>
+  {%- endif %}
+  <link href="{{ site.baseurl }}/assets/jekyll-recker.css" rel="stylesheet"/>
+</head>

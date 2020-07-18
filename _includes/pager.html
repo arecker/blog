@@ -1,0 +1,13 @@
+<nav class="clearfix">
+  {%- if page.next -%}
+  <a href="{{ page.next.url }}">
+    ⟵ {{ page.next.slug }}
+  </a>
+  {%- endif -%}
+  {%- if page.previous -%}
+  <a class="float-right" href="{{ page.previous.url }}">
+    {{ page.previous.slug }} ⟶
+  </a>
+  {%- endif -%}
+</nav>
+

@@ -1,0 +1,20 @@
+{%- capture datestring %}{{ page.date | uyd_date }}{% endcapture %}
+<!doctype html>
+<html lang="en">
+  {% include head.html title=datestring description=page.title %}
+  <body>
+    {% include header.html title=datestring subtitle=page.title %}
+    <hr/>
+    {% include nav.html %}
+    <hr/>
+    {%- if page.image -%}
+    <br/>
+    {% include figure.html filename=page.image %}
+    <br/>
+    {%- endif -%}
+    {{ content }}
+    {% include pager.html %}
+    <hr/>
+    {% include footer.html %}
+  </body>
+</html>

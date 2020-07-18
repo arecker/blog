@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en">
+  {% include head.html title=site.title %}
+  <body>
+    {% include header.html title=site.title subtitle=site.description %}
+    <hr/>
+    {% include nav.html %}
+    <hr/>
+    {{ content }}
+    <hr/>
+    {% include footer.html %}
+  </body>
+</html>

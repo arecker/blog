@@ -1,0 +1,121 @@
+---
+---
+@import "https://fonts.googleapis.com/css?family=Inconsolata|Open+Sans&display=swap";
+
+// color
+$color-accent: #008083;
+$color-black: #444;
+$color-passive: #6f7370;
+
+// font
+$font-regular: Open Sans, sans-serif;
+$font-regular-color: $color-black;
+$font-regular-size: 20px;
+$font-caption-size: 18px;
+$font-code: monospace;
+$font-code-size: 18px;
+
+.float {
+    &-right {
+	float: right;
+    }
+
+    &-left {
+	float: left;
+    }
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
+@media (max-width: 600px) {
+    .hide-on-mobile {
+	display: none;
+    }
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: block;
+}
+
+body {
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    color: $font-regular-color;
+    font-family: $font-regular;
+    font-size: $font-regular-size;
+    margin: 40px auto;
+    max-width: 800px;
+    line-height: 1.6;
+    padding: 0 10px;
+
+    header {
+	h1 {
+	    margin-bottom: 9px;
+	}
+    }
+
+    nav {
+	a {
+	    margin-right: 10px
+	}
+
+	span {
+	    color: $color-passive;
+	}
+    }
+
+    a {
+	color: $color-accent;
+	text-decoration: none;
+
+	&.active {
+	    color: $color-black;
+	}
+    }
+
+    h1, h2, h3 {
+	line-height: 1.2
+    }
+
+    p {
+	margin-top: 9px;
+    }
+
+    ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+    }
+
+    figure {
+	img {
+	    display: block;
+	    margin-left: auto;
+	    margin-right: auto;
+	    vertical-align: top;
+	    height: auto;
+	    max-width: 100%;
+	}
+    }
+
+    figcaption {
+	color: $color-passive;
+	font-size: $font-caption-size;
+	text-align: center;
+    }
+
+    blockquote {
+	color: $color-passive;
+    }
+
+    code, pre, pre span {
+	font-family: $font-code;
+	font-size: $font-code-size;
+    }
+}
