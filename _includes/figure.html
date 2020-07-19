@@ -1,11 +1,11 @@
 <figure>
-  {%- if include.url %}
-  <a href="{{ include.url }}">
-  {%- endif %}
-  <img alt="{{ include.alt | default: include.filename }}" src="{{ site.baseurl }}assets/images/{{ include.filename }}"/>
-  {%- if include.url %}
+  {% capture default_link %}{{ site.baseurl }}assets/images/{{ include.filename }}{% endcapture %}
+  <a href="{{ include.url | default: default_link }}">
+    <img
+      alt="{{ include.alt | default: include.filename }}"
+      src="{{ site.baseurl }}assets/images/{{ include.filename }}"
+    />
   </a>
-  {%- endif %}
   {%- if include.caption %}
   <figcaption>
     <p>{{ include.caption }}</p>

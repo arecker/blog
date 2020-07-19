@@ -1,0 +1,53 @@
+---
+slug: index.html
+layout: home
+nav: index
+---
+
+{% assign latest = site.posts.first %}
+{% capture latest_date %}
+{{ latest.date | uyd_date }}
+{% endcapture %}
+
+<div class="row">
+  <div class="column">
+    {% if latest.image %}
+    {% include figure.html url=latest.url filename=latest.image %}
+    {% endif %}
+  </div>
+  <div class="column">
+    <h2>Today's Post</h2>
+    <a href="{{ latest.url }}">
+      <h3 class="title">{{ latest_date }}</h3>
+    </a>
+    <p class="subtitle">{{ latest.title }}</p>
+    <hr/>
+    <h2>What's New?</h2>
+    <h3 class="crowded">Recker Family Cookbook</h3>
+    <p class="crowded">
+      Have you visited the completely open source <a href="https://cookbook.reckerfamily.com/">Recker Family Cookbook</a>?
+    </p>
+    <h3 class="crowded">New Format</h3>
+    <p class="crowded">
+      So how do people feel about this new retro theme?
+    </p>
+  </div>
+</div> 
+
+<div class="row">
+  <div class="column">
+    <h2>Statistics</h2>
+    <dl>
+      <dt>Total Word Count</dt>
+      <dd class="code">{{ site.data.stats.words.total | pretty }}</dd>
+      <dt>Average Word Count</dt>
+      <dd class="code">{{ site.data.stats.words.average | pretty }}</dd>
+      <dt>Total Entries</dt>
+      <dd class="code">{{ site.data.stats.posts | pretty }}</dd>
+      <dt>Consecutive Entries</dt>
+      <dd class="code">
+	{{ site.data.stats.days.days | pretty }}
+      </dd>
+    </dl>
+  </div>
+</div>

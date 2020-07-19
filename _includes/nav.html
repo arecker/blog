@@ -1,8 +1,9 @@
 <nav>
-  <a href="{{ site.baseurl }}/" class="{% if page.active == 'index' %}active{% endif %} lowercase">
-    🏠 Home
-  </a>
-  <a href="{{ site.baseurl }}/stats.html" class="{% if page.active == 'stats' %}active{% endif %} lowercase">📈Stats</a>
-  <a class="lowercase" href="{{ site.baseurl }}/feed.xml">🛰️ RSS</a>
-  <a class="lowercase" href="https://cookbook.reckerfamily.com">👨‍🍳 Cookbook</a>
+  {% if include.active == "index" %}
+  <a href="{{ site.base_url }}/" disable="true">index.html</a>
+  {% else %}
+  <a href="{{ site.base_url }}/">index.html</a>
+  <span> / </span>
+  <span>{{ page.slug }}</span>
+  {% endif %}
 </nav>

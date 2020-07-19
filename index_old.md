@@ -1,7 +1,7 @@
 ---
 slug: index.html
 layout: home
-active: index
+nav: index
 ---
 
 {% assign latest = site.posts.first %}
