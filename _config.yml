@@ -27,7 +27,9 @@ exclude:
   - Gemfile.lock
   - LICENSE
   - README.md
-  - jekyll-recker
+  - Rakefile
+  - lib
+  - spec
 
 recker:
   twitter:
