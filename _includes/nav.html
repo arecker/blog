@@ -1,5 +1,5 @@
 <nav>
-  {% if include.active == "index" %}
+  {% if page.path == "index.html" %}
   <a href="{{ site.base_url }}/" disable="true">index.html</a>
   {% else %}
   <a href="{{ site.base_url }}/">index.html</a>
