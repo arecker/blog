@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jekyll-recker (0.0.0)
+    jekyll-recker (2.1.0)
       fastimage
       jekyll (~> 3.8)
       mini_magick
