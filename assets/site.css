@@ -9,7 +9,7 @@ body {
 }
 
 * {
-    font-family: 'Helvetica';
+    font-family: 'Helvetica', 'Arial';
 }
 
 code, pre, .code {
@@ -81,10 +81,6 @@ figure {
   clear: both;
 }
 
-p.crowded {
-    margin-top: 0px;
-}
-
-h3.crowded {
+.crowded h3, .crowded p {
     margin-bottom: 0px;
 }
