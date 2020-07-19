@@ -2,8 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8"/>
-    <title>{{ page.title }} | </title>
-    {%- capture datestring %}{{ page.date | uyd_date }}{% endcapture %}
+    {% capture datestring %}{{ page.date | uyd_date }}{% endcapture %}
     {% include head.html title=datestring description=page.title %}
   </head>
   <body>
