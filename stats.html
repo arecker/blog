@@ -3,3 +3,48 @@ title: Stats
 description: Interesting Writing Statistics
 slug: stats.html
 ---
+
+<div class="row">
+  <div class="column">
+    {% include figure.html filename="words.jpg" %}
+  </div>
+  <div class="column crowded">
+    <h2>Word Count</h2>
+    <table>
+      <tr>
+	<td>Total</td>
+	<td class="code">{{ site.data.stats.words.total | pretty }}</td>
+      </tr>
+      <tr>
+	<td>Average</td>
+	<td class="code">{{ site.data.stats.words.average | pretty }}</td>
+      </tr>
+    </table>
+    <h2>Entries</h2>
+    <table>
+      <tr>
+	<td>Total</td>
+	<td class="code">{{ site.data.stats.posts | pretty }}</td>
+      </tr>
+      <tr>
+	<td>Consecutive</td>
+	<td class="code">{{ site.data.stats.days.days | pretty }}</td>
+      </tr>
+    </table>
+    <h2>Data</h2>
+    <table>
+      <tr>
+	<td>Size (text only)</td>
+	<td class="code">{{ site.data.stats.memory.size }} MB</td>
+      </tr>
+      <tr>
+	<td>Characters</td>
+	<td class="code">{{ site.data.stats.memory.chars | pretty }}</td>
+      </tr>
+      <tr>
+	<td>Spaces</td>
+	<td class="code">{{ site.data.stats.memory.spaces | pretty }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
