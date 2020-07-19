@@ -1,4 +1,4 @@
-{%- capture title %}{{ include.title | default: page.title }}{%- endcapture %}
+{%- capture title %}{{ include.title | default: site.title }}{%- endcapture %}
 {%- capture description %}{{ include.description | default: site.description }}{%- endcapture %}
 {%- capture image %}{{ include.image | default: page.image }}{%- endcapture %}
 <head>
