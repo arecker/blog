@@ -3,12 +3,11 @@ title: Dear Journal
 description: Daily, public journal by Alex Recker
 author: Alex Recker
 email: alex@reckerfamily.com
-twitter_username: alex_recker
+twitter_username: '@alex_recker'
 github_username: arecker
 facebook_username: alex.recker.581
 linkedin_username: alex-recker-a0316481
 url: https://www.alexrecker.com
-theme: jekyll-recker
 permalink: /:year-:month-:day:output_ext
 
 markdown: kramdown
