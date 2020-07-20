@@ -14,7 +14,6 @@ module JekyllRecker
         total_counts = entries.collect(&:content).map { |c| number_of_words(c) }
         if production?
           logger.info 'production detected. skipping graphs'
-          return
         else
           require 'gruff'
           logger.info 'generating wordcount graphs'
