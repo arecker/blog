@@ -106,7 +106,7 @@ figure {
     margin-top: 5px;
 }
 
-td {
+td, nav span a {
     padding-right: 5px;
 }
 

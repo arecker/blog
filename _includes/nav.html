@@ -6,9 +6,14 @@
   <span> / </span>
   <span>{{ page.slug }}</span>
   {% endif %}
-  <span class="spacious float-right">
-    <a class="" href="{% link archives.html %}">archives.html</a>
-    <a class="" href="{% link stats.html %}">stats.html</a>
-    <a class="" href="{% link contact.html %}">contact.html</a>
+  <span class="float-right hide-on-mobile">
+    {% for page in site.data.menu %}
+    <a href="{{ site.base_url }}/{{ page }}">{{ page }}</a>
+    {% endfor %}
+  </span>
+  <span class="show-on-mobile">
+    {% for page in site.data.menu %}
+    <a href="{{ site.base_url }}/{{ page }}">{{ page }}</a>
+    {% endfor %}
   </span>
 </nav>
