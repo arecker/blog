@@ -14,13 +14,8 @@ markdown: kramdown
 highlighter: rouge
 
 plugins:
-  - jekyll-analytics
   - jekyll-feed
   - jekyll-recker
-
-jekyll_analytics:
-  GoogleAnalytics:
-    id: UA-42540208-6
 
 exclude:
   - Gemfile
@@ -33,6 +28,7 @@ exclude:
   - spec
 
 recker:
+  analytics: UA-42540208-6
   graphs: assets/images/graphs/
   twitter:
     access_token_secret_cmd: pass twitter/reckerbot/access-token-secret
