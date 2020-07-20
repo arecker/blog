@@ -152,11 +152,11 @@ module JekyllRecker
 
       def make_graph(posts)
         g = new_line_graph
-        g.labels = Hash[posts.each_with_index.map { |p, i| [i, p.date.strftime("%a")] }]
+        g.labels = Hash[posts.reverse.each_with_index.map { |p, i| [i, p.date.strftime("%a")] }]
         g.data :words, posts.collect(&:content).map { |c| number_of_words(c) }.reverse
-        g.title = 'Wordcount Over a Week'
+        g.title = 'This Week'
         g.x_axis_label = 'Day'
-        g.y_axis_label = 'Wordcount'
+        g.y_axis_label = 'Word Count'
         g.minimum_value = 0
         g.write(graphs_join('words.png'))
       end
