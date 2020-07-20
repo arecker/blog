@@ -13,6 +13,10 @@ module JekyllRecker
 
       def generate(site)
         @site = site
+        if ENV['JEKYLL_ENV'] == 'production'
+          logger.info 'production detected, skipping images'
+          return
+        end
         logger.info 'checking images'
         resizeable_images.each do |f, d|
           logger.info "resizing #{f} to fit #{d}"
@@ -143,7 +147,12 @@ module JekyllRecker
 
       def crunch
         total_counts = entries.collect(&:content).map { |c| number_of_words(c) }
-        make_graph(entries[0..6])
+        if ENV['JEKYLL_ENV'] == 'production'
+          logger.info 'production detected. skipping graphs'
+        else
+          logger.info 'making wordcount graph'
+          make_graph(entries[0..6])
+        end
         {
           'average' => average(total_counts),
           'total' => total(total_counts)
