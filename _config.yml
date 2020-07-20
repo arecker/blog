@@ -9,6 +9,7 @@ facebook_username: alex.recker.581
 linkedin_username: alex-recker-a0316481
 url: https://www.alexrecker.com
 permalink: /:year-:month-:day:output_ext
+timezone: 'America/Chicago'
 
 markdown: kramdown
 highlighter: rouge
