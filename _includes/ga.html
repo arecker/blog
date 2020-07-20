@@ -1,5 +1,5 @@
 {% if site.recker.analytics and jekyll.environment == "production" %}
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-42540208-6"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.recker.analytics }}"></script>
 <script>
  window.dataLayer = window.dataLayer || [];
  function gtag(){dataLayer.push(arguments);}
