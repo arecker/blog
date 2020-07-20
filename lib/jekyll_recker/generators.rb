@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
+require 'bundler'
 require 'fastimage'
+require 'gruff'
 require 'mini_magick'
 
 module JekyllRecker
@@ -27,12 +29,17 @@ module JekyllRecker
         width > 800 || height > 800
       end
 
+      def graph?(file)
+        file.include?('/graphs/')
+      end
+
       def images
         @site.static_files.collect(&:path).select { |f| image?(f) }
       end
 
       def resizeable_images
-        with_sizes = images.map { |f| [f, FastImage.size(f)].flatten }
+        without_graphs = images.reject { |i| graph?(i) }
+        with_sizes = without_graphs.map { |f| [f, FastImage.size(f)].flatten }
         with_sizes.select! { |f| too_big?(f[1], f[2]) }
         with_sizes.map do |f, w, h|
           dimensions = if w > h
@@ -86,7 +93,33 @@ module JekyllRecker
       end
 
       def entries
-        @site.posts.docs.select(&:published?)
+        @site.posts.docs.select(&:published?).sort_by(&:date).reverse
+      end
+    end
+
+    # Graphs Module
+    #
+    # Functions for graph creation.
+    # @abstract
+    module Graphs
+      include Mixins::Logging
+
+      def new_line_graph
+        g = Gruff::Line.new
+        g.theme = {
+          colors: %w[grey black],
+          marker_color: 'black',
+          font_color: 'black',
+          background_colors: 'white'
+        }
+        g.hide_legend = true
+        g
+      end
+
+      def graphs_join(path)
+        recker = @site.config.fetch('recker', {})
+        graphs_dir = recker.fetch('graphs', 'assets/images/graphs/')
+        File.join Bundler.root, graphs_dir, path
       end
     end
 
@@ -104,15 +137,28 @@ module JekyllRecker
     # Word Count Generator
     class Words < Jekyll::Generator
       include Stats
+      include Graphs
 
       KEY = 'words'
 
       def crunch
         total_counts = entries.collect(&:content).map { |c| number_of_words(c) }
+        make_graph(entries[0..6])
         {
           'average' => average(total_counts),
           'total' => total(total_counts)
         }
+      end
+
+      def make_graph(posts)
+        g = new_line_graph
+        g.labels = Hash[posts.each_with_index.map { |p, i| [i, p.date.strftime("%a")] }]
+        g.data :words, posts.collect(&:content).map { |c| number_of_words(c) }.reverse
+        g.title = 'Wordcount Over a Week'
+        g.x_axis_label = 'Day'
+        g.y_axis_label = 'Wordcount'
+        g.minimum_value = 0
+        g.write(graphs_join('words.png'))
       end
     end
 

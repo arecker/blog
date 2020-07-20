@@ -4,6 +4,7 @@
     <img
       alt="{{ include.alt | default: include.filename }}"
       src="{{ site.baseurl }}assets/images/{{ include.filename }}"
+      class="{{ include.class | default: '' }}"
     />
   </a>
   {%- if include.caption %}

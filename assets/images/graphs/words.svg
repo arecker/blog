@@ -1,0 +1,45 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+  "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg width="800" height="600">
+<g style="stroke:black;fill:black;">
+  <line x1="138.001" y1="508.001" x2="759.001" y2="508.001"/>
+</g>
+<g style="stroke:black;fill:black;">
+  <line x1="138.001" y1="405.12" x2="759.001" y2="405.12"/>
+</g>
+<g style="stroke:black;fill:black;">
+  <line x1="138.001" y1="302.239" x2="759.001" y2="302.239"/>
+</g>
+<g style="stroke:black;fill:black;">
+  <line x1="138.001" y1="199.358" x2="759.001" y2="199.358"/>
+</g>
+<g style="stroke:black;fill:black;">
+  <line x1="138.001" y1="96.477" x2="759.001" y2="96.477"/>
+</g>
+stroke-width:5;stroke:grey;fill:grey;  <circle cx="138" cy="450.948" r="5"/>
+<g style="stroke:grey;fill:grey;stroke-width:5;">
+  <line x1="138.001" y1="450.949" x2="241.501" y2="60.001"/>
+</g>
+stroke-width:5;stroke:grey;fill:grey;  <circle cx="241.5" cy="60" r="5"/>
+<g style="stroke:grey;fill:grey;stroke-width:5;">
+  <line x1="241.501" y1="60.001" x2="345.001" y2="366.773"/>
+</g>
+stroke-width:5;stroke:grey;fill:grey;  <circle cx="345" cy="366.772" r="5"/>
+<g style="stroke:grey;fill:grey;stroke-width:5;">
+  <line x1="345.001" y1="366.773" x2="448.501" y2="384.544"/>
+</g>
+stroke-width:5;stroke:grey;fill:grey;  <circle cx="448.5" cy="384.543" r="5"/>
+<g style="stroke:grey;fill:grey;stroke-width:5;">
+  <line x1="448.501" y1="384.544" x2="552.001" y2="333.103"/>
+</g>
+stroke-width:5;stroke:grey;fill:grey;  <circle cx="552" cy="333.102" r="5"/>
+<g style="stroke:grey;fill:grey;stroke-width:5;">
+  <line x1="552.001" y1="333.103" x2="655.501" y2="508.001"/>
+</g>
+stroke-width:5;stroke:grey;fill:grey;  <circle cx="655.5" cy="508" r="5"/>
+<g style="stroke:grey;fill:grey;stroke-width:5;">
+  <line x1="655.501" y1="508.001" x2="759.001" y2="103.024"/>
+</g>
+stroke-width:5;stroke:grey;fill:grey;  <circle cx="759" cy="103.023" r="5"/>
+</svg>

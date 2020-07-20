@@ -33,6 +33,7 @@ exclude:
   - spec
 
 recker:
+  graphs: assets/images/graphs/
   twitter:
     access_token_secret_cmd: pass twitter/reckerbot/access-token-secret
     access_token_cmd: pass twitter/reckerbot/access-token
