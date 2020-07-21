@@ -9,13 +9,7 @@ module JekyllRecker
       KEY = 'days'
 
       def crunch
-        calculate_streaks(entry_dates).take(1).map do |count, dates|
-          {
-            'days' => count,
-            'start' => dates[0],
-            'end' => dates[1]
-          }
-        end.first
+        calculate_streaks(entry_dates).first
       end
 
       def entry_dates

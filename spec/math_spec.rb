@@ -78,12 +78,16 @@ describe JekyllRecker::Math do
       ]
 
       expected = [
-        [
-          1, [Date.new(2001, 2, 3), Date.new(2001, 2, 4)]
-        ],
-        [
-          2, [Date.new(2001, 2, 6), Date.new(2001, 2, 8)]
-        ]
+        {
+          'days' => 1,
+          'start' => Date.new(2001, 2, 3),
+          'end' => Date.new(2001, 2, 4)
+        },
+        {
+          'days' => 2,
+          'start' => Date.new(2001, 2, 6),
+          'end' => Date.new(2001, 2, 8)
+        }
       ]
 
       expect(k.calculate_streaks(dates)).to eq(expected)
@@ -99,12 +103,16 @@ describe JekyllRecker::Math do
       ]
 
       expected = [
-        [
-          2, [Date.new(2001, 2, 6), Date.new(2001, 2, 8)]
-        ],
-        [
-          1, [Date.new(2001, 2, 3), Date.new(2001, 2, 4)]
-        ]
+        {
+          'days' => 2,
+          'start' => Date.new(2001, 2, 6),
+          'end' => Date.new(2001, 2, 8)
+        },
+        {
+          'days' => 1,
+          'start' => Date.new(2001, 2, 3),
+          'end' => Date.new(2001, 2, 4)
+        }
       ]
 
       expect(k.calculate_streaks(dates)).to eq(expected)

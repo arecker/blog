@@ -19,7 +19,11 @@ module JekyllRecker
     def calculate_streaks(dates)
       slice_by_consecutive_days(dates).map do |pair|
         first, last = pair.minmax
-        [(last - first).to_i, [first, last]]
+        {
+          'days' => (last - first).to_i,
+          'start' => first,
+          'end' => last
+        }
       end
     end
   end
