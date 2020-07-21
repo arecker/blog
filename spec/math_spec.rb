@@ -5,19 +5,19 @@ require_relative 'spec_helper.rb'
 describe JekyllRecker::Math do
   let(:k) { Class.new { extend ::JekyllRecker::Math } }
 
-  describe '.average' do
+  describe '#average' do
     it 'should average a list of integers' do
       expect(k.average([1, 1, 2, 2, 3, 3])).to eq(2)
     end
   end
 
-  describe '.total' do
+  describe '#total' do
     it 'should total a list of integers' do
       expect(k.total([1, 1, 2, 2, 3, 3])).to eq(12)
     end
   end
 
-  describe '.slice_by_consecutive_dates' do
+  describe '#slice_by_consecutive_dates' do
     it 'should slice a list of ascending dates' do
       dates = [
         Date.new(2001, 2, 3),
@@ -67,7 +67,7 @@ describe JekyllRecker::Math do
     end
   end
 
-  describe '.calculate_streaks' do
+  describe '#calculate_streaks' do
     it 'should calculate streaks from ascending dates' do
       dates = [
         Date.new(2001, 2, 3),

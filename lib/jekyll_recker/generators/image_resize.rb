@@ -4,7 +4,7 @@ module JekyllRecker
   module Generators
     # Image Resize Generator
     class ImageResize < Jekyll::Generator
-      include BaseGenerator
+      include Base
 
       def generate(site)
         @site = site

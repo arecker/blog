@@ -3,27 +3,32 @@
 require 'bundler'
 
 module JekyllRecker
+  # Generators Module
   module Generators
-    module BaseGenerator
+    # Base Generator Functions
+    module Base
+      include Logging
       include Math
-      include Mixins::Logging
 
       def production?
         ENV['JEKYLL_ENV'] == 'production'
       end
 
-      def generate(site)
-        @site = site
-        logger.info "running #{self.class.name} generator"
+      def entries
+        @site.posts.docs.select(&:published?).sort_by(&:date).reverse
+      end
+
+      def dates
+        entries.collect(&:date).map { |t| Date.new(t.year, t.month, t.day) }
       end
     end
-    
+
     # Stats Module
     #
     # Functions for stats generators.
     # @abstract
     module Stats
-      include BaseGenerator
+      include Base
       include Jekyll::Filters
 
       def key
@@ -40,10 +45,6 @@ module JekyllRecker
       def crunch
         raise NotImplementedError, '#crunch not implemented!'
       end
-
-      def entries
-        @site.posts.docs.select(&:published?).sort_by(&:date).reverse
-      end
     end
 
     # Graphs Module
@@ -51,7 +52,7 @@ module JekyllRecker
     # Functions for graph creation.
     # @abstract
     module Graphs
-      include BaseGenerator
+      include Base
 
       def new_line_graph
         g = Gruff::Line.new('800x600')
@@ -79,6 +80,5 @@ module JekyllRecker
     require 'jekyll_recker/generators/word_count.rb'
     require 'jekyll_recker/generators/streaks.rb'
     require 'jekyll_recker/generators/swears.rb'
-    require 'jekyll_recker/generators/memory.rb'
   end
 end

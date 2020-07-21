@@ -5,7 +5,7 @@ module JekyllRecker
   module Commands
     # Share Command
     class Share < Jekyll::Command
-      include Mixins::Logging
+      include Logging
 
       def self.init_with_program(prog)
         prog.command(:share) do |c|

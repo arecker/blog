@@ -3,10 +3,10 @@
 require_relative 'spec_helper.rb'
 
 class Dog
-  include JekyllRecker::Mixins::Logging
+  include JekyllRecker::Logging
 end
 
-describe JekyllRecker::Mixins::Logging do
+describe JekyllRecker::Logging do
   describe '.logger' do
     it 'should return logger' do
       expect(Dog.logger).to be_a(Logger)

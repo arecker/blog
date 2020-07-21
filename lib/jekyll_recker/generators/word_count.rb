@@ -4,7 +4,7 @@ module JekyllRecker
   module Generators
     # Word Count Generator
     class Words < Jekyll::Generator
-      include BaseGenerator
+      include Base
       include Stats
       include Graphs
 
