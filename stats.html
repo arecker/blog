@@ -42,4 +42,17 @@ slug: stats.html
     </table>
     {% include graph.html name="swears.png" %}
   </div>
+  <div class="column">
+    <h2 class="title">Code <small class="subtitle">(available on <a href="https://github.com/arecker/blog/tree/master/lib">github</a>)</small></h2>
+    <table>
+      <tr>
+	<td>Total Lines of Code</td>
+	<td class="code">{{ site.data.coverage.metrics.total_lines | pretty }}</td>
+      </tr>
+      <tr>
+	<td>Test Coverage</td>
+	<td class="code">{{ site.data.coverage.metrics.covered_percent | round: 2 }}%</td>
+      </tr>
+    </table>
+  </div>
 </div>

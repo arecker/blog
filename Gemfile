@@ -19,6 +19,7 @@ group :development do
   gem 'rake'
   gem 'rspec'
   gem 'rubocop'
+  gem 'simplecov'
   gem 'slack-notifier'
   gem 'twitter'
   gem 'yard'
