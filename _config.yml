@@ -30,7 +30,6 @@ exclude:
 
 recker:
   analytics: UA-42540208-6
-  feed: /feed.xml
   graphs: assets/images/graphs/
   twitter:
     access_token_secret_cmd: pass twitter/reckerbot/access-token-secret
