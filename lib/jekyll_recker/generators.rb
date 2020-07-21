@@ -5,6 +5,7 @@ require 'bundler'
 module JekyllRecker
   module Generators
     module BaseGenerator
+      include Math
       include Mixins::Logging
 
       def production?
@@ -38,23 +39,6 @@ module JekyllRecker
 
       def crunch
         raise NotImplementedError, '#crunch not implemented!'
-      end
-
-      # Calculates the average of a list of numbers.
-      #
-      # @param [Array<Numeric>] numlist list of numbers to be averaged.
-      # @return [Numeric] rounded, calculated average of numlist.
-      def average(numlist)
-        calc = numlist.inject { |sum, el| sum + el }.to_f / numlist.size
-        calc.round
-      end
-
-      # Calculates the total of a list of numbers.
-      #
-      # @param [Array<Numeric>] numlist list of numbers to be totaled.
-      # @return [Numeric] calculated total of numlist.
-      def total(numlist)
-        numlist.inject(0) { |sum, x| sum + x }
       end
 
       def entries

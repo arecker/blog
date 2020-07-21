@@ -7,20 +7,6 @@ require 'simplecov'
 class JekyllDataReporter
   def format(result)
     data = {}
-    data[:timestamp] = result.created_at.to_i
-    data[:command_name] = result.command_name
-    data[:files] = []
-    result.files.each do |sourceFile|
-      next unless result.filenames.include? sourceFile.filename
-      data[:files] << {
-        filename: sourceFile.filename,
-        covered_percent: sourceFile.covered_percent,
-        coverage: sourceFile.coverage_data,
-        covered_strength: sourceFile.covered_strength.nan? ? 0.0 : sourceFile.covered_strength, 
-        covered_lines: sourceFile.covered_lines.count, 
-        lines_of_code: sourceFile.lines_of_code, 
-      }
-    end
     data[:metrics] = {
       covered_percent: result.covered_percent,
       covered_strength: result.covered_strength.nan? ? 0.0 : result.covered_strength,
@@ -28,7 +14,7 @@ class JekyllDataReporter
       total_lines: result.total_lines
     }
     
-    json = data.to_json
+    json = JSON.pretty_generate(data)
     
     File.open(output_filepath, "w+") do |file|
       file.puts json

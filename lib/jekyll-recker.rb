@@ -6,6 +6,7 @@ require 'jekyll'
 #
 # The greatest jekyll plugin in the world
 module JekyllRecker
+  autoload :Math, 'jekyll_recker/math.rb'
   autoload :Mixins, 'jekyll_recker/mixins.rb'
   autoload :Shell, 'jekyll_recker/shell.rb'
   autoload :Social, 'jekyll_recker/social.rb'
