@@ -71,18 +71,16 @@ module JekyllRecker
 
       def new_line_graph
         g = Gruff::Line.new
-        g.theme = theme
+        g.theme = Gruff::Themes::PASTEL
         g.hide_legend = true
         g
       end
 
-      def theme
-        {
-          colors: %w[grey black],
-          marker_color: 'black',
-          font_color: 'black',
-          background_colors: 'white'
-        }
+      def new_pie_graph
+        g = Gruff::Pie.new
+        g.theme = Gruff::Themes::PASTEL
+        g.hide_legend = false
+        g
       end
 
       def graphs_join(path)

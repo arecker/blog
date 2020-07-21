@@ -6,19 +6,40 @@ slug: stats.html
 
 <div class="row">
   <div class="column">
-    {% include graph.html name="words.png" %}
-  </div>
-  <div class="column crowded">
+    <h2>Posts</h2>
+    <table>
+      <tr>
+	<td>Total Posts</td>
+	<td class="code">{{ site.data.stats.posts | pretty }}</td>
+      </tr>
+      <tr>
+	<td>Consecutive Daily Posts</td>
+	<td class="code">{{ site.data.stats.days.days | pretty }}</td>
+      </tr>
+    </table>
     <h2>Word Count</h2>
     <table>
       <tr>
-	<td>Total</td>
+	<td>Total Word Count</td>
 	<td class="code">{{ site.data.stats.words.total | pretty }}</td>
       </tr>
       <tr>
-	<td>Average</td>
+	<td>Average Word Count</td>
 	<td class="code">{{ site.data.stats.words.average | pretty }}</td>
       </tr>
     </table>
+  </div>
+  <div class="column">
+    {% include graph.html name="words.png" %}
+  </div>
+  <div class="column">
+    <h2>Bad Words</h2>
+    <table>
+      <tr>
+	<td>Total Bad Words</td>
+	<td class="code">{{ site.data.stats.swears.total | pretty }}</td>
+      </tr>
+    </table>
+    {% include graph.html name="swears.png" %}
   </div>
 </div>
