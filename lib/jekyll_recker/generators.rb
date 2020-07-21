@@ -70,14 +70,14 @@ module JekyllRecker
       include BaseGenerator
 
       def new_line_graph
-        g = Gruff::Line.new
+        g = Gruff::Line.new('800x600')
         g.theme = Gruff::Themes::PASTEL
         g.hide_legend = true
         g
       end
 
       def new_pie_graph
-        g = Gruff::Pie.new
+        g = Gruff::Pie.new('800x600')
         g.theme = Gruff::Themes::PASTEL
         g.hide_legend = false
         g

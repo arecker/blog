@@ -26,9 +26,8 @@ module JekyllRecker
       def make_graph(results)
         require 'gruff'
         g = new_pie_graph
-        g.title = 'Bad Words: Total Distribution'
-        g.title_margin = 5
         g.legend_at_bottom = true
+        g.minimum_value = 0
         results.each { |w, n| g.data w, n }
         g.write(graphs_join('swears.png'))
       end
