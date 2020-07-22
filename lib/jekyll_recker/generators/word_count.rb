@@ -26,7 +26,7 @@ module JekyllRecker
       end
 
       def labels(posts)
-        Hash[posts.reverse.each_with_index.map { |p, i| [i, p.date.strftime("%a")] }]
+        Hash[posts.reverse.each_with_index.map { |p, i| [i, p.date.strftime('%a')] }]
       end
 
       def title(posts)

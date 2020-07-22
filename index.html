@@ -3,10 +3,6 @@ slug: index.html
 ---
 
 {% assign latest = site.posts.first %}
-{% capture latest_date %}
-{{ latest.date | uyd_date }}
-{% endcapture %}
-
 <div class="row">
   <div class="column">
     {% if latest.image %}
@@ -16,7 +12,7 @@ slug: index.html
   <div class="column crowded">
     <h2>Today's Post</h2>
     <a href="{{ latest.url }}">
-      <h3 class="title">{{ latest_date }}</h3>
+      <h3 class="title">{{ latest.date | uyd_date }}</h3>
     </a>
     <p class="subtitle">{{ latest.title }}</p>
     <hr/>

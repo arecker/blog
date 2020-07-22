@@ -24,7 +24,7 @@ describe JekyllRecker::Math do
         Date.new(2001, 2, 4),
         Date.new(2001, 2, 6),
         Date.new(2001, 2, 7),
-        Date.new(2001, 2, 8),
+        Date.new(2001, 2, 8)
       ]
 
       expected = [
@@ -48,7 +48,7 @@ describe JekyllRecker::Math do
         Date.new(2001, 2, 7),
         Date.new(2001, 2, 6),
         Date.new(2001, 2, 4),
-        Date.new(2001, 2, 3),
+        Date.new(2001, 2, 3)
       ]
 
       expected = [
@@ -60,7 +60,7 @@ describe JekyllRecker::Math do
         [
           Date.new(2001, 2, 4),
           Date.new(2001, 2, 3)
-        ],
+        ]
       ]
 
       expect(k.slice_by_consecutive_days(dates)).to eq(expected)

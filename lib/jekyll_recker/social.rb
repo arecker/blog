@@ -4,6 +4,7 @@ require 'slack-notifier'
 require 'twitter'
 
 module JekyllRecker
+  # Social Module
   module Social
     def self.action(site, args, options)
       args += %w[slack twitter] if args.empty?
@@ -81,9 +82,7 @@ module JekyllRecker
         @creds = {}
         workspaces.each do |key, data|
           webhook = ENV["SLACK_#{key.upcase}_WEBHOOK"] || extract_from_config(data)
-          if webhook.nil?
-            raise "cannot find slack webhook for #{key} workspace!"
-          end
+          raise "cannot find slack webhook for #{key} workspace!" if webhook.nil?
 
           @creds[key] = webhook
         end

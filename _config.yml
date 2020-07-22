@@ -15,18 +15,19 @@ markdown: kramdown
 highlighter: rouge
 
 plugins:
-  - jekyll-feed
-  - jekyll-recker
+- jekyll-feed
+- jekyll-recker
 
 exclude:
-  - Gemfile
-  - Gemfile.lock
-  - LICENSE
-  - README.md
-  - Rakefile
-  - jekyll-recker.gemspec
-  - lib
-  - spec
+- Gemfile
+- Gemfile.lock
+- LICENSE
+- README.md
+- Rakefile
+- jekyll-recker.gemspec
+- lib
+- pkg
+- spec
 
 recker:
   analytics: UA-42540208-6

@@ -18,8 +18,8 @@ module JekyllRecker
           make_graph(results)
         end
         {
-          "words" => results,
-          "total" => results.map(&:last).reduce(0, :+)
+          'words' => results,
+          'total' => results.map(&:last).reduce(0, :+)
         }
       end
 
@@ -47,19 +47,19 @@ module JekyllRecker
       private
 
       def swears
-        [
-          'ass',
-          'asshole',
-          'booger',
-          'crap',
-          'damn',
-          'fart',
-          'fuck',
-          'hell',
-          'jackass',
-          'piss',
-          'poop',
-          'shit',
+        %w[
+          ass
+          asshole
+          booger
+          crap
+          damn
+          fart
+          fuck
+          hell
+          jackass
+          piss
+          poop
+          shit
         ]
       end
     end

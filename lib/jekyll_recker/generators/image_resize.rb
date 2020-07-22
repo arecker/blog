@@ -14,7 +14,7 @@ module JekyllRecker
         else
           logger.info 'loading image resizing deps'
           require 'fastimage'
-          require 'mini_magick'          
+          require 'mini_magick'
         end
         logger.info 'checking images'
         resizeable_images.each do |f, d|
