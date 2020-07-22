@@ -88,4 +88,44 @@ describe JekyllRecker::Generators::Base do
       expect(dummy.dates).to eq(dates.sort.reverse)
     end
   end
+
+  describe '#bodies' do
+    let(:k) { Dummy.new }
+
+    it 'should return the content of each post' do
+      post = double('post')
+      expect(post).to receive(:content).and_return('This is test content')
+      expect(k).to receive(:entries).and_return([post])
+
+      expected = ['This is test content']
+      expect(k.bodies).to eq(expected)
+    end
+  end
+
+  describe '#words' do
+    let(:k) { Dummy.new }
+
+    it 'should return a flat list of words' do
+      posts = [
+        'In the beginning was the Word, and the Word was with God, and the Word was God.',
+        'The same was in the beginning with God.',
+        'All things were made by him; and without him was not any thing made that was made.'
+      ]
+      expect(k).to receive(:bodies).and_return(posts)
+
+      expected = %w[In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made.]
+
+      expect(k.words).to eq(expected)
+    end
+  end
+
+  describe '#word_counts' do
+    let(:k) { Dummy.new }
+
+    it 'should return a list of word counts' do
+      posts = ['Hello World', 'Another Post', 'What is the point?']
+      expect(k).to receive(:bodies).and_return(posts)
+      expect(k.word_counts).to eq([2, 2, 4])
+    end
+  end
 end

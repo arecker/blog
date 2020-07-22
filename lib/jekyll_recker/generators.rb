@@ -14,6 +14,18 @@ module JekyllRecker
         ENV['JEKYLL_ENV'] == 'production'
       end
 
+      def word_counts
+        @word_counts ||= bodies.map(&:split).map(&:size)
+      end
+
+      def words
+        bodies.map(&:split).flatten
+      end
+
+      def bodies
+        entries.collect(&:content)
+      end
+
       def entries
         @site.posts.docs.select(&:published?).sort_by(&:date).reverse
       end
@@ -23,62 +35,77 @@ module JekyllRecker
       end
     end
 
-    # Stats Module
-    #
-    # Functions for stats generators.
-    # @abstract
-    module Stats
+    # Stats Generator
+    class Stats < Jekyll::Generator
       include Base
-      include Jekyll::Filters
-
-      def key
-        self.class.const_get(:KEY)
-      end
+      include Graphs
 
       def generate(site)
         @site = site
-        logger.info "running stats.#{key} generator"
-        @site.data['stats'] ||= {}
-        @site.data['stats'][key] = crunch
+        logger.info 'calculating statistics'
+        @site.data['stats'] = data
+        if production?
+          logger.info 'production detected. skipping graphs'
+        else
+          require 'gruff'
+          logger.info 'generating graphs'
+          generate_graphs(entries, swear_results, graphs_dir)
+        end
       end
 
-      def crunch
-        raise NotImplementedError, '#crunch not implemented!'
-      end
-    end
-
-    # Graphs Module
-    #
-    # Functions for graph creation.
-    # @abstract
-    module Graphs
-      include Base
-
-      def new_line_graph
-        g = Gruff::Line.new('800x600')
-        g.theme = Gruff::Themes::PASTEL
-        g.hide_legend = true
-        g
+      def data
+        {
+          'total_words' => total(word_counts),
+          'average_words' => average(word_counts),
+          'total_posts' => entries.size,
+          'consecutive_posts' => calculate_streaks(dates).first['days'],
+          'swears' => {
+            'total' => swear_results.map(&:last).reduce(0, :+),
+            'words' => swear_results
+          }
+        }
       end
 
-      def new_pie_graph
-        g = Gruff::Pie.new('800x600')
-        g.theme = Gruff::Themes::PASTEL
-        g.hide_legend = false
-        g
+      private
+
+      def swear_results
+        @swear_results ||= count_swears
       end
 
-      def graphs_join(path)
+      def graphs_dir
         recker = @site.config.fetch('recker', {})
-        graphs_dir = recker.fetch('graphs', 'assets/images/graphs/')
-        File.join Bundler.root, graphs_dir, path
+        recker.fetch('graphs', 'assets/images/graphs/')
+      end
+
+      def count_swears
+        results = Hash.new(0)
+        bodies.map(&:split).each do |words|
+          words = words.map(&:downcase)
+          swears.each do |swear|
+            count = words.count(swear)
+            results[swear] += count
+          end
+        end
+        results.reject { |_k, v| v.zero? }.sort_by { |_k, v| -v }
+      end
+
+      def swears
+        %w[
+          ass
+          asshole
+          booger
+          crap
+          damn
+          fart
+          fuck
+          hell
+          jackass
+          piss
+          poop
+          shit
+        ]
       end
     end
-
     require 'jekyll_recker/generators/image_resize.rb'
-    require 'jekyll_recker/generators/post_count.rb'
-    require 'jekyll_recker/generators/word_count.rb'
-    require 'jekyll_recker/generators/streaks.rb'
-    require 'jekyll_recker/generators/swears.rb'
   end
 end
