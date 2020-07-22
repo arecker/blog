@@ -17,7 +17,7 @@ module JekyllRecker
     # Backend base class for social sharing backends.
     # @abstract
     class Share
-      include Mixins::Logging
+      include Logging
 
       def self.share(site, dry: false)
         backend = new(site, dry: dry)
