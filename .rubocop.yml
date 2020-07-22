@@ -1,0 +1,9 @@
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'test/**/*.rb'
+
+Naming/FileName:
+  Exclude:
+    - 'lib/jekyll-recker.rb'

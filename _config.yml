@@ -19,6 +19,7 @@ plugins:
 - jekyll-recker
 
 exclude:
+- .rubocop.yml
 - Gemfile
 - Gemfile.lock
 - LICENSE
