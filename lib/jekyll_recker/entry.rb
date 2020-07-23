@@ -15,8 +15,15 @@ module JekyllRecker
       @date ||= Date.parse(@doc.date.strftime('%Y-%m-%d'))
     end
 
-    def tokens
-      content.split
+    def words
+      content.split.map do |token|
+        token.gsub!(/[^0-9a-z ]/i, '')
+        token.downcase
+      end
+    end
+
+    def word_count
+      @word_count ||= words.size
     end
   end
 end
