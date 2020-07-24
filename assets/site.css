@@ -25,12 +25,11 @@ code, pre, .code {
 }
 
 .subtitle {
-    color: #6f7370;
     font-size: 18px;
     margin: 0;
 }
 
-small {
+blockquote, small, figcaption, .subtitle {
     color: #6f7370;
 }
 
@@ -47,7 +46,6 @@ figure img {
 }
 
 figure figcaption p {
-    color: #6f7370;
     font-style: italic;
     line-height: 1.3;
     margin-top: 10px;
