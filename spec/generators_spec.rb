@@ -113,7 +113,7 @@ describe JekyllRecker::Generators::Base do
       ]
       expect(k).to receive(:bodies).and_return(posts)
 
-      expected = %w[In the beginning was the Word and the Word was with God and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made.]
+      expected = %w[In the beginning was the Word, and the Word was with God, and the Word was God. The same was in the beginning with God. All things were made by him; and without him was not any thing made that was made.]
 
       expect(k.words).to eq(expected)
     end
