@@ -11,6 +11,7 @@ module JekyllRecker
   autoload :Logging, 'jekyll_recker/logging.rb'
   autoload :Math, 'jekyll_recker/math.rb'
   autoload :Shell, 'jekyll_recker/shell.rb'
+  autoload :Site, 'jekyll_recker/site.rb'
   autoload :Social, 'jekyll_recker/social.rb'
   autoload :VERSION, 'jekyll_recker/version.rb'
 
