@@ -18,4 +18,5 @@ module JekyllRecker
   require 'jekyll_recker/commands.rb'
   require 'jekyll_recker/filters.rb'
   require 'jekyll_recker/generators.rb'
+  require 'jekyll_recker/tags.rb'
 end
