@@ -8,11 +8,17 @@ module JekyllRecker
     end
 
     def entries
-      @site.posts.docs.select(&:published?).sort_by(&:date).reverse
+      @entries ||= build_entries
     end
 
     def production?
       ENV['JEKYLL_ENV'] == 'production'
+    end
+
+    private
+
+    def build_entries
+      @site.posts.docs.select(&:published?).sort_by(&:date).reverse.map { |p| Entry.new(p) }
     end
   end
 end

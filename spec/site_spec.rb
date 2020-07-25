@@ -7,15 +7,19 @@ describe JekyllRecker::Site do
 
   describe '#entries' do
     it 'should return an ordered list of descending posts' do
-      posts = (1..3).map do |n|
+      dates = (1..3).map { |n| Date.new(2020, 7, n) }
+
+      posts = dates.map do |date|
         post = double('post')
-        expect(post).to receive(:published?).and_return true
-        expect(post).to receive(:date).and_return Date.new(2020, 7, n)
+        allow(post).to receive(:published?).and_return true
+        allow(post).to receive(:date).and_return date
         post
       end
 
       expect(site).to receive_message_chain(:posts, :docs).and_return(posts)
-      expect(JekyllRecker::Site.new(site).entries).to eq(posts.reverse)
+
+      actual = JekyllRecker::Site.new(site).entries.collect(&:date)
+      expect(actual).to eq(dates.reverse)
     end
 
     it 'should return published posts' do
@@ -35,7 +39,10 @@ describe JekyllRecker::Site do
       end
 
       expect(site).to receive_message_chain(:posts, :docs).and_return(posts)
-      expect(JekyllRecker::Site.new(site).entries).to eq([published])
+
+      actual = JekyllRecker::Site.new(site).entries
+      expect(actual.count).to eq(1)
+      expect(actual.first.date).to eq(Date.new(2020, 7, 1))
     end
 
     describe '#production?' do
