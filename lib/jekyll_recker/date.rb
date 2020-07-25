@@ -17,5 +17,9 @@ module JekyllRecker
         }
       end
     end
+
+    def time_to_date(time)
+      ::Date.parse(time.strftime('%Y-%m-%d'))
+    end
   end
 end

@@ -106,4 +106,12 @@ describe JekyllRecker::Date do
       expect(k.calculate_streaks(dates)).to eq(expected)
     end
   end
+
+  describe '#time_to_date' do
+    it 'should convert a time to a date' do
+      actual = k.time_to_date(Time.parse('2020-07-03').localtime)
+      expected = Date.new(2020, 0o7, 0o3)
+      expect(actual).to eq(expected)
+    end
+  end
 end

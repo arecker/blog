@@ -76,7 +76,7 @@
   
   <dl>
     <dt>Included in:</dt>
-    <dd><span class='object_link'><a href="Generators/Base.html" title="JekyllRecker::Generators::Base (module)">Generators::Base</a></span></dd>
+    <dd><span class='object_link'><a href="Entry.html" title="JekyllRecker::Entry (class)">Entry</a></span>, <span class='object_link'><a href="Generators/Base.html" title="JekyllRecker::Generators::Base (module)">Generators::Base</a></span></dd>
   </dl>
   
 
@@ -140,6 +140,28 @@
   <span class="summary_signature">
     
       <a href="#slice_by_consecutive-instance_method" title="#slice_by_consecutive (instance method)">#<strong>slice_by_consecutive</strong>(dates)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#time_to_date-instance_method" title="#time_to_date (instance method)">#<strong>time_to_date</strong>(time)  &#x21d2; Object </a>
     
 
     
@@ -241,12 +263,42 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="time_to_date-instance_method">
+  
+    #<strong>time_to_date</strong>(time)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+21
+22
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/date.rb', line 21</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_time_to_date'>time_to_date</span><span class='lparen'>(</span><span class='id identifier rubyid_time'>time</span><span class='rparen'>)</span>
+  <span class='op'>::</span><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_time'>time</span><span class='period'>.</span><span class='id identifier rubyid_strftime'>strftime</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>%Y-%m-%d</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 25 12:18:11 2020 by
+  Generated on Sat Jul 25 12:31:12 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

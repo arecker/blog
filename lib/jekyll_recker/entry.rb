@@ -3,6 +3,8 @@
 module JekyllRecker
   # Entry
   class Entry
+    include Date
+
     def initialize(doc)
       @doc = doc
     end
@@ -12,7 +14,7 @@ module JekyllRecker
     end
 
     def date
-      @date ||= ::Date.parse(@doc.date.strftime('%Y-%m-%d'))
+      @date ||= time_to_date(@doc.date)
     end
 
     def words
