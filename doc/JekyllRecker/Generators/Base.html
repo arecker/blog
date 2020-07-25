@@ -73,7 +73,7 @@
   
   <dl>
       <dt>Includes:</dt>
-      <dd><span class='object_link'><a href="../Logging.html" title="JekyllRecker::Logging (module)">Logging</a></span>, <span class='object_link'><a href="../Math.html" title="JekyllRecker::Math (module)">Math</a></span></dd>
+      <dd><span class='object_link'><a href="../Date.html" title="JekyllRecker::Date (module)">Date</a></span>, <span class='object_link'><a href="../Logging.html" title="JekyllRecker::Logging (module)">Logging</a></span>, <span class='object_link'><a href="../Math.html" title="JekyllRecker::Math (module)">Math</a></span></dd>
   </dl>
   
   
@@ -264,7 +264,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Math.html" title="JekyllRecker::Math (module)">Math</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Math.html#average-instance_method" title="JekyllRecker::Math#average (method)">#average</a></span>, <span class='object_link'><a href="../Math.html#calculate_streaks-instance_method" title="JekyllRecker::Math#calculate_streaks (method)">#calculate_streaks</a></span>, <span class='object_link'><a href="../Math.html#slice_by_consecutive_days-instance_method" title="JekyllRecker::Math#slice_by_consecutive_days (method)">#slice_by_consecutive_days</a></span>, <span class='object_link'><a href="../Math.html#total-instance_method" title="JekyllRecker::Math#total (method)">#total</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Math.html#average-instance_method" title="JekyllRecker::Math#average (method)">#average</a></span>, <span class='object_link'><a href="../Math.html#total-instance_method" title="JekyllRecker::Math#total (method)">#total</a></span></p>
 
   
   
@@ -276,6 +276,17 @@
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Logging.html" title="JekyllRecker::Logging (module)">Logging</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Logging.html#included-class_method" title="JekyllRecker::Logging.included (method)">included</a></span>, <span class='object_link'><a href="../Logging.html#logger-instance_method" title="JekyllRecker::Logging#logger (method)">#logger</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Date.html" title="JekyllRecker::Date (module)">Date</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Date.html#calculate_streaks-instance_method" title="JekyllRecker::Date#calculate_streaks (method)">#calculate_streaks</a></span>, <span class='object_link'><a href="../Date.html#slice_by_consecutive-instance_method" title="JekyllRecker::Date#slice_by_consecutive (method)">#slice_by_consecutive</a></span></p>
 
 
   <div id="instance_method_details" class="method_details_list">
@@ -297,12 +308,12 @@
       <pre class="lines">
 
 
-25
 26
-27</pre>
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 25</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 26</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_bodies'>bodies</span>
   <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:content</span><span class='rparen'>)</span>
@@ -327,15 +338,15 @@
       <pre class="lines">
 
 
-33
 34
-35</pre>
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 33</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dates'>dates</span>
-  <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:date</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_month'>month</span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_day'>day</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+  <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:date</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_t'>t</span><span class='op'>|</span> <span class='op'>::</span><span class='const'>Date</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_year'>year</span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_month'>month</span><span class='comma'>,</span> <span class='id identifier rubyid_t'>t</span><span class='period'>.</span><span class='id identifier rubyid_day'>day</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -357,12 +368,12 @@
       <pre class="lines">
 
 
-29
 30
-31</pre>
+31
+32</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 29</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 30</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_entries'>entries</span>
   <span class='ivar'>@site</span><span class='period'>.</span><span class='id identifier rubyid_posts'>posts</span><span class='period'>.</span><span class='id identifier rubyid_docs'>docs</span><span class='period'>.</span><span class='id identifier rubyid_select'>select</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:published?</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_sort_by'>sort_by</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:date</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_reverse'>reverse</span>
@@ -409,12 +420,12 @@
       <pre class="lines">
 
 
-13
 14
-15</pre>
+15
+16</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 14</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_production?'>production?</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>JEKYLL_ENV</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>production</span><span class='tstring_end'>&#39;</span></span>
@@ -439,12 +450,12 @@
       <pre class="lines">
 
 
-17
 18
-19</pre>
+19
+20</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_word_counts'>word_counts</span>
   <span class='ivar'>@word_counts</span> <span class='op'>||=</span> <span class='id identifier rubyid_bodies'>bodies</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:split</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:size</span><span class='rparen'>)</span>
@@ -469,12 +480,12 @@
       <pre class="lines">
 
 
-21
 22
-23</pre>
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 21</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 22</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_words'>words</span>
   <span class='id identifier rubyid_bodies'>bodies</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:split</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span>
@@ -489,7 +500,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 25 12:04:51 2020 by
+  Generated on Sat Jul 25 12:18:11 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

@@ -34,7 +34,7 @@ describe JekyllRecker::Generators::Base do
     it 'should only return published entries' do
       published = double('post')
       expect(published).to receive(:published?).and_return(true)
-      expect(published).to receive(:date).and_return(Date.new(2020, 1, 1))
+      expect(published).to receive(:date).and_return(::Date.new(2020, 1, 1))
 
       unpublished = double('post')
       expect(unpublished).to receive(:published?).and_return(false)
@@ -49,7 +49,7 @@ describe JekyllRecker::Generators::Base do
       posts = [1, 10, 5].map do |i|
         post = double("post-#{i}")
         expect(post).to receive(:published?).and_return(true)
-        expect(post).to receive(:date).and_return(Date.new(2020, 1, i))
+        expect(post).to receive(:date).and_return(::Date.new(2020, 1, i))
         post
       end
 
@@ -67,11 +67,11 @@ describe JekyllRecker::Generators::Base do
 
     it 'should return the descending entry dates' do
       dates = [
-        Date.new(2020, 2, 1),
-        Date.new(2020, 1, 20),
-        Date.new(2020, 1, 2),
-        Date.new(2020, 1, 4),
-        Date.new(2020, 1, 10)
+        ::Date.new(2020, 2, 1),
+        ::Date.new(2020, 1, 20),
+        ::Date.new(2020, 1, 2),
+        ::Date.new(2020, 1, 4),
+        ::Date.new(2020, 1, 10)
       ]
 
       posts = dates.each.map do |d|

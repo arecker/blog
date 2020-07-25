@@ -12,7 +12,7 @@ module JekyllRecker
     end
 
     def date
-      @date ||= Date.parse(@doc.date.strftime('%Y-%m-%d'))
+      @date ||= ::Date.parse(@doc.date.strftime('%Y-%m-%d'))
     end
 
     def words

@@ -7,6 +7,7 @@ module JekyllRecker
   module Generators
     # Base Generator Functions
     module Base
+      include Date
       include Logging
       include Math
 
@@ -31,7 +32,7 @@ module JekyllRecker
       end
 
       def dates
-        entries.collect(&:date).map { |t| Date.new(t.year, t.month, t.day) }
+        entries.collect(&:date).map { |t| ::Date.new(t.year, t.month, t.day) }
       end
     end
 
