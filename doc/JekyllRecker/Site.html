@@ -128,6 +128,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#data-instance_method" title="#data (instance method)">#<strong>data</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#entries-instance_method" title="#entries (instance method)">#<strong>entries</strong>  &#x21d2; Object </a>
     
 
@@ -177,6 +199,28 @@
   <span class="summary_signature">
     
       <a href="#production%3F-instance_method" title="#production? (instance method)">#<strong>production?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#word_counts-instance_method" title="#word_counts (instance method)">#<strong>word_counts</strong>  &#x21d2; Object </a>
     
 
     
@@ -250,7 +294,37 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="entries-instance_method">
+  <h3 class="signature first" id="data-instance_method">
+  
+    #<strong>data</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='ivar'>@site</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="entries-instance_method">
   
     #<strong>entries</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -331,12 +405,42 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="word_counts-instance_method">
+  
+    #<strong>word_counts</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 22</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_word_counts'>word_counts</span>
+  <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:word_count</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 25 12:31:12 2020 by
+  Generated on Sat Jul 25 17:00:10 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

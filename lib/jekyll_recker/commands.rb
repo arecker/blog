@@ -17,7 +17,7 @@ module JekyllRecker
       end
 
       def self.action(args, options)
-        site = Jekyll::Site.new(configuration_from_options(options))
+        site = ::Jekyll::Site.new(configuration_from_options(options))
         site.reset
         site.read
         Social.action(site, args, options)

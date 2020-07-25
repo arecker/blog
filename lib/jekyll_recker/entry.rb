@@ -4,6 +4,7 @@ module JekyllRecker
   # Entry
   class Entry
     include Date
+    include Filters
 
     def initialize(doc)
       @doc = doc
@@ -15,6 +16,18 @@ module JekyllRecker
 
     def date
       @date ||= time_to_date(@doc.date)
+    end
+
+    def title
+      uyd_date(date)
+    end
+
+    def subtitle
+      @doc.data['title']
+    end
+
+    def url
+      @doc.url
     end
 
     def words

@@ -19,17 +19,19 @@ module JekyllRecker
     class Share
       include Logging
 
+      attr_reader :site
+
       def self.share(site, dry: false)
         backend = new(site, dry: dry)
-        logger.info "#{backend.name} - building configuration"
+        info "#{backend.name} - building configuration"
         backend.configure!
 
-        logger.info "#{backend.name} - sharing \"#{backend.latest_title}\""
+        info "#{backend.name} - sharing \"#{backend.latest_title}\""
         backend.post!
       end
 
       def initialize(site, dry: false)
-        @site = site
+        @site = Site.new(site)
         @dry = dry
       end
 
@@ -38,29 +40,28 @@ module JekyllRecker
       end
 
       def config
-        @site.config.fetch('recker', {}).fetch(config_key, {})
+        site.recker_config.fetch(config_key, {})
       end
 
       def config_key
         self.class.const_get(:KEY)
       end
-      alias name :config_key
+      alias :name :config_key
 
       def post_body
-        url = File.join @site.config['url'], latest.url
         <<~BODY
-          #{latest.data['date'].strftime('%A, %B %-d %Y')}
-          #{latest.data['title']}
-          #{url}
+          #{latest.title}
+          #{latest.subtitle}
+          #{File.join site.url, latest.url}
         BODY
       end
 
-      def latest
-        @latest ||= @site.posts.docs.last
+      def latest_title
+        latest.title
       end
 
-      def latest_title
-        latest.data['title']
+      def latest
+        site.latest
       end
 
       def configure!
@@ -91,9 +92,9 @@ module JekyllRecker
       def post!
         message_body = ::Slack::Notifier::Util::LinkFormatter.format(post_body)
         workspaces.each do |key, config|
-          logger.info "posting to #{key} workspace"
+          info "posting to #{key} workspace"
           if @dry
-            logger.info("BEGIN MESSAGE\n#{message_body.strip}\nEND MESSAGE")
+            puts "BEGIN MESSAGE\n#{message_body.strip}\nEND MESSAGE"
           else
             ::Slack::Notifier.new(
               @creds[key].strip,
@@ -139,8 +140,8 @@ module JekyllRecker
 
       def post!
         if dry?
-          logger.info('tweeting in dry mode, printing message')
-          logger.info("BEGIN TWEET\n#{post_body}END TWEET")
+          info('tweeting in dry mode, printing message')
+          puts "BEGIN TWEET\n#{post_body}END TWEET"
         else
           @client.update(post_body)
         end

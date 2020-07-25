@@ -1,93 +1,53 @@
 # frozen_string_literal: true
 
-require 'bundler'
-
 module JekyllRecker
   # Generators Module
   module Generators
-    # Base Generator Functions
+    # Base Generator
     module Base
       include Date
       include Logging
       include Math
-
-      def production?
-        ENV['JEKYLL_ENV'] == 'production'
-      end
-
-      def word_counts
-        @word_counts ||= bodies.map(&:split).map(&:size)
-      end
-
-      def words
-        bodies.map(&:split).flatten
-      end
-
-      def bodies
-        entries.collect(&:content)
-      end
-
-      def entries
-        @site.posts.docs.select(&:published?).sort_by(&:date).reverse
-      end
-
-      def dates
-        entries.collect(&:date).map { |t| ::Date.new(t.year, t.month, t.day) }
-      end
     end
 
     # Stats Generator
     class Stats < Jekyll::Generator
       include Base
-      include Graphs
+
+      attr_reader :site
 
       def generate(site)
-        @site = site
-        logger.info 'calculating statistics'
-        @site.data['stats'] = data
-        if production?
-          logger.info 'production detected. skipping graphs'
+        @site = Site.new(site)
+        generate_stats!
+        if @site.production?
+          info 'production detected. skipping graphs'
         else
-          require 'gruff'
-          logger.info 'generating graphs'
-          generate_graphs(entries, swear_results, graphs_dir)
+          info 'generating graphs'
+          Graphs.generate_graphs(@site)
         end
       end
 
-      def data
-        {
-          'total_words' => total(word_counts),
-          'average_words' => average(word_counts),
-          'total_posts' => entries.size,
-          'consecutive_posts' => calculate_streaks(dates).first['days'],
-          'swears' => {
-            'total' => swear_results.map(&:last).reduce(0, :+),
-            'words' => swear_results
-          }
+      def generate_stats!
+        info 'calculating statistics'
+        site.data['stats'] = {
+          'total_words' => total(site.word_counts),
+          'average_words' => average(site.word_counts),
+          'total_posts' => site.entries.size,
+          'consecutive_posts' => calculate_streaks(site.dates).first['days'],
+          'swears' => calculate_swears
         }
       end
 
       private
 
-      def swear_results
-        @swear_results ||= count_swears
-      end
-
-      def graphs_dir
-        recker = @site.config.fetch('recker', {})
-        recker.fetch('graphs', 'assets/images/graphs/')
+      def calculate_swears
+        results = Hash[count_swears]
+        results['total'] = total(results.values)
+        results
       end
 
       def count_swears
-        results = Hash.new(0)
-        bodies.map(&:split).each do |words|
-          words = words.map(&:downcase)
-          swears.each do |swear|
-            count = words.count(swear)
-            results[swear] += count
-          end
-        end
-        results.reject { |_k, v| v.zero? }.sort_by { |_k, v| -v }
+        occurences(swears, site.words).reject { |_k, v| v.zero? }.sort_by { |_k, v| -v }
       end
 
       def swears
@@ -107,6 +67,57 @@ module JekyllRecker
         ]
       end
     end
-    require 'jekyll_recker/generators/image_resize.rb'
+
+    # Image Resize Generator
+    class ImageResize < Jekyll::Generator
+      include Base
+
+      attr_reader :site
+
+      def generate(site)
+        @site = Site.new(site)
+
+        if @site.production?
+          info 'production detected, skipping images'
+          return
+        end
+
+        load_deps!
+
+        info 'checking images'
+        resizeable_images.each do |f, d|
+          info "resizing #{f} to fit #{d}"
+          image = MiniMagick::Image.new(f)
+          image.resize d
+        end
+      end
+
+      def too_big?(width, height)
+        width > 800 || height > 800
+      end
+
+      def load_deps!
+        require 'fastimage'
+        require 'mini_magick'
+      end
+
+      def graph?(file)
+        file.include?('/graphs/')
+      end
+
+      def resizeable_images
+        without_graphs = site.images.reject { |i| graph?(i) }
+        with_sizes = without_graphs.map { |f| [f, FastImage.size(f)].flatten }
+        with_sizes.select! { |f| too_big?(f[1], f[2]) }
+        with_sizes.map do |f, w, h|
+          dimensions = if w > h
+                         '800x600'
+                       else
+                         '600x800'
+                       end
+          [f, dimensions]
+        end
+      end
+    end
   end
 end

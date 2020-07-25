@@ -9,11 +9,12 @@ module JekyllRecker
       base.extend(self)
     end
 
+    def info(msg)
+      Jekyll.logger.info 'jekyll-recker:', msg
+    end
+
     def logger
-      @logger ||= Logger.new(
-        STDOUT,
-        formatter: proc { |_severity, _datetime, _progname, msg| "jekyll-recker: #{msg}\n" }
-      )
+      ::Jekyll.logger
     end
   end
 end
