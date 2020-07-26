@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    jekyll-recker (2.3.1)
+    jekyll-recker (2.4.0)
       jekyll (~> 3.8)
 
 GEM
