@@ -50,6 +50,10 @@ slug: stats.html
 	<td class="code">{{ site.data.coverage.metrics.total_lines | pretty }}</td>
       </tr>
       <tr>
+	<td>Total Commits</td>
+	<td class="code">{% commit_count %}</td>
+      </tr>
+      <tr>
 	<td>Test Coverage</td>
 	<td class="code">{{ site.data.coverage.metrics.covered_percent | round: 2 }}%</td>
       </tr>

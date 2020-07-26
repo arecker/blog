@@ -34,7 +34,7 @@ module JekyllRecker
           'average_words' => average(site.word_counts),
           'total_posts' => site.entries.size,
           'consecutive_posts' => calculate_streaks(site.dates).first['days'],
-          'swears' => calculate_swears
+          'swears' => calculate_swears,
         }
       end
 
