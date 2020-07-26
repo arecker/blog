@@ -32,7 +32,7 @@ module JekyllRecker
 
     def words
       content.split.map do |token|
-        token.gsub!(/[^0-9a-z ]/i, '')
+        token.gsub!(/[^0-9a-z ']/i, '')
         token.downcase
       end
     end

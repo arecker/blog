@@ -31,6 +31,13 @@ describe JekyllRecker::Entry do
       expect(actual).to eq(expected)
     end
 
+    it 'should leave apostrophes' do
+      expect(doc).to receive(:content).and_return "This is Alex\'s blog"
+      actual = JekyllRecker::Entry.new(doc).words
+      expected = ['this', 'is', "alex\'s", 'blog']
+      expect(actual).to eq(expected)
+    end
+
     it 'should make all words lowercase' do
       expect(doc).to receive(:content).and_return 'Alex Martin Recker'
       actual = JekyllRecker::Entry.new(doc).words
