@@ -189,7 +189,7 @@
   
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Logging.html" title="JekyllRecker::Logging (module)">Logging</a></span></h3>
-  <p class="inherited"><span class='object_link'><a href="../Logging.html#included-class_method" title="JekyllRecker::Logging.included (method)">included</a></span>, <span class='object_link'><a href="../Logging.html#logger-instance_method" title="JekyllRecker::Logging#logger (method)">#logger</a></span></p>
+  <p class="inherited"><span class='object_link'><a href="../Logging.html#included-class_method" title="JekyllRecker::Logging.included (method)">included</a></span>, <span class='object_link'><a href="../Logging.html#info-instance_method" title="JekyllRecker::Logging#info (method)">#info</a></span>, <span class='object_link'><a href="../Logging.html#logger-instance_method" title="JekyllRecker::Logging#logger (method)">#logger</a></span></p>
 
   
 
@@ -226,7 +226,7 @@
       <pre class="code"><span class="info file"># File 'lib/jekyll_recker/commands.rb', line 19</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_action'>action</span><span class='lparen'>(</span><span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_site'>site</span> <span class='op'>=</span> <span class='const'>Jekyll</span><span class='op'>::</span><span class='const'>Site</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_configuration_from_options'>configuration_from_options</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_site'>site</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Jekyll</span><span class='op'>::</span><span class='const'>Site</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_configuration_from_options'>configuration_from_options</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_site'>site</span><span class='period'>.</span><span class='id identifier rubyid_reset'>reset</span>
   <span class='id identifier rubyid_site'>site</span><span class='period'>.</span><span class='id identifier rubyid_read'>read</span>
   <span class='const'><span class='object_link'><a href="../Social.html" title="JekyllRecker::Social (module)">Social</a></span></span><span class='period'>.</span><span class='id identifier rubyid_action'><span class='object_link'><a href="../Social.html#action-class_method" title="JekyllRecker::Social.action (method)">action</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_site'>site</span><span class='comma'>,</span> <span class='id identifier rubyid_args'>args</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
@@ -284,7 +284,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 25 17:00:11 2020 by
+  Generated on Sat Jul 25 23:34:06 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

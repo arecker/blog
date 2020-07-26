@@ -87,6 +87,11 @@
   
   
   
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Base.html" title="JekyllRecker::Graphs::Base (module)">Base</a></span></dd>
+  </dl>
+  
   
 
   
@@ -150,6 +155,11 @@
 
 
 
+  
+  
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Base.html" title="JekyllRecker::Graphs::Base (module)">Base</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Base.html#site-instance_method" title="JekyllRecker::Graphs::Base#site (method)">#site</a></span></p>
+
 
   
     <h2>
@@ -162,31 +172,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#graphs_join-instance_method" title="#graphs_join (instance method)">#<strong>graphs_join</strong>(path)  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>TODO: I SUCK.</p>
-</div></span>
-  
-</li>
-
-      
-        <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(results, graphs_dir)  &#x21d2; Swears </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">#<strong>initialize</strong>(site)  &#x21d2; Swears </a>
     
 
     
@@ -234,13 +220,24 @@
     </ul>
   
 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Base.html" title="JekyllRecker::Graphs::Base (module)">Base</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Base.html#graphs_join-instance_method" title="JekyllRecker::Graphs::Base#graphs_join (method)">#graphs_join</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
   <h3 class="signature first" id="initialize-instance_method">
   
-    #<strong>initialize</strong>(results, graphs_dir)  &#x21d2; <tt><span class='object_link'><a href="" title="JekyllRecker::Graphs::Swears (class)">Swears</a></span></tt> 
+    #<strong>initialize</strong>(site)  &#x21d2; <tt><span class='object_link'><a href="" title="JekyllRecker::Graphs::Swears (class)">Swears</a></span></tt> 
   
 
   
@@ -263,17 +260,19 @@
       <pre class="lines">
 
 
-58
-59
-60
-61</pre>
+71
+72
+73
+74
+75</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/graphs.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/graphs.rb', line 71</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_results'>results</span><span class='comma'>,</span> <span class='id identifier rubyid_graphs_dir'>graphs_dir</span><span class='rparen'>)</span>
-  <span class='ivar'>@results</span> <span class='op'>=</span> <span class='id identifier rubyid_results'>results</span>
-  <span class='ivar'>@graphs_dir</span> <span class='op'>=</span> <span class='id identifier rubyid_graphs_dir'>graphs_dir</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_site'>site</span><span class='rparen'>)</span>
+  <span class='ivar'>@results</span> <span class='op'>=</span> <span class='id identifier rubyid_site'>site</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>stats</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>swears</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_clone'>clone</span>
+  <span class='ivar'>@results</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>total</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='ivar'>@graphs_dir</span> <span class='op'>=</span> <span class='id identifier rubyid_site'>site</span><span class='period'>.</span><span class='id identifier rubyid_graphs_dir'>graphs_dir</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -313,12 +312,12 @@
       <pre class="lines">
 
 
-56
-57
-58</pre>
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/graphs.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/graphs.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_results'>results</span>
   <span class='ivar'>@results</span>
@@ -336,48 +335,7 @@
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="graphs_join-instance_method">
-  
-    #<strong>graphs_join</strong>(path)  &#x21d2; <tt>Object</tt> 
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>TODO: I SUCK</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-64
-65
-66</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/graphs.rb', line 64</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_graphs_join'>graphs_join</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='const'>Bundler</span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span><span class='comma'>,</span> <span class='ivar'>@graphs_dir</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      <div class="method_details ">
-  <h3 class="signature " id="write-instance_method">
+  <h3 class="signature first" id="write-instance_method">
   
     #<strong>write</strong>  &#x21d2; <tt>Object</tt> 
   
@@ -391,21 +349,21 @@
       <pre class="lines">
 
 
-68
-69
-70
-71
-72
-73
-74
-75
-76</pre>
+77
+78
+79
+80
+81
+82
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/graphs.rb', line 68</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/graphs.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_write'>write</span>
-  <span class='id identifier rubyid_g'>g</span> <span class='op'>=</span> <span class='const'>Gruff</span><span class='op'>::</span><span class='const'>Pie</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>800x600</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_g'>g</span> <span class='op'>=</span> <span class='op'>::</span><span class='const'>Gruff</span><span class='op'>::</span><span class='const'>Pie</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>800x600</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_g'>g</span><span class='period'>.</span><span class='id identifier rubyid_theme'>theme</span> <span class='op'>=</span> <span class='const'>Gruff</span><span class='op'>::</span><span class='const'>Themes</span><span class='op'>::</span><span class='const'>PASTEL</span>
   <span class='id identifier rubyid_g'>g</span><span class='period'>.</span><span class='id identifier rubyid_hide_legend'>hide_legend</span> <span class='op'>=</span> <span class='kw'>false</span>
   <span class='id identifier rubyid_g'>g</span><span class='period'>.</span><span class='id identifier rubyid_legend_at_bottom'>legend_at_bottom</span> <span class='op'>=</span> <span class='kw'>true</span>
@@ -423,7 +381,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 25 17:00:11 2020 by
+  Generated on Sat Jul 25 23:34:06 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>
