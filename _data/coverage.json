@@ -1,8 +1,8 @@
 {
   "metrics": {
-    "covered_percent": 81.41592920353982,
-    "covered_strength": 1.3746312684365782,
-    "covered_lines": 276,
-    "total_lines": 339
+    "covered_percent": 85.55858310626704,
+    "covered_strength": 1.4277929155313351,
+    "covered_lines": 314,
+    "total_lines": 367
   }
 }

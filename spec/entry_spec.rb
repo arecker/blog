@@ -23,6 +23,28 @@ describe JekyllRecker::Entry do
     end
   end
 
+  describe '#title' do
+    it 'should convert the date to UYD format' do
+      entry = JekyllRecker::Entry.new(doc)
+      expect(entry).to receive(:date).and_return Date.new(2020, 1, 1)
+      expect(entry.title).to eq('Wednesday, January 1 2020')
+    end
+  end
+
+  describe '#subtitle' do
+    it 'should return the document title' do
+      expect(doc).to receive(:data).and_return({ 'title' => 'boop' })
+      expect(JekyllRecker::Entry.new(doc).subtitle).to eq('boop')
+    end
+  end
+
+  describe '#url' do
+    it 'should return the document url' do
+      expect(doc).to receive(:url).and_return 'boop'
+      expect(JekyllRecker::Entry.new(doc).url).to eq('boop')
+    end
+  end
+
   describe '#words' do
     it 'should remove punctuation' do
       expect(doc).to receive(:content).and_return 'alex...!'

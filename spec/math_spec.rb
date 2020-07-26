@@ -16,4 +16,19 @@ describe JekyllRecker::Math do
       expect(k.total([1, 1, 2, 2, 3, 3])).to eq(12)
     end
   end
+
+  describe '#occurences' do
+    it 'should count occurances of keys in a list of targets' do
+      keys = ['Kelly', 'Alex', 'Sarah', 'Frank']
+      text = 'Kelly and Alex and Sarah are siblings.  Kelly and Sarah are sisters'
+
+      expected = {
+        'Kelly' => 2,
+        'Alex' => 1,
+        'Sarah' => 2
+      }
+
+      expect(k.occurences(keys, text.split)).to eq(expected)
+    end
+  end
 end

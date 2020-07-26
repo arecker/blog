@@ -47,7 +47,7 @@ module JekyllRecker
           'average_words' => average(site.word_counts),
           'total_posts' => site.entries.size,
           'consecutive_posts' => calculate_streaks(site.dates).first['days'],
-          'swears' => calculate_swears,
+          'swears' => calculate_swears
         }
       end
 
@@ -64,20 +64,7 @@ module JekyllRecker
       end
 
       def swears
-        %w[
-          ass
-          asshole
-          booger
-          crap
-          damn
-          fart
-          fuck
-          hell
-          jackass
-          piss
-          poop
-          shit
-        ]
+        site.recker_config.fetch('swears', [])
       end
     end
 
@@ -126,13 +113,12 @@ module JekyllRecker
         require 'mini_magick'
       end
 
-      def graph?(file)
-        file.include?('/graphs/')
+      def images_without_graphs
+        site.images.reject { |i| i.include?('/graphs/') }
       end
 
       def resizeable_images
-        without_graphs = site.images.reject { |i| graph?(i) }
-        with_sizes = without_graphs.map { |f| [f, FastImage.size(f)].flatten }
+        with_sizes = images_without_graphs.map { |f| [f, FastImage.size(f)].flatten }
         with_sizes.select! { |f| too_big?(f[1], f[2]) }
         with_sizes.map do |f, w, h|
           dimensions = if w > h

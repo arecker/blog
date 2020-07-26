@@ -46,7 +46,7 @@ module JekyllRecker
       def config_key
         self.class.const_get(:KEY)
       end
-      alias :name :config_key
+      alias name config_key
 
       def post_body
         <<~BODY
@@ -90,20 +90,27 @@ module JekyllRecker
       end
 
       def post!
-        message_body = ::Slack::Notifier::Util::LinkFormatter.format(post_body)
         workspaces.each do |key, config|
           info "posting to #{key} workspace"
           if @dry
-            puts "BEGIN MESSAGE\n#{message_body.strip}\nEND MESSAGE"
+            puts "BEGIN MESSAGE\n#{post_body.strip}\nEND MESSAGE"
           else
-            ::Slack::Notifier.new(
-              @creds[key].strip,
-              channel: config.fetch('channel'),
-              username: config.fetch('username'),
-              icon_emoji: config.fetch('emoji')
-            ).post(text: message_body)
+            post(key, config)
           end
         end
+      end
+
+      def post(key, config)
+        ::Slack::Notifier.new(
+          @creds[key].strip,
+          channel: config.fetch('channel'),
+          username: config.fetch('username'),
+          icon_emoji: config.fetch('emoji')
+        ).post(text: message_body)
+      end
+
+      def post_body
+        ::Slack::Notifier::Util::LinkFormatter.format(super)
       end
 
       private

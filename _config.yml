@@ -49,6 +49,19 @@ recker:
       username: 'reckerbot'
       emoji: ':reckerbot:'
       webhook_cmd: pass slack/redalenfamily/webhook | tail -1
+  swears:
+  - ass
+  - asshole
+  - booger
+  - crap
+  - damn
+  - fart
+  - fuck
+  - hell
+  - jackass
+  - piss
+  - poop
+  - shit
 
 defaults:
   -

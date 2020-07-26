@@ -51,7 +51,7 @@ describe JekyllRecker::Site do
         data = {}
         expect(site).to receive(:data).and_return(data)
         JekyllRecker::Site.new(site).data['hello'] = 'world'
-        expect(data).to eq({'hello' => 'world' })
+        expect(data).to eq({ 'hello' => 'world' })
       end
     end
 

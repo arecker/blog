@@ -4,7 +4,7 @@ module JekyllRecker
   # Filters
   module Filters
     def uyd_date(date)
-      date.strftime('%A, %B %d %Y')
+      date.strftime('%A, %B %-d %Y')
     end
 
     def pretty(num)

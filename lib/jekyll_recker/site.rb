@@ -66,10 +66,10 @@ module JekyllRecker
 
     def build_entries
       @site.posts.docs
-        .select(&:published?)
-        .sort_by(&:date)
-        .reverse
-        .map { |p| Entry.new(p) }
+           .select(&:published?)
+           .sort_by(&:date)
+           .reverse
+           .map { |p| Entry.new(p) }
     end
   end
 end

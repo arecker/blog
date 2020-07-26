@@ -18,4 +18,11 @@ describe JekyllRecker::Logging do
       expect(Dog.new.logger).to be_a(::Jekyll::LogAdapter)
     end
   end
+
+  describe '#info' do
+    it 'should pass through to Jekyll Logger info' do
+      expect(::Jekyll.logger).to receive(:info).with('jekyll-recker:', 'testing!')
+      Dog.new.info 'testing!'
+    end
+  end
 end

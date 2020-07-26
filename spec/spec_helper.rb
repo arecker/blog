@@ -34,7 +34,7 @@ end
 SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
   [
     SimpleCov::Formatter::HTMLFormatter,
-    JekyllDataReporter,
+    JekyllDataReporter
   ]
 )
 SimpleCov.start
