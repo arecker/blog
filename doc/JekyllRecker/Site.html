@@ -172,6 +172,28 @@
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#data_dir-instance_method" title="#data_dir (instance method)">#<strong>data_dir</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#dates-instance_method" title="#dates (instance method)">#<strong>dates</strong>  &#x21d2; Object </a>
     
 
@@ -447,12 +469,12 @@
       <pre class="lines">
 
 
-6
-7
-8</pre>
+8
+9
+10</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 6</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 8</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_site'>site</span><span class='rparen'>)</span>
   <span class='ivar'>@site</span> <span class='op'>=</span> <span class='id identifier rubyid_site'>site</span>
@@ -484,12 +506,12 @@
       <pre class="lines">
 
 
-52
 53
-54</pre>
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 52</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_config'>config</span>
   <span class='ivar'>@site</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span>
@@ -514,15 +536,45 @@
       <pre class="lines">
 
 
-23
 24
-25</pre>
+25
+26</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_data'>data</span>
   <span class='ivar'>@site</span><span class='period'>.</span><span class='id identifier rubyid_data'>data</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="data_dir-instance_method">
+  
+    #<strong>data_dir</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+61
+62
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 61</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_data_dir'>data_dir</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='const'>Bundler</span><span class='period'>.</span><span class='id identifier rubyid_root'>root</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>_data</span><span class='tstring_end'>&#39;</span></span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -544,12 +596,12 @@
       <pre class="lines">
 
 
-39
 40
-41</pre>
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 39</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 40</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dates'>dates</span>
   <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:date</span><span class='rparen'>)</span>
@@ -574,12 +626,12 @@
       <pre class="lines">
 
 
-10
-11
-12</pre>
+12
+13
+14</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_entries'>entries</span>
   <span class='ivar'>@entries</span> <span class='op'>||=</span> <span class='id identifier rubyid_build_entries'>build_entries</span>
@@ -604,12 +656,12 @@
       <pre class="lines">
 
 
-56
 57
-58</pre>
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_graphs_dir'>graphs_dir</span>
   <span class='id identifier rubyid_recker_config'>recker_config</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>graphs</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>assets/images/graphs/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -634,13 +686,13 @@
       <pre class="lines">
 
 
-43
 44
 45
-46</pre>
+46
+47</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 44</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_images'>images</span>
   <span class='id identifier rubyid_exts'>exts</span> <span class='op'>=</span> <span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.jpg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>jpeg</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.png</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>.svg</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -666,12 +718,12 @@
       <pre class="lines">
 
 
-14
-15
-16</pre>
+16
+17
+18</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_latest'>latest</span>
   <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
@@ -718,12 +770,12 @@
       <pre class="lines">
 
 
-19
 20
-21</pre>
+21
+22</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 19</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_production?'>production?</span>
   <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>JEKYLL_ENV</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>production</span><span class='tstring_end'>&#39;</span></span>
@@ -748,12 +800,12 @@
       <pre class="lines">
 
 
-48
 49
-50</pre>
+50
+51</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 48</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_recker_config'>recker_config</span>
   <span class='ivar'>@site</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_fetch'>fetch</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>recker</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
@@ -778,12 +830,12 @@
       <pre class="lines">
 
 
-27
 28
-29</pre>
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 27</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_url'>url</span>
   <span class='ivar'>@site</span><span class='period'>.</span><span class='id identifier rubyid_config'>config</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>url</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -808,12 +860,12 @@
       <pre class="lines">
 
 
-31
 32
-33</pre>
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 31</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_word_counts'>word_counts</span>
   <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:word_count</span><span class='rparen'>)</span>
@@ -838,12 +890,12 @@
       <pre class="lines">
 
 
-35
 36
-37</pre>
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 35</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/site.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_words'>words</span>
   <span class='id identifier rubyid_entries'>entries</span><span class='period'>.</span><span class='id identifier rubyid_collect'>collect</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:words</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_flatten'>flatten</span>
@@ -858,7 +910,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 25 23:34:06 2020 by
+  Generated on Sun Jul 26 15:05:56 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

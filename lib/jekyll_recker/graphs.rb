@@ -66,12 +66,16 @@ module JekyllRecker
     class Swears
       include Base
 
-      attr_reader :results
-
       def initialize(site)
-        @results = site.data['stats']['swears'].clone
-        @results.delete('total')
+        @data_dir = site.data_dir
         @graphs_dir = site.graphs_dir
+      end
+
+      def results
+        path = File.join(@data_dir, 'stats.json')
+        data = JSON.parse(File.read(path))['swears']
+        data.delete('total')
+        data
       end
 
       def write

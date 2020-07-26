@@ -81,7 +81,7 @@
   
   <dl>
     <dt>Included in:</dt>
-    <dd><span class='object_link'><a href="ImageResize.html" title="JekyllRecker::Generators::ImageResize (class)">ImageResize</a></span>, <span class='object_link'><a href="Stats.html" title="JekyllRecker::Generators::Stats (class)">Stats</a></span></dd>
+    <dd><span class='object_link'><a href="Git.html" title="JekyllRecker::Generators::Git (class)">Git</a></span>, <span class='object_link'><a href="Graphs.html" title="JekyllRecker::Generators::Graphs (class)">Graphs</a></span>, <span class='object_link'><a href="ImageResize.html" title="JekyllRecker::Generators::ImageResize (class)">ImageResize</a></span>, <span class='object_link'><a href="Stats.html" title="JekyllRecker::Generators::Stats (class)">Stats</a></span></dd>
   </dl>
   
 
@@ -108,17 +108,128 @@
 
 
 
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#site-instance_method" title="#site (instance method)">#<strong>site</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute site.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
 
 
 
 
   
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#data_file_target-instance_method" title="#data_file_target (instance method)">#<strong>data_file_target</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
   
   
   
   
   
-  <h2>Method Summary</h2>
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#generate-instance_method" title="#generate (instance method)">#<strong>generate</strong>(site)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">#<strong>name</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
   
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Math.html" title="JekyllRecker::Math (module)">Math</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Math.html#average-instance_method" title="JekyllRecker::Math#average (method)">#average</a></span>, <span class='object_link'><a href="../Math.html#occurences-instance_method" title="JekyllRecker::Math#occurences (method)">#occurences</a></span>, <span class='object_link'><a href="../Math.html#total-instance_method" title="JekyllRecker::Math#total (method)">#total</a></span></p>
@@ -145,11 +256,169 @@
   <h3 class="inherited">Methods included from <span class='object_link'><a href="../Date.html" title="JekyllRecker::Date (module)">Date</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../Date.html#calculate_streaks-instance_method" title="JekyllRecker::Date#calculate_streaks (method)">#calculate_streaks</a></span>, <span class='object_link'><a href="../Date.html#slice_by_consecutive-instance_method" title="JekyllRecker::Date#slice_by_consecutive (method)">#slice_by_consecutive</a></span>, <span class='object_link'><a href="../Date.html#time_to_date-instance_method" title="JekyllRecker::Date#time_to_date (method)">#time_to_date</a></span></p>
 
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="site-instance_method">
+  
+    #<strong>site</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute site.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+12
+13
+14</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 12</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_site'>site</span>
+  <span class='ivar'>@site</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="data_file_target-instance_method">
+  
+    #<strong>data_file_target</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_data_file_target'>data_file_target</span>
+  <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span> <span class='id identifier rubyid_site'>site</span><span class='period'>.</span><span class='id identifier rubyid_data_dir'>data_dir</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>.json</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="generate-instance_method">
+  
+    #<strong>generate</strong>(site)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='id identifier rubyid_site'>site</span><span class='rparen'>)</span>
+  <span class='ivar'>@site</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Site.html" title="JekyllRecker::Site (class)">Site</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Site.html#initialize-instance_method" title="JekyllRecker::Site#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_site'>site</span><span class='rparen'>)</span>
+  <span class='kw'>if</span> <span class='ivar'>@site</span><span class='period'>.</span><span class='id identifier rubyid_production?'>production?</span>
+    <span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>skipping </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> generator</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>else</span>
+    <span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>running </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'> generator</span><span class='tstring_end'>&quot;</span></span>
+    <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_crunch'>crunch</span>
+    <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_open'>open</span><span class='lparen'>(</span><span class='id identifier rubyid_data_file_target'>data_file_target</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>w</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='op'>|</span> <span class='id identifier rubyid_f'>f</span><span class='period'>.</span><span class='id identifier rubyid_write'>write</span><span class='lparen'>(</span><span class='const'>JSON</span><span class='period'>.</span><span class='id identifier rubyid_pretty_generate'>pretty_generate</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='kw'>unless</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
+  
+    #<strong>name</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+14
+15
+16</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 14</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='period'>.</span><span class='id identifier rubyid_split'>split</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>::</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_last'>last</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
 
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 25 23:34:06 2020 by
+  Generated on Sun Jul 26 15:05:56 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

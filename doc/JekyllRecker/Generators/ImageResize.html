@@ -121,41 +121,12 @@
 
 
 
-  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
-  <ul class="summary">
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#site-instance_method" title="#site (instance method)">#<strong>site</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-      <span class="note title readonly">readonly</span>
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute site.</p>
-</div></span>
-  
-</li>
-
-    
-  </ul>
 
 
+  <h2>Instance Attribute Summary</h2>
+  
+  <h3 class="inherited">Attributes included from <span class='object_link'><a href="Base.html" title="JekyllRecker::Generators::Base (module)">Base</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Base.html#site-instance_method" title="JekyllRecker::Generators::Base#site (method)">#site</a></span></p>
 
 
   
@@ -169,7 +140,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#generate-instance_method" title="#generate (instance method)">#<strong>generate</strong>(site)  &#x21d2; Object </a>
+      <a href="#crunch-instance_method" title="#crunch (instance method)">#<strong>crunch</strong>  &#x21d2; Object </a>
     
 
     
@@ -288,6 +259,11 @@
   
   
   
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Base.html" title="JekyllRecker::Generators::Base (module)">Base</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Base.html#data_file_target-instance_method" title="JekyllRecker::Generators::Base#data_file_target (method)">#data_file_target</a></span>, <span class='object_link'><a href="Base.html#generate-instance_method" title="JekyllRecker::Generators::Base#generate (method)">#generate</a></span>, <span class='object_link'><a href="Base.html#name-instance_method" title="JekyllRecker::Generators::Base#name (method)">#name</a></span></p>
+
+  
+  
   
   
   
@@ -320,63 +296,15 @@
   <p class="inherited"><span class='object_link'><a href="../Date.html#calculate_streaks-instance_method" title="JekyllRecker::Date#calculate_streaks (method)">#calculate_streaks</a></span>, <span class='object_link'><a href="../Date.html#slice_by_consecutive-instance_method" title="JekyllRecker::Date#slice_by_consecutive (method)">#slice_by_consecutive</a></span>, <span class='object_link'><a href="../Date.html#time_to_date-instance_method" title="JekyllRecker::Date#time_to_date (method)">#time_to_date</a></span></p>
 
   
-  <div id="instance_attr_details" class="attr_details">
-    <h2>Instance Attribute Details</h2>
-    
-      
-      <span id=""></span>
-      <div class="method_details first">
-  <h3 class="signature first" id="site-instance_method">
-  
-    #<strong>site</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns the value of attribute site.</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-75
-76
-77</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 75</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_site'>site</span>
-  <span class='ivar'>@site</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
-
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
 
     
       <div class="method_details first">
-  <h3 class="signature first" id="generate-instance_method">
+  <h3 class="signature first" id="crunch-instance_method">
   
-    #<strong>generate</strong>(site)  &#x21d2; <tt>Object</tt> 
+    #<strong>crunch</strong>  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -388,43 +316,29 @@
       <pre class="lines">
 
 
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93</pre>
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 109</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_generate'>generate</span><span class='lparen'>(</span><span class='id identifier rubyid_site'>site</span><span class='rparen'>)</span>
-  <span class='ivar'>@site</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../Site.html" title="JekyllRecker::Site (class)">Site</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../Site.html#initialize-instance_method" title="JekyllRecker::Site#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='id identifier rubyid_site'>site</span><span class='rparen'>)</span>
-
-  <span class='kw'>if</span> <span class='ivar'>@site</span><span class='period'>.</span><span class='id identifier rubyid_production?'>production?</span>
-    <span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>production detected, skipping images</span><span class='tstring_end'>&#39;</span></span>
-    <span class='kw'>return</span>
-  <span class='kw'>end</span>
-
+<span class='kw'>def</span> <span class='id identifier rubyid_crunch'>crunch</span>
   <span class='id identifier rubyid_load_deps!'>load_deps!</span>
-
   <span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>checking images</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_resizeable_images'>resizeable_images</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_f'>f</span><span class='comma'>,</span> <span class='id identifier rubyid_d'>d</span><span class='op'>|</span>
     <span class='id identifier rubyid_info'>info</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>resizing </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_f'>f</span><span class='embexpr_end'>}</span><span class='tstring_content'> to fit </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_d'>d</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
     <span class='id identifier rubyid_image'>image</span> <span class='op'>=</span> <span class='const'>MiniMagick</span><span class='op'>::</span><span class='const'>Image</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_f'>f</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_image'>image</span><span class='period'>.</span><span class='id identifier rubyid_resize'>resize</span> <span class='id identifier rubyid_d'>d</span>
   <span class='kw'>end</span>
+  <span class='kw'>nil</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -468,12 +382,12 @@
       <pre class="lines">
 
 
-104
-105
-106</pre>
+129
+130
+131</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 129</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_graph?'>graph?</span><span class='lparen'>(</span><span class='id identifier rubyid_file'>file</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_file'>file</span><span class='period'>.</span><span class='id identifier rubyid_include?'>include?</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/graphs/</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -498,13 +412,13 @@
       <pre class="lines">
 
 
-99
-100
-101
-102</pre>
+124
+125
+126
+127</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_load_deps!'>load_deps!</span>
   <span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>fastimage</span><span class='tstring_end'>&#39;</span></span>
@@ -530,22 +444,22 @@
       <pre class="lines">
 
 
-108
-109
-110
-111
-112
-113
-114
-115
-116
-117
-118
-119
-120</pre>
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 133</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_resizeable_images'>resizeable_images</span>
   <span class='id identifier rubyid_without_graphs'>without_graphs</span> <span class='op'>=</span> <span class='id identifier rubyid_site'>site</span><span class='period'>.</span><span class='id identifier rubyid_images'>images</span><span class='period'>.</span><span class='id identifier rubyid_reject'>reject</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_i'>i</span><span class='op'>|</span> <span class='id identifier rubyid_graph?'>graph?</span><span class='lparen'>(</span><span class='id identifier rubyid_i'>i</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -602,12 +516,12 @@
       <pre class="lines">
 
 
-95
-96
-97</pre>
+120
+121
+122</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/jekyll_recker/generators.rb', line 120</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_too_big?'>too_big?</span><span class='lparen'>(</span><span class='id identifier rubyid_width'>width</span><span class='comma'>,</span> <span class='id identifier rubyid_height'>height</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_width'>width</span> <span class='op'>&gt;</span> <span class='int'>800</span> <span class='op'>||</span> <span class='id identifier rubyid_height'>height</span> <span class='op'>&gt;</span> <span class='int'>800</span>
@@ -622,7 +536,7 @@
 </div>
 
       <div id="footer">
-  Generated on Sat Jul 25 23:34:06 2020 by
+  Generated on Sun Jul 26 15:05:56 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.25 (ruby-2.6.2).
 </div>

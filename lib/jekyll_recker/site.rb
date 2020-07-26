@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bundler'
+
 module JekyllRecker
   # Site
   class Site
@@ -14,7 +16,6 @@ module JekyllRecker
     def latest
       entries.first
     end
-
 
     def production?
       ENV['JEKYLL_ENV'] == 'production'
@@ -55,6 +56,10 @@ module JekyllRecker
 
     def graphs_dir
       recker_config.fetch('graphs', 'assets/images/graphs/')
+    end
+
+    def data_dir
+      File.join Bundler.root, '_data'
     end
 
     private
