@@ -31,7 +31,12 @@ class JekyllDataReporter
   end
 end
 
-SimpleCov.formatters = JekyllDataReporter
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::HTMLFormatter,
+    JekyllDataReporter,
+  ]
+)
 SimpleCov.start
 
 require 'jekyll-recker'
