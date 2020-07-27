@@ -18,6 +18,10 @@ plugins:
 - jekyll-feed
 - jekyll-recker
 
+keep_files:
+- doc
+- coverage
+
 exclude:
 - .rubocop.yml
 - .yardoc

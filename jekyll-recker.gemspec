@@ -23,7 +23,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'gruff'
   spec.add_runtime_dependency 'jekyll', '~> 3.8'
   spec.add_runtime_dependency 'mini_magick'
-  spec.add_runtime_dependency 'rake'
   spec.add_runtime_dependency 'rspec'
   spec.add_runtime_dependency 'simplecov'
   spec.add_runtime_dependency 'slack-notifier'

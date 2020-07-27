@@ -113,9 +113,9 @@ module JekyllRecker
       attr_reader :site
 
       def generate(site)
-        return # TODO
         @site = Site.new(site)
-        info 'running tests' 
+        info 'running tests'
+        Shell.run 'rspec'
         info 'reading code coverage'
         @site.data['coverage'] = JSON.parse(File.read(tmp_file))
       end
@@ -134,7 +134,6 @@ module JekyllRecker
       attr_reader :site
 
       def generate(site)
-        return # TODO
         @site = Site.new(site)
         info 'generating documentation'
         Shell.run "yard -o #{@site.site_join('doc')} -q"

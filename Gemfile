@@ -13,5 +13,6 @@ end
 group :development do
   gem 'bump'
   gem 'pry'
+  gem 'rake'
   gem 'rubocop'
 end

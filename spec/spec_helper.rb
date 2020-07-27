@@ -43,7 +43,7 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
 )
 
 SimpleCov.start do
-  coverage_dir File.join(root, 'coverage')
+  coverage_dir File.join(root, '_site/coverage')
 end
 
 require 'jekyll-recker'
