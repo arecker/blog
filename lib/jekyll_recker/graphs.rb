@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'bundler'
-
 module JekyllRecker
   # Graphs module
   module Graphs
@@ -16,7 +14,7 @@ module JekyllRecker
       attr_reader :site
 
       def graphs_join(path)
-        File.join Bundler.root, @graphs_dir, path
+        File.join site.root, @graphs_dir, path
       end
     end
 

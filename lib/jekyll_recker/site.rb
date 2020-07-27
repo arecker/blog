@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'bundler'
-
 module JekyllRecker
   # Site
   class Site
@@ -46,6 +44,10 @@ module JekyllRecker
       @site.static_files.collect(&:path).select { |f| exts.include? File.extname(f) }
     end
 
+    def root
+      File.absolute_path(File.join(__dir__, '../../'))
+    end
+
     def recker_config
       @site.config.fetch('recker', {})
     end
@@ -59,15 +61,15 @@ module JekyllRecker
     end
 
     def data_dir
-      File.join Bundler.root, '_data'
+      File.join root, '_data'
     end
 
     def tmp_join(path)
-      File.join Bundler.root, 'tmp', path
+      File.join root, 'tmp', path
     end
 
     def graphs_join(path)
-      File.join Bundler.root, 'assets/images/graphs/', path
+      File.join root, 'assets/images/graphs/', path
     end
 
     private

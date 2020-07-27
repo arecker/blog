@@ -14,7 +14,9 @@ Gem::Specification.new do |spec|
   spec.homepage      = 'https://www.github.com/arecker/blog'
   spec.license       = 'GPLv3'
   spec.files         = [
-    Dir['lib/**/*.rb']
+    Dir['lib/**/*.rb'],
+    Dir['tmp/.gitignore'],
+    Dir['assets/site.css'],
   ].flatten
 
   spec.add_runtime_dependency 'fastimage'
