@@ -52,8 +52,12 @@ module JekyllRecker
 
       def generate(site)
         @site = Site.new(site)
-        info 'generating graphs'
-        JekyllRecker::Graphs.generate_graphs(@site)
+        if @site.production? && @site.recker_config.fetch('production_skip_graphs', true)
+          info 'skipping graphs (production)'
+        else
+          info 'generating graphs'
+          JekyllRecker::Graphs.generate_graphs(@site)
+        end
       end
     end
 

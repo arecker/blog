@@ -33,6 +33,7 @@ exclude:
 recker:
   analytics: UA-42540208-6
   graphs: assets/images/graphs/
+  production_skip_graphs: true
   production_skip_images: true
 
   menu:
