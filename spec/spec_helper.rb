@@ -5,7 +5,7 @@ require 'json'
 require 'simplecov'
 
 def root
-  File.absolute_path(File.join(__dir__, '../'))
+  File.expand_path('..', __dir__)
 end
 
 class JekyllDataReporter
@@ -31,13 +31,9 @@ class JekyllDataReporter
   end
 
   def output_filepath
-    File.join root, 'tmp/coverage.json'
+    File.join(root, 'tmp/coverage.json')
   end
 end
-
-# class JekyllHTMLFormatter < SimpleCov::Formatter::HTMLFormatter
-  
-# end
 
 SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
   [
@@ -45,8 +41,9 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
     JekyllDataReporter
   ]
 )
+
 SimpleCov.start do
-  coverage_path = File.join(root, '_site', 'coverage')
+  coverage_dir File.join(root, 'coverage')
 end
 
 require 'jekyll-recker'
