@@ -16,7 +16,7 @@ Gem::Specification.new do |spec|
   spec.files         = [
     Dir['lib/**/*.rb'],
     Dir['tmp/.gitignore'],
-    Dir['assets/site.css'],
+    Dir['assets/site.css']
   ].flatten
 
   spec.add_runtime_dependency 'fastimage'

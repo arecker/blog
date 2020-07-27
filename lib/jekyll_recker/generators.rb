@@ -160,4 +160,3 @@ module JekyllRecker
     end
   end
 end
-

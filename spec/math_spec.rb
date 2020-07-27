@@ -19,7 +19,7 @@ describe JekyllRecker::Math do
 
   describe '#occurences' do
     it 'should count occurances of keys in a list of targets' do
-      keys = ['Kelly', 'Alex', 'Sarah', 'Frank']
+      keys = %w[Kelly Alex Sarah Frank]
       text = 'Kelly and Alex and Sarah are siblings.  Kelly and Sarah are sisters'
 
       expected = {
