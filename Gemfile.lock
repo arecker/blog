@@ -1,12 +1,11 @@
 PATH
   remote: .
   specs:
-    jekyll-recker (2.4.0)
+    jekyll-recker (2.5.0)
       fastimage
       gruff
       jekyll (~> 3.8)
       mini_magick
-      rake
       rspec
       simplecov
       slack-notifier
@@ -176,6 +175,7 @@ DEPENDENCIES
   jekyll-recker!
   jekyll-tidy
   pry
+  rake
   rubocop
 
 BUNDLED WITH
