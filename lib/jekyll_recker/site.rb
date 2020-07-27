@@ -62,6 +62,14 @@ module JekyllRecker
       File.join Bundler.root, '_data'
     end
 
+    def tmp_join(path)
+      File.join Bundler.root, 'tmp', path
+    end
+
+    def graphs_join(path)
+      File.join Bundler.root, 'assets/images/graphs/', path
+    end
+
     private
 
     def build_entries

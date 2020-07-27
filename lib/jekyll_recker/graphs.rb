@@ -67,13 +67,11 @@ module JekyllRecker
       include Base
 
       def initialize(site)
-        @data_dir = site.data_dir
-        @graphs_dir = site.graphs_dir
+        @site = site
       end
 
       def results
-        path = File.join(@data_dir, 'stats.json')
-        data = JSON.parse(File.read(path))['swears']
+        data = site.data['stats']['swears'].clone
         data.delete('total')
         data
       end
@@ -85,7 +83,7 @@ module JekyllRecker
         g.legend_at_bottom = true
         g.minimum_value = 0
         results.each { |w, n| g.data w, n }
-        g.write(graphs_join('swears.png'))
+        g.write(site.graphs_join('swears.png'))
       end
     end
   end

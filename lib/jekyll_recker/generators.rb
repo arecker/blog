@@ -3,46 +3,22 @@
 module JekyllRecker
   # Generators Module
   module Generators
-    # Base Generator
-    module Base
+    # Stats Generator
+    class Stats < Jekyll::Generator
       include Date
       include Logging
       include Math
 
       attr_reader :site
 
-      def name
-        self.class.name.split('::').last.downcase
-      end
-
       def generate(site)
         @site = Site.new(site)
-        if @site.production?
-          info "skipping #{name} generator"
-        else
-          info "running #{name} generator"
-          data = crunch
-          File.open(data_file_target, 'w') { |f| f.write(JSON.pretty_generate(data)) } unless data.nil?
-        end
+        info 'calculating statistics'
+        site.data['stats'] = stats
       end
 
-      def data_file_target
-        File.join site.data_dir, "#{name}.json"
-      end
-    end
-
-    # Stats Generator
-    class Stats < Jekyll::Generator
-      include Base
-
-      attr_reader :site
-
-      def crunch
-        generate_stats
-      end
-
-      def generate_stats
-        {
+      def stats
+        @stats ||= {
           'total_words' => total(site.word_counts),
           'average_words' => average(site.word_counts),
           'total_posts' => site.entries.size,
@@ -70,32 +46,29 @@ module JekyllRecker
 
     # Graphs Generator
     class Graphs < Jekyll::Generator
-      include Base
+      include Logging
 
-      def crunch
-        JekyllRecker::Graphs.generate_graphs(site)
-        nil
-      end
-    end
+      attr_reader :site
 
-    # Git Generator
-    class Git < Jekyll::Generator
-      include Base
-
-      def crunch
-        {
-          'commit_count' => Shell.run('git rev-list --count master').chomp
-        }
+      def generate(site)
+        @site = Site.new(site)
+        info 'generating graphs'
+        JekyllRecker::Graphs.generate_graphs(@site)
       end
     end
 
     # Image Resize Generator
     class ImageResize < Jekyll::Generator
-      include Base
+      require 'fastimage'
+      require 'mini_magick'
 
-      def crunch
-        load_deps!
-        info 'checking images'
+      include Logging
+
+      attr_reader :site
+
+      def generate(site)
+        @site = Site.new(site)
+        info 'checking images sizes'
         resizeable_images.each do |f, d|
           info "resizing #{f} to fit #{d}"
           image = MiniMagick::Image.new(f)
@@ -106,11 +79,6 @@ module JekyllRecker
 
       def too_big?(width, height)
         width > 800 || height > 800
-      end
-
-      def load_deps!
-        require 'fastimage'
-        require 'mini_magick'
       end
 
       def images_without_graphs
@@ -130,5 +98,61 @@ module JekyllRecker
         end
       end
     end
+
+    # Code Coverage Generator
+    class CodeCoverage < Jekyll::Generator
+      require 'rake'
+
+      include Logging
+
+      attr_reader :site
+
+      def generate(site)
+        @site = Site.new(site)
+        info 'running tests'
+        Rake::Task['spec'].invoke
+        info 'reading code coverage'
+        @site.data['coverage'] = JSON.parse(File.read(tmp_file))
+      end
+
+      private
+
+      def tmp_file
+        site.tmp_join('coverage.json')
+      end
+    end
+
+    class Yard < Jekyll::Generator
+      require 'rake'
+
+      include Logging
+
+      attr_reader :site
+
+      def generate(site)
+        @site = Site.new(site)
+        # ::Rake::Task['yard'].invoke
+      end
+    end
+
+    # Git History Generator
+    class GitHistory < Jekyll::Generator
+      include Logging
+
+      attr_reader :site
+
+      def generate(site)
+        @site = Site.new(site)
+        info 'reading git history'
+        site.data['git'] = {
+          'commit_count' => commit_count
+        }
+      end
+
+      def commit_count
+        @commit_count ||= Shell.run('git rev-list --count master').chomp
+      end
+    end
   end
 end
+

@@ -12,15 +12,6 @@ end
 
 group :development do
   gem 'bump'
-  gem 'fastimage'
-  gem 'gruff'
-  gem 'mini_magick'
   gem 'pry'
-  gem 'rake'
-  gem 'rspec'
   gem 'rubocop'
-  gem 'simplecov'
-  gem 'slack-notifier'
-  gem 'twitter'
-  gem 'yard'
 end

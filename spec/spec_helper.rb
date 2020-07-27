@@ -27,7 +27,7 @@ class JekyllDataReporter
   end
 
   def output_filepath
-    File.join Bundler.root, '_data/coverage.json'
+    File.join Bundler.root, 'tmp/coverage.json'
   end
 end
 
@@ -37,7 +37,9 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
     JekyllDataReporter
   ]
 )
-SimpleCov.start
+SimpleCov.start do
+  output_dir File.join Bundler.root, '_site', 'doc'
+end
 
 require 'jekyll-recker'
 

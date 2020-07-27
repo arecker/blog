@@ -2,7 +2,16 @@ PATH
   remote: .
   specs:
     jekyll-recker (2.4.0)
+      fastimage
+      gruff
       jekyll (~> 3.8)
+      mini_magick
+      rake
+      rspec
+      simplecov
+      slack-notifier
+      twitter
+      yard
 
 GEM
   remote: https://rubygems.org/
@@ -162,21 +171,12 @@ PLATFORMS
 
 DEPENDENCIES
   bump
-  fastimage
-  gruff
   jekyll (~> 3.8.5)
   jekyll-feed (~> 0.6)
   jekyll-recker!
   jekyll-tidy
-  mini_magick
   pry
-  rake
-  rspec
   rubocop
-  simplecov
-  slack-notifier
-  twitter
-  yard
 
 BUNDLED WITH
    2.1.4

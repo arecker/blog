@@ -17,5 +17,14 @@ Gem::Specification.new do |spec|
     Dir['lib/**/*.rb']
   ].flatten
 
+  spec.add_runtime_dependency 'fastimage'
+  spec.add_runtime_dependency 'gruff'
   spec.add_runtime_dependency 'jekyll', '~> 3.8'
+  spec.add_runtime_dependency 'mini_magick'
+  spec.add_runtime_dependency 'rake'
+  spec.add_runtime_dependency 'rspec'
+  spec.add_runtime_dependency 'simplecov'
+  spec.add_runtime_dependency 'slack-notifier'
+  spec.add_runtime_dependency 'twitter'
+  spec.add_runtime_dependency 'yard'
 end
