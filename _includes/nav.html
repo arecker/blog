@@ -7,12 +7,12 @@
   <span>{{ page.slug }}</span>
   {% endif %}
   <span class="float-right hide-on-mobile">
-    {% for page in site.data.menu %}
+    {% for page in site.recker.menu %}
     <a href="{{ site.base_url }}/{{ page }}">{{ page }}</a>
     {% endfor %}
   </span>
   <span class="show-on-mobile">
-    {% for page in site.data.menu %}
+    {% for page in site.recker.menu %}
     <a href="{{ site.base_url }}/{{ page }}">{{ page }}</a>
     {% endfor %}
   </span>

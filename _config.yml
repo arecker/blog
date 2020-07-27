@@ -33,6 +33,12 @@ exclude:
 recker:
   analytics: UA-42540208-6
   graphs: assets/images/graphs/
+
+  menu:
+  - archives.html
+  - stats.html
+  - contact.html
+
   twitter:
     access_token_secret_cmd: pass twitter/reckerbot/access-token-secret
     access_token_cmd: pass twitter/reckerbot/access-token
