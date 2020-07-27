@@ -68,13 +68,16 @@ module JekyllRecker
 
       def generate(site)
         @site = Site.new(site)
-        info 'checking images sizes'
-        resizeable_images.each do |f, d|
-          info "resizing #{f} to fit #{d}"
-          image = MiniMagick::Image.new(f)
-          image.resize d
+        if @site.production? && site.recker_config.fetch('production_skip_images', true)
+          info 'skipping image resizing (production)'
+        else
+          info 'checking images sizes'
+          resizeable_images.each do |f, d|
+            info "resizing #{f} to fit #{d}"
+            image = MiniMagick::Image.new(f)
+            image.resize d
+          end
         end
-        nil
       end
 
       def too_big?(width, height)
