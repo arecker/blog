@@ -72,7 +72,7 @@ module JekyllRecker
 
       def generate(site)
         @site = Site.new(site)
-        if @site.production? && site.recker_config.fetch('production_skip_images', true)
+        if @site.production? && @site.recker_config.fetch('production_skip_images', true)
           info 'skipping image resizing (production)'
         else
           info 'checking images sizes'
