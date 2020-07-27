@@ -129,16 +129,16 @@ module JekyllRecker
       end
     end
 
+    # Yard Generator
     class Yard < Jekyll::Generator
-      require 'rake'
-
       include Logging
 
       attr_reader :site
 
       def generate(site)
         @site = Site.new(site)
-        # ::Rake::Task['yard'].invoke
+        info 'generating documentation'
+        Shell.run "yard -o #{@site.site_join('doc')} -q"
       end
     end
 

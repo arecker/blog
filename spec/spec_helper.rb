@@ -35,6 +35,10 @@ class JekyllDataReporter
   end
 end
 
+# class JekyllHTMLFormatter < SimpleCov::Formatter::HTMLFormatter
+  
+# end
+
 SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
   [
     SimpleCov::Formatter::HTMLFormatter,
@@ -42,7 +46,7 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
   ]
 )
 SimpleCov.start do
-  output_dir File.join root, '_site', 'coverage'
+  coverage_path = File.join(root, '_site', 'coverage')
 end
 
 require 'jekyll-recker'

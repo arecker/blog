@@ -48,6 +48,10 @@ module JekyllRecker
       File.absolute_path(File.join(__dir__, '../../'))
     end
 
+    def root_join(path)
+      File.join(root, path)
+    end
+
     def recker_config
       @site.config.fetch('recker', {})
     end
@@ -70,6 +74,10 @@ module JekyllRecker
 
     def graphs_join(path)
       File.join root, 'assets/images/graphs/', path
+    end
+
+    def site_join(path)
+      File.join(root, '_site', path)
     end
 
     private

@@ -20,6 +20,7 @@ plugins:
 
 exclude:
 - .rubocop.yml
+- .yardoc
 - Gemfile
 - Gemfile.lock
 - LICENSE
@@ -29,6 +30,7 @@ exclude:
 - lib
 - pkg
 - spec
+- tmp
 
 recker:
   analytics: UA-42540208-6
