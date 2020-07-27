@@ -106,7 +106,7 @@ module JekyllRecker
           channel: config.fetch('channel'),
           username: config.fetch('username'),
           icon_emoji: config.fetch('emoji')
-        ).post(text: message_body)
+        ).post(text: post_body)
       end
 
       def post_body
