@@ -9,16 +9,12 @@ jokingly refer to this as "The Greatest Jekyll Plugin Ever Made".
 
 Stick this in your Gemfile!
 
-``` ruby
-gem 'jekyll-recker'
-```
+    gem 'jekyll-recker'
 
 Cram this in your jekyll config!
 
-``` yaml
-plugins:
-- jekyll-recker
-```
+    plugins:
+    - jekyll-recker
 
 That's it!
 
