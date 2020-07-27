@@ -19,8 +19,8 @@ plugins:
 - jekyll-recker
 
 keep_files:
-- doc
 - coverage
+- jekyll-recker
 
 exclude:
 - .rubocop.yml

@@ -136,7 +136,7 @@ module JekyllRecker
       def generate(site)
         @site = Site.new(site)
         info 'generating documentation'
-        Shell.run "yard -o #{@site.site_join('doc')} -q"
+        Shell.run "yard -o #{@site.site_join('jekyll-recker')} -q"
       end
     end
 
