@@ -3,7 +3,7 @@ slug: index.html
 ---
 
 <div class="row">
-  <div class="column crowded">
+  <div class="column">
     <h2>Today's Post</h2>
     {% assign latest = site.posts.first %}
     <a href="{{ latest.url }}">
@@ -15,7 +15,7 @@ slug: index.html
     <p>{{ latest.title }}</p>
     {% endif %}
   </div>
-  <div class="column crowded">
+  <div class="column">
     <h2>What's New?</h2>
     <h3>Statistics!</h3>
     <p>

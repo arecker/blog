@@ -6,18 +6,20 @@ body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: -apple-system, BlinkMacSystemFont,
+		 "Segoe UI", Roboto, Helvetica,
+		 Arial, sans-serif, "Apple Color Emoji",
+		 "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-* {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-}
-
-.post p {
+.post p, .post ol, .post ul {
     font-size: 18px;
 }
 
 code, pre, .code {
-    font-family: monospace;
+    font-family: SFMono-Regular, Menlo, Monaco,
+		 Consolas, "Liberation Mono",
+		 "Courier New", monospace;
 }
 
 .title {
@@ -74,6 +76,21 @@ figure {
   width: 50%;
 }
 
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+td, nav span a {
+    padding-right: 5px;
+}
+
+footer small::after {
+    content:"\a";
+    white-space: pre;
+}
+
 .show-on-mobile {
     display: none;
 }
@@ -90,25 +107,4 @@ figure {
   .show-on-mobile {
       display: block;
   }
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.crowded h3, .crowded h2, .crowded p, .crowded ul {
-    margin-bottom: 0px;
-    margin-top: 5px;
-}
-
-td, nav span a {
-    padding-right: 5px;
-}
-
-footer small::after {
-    content:"\a";
-    white-space: pre;
 }
