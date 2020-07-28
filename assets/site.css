@@ -12,7 +12,7 @@ body {
 		 "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.post p, .post ol, .post ul {
+.subtitle, p, ol, ul {
     font-size: 18px;
 }
 
@@ -22,12 +22,7 @@ code, pre, .code {
 		 "Courier New", monospace;
 }
 
-.title {
-    margin: 0;
-}
-
-.subtitle {
-    font-size: 18px;
+.title, .subtitle {
     margin: 0;
 }
 

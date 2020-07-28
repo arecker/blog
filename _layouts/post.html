@@ -10,12 +10,10 @@
     <hr/>
     {% include nav.html %}
     <hr/>
-    <div class="post">
-      {% if page.image %}
-      {% include figure.html filename=page.image%}
-      {% endif %}
-      {{ content }}  
-    </div>
+    {% if page.image %}
+    {% include figure.html filename=page.image%}
+    {% endif %}
+    {{ content }}
     {% include pager.html %}
     <hr/>
     {% include footer.html %}
