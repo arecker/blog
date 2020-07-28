@@ -136,7 +136,12 @@ module JekyllRecker
       def generate(site)
         @site = Site.new(site)
         info 'generating documentation'
-        Shell.run "yard -o #{@site.site_join('jekyll-recker')} -q"
+        target = @site.site_join(docs_path)
+        Shell.run "yard -o #{target} -q"
+      end
+
+      def docs_path
+        site.recker_config.fetch('yard_docs_path', 'doc')
       end
     end
 

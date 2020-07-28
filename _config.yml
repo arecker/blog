@@ -42,6 +42,8 @@ recker:
   production_skip_graphs: true
   production_skip_images: true
 
+  yard_docs_path: '/jekyll-recker/'
+
   menu:
   - archives.html
   - stats.html
