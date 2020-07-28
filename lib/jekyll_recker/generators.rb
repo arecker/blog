@@ -22,12 +22,16 @@ module JekyllRecker
           'total_words' => total(site.word_counts),
           'average_words' => average(site.word_counts),
           'total_posts' => site.entries.size,
-          'consecutive_posts' => calculate_streaks(site.dates).first['days'],
+          'consecutive_posts' => consecutive_posts,
           'swears' => calculate_swears
         }
       end
 
       private
+
+      def consecutive_posts
+        calculate_streaks(site.dates).first['days']
+      end
 
       def calculate_swears
         results = Hash[count_swears]
@@ -72,16 +76,22 @@ module JekyllRecker
 
       def generate(site)
         @site = Site.new(site)
-        if @site.production? && @site.recker_config.fetch('production_skip_images', true)
+        if skip?
           info 'skipping image resizing (production)'
         else
           info 'checking images sizes'
-          resizeable_images.each do |f, d|
-            info "resizing #{f} to fit #{d}"
-            image = MiniMagick::Image.new(f)
-            image.resize d
-          end
+          resizeable_images.each { |f, d| resize(f, d) }
         end
+      end
+
+      def resize(file, dimensions)
+        info "resizing #{file} to fit #{dimensions}"
+        image = MiniMagick::Image.new(file)
+        image.resize dimensions
+      end
+
+      def skip?
+        site.production? && site.recker_config.fetch('production_skip_images', true)
       end
 
       def too_big?(width, height)
