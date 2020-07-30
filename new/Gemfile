@@ -1,0 +1,11 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'liquid'
+
+group :development do
+  gem 'bump'
+  gem 'pry'
+  gem 'rubocop'
+end

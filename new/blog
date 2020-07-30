@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+# -*- mode: ruby -*-
+# frozen_string_literal: true
+
+require 'logger'
+
+module Blog
+  def self.logger
+    @logger ||= Logger.new(
+      STDOUT,
+      formatter: proc { |_sev, _dt, _name, msg| "blog: #{msg}\n"}
+    )
+  end
+
+  module Files
+    def files(path)
+      Dir["#{path}/**/*"].select { |o| File.file?(o) }
+    end
+
+    def root
+      File.dirname(__FILE__)
+    end
+
+    def root_join(path)
+      File.join(root, path)
+    end
+  end
+
+  module Logging
+    def self.included(base)
+      base.extend(self)
+    end
+
+    def logger
+      ::Blog.logger
+    end
+  end
+
+  class Site
+    include Files
+
+    def pages
+      files(root_join('pages'))
+    end
+  end
+
+  class Runner
+    include Logging
+
+    def run!
+      logger.info 'starting blog'
+      puts Site.new.pages
+    end
+  end
+
+  def self.run!
+    Runner.new.run!
+  end
+end
+
+Blog.run!
