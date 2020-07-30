@@ -7,6 +7,7 @@ gem 'rspec'
 
 group :development do
   gem 'bump'
+  gem 'liquid_debug'
   gem 'pry'
   gem 'rubocop'
 end

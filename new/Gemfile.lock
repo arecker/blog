@@ -6,7 +6,11 @@ GEM
     coderay (1.1.3)
     diff-lcs (1.4.4)
     liquid (4.0.3)
+    liquid_debug (0.1.0)
+      liquid (~> 4.0)
+      paint (~> 2.1)
     method_source (1.0.0)
+    paint (2.2.0)
     parallel (1.19.2)
     parser (2.7.1.4)
       ast (~> 2.4.1)
@@ -49,6 +53,7 @@ PLATFORMS
 DEPENDENCIES
   bump
   liquid
+  liquid_debug
   pry
   rspec
   rubocop
