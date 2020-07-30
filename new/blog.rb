@@ -3,6 +3,7 @@
 # frozen_string_literal: true
 
 require 'logger'
+require 'pathname'
 
 module Blog
   def self.logger
@@ -19,6 +20,10 @@ module Blog
 
     def root
       File.dirname(__FILE__)
+    end
+
+    def relpath(root, path)
+      Pathname.new(path).relative_path_from(Pathname.new(root)).to_s
     end
 
     def root_join(path)
@@ -58,4 +63,4 @@ module Blog
   end
 end
 
-Blog.run!
+Blog.run! if __FILE__ == $0
