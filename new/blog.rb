@@ -5,6 +5,7 @@
 require 'fileutils'
 require 'liquid'
 require 'logger'
+require 'open3'
 require 'pathname'
 require 'yaml'
 
@@ -74,9 +75,37 @@ module Blog
       File.join(snippets_dir, path)
     end
 
+    def assets_dir
+      root_join('assets')
+    end
+
+    def assets_join(path)
+      File.join(assets_dir, path)
+    end
+
     def mkdir_write(path, content)
       FileUtils.mkdir_p(File.dirname(path))
       File.open(path, 'w') { |f| f.write content }
+    end
+  end
+
+  # Shell
+  module Shell
+    def shell(cmd)
+      out, err, status = Open3.capture3(cmd)
+      return out if status.success?
+
+      msg = <<~ERROR
+        the command \`#{cmd}\` failed!
+        --- exit
+        #{status}
+        --- stdout
+        #{out}
+        --- stderr
+        #{err}
+      ERROR
+
+      raise msg
     end
   end
 
@@ -208,25 +237,36 @@ module Blog
 
     def to_liquid
       {
-        'title' => 'Dear Journal',
-        'description' => 'Daily, public journal by Alex Recker'
       }
     end
   end
 
-  # Runner
-  class Runner
+  # Builder
+  class Builder
+    include Files
     include Logging
+    include Shell
 
-    def run!
-      logger.info 'starting blog'
-      site = Site.new
+    attr_reader :site
+
+    def initialize
+      @site = Site.new
+    end
+
+    def build!
       site.render!
+
+      logger.info "copying #{assets_dir} -> #{site_join('assets')}"
+      FileUtils.copy_entry(assets_dir, site_join('assets'))
+
+      logger.info "generating coverage report -> #{site_join('coverage')}"
+      shell 'rspec'
     end
   end
 
   def self.run!
-    Runner.new.run!
+    logger.info 'starting blog'
+    Builder.new.build!
   end
 end
 

@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+require 'simplecov'
+
+def here_join(path)
+  File.expand_path(File.join(__dir__, path))
+end
+
+SimpleCov.start do
+  SimpleCov.coverage_dir here_join('../site/coverage')
+end
+
 require_relative '../blog.rb'
 
 RSpec.configure do |config|
