@@ -137,7 +137,7 @@ module Blog
       raw = strip_metadata(File.read(file))
       ::Liquid::Template.parse(raw, error_mode: :strict)
     end
-    
+
     def render_template(file, context: {}, layout: nil)
       result = template(file).render(context)
       if layout.nil?
