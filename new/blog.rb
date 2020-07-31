@@ -31,24 +31,12 @@ module Blog
       Dir["#{path}/**/*"].select { |o| File.file?(o) }
     end
 
-    def root_dir
-      File.dirname(__FILE__)
-    end
-
     def root
       File.dirname(__FILE__)
     end
 
     def path(*subpaths)
       File.join(root, *subpaths)
-    end
-
-    def site_dir
-      root_join('site')
-    end
-
-    def site_join(path)
-      File.join(site_dir, path)
     end
 
     def relpath(root, path)
@@ -62,39 +50,7 @@ module Blog
       '/' + parts.join('/')
     end
 
-    def root_join(path)
-      File.join(root_dir, path)
-    end
-
-    def pages_dir
-      root_join('pages')
-    end
-
-    def layouts_dir
-      root_join('layouts')
-    end
-
-    def layouts_join(path)
-      File.join(layouts_dir, path)
-    end
-
-    def snippets_dir
-      root_join('snippets')
-    end
-
-    def snippets_join(path)
-      File.join(snippets_dir, path)
-    end
-
-    def assets_dir
-      root_join('assets')
-    end
-
-    def assets_join(path)
-      File.join(assets_dir, path)
-    end
-
-    def mkdir_write(path, content)
+    def write(path, content)
       FileUtils.mkdir_p(File.dirname(path))
       File.open(path, 'w') { |f| f.write content }
     end
@@ -149,12 +105,12 @@ module Blog
       ::Liquid::Template.parse(raw, error_mode: :strict)
     end
 
-    def render_template(file, context: {}, layout: nil)
+    def render(file, context: {}, layout: nil)
       result = template(file).render(context)
       if layout.nil?
         result
       else
-        template(layouts_join(layout)).render('content' => result)
+        template(path('layouts', layout)).render('content' => result)
       end
     end
   end
@@ -174,17 +130,17 @@ module Blog
 
     def to_liquid
       {
-        'webpath' => webpath
+        'permalink' => permalink
       }
     end
 
     def render!
       logger.debug "rendering page #{file} -> #{target}"
-      mkdir_write(target, content)
+      write(target, content)
     end
 
     def content
-      render_template(file, context: context, layout: layout)
+      render(file, context: context, layout: layout)
     end
 
     def context
@@ -199,16 +155,15 @@ module Blog
     end
 
     def target
-      if webpath.end_with? '/'
-        site_join(File.join(webpath, 'index.html'))
+      if permalink.end_with? '/'
+        path('site', permalink, 'index.html')
       else
-        site_join(webpath)
+        path('site', permalink)
       end
     end
 
-    def webpath
-      default = '/' + relpath(pages_dir, file)
-      metadata.fetch('permalink', default)
+    def permalink
+      metadata.fetch('permalink', webpath(file))
     end
 
     def metadata
@@ -232,9 +187,9 @@ module Blog
     end
 
     def pave!
-      logger.info "rebuilding #{site_dir}"
-      FileUtils.rm_rf site_dir
-      FileUtils.mkdir_p site_dir
+      logger.info "rebuilding #{path('site')}"
+      FileUtils.rm_rf path('site')
+      FileUtils.mkdir_p path('site')
     end
 
     def pages!
@@ -243,7 +198,7 @@ module Blog
     end
 
     def pages
-      @pages ||= files(pages_dir).map { |f| Page.new(f, self) }
+      @pages ||= files(path('pages')).map { |f| Page.new(f, self) }
     end
 
     def to_liquid
@@ -267,10 +222,10 @@ module Blog
     def build!
       site.render!
 
-      logger.info "copying #{assets_dir} -> #{site_join('assets')}"
-      FileUtils.copy_entry(assets_dir, site_join('assets'))
+      logger.info "copying #{path('assets')} -> #{path('site/assets')}"
+      FileUtils.copy_entry(path('assets'), path('site/assets'))
 
-      logger.info "generating coverage report -> #{site_join('coverage')}"
+      logger.info "generating coverage report -> #{path('site/coverage')}"
       shell 'rspec'
     end
   end
