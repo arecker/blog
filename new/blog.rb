@@ -27,16 +27,20 @@ module Blog
 
   # Files
   module Files
-    def self.included(base)
-      base.extend(self)
-    end
-
     def files(path)
       Dir["#{path}/**/*"].select { |o| File.file?(o) }
     end
 
     def root_dir
       File.dirname(__FILE__)
+    end
+
+    def root
+      File.dirname(__FILE__)
+    end
+
+    def path(*subpaths)
+      File.join(root, *subpaths)
     end
 
     def site_dir
@@ -49,6 +53,13 @@ module Blog
 
     def relpath(root, path)
       Pathname.new(path).relative_path_from(Pathname.new(root)).to_s
+    end
+
+    def webpath(path)
+      special_dirs = %w[pages entries] # treat these dirs like the root
+      parts = relpath(root, path).split('/')
+      parts = parts.drop(1) if special_dirs.include? parts.first
+      '/' + parts.join('/')
     end
 
     def root_join(path)
