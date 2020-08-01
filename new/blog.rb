@@ -277,7 +277,7 @@ module Blog
   # Entry
   class Entry < Page
     def initialize(file, site, previous: nil)
-      super
+      super(file, site)
       @previous = previous
       @next = nil
     end
