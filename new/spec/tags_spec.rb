@@ -3,9 +3,6 @@
 require 'spec_helper'
 
 describe Blog::Tags do
-  # let(:k) { Class.new { extend ::Blog::Files } }
-  # let(:root) { File.expand_path(File.join(File.dirname(__FILE__), '../')) }
-
   describe 'Include' do
     it 'should just goddamn work' do
       TEMPLATE = <<~BOOYAH
@@ -18,7 +15,7 @@ describe Blog::Tags do
 
       expected = <<~GROSS 
         <figure>
-          <a href="/assets/images/wip-blog.png">
+          <a href="/images/wip-blog.png">
             <img alt="wip blog" src="/images/wip-blog.png" />
           </a>
           <figcaption>

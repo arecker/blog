@@ -120,7 +120,7 @@ module Blog
       ::Liquid::Template.parse(raw, error_mode: :strict)
     end
 
-    def render(file, context: {}, layout: nil)
+    def render_template(file, context: {}, layout: nil)
       result = template(file).render(context)
       if layout.nil?
         result
@@ -130,21 +130,31 @@ module Blog
     end
   end
 
+  # Filters
+  module Filters
+    def filename_to_alt(filename)
+      filename = filename.gsub('-', ' ')
+      filename = filename.gsub(/.png|.jpg|.jpeg/, '')
+      filename
+    end
+  end
+  Liquid::Template.register_filter(Filters)
+
   # Tags
   module Tags
     # Version
     class Include < Liquid::Tag
+      include Files
+      include Template
+
       def initialize(name, markup, parse_context)
         super
         @markup = markup.strip.gsub("\n", ' ')
+        raise "#{filename} does not exist" unless File.exist? filename
       end
 
-      def render(context)
-        # @markup = figure.html filename='wip-blog.png' caption="Work in
-        return "#{options}"
-        <<~OUTPUT
-          HELLO
-        OUTPUT
+      def render(_context)
+        render_template(filename, context: options)
       end
 
       def options
@@ -153,6 +163,10 @@ module Blog
 
       def kwargs
         Shellwords.split(@markup).drop(1)
+      end
+
+      def filename
+        path('snippets', Shellwords.split(@markup).first)
       end
     end
     Liquid::Template.register_tag('include', Include)
@@ -183,7 +197,7 @@ module Blog
     end
 
     def content
-      render(file, context: context, layout: layout)
+      render_template(file, context: context, layout: layout)
     end
 
     def context
