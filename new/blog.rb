@@ -3,6 +3,7 @@
 # -*- mode: ruby -*-
 # frozen_string_literal: true
 
+require 'date'
 require 'fileutils'
 require 'liquid'
 require 'logger'
@@ -17,7 +18,15 @@ rescue LoadError # rubocop:disable Lint/SuppressedException
 end
 
 CONFIG = {
-  github_username: 'arecker'
+  'author' => 'Alex Recker',
+  'menu' => [
+    'archives.html',
+    'stats.html',
+    'contact.html',
+  ],
+  'github_handle' => 'arecker',
+  'twitter_handle' => '@alex_recker',
+  'url' => 'https://www.alexrecker.com',
 }.freeze
 
 # Blog
@@ -64,7 +73,7 @@ module Blog
 
   # Shell
   module Shell
-    def shell(cmd)
+    def self.run(cmd)
       out, err, status = Open3.capture3(cmd)
       return out if status.success?
 
@@ -103,10 +112,12 @@ module Blog
 
   # Git
   module Git
-    include Shell
+    def self.shorthead
+      Shell.run('git rev-parse --short HEAD').chomp
+    end
 
     def self.head
-      shell('git rev-parse --short HEAD').chomp
+      Shell.run('git rev-parse HEAD').chomp
     end
   end
 
@@ -125,7 +136,7 @@ module Blog
       if layout.nil?
         result
       else
-        template(path('layouts', layout)).render('content' => result)
+        template(path('layouts', layout)).render(context.merge({ 'content' => result }))
       end
     end
   end
@@ -187,7 +198,11 @@ module Blog
 
     def to_liquid
       {
-        'permalink' => permalink
+        'description' => description,
+        'file' => file,
+        'permalink' => permalink,
+        'title' => title,
+        'url' => url,
       }
     end
 
@@ -203,8 +218,16 @@ module Blog
     def context
       {
         'page' => self,
-        'site' => site
+        'site' => site,
       }
+    end
+
+    def title
+      metadata.fetch('title')
+    end
+
+    def description
+      metadata.fetch('description')
     end
 
     def layout
@@ -223,7 +246,25 @@ module Blog
       metadata.fetch('permalink', webpath(file))
     end
 
+    def url
+      CONFIG['url'] + permalink
+    end
+
+    def image_url
+      if metadata['image'].key? 'image'
+        url + webpath('images/banners', metadata['image'])
+      else
+        nil
+      end
+    end
+
     def metadata
+      @metadata ||= load_metadata
+    end
+
+    private
+
+    def load_metadata
       result = YAML.load_file(file)
       if result.is_a? Hash
         result
@@ -261,7 +302,10 @@ module Blog
     def to_liquid
       {
         'config' => CONFIG,
-        'gitref' => Git.head
+        'shorthead' => Git.shorthead,
+        'HEAD' => Git.head,
+        'year' => Date.today.year,
+        'last_updated' => Date.today.strftime('%A, %B %-d %Y'),
       }
     end
   end
@@ -270,7 +314,6 @@ module Blog
   class Builder
     include Files
     include Logging
-    include Shell
 
     attr_reader :site
 
@@ -285,7 +328,7 @@ module Blog
       FileUtils.copy_entry(path('assets'), path('site/assets'))
 
       logger.info "generating coverage report -> #{path('site/coverage')}"
-      shell 'rspec'
+      Shell.run 'rspec'
     end
   end
 
