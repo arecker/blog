@@ -276,8 +276,19 @@ module Blog
 
   # Entry
   class Entry < Page
-    def initialize(file, site, pagination: {})
+    def initialize(file, site, previous: nil)
       super
+      @previous = previous
+      @next = nil
+    end
+
+    def to_liquid
+      super.merge(
+        {
+          'previous' => @previous,
+          'next' => @next,
+        }
+      )
     end
   end
 
