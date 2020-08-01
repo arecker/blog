@@ -217,8 +217,9 @@ module Blog
 
     def context
       {
+        'config' => CONFIG,
         'page' => self,
-        'site' => site,
+        'site' => site
       }
     end
 
@@ -319,7 +320,6 @@ module Blog
 
     def to_liquid
       {
-        'config' => CONFIG,
         'shorthead' => Git.shorthead,
         'HEAD' => Git.head,
         'year' => Date.today.year,

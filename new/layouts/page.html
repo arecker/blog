@@ -5,7 +5,7 @@
     <title>{{ page.title }} | {{ page.description }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="{{ site.config.twitter_handle }}" />
+    <meta name="twitter:site" content="{{ config.twitter_handle }}" />
     <meta name="twitter:title" content="{{ page.title }}" />
     <meta name="twitter:description" content="{{ page.description }}" />
     <meta property="og:url" content="{{ page.url }}" />
@@ -30,12 +30,12 @@
       <span>{{ page.file }}</span>
       {%- endif %}
       <span class="float-right hide-on-mobile">
-	{%- for page in site.config.menu %}
+	{%- for page in config.menu %}
 	<a href="/{{ page }}">{{ page }}</a>
 	{%- endfor %}
       </span>
       <span class="show-on-mobile">
-	{%- for page in site.config.menu %}
+	{%- for page in config.menu %}
 	<a href="/{{ page }}">{{ page }}</a>
 	{%- endfor %}
       </span>
@@ -48,7 +48,7 @@
       <small>
 	Powered by <a href="https://github.com/arecker/blog">blog</a> (<a class="code" href="https://github.com/arecker/blog/tree/{{ site.HEAD }}">{{ site.shorthead }}</a>)
       </small>
-      <small>&copy; Copyright {{ site.year }} {{ site.config.author }}</small>
+      <small>&copy; Copyright {{ site.year }} {{ config.author }}</small>
     </footer>
     <!-- include ga.html -->
   </body>
