@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# coding: utf-8
 # -*- mode: ruby -*-
 # frozen_string_literal: true
 
@@ -8,7 +7,9 @@ require 'fileutils'
 require 'liquid'
 require 'logger'
 require 'open3'
+require 'optparse'
 require 'pathname'
+require 'rack'
 require 'shellwords'
 require 'yaml'
 
@@ -19,14 +20,10 @@ end
 
 CONFIG = {
   'author' => 'Alex Recker',
-  'menu' => [
-    'archives.html',
-    'stats.html',
-    'contact.html',
-  ],
+  'email' => 'alex@reckerfamily.com',
   'github_handle' => 'arecker',
   'twitter_handle' => '@alex_recker',
-  'url' => 'https://www.alexrecker.com',
+  'url' => 'https://www.alexrecker.com'
 }.freeze
 
 # Blog
@@ -202,7 +199,7 @@ module Blog
         'file' => file,
         'permalink' => permalink,
         'title' => title,
-        'url' => url,
+        'url' => url
       }
     end
 
@@ -252,11 +249,7 @@ module Blog
     end
 
     def image_url
-      if metadata['image'].key? 'image'
-        url + webpath('images/banners', metadata['image'])
-      else
-        nil
-      end
+      url + webpath('images/banners', metadata['image']) if metadata['image'].key? 'image'
     end
 
     def metadata
@@ -287,7 +280,7 @@ module Blog
       super.merge(
         {
           'previous' => @previous,
-          'next' => @next,
+          'next' => @next
         }
       )
     end
@@ -323,7 +316,7 @@ module Blog
         'shorthead' => Git.shorthead,
         'HEAD' => Git.head,
         'year' => Date.today.year,
-        'last_updated' => Date.today.strftime('%A, %B %-d %Y'),
+        'last_updated' => Date.today.strftime('%A, %B %-d %Y')
       }
     end
   end

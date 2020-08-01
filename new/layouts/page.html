@@ -22,6 +22,7 @@
     <!-- include header.html title=page.title subtitle=page.description -->
     <hr/>
     <nav>
+      {%- assign menu = 'archives.html, stats.html, contact.html' | split: ', ' %}
       {%- if page.file == "index.html" %}
       <a href="/">index.html</a>
       {%- else %}
@@ -30,12 +31,12 @@
       <span>{{ page.file }}</span>
       {%- endif %}
       <span class="float-right hide-on-mobile">
-	{%- for page in config.menu %}
+	{%- for page in menu %}
 	<a href="/{{ page }}">{{ page }}</a>
 	{%- endfor %}
       </span>
       <span class="show-on-mobile">
-	{%- for page in config.menu %}
+	{%- for page in menu %}
 	<a href="/{{ page }}">{{ page }}</a>
 	{%- endfor %}
       </span>

@@ -2,6 +2,7 @@
 
 require 'spec_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe Blog::Files do
   let(:k) { Class.new { extend ::Blog::Text } }
 
@@ -36,3 +37,4 @@ describe Blog::Files do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength
