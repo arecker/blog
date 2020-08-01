@@ -274,6 +274,13 @@ module Blog
     end
   end
 
+  # Entry
+  class Entry < Page
+    def initialize(file, site, pagination: {})
+      super
+    end
+  end
+
   # Site
   class Site
     include Files
