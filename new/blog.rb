@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# coding: utf-8
 # -*- mode: ruby -*-
 # frozen_string_literal: true
 
@@ -7,12 +8,17 @@ require 'liquid'
 require 'logger'
 require 'open3'
 require 'pathname'
+require 'shellwords'
 require 'yaml'
 
 begin
   require 'liquid/debug'
 rescue LoadError # rubocop:disable Lint/SuppressedException
 end
+
+CONFIG = {
+  github_username: 'arecker'
+}.freeze
 
 # Blog
 #
@@ -95,6 +101,15 @@ module Blog
     end
   end
 
+  # Git
+  module Git
+    include Shell
+
+    def self.head
+      shell('git rev-parse --short HEAD').chomp
+    end
+  end
+
   # Template
   module Template
     include Files
@@ -113,6 +128,34 @@ module Blog
         template(path('layouts', layout)).render('content' => result)
       end
     end
+  end
+
+  # Tags
+  module Tags
+    # Version
+    class Include < Liquid::Tag
+      def initialize(name, markup, parse_context)
+        super
+        @markup = markup.strip.gsub("\n", ' ')
+      end
+
+      def render(context)
+        # @markup = figure.html filename='wip-blog.png' caption="Work in
+        return "#{options}"
+        <<~OUTPUT
+          HELLO
+        OUTPUT
+      end
+
+      def options
+        @options ||= kwargs.map { |k| k.split('=') }.to_h
+      end
+
+      def kwargs
+        Shellwords.split(@markup).drop(1)
+      end
+    end
+    Liquid::Template.register_tag('include', Include)
   end
 
   # Page
@@ -203,6 +246,8 @@ module Blog
 
     def to_liquid
       {
+        'config' => CONFIG,
+        'gitref' => Git.head
       }
     end
   end
