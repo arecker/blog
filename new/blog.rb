@@ -4,6 +4,7 @@
 
 require 'date'
 require 'fileutils'
+require 'html-proofer'
 require 'liquid'
 require 'logger'
 require 'open3'
@@ -340,11 +341,18 @@ module Blog
 
       logger.info "generating coverage report -> #{path('site/coverage')}"
       Shell.run 'rspec'
+
+      logger.info "validating generated html in #{path('site')}"
+      HTMLProofer.check_directory(
+        path('site'),
+        file_ignore: [path('site/coverage/index.html')],
+        disable_external: true,
+        log_level: :error,
+      ).run
     end
   end
 
   def self.run!
-    logger.info 'starting blog'
     Builder.new.build!
   end
 end

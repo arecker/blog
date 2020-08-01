@@ -21,7 +21,7 @@
   <body>
     <!-- include header.html title=page.title subtitle=page.description -->
     <hr/>
-    <nav>
+    <nav data-proofer-ignore>
       {%- assign menu = 'archives.html, stats.html, contact.html' | split: ', ' %}
       {%- if page.file == "index.html" %}
       <a href="/">index.html</a>
