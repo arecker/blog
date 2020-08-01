@@ -12,33 +12,36 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content="{{ page.title }}"/>
     <meta property="og:description" content="{{ page.description }}" />
-    {%- if page.image_url %}
+    {% if page.image_url %}
     <meta name="twitter:image" content="{{ page.image_url }}"/>
     <meta property="og:image" content="{{ page.image.url }}"/>
     {% endif %}
     <link href="/assets/site.css" rel="stylesheet"/>
   </head>
   <body>
-    <!-- include header.html title=page.title subtitle=page.description -->
+    <header>
+      <h1 class="title">{{ page.title }}</h1>
+      <h2 class="subtitle">{{ page.description }}</h2>
+    </header>
     <hr/>
     <nav data-proofer-ignore>
-      {%- assign menu = 'archives.html, stats.html, contact.html' | split: ', ' %}
-      {%- if page.file == "index.html" %}
+      {% assign menu = 'archives.html, stats.html, contact.html' | split: ', ' %}
+      {% if page.filename == "index.html" %}
       <a href="/">index.html</a>
-      {%- else %}
+      {% else %}
       <a href="/">index.html</a>
       <span> / </span>
-      <span>{{ page.file }}</span>
-      {%- endif %}
+      <span>{{ page.filename }}</span>
+      {% endif %}
       <span class="float-right hide-on-mobile">
-	{%- for page in menu %}
+	{% for page in menu %}
 	<a href="/{{ page }}">{{ page }}</a>
-	{%- endfor %}
+	{% endfor %}
       </span>
       <span class="show-on-mobile">
-	{%- for page in menu %}
+	{% for page in menu %}
 	<a href="/{{ page }}">{{ page }}</a>
-	{%- endfor %}
+	{% endfor %}
       </span>
     </nav>
     <hr/>

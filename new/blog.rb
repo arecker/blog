@@ -12,6 +12,7 @@ require 'optparse'
 require 'pathname'
 require 'rack'
 require 'shellwords'
+require 'thin'
 require 'yaml'
 
 begin
@@ -197,11 +198,15 @@ module Blog
     def to_liquid
       {
         'description' => description,
-        'file' => file,
+        'filename' => filename,
         'permalink' => permalink,
         'title' => title,
         'url' => url
       }
+    end
+
+    def filename
+      File.basename(@file)
     end
 
     def render!
@@ -354,6 +359,12 @@ module Blog
 
   def self.run!
     Builder.new.build!
+    Rack::Handler::Thin.run(
+      Rack::Builder.new {
+        use(Rack::Static, urls: [""], :root => 'site', :index => 'index.html')
+        run ->env{[200, {}, ["hello!"]]}
+      }, Host: '0.0.0.0', Port: 4000
+    )
   end
 end
 
