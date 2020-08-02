@@ -27,5 +27,44 @@ describe Blog::Tags do
 
       expect(actual).to eq(expected.gsub(/\s+/, ' '))
     end
+
+    it 'should resolve bare variables' do
+      template = <<~BOOYAH
+        {% include figure.html filename=my_filename %}
+      BOOYAH
+
+      actual = Liquid::Template.parse(template.strip).render({ 'my_filename' => 'test.png' }).gsub(/\s+/, ' ')
+
+      expected = <<~GROSS
+        <figure>
+          <a href="/images/test.png">
+            <img alt="test" src="/images/test.png" />
+          </a>
+        </figure>
+      GROSS
+
+      expect(actual).to eq(expected.gsub(/\s+/, ' '))
+    end
+
+    it 'should resolve nested variables' do
+      template = <<~BOOYAH
+        {% include figure.html filename=latest.image %}
+      BOOYAH
+
+      latest = double('page')
+      expect(latest).to receive(:to_liquid).and_return({'image' => 'latest-image.png' })
+      
+      actual = Liquid::Template.parse(template.strip).render({ 'latest' => latest }).gsub(/\s+/, ' ')
+
+      expected = <<~GROSS
+        <figure>
+          <a href="/images/latest-image.png">
+            <img alt="latest image" src="/images/latest-image.png" />
+          </a>
+        </figure>
+      GROSS
+
+      expect(actual).to eq(expected.gsub(/\s+/, ' '))
+    end
   end
 end

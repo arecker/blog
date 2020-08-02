@@ -163,8 +163,9 @@ module Blog
         raise "#{filename} does not exist" unless File.exist? filename
       end
 
-      def render(_context)
-        render_template(filename, context: options)
+      def render(context)
+        rendered = try_resolve_values(context, options)
+        render_template(filename, context: rendered)
       end
 
       def options
@@ -177,6 +178,28 @@ module Blog
 
       def filename
         path('snippets', Shellwords.split(@markup).first)
+      end
+
+      def try_resolve_values(context, hash)
+        # TODO: lol GROSS
+        rendered = {}
+        hash.each do |k, v|
+          result = context.find_variable(v)
+          if result.nil?
+            if v.include? '.'
+              parent = context.find_variable(v.split('.').first)
+              if parent.nil?
+                result = v
+              else
+                result = v.split(".").drop(1).inject(parent) { |hash, key| hash[key] }
+              end
+            else
+              result = v
+            end
+          end
+          rendered[k] = result
+        end
+        rendered
       end
     end
     Liquid::Template.register_tag('include', Include)
@@ -276,6 +299,10 @@ module Blog
 
   # Entry
   class Entry < Page
+    def self.list_from_files(files, site)
+      
+    end
+
     def initialize(file, site, previous: nil)
       super(file, site)
       @previous = previous
@@ -317,8 +344,14 @@ module Blog
       @pages ||= files(path('pages')).map { |f| Page.new(f, self) }
     end
 
+    def entries
+      @entries ||= Entry.list_from_files(files(path('entries')).reverse, self)
+    end
+
     def to_liquid
       {
+        'latest' => entries.first,
+        'entries' => entries,
         'shorthead' => Git.shorthead,
         'HEAD' => Git.head,
         'year' => Date.today.year,
@@ -359,49 +392,75 @@ module Blog
 
   # ArgParser
   class ArgParser
+    attr_reader :subcommand
+
+    ALLOWED_SUBCOMMANDS = [
+      'build',
+      'serve',
+      'watch',
+    ]
+
+    def initialize(argv)
+      parser.parse(argv, into: options)
+      @subcommand = argv.pop
+    end
+
+    def verbose?
+      options.fetch(:verbose, false)
+    end
+
+    def valid?
+      ALLOWED_SUBCOMMANDS.include? subcommand
+    end
+
     def banner
-      "Usage: blog.rb <build>"
+      "Usage: blog.rb -v <#{ALLOWED_SUBCOMMANDS.join('|')}>"
     end
 
     def options
-      @options ||= Struct.new(:name).new
+      @options ||= {}
     end
 
     def parser
-      @parser ||= OptionParser.new do |opts|
-        opts.banner = banner
-      end
+      @parser ||= OptionParser.new { |opts| make_options(opts) }
     end
-    # def self.parse(options)
-    # Options = Struct.new(:name)
-    #   args = Options.new("world")
 
-    #   opt_parser = OptionParser.new do |opts|
-    #     opts.banner = "Usage: example.rb [options]"
+    def bail!
+      puts banner
+      exit -1
+    end
 
-    #     opts.on("-nNAME", "--name=NAME", "Name to say hello to") do |n|
-    #       args.name = n
-    #     end
-
-    #     opts.on("-h", "--help", "Prints this help") do
-    #       puts opts
-    #       exit
-    #     end
-    #   end
-
-    #   opt_parser.parse!(options)
-    #   return args      
-    # end
+    private
+    
+    def make_options(opts)
+      opts.banner = banner
+      opts.on('-v', '--verbose') { |t| options[:verbose] = t }
+    end
   end
 
-  def self.run!
+  def self.build!
     Builder.new.build!
+  end
+
+  def self.serve!
+    build!
     Rack::Handler::Thin.run(
       Rack::Builder.new {
         use(Rack::Static, urls: [""], :root => 'site', :index => 'index.html')
         run ->env{[200, {}, ["hello!"]]}
       }, Host: '0.0.0.0', Port: 4000
     )
+  end
+
+  def self.run!
+    parser = ArgParser.new(ARGV)
+    parser.bail! unless parser.valid?
+    case parser.subcommand
+    when 'build'
+      build!
+    when 'serve'
+      serve!
+    end
   end
 end
 
