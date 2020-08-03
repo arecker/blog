@@ -15,4 +15,5 @@ group :development do
   gem 'liquid_debug'
   gem 'pry'
   gem 'rubocop'
+  gem 'ruby-prof'
 end

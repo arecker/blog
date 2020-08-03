@@ -1,76 +1,20 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8"/>
-    <title>{{ page.title }} | {{ page.description }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="{{ config.twitter_handle }}" />
-    <meta name="twitter:title" content="{{ page.title }}" />
-    <meta name="twitter:description" content="{{ page.description }}" />
-    <meta property="og:url" content="{{ page.url }}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ page.title }}"/>
-    <meta property="og:description" content="{{ page.description }}" />
-    {% if page.image_url %}
-    <meta name="twitter:image" content="{{ page.image_url }}"/>
-    <meta property="og:image" content="{{ page.image.url }}"/>
-    {% endif %}
-    <link href="/assets/site.css" rel="stylesheet"/>
-  </head>
+  {% include head.html page=page %}
   <body>
-    <header>
-      <h1 class="title">{{ page.title }}</h1>
-      <h2 class="subtitle">{{ page.description }}</h2>
-    </header>
+    {% include header.html page=page %}
     <hr/>
-    <nav data-proofer-ignore>
-      {% assign menu = 'archives.html, stats.html, contact.html' | split: ', ' %}
-      {% if page.filename == "index.html" %}
-      <a href="/">index.html</a>
-      {% else %}
-      <a href="/">index.html</a>
-      <span> / </span>
-      <span>{{ page.filename }}</span>
-      {% endif %}
-      <span class="float-right hide-on-mobile">
-	{% for page in menu %}
-	<a href="/{{ page }}">{{ page }}</a>
-	{% endfor %}
-      </span>
-      <span class="show-on-mobile">
-	{% for page in menu %}
-	<a href="/{{ page }}">{{ page }}</a>
-	{% endfor %}
-      </span>
-    </nav>
+    {% include nav.html page=page %}
     <hr/>
     {% if page.banner %}
     {% include figure.html filename=page.banner %}
     {% endif %}
     {{ content }}
     {% if page.next or page.previous %}
-    <nav class="clearfix">
-      {% if page.previous %}
-      <a href="{{ page.previous.permalink }}">
-	⟵ {{ page.previous.filename }}
-      </a>
-      {% endif %}
-      {% if page.next %}
-      <a class="float-right" href="{{ page.next.permalink }}">
-	{{ page.next.filename }} ⟶
-      </a>
-      {% endif %}
-    </nav>
+    {% include pager.html page=page %}
     {% endif %}
     <hr/>
-    <footer>
-      <small>Last Updated: {{ site.last_updated }}</small>
-      <small>
-	Powered by <a href="https://github.com/arecker/blog">a big mess</a> (<a class="code" href="https://github.com/arecker/blog/commit/{{ site.HEAD }}">{{ site.shorthead }}</a>)
-      </small>
-      <small>&copy; Copyright {{ site.year }} {{ config.author }}</small>
-    </footer>
+    {% include footer.html site=site %}
     <!-- include ga.html -->
   </body>
 </html>

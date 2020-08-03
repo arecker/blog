@@ -13,7 +13,9 @@ require 'pathname'
 require 'rack'
 require 'redcarpet'
 require 'shellwords'
+require 'singleton'
 require 'thin'
+require 'time'
 require 'yaml'
 
 begin
@@ -27,6 +29,7 @@ CONFIG = {
   'facebook_handle' => 'alex.recker.581',
   'github_handle' => 'arecker',
   'linkedin_handle' => 'alex-recker-a0316481',
+  'timezone' => 'CST',
   'twitter_handle' => '@alex_recker',
   'url' => 'https://www.alexrecker.com'
 }.freeze
@@ -38,14 +41,27 @@ module Blog
   def self.logger
     @logger ||= Logger.new(
       STDOUT,
-      formatter: proc { |_sev, _dt, _name, msg| "blog: #{msg}\n" }
+      formatter: proc { |_sev, _dt, _name, msg| "blog: #{msg}\n" },
+      level: Logger::INFO
     )
   end
 
   # Dates
   module Dates
-    def uyd(date)
+    def timezone
+      CONFIG.fetch('timezone', 'UTC')
+    end
+
+    def to_uyd_date(date)
       date.strftime('%A, %B %-d %Y')
+    end
+
+    def today
+      @today ||= Date.today.to_datetime.new_offset(offset).to_date
+    end
+
+    def offset
+      Time.zone_offset(timezone)
     end
   end
 
@@ -82,9 +98,14 @@ module Blog
 
   # Images
   module Images
+    include Files
+
+    def image_extensions
+      ['.jpg', '.jpeg', '.png', '.bmp', '.svg']
+    end
+
     def image?(filename)
-      extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.svg']
-      extensions.include? File.extname(filename)
+      image_extensions.include? File.extname(filename)
     end
 
     def images
@@ -93,6 +114,14 @@ module Blog
 
     def banners
       files(path('images/banners')).select { |f| image?(f) }
+    end
+
+    def find_banner(basename)
+      image_extensions.each do |ext|
+        file = path('images/banners', basename + ext)
+        return 'banners/' + File.basename(file) if File.exists? file
+      end
+      nil
     end
   end
 
@@ -154,13 +183,44 @@ module Blog
     end
   end
 
-  # Template
-  module Template
+  # Template Compiler
+  class TemplateCompiler
+    include Files
+    include Singleton
+
+    def layouts
+      @layouts ||= dir_as_template_hash(path('layouts'))
+    end
+
+    def snippets
+      @snippets ||= dir_as_template_hash(path('snippets'))
+    end
+
+    private
+
+    def dir_as_template_hash(dir)
+      results = {}
+      files(dir).each do |file|
+        contents = File.read(file)
+        results[File.basename(file)] = Liquid::Template.parse(
+          contents, error_mode: :strict
+        )
+      end
+      results
+    end
+  end
+
+  # Templating
+  module Templating
     include Files
     include Text
 
     def template(str)
       ::Liquid::Template.parse(str, error_mode: :strict)
+    end
+
+    def templating
+      TemplateCompiler.instance
     end
   end
 
@@ -176,20 +236,34 @@ module Blog
 
   # Tags
   module Tags
-    # Version
+    # Nickname
+    class Nickname < Liquid::Tag
+      def render(_context)
+        [
+          'a big mess',
+          'a goat rodeo',
+          'a rats nest',
+          'a single sprawling ruby script',
+          'an absolute eye sore',
+          'some shitty code I wrote',
+          'some terrible ruby',
+        ].sample
+      end
+    end
+    Liquid::Template.register_tag('nickname', Nickname)
+
+    # Include
     class Include < Liquid::Tag
       include Files
-      include Template
 
       def initialize(name, markup, parse_context)
         super
         @markup = markup.strip.gsub("\n", ' ')
-        raise "#{filename} does not exist" unless File.exist? filename
       end
 
       def render(context)
         rendered = try_resolve_values(context, options)
-        template(File.read(filename)).render(rendered)
+        TemplateCompiler.instance.snippets[filename].render(rendered)
       end
 
       def options
@@ -201,7 +275,7 @@ module Blog
       end
 
       def filename
-        path('snippets', Shellwords.split(@markup).first)
+        Shellwords.split(@markup).first
       end
 
       def try_resolve_values(context, hash)
@@ -233,7 +307,7 @@ module Blog
   class Page
     include Files
     include Logging
-    include Template
+    include Templating
     include Text
 
     attr_reader :file, :site
@@ -241,6 +315,10 @@ module Blog
     def initialize(file, site)
       @file = file
       @site = site
+    end
+
+    def templating
+      site.templating
     end
 
     def to_liquid
@@ -271,7 +349,7 @@ module Blog
       if layout.nil?
         result
       else
-        template(File.read(path('layouts', layout))).render(
+        templating.layouts[layout].render(
           context.merge({ 'content' => result })
         )
       end
@@ -361,7 +439,7 @@ module Blog
       if layout.nil?
         result
       else
-        template(File.read(path('layouts', layout))).render(
+        templating.layouts[layout].render(
           context.merge({ 'content' => result })
         )
       end
@@ -380,7 +458,7 @@ module Blog
     end
 
     def title
-      uyd(date)
+      to_uyd_date(date)
     end
 
     def target_filename
@@ -392,9 +470,7 @@ module Blog
     end
 
     def banner
-      basename = File.basename(filename, '.md')
-      result = banners.find { |i| File.basename(i, '.*') == basename }
-      'banners/' + File.basename(result) unless result.nil?
+      find_banner(File.basename(filename, '.md'))
     end
 
     def to_liquid
@@ -411,12 +487,30 @@ module Blog
 
   # Site
   class Site
+    include Dates
     include Files
     include Logging
+    include Templating
+
+    def initialize(no_validate: false)
+      @no_validate = no_validate
+    end
+
+    def config
+      CONFIG
+    end
+
+    def validate?
+      @no_validate != true
+    end
 
     def render!
       pave!
       pages!
+      entries!
+      statics!
+      validate!
+      coverage!
     end
 
     def pave!
@@ -428,8 +522,37 @@ module Blog
     def pages!
       logger.info "rendering #{pages.count} page(s)"
       pages.each(&:render!)
+    end
+
+    def entries!
       logger.info "rendering #{entries.count} page(s)"
       entries.each(&:render!)
+    end
+
+    def statics!
+      %w[assets images docs].each do |dir|
+        logger.info "copying #{path(dir)} -> #{path('site', dir)}"
+        FileUtils.copy_entry(path(dir), path('site', dir))
+      end
+    end
+
+    def coverage!
+      logger.info "generating coverage report -> #{path('site/coverage')}"
+      Shell.run 'rspec'
+    end
+
+    def validate!
+      unless validate?
+        logger.info "(skipping HTML validation)"
+        return
+      end
+      logger.info "validating generated html in #{path('site')}"
+      HTMLProofer.check_directory(
+        path('site'),
+        file_ignore: [path('site/coverage/index.html')],
+        disable_external: true,
+        log_level: :error,
+      ).run
     end
 
     def pages
@@ -442,52 +565,20 @@ module Blog
 
     def to_liquid
       {
-        'latest' => entries.first,
-        'entries' => entries,
-        'shorthead' => Git.shorthead,
         'HEAD' => Git.head,
-        'year' => Date.today.year,
-        'last_updated' => Date.today.strftime('%A, %B %-d %Y')
+        'config' => config,
+        'entries' => entries,
+        'last_updated' => to_uyd_date(today),
+        'latest' => entries.first,
+        'pages' => pages,
+        'shorthead' => Git.shorthead,
+        'year' => today.year,
       }
     end
   end
 
-  # Builder
-  class Builder
-    include Files
-    include Logging
-
-    attr_reader :site
-
-    def initialize
-      @site = Site.new
-    end
-
-    def build!
-      site.render!
-      statics!
-      logger.info "generating coverage report -> #{path('site/coverage')}"
-      Shell.run 'rspec'
-
-      logger.info "validating generated html in #{path('site')}"
-      # HTMLProofer.check_directory(
-      #   path('site'),
-      #   file_ignore: [path('site/coverage/index.html')],
-      #   disable_external: true,
-      #   log_level: :error,
-      # ).run
-    end
-
-    def statics!
-      %w[assets images docs].each do |dir|
-        logger.info "copying #{path(dir)} -> #{path('site', dir)}"
-        FileUtils.copy_entry(path(dir), path('site', dir))
-      end
-    end
-  end
-
-  # ArgParser
-  class ArgParser
+  # Runner
+  class Runner
     attr_reader :subcommand
 
     ALLOWED_SUBCOMMANDS = [
@@ -497,16 +588,16 @@ module Blog
     ]
 
     def initialize(argv)
-      parser.parse(argv, into: options)
+      parser.parse(argv)
       @subcommand = argv.pop
-    end
-
-    def verbose?
-      options.fetch(:verbose, false)
     end
 
     def valid?
       ALLOWED_SUBCOMMANDS.include? subcommand
+    end
+
+    def verbose?
+      options[:verbose] == true
     end
 
     def banner
@@ -521,42 +612,53 @@ module Blog
       @parser ||= OptionParser.new { |opts| make_options(opts) }
     end
 
+    def run!
+      preflight!
+      case subcommand
+      when 'build'
+        build!
+      when 'serve'
+        build!
+        serve!
+      end
+    end
+
+    def build!
+      site = Site.new(no_validate: options[:no_validate])
+      site.render!
+    end
+
+    def serve!
+      Rack::Handler::Thin.run(
+        Rack::Builder.new {
+          use(Rack::Static, urls: [""], :root => 'site', :index => 'index.html')
+          run ->env{[200, {}, ["hello!"]]}
+        }, Host: '0.0.0.0', Port: 4000
+      )
+    end
+
+    private
+
+    def preflight!
+      bail! unless valid?
+      Blog.logger.level = ::Logger::DEBUG if verbose?
+    end
+
     def bail!
       puts banner
       exit -1
     end
-
-    private
     
     def make_options(opts)
       opts.banner = banner
-      opts.on('-v', '--verbose') { |t| options[:verbose] = t }
+      opts.on('-v', '--verbose') { |t| options[:verbose] = true }
+      opts.on('-n', '--no-validate') { |o| options[:no_validate] = true }
     end
-  end
-
-  def self.build!
-    Builder.new.build!
-  end
-
-  def self.serve!
-    build!
-    Rack::Handler::Thin.run(
-      Rack::Builder.new {
-        use(Rack::Static, urls: [""], :root => 'site', :index => 'index.html')
-        run ->env{[200, {}, ["hello!"]]}
-      }, Host: '0.0.0.0', Port: 4000
-    )
   end
 
   def self.run!
-    parser = ArgParser.new(ARGV)
-    parser.bail! unless parser.valid?
-    case parser.subcommand
-    when 'build'
-      build!
-    when 'serve'
-      serve!
-    end
+    parser = Runner.new(ARGV)
+    parser.run!
   end
 end
 
