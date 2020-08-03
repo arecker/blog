@@ -8,10 +8,10 @@ description: Daily, public journal by Alex Recker
     <a href="{{ site.latest.url }}">
       <h3 class="title">{{ site.latest.title }}</h3>
     </a>
-    {% if latest.image %}
-    {% include figure.html url=latest.url filename=latest.image caption=latest.title %}
+    {% if site.latest.image %}
+    {% include figure.html url=site.latest.url filename=site.latest.image caption=site.latest.title %}
     {% else %}
-    <p>{{ site.latest.title }}</p>
+    <p>{{ site.latest.description }}</p>
     {% endif %}
   </div>
   <div class="column">
