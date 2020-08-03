@@ -11,6 +11,7 @@ require 'open3'
 require 'optparse'
 require 'pathname'
 require 'rack'
+require 'redcarpet'
 require 'shellwords'
 require 'thin'
 require 'yaml'
@@ -23,7 +24,9 @@ end
 CONFIG = {
   'author' => 'Alex Recker',
   'email' => 'alex@reckerfamily.com',
+  'facebook_handle' => 'alex.recker.581',
   'github_handle' => 'arecker',
+  'linkedin_handle' => 'alex-recker-a0316481',
   'twitter_handle' => '@alex_recker',
   'url' => 'https://www.alexrecker.com'
 }.freeze
@@ -83,6 +86,14 @@ module Blog
       extensions = ['.jpg', '.jpeg', '.png', '.bmp', '.svg']
       extensions.include? File.extname(filename)
     end
+
+    def images
+      files(path('images')).select { |f| image?(f) }
+    end
+
+    def banners
+      files(path('images/banners')).select { |f| image?(f) }
+    end
   end
 
   # Shell
@@ -110,6 +121,14 @@ module Blog
     def strip_metadata(txt)
       result = txt.split('---').last || ''
       result.lstrip
+    end
+
+    def markdown_to_html(src)
+      markdown.render(src)
+    end
+
+    def markdown
+      @markdown ||= ::Redcarpet::Markdown.new(Redcarpet::Render::HTML)
     end
   end
 
@@ -140,18 +159,8 @@ module Blog
     include Files
     include Text
 
-    def template(file)
-      raw = strip_metadata(File.read(file))
-      ::Liquid::Template.parse(raw, error_mode: :strict)
-    end
-
-    def render_template(file, context: {}, layout: nil)
-      result = template(file).render(context)
-      if layout.nil?
-        result
-      else
-        template(path('layouts', layout)).render(context.merge({ 'content' => result }))
-      end
+    def template(str)
+      ::Liquid::Template.parse(str, error_mode: :strict)
     end
   end
 
@@ -180,7 +189,7 @@ module Blog
 
       def render(context)
         rendered = try_resolve_values(context, options)
-        render_template(filename, context: rendered)
+        template(File.read(filename)).render(rendered)
       end
 
       def options
@@ -225,6 +234,7 @@ module Blog
     include Files
     include Logging
     include Template
+    include Text
 
     attr_reader :file, :site
 
@@ -249,15 +259,27 @@ module Blog
 
     def render!
       logger.debug "rendering page #{file} -> #{target}"
-      write(target, content)
+      write(target, render)
     end
 
     def content
-      render_template(file, context: context, layout: layout)
+      strip_metadata(File.read(file))
+    end
+
+    def render
+      result = template(content).render(context)
+      if layout.nil?
+        result
+      else
+        template(File.read(path('layouts', layout))).render(
+          context.merge({ 'content' => result })
+        )
+      end
     end
 
     def context
       {
+        'latest' => site.entries.first,
         'config' => CONFIG,
         'page' => self,
         'site' => site
@@ -292,10 +314,6 @@ module Blog
       CONFIG['url'] + permalink
     end
 
-    def image_url
-      url + webpath('images/banners', metadata['image']) if metadata['image'].key? 'image'
-    end
-
     def metadata
       @metadata ||= load_metadata
     end
@@ -316,6 +334,9 @@ module Blog
   class Entry < Page
     include Dates
     include Images
+    include Text
+
+    attr_writer :next
 
     def self.list_from_files(files, site)
       entries = []
@@ -332,6 +353,18 @@ module Blog
       super(file, site)
       @previous = previous
       @next = nil
+    end
+
+    def render
+      result = template(content).render(context)
+      result = markdown_to_html(result)
+      if layout.nil?
+        result
+      else
+        template(File.read(path('layouts', layout))).render(
+          context.merge({ 'content' => result })
+        )
+      end
     end
 
     def description
@@ -358,20 +391,19 @@ module Blog
       path('site', target_filename)
     end
 
-    def image
+    def banner
       basename = File.basename(filename, '.md')
-      banners = files(path('images/banners')).select { |f| image?(f) }
-      possible = banners.reject { |i| File.basename(i, '.*') }
-      return webpath(possible.first) if possible.count == 1
-      nil
+      result = banners.find { |i| File.basename(i, '.*') == basename }
+      'banners/' + File.basename(result) unless result.nil?
     end
 
     def to_liquid
       super.merge(
         {
-          'image' => image,
+          'banner' => banner,
           'previous' => @previous,
-          'next' => @next
+          'next' => @next,
+          'filename' => target_filename
         }
       )
     end
@@ -433,10 +465,7 @@ module Blog
 
     def build!
       site.render!
-
-      logger.info "copying #{path('assets')} -> #{path('site/assets')}"
-      FileUtils.copy_entry(path('assets'), path('site/assets'))
-
+      statics!
       logger.info "generating coverage report -> #{path('site/coverage')}"
       Shell.run 'rspec'
 
@@ -447,6 +476,13 @@ module Blog
       #   disable_external: true,
       #   log_level: :error,
       # ).run
+    end
+
+    def statics!
+      %w[assets images docs].each do |dir|
+        logger.info "copying #{path(dir)} -> #{path('site', dir)}"
+        FileUtils.copy_entry(path(dir), path('site', dir))
+      end
     end
   end
 

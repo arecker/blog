@@ -45,12 +45,29 @@
       </span>
     </nav>
     <hr/>
+    {% if page.banner %}
+    {% include figure.html filename=page.banner %}
+    {% endif %}
     {{ content }}
+    {% if page.next or page.previous %}
+    <nav class="clearfix">
+      {% if page.previous %}
+      <a href="{{ page.previous.permalink }}">
+	⟵ {{ page.previous.filename }}
+      </a>
+      {% endif %}
+      {% if page.next %}
+      <a class="float-right" href="{{ page.next.permalink }}">
+	{{ page.next.filename }} ⟶
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
     <hr/>
     <footer>
       <small>Last Updated: {{ site.last_updated }}</small>
       <small>
-	Powered by <a href="https://github.com/arecker/blog">blog</a> (<a class="code" href="https://github.com/arecker/blog/tree/{{ site.HEAD }}">{{ site.shorthead }}</a>)
+	Powered by <a href="https://github.com/arecker/blog">a big mess</a> (<a class="code" href="https://github.com/arecker/blog/commit/{{ site.HEAD }}">{{ site.shorthead }}</a>)
       </small>
       <small>&copy; Copyright {{ site.year }} {{ config.author }}</small>
     </footer>

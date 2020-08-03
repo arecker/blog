@@ -5,13 +5,13 @@ description: Daily, public journal by Alex Recker
 <div class="row">
   <div class="column">
     <h2>Today's Post</h2>
-    <a href="{{ site.latest.url }}">
-      <h3 class="title">{{ site.latest.title }}</h3>
+    <a href="{{ latest.permalink }}">
+      <h3 class="title">{{ latest.title }}</h3>
     </a>
-    {% if site.latest.image %}
-    {% include figure.html url=site.latest.url filename=site.latest.image caption=site.latest.title %}
+    {% if latest.banner %}
+    {% include figure.html url=latest.permalink filename=latest.banner caption=latest.title %}
     {% else %}
-    <p>{{ site.latest.description }}</p>
+    <p>{{ latest.description }}</p>
     {% endif %}
   </div>
   <div class="column">
