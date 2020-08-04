@@ -252,6 +252,21 @@ module Blog
     end
     Liquid::Template.register_tag('nickname', Nickname)
 
+    # Image
+    class Image < Liquid::Tag
+      include Files
+
+      def initialize(name, markup, parse_context)
+        super
+        @image = markup
+      end
+
+      def render(_context)
+        webpath(path('images', @image))
+      end
+    end
+    Liquid::Template.register_tag('image', Image)
+
     # Include
     class Include < Liquid::Tag
       include Files
@@ -630,10 +645,10 @@ module Blog
 
     def serve!
       Rack::Handler::Thin.run(
-        Rack::Builder.new {
-          use(Rack::Static, urls: [""], :root => 'site', :index => 'index.html')
-          run ->env{[200, {}, ["hello!"]]}
-        }, Host: '0.0.0.0', Port: 4000
+        Rack::Builder.new do
+          use(Rack::Static, urls: [''], root: 'site', index: 'index.html')
+          run ->(_env) { [200, {}, ['hello!']] }
+        end, Host: '0.0.0.0', Port: 4000
       )
     end
 
@@ -646,13 +661,13 @@ module Blog
 
     def bail!
       puts banner
-      exit -1
+      exit(-1)
     end
-    
+
     def make_options(opts)
       opts.banner = banner
-      opts.on('-v', '--verbose') { |t| options[:verbose] = true }
-      opts.on('-n', '--no-validate') { |o| options[:no_validate] = true }
+      opts.on('-v', '--verbose') { |_t| options[:verbose] = true }
+      opts.on('-n', '--no-validate') { |_o| options[:no_validate] = true }
     end
   end
 

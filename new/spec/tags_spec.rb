@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'spec_helper'
+
 describe Blog::Tags do
   describe 'Include' do
     it 'should just goddamn work' do
@@ -65,6 +66,13 @@ describe Blog::Tags do
       GROSS
 
       expect(actual).to eq(expected.gsub(/\s+/, ' '))
+    end
+  end
+
+  describe 'Image' do
+    it 'should render the web path to the image' do
+      actual = Liquid::Template.parse('{% image banners/thing.png %}').render.strip
+      expect(actual).to eq '/images/banners/thing.png'
     end
   end
 end
