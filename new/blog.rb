@@ -376,9 +376,14 @@ module Blog
       strip_metadata(File.read(file))
     end
 
+    def pre_layout(result)
+      result
+    end
+
     def render
       result = template(content).render(context)
-      if layout.nil?
+      result = pre_layout(result)
+      if layout == 'null'
         result
       else
         templating.layouts[layout].render(
@@ -397,11 +402,11 @@ module Blog
     end
 
     def title
-      metadata.fetch('title')
+      metadata['title']
     end
 
     def description
-      metadata.fetch('description')
+      metadata['description']
     end
 
     def layout
@@ -433,6 +438,8 @@ module Blog
       else
         {}
       end
+    rescue Psych::Exception
+      {}
     end
   end
 
@@ -465,16 +472,8 @@ module Blog
       path('entries')
     end
 
-    def render
-      result = template(content).render(context)
-      result = markdown_to_html(result)
-      if layout.nil?
-        result
-      else
-        templating.layouts[layout].render(
-          context.merge({ 'content' => result })
-        )
-      end
+    def pre_layout(result)
+      markdown_to_html(result)
     end
 
     def description

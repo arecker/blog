@@ -9,7 +9,7 @@ description: Daily, public journal by Alex Recker
       <h3 class="title">{{ latest.title }}</h3>
     </a>
     {% if latest.banner %}
-    {% include figure.html url=latest.permalink filename=latest.banner caption=latest.title %}
+    {% include figure.html url=latest.permalink filename=latest.banner caption=latest.description %}
     {% else %}
     <p>{{ latest.description }}</p>
     {% endif %}
