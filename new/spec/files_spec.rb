@@ -32,5 +32,15 @@ describe Blog::Files do
     it 'should subtract special dirs from the path' do
       expect(k.webpath(k.path('pages/index.html'))).to eq('/index.html')
     end
+
+    it 'should add index.html to bare directories' do
+      expect(k.webpath(k.path('pages/old/'))).to eq('/old/index.html')
+    end
+  end
+
+  describe '#webext' do
+    it 'should replace .md with .html' do
+      expect(k.webext('2020-06-01.md')).to eq('2020-06-01.html')
+    end
   end
 end

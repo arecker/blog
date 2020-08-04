@@ -83,7 +83,16 @@ module Blog
       Pathname.new(path).relative_path_from(Pathname.new(root)).to_s
     end
 
+    def webext(filename)
+      special_exts = { '.md' => '.html' }
+      newext = special_exts[File.extname(filename)]
+      filename = File.basename(filename, '.*') + newext unless newext.nil?
+      filename
+    end
+
     def webpath(path)
+      path = File.join(path, 'index.html') if File.extname(path).empty?
+      path = File.join(File.dirname(path), webext(File.basename(path)))
       special_dirs = %w[pages entries] # treat these dirs like the root
       parts = relpath(root, path).split('/')
       parts = parts.drop(1) if special_dirs.include? parts.first
@@ -336,10 +345,14 @@ module Blog
       site.templating
     end
 
+    def src_dir
+      path('pages')
+    end
+
     def to_liquid
       {
         'description' => description,
-        'filename' => filename,
+        'filename' => target_filename,
         'permalink' => permalink,
         'title' => title,
         'url' => url
@@ -348,6 +361,10 @@ module Blog
 
     def filename
       File.basename(@file)
+    end
+
+    def target_filename
+      webext(filename)
     end
 
     def render!
@@ -392,15 +409,11 @@ module Blog
     end
 
     def target
-      if permalink.end_with? '/'
-        path('site', permalink, 'index.html')
-      else
-        path('site', permalink)
-      end
+      path('site', permalink)
     end
 
     def permalink
-      metadata.fetch('permalink', webpath(file))
+      metadata['permalink'] || webpath(file)
     end
 
     def url
@@ -448,6 +461,10 @@ module Blog
       @next = nil
     end
 
+    def src_dir
+      path('entries')
+    end
+
     def render
       result = template(content).render(context)
       result = markdown_to_html(result)
@@ -468,20 +485,8 @@ module Blog
       @date ||= Date.parse(File.basename(filename, '.md'))
     end
 
-    def permalink
-      webpath(target_filename)
-    end
-
     def title
       to_uyd_date(date)
-    end
-
-    def target_filename
-      File.basename(filename, '.md') + '.html'
-    end
-
-    def target
-      path('site', target_filename)
     end
 
     def banner
@@ -493,8 +498,7 @@ module Blog
         {
           'banner' => banner,
           'previous' => @previous,
-          'next' => @next,
-          'filename' => target_filename
+          'next' => @next
         }
       )
     end
@@ -540,7 +544,7 @@ module Blog
     end
 
     def entries!
-      logger.info "rendering #{entries.count} page(s)"
+      logger.info "rendering #{entries.count} entries(s)"
       entries.each(&:render!)
     end
 
