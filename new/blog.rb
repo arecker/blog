@@ -161,6 +161,17 @@ module Blog
       result.lstrip
     end
 
+    def extract_metadata(file)
+      result = YAML.load_file(file)
+      if result.is_a? Hash
+        result
+      else
+        {}
+      end
+    rescue Psych::Exception
+      {}
+    end
+
     def markdown_to_html(src)
       markdown.render(src)
     end
@@ -260,6 +271,34 @@ module Blog
       end
     end
     Liquid::Template.register_tag('nickname', Nickname)
+
+    # Link
+    class Link < Liquid::Tag
+      include Files
+      include Text
+
+      def initialize(name, markup, parse_context)
+        super
+        @page = markup
+      end
+
+      def render(_ctx)
+        href
+      end
+
+      def href
+        metadata.fetch('permalink', webpath(target))
+      end
+
+      def metadata
+        @metadata ||= extract_metadata(target)
+      end
+
+      def target
+        @target ||= path('pages', @page)
+      end
+    end
+    Liquid::Template.register_tag('link', Link)
 
     # Image
     class Image < Liquid::Tag
@@ -426,20 +465,7 @@ module Blog
     end
 
     def metadata
-      @metadata ||= load_metadata
-    end
-
-    private
-
-    def load_metadata
-      result = YAML.load_file(file)
-      if result.is_a? Hash
-        result
-      else
-        {}
-      end
-    rescue Psych::Exception
-      {}
+      @metadata ||= extract_metadata(file)
     end
   end
 
