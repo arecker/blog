@@ -21,7 +21,7 @@ describe Blog::Files do
       expect(actual).to eq(expected)
     end
 
-    it 'should do nothing to text without meatadata' do
+    it 'should do nothing to text without metadata' do
       text = <<~FILE
         HELLO THERE!
       FILE

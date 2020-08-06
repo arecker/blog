@@ -177,7 +177,7 @@ module Blog
     end
 
     def markdown
-      @markdown ||= ::Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+      @markdown ||= ::Redcarpet::Markdown.new(Redcarpet::Render::HTML, space_after_headers: true)
     end
   end
 
@@ -279,7 +279,7 @@ module Blog
 
       def initialize(name, markup, parse_context)
         super
-        @page = markup
+        @page = markup.strip
       end
 
       def render(_ctx)
@@ -291,7 +291,7 @@ module Blog
       end
 
       def metadata
-        @metadata ||= extract_metadata(target)
+        extract_metadata(target)
       end
 
       def target
@@ -314,6 +314,21 @@ module Blog
       end
     end
     Liquid::Template.register_tag('image', Image)
+
+    # Audio
+    class Audio < Liquid::Tag
+      include Files
+
+      def initialize(name, markup, parse_context)
+        super
+        @file = markup
+      end
+
+      def render(_context)
+        webpath(path('audio', @file))
+      end
+    end
+    Liquid::Template.register_tag('audio', Audio)
 
     # Include
     class Include < Liquid::Tag
@@ -416,7 +431,11 @@ module Blog
     end
 
     def pre_layout(result)
-      result
+      if File.extname(file) == '.md'
+        markdown_to_html(result)
+      else
+        result
+      end
     end
 
     def render
@@ -496,10 +515,6 @@ module Blog
 
     def src_dir
       path('entries')
-    end
-
-    def pre_layout(result)
-      markdown_to_html(result)
     end
 
     def description
@@ -639,7 +654,7 @@ module Blog
     end
 
     def statics!
-      %w[assets images docs].each do |dir|
+      %w[assets images docs audio].each do |dir|
         logger.info "copying #{path(dir)} -> #{path('site', dir)}"
         FileUtils.copy_entry(path(dir), path('site', dir))
       end
