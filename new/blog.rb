@@ -529,6 +529,70 @@ module Blog
     end
   end
 
+  # Feed
+  class Feed
+    include Files
+    include Logging
+    include Templating
+
+    attr_reader :site
+
+    def initialize(site)
+      @site = site
+    end
+
+    def target
+      path('site', site.config.fetch(:feed_path, '/feed.xml'))
+    end
+
+    def permalink
+      webpath(target)
+    end
+
+    def render!
+      logger.debug "rendering feed -> #{target}"
+      write(target, render)
+    end
+
+    def render
+      template(content).render(context)
+    end
+
+    def context
+      {
+        'site' => site
+      }
+    end
+
+    def content
+      <<~BOOYAKASHA
+        <?xml version="1.0" encoding="utf-8"?>
+        <feed xmlns="http://www.w3.org/2005/Atom">
+          <title>Example Feed</title>
+          <link href="http://example.org/"/>
+          <updated>2003-12-13T18:30:02Z</updated>
+          <author>
+            <name>John Doe</name>
+          </author>
+          <id>urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6</id>
+          <entry>
+            <title>Atom-Powered Robots Run Amok</title>
+            <link href="http://example.org/2003/12/13/atom03"/>
+            <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+            <updated>2003-12-13T18:30:02Z</updated>
+            <summary>Some text.</summary>
+          </entry>
+        </feed>
+      BOOYAKASHA
+    end
+
+    def to_liquid
+      {
+        'path' => path
+      }
+    end
+  end
+
   # Site
   class Site
     include Dates
@@ -552,6 +616,7 @@ module Blog
       pave!
       pages!
       entries!
+      feed!
       statics!
       validate!
       coverage!
@@ -578,6 +643,10 @@ module Blog
         logger.info "copying #{path(dir)} -> #{path('site', dir)}"
         FileUtils.copy_entry(path(dir), path('site', dir))
       end
+    end
+
+    def feed!
+      feed.render!
     end
 
     def coverage!
@@ -607,11 +676,16 @@ module Blog
       @entries ||= Entry.list_from_files(files(path('entries')).sort.reverse, self)
     end
 
+    def feed
+      @feed ||= Feed.new(self)
+    end
+
     def to_liquid
       {
         'HEAD' => Git.head,
         'config' => config,
         'entries' => entries,
+        'feed' => feed,
         'last_updated' => to_uyd_date(today),
         'latest' => entries.first,
         'pages' => pages,
