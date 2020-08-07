@@ -476,7 +476,12 @@ module Blog
     end
 
     def target
-      path('site', permalink)
+      trg = if File.extname(permalink).empty?
+              File.join(permalink, 'index.html')
+            else
+              permalink
+            end
+      path('site', trg)
     end
 
     def permalink
