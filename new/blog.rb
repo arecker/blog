@@ -177,7 +177,11 @@ module Blog
     end
 
     def markdown
-      @markdown ||= ::Redcarpet::Markdown.new(Redcarpet::Render::HTML, space_after_headers: true)
+      @markdown ||= ::Redcarpet::Markdown.new(
+        Redcarpet::Render::HTML,
+        fenced_code_blocks: true,
+        space_after_headers: true
+      )
     end
   end
 
