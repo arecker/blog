@@ -161,8 +161,8 @@ module Blog
       result.lstrip
     end
 
-    def extract_metadata(file)
-      result = YAML.load_file(file)
+    def parse_metadata(str)
+      result = YAML.load(str)
       if result.is_a? Hash
         result
       else
@@ -170,6 +170,10 @@ module Blog
       end
     rescue Psych::Exception
       {}
+    end
+
+    def extract_metadata(file)
+      parse_metadata(File.read(file))
     end
 
     def markdown_to_html(src)
