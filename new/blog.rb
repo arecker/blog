@@ -173,7 +173,7 @@ module Blog
   # Text
   module Text
     def strip_metadata(txt)
-      txt.sub /---(.|\n)*---/, ''.lstrip
+      txt.sub(/\A---(.|\n)*?---/, '').lstrip
     end
 
     def parse_metadata(str)

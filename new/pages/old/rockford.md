@@ -1,6 +1,7 @@
 ---
 title: Rockford
 description: Farewell, Rockford. It was a pleasure being your citizen for two years.
+permalink: /rockford.html
 ---
 
 Rockford used to seem like the edge of the world to me. As kids, we

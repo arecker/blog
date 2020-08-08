@@ -1,6 +1,7 @@
 ---
 title: Jane
 description: I interview my mother, Jane Recker.
+permalink: /full-metal-jacket.html
 ---
 
 **Thanks for doing this, Mom. OK - first question. Let's first talk

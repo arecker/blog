@@ -1,6 +1,7 @@
 ---
 title: Uhh Yeah Dude
 description: A long overdue written tribute to my favorite podcast.
+permalink: /uhh-yeah-dude.html
 ---
 
 "What are your top five podcasts?" This question is all over the

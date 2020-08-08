@@ -1,6 +1,7 @@
 ---
 title: Noah
 description: A tender look back on the life of the best little brother I’ve ever had - my dog Noah.
+permalink: /noah.html
 ---
 
 Noah wasn’t really a dog. I’m at a loss for words trying to

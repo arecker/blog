@@ -1,6 +1,7 @@
 ---
 title: Clockwork Orange
 description: Time for a bit of the ‘ol Kubrick Week, eh readers? This week we take on the mental flogging that is Clockwork Orange. I’ll be rebuilding my sense of morality all week.
+permalink: /clockwork-orange.html
 ---
 
 # Alex's Thoughts

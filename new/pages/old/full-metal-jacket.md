@@ -1,6 +1,7 @@
 ---
 title: Full Metal Jacket
 description: My wife and I review the movie Full Metal Jacket.
+permalink: /full-metal-jacket.html
 ---
 
 Marissa and I review the movie Full Metal Jacket, and we try not to

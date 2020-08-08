@@ -1,6 +1,7 @@
 ---
 title: Eyes Wide Shut
 description: Kubrick Week kick off. My wife and I were inspired to spend a week watching Stanley Kubrick movies. As far as I can tell we are working in order of 'most Tom Cruise' to 'least Tom Cruise'.
+permalink: /eyes-wide-shut.html
 ---
 
 My wife and I are in the viscous throws of a full blown Netflix
