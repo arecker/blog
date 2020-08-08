@@ -288,13 +288,7 @@ module Blog
     class Nickname < Liquid::Tag
       def render(_context)
         [
-          'a big mess',
-          'a goat rodeo',
-          'a rats nest',
-          'a single sprawling ruby script',
-          'an absolute eye sore',
-          'some shitty code I wrote',
-          'some terrible ruby',
+          'a sprawling mess of ruby'
         ].sample
       end
     end
