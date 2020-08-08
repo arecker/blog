@@ -1,0 +1,18 @@
+---
+title: Entries
+description: Daily Journal Entries
+---
+
+<h2>Journal Entries</h2>
+<table>
+  {% for post in site.entries %}
+  <tr>
+    <td>
+      <a href="{{ post.permalink }}">{{ post.filename }}</a>
+    </td>
+    <td>
+      {{ post.description }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
