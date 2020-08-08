@@ -688,7 +688,7 @@ module Blog
         logger.info "(skipping HTML validation)"
         return
       end
-      logger.info "validating generated html in #{path('site')}"
+      logger.info "validating #{files(path('site')).count} pages(s) -> #{path('site')}/**/*.html"
       HTMLProofer.check_directory(
         path('site'),
         file_ignore: [path('site/coverage/index.html')],
@@ -753,7 +753,7 @@ module Blog
     end
 
     def generate
-      logger.info "copying static files -> site/{#{dirs.join(',')}}"
+      logger.info "copying #{dirs.count} static dir(s) -> site/{#{dirs.join(',')}}"
       dirs.each do |dir|
         src = path(dir)
         trg = path('site', dir)
@@ -774,7 +774,7 @@ module Blog
         resize(image, [800, 800])
       end
       FileUtils.copy_entry(src, target)
-      logger.info "caching #{src} -> #{target}"
+      logger.info "caching #{images.count} image(s) -> #{target}"
     end
 
     def target
