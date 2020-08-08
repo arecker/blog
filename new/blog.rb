@@ -392,6 +392,7 @@ module Blog
   # Page
   class Page
     include Files
+    include Images
     include Logging
     include Templating
     include Text
@@ -417,7 +418,8 @@ module Blog
         'filename' => target_filename,
         'permalink' => permalink,
         'title' => title,
-        'url' => url
+        'url' => url,
+        'banner' => banner
       }
     end
 
@@ -467,6 +469,10 @@ module Blog
       }
     end
 
+    def banner
+      find_banner(File.basename(filename, '.md'))
+    end
+
     def title
       metadata['title']
     end
@@ -504,7 +510,6 @@ module Blog
   # Entry
   class Entry < Page
     include Dates
-    include Images
     include Text
 
     attr_writer :next
@@ -542,14 +547,9 @@ module Blog
       to_uyd_date(date)
     end
 
-    def banner
-      find_banner(File.basename(filename, '.md'))
-    end
-
     def to_liquid
       super.merge(
         {
-          'banner' => banner,
           'previous' => @previous,
           'next' => @next
         }
