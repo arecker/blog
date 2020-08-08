@@ -3,10 +3,12 @@
 # frozen_string_literal: true
 
 require 'date'
+require 'fastimage'
 require 'fileutils'
 require 'html-proofer'
 require 'liquid'
 require 'logger'
+require 'mini_magick'
 require 'open3'
 require 'optparse'
 require 'pathname'
@@ -119,6 +121,20 @@ module Blog
 
     def images
       files(path('images')).select { |f| image?(f) }
+    end
+
+    def dimensions(file)
+      result = FastImage.size(file)
+      if result.instance_of?(String)
+        result.split('x').map(&:to_i)
+      else
+        result
+      end
+    end
+
+    def resize(file, dims)
+      image = MiniMagick::Image.new(file)
+      image.resize "#{dims.first}x#{dims.last}"
     end
 
     def banners
@@ -641,19 +657,11 @@ module Blog
     end
 
     def render!
-      pave!
       pages!
       entries!
       feed!
-      statics!
       validate!
       coverage!
-    end
-
-    def pave!
-      logger.info "rebuilding #{path('site')}"
-      FileUtils.rm_rf path('site')
-      FileUtils.mkdir_p path('site')
     end
 
     def pages!
@@ -664,13 +672,6 @@ module Blog
     def entries!
       logger.info "rendering #{entries.count} entries(s)"
       entries.each(&:render!)
-    end
-
-    def statics!
-      %w[assets images docs audio].each do |dir|
-        logger.info "copying #{path(dir)} -> #{path('site', dir)}"
-        FileUtils.copy_entry(path(dir), path('site', dir))
-      end
     end
 
     def feed!
@@ -723,8 +724,76 @@ module Blog
     end
   end
 
+  # Builder
+  class Builder
+    include Files
+    include Images
+    include Logging
+
+    def self.generate_all!
+      descendants.each do |klass|
+        klass.new.generate
+      end
+    end
+
+    def self.descendants
+      ObjectSpace.each_object(Class).select { |klass| klass < self }
+    end
+  end
+
+  # Static Builder
+  class StaticBuilder < Builder
+    def dirs
+      @dirs ||= %w[
+        assets
+        audio
+        docs
+        vid
+      ].sort.select { |f| File.directory? path(f) }
+    end
+
+    def generate
+      logger.info "copying static files -> site/{#{dirs.join(',')}}"
+      dirs.each do |dir|
+        src = path(dir)
+        trg = path('site', dir)
+        logger.debug "copying #{src} -> #{trg}"
+        FileUtils.copy_entry(src, trg)
+      end
+    end
+  end
+
+  # Image Builder
+  class ImageBuilder < Builder
+    def generate
+      images.each do |image|
+        dims = dimensions(image)
+        next unless too_big?(dims)
+
+        logger.info "resizing #{image}"
+        resize(image, [800, 800])
+      end
+      FileUtils.copy_entry(src, target)
+      logger.info "caching #{src} -> #{target}"
+    end
+
+    def target
+      path('site', 'images')
+    end
+
+    def src
+      path('images')
+    end
+
+    def too_big?(dimensions)
+      dimensions.first > 800 || dimensions.last > 800
+    end
+  end
+
   # Runner
   class Runner
+    include Files
+
     attr_reader :subcommand
 
     ALLOWED_SUBCOMMANDS = [
@@ -770,8 +839,15 @@ module Blog
     end
 
     def build!
+      pave!
       site = Site.new(no_validate: options[:no_validate])
+      Builder.generate_all!
       site.render!
+    end
+
+    def pave!
+      FileUtils.rm_rf path('site')
+      FileUtils.mkdir_p path('site')
     end
 
     def serve!

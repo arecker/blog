@@ -2,8 +2,10 @@
 
 source 'https://rubygems.org'
 
+gem 'fastimage'
 gem 'html-proofer'
 gem 'liquid'
+gem 'mini_magick'
 gem 'rack'
 gem 'redcarpet'
 gem 'rspec'
