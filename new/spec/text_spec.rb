@@ -18,7 +18,7 @@ describe Blog::Files do
         HELLO THERE!
       FILE
       actual = k.strip_metadata(text)
-      expect(actual).to eq(expected)
+      expect(actual.strip).to eq(expected.strip)
     end
 
     it 'should do nothing to text without metadata' do

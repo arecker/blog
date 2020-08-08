@@ -173,12 +173,11 @@ module Blog
   # Text
   module Text
     def strip_metadata(txt)
-      result = txt.split('---').last || ''
-      result.lstrip
+      txt.sub /---(.|\n)*---/, ''.lstrip
     end
 
     def parse_metadata(str)
-      result = YAML.load(str)
+      result = YAML.safe_load(str)
       if result.is_a? Hash
         result
       else
@@ -189,7 +188,12 @@ module Blog
     end
 
     def extract_metadata(file)
-      parse_metadata(File.read(file))
+      split = File.read(file).split('---')
+      if split.count >= 3
+        parse_metadata(split[1])
+      else
+        {}
+      end
     end
 
     def markdown_to_html(src)
