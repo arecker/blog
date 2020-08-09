@@ -11,7 +11,7 @@ into a public tool.  Keep an eye out for the first release of
 
 [bennedetto]: https://github.com/arecker/bennedetto
 
-<hr/>
+---
 
 Any couple that says they never fight has probably never had to talk
 about money. I know this because Marissa and I used to be that

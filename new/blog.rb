@@ -6,6 +6,7 @@ require 'date'
 require 'fastimage'
 require 'fileutils'
 require 'html-proofer'
+require 'json'
 require 'liquid'
 require 'logger'
 require 'mini_magick'
@@ -223,6 +224,10 @@ module Blog
 
     def self.head
       Shell.run('git rev-parse HEAD').chomp
+    end
+
+    def self.commit_count
+      Shell.run('git rev-list --count master').chomp
     end
   end
 
@@ -625,8 +630,11 @@ module Blog
   class GitBuilder < Builder
     def context
       {
-        'HEAD' => Git.head,
-        'shorthead' => Git.shorthead
+        'git' => {
+          'commit_count' => Git.commit_count,
+          'HEAD' => Git.head,
+          'shorthead' => Git.shorthead
+        }
       }
     end
   end
@@ -658,7 +666,17 @@ module Blog
     def context
       logger.info "generating coverage report -> #{path('site/coverage')}"
       Shell.run 'rspec'
-      {}
+      {
+        'coverage' => results['metrics']
+      }
+    end
+
+    def results
+      @results ||= JSON.parse(File.read(expected_results_path))
+    end
+
+    def expected_results_path
+      path('tmp', 'coverage.json')
     end
   end
 

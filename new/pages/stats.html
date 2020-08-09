@@ -2,3 +2,26 @@
 title: Stats
 description: Interesting Writing Statistics
 ---
+
+<div class="row">
+  <div class="column">
+    <h2>Code</h2>
+    <table>
+      <tr>
+	<td>Total Lines of Code</td>
+	<td class="code">{{ coverage.total_lines | number_with_delimiter }}</td>
+	<td>(<a href="/todo.html">API documentation</a>)</td>
+      </tr>
+      <tr>
+	<td>Total Commits</td>
+	<td class="code">{{ git.commit_count | number_with_delimiter }}</td>
+	<td>(<a href="https://github.com/arecker/blog/">source code</a>)</td>
+      </tr>
+      <tr>
+	<td>Test Coverage</td>
+	<td class="code">{{ coverage.covered_percent | round: 2 }}%</td>
+	<td>(<a href="/coverage/">coverage report</a>)</td>
+      </tr>
+    </table>
+  </div>
+</div>
