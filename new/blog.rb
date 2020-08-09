@@ -818,7 +818,7 @@ module Blog
     end
 
     def validate?
-      options[:validate] == true
+      options[:no_validate] != true
     end
 
     def verbose?
