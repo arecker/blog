@@ -777,16 +777,18 @@ module Blog
           <link href="http://example.org/"/>
           <updated>2003-12-13T18:30:02Z</updated>
           <author>
-            <name>John Doe</name>
+            <name>{{ config.author }}</name>
           </author>
-          <id>urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6</id>
+          <id>{{ config.url }}</id>
+          {% for entry in entries %}
           <entry>
-            <title>Atom-Powered Robots Run Amok</title>
-            <link href="http://example.org/2003/12/13/atom03"/>
-            <id>urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a</id>
+            <title>{{ entry.title }}</title>
+            <link href="{{ entry.url }}"/>
+            <id>{{ entry.url }}</id>
             <updated>2003-12-13T18:30:02Z</updated>
-            <summary>Some text.</summary>
+            <summary><![CDATA[{{ entry.description }}]]></summary>
           </entry>
+          {% endfor %}
         </feed>
       BOOYAKASHA
     end
