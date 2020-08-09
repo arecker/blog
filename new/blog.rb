@@ -655,9 +655,10 @@ module Blog
 
   # Coverage Builder
   class CoverageBuilder < Builder
-    def generate(_ctx)
+    def context
       logger.info "generating coverage report -> #{path('site/coverage')}"
       Shell.run 'rspec'
+      {}
     end
   end
 
