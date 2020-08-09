@@ -428,10 +428,6 @@ module Blog
       @site = site
     end
 
-    def templating
-      site.templating
-    end
-
     def src_dir
       path('pages')
     end
