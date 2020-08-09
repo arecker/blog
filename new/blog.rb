@@ -638,7 +638,7 @@ module Blog
         assets
         audio
         docs
-        vid
+        vids
       ].sort.select { |f| File.directory? path(f) }
     end
 
