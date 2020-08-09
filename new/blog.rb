@@ -27,12 +27,7 @@ end
 
 CONFIG = {
   'author' => 'Alex Recker',
-  'email' => 'alex@reckerfamily.com',
-  'facebook_handle' => 'alex.recker.581',
-  'github_handle' => 'arecker',
-  'linkedin_handle' => 'alex-recker-a0316481',
   'timezone' => 'CST',
-  'twitter_handle' => '@alex_recker',
   'url' => 'https://www.alexrecker.com'
 }.freeze
 
@@ -427,14 +422,14 @@ module Blog
     end
 
     def to_liquid
-      {
+      metadata.merge({
         'description' => description,
         'filename' => target_filename,
         'permalink' => permalink,
         'title' => title,
         'url' => url,
         'banner' => banner
-      }
+      })
     end
 
     def filename
@@ -728,6 +723,8 @@ module Blog
     include Images
     include Logging
 
+    attr_reader :context
+
     def self.generate_all!
       descendants.each do |klass|
         klass.new.generate
@@ -736,6 +733,10 @@ module Blog
 
     def self.descendants
       ObjectSpace.each_object(Class).select { |klass| klass < self }
+    end
+
+    def initialize(context = {})
+      @context = context
     end
   end
 
@@ -785,6 +786,33 @@ module Blog
 
     def too_big?(dimensions)
       dimensions.first > 800 || dimensions.last > 800
+    end
+  end
+
+  # Entry Builder
+  class EntryBuilder
+    include Files
+
+    def generate
+      
+    end
+
+    def context
+      super.merge(
+        {
+          'entries' => entries
+        }
+      )
+    end
+
+    def entries
+      @entries ||= []
+    end
+
+    private
+
+    def entry_files
+      files(path('entries'))
     end
   end
 
