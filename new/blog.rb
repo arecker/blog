@@ -347,6 +347,21 @@ module Blog
     end
     Liquid::Template.register_tag('audio', Audio)
 
+    # Asset
+    class Asset < Liquid::Tag
+      include Files
+
+      def initialize(name, markup, parse_context)
+        super
+        @file = markup
+      end
+
+      def render(_context)
+        webpath(path('assets', @file))
+      end
+    end
+    Liquid::Template.register_tag('asset', Asset)
+
     # Include
     class Include < Liquid::Tag
       include Files
