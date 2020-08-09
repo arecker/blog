@@ -7,14 +7,14 @@ describe Blog::Entry do
 
   describe '#title' do
     it 'should return the formatted date' do
-      entry = Blog::Entry.new('2020-01-01.md', nil)
+      entry = Blog::Entry.new('2020-01-01.md')
       expect(entry.title).to eq('Wednesday, January 1 2020')
     end
   end
 
   describe '#description' do
     it 'should return the page title' do
-      entry = Blog::Entry.new('2020-01-01.md', nil)
+      entry = Blog::Entry.new('2020-01-01.md')
       expect(entry).to receive(:metadata).and_return({ 'title' => 'eggs, farts, and drama mamas' })
       expect(entry.description).to eq('eggs, farts, and drama mamas')
     end

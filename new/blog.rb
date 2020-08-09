@@ -423,9 +423,8 @@ module Blog
 
     attr_reader :file, :site
 
-    def initialize(file, site)
+    def initialize(file)
       @file = file
-      @site = site
     end
 
     def src_dir
@@ -433,14 +432,16 @@ module Blog
     end
 
     def to_liquid
-      metadata.merge({
-        'description' => description,
-        'filename' => target_filename,
-        'permalink' => permalink,
-        'title' => title,
-        'url' => url,
-        'banner' => banner
-      })
+      metadata.merge(
+        {
+          'description' => description,
+          'filename' => target_filename,
+          'permalink' => permalink,
+          'title' => title,
+          'url' => url,
+          'banner' => banner
+        }
+      )
     end
 
     def filename
@@ -451,9 +452,9 @@ module Blog
       webext(filename)
     end
 
-    def render!
+    def render!(ctx = {})
       logger.debug "rendering page #{file} -> #{target}"
-      write(target, render)
+      write(target, render(ctx))
     end
 
     def content
@@ -468,24 +469,22 @@ module Blog
       end
     end
 
-    def render
-      result = template(content).render(context)
+    def render(ctx = {})
+      full_ctx = ctx.merge(context)
+      result = template(content).render(full_ctx)
       result = pre_layout(result)
       if layout == 'null'
         result
       else
         templating.layouts[layout].render(
-          context.merge({ 'content' => result })
+          full_ctx.merge({ 'content' => result })
         )
       end
     end
 
     def context
       {
-        'latest' => site.entries.first,
-        'config' => CONFIG,
-        'page' => self,
-        'site' => site
+        'page' => self
       }
     end
 
@@ -534,19 +533,19 @@ module Blog
 
     attr_writer :next
 
-    def self.list_from_files(files, site)
+    def self.list_from_files(files)
       entries = []
-      entries << cur = new(files.shift, site) if files.any?
-      while files.any? do
-        entries << nxt = new(files.shift, site, previous: cur)
+      entries << cur = new(files.shift) if files.any?
+      while files.any?
+        entries << nxt = new(files.shift, previous: cur)
         cur.next = nxt
         cur = nxt
       end
       entries
     end
 
-    def initialize(file, site, previous: nil)
-      super(file, site)
+    def initialize(file, previous: nil)
+      super(file)
       @previous = previous
       @next = nil
     end
@@ -577,38 +576,196 @@ module Blog
     end
   end
 
-  # Feed
-  class Feed
+  # Builder
+  class Builder
     include Files
+    include Images
     include Logging
-    include Templating
 
-    attr_reader :site
+    def self.generate_all!
+      context = {}
+      builders = descendants.map(&:new)
+      builders.each { |b| context.merge!(b.context) }
+      builders.each { |b| b.generate(context) }
+    end
 
-    def initialize(site)
-      @site = site
+    def self.descendants
+      ObjectSpace.each_object(Class).select { |klass| klass < self }
+    end
+
+    def initialize; end
+
+    def generate(_ctx); end
+
+    def context
+      {}
+    end
+  end
+
+  # Config Generator
+  class ConfigBuilder < Builder
+    def context
+      { 'config' => CONFIG }
+    end
+  end
+
+  # Date Builder
+  class DateBuilder < Builder
+    include Dates
+
+    def context
+      {
+        'last_updated' => to_uyd_date(today),
+        'year' => today.year,
+      }
+    end
+  end
+
+  # Git Builder
+  class GitBuilder < Builder
+    def context
+      {
+        'HEAD' => Git.head,
+        'shorthead' => Git.shorthead
+      }
+    end
+  end
+
+  # Static Builder
+  class StaticBuilder < Builder
+    def dirs
+      @dirs ||= %w[
+        assets
+        audio
+        docs
+        vid
+      ].sort.select { |f| File.directory? path(f) }
+    end
+
+    def generate(_ctx)
+      logger.info "copying #{dirs.count} static dir(s) -> site/{#{dirs.join(',')}}"
+      dirs.each do |dir|
+        src = path(dir)
+        trg = path('site', dir)
+        logger.debug "copying #{src} -> #{trg}"
+        FileUtils.copy_entry(src, trg)
+      end
+    end
+  end
+
+  # Coverage Builder
+  class CoverageBuilder < Builder
+    def generate(_ctx)
+      logger.info "generating coverage report -> #{path('site/coverage')}"
+      Shell.run 'rspec'
+    end
+  end
+
+  # Image Builder
+  class ImageBuilder < Builder
+    def generate(_ctx)
+      resizeable_images.each do |image|
+        logger.info "resizing #{image}"
+        resize(image, [800, 800])
+      end
+      FileUtils.copy_entry(src, target)
+      logger.info "caching #{images.count} image(s) -> #{target}"
+    end
+
+    def resizeable_images
+      images.select { |i| too_big?(dimensions(i)) }
     end
 
     def target
-      path('site', site.config.fetch(:feed_path, '/feed.xml'))
+      path('site', 'images')
     end
 
-    def permalink
-      webpath(target)
+    def src
+      path('images')
     end
 
-    def render!
-      logger.debug "rendering feed -> #{target}"
-      write(target, render)
+    def too_big?(dimensions)
+      dimensions.first > 800 || dimensions.last > 800
     end
+  end
 
-    def render
-      template(content).render(context)
+  # Entry Builder
+  class EntryBuilder < Builder
+    def generate(ctx)
+      logger.info "rendering #{entries.count} entries(s)"
+      entries.each do |entry|
+        entry.render!(ctx)
+      end
     end
 
     def context
       {
-        'site' => site
+        'entries' => entries,
+        'latest' => entries.first
+      }
+    end
+
+    def entries
+      @entries ||= Entry.list_from_files(entry_files)
+    end
+
+    private
+
+    def entry_files
+      files(path('entries')).sort.reverse
+    end
+  end
+
+  # Page Builder
+  class PageBuilder < Builder
+    def generate(ctx)
+      logger.info "rendering #{pages.count} page(s)"
+      pages.each do |page|
+        page.render!(ctx)
+      end
+    end
+
+    def context
+      {
+        'pages' => pages
+      }
+    end
+
+    def pages
+      @pages ||= page_files.map { |f| Page.new(f) }
+    end
+
+    private
+
+    def page_files
+      files(path('pages')).sort
+    end
+  end
+
+  # Feed Builder
+  class FeedBuilder < Builder
+    include Templating
+
+    def target
+      path('site', permalink)
+    end
+
+    def permalink
+      '/feed.xml'
+    end
+
+    def generate(ctx)
+      logger.info "rendering feed -> #{target}"
+      write(target, render(ctx))
+    end
+
+    def render(ctx = {})
+      template(content).render(ctx.merge(context))
+    end
+
+    def context
+      {
+        'feed_permalink' => permalink
       }
     end
 
@@ -633,210 +790,19 @@ module Blog
         </feed>
       BOOYAKASHA
     end
-
-    def to_liquid
-      {
-        'path' => path
-      }
-    end
-  end
-
-  # Site
-  class Site
-    include Dates
-    include Files
-    include Logging
-    include Templating
-
-    def initialize(no_validate: false)
-      @no_validate = no_validate
-    end
-
-    def config
-      CONFIG
-    end
-
-    def validate?
-      @no_validate != true
-    end
-
-    def render!
-      pages!
-      entries!
-      feed!
-      validate!
-      coverage!
-    end
-
-    def pages!
-      logger.info "rendering #{pages.count} page(s)"
-      pages.each(&:render!)
-    end
-
-    def entries!
-      logger.info "rendering #{entries.count} entries(s)"
-      entries.each(&:render!)
-    end
-
-    def feed!
-      feed.render!
-    end
-
-    def coverage!
-      logger.info "generating coverage report -> #{path('site/coverage')}"
-      Shell.run 'rspec'
-    end
-
-    def validate!
-      unless validate?
-        logger.info "(skipping HTML validation)"
-        return
-      end
-      logger.info "validating #{files(path('site')).count} pages(s) -> #{path('site')}/**/*.html"
-      HTMLProofer.check_directory(
-        path('site'),
-        file_ignore: [path('site/coverage/index.html')],
-        disable_external: true,
-        log_level: :error,
-      ).run
-    end
-
-    def pages
-      @pages ||= files(path('pages')).map { |f| Page.new(f, self) }
-    end
-
-    def entries
-      @entries ||= Entry.list_from_files(files(path('entries')).sort.reverse, self)
-    end
-
-    def feed
-      @feed ||= Feed.new(self)
-    end
-
-    def to_liquid
-      {
-        'HEAD' => Git.head,
-        'config' => config,
-        'entries' => entries,
-        'feed' => feed,
-        'last_updated' => to_uyd_date(today),
-        'latest' => entries.first,
-        'pages' => pages,
-        'shorthead' => Git.shorthead,
-        'year' => today.year,
-      }
-    end
-  end
-
-  # Builder
-  class Builder
-    include Files
-    include Images
-    include Logging
-
-    attr_reader :context
-
-    def self.generate_all!
-      descendants.each do |klass|
-        klass.new.generate
-      end
-    end
-
-    def self.descendants
-      ObjectSpace.each_object(Class).select { |klass| klass < self }
-    end
-
-    def initialize(context = {})
-      @context = context
-    end
-  end
-
-  # Static Builder
-  class StaticBuilder < Builder
-    def dirs
-      @dirs ||= %w[
-        assets
-        audio
-        docs
-        vid
-      ].sort.select { |f| File.directory? path(f) }
-    end
-
-    def generate
-      logger.info "copying #{dirs.count} static dir(s) -> site/{#{dirs.join(',')}}"
-      dirs.each do |dir|
-        src = path(dir)
-        trg = path('site', dir)
-        logger.debug "copying #{src} -> #{trg}"
-        FileUtils.copy_entry(src, trg)
-      end
-    end
-  end
-
-  # Image Builder
-  class ImageBuilder < Builder
-    def generate
-      images.each do |image|
-        dims = dimensions(image)
-        next unless too_big?(dims)
-
-        logger.info "resizing #{image}"
-        resize(image, [800, 800])
-      end
-      FileUtils.copy_entry(src, target)
-      logger.info "caching #{images.count} image(s) -> #{target}"
-    end
-
-    def target
-      path('site', 'images')
-    end
-
-    def src
-      path('images')
-    end
-
-    def too_big?(dimensions)
-      dimensions.first > 800 || dimensions.last > 800
-    end
-  end
-
-  # Entry Builder
-  class EntryBuilder
-    include Files
-
-    def generate
-      
-    end
-
-    def context
-      super.merge(
-        {
-          'entries' => entries
-        }
-      )
-    end
-
-    def entries
-      @entries ||= []
-    end
-
-    private
-
-    def entry_files
-      files(path('entries'))
-    end
   end
 
   # Runner
   class Runner
     include Files
+    include Logging
 
     attr_reader :subcommand
 
     ALLOWED_SUBCOMMANDS = [
       'build',
       'serve',
-      'watch',
+      'watch'
     ]
 
     def initialize(argv)
@@ -846,6 +812,10 @@ module Blog
 
     def valid?
       ALLOWED_SUBCOMMANDS.include? subcommand
+    end
+
+    def validate?
+      options[:validate] == true
     end
 
     def verbose?
@@ -877,9 +847,12 @@ module Blog
 
     def build!
       pave!
-      site = Site.new(no_validate: options[:no_validate])
       Builder.generate_all!
-      site.render!
+      if validate?
+        validate!
+      else
+        logger.info '(skipping HTML validation)'
+      end
     end
 
     def pave!
@@ -894,6 +867,16 @@ module Blog
           run ->(_env) { [200, {}, ['hello!']] }
         end, Host: '0.0.0.0', Port: 4000
       )
+    end
+
+    def validate!
+      logger.info "validating #{files(path('site')).count} pages(s) -> #{path('site')}/**/*.html"
+      HTMLProofer.check_directory(
+        path('site'),
+        file_ignore: [path('site/coverage/index.html')],
+        disable_external: true,
+        log_level: :error
+      ).run
     end
 
     private
