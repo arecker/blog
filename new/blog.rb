@@ -46,6 +46,25 @@ module Blog
 
   # Dates
   module Dates
+    def slice_by_consecutive(dates)
+      dates.slice_when { |p, c| c != p - 1 && c != p + 1 }.to_a
+    end
+
+    def calculate_streaks(dates)
+      slice_by_consecutive(dates).map do |pair|
+        first, last = pair.minmax
+        {
+          'days' => (last - first).to_i,
+          'start' => first,
+          'end' => last
+        }
+      end
+    end
+
+    def time_to_date(time)
+      ::Date.parse(time.strftime('%Y-%m-%d'))
+    end
+
     def timezone
       CONFIG.fetch('timezone', 'UTC')
     end
@@ -60,6 +79,26 @@ module Blog
 
     def offset
       Time.zone_offset(timezone)
+    end
+  end
+
+  # Math
+  module Math
+    def average(numlist)
+      calc = numlist.inject { |sum, el| sum + el }.to_f / numlist.size
+      calc.round
+    end
+
+    def total(numlist)
+      numlist.inject(0) { |sum, x| sum + x }
+    end
+
+    def occurences(keys, targets)
+      results = Hash.new(0)
+      targets.each do |target|
+        results[target] += 1 if keys.include? target
+      end
+      results
     end
   end
 
@@ -203,6 +242,13 @@ module Blog
         space_after_headers: true
       )
     end
+
+    def to_words(str)
+      str.split.map do |token|
+        token.gsub!(/[^0-9a-z ']/i, '')
+        token.downcase
+      end
+    end
   end
 
   # Logging
@@ -258,6 +304,37 @@ module Blog
     end
   end
 
+  # Stats
+  class Stats
+    include Math
+    include Dates
+
+    attr_reader :entries
+
+    def initialize(entries)
+      @entries = entries
+    end
+
+    def to_liquid
+      {
+        'total_words' => total(word_counts),
+        'average_words' => average(word_counts),
+        'total_posts' => entries.size,
+        'consecutive_posts' => consecutive_posts
+      }
+    end
+
+    private
+
+    def consecutive_posts
+      calculate_streaks(entries.collect(&:date)).first['days']
+    end
+
+    def word_counts
+      @word_counts ||= entries.collect(&:word_count)
+    end
+  end
+
   # Templating
   module Templating
     include Files
@@ -278,6 +355,10 @@ module Blog
       filename = filename.gsub('-', ' ')
       filename = filename.gsub(/.png|.jpg|.jpeg/, '')
       filename
+    end
+
+    def pretty_number(num)
+      num.to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
     end
   end
   Liquid::Template.register_filter(Filters)
@@ -579,6 +660,14 @@ module Blog
         }
       )
     end
+
+    def words
+      to_words(content)
+    end
+
+    def word_count
+      @word_count ||= words.size
+    end
   end
 
   # Builder
@@ -661,6 +750,32 @@ module Blog
     end
   end
 
+  # Docs Builder
+  class DocsBuilder < Builder
+    def generate(_ctx)
+      logger.info "generating documentation -> #{target}"
+      Shell.run "yard #{options}  #{path('blog.rb')}"
+    end
+
+    def options
+      "-o #{target} -r #{path('README.md')} -q"
+    end
+
+    def context
+      {
+        'docs_permalink' => docs_permalink
+      }
+    end
+
+    def target
+      path('site', docs_permalink)
+    end
+
+    def docs_permalink
+      '/docs/'
+    end
+  end
+
   # Coverage Builder
   class CoverageBuilder < Builder
     def context
@@ -720,7 +835,8 @@ module Blog
     def context
       {
         'entries' => entries,
-        'latest' => entries.first
+        'latest' => entries.first,
+        'stats' => Stats.new(entries)
       }
     end
 
@@ -891,16 +1007,24 @@ module Blog
     end
 
     def validate!
-      logger.info "validating #{files(path('site')).count} pages(s) -> #{path('site')}/**/*.html"
+      logger.info "validating #{validate_files_count} pages(s) -> #{path('site')}/**/*.html"
       HTMLProofer.check_directory(
         path('site'),
-        file_ignore: [path('site/coverage/index.html')],
+        file_ignore: ignore_files,
         disable_external: true,
         log_level: :error
       ).run
     end
 
     private
+
+    def validate_files_count
+      files(path('site')).count - ignore_files.count
+    end
+
+    def ignore_files
+      @ignore_files ||= [path('site/coverage/index.html'), files(path('site/docs'))].flatten
+    end
 
     def preflight!
       bail! unless valid?

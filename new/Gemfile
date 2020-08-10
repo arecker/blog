@@ -11,6 +11,7 @@ gem 'redcarpet'
 gem 'rspec'
 gem 'simplecov'
 gem 'thin'
+gem 'yard'
 
 group :development do
   gem 'bump'
