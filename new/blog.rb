@@ -28,6 +28,9 @@ end
 
 CONFIG = {
   'author' => 'Alex Recker',
+  'email' => 'alex@reckerfamily.com',
+  'title' => 'Dear Journal',
+  'description' => 'Daily, public journal by Alex Recker',
   'timezone' => 'CST',
   'url' => 'https://www.alexrecker.com'
 }.freeze
@@ -65,6 +68,10 @@ module Blog
       ::Date.parse(time.strftime('%Y-%m-%d'))
     end
 
+    def date_to_time(date)
+      date.to_time.to_datetime
+    end
+
     def timezone
       CONFIG.fetch('timezone', 'UTC')
     end
@@ -77,8 +84,16 @@ module Blog
       @today ||= Date.today.to_datetime.new_offset(offset).to_date
     end
 
+    def now
+      @now ||= DateTime.now.new_offset(offset)
+    end
+
     def offset
       Time.zone_offset(timezone)
+    end
+
+    def parse_date(datestr)
+      ::Date.parse(datestr).to_datetime.new_offset(offset).to_date
     end
   end
 
@@ -105,7 +120,7 @@ module Blog
   # Files
   module Files
     def files(path)
-      Dir["#{path}/**/*"].select { |o| File.file?(o) }
+      Dir[File.join(path, '/**/*')].select { |o| File.file?(o) }
     end
 
     def root
@@ -645,7 +660,7 @@ module Blog
     end
 
     def date
-      @date ||= Date.parse(File.basename(filename, '.md'))
+      @date ||= parse_date(File.basename(filename, '.md'))
     end
 
     def title
@@ -655,6 +670,8 @@ module Blog
     def to_liquid
       super.merge(
         {
+          'date' => date,
+          'datetime' => date_to_time(date),
           'previous' => @previous,
           'next' => @next
         }
@@ -676,20 +693,27 @@ module Blog
     include Images
     include Logging
 
-    def self.generate_all!
+    attr_reader :options
+
+    def self.generate_all!(options = {})
       context = {}
-      builders = descendants.map(&:new)
+      builders = descendants.map { |b| b.new options }
       builders.each { |b| context.merge!(b.context) }
       builders.each { |b| b.generate(context) }
+      builders.each { |b| b.validate(context) }
     end
 
     def self.descendants
       ObjectSpace.each_object(Class).select { |klass| klass < self }
     end
 
-    def initialize; end
+    def initialize(options)
+      @options = options
+    end
 
     def generate(_ctx); end
+
+    def validate(_ctx); end
 
     def context
       {}
@@ -753,8 +777,8 @@ module Blog
   # Docs Builder
   class DocsBuilder < Builder
     def generate(_ctx)
-      logger.info "generating documentation -> #{target}"
-      Shell.run "yard #{options}  #{path('blog.rb')}"
+      logger.info "generating documentation -> site#{docs_permalink}"
+      Shell.run "yard #{options} #{path('blog.rb')}"
     end
 
     def options
@@ -779,11 +803,16 @@ module Blog
   # Coverage Builder
   class CoverageBuilder < Builder
     def context
-      logger.info "generating coverage report -> #{path('site/coverage')}"
+      logger.info "generating coverage report -> site#{report_permalink}"
       Shell.run 'rspec'
       {
-        'coverage' => results['metrics']
+        'coverage' => results['metrics'],
+        'coverage_permalink' => report_permalink
       }
+    end
+
+    def report_permalink
+      '/coverage/'
     end
 
     def results
@@ -803,7 +832,7 @@ module Blog
         resize(image, [800, 800])
       end
       FileUtils.copy_entry(src, target)
-      logger.info "caching #{images.count} image(s) -> #{target}"
+      logger.info "caching #{images.count} image(s) -> site/images"
     end
 
     def resizeable_images
@@ -879,6 +908,7 @@ module Blog
 
   # Feed Builder
   class FeedBuilder < Builder
+    include Dates
     include Templating
 
     def target
@@ -890,7 +920,7 @@ module Blog
     end
 
     def generate(ctx)
-      logger.info "rendering feed -> #{target}"
+      logger.info "rendering feed -> site#{permalink}"
       write(target, render(ctx))
     end
 
@@ -908,24 +938,75 @@ module Blog
       <<~BOOYAKASHA
         <?xml version="1.0" encoding="utf-8"?>
         <feed xmlns="http://www.w3.org/2005/Atom">
-          <title>Example Feed</title>
+          <title>{{ config.title }}</title>
           <link href="http://example.org/"/>
-          <updated>2003-12-13T18:30:02Z</updated>
+          <updated>#{now.strftime}</updated>
           <author>
             <name>{{ config.author }}</name>
+            <email>{{ config.email }}</email>
           </author>
           <id>{{ config.url }}</id>
           {% for entry in entries %}
-          <entry>
-            <title>{{ entry.title }}</title>
-            <link href="{{ entry.url }}"/>
-            <id>{{ entry.url }}</id>
-            <updated>2003-12-13T18:30:02Z</updated>
-            <summary><![CDATA[{{ entry.description }}]]></summary>
-          </entry>
+          #{entry}
           {% endfor %}
         </feed>
       BOOYAKASHA
+    end
+
+    def entry
+      <<~XMLDADDY
+        <entry>
+          <title>{{ entry.title }}</title>
+          <id>{{ entry.url }}</id>
+          <link href="{{ entry.url }}" rel="alternate" type="text/html" title="{{ entry.description }}" />
+          <published>{{ entry.datetime }}</published>
+          <updated>{{ entry.datetime }}</updated>
+          <summary><![CDATA[{{ entry.description }}]]></summary>
+        </entry>
+      XMLDADDY
+    end
+  end
+
+  # Markup Validator
+  class MarkupValidator < Builder
+    def validate(ctx)
+      @ctx = ctx
+      if validate?
+        logger.info "validating #{validate_files_count} pages(s) -> site/**/*.html"
+        proof!
+      else
+        logger.info '(skipping HTML validation)'
+      end
+    end
+
+    def proof!
+      logger.debug("ignoring: #{ignore_files}")
+      HTMLProofer.check_directory(
+        path('site'),
+        file_ignore: ignore_files,
+        disable_external: true,
+        log_level: :error
+      ).run
+    end
+
+    def validate?
+      options[:no_validate] != true
+    end
+
+    def validate_files_count
+      files(path('site')).count - ignore_files.count
+    end
+
+    def docs
+      files(path('site', @ctx['docs_permalink']))
+    end
+
+    def coverage
+      files(path('site', @ctx['coverage_permalink']))
+    end
+
+    def ignore_files
+      @ignore_files ||= coverage + docs
     end
   end
 
@@ -949,10 +1030,6 @@ module Blog
 
     def valid?
       ALLOWED_SUBCOMMANDS.include? subcommand
-    end
-
-    def validate?
-      options[:no_validate] != true
     end
 
     def verbose?
@@ -984,12 +1061,7 @@ module Blog
 
     def build!
       pave!
-      Builder.generate_all!
-      if validate?
-        validate!
-      else
-        logger.info '(skipping HTML validation)'
-      end
+      Builder.generate_all!(options)
     end
 
     def pave!
@@ -1006,25 +1078,7 @@ module Blog
       )
     end
 
-    def validate!
-      logger.info "validating #{validate_files_count} pages(s) -> #{path('site')}/**/*.html"
-      HTMLProofer.check_directory(
-        path('site'),
-        file_ignore: ignore_files,
-        disable_external: true,
-        log_level: :error
-      ).run
-    end
-
     private
-
-    def validate_files_count
-      files(path('site')).count - ignore_files.count
-    end
-
-    def ignore_files
-      @ignore_files ||= [path('site/coverage/index.html'), files(path('site/docs'))].flatten
-    end
 
     def preflight!
       bail! unless valid?

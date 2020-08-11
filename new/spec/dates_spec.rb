@@ -120,4 +120,12 @@ describe Blog::Dates do
       expect(actual).to eq(expected)
     end
   end
+
+  describe '#date_to_time' do
+    it 'should convert a date to a time' do
+      actual = k.date_to_time(::Date.new(2020, 1, 1))
+      expect(actual).to be_a ::DateTime
+      expect([actual.hour, actual.minute, actual.second]).to eq([0, 0, 0])
+    end
+  end
 end
