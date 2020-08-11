@@ -5,6 +5,7 @@
 require 'date'
 require 'fastimage'
 require 'fileutils'
+require 'gruff'
 require 'html-proofer'
 require 'json'
 require 'liquid'
@@ -187,16 +188,93 @@ module Blog
       image.resize "#{dims.first}x#{dims.last}"
     end
 
-    def banners
-      files(path('images/banners')).select { |f| image?(f) }
-    end
-
     def find_banner(basename)
       image_extensions.each do |ext|
         file = path('images/banners', basename + ext)
-        return 'banners/' + File.basename(file) if File.exists? file
+        return 'banners/' + File.basename(file) if File.exist? file
       end
       nil
+    end
+  end
+
+  # Graphs
+  module Graphs
+    def self.generate_graphs(ctx)
+      WordCount.new(ctx).write
+      Swears.new(ctx).write
+    end
+
+    # Base Graph
+    module Base
+      include Files
+
+      attr_reader :ctx
+
+      def initialize(ctx)
+        @ctx = ctx
+      end
+
+      def graphs_join(path)
+        path('images/graphs', path)
+      end
+    end
+
+    # Word Count Graph
+    class WordCount
+      include Base
+
+      def posts
+        ctx['entries'][0..6].reverse
+      end
+
+      def word_counts
+        posts.collect(&:word_count)
+      end
+
+      def title
+        format = '%m/%d/%y'
+        first = posts.first.date.strftime(format)
+        last = posts.last.date.strftime(format)
+        "Word Count: #{first} - #{last}"
+      end
+
+      def labels
+        Hash[posts.each_with_index.map { |p, i| [i, p.date.strftime('%a')] }]
+      end
+
+      def write
+        g = ::Gruff::Line.new('800x600')
+        g.theme = Gruff::Themes::PASTEL
+        g.hide_legend = true
+        g.labels = labels
+        g.data :words, word_counts
+        g.title = title
+        g.x_axis_label = 'Day'
+        g.y_axis_label = 'Word Count'
+        g.minimum_value = 0
+        g.write(graphs_join('words.png'))
+      end
+    end
+
+    # Swears Chart
+    class Swears
+      include Base
+
+      def results
+        data = ctx['stats'].swear_results.clone
+        data.delete('total')
+        data
+      end
+
+      def write
+        g = ::Gruff::Pie.new('800x600')
+        g.theme = Gruff::Themes::PASTEL
+        g.hide_legend = false
+        g.legend_at_bottom = true
+        g.minimum_value = 0
+        results.each { |w, n| g.data w, n }
+        g.write(graphs_join('swears.png'))
+      end
     end
   end
 
@@ -335,8 +413,13 @@ module Blog
         'total_words' => total(word_counts),
         'average_words' => average(word_counts),
         'total_posts' => entries.size,
-        'consecutive_posts' => consecutive_posts
+        'consecutive_posts' => consecutive_posts,
+        'swears' => swear_results
       }
+    end
+
+    def swear_results
+      @swear_results ||= calculate_swears
     end
 
     private
@@ -347,6 +430,37 @@ module Blog
 
     def word_counts
       @word_counts ||= entries.collect(&:word_count)
+    end
+
+    def words
+      entries.collect(&:words).flatten
+    end
+
+    def calculate_swears
+      results = Hash[count_swears]
+      results['total'] = total(results.values)
+      results
+    end
+
+    def count_swears
+      occurences(swears, words).reject { |_k, v| v.zero? }.sort_by { |_k, v| -v }
+    end
+
+    def swears
+      %w[
+        ass
+        asshole
+        booger
+        crap
+        damn
+        fart
+        fuck
+        hell
+        jackass
+        piss
+        poop
+        shit
+      ]
     end
   end
 
@@ -827,12 +941,24 @@ module Blog
   # Image Builder
   class ImageBuilder < Builder
     def generate(_ctx)
-      resizeable_images.each do |image|
-        logger.info "resizing #{image}"
-        resize(image, [800, 800])
+      if resize?
+        resizeable_images.each do |image|
+          logger.info "resizing #{image}"
+          resize(image, [800, 800])
+        end
+      else
+        logger.info '(skipping image size scan)'
       end
-      FileUtils.copy_entry(src, target)
       logger.info "caching #{images.count} image(s) -> site/images"
+      cache_images
+    end
+
+    def resize?
+      options[:no_resize_images] != true
+    end
+
+    def cache_images
+      FileUtils.copy_entry(src, target)
     end
 
     def resizeable_images
@@ -971,6 +1097,22 @@ module Blog
     end
   end
 
+  # Graph Builder
+  class GraphBuilder < Builder
+    def generate(ctx)
+      if generate?
+        logger.info 'generating graphs -> images/graphs'
+        Graphs.generate_graphs(ctx)
+      else
+        logger.info '(skipping graph generation)'
+      end
+    end
+
+    def generate?
+      options[:no_generate_graphs] != true
+    end
+  end
+
   # Markup Validator
   class MarkupValidator < Builder
     def validate(ctx)
@@ -994,7 +1136,7 @@ module Blog
     end
 
     def validate?
-      options[:no_validate] != true
+      options[:no_validate_html] != true
     end
 
     def validate_files_count
@@ -1097,7 +1239,9 @@ module Blog
     def make_options(opts)
       opts.banner = banner
       opts.on('-v', '--verbose') { |_t| options[:verbose] = true }
-      opts.on('-n', '--no-validate') { |_o| options[:no_validate] = true }
+      opts.on('--no-validate-html') { |_o| options[:no_validate_html] = true }
+      opts.on('--no-resize-images') { |_o| options[:no_resize_images] = true }
+      opts.on('--no-generate-graphs') { |_o| options[:no_generate_graphs] = true }
     end
   end
 
