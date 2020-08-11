@@ -938,15 +938,19 @@ module Blog
       <<~BOOYAKASHA
         <?xml version="1.0" encoding="utf-8"?>
         <feed xmlns="http://www.w3.org/2005/Atom">
+          <generator uri="https://www.github.com/arecker/blog">
+            blog
+          </generator>
           <title>{{ config.title }}</title>
-          <link href="http://example.org/"/>
+          <subtitle>{{ config.description }}</subtitle>
+          <link href="{{ config.url }}{{ feed_permalink }}" rel="self"/>
           <updated>#{now.strftime}</updated>
           <author>
             <name>{{ config.author }}</name>
             <email>{{ config.email }}</email>
           </author>
-          <id>{{ config.url }}</id>
-          {% for entry in entries %}
+          <id>{{ config.url }}/</id>
+          {% for entry in entries limit:30 %}
           #{entry}
           {% endfor %}
         </feed>
