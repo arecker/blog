@@ -69,7 +69,7 @@ module JekyllRecker
       end
 
       def results
-        data = site.data['stats'].calculate_swears
+        data = site.data['stats']['swears'].clone
         data.delete('total')
         data
       end
