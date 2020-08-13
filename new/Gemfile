@@ -2,22 +2,20 @@
 
 source 'https://rubygems.org'
 
-gem 'fastimage'
-gem 'gruff'
 gem 'html-proofer'
 gem 'liquid'
-gem 'mini_magick'
-gem 'rack'
 gem 'redcarpet'
 gem 'rspec'
 gem 'simplecov'
-gem 'thin'
 gem 'yard'
 
-group :development do
-  gem 'bump'
-  gem 'liquid_debug'
+group :local, optional: true do
+  gem 'fastimage'
+  gem 'gruff'
+  gem 'mini_magick'
   gem 'pry'
+  gem 'rack'
   gem 'rubocop'
   gem 'ruby-prof'
+  gem 'thin'
 end

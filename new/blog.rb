@@ -3,22 +3,17 @@
 # frozen_string_literal: true
 
 require 'date'
-require 'fastimage'
 require 'fileutils'
-require 'gruff'
 require 'html-proofer'
 require 'json'
 require 'liquid'
 require 'logger'
-require 'mini_magick'
 require 'open3'
 require 'optparse'
 require 'pathname'
-require 'rack'
 require 'redcarpet'
 require 'shellwords'
 require 'singleton'
-require 'thin'
 require 'time'
 require 'yaml'
 
@@ -95,6 +90,32 @@ module Blog
 
     def parse_date(datestr)
       ::Date.parse(datestr).to_datetime.new_offset(offset).to_date
+    end
+  end
+
+  # Dependencies
+  module Dependencies
+    def self.images?
+      require 'fastimage'
+      require 'mini_magick'
+      true
+    rescue LoadError
+      false
+    end
+
+    def self.graphs?
+      require 'gruff'
+      true
+    rescue LoadError
+      false
+    end
+
+    def self.server?
+      require 'rack'
+      require 'thin'
+      true
+    rescue LoadError
+      false
     end
   end
 
@@ -954,7 +975,7 @@ module Blog
     end
 
     def resize?
-      options[:no_resize_images] != true
+      options[:no_resize_images] != true && Dependencies.images?
     end
 
     def cache_images
@@ -1109,7 +1130,7 @@ module Blog
     end
 
     def generate?
-      options[:no_generate_graphs] != true
+      options[:no_generate_graphs] != true && Dependencies.graphs?
     end
   end
 
@@ -1200,6 +1221,7 @@ module Blog
       when 'build'
         build!
       when 'serve'
+        bail!('server dependenices not installed!') unless Dependencies.server?
         build!
         serve!
       end
@@ -1231,8 +1253,8 @@ module Blog
       Blog.logger.level = ::Logger::DEBUG if verbose?
     end
 
-    def bail!
-      puts banner
+    def bail!(message = nil)
+      puts message || banner
       exit(-1)
     end
 
