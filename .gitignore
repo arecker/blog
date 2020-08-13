@@ -1,8 +1,2 @@
-.DS_Store
-.jekyll-metadata
-.sass-cache
-.yardoc
-_site
-pkg
-doc
-coverage
+site
+.bundle

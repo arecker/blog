@@ -2,8 +2,8 @@
 
 require_relative 'spec_helper.rb'
 
-describe JekyllRecker::Math do
-  let(:k) { Class.new { extend ::JekyllRecker::Math } }
+describe Blog::Math do
+  let(:k) { Class.new { extend ::Blog::Math } }
 
   describe '#average' do
     it 'should average a list of integers' do
@@ -32,3 +32,4 @@ describe JekyllRecker::Math do
     end
   end
 end
+

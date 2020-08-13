@@ -2,17 +2,20 @@
 
 source 'https://rubygems.org'
 
-gem 'jekyll', '~> 3.8.5'
+gem 'html-proofer'
+gem 'liquid'
+gem 'redcarpet'
+gem 'rspec'
+gem 'simplecov'
+gem 'yard'
 
-group :jekyll_plugins do
-  gem 'jekyll-feed', '~> 0.6'
-  gem 'jekyll-recker', path: __dir__
-  gem 'jekyll-tidy'
-end
-
-group :development do
-  gem 'bump'
+group :local, optional: true do
+  gem 'fastimage'
+  gem 'gruff'
+  gem 'mini_magick'
   gem 'pry'
-  gem 'rake'
+  gem 'rack'
   gem 'rubocop'
+  gem 'ruby-prof'
+  gem 'thin'
 end

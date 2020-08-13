@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
-require 'bundler'
 require 'json'
 require 'simplecov'
 
-def root
-  File.expand_path('..', __dir__)
+def here_join(path)
+  File.expand_path(File.join(__dir__, path))
 end
 
-class JekyllDataReporter
+class DumpToTemp
   def format(result)
     json = JSON.pretty_generate(data(result))
 
@@ -31,22 +30,22 @@ class JekyllDataReporter
   end
 
   def output_filepath
-    File.join(root, 'tmp/coverage.json')
+    here_join('../tmp/coverage.json')
   end
 end
 
 SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
   [
     SimpleCov::Formatter::HTMLFormatter,
-    JekyllDataReporter
+    DumpToTemp
   ]
 )
 
 SimpleCov.start do
-  coverage_dir File.join(root, '_site/coverage')
+  SimpleCov.coverage_dir here_join('../site/coverage')
 end
 
-require 'jekyll-recker'
+require_relative '../blog.rb'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
