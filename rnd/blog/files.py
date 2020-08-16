@@ -14,3 +14,14 @@ def join(*subpaths):
 
 def entries():
     return list(reversed(os.listdir(join('entries'))))
+
+
+def href(path):
+    return href_ext('/' + os.path.relpath(path, root()))
+
+
+def href_ext(path):
+    base, ext = os.path.splitext(path)
+    return base + {
+        '.md': '.html',
+    }.get(ext, ext)
