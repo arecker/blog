@@ -1,6 +1,9 @@
 import functools
+import unittest
 
-from . import meta, files, entry
+import coverage
+
+from . import meta, files, entries
 from .text import plural
 from .logging import logger
 
@@ -33,11 +36,8 @@ class Builder:
 class Entries(Builder):
     def read(self):
         return {
-            'entries': self.entries()
+            'entries': entries.all()
         }
-
-    def entries(self):
-        return [entry.Entry(p) for p in files.entries()]
 
     def build(self, ctx):
         count = len(ctx['entries'])
@@ -46,3 +46,14 @@ class Entries(Builder):
 
 class Pages(Builder):
     pass
+
+
+class Coverage(Builder):
+    def build(self, ctx):
+        logger.info('generating coverage report')
+        cov = coverage.Coverage()
+        cov.start()
+        unittest.main(exit=False, verbosity=0, failfast=True, argv=['discover'])
+        cov.stop()
+        cov.save()
+        print(cov.html_report())
