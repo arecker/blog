@@ -1,4 +1,7 @@
 import os
+import shutil
+
+from .logging import logger
 
 
 def root():
@@ -13,11 +16,13 @@ def join(*subpaths):
 
 
 def entries():
-    return list(reversed(os.listdir(join('entries'))))
+    files = reversed(os.listdir(join('entries')))
+    return [join('entries', f) for f in files]
 
 
 def href(path):
-    return href_ext('/' + os.path.relpath(path, root()))
+    relpath = os.path.relpath(path, root())
+    return href_root(href_ext('/' + relpath))
 
 
 def href_ext(path):
@@ -25,3 +30,23 @@ def href_ext(path):
     return base + {
         '.md': '.html',
     }.get(ext, ext)
+
+
+def href_root(path):
+    special = [
+        '/entries/',
+        '/pages/'
+    ]
+
+    try:
+        prefix = next(p for p in special if path.startswith(p))
+        return path[len(prefix) - 1:]
+    except StopIteration:
+        return path
+
+
+def pave():
+    target = join('site')
+    logger.debug('paving site path = %s', target)
+    shutil.rmtree(target)
+    os.mkdir(target)

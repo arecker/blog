@@ -31,9 +31,8 @@ class FilesTestCase(unittest.TestCase):
         markdown_doc = blog.files.join('test.md')
         self.assertEqual(blog.files.href(markdown_doc), '/test.html', 'should replace markdown extension')
 
-        # markdown_doc = blog.files.join('entries/2020-01-01.md')
-        # self.assertEqual(blog.files.href(entry_doc), '/2020-01-01.html', 'should treat entries like root')
+        entry_doc = blog.files.join('entries/2020-01-01.md')
+        self.assertEqual(blog.files.href(entry_doc), '/2020-01-01.html', 'should treat entries like root')
 
-
-if __name__ == '__main__':
-    unittest.main()
+        pages_doc = blog.files.join('pages/old/civ-budget.md')
+        self.assertEqual(blog.files.href(pages_doc), '/old/civ-budget.html', 'should treat nested pages like root')
