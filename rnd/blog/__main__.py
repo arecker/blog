@@ -7,7 +7,11 @@ import blog
 
 
 def main():
-    blog.enable_logger()
+    options = blog.parse_options(args=sys.argv[1:])
+
+    if not options.silent:
+        blog.enable_logger(verbose=options.verbose)
+
     blog.logger.debug('starting blog, python = %s', platform.python_version())
     blog.pave()
     blog.build()

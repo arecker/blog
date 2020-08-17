@@ -6,9 +6,14 @@ import sys
 logger = logging.getLogger('blog')
 
 
-def enable_logger():
+def enable_logger(verbose=False):
     global logger
-    log_level = logging.getLevelName(os.environ.get('LOG_LEVEL', 'INFO').upper())
+
+    if verbose:
+        log_level = logging.getLevelName('DEBUG')
+    else:
+        log_level = logging.getLevelName('INFO')
+
     logger.setLevel(log_level)
     logger.handlers = []
     handler = logging.StreamHandler(sys.stderr)
