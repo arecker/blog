@@ -4,6 +4,7 @@ from blog.markdown import (
     convert_emphasis,
     convert_bold,
     convert_headings,
+    convert_inline_links,
     convert
 )
 
@@ -56,9 +57,20 @@ class MarkdownTestCase(unittest.TestCase):
 
         self.assertEqual(actual, expected, 'should convert to appropriate heading tags')
 
+
+    def test_inline_links(self):
+        actual = convert_inline_links('[google](https://google.com)')
+        expected = '<a href="https://google.com">google</a>'
+        self.assertEqual(actual, expected, 'should convert simple inline links')
+
     def test_convert(self):
+
+        # ALL TOGETHER NOW
+
         example = '''
 # Introduction (the _real_ intro)
+
+Here is an [inline link](alexrecker.com).
 
 Taken from the book **_Moby Dick_**:
 "Call me _**Ishmael**_."
@@ -66,6 +78,8 @@ Taken from the book **_Moby Dick_**:
 
         expected = '''
 <h1>Introduction (the <em>real</em> intro)</h1>
+
+Here is an <a href="alexrecker.com">inline link</a>.
 
 Taken from the book <strong><em>Moby Dick</em></strong>:
 "Call me <em><strong>Ishmael</strong></em>."

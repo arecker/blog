@@ -13,6 +13,12 @@ def convert_bold(subject):
     return re.sub(pattern, replace, subject, flags=re.DOTALL)
 
 
+def convert_inline_links(subject):
+    pattern = r'\[(.*?)\]\((.*?)\)'
+    replace = r'<a href="\2">\1</a>'
+    return re.sub(pattern, replace, subject, flags=re.DOTALL)
+
+
 def convert_headings(subject):
     headings = [
         (r'##### (.*)', r'<h5>\1</h5>'),
@@ -31,6 +37,7 @@ def convert_headings(subject):
 def convert(subject):
     subject = convert_emphasis(subject)
     subject = convert_bold(subject)
+    subject = convert_inline_links(subject)
     subject = convert_headings(subject)
 
     return subject
