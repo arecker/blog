@@ -1,6 +1,11 @@
 import unittest
 
-from blog.markdown import convert_emphasis
+from blog.markdown import (
+    convert_emphasis,
+    convert_bold,
+    convert_headings,
+    convert
+)
 
 
 class MarkdownTestCase(unittest.TestCase):
@@ -21,4 +26,49 @@ class MarkdownTestCase(unittest.TestCase):
         expected = 'I am reading the book <em>Pride and Prejudice</em>.  Heard of it?'
         self.assertEqual(actual, expected, 'should work around punctuation')
 
-        
+    def test_convert_bold(self):
+        actual = convert_bold('**Gasp**')
+        expected = '<strong>Gasp</strong>'
+        self.assertEqual(actual, expected, 'should convert double asterisks to emphasis')
+
+        actual = convert_bold('**Gasp** and **shock**')
+        expected = '<strong>Gasp</strong> and <strong>shock</strong>'
+        self.assertEqual(actual, expected, 'should work multiple times')
+
+    def test_convert_headings(self):
+        example = '''
+# First
+
+## Second
+
+### Third
+        '''
+
+        actual = convert_headings(example)
+
+        expected = '''
+<h1>First</h1>
+
+<h2>Second</h2>
+
+<h3>Third</h3>
+        '''
+
+        self.assertEqual(actual, expected, 'should convert to appropriate heading tags')
+
+    def test_convert(self):
+        example = '''
+# Introduction (the _real_ intro)
+
+Taken from the book **_Moby Dick_**:
+"Call me _**Ishmael**_."
+        '''.strip()
+
+        expected = '''
+<h1>Introduction (the <em>real</em> intro)</h1>
+
+Taken from the book <strong><em>Moby Dick</em></strong>:
+"Call me <em><strong>Ishmael</strong></em>."
+        '''.strip()
+
+        self.assertEqual(convert(example), expected, 'should correctly convert markdown')
