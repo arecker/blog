@@ -1,6 +1,10 @@
 import unittest
 
-from blog.text import plural
+from blog.text import (
+    plural,
+    extract_frontmatter,
+    extract_yaml,
+)
 
 
 class TextTestCase(unittest.TestCase):
@@ -16,3 +20,37 @@ class TextTestCase(unittest.TestCase):
         actual = plural(3, 'box', 'boxen')
         expected = '3 boxen'
         self.assertEqual(actual, expected, 'support custom plurals')
+
+    def test_extract_frontmatter(self):
+        example = '''
+---
+permalink: /hello/
+email: dude@somebusiness.com
+---
+<h1>Hello!</h1>'''.lstrip()
+
+        frontmatter, content = extract_frontmatter(example)
+
+        expected_frontmatter = {
+            'permalink': '/hello/',
+            'email': 'dude@somebusiness.com'
+        }
+
+        self.assertEqual(content, '<h1>Hello!</h1>', 'should cleanly extract content')
+
+        self.assertDictEqual(frontmatter, expected_frontmatter, 'should parse frontmatter')
+
+    def test_extract_yaml(self):
+        example = '''
+a: Apple
+b: Bear
+c: Catastrophe
+        '''
+
+        expected = {
+            'a': 'Apple',
+            'b': 'Bear',
+            'c': 'Catastrophe',
+        }
+
+        self.assertDictEqual(extract_yaml(example), expected)
