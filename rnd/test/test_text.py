@@ -2,6 +2,7 @@ import unittest
 
 from blog.text import (
     plural,
+    lines,
     extract_frontmatter,
     extract_yaml,
 )
@@ -20,6 +21,20 @@ class TextTestCase(unittest.TestCase):
         actual = plural(3, 'box', 'boxen')
         expected = '3 boxen'
         self.assertEqual(actual, expected, 'support custom plurals')
+
+    def test_lines(self):
+        example = '''
+One short sleep past, we wake eternally,
+And death shall be no more; Death, thou shalt die.
+'''
+        expected = [
+            'One short sleep past, we wake eternally,',
+            'And death shall be no more; Death, thou shalt die.'
+        ]
+
+        self.assertEqual(lines(example), expected, 'should split text into lines')
+        
+        self.assertEqual(lines(''), [], 'should return an empty array for an empty string')
 
     def test_extract_frontmatter(self):
         example = '''

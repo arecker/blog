@@ -3,6 +3,7 @@ import unittest
 from blog.markdown import (
     convert_emphasis,
     convert_bold,
+    convert_links,
     convert_headings,
     convert_inline_links,
     convert
@@ -35,6 +36,19 @@ class MarkdownTestCase(unittest.TestCase):
         actual = convert_bold('**Gasp** and **shock**')
         expected = '<strong>Gasp</strong> and <strong>shock</strong>'
         self.assertEqual(actual, expected, 'should work multiple times')
+
+    def test_convert_links(self):
+        example = '''
+Here is the [first thing], and the [second thing].
+[first thing]: https://google.com/blah/
+[second thing]: https://google.com/blerp/
+        '''
+
+        expected = '''
+Here is the <a href="https://google.com/blah/">first thing</a>, and the <a href="https://google.com/blerp/">second thing</a>.
+        '''
+
+        self.assertEqual(convert_links(example), expected, 'should extract and convert links')
 
     def test_convert_headings(self):
         example = '''

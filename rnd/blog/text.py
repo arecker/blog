@@ -10,6 +10,10 @@ def plural(n, singular, plural=None):
     return f'{n} {plural}'
 
 
+def lines(subject):
+    return list(filter(None, (l.strip() for l in subject.split('\n'))))
+
+
 def extract_frontmatter(subject):
     pattern = r'^\s*---\n(.*?)---\s*'
     match = re.search(pattern, subject, flags=re.DOTALL)
@@ -27,9 +31,8 @@ def extract_frontmatter(subject):
 def extract_yaml(subject):
     results = {}
     pattern = r'^\s*(\S*):\s*(\S*)$'
-    lines = filter(None, (l.strip() for l in subject.split('\n')))
 
-    for line in lines:
+    for line in lines(subject):
         match = re.search(pattern, line)
         results[match.group(1)] = match.group(2)
 
