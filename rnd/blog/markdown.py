@@ -19,22 +19,42 @@ def convert_inline_links(subject):
     return re.sub(pattern, replace, subject, flags=re.DOTALL)
 
 
-def convert_links(subject):
+class LinkReplacer:
     link_pattern = r'^\[(.*)\]\:\s?(.*)$'
+    ref_pattern = r'\[(.*?)\]'
 
-    # extract links
-    links = dict(re.findall(link_pattern, subject, flags=re.MULTILINE))
+    def __init__(self, subject):
+        self.subject = subject
 
-    # strip links
-    if links:
-        subject = re.sub(link_pattern, '', subject, flags=re.MULTILINE)
+    def extract(self):
+        result = re.findall(self.link_pattern, self.subject, flags=re.MULTILINE)
+        self.links = dict(result)
 
-    # expand refs
-    ref_pattern = r'\s\[(.*?)\]'
-    for ref in re.findall(ref_pattern, subject, flags=re.DOTALL):
-        pass
+    def strip(self):
+        if self.links:
+            self.subject = re.sub(self.link_pattern, '', self.subject, flags=re.MULTILINE | re.DOTALL)
 
-    return subject
+    def _replace_match(self, match):
+
+        href = self.links[match.group(1)]
+        content = match.group(1)
+        return f'<a href="{href}">{content}</a>'
+
+    def expand(self):
+        self.subject = re.sub(
+            self.ref_pattern,
+            self._replace_match,
+            self.subject,
+            flags=re.DOTALL
+        )
+
+
+def convert_links(subject):
+    replacer = LinkReplacer(subject)
+    replacer.extract()
+    replacer.strip()
+    replacer.expand()
+    return replacer.subject
 
 
 def convert_headings(subject):
