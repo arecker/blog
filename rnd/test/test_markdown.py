@@ -87,7 +87,10 @@ Here is an [inline link](alexrecker.com).
 
 Taken from the book **_Moby Dick_**:
 "Call me _**Ishmael**_."
-        '''.strip()
+
+**HIT ME UP ON [MAH TWITTAH]!!!**
+
+[MAH TWITTAH]: https://www.twitter.com/@alex_recker'''.strip()
 
         expected = '''
 <h1>Introduction (the <em>real</em> intro)</h1>
@@ -96,6 +99,8 @@ Here is an <a href="alexrecker.com">inline link</a>.
 
 Taken from the book <strong><em>Moby Dick</em></strong>:
 "Call me <em><strong>Ishmael</strong></em>."
-        '''.strip()
 
-        self.assertEqual(convert(example), expected, 'should correctly convert markdown')
+<strong>HIT ME UP ON <a href="https://www.twitter.com/@alex_recker">MAH TWITTAH</a>!!!</strong>
+'''.strip()
+
+        self.assertEqual(convert(example).strip(), expected, 'should correctly convert markdown')

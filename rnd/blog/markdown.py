@@ -20,6 +20,7 @@ def convert_inline_links(subject):
 
 
 class LinkReplacer:
+    inline_pattern = r'\[(.*?)\]\((.*?)\)'
     link_pattern = r'^\[(.*)\]\:\s?(.*)$'
     ref_pattern = r'\[(.*?)\]'
 
@@ -36,7 +37,10 @@ class LinkReplacer:
 
     def _replace_match(self, match):
 
-        href = self.links[match.group(1)]
+        try:
+            href = self.links[match.group(1)]
+        except KeyError:  # TODO: a hack
+            return match.group(0)
         content = match.group(1)
         return f'<a href="{href}">{content}</a>'
 
@@ -73,6 +77,7 @@ def convert_headings(subject):
 
 
 def convert(subject):
+    subject = convert_links(subject)
     subject = convert_emphasis(subject)
     subject = convert_bold(subject)
     subject = convert_inline_links(subject)
