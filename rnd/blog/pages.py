@@ -58,6 +58,7 @@ class Page:
                 return markdown.convert(self.content)
             except markdown.Problem as e:
                 logger.error('problem rendering %s: %s', self.src, e)
+                return ''
         return self.content
 
 
