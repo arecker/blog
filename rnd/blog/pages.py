@@ -54,7 +54,10 @@ class Page:
 
     def render(self):
         if self.is_markdown:
-            return markdown.convert(self.content)
+            try:
+                return markdown.convert(self.content)
+            except markdown.Problem as e:
+                logger.error('problem rendering %s: %s', self.src, e)
         return self.content
 
 

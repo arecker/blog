@@ -5,7 +5,6 @@ from blog.markdown import (
     convert_bold,
     convert_links,
     convert_headings,
-    convert_inline_links,
     convert
 )
 
@@ -49,6 +48,10 @@ Here is the <a href="https://google.com/blah/">first thing</a>, and the <a href=
 '''
         self.assertEqual(convert_links(example), expected, 'should extract and convert links')
 
+        example = r'"This is \[not\] a link," said Alex.'
+        expected = r'"This is [not] a link," said Alex.'
+        self.assertEqual(convert_links(example), expected, 'should escape backslashed links')
+
     def test_convert_headings(self):
         example = '''
 # First
@@ -72,7 +75,7 @@ Here is the <a href="https://google.com/blah/">first thing</a>, and the <a href=
 
 
     def test_inline_links(self):
-        actual = convert_inline_links('[google](https://google.com)')
+        actual = convert_links('[google](https://google.com)')
         expected = '<a href="https://google.com">google</a>'
         self.assertEqual(actual, expected, 'should convert simple inline links')
 

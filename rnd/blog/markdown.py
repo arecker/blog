@@ -1,6 +1,10 @@
 import re
 
 
+class Problem(BaseException):
+    pass
+
+
 def convert_emphasis(subject):
     pattern = r'_(.*?)_'
     replace = r'<em>\1</em>'
@@ -13,16 +17,11 @@ def convert_bold(subject):
     return re.sub(pattern, replace, subject, flags=re.DOTALL)
 
 
-def convert_inline_links(subject):
-    pattern = r'\[(.*?)\]\((.*?)\)'
-    replace = r'<a href="\2">\1</a>'
-    return re.sub(pattern, replace, subject, flags=re.DOTALL)
-
-
 class LinkReplacer:
     inline_pattern = r'\[(.*?)\]\((.*?)\)'
-    link_pattern = r'^\[(.*)\]\:\s?(.*)$'
-    ref_pattern = r'\[(.*?)\]'
+    link_pattern = r'^\s*\[(.*)\]\:\s?(.*)$'
+    ref_pattern = r'\\?\[(.*?)\\?\]'
+    escaped_ref_pattern = r'\\\[(.*?)\\\]'
 
     def __init__(self, subject):
         self.subject = subject
@@ -36,15 +35,23 @@ class LinkReplacer:
             self.subject = re.sub(self.link_pattern, '', self.subject, flags=re.MULTILINE | re.DOTALL)
 
     def _replace_match(self, match):
-
+        if re.match(self.escaped_ref_pattern, match.group(0), flags=re.DOTALL):
+            # escaped brackets, e.g. "A \[sort of\] quote."
+            return f'[{match.group(1)}]'
         try:
-            href = self.links[match.group(1)]
-        except KeyError:  # TODO: a hack
-            return match.group(0)
+            key = match.group(1).replace('\n', ' ')
+            href = self.links[key]
+        except KeyError:
+            raise Problem(f'unknown link ref: {key}')
         content = match.group(1)
         return f'<a href="{href}">{content}</a>'
 
+    def _expand_inline(self):
+        replace = r'<a href="\2">\1</a>'
+        return re.sub(self.inline_pattern, replace, self.subject, flags=re.DOTALL)
+
     def expand(self):
+        self.subject = self._expand_inline()
         self.subject = re.sub(
             self.ref_pattern,
             self._replace_match,
@@ -80,7 +87,6 @@ def convert(subject):
     subject = convert_links(subject)
     subject = convert_emphasis(subject)
     subject = convert_bold(subject)
-    subject = convert_inline_links(subject)
     subject = convert_headings(subject)
 
     return subject
