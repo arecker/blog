@@ -42,7 +42,7 @@ class LinkReplacer:
             key = match.group(1).replace('\n', ' ')
             href = self.links[key]
         except KeyError:
-            raise Problem(f'unknown link ref: {key}')
+            raise Problem(f'unknown link ref: [{key}]')
         content = match.group(1)
         return f'<a href="{href}">{content}</a>'
 
