@@ -29,11 +29,5 @@ def extract_frontmatter(subject):
     
 
 def extract_yaml(subject):
-    results = {}
-    pattern = r'^\s*(\S*):\s*(\S*)$'
-
-    for line in lines(subject):
-        match = re.search(pattern, line)
-        results[match.group(1)] = match.group(2)
-
-    return results
+    pattern = r'^\s?(.*):\s?(.*)$'
+    return dict(re.findall(pattern, subject, flags=re.MULTILINE))

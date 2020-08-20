@@ -68,4 +68,13 @@ c: Catastrophe
             'c': 'Catastrophe',
         }
 
-        self.assertDictEqual(extract_yaml(example), expected)
+        self.assertDictEqual(extract_yaml(example), expected, 'should parse simple yaml')
+
+        example = '''
+title: preschool, ziggy's birthday, and rodney's first scratch game'''
+
+        expected = {
+            'title': '''preschool, ziggy's birthday, and rodney's first scratch game'''
+        }
+
+        self.assertDictEqual(extract_yaml(example), expected, 'should handle punctuation')

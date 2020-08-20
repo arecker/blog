@@ -4,7 +4,7 @@ import sys
 
 parser = argparse.ArgumentParser(
     prog='blog',
-    description='The greatest static site generator ever made',
+    description='blog: greatest static site generator ever made.',
 )
 
 parser.add_argument(

@@ -1,4 +1,6 @@
-from . import files, markdown
+import os
+
+from . import files, markdown, text
 from .logging import logger
 
 
@@ -15,15 +17,45 @@ class Page:
         return files.href(self.src)
 
     @property
+    def src_extension(self):
+        return os.path.splitext(self.src)
+
+    @property
+    def target(self):
+        return files.join('site', self.href[1:])
+
+    @property
+    def raw_content(self):
+        with open(self.src, 'r') as f:
+            return f.read()
+
+    @property
+    def content(self):
+        if not hasattr(self, '_content'):
+            results = text.extract_frontmatter(self.raw_content)
+            self._frontmatter, self._content = results
+        return self._content
+
+    @property
+    def frontmatter(self):
+        if not hasattr(self, '_frontmatter'):
+            results = text.extract_frontmatter(self.raw_content)
+            self._frontmatter, self._content = results
+        return self._frontmatter
+
+    @property
     def is_markdown(self):
-        return os.path.splitext(self.src) == '.md'
+        return self.src_extension[1] == '.md'
 
     def build(self):
         logger.debug('building %s -> %s', self.src, self.href)
+        with open(self.target, 'w') as f:
+            f.write(self.render())
 
     def render(self):
-        # if self.is_markdown():
-        pass
+        if self.is_markdown:
+            return markdown.convert(self.content)
+        return self.content
 
 
 class Entry(Page):
