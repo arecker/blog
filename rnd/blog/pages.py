@@ -1,4 +1,4 @@
-from . import files
+from . import files, markdown
 from .logging import logger
 
 
@@ -14,8 +14,16 @@ class Page:
     def href(self):
         return files.href(self.src)
 
+    @property
+    def is_markdown(self):
+        return os.path.splitext(self.src) == '.md'
+
     def build(self):
         logger.debug('building %s -> %s', self.src, self.href)
+
+    def render(self):
+        # if self.is_markdown():
+        pass
 
 
 class Entry(Page):
