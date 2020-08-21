@@ -6,8 +6,8 @@ class Problem(BaseException):
 
 
 def convert_emphasis(subject):
-    pattern = r'_(.*?)_'
-    replace = r'<em>\1</em>'
+    pattern = r'(^|\b)_(?P<content>.*?)_($|\b)'
+    replace = r'<em>\2</em>'
     return re.sub(pattern, replace, subject, flags=re.DOTALL)
 
 
