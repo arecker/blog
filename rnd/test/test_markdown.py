@@ -23,6 +23,10 @@ class MarkdownTestCase(unittest.TestCase):
         expected = '<em>Let me tell you a story...\njust kidding</em>'
         self.assertEqual(actual, expected, 'should work over multiple lines')
 
+        actual = convert_emphasis('Email me at the_dude@the_netthe_net.org')
+        expected = 'Email me at the_dude@the_netthe_net.org'
+        self.assertEqual(actual, expected, 'should ignore underscores in the middle of a string')
+
         actual = convert_emphasis('I am reading the book _Pride and Prejudice_.  Heard of it?')
         expected = 'I am reading the book <em>Pride and Prejudice</em>.  Heard of it?'
         self.assertEqual(actual, expected, 'should work around punctuation')
