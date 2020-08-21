@@ -5,6 +5,7 @@ from blog.markdown import (
     convert_bold,
     convert_links,
     convert_headings,
+    convert_code,
     convert
 )
 
@@ -56,6 +57,10 @@ Here is the <a href="https://google.com/blah/">first thing</a>, and the <a href=
         expected = r'"This is [not] a link," said Alex.'
         self.assertEqual(convert_links(example), expected, 'should escape backslashed links')
 
+        actual = convert_links('[google](https://google.com)')
+        expected = '<a href="https://google.com">google</a>'
+        self.assertEqual(actual, expected, 'should convert simple inline links')
+
     def test_convert_headings(self):
         example = '''
 # First
@@ -77,11 +82,20 @@ Here is the <a href="https://google.com/blah/">first thing</a>, and the <a href=
 
         self.assertEqual(actual, expected, 'should convert to appropriate heading tags')
 
+    def test_convert_code(self):
+        example = '''
+```lisp
+(defun hello-world()
+  (if (something-p) 4 3))
+```'''
 
-    def test_inline_links(self):
-        actual = convert_links('[google](https://google.com)')
-        expected = '<a href="https://google.com">google</a>'
-        self.assertEqual(actual, expected, 'should convert simple inline links')
+        expected = '''
+<pre class="lisp">
+(defun hello-world()
+  (if (something-p) 4 3))
+</pre>'''
+
+        self.assertEqual(convert_code(example), expected, 'should convert code blocks with language')
 
     def test_convert(self):
 
@@ -97,6 +111,12 @@ Taken from the book **_Moby Dick_**:
 
 **HIT ME UP ON [MAH TWITTAH]!!!**
 
+How about some code?
+
+```ruby
+puts "ruby sucks"
+```
+
 [MAH TWITTAH]: https://www.twitter.com/@alex_recker'''.strip()
 
         expected = '''
@@ -108,6 +128,12 @@ Taken from the book <strong><em>Moby Dick</em></strong>:
 "Call me <em><strong>Ishmael</strong></em>."
 
 <strong>HIT ME UP ON <a href="https://www.twitter.com/@alex_recker">MAH TWITTAH</a>!!!</strong>
+
+How about some code?
+
+<pre class="ruby">
+puts "ruby sucks"
+</pre>
 '''.strip()
 
         self.assertEqual(convert(example).strip(), expected, 'should correctly convert markdown')

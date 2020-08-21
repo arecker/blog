@@ -83,7 +83,14 @@ def convert_headings(subject):
     return subject
 
 
+def convert_code(subject):
+    pattern = r'`{3}(?P<lang>[\S]+)?\n(?P<content>.*?)`{3}'
+    replace = r'<pre class="\1">\n\2</pre>'
+    return re.sub(pattern, replace, subject, flags=re.DOTALL)
+
+
 def convert(subject):
+    subject = convert_code(subject)
     subject = convert_links(subject)
     subject = convert_emphasis(subject)
     subject = convert_bold(subject)
