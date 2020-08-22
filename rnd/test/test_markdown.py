@@ -1,5 +1,8 @@
+import os
 import unittest
 
+from blog import files
+from blog.pages import Entry
 from blog.markdown import (
     convert_emphasis,
     convert_bold,
@@ -97,43 +100,21 @@ Here is the <a href="https://google.com/blah/">first thing</a>, and the <a href=
 
         self.assertEqual(convert_code(example), expected, 'should convert code blocks with language')
 
-    def test_convert(self):
+    def test_entries(self):
+        for example in self.fixtures('entries'):
+            basename, _ = os.path.splitext(example)
+            entry = Entry(files.join(f'entries/{basename}.md'))
+            actual = entry.render()
+            with open(self.fixture_join('entries', example)) as f:
+                expected = f.read()
+            self.assertEqual(actual, expected, f'{entry.src} should match {example}')
 
-        # ALL TOGETHER NOW
+    def fixture_join(self, subpath, fixture=None):
+        _dir = files.join('rnd/test/fixtures/', subpath)
+        if fixture:
+            return os.path.join(_dir, fixture)
+        else:
+            return _dir
 
-        example = '''
-# Introduction (the _real_ intro)
-
-Here is an [inline link](alexrecker.com).
-
-Taken from the book **_Moby Dick_**:
-"Call me _**Ishmael**_."
-
-**HIT ME UP ON [MAH TWITTAH]!!!**
-
-How about some code?
-
-```ruby
-puts "ruby sucks"
-```
-
-[MAH TWITTAH]: https://www.twitter.com/@alex_recker'''.strip()
-
-        expected = '''
-<h1>Introduction (the <em>real</em> intro)</h1>
-
-Here is an <a href="alexrecker.com">inline link</a>.
-
-Taken from the book <strong><em>Moby Dick</em></strong>:
-"Call me <em><strong>Ishmael</strong></em>."
-
-<strong>HIT ME UP ON <a href="https://www.twitter.com/@alex_recker">MAH TWITTAH</a>!!!</strong>
-
-How about some code?
-
-<pre class="ruby">
-puts "ruby sucks"
-</pre>
-'''.strip()
-
-        self.assertEqual(convert(example).strip(), expected, 'should correctly convert markdown')
+    def fixtures(self, subpath):
+        return os.listdir(self.fixture_join(subpath))
