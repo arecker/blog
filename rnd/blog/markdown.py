@@ -89,8 +89,15 @@ def convert_code(subject):
     return re.sub(pattern, replace, subject, flags=re.DOTALL)
 
 
+def convert_paragraphs(subject):
+    pattern = r'(.+?)(\n\n|\n$|$)'
+    replace = r'<p>\1</p>\2'
+    return re.sub(pattern, replace, subject, flags=re.DOTALL)
+
+
 def convert(subject):
     subject = convert_code(subject)
+    subject = convert_paragraphs(subject)
     subject = convert_links(subject)
     subject = convert_emphasis(subject)
     subject = convert_bold(subject)

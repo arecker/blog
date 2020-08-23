@@ -9,6 +9,7 @@ from blog.markdown import (
     convert_links,
     convert_headings,
     convert_code,
+    convert_paragraphs,
     convert
 )
 
@@ -100,7 +101,24 @@ Here is the <a href="https://google.com/blah/">first thing</a>, and the <a href=
 
         self.assertEqual(convert_code(example), expected, 'should convert code blocks with language')
 
+    def test_paragraphs(self):
+        example = 'This is a test.'
+        actual = convert_paragraphs(example)
+        expected = '<p>This is a test.</p>'
+        self.assertEqual(actual, expected, 'should handle single paragraphs')
+
+        example = '''This is a test.
+
+This is another paragraph.'''
+        actual = convert_paragraphs(example)
+        expected = '''<p>This is a test.</p>
+
+<p>This is another paragraph.</p>'''
+        self.assertEqual(actual, expected, 'should handle multiple paragraphs')
+
     def test_entries(self):
+        self.maxDiff = None
+
         for example in self.fixtures('entries'):
             basename, _ = os.path.splitext(example)
             entry = Entry(files.join(f'entries/{basename}.md'))
