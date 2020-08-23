@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  {% include head.html page=page %}
+  {% include head.html page=page config=config %}
   <body>
     {% include header.html page=page %}
     <hr/>
@@ -15,6 +15,6 @@
     {% endif %}
     <hr/>
     {% include footer.html config=config git=git year=year last_updated=last_updated %}
-    <!-- include ga.html -->
+    {% include ga.html %}
   </body>
 </html>
