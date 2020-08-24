@@ -10,9 +10,33 @@ from blog.markdown import (
     convert_headings,
     convert_code,
     convert_paragraphs,
-    convert
+    convert,
+    LinkReplacer
 )
 
+
+class LinkReplacerTestCase(unittest.TestCase):
+    def test_strip(self):
+        '''
+        should remove all links from the final document
+        '''
+        example = '''This is a [test].
+
+[test]: https://google.com
+
+And one more thing.  I have something
+[tricky] that I want to test.
+
+[tricky]: askjeeves.biz'''
+
+        actual = LinkReplacer(example).extract().strip().subject
+        expected = '''This is a [test].
+
+
+And one more thing.  I have something
+[tricky] that I want to test.
+'''
+        self.assertEqual(actual, expected)
 
 class MarkdownTestCase(unittest.TestCase):
     def test_convert_emphasis(self):
@@ -117,8 +141,6 @@ This is another paragraph.'''
         self.assertEqual(actual, expected, 'should handle multiple paragraphs')
 
     def test_entries(self):
-        self.maxDiff = None
-
         for example in self.fixtures('entries'):
             basename, _ = os.path.splitext(example)
             entry = Entry(files.join(f'entries/{basename}.md'))

@@ -29,10 +29,17 @@ class LinkReplacer:
     def extract(self):
         result = re.findall(self.link_pattern, self.subject, flags=re.MULTILINE)
         self.links = dict(result)
+        return self
 
     def strip(self):
-        if self.links:
-            self.subject = re.sub(self.link_pattern, '', self.subject, flags=re.MULTILINE | re.DOTALL)
+        if not self.links:
+            return self
+
+        pattern = re.compile(self.link_pattern)
+
+        rest = [l for l in self.subject.split('\n') if not pattern.match(l)]
+        self.subject = '\n'.join(rest)
+        return self
 
     def _replace_match(self, match):
         if re.match(self.escaped_ref_pattern, match.group(0), flags=re.DOTALL):
@@ -58,6 +65,7 @@ class LinkReplacer:
             self.subject,
             flags=re.DOTALL
         )
+        return self
 
 
 def convert_links(subject):
@@ -97,10 +105,10 @@ def convert_paragraphs(subject):
 
 def convert(subject):
     subject = convert_code(subject)
-    subject = convert_paragraphs(subject)
     subject = convert_links(subject)
     subject = convert_emphasis(subject)
     subject = convert_bold(subject)
     subject = convert_headings(subject)
+    subject = convert_paragraphs(subject)
 
     return subject
