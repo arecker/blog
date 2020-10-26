@@ -19,9 +19,14 @@ Richard Stallman set out to write his own version of every tool unix
 had to offer - only his versions would be free and totally
 customizeable.
 
-{% include figure.html
-filename='linux/rms.jpg'
-caption='As it turns out, a man who set out to write his own version of Unix looks exactly like what you would expect him to' %}
+<figure>
+  <a href="/images/linux/rms.jpg">
+    <img alt="linux rms" src="/images/linux/rms.jpg"/>
+  </a>
+  <figcaption>
+    <p>As it turns out, a man who set out to write his own version of Unix looks exactly like what you would expect him to</p>
+  </figcaption>
+</figure>
 
 Stallman was able to write a liberated copy of just about every unix
 tool, all except for one important component - the kernel. This is the
@@ -111,10 +116,15 @@ they can collect information from your machine and work on the errors
 that you find. You, in exchange for free software, become an extreme
 test case explorer.
 
-{% include figure.html
-filename='linux/catvideo.jpg'
-caption='To reproduce this bug, eat an entire bag of pull-n-peel
-twizzlers and watch cat videos for several hours straight.' %}
+<figure>
+  <a href="/images/linux/catvideo.jpg">
+    <img alt="linux catvideo" src="/images/linux/catvideo.jpg"/>
+  </a>
+  <figcaption>
+    <p>To reproduce this bug, eat an entire bag of pull-n-peel
+twizzlers and watch cat videos for several hours straight.</p>
+  </figcaption>
+</figure>
 
 ### 2. Linux is Customizeable
 
@@ -342,10 +352,15 @@ resolved by just pasting the error message into Google and reading the
 first result. In my opinion, that beats the socks off of any official
 customer support help line.
 
-{% include figure.html
-filename='linux/internet-explorer-has-stopped-working.jpg'
-caption="I don't know anyone who has ever been helped by clicking the
-'check online' button." %}
+<figure>
+  <a href="/images/linux/internet-explorer-has-stopped-working.jpg">
+    <img alt="linux internet explorer has stopped working" src="/images/linux/internet-explorer-has-stopped-working.jpg"/>
+  </a>
+  <figcaption>
+    <p>I don't know anyone who has ever been helped by clicking the
+'check online' button.</p>
+  </figcaption>
+</figure>
 
 ## How to Try Linux
 

@@ -22,9 +22,14 @@ with native Indonesians in cute little houses above the ocean for most
 of the month I was there. I learned a lot from this trip, but it was
 unexpectedly the event that brought about my anxiety disorder.
 
-{% include figure.html
-filename='indonesiaCrew.jpg'
-caption='Phoebe, Emma, and I at one of the houses we stayed in.' %}
+<figure>
+  <a href="/images/indonesiaCrew.jpg">
+    <img alt="indonesiaCrew" src="/images/indonesiaCrew.jpg"/>
+  </a>
+  <figcaption>
+    <p>Phoebe, Emma, and I at one of the houses we stayed in.</p>
+  </figcaption>
+</figure>
 
 When I returned home from my trip I complained to my mom about chest
 pains, shortness of breath, and a strange tenseness. There were a
@@ -79,9 +84,14 @@ meditation. Neither of us even had a thought about medication at this
 point. I began my research and was pretty disappointed with the lack
 of information that existed to help me.
 
-{% include figure.html
-filename='myAnxiousHeart.jpg'
-caption='My Anxious Heart by Katie Crawford' %}
+<figure>
+  <a href="/images/myAnxiousHeart.jpg">
+    <img alt="myAnxiousHeart" src="/images/myAnxiousHeart.jpg"/>
+  </a>
+  <figcaption>
+    <p>My Anxious Heart by Katie Crawford</p>
+  </figcaption>
+</figure>
 
 My first thoughts were that I needed to just relax. “Take it easy,
 you’re just stressed, you’ll get over it”, I told myself. This was a
@@ -125,9 +135,14 @@ through there, just do it” and after reaching the end of the room my
 heart would be racing, my head would feel light, and I would go home
 as fast as possible to sit in my desk in a corner.
 
-{% include figure.html
-filename='saga.jpg'
-caption="Wheaton’s cafeteria, super scary... right?" %}
+<figure>
+  <a href="/images/saga.jpg">
+    <img alt="saga" src="/images/saga.jpg"/>
+  </a>
+  <figcaption>
+    <p>Wheaton’s cafeteria, super scary... right?</p>
+  </figcaption>
+</figure>
 
 Okay so at this point I want to be clear that my entire story isn’t
 scary and sad, it gets better - so stick with me.
@@ -226,9 +241,14 @@ much he cared by asking me questions like, “How was your anxiety
 today” or “How did you do with _ situation?”. He still does this and
 he is still my main supporter with my anxiety.
 
-{% include figure.html
-filename='safePerson.jpg'
-caption='My “safe person” and I early in our dating years.' %}
+<figure>
+  <a href="/images/safePerson.jpg">
+    <img alt="safePerson" src="/images/safePerson.jpg"/>
+  </a>
+  <figcaption>
+    <p>My “safe person” and I early in our dating years.</p>
+  </figcaption>
+</figure>
 
 ## Getting Better
 

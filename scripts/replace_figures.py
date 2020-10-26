@@ -9,7 +9,7 @@ r_figure = re.compile(
     flags=re.DOTALL
 )
 r_figure_with_caption = re.compile(
-    r'''{% include figure\.html\s+filename=['"]?(?P<filename>\S*)['"]\s+caption=['"]?(?P<caption>.*?)['"]?\s+%}''',
+    r'''{% include figure\.html\s+filename=['"]?(?P<filename>\S*)['"]\s+caption=['"]?(?P<caption>.*?)['"]?\s?%}''',
     flags=re.DOTALL
 )
 

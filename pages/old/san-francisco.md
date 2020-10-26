@@ -9,9 +9,15 @@ My job is sending me to San Francisco for training. While this doesn't
 sound like a big deal to some, I haven't done a lot of traveling. Just
 take a look my Google Maps data since graduating college.
 
-{% include figure.html filename='sf/well-traveled.jpg' caption="This
-aerial view would make you think I'm a nomad that lives along I-90."
-%}
+<figure>
+  <a href="/images/sf/well-traveled.jpg">
+    <img alt="sf well traveled" src="/images/sf/well-traveled.jpg"/>
+  </a>
+  <figcaption>
+    <p>This
+aerial view would make you think I'm a nomad that lives along I-90.</p>
+  </figcaption>
+</figure>
 
 I haven't been on an airplane in probably a decade. I've never
 traveled alone. I really have no idea how airports or other cities
@@ -36,9 +42,14 @@ that was so small, it looked like it was cut out of a museum exhibit
 meant to teach kids about airplanes. It was a proper metal cigar tube
 with wings.
 
-{% include figure.html
-filename='sf/cigar-tube-with-wings.jpg'
-caption='My brave steed, apparently.' %}
+<figure>
+  <a href="/images/sf/cigar-tube-with-wings.jpg">
+    <img alt="sf cigar tube with wings" src="/images/sf/cigar-tube-with-wings.jpg"/>
+  </a>
+  <figcaption>
+    <p>My brave steed, apparently.</p>
+  </figcaption>
+</figure>
 
 But after buckling into my prime window seat, we were asked to
 leave. The pilot called the delay a "VIP movement". Apparently there
@@ -68,9 +79,14 @@ complicated. My target gate number looked like a foot note out of an
 obscure academic journal. I followed its promise through a churning
 sea of angry, weary people.
 
-{% include figure.html
-filename='sf/ohare-the-zoo.jpg'
-caption='Just look at these savages...' %}
+<figure>
+  <a href="/images/sf/ohare-the-zoo.jpg">
+    <img alt="sf ohare the zoo" src="/images/sf/ohare-the-zoo.jpg"/>
+  </a>
+  <figcaption>
+    <p>Just look at these savages...</p>
+  </figcaption>
+</figure>
 
 To my horror, arriving at gate H-11-A I beheld the great walkway
 retracting. Despite what I had been assured, my connecting flight hat
@@ -125,10 +141,15 @@ so feel free to take your time." The woman started laughing.
 plane leaves in two hours." My mouth dropped in amazement. "And feel
 free to tell that angry guy that you got the last seat."
 
-{% include figure.html
-filename='sf/last-ticket.jpg'
-caption='I would have traded it for free surgery. Maybe he could
-surgically make my upper body look stronger...' %}
+<figure>
+  <a href="/images/sf/last-ticket.jpg">
+    <img alt="sf last ticket" src="/images/sf/last-ticket.jpg"/>
+  </a>
+  <figcaption>
+    <p>I would have traded it for free surgery. Maybe he could
+surgically make my upper body look stronger...</p>
+  </figcaption>
+</figure>
 
 Which brings me here - Dear Reader. Hunched over a wobbly table for
 one, charging my phone at a sticky power outlet that I may or may not
@@ -153,10 +174,15 @@ the runway. My face is practically pressed on the glass when the plane
 banks, revealing a wildly new perspective of the familiar Chicago
 skyline.
 
-{% include figure.html
-filename='sf/madison-skyline.jpg'
-caption='Or the familiar Madison skyline - if it even qualifies as a
-"skyline". The lakes look so tiny from up here.' %}
+<figure>
+  <a href="/images/sf/madison-skyline.jpg">
+    <img alt="sf madison skyline" src="/images/sf/madison-skyline.jpg"/>
+  </a>
+  <figcaption>
+    <p>Or the familiar Madison skyline - if it even qualifies as a
+"skyline". The lakes look so tiny from up here.</p>
+  </figcaption>
+</figure>
 
 I finally get to ride in a plane big enough for me to stand in - not
 that I'll be doing much standing. The plane is 100% booked. I kept an
@@ -179,10 +205,15 @@ Correction. He has a neck-pillow. Everybody knows that if you use a
 neck pillow in public, most social contracts don't apply to you. Sorry
 buddy.
 
-{% include figure.html
-filename='sf/booked-flight.jpg'
-caption='Nothing but the sound of polite snoring and shifting neck
-pillows.' %}
+<figure>
+  <a href="/images/sf/booked-flight.jpg">
+    <img alt="sf booked flight" src="/images/sf/booked-flight.jpg"/>
+  </a>
+  <figcaption>
+    <p>Nothing but the sound of polite snoring and shifting neck
+pillows.</p>
+  </figcaption>
+</figure>
 
 I'm going to pretend to sleep now. On the outside, I'll be a cool,
 disinterested air traveler. On the inside, I'm just a little kid
@@ -209,13 +240,23 @@ all the signs that say "Market Street". Sometimes you have to put down
 Google Maps and just use what little self awareness you have at your
 disposal.
 
-{% include figure.html
-filename='sf/market-street.jpg'
-caption='Is this market street?' %}
+<figure>
+  <a href="/images/sf/market-street.jpg">
+    <img alt="sf market street" src="/images/sf/market-street.jpg"/>
+  </a>
+  <figcaption>
+    <p>Is this market street?</p>
+  </figcaption>
+</figure>
 
-{% include figure.html
-filename='sf/real-market-street.jpg'
-caption='Oh - this must be market street.' %}
+<figure>
+  <a href="/images/sf/real-market-street.jpg">
+    <img alt="sf real market street" src="/images/sf/real-market-street.jpg"/>
+  </a>
+  <figcaption>
+    <p>Oh - this must be market street.</p>
+  </figcaption>
+</figure>
 
 I have about an hour until work starts. I'm going to use it to catch
 up on emails and sponge my dried out brain with this delicious hipster
@@ -288,9 +329,16 @@ dubsteb playing from across the street.
 I ordered a bowl of ramen.The waitress brought me a new reason to
 leave my hotel this week.
 
-{% include figure.html filename='sf/katayana-ramen.jpg' caption='If
+<figure>
+  <a href="/images/sf/katayana-ramen.jpg">
+    <img alt="sf katayana ramen" src="/images/sf/katayana-ramen.jpg"/>
+  </a>
+  <figcaption>
+    <p>If
 this bowl of ramen were one of the Black Eyed Peas, it would be
-Fergie.' %}
+Fergie.</p>
+  </figcaption>
+</figure>
 
 This bowl of food may have changed my life.
 
@@ -319,17 +367,28 @@ Today, I downloaded a compass app onto my watch and ventured out into
 the crisp night in search of Chinatown.  I slipped into the first
 restaurant that smelled like fish.
 
-{% include figure.html
-filename='sf/chinatown.jpg' caption="Chinatown" %}
+<figure>
+  <a href="/images/sf/chinatown.jpg">
+    <img alt="sf chinatown" src="/images/sf/chinatown.jpg"/>
+  </a>
+  <figcaption>
+    <p>Chinatown</p>
+  </figcaption>
+</figure>
 
 I don't remember the name of the place, but I can tell you that the
 fish that ended up in my stir-fry was staring back at me through an
 aquarium minutes before.
 
-{% include figure.html
-filename='sf/fishtank.jpg'
-caption="Hi - my name is Alex, and I'll be your apex predator
-today..." %}
+<figure>
+  <a href="/images/sf/fishtank.jpg">
+    <img alt="sf fishtank" src="/images/sf/fishtank.jpg"/>
+  </a>
+  <figcaption>
+    <p>Hi - my name is Alex, and I'll be your apex predator
+today...</p>
+  </figcaption>
+</figure>
 
 My fortune cookie reads, "The evening promises romantic
 interests". Since my wife isn't around, I don't see that coming true -
@@ -339,9 +398,14 @@ The city is different.Nobody carries my favorite beer.The streets are
 steep.I can't seem to find my hotel room on the first try.But there is
 delicious food out there, and that is worth the adventure.
 
-{% include figure.html
-filename='sf/seafood-bowl.jpg'
-caption='Romance, indeed' %}
+<figure>
+  <a href="/images/sf/seafood-bowl.jpg">
+    <img alt="sf seafood bowl" src="/images/sf/seafood-bowl.jpg"/>
+  </a>
+  <figcaption>
+    <p>Romance, indeed</p>
+  </figcaption>
+</figure>
 
 ## Thursday 8:01 AM, Zendesk HQ
 
