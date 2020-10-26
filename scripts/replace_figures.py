@@ -19,6 +19,11 @@ def entries():
     return [os.path.join(entries_dir, entry) for entry in os.listdir(entries_dir)]
 
 
+def old_posts():
+    old_dir = os.path.abspath(os.path.join(here, '../pages/old'))
+    return [os.path.join(old_dir, entry) for entry in os.listdir(old_dir)]
+
+
 def sub_figure(match):
     src = '/images/' + match.group('filename')
     alt = re.sub(r'[-_/]', ' ', os.path.splitext(match.group('filename'))[0])
@@ -32,7 +37,7 @@ def sub_figure(match):
 
 
 def main():
-    for entry in entries():
+    for entry in entries() + old_posts():
         with open(entry) as f:
             before = f.read()
 

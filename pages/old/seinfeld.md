@@ -54,11 +54,19 @@ for a bit and just examine his transformation in appearance.
 
 This is the George you probably think of.
 
-{% include figure.html filename='georgeAfter.jpg' %}
+<figure>
+  <a href="/images/georgeAfter.jpg">
+    <img alt="georgeAfter" src="/images/georgeAfter.jpg"/>
+  </a>
+</figure>
 
 This is George in his first appearance of the show.
 
-{% include figure.html filename='georgeBefore.jpg' %}
+<figure>
+  <a href="/images/georgeBefore.jpg">
+    <img alt="georgeBefore" src="/images/georgeBefore.jpg"/>
+  </a>
+</figure>
 
 Though George exhibits some eccentricity, he is presentable and
 well-groomed. His hair is proudly combed, even after work hours in a

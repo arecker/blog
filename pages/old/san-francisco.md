@@ -20,8 +20,11 @@ focusing on my mistakes and confusion.
 
 ## Sunday 5:50 PM, - O'Hare Airport
 
-{% include figure.html
-filename='sf/ohare-workstation.jpg' %}
+<figure>
+  <a href="/images/sf/ohare-workstation.jpg">
+    <img alt="sf ohare workstation" src="/images/sf/ohare-workstation.jpg"/>
+  </a>
+</figure>
 
 I departed this afternoon from Madison's only airport. It was quaint,
 and just about everything the air travel experience should be. Even
@@ -136,8 +139,11 @@ Francisco - unless Obama manages to screw that up too. Thanks, Obama.
 
 ## Sunday 9:46 PM, 30,000 ft. above the United States
 
-{% include figure.html
-filename='sf/midflight-workstation.jpg' %}
+<figure>
+  <a href="/images/sf/midflight-workstation.jpg">
+    <img alt="sf midflight workstation" src="/images/sf/midflight-workstation.jpg"/>
+  </a>
+</figure>
 
 I get the impression that people who fly are supposed to appear
 disinterested. I'm doing my best to fit in, but it's all just so
@@ -184,8 +190,11 @@ pretending he's on a spaceship barreling towards Mars.
 
 ## Monday 7:51 AM, Equator Coffee Shop, Market St.
 
-{% include figure.html
-filename='sf/coffee-shop-workstation.jpg' %}
+<figure>
+  <a href="/images/sf/coffee-shop-workstation.jpg">
+    <img alt="sf coffee shop workstation" src="/images/sf/coffee-shop-workstation.jpg"/>
+  </a>
+</figure>
 
 Well against all odds, I made it. Sorry I don't have any pictures of
 my digs yet. I rolled into the hotel at what was biologically 2AM,
@@ -212,13 +221,19 @@ I have about an hour until work starts. I'm going to use it to catch
 up on emails and sponge my dried out brain with this delicious hipster
 fair-trade organic coffee.
 
-{% include figure.html
-filename='sf/into-the-fog.jpg' %}
+<figure>
+  <a href="/images/sf/into-the-fog.jpg">
+    <img alt="sf into the fog" src="/images/sf/into-the-fog.jpg"/>
+  </a>
+</figure>
 
 ## Monday 9:30 AM, Zendesk HQ
 
-{% include figure.html
-filename='sf/zendesk-station.jpg' %}
+<figure>
+  <a href="/images/sf/zendesk-station.jpg">
+    <img alt="sf zendesk station" src="/images/sf/zendesk-station.jpg"/>
+  </a>
+</figure>
 
 I met up with coworker Dave and we wandered around the city a bit,
 then we finally made our way to the office. It's right next to a Chai
@@ -226,22 +241,34 @@ shop, so the dizzying smell of gingerbread and spices follows you
 everywhere. I'm already accustomed to the Zendesk style, but as you
 would expect, they go all out for their Headquarters.
 
-{% include figure.html
-filename='sf/zen-1.jpg' %}
+<figure>
+  <a href="/images/sf/zen-1.jpg">
+    <img alt="sf zen 1" src="/images/sf/zen-1.jpg"/>
+  </a>
+</figure>
 
-{% include figure.html
-filename='sf/zen-2.jpg' %}
+<figure>
+  <a href="/images/sf/zen-2.jpg">
+    <img alt="sf zen 2" src="/images/sf/zen-2.jpg"/>
+  </a>
+</figure>
 
-{% include figure.html
-filename='sf/zen-3.jpg' %}
+<figure>
+  <a href="/images/sf/zen-3.jpg">
+    <img alt="sf zen 3" src="/images/sf/zen-3.jpg"/>
+  </a>
+</figure>
 
 Toothpaste, deodorant, granola, and coffee are starting to make me
 feel human again.
 
 ## Monday 8:19 PM, Hotel Abri
 
-{% include figure.html
-filename='sf/hotel-workstation.jpg' %}
+<figure>
+  <a href="/images/sf/hotel-workstation.jpg">
+    <img alt="sf hotel workstation" src="/images/sf/hotel-workstation.jpg"/>
+  </a>
+</figure>
 
 Today was a marathon.I really haven't stopped moving all day.It was
 incredible getting to spend so much time with probably some of the
@@ -252,8 +279,11 @@ In need of healing, I staggered over to Katayana Ramen - a boisterous
 hole in the wall three blocks north of my hotel.I could hear their
 dubsteb playing from across the street.
 
-{% include figure.html
-filename='sf/katayana-outside.jpg' %}
+<figure>
+  <a href="/images/sf/katayana-outside.jpg">
+    <img alt="sf katayana outside" src="/images/sf/katayana-outside.jpg"/>
+  </a>
+</figure>
 
 I ordered a bowl of ramen.The waitress brought me a new reason to
 leave my hotel this week.
@@ -270,7 +300,11 @@ running right now is equally hilarious and nauseating.
 
 ## Tuesday 8:46 PM, Somewhere in Chinatown
 
-{% include figure.html filename='sf/chinatown-workstation.jpg' %}
+<figure>
+  <a href="/images/sf/chinatown-workstation.jpg">
+    <img alt="sf chinatown workstation" src="/images/sf/chinatown-workstation.jpg"/>
+  </a>
+</figure>
 
 Due to my shyness, I dread every minute I spend outside my hotel room.
 I'm tempted to spend all night poking around the Internet and falling
@@ -311,7 +345,11 @@ caption='Romance, indeed' %}
 
 ## Thursday 8:01 AM, Zendesk HQ
 
-{% include figure.html filename='sf/feather-workstation.jpg' %}
+<figure>
+  <a href="/images/sf/feather-workstation.jpg">
+    <img alt="sf feather workstation" src="/images/sf/feather-workstation.jpg"/>
+  </a>
+</figure>
 
 There is a magical room at the end of the 2nd floor of the Zendesk
 building called "Feather".Besides the comfy couches and video game
@@ -319,14 +357,22 @@ themed pillows, the entire wall facing the street is glass.With all
 the interesting characters that stumble down market street, this room
 is people watching paradise.
 
-{% include figure.html filename='sf/people-watching.jpg' %}
+<figure>
+  <a href="/images/sf/people-watching.jpg">
+    <img alt="sf people watching" src="/images/sf/people-watching.jpg"/>
+  </a>
+</figure>
 
 Don't worry, I'm not pretending to work.I got here a few minutes early
 to catch up on the old blog.
 
 Yesterday, Nick treated me and Dave to Vietnamese food.
 
-{% include figure.html filename='sf/vietnamese-food.jpg' %}
+<figure>
+  <a href="/images/sf/vietnamese-food.jpg">
+    <img alt="sf vietnamese food" src="/images/sf/vietnamese-food.jpg"/>
+  </a>
+</figure>
 
 That cup of bright orange liquid is not some kind of pumpkin spiced
 latte.  It's a Thai iced tea which was laced with enough caffeine to
@@ -339,7 +385,11 @@ penned my name on a little whiteboard hanging on the window, then
 waited outside for twenty minutes before I was led to a tiny seat at
 the bar.
 
-{% include figure.html filename='sf/ramen-underground.jpg' %}
+<figure>
+  <a href="/images/sf/ramen-underground.jpg">
+    <img alt="sf ramen underground" src="/images/sf/ramen-underground.jpg"/>
+  </a>
+</figure>
 
 I ordered the house sake.  The waitress brought me a shot glass in a
 tiny wooden box, then overflowed the glass, letting the precious sake
@@ -355,13 +405,25 @@ My wife did some research, and explained that this was the traditional
 way to pour sake.  It is a reflection on the restaurant's generosity.
 And they were generous. 
 
-{% include figure.html filename='sf/ramen-underground-food.jpg' %}
+<figure>
+  <a href="/images/sf/ramen-underground-food.jpg">
+    <img alt="sf ramen underground food" src="/images/sf/ramen-underground-food.jpg"/>
+  </a>
+</figure>
 
 After dinner, I walked to the pier to burn off some calories.
 
-{% include figure.html filename='sf/golden-gate.jpg' %}
+<figure>
+  <a href="/images/sf/golden-gate.jpg">
+    <img alt="sf golden gate" src="/images/sf/golden-gate.jpg"/>
+  </a>
+</figure>
 
-{% include figure.html filename='sf/port-of-sanfran.jpg' %}
+<figure>
+  <a href="/images/sf/port-of-sanfran.jpg">
+    <img alt="sf port of sanfran" src="/images/sf/port-of-sanfran.jpg"/>
+  </a>
+</figure>
 
 San Francisco has been generous, and has left my cup overflowing. 
 
@@ -417,17 +479,29 @@ I've basically been asleep since.  To be honest, I don't even remember
 being in O'Hare.  At some point, I took a picture of this sandwich,
 thinking it was a joke or something.
 
-{% include figure.html filename='sf/subway.jpg' %}
+<figure>
+  <a href="/images/sf/subway.jpg">
+    <img alt="sf subway" src="/images/sf/subway.jpg"/>
+  </a>
+</figure>
 
 My little family met me at the baggage claim.My son looked twice as
 big as he did only a week ago.
 
-{% include figure.html filename='sf/family-greeting.jpg' %}
+<figure>
+  <a href="/images/sf/family-greeting.jpg">
+    <img alt="sf family greeting" src="/images/sf/family-greeting.jpg"/>
+  </a>
+</figure>
 
 I think it's safe to say that traveling is out of my system.Two
 connecting flights in twenty-four hours will do that to you, I guess.
 Take a look at my map now!I worked hard to put that blip there on the
 west coast.
 
-{% include figure.html filename='sf/san-fran-map.png' %}
+<figure>
+  <a href="/images/sf/san-fran-map.png">
+    <img alt="sf san fran map" src="/images/sf/san-fran-map.png"/>
+  </a>
+</figure>
 

@@ -142,30 +142,54 @@ customize your user experience.
 
 There are versions that look really similiar to Windows.
 
-{% include figure.html filename='linux/mate.png' %}
+<figure>
+  <a href="/images/linux/mate.png">
+    <img alt="linux mate" src="/images/linux/mate.png"/>
+  </a>
+</figure>
 
 There are versions that look _exactly_ like Windows.
 
-{% include figure.html filename='linux/windowslookalike.jpg' %}
+<figure>
+  <a href="/images/linux/windowslookalike.jpg">
+    <img alt="linux windowslookalike" src="/images/linux/windowslookalike.jpg"/>
+  </a>
+</figure>
 
 There are versions that look like something out of the control room of
 Jurassic Park.
 
-{% include figure.html filename='linux/next.png' %}
+<figure>
+  <a href="/images/linux/next.png">
+    <img alt="linux next" src="/images/linux/next.png"/>
+  </a>
+</figure>
 
 There are versions that look exactly like your mom's Mac.
 
-{% include figure.html filename='linux/pearOS.png' %}
+<figure>
+  <a href="/images/linux/pearOS.png">
+    <img alt="linux pearOS" src="/images/linux/pearOS.png"/>
+  </a>
+</figure>
 
 There are versions that are look like a combination of Mac and
 Windows.
 
-{% include figure.html filename='linux/kde.png' %}
+<figure>
+  <a href="/images/linux/kde.png">
+    <img alt="linux kde" src="/images/linux/kde.png"/>
+  </a>
+</figure>
 
 And there are versions that look like a whole different animal all
 together.
 
-{% include figure.html filename='linux/ubuntu1204.png' %}
+<figure>
+  <a href="/images/linux/ubuntu1204.png">
+    <img alt="linux ubuntu1204" src="/images/linux/ubuntu1204.png"/>
+  </a>
+</figure>
 
 The point is you never have to be a sucker for someone else's
 opinion. If you believe that the last good looking computer was made

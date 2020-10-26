@@ -94,8 +94,11 @@ submit.click()
 Works like a charm. The program passes the confirmation and follows a
 redirection to the next page.
 
-{% include figure.html
-filename='selenium/selenium1.png' %}
+<figure>
+  <a href="/images/selenium/selenium1.png">
+    <img alt="selenium selenium1" src="/images/selenium/selenium1.png"/>
+  </a>
+</figure>
 
 Now we need to enter the quantity of tickets. We can grab the "Adult
 10-Ride" quantity input by its unique ID and send text input.
@@ -107,8 +110,11 @@ quantity_text.send_keys('1')
 
 Further down on the page, we find our first contact information form.
 
-{% include figure.html
-filename='selenium/selenium2.png' %}
+<figure>
+  <a href="/images/selenium/selenium2.png">
+    <img alt="selenium selenium2" src="/images/selenium/selenium2.png"/>
+  </a>
+</figure>
 
 These fields are missing ID's. Do we slink away in defeat? Of course
 not. Selenium's API has ample methods for retrieving elements from the
