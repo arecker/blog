@@ -155,4 +155,8 @@ the best dog in the world.
 
 Goodbye, Noah. And thank you.
 
-{% include figure.html filename=noah.jpg %}
+<figure>
+  <a href="/images/noah.jpg">
+    <img alt="noah" src="/images/noah.jpg"/>
+  </a>
+</figure>

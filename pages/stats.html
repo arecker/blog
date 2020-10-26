@@ -28,7 +28,11 @@ description: Interesting Writing Statistics
     </table>
   </div>
   <div class="column">
-    {% include graph.html name="words.png" %}
+    <figure>
+      <a href="/images/graphs/words.png">
+	<img src="/images/graphs/words.png" alt="words graph"/>
+      </a>
+    </figure>
   </div>
   <div class="row">
     <div class="column">
@@ -39,7 +43,11 @@ description: Interesting Writing Statistics
 	  <td class="code">{{ stats.swears.total | pretty }}</td>
 	</tr>
       </table>
-      {% include graph.html name="swears.png" %}
+      <figure>
+	<a href="/images/graphs/swears.png">
+	  <img src="/images/graphs/swears.png" alt="swears graph"/>
+	</a>
+      </figure>
     </div>
     <div class="column">
     <h2>Code</h2>

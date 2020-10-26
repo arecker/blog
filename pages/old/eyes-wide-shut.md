@@ -62,7 +62,14 @@ opera is a triumph to a wife’s strength and love . I could see a
 parallel to Beethoven’s version when Bill’s wife forgave with the
 strength that she did.
 
-{% include figure.html filename=eyeswideshut.jpg caption='Alright, I forgive you. Just no more weird orgies.' %}
+<figure>
+  <a href="/images/eyeswideshut.jpg">
+    <img alt="eyeswideshut" src="/images/eyeswideshut.jpg"/>
+  </a>
+  <figcaption>
+    <p>Alright, I forgive you. Just no more weird orgies.</p>
+  </figcaption>
+</figure>
 
 All in all, weird way to start off the week, and I am disappointed
 there wasn’t more Nazi allusions and Moon landing related

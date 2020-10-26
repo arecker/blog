@@ -15,9 +15,16 @@ Christian grade school and Christian high school, which were both
 predominantly Dutch Christian Reformed. I think I grew up rather
 sheltered.
 
-{% include figure.html filename=momFamilyPic.jpg caption="Jane's family
+<figure>
+  <a href="/images/momFamilyPic.jpg">
+    <img alt="momFamilyPic" src="/images/momFamilyPic.jpg"/>
+  </a>
+  <figcaption>
+    <p>Jane's family
 minus her youngest sibling. She is in the middle, wearing glasses and
-sporting the bedhead look, long before it was cool." %}
+sporting the bedhead look, long before it was cool.</p>
+  </figcaption>
+</figure>
 
 My dad was a carpenter. He worked hard. After emigrating to this
 country in his early twenties, he found a vocation in which he could
@@ -98,9 +105,16 @@ learned to be responsible. One of the little girls in that family was
 named Kelly. She was so sweet and cute. I told myself that I wanted a
 "Kelly" when I had kids.
 
-{% include figure.html filename=momAndKelly.jpg caption="Rather than taking
+<figure>
+  <a href="/images/momAndKelly.jpg">
+    <img alt="momAndKelly" src="/images/momAndKelly.jpg"/>
+  </a>
+  <figcaption>
+    <p>Rather than taking
 this 'Kelly', Jane did the honorable thing and just made her own
-'Kelly' in 1988" %}
+'Kelly' in 1988</p>
+  </figcaption>
+</figure>
 
 **Let's talk about growing up. What was going to college like for you?
 Were you nervous? Any teachers that had an impact on you? College - or
@@ -141,8 +155,15 @@ him. Senior year was fun. I feel like I only hung out with him and
 Lori Meter. We dated for 3 1/2 years and got married! The rest is
 history...
 
-{% include figure.html filename=momAndDad.jpg caption="Jane with her
-husband, Dirk" %}
+<figure>
+  <a href="/images/momAndDad.jpg">
+    <img alt="momAndDad" src="/images/momAndDad.jpg"/>
+  </a>
+  <figcaption>
+    <p>Jane with her
+husband, Dirk</p>
+  </figcaption>
+</figure>
 
 **Might be kind of a loaded question, but take it wherever you
 want. How was dating/marriage with dad changed you? What were some big
@@ -226,8 +247,15 @@ which the pregnant woman's uterus ruptured and she died. This episode
 aired the same week it happened to me. Creepy. Thanks for telling me
 that.
 
-{% include figure.html filename=momAndSarah.jpg caption='Jane with
-"Shack"'%}
+<figure>
+  <a href="/images/momAndSarah.jpg">
+    <img alt="momAndSarah" src="/images/momAndSarah.jpg"/>
+  </a>
+  <figcaption>
+    <p>Jane with
+"Shack"</p>
+  </figcaption>
+</figure>
 
 It took about 10 years for me to be thankful for that trial in our
 lives. It taught me and Dad to rely on God, and renewed our
@@ -281,8 +309,15 @@ songs. Stevie Nicks? Aerosmith?**
 
 Ah, that's a good one... Stevie Nicks... Never Break the Chain...
 
-{% include figure.html filename=momLaughing.jpg caption='"Never break the
-chain" - the Jane Recker story' %}
+<figure>
+  <a href="/images/momLaughing.jpg">
+    <img alt="momLaughing" src="/images/momLaughing.jpg"/>
+  </a>
+  <figcaption>
+    <p>"Never break the
+chain" - the Jane Recker story</p>
+  </figcaption>
+</figure>
 
 **Thanks so much for doing this, Mom.**
 

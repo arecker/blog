@@ -5,11 +5,11 @@ import re
 here = os.path.dirname(os.path.abspath(__file__))
 
 r_figure = re.compile(
-    r'''{% include figure\.html\s+filename=['"]?(?P<filename>\S*)['"]\s+%}''',
+    r'''{% include figure\.html\s+filename=['"]?(?P<filename>\S*)['"]?\s+%}''',
     flags=re.DOTALL
 )
 r_figure_with_caption = re.compile(
-    r'''{% include figure\.html\s+filename=['"]?(?P<filename>\S*)['"]\s+caption=['"]?(?P<caption>.*?)['"]?\s?%}''',
+    r'''{% include figure\.html\s+filename=['"]?(?P<filename>\S*)['"]?\s+caption=['"]?(?P<caption>.*?)['"]?\s?%}''',
     flags=re.DOTALL
 )
 

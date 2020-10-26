@@ -24,7 +24,11 @@ in Rockford.
 
 ## Beacon Hill
 
-{% include figure.html filename=rockford/beaconhill.jpg %}
+<figure>
+  <a href="/images/rockford/beaconhill.jpg">
+    <img alt="rockford beaconhill" src="/images/rockford/beaconhill.jpg"/>
+  </a>
+</figure>
 
 I've lived about two years in Beacon Hill apartments. Around when I
 was moving in, it was rumored that there was a stabbing the week
@@ -62,7 +66,11 @@ people too.
 
 ## Blackhawk Forest Preserve
 
-{% include figure.html filename=rockford/blackhawk.jpg %}
+<figure>
+  <a href="/images/rockford/blackhawk.jpg">
+    <img alt="rockford blackhawk" src="/images/rockford/blackhawk.jpg"/>
+  </a>
+</figure>
 
 Rockford will always be the town where I discovered my ability to get
 in shape. Most of the sweat and tears were shed on the treadmill in
@@ -98,7 +106,11 @@ a Port-o-potty.
 
 ## Five Forks
 
-{% include figure.html filename=rockford/fiveforks.jpg %}
+<figure>
+  <a href="/images/rockford/fiveforks.jpg">
+    <img alt="rockford fiveforks" src="/images/rockford/fiveforks.jpg"/>
+  </a>
+</figure>
 
 Five Forks is our favorite restaurant in Rockford. Don't let the tiny
 plates and the emphasis on lunch fool you. It's filling - and sure to
@@ -122,7 +134,11 @@ the sky first.
 
 ## Jo-Jo's Pizza and Pub
 
-{% include figure.html filename=rockford/jojo.jpg %}
+<figure>
+  <a href="/images/rockford/jojo.jpg">
+    <img alt="rockford jojo" src="/images/rockford/jojo.jpg"/>
+  </a>
+</figure>
 
 This is where Marissa works, but before my wife made her way behind
 the bar, it was our favorite place to hang out.

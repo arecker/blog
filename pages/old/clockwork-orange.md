@@ -24,8 +24,15 @@ a women or is confronted with violence. It eventually takes a failed
 suicide attempt for the doctors to recollect Alex and reverse the
 treatment.
 
-{% include figure.html filename=marinafight.png caption='There were
-also plenty of scenes that made me feel like I was watching Jackass' %}
+<figure>
+  <a href="/images/marinafight.png">
+    <img alt="marinafight" src="/images/marinafight.png"/>
+  </a>
+  <figcaption>
+    <p>There were
+also plenty of scenes that made me feel like I was watching Jackass</p>
+  </figcaption>
+</figure>
 
 Normally in movies, books, and cartoons we are taught that there are
 two kinds of desires. There’s the finer part of you, and the animal in

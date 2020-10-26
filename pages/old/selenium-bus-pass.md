@@ -70,9 +70,14 @@ dreaded "Terms and Conditions".
 
 [this url]: https://www.cityofmadison.com/epayment/metro/busPass/index.cfm
 
-{% include figure.html
-filename=selenium/terms.png
-caption='To their credit, this is much better than the iTunes one' %}
+<figure>
+  <a href="/images/selenium/terms.png">
+    <img alt="selenium terms" src="/images/selenium/terms.png"/>
+  </a>
+  <figcaption>
+    <p>To their credit, this is much better than the iTunes one</p>
+  </figcaption>
+</figure>
 
 This is easy enough with Selenium. We can select the element by ID,
 click it, then do the same with the "confirm" button.

@@ -25,7 +25,11 @@ the room. When Alex and I were dating this was one of our favorite
 date spots. We even got on a first name basis with some of the
 employees.
 
-{% include figure.html filename=puppyStore.png %}
+<figure>
+  <a href="/images/puppyStore.png">
+    <img alt="puppyStore" src="/images/puppyStore.png"/>
+  </a>
+</figure>
 
 Fast forward to this past October, Alex and I were engaged, he had
 moved into an apartment, and our mutual desire for a puppy became
@@ -36,7 +40,11 @@ Illinois to be interviewed as potential corgi parents. We passed the
 test and many months and visits later, we were driving home with our
 first Corgi puppy, Oliver.
 
-{% include figure.html filename=oliverDeck.png %}
+<figure>
+  <a href="/images/oliverDeck.png">
+    <img alt="oliverDeck" src="/images/oliverDeck.png"/>
+  </a>
+</figure>
 
 Owning a dog has been one of the most rewarding and joy filled
 experiences of my life. But what I didn’t expect from owning Ollie,

@@ -76,14 +76,22 @@ take over everyone.
 Each turn, the game tracks your income and expenses in food, gold, and
 happiness. They are shown in an indicator bar like this.
 
-{% include figure.html filename=civbar.png %}
+<figure>
+  <a href="/images/civbar.png">
+    <img alt="civbar" src="/images/civbar.png"/>
+  </a>
+</figure>
 
 The numbers beside the gold coin represent how much gold you have in
 total, as well as how much you are making or losing every
 turn. Mousing over the gold coin shows a more granular breakdown of
 where all your spoils are going.
 
-{% include figure.html filename=civgold.png %}
+<figure>
+  <a href="/images/civgold.png">
+    <img alt="civgold" src="/images/civgold.png"/>
+  </a>
+</figure>
 
 Certain buildings or factions cost gold to maintain, just as certain
 buildings make gold. Each source of gain and loss is part of how much
@@ -114,7 +122,11 @@ My first thought was Netflix. It's $8 a month, and it is setup to just
 take money out of my PayPal account. In a scenario like this, Netflix
 would continue to get their money. I made a table like this.
 
-{% include figure.html filename=spreadsheet1.png %}
+<figure>
+  <a href="/images/spreadsheet1.png">
+    <img alt="spreadsheet1" src="/images/spreadsheet1.png"/>
+  </a>
+</figure>
 
 By taking the amount due on each bill ($8), the number of days per
 bill (30 - roughly a month), I could get the amount of money Netflix
@@ -150,7 +162,11 @@ semi-regular expenses as well.
 
 I opened a new LibreOffice spreadsheet that looked like this.
 
-{% include figure.html filename=spreadsheet3.png %}
+<figure>
+  <a href="/images/spreadsheet3.png">
+    <img alt="spreadsheet3" src="/images/spreadsheet3.png"/>
+  </a>
+</figure>
 
 This was where I kept track of my daily expenses. All I needed was the
 date, a description of what it was (to jog my memory if I was to go
@@ -183,7 +199,11 @@ the month.
 I rigged up the spreadsheet to give me these numbers on a summary
 page.
 
-{% include figure.html filename=spreadsheet4.png %}
+<figure>
+  <a href="/images/spreadsheet4.png">
+    <img alt="spreadsheet4" src="/images/spreadsheet4.png"/>
+  </a>
+</figure>
 
 This sheet told me the running total for that day, the week, the
 month, and the year. When I first started, all four numbers were
@@ -229,32 +249,52 @@ painful.
 
 Our dashboard lists the purchases we made that day.
 
-{% include figure.html filename=moolah1.png %}
+<figure>
+  <a href="/images/moolah1.png">
+    <img alt="moolah1" src="/images/moolah1.png"/>
+  </a>
+</figure>
 
 When we make a purchase, there is a form that flips out from the
 top. It was very important to me that this form include as _little_
 information as possible.
 
-{% include figure.html filename=moolah2.png %}
+<figure>
+  <a href="/images/moolah2.png">
+    <img alt="moolah2" src="/images/moolah2.png"/>
+  </a>
+</figure>
 
 Beside it, there is a widget to show us the running total for the day,
 week, month, and year.
 
-{% include figure.html filename=moolah3.png %}
+<figure>
+  <a href="/images/moolah3.png">
+    <img alt="moolah3" src="/images/moolah3.png"/>
+  </a>
+</figure>
 
 Here is the fun part. I made a few graphs to give us an idea of how we
 are doing. This is a graph that shows us what our total was each day,
 along with the corresponding day from last week. This is valuable when
 we are picking which days we are going to go out to eat.
 
-{% include figure.html filename=moolah4.png %}
+<figure>
+  <a href="/images/moolah4.png">
+    <img alt="moolah4" src="/images/moolah4.png"/>
+  </a>
+</figure>
 
 This is a break down of all the expenses and sources of income that
 make up our magic number that opens each day with a positive
 amount. The slices are automated expenses mixed with automated income,
 but I plan on color coding it to make it a little easier to see.
 
-{% include figure.html filename=moolah5.png %}
+<figure>
+  <a href="/images/moolah5.png">
+    <img alt="moolah5" src="/images/moolah5.png"/>
+  </a>
+</figure>
 
 This graph shows the progression of what the yearly savings number was
 on any given day. I'm still waiting for this one to even out, but once
@@ -262,7 +302,11 @@ it does, it should give us a good idea of how much we are saving in
 the long run. Ideally, we would like it to slowly climb despite daily
 flux.
 
-{% include figure.html filename=moolah6.png %}
+<figure>
+  <a href="/images/moolah6.png">
+    <img alt="moolah6" src="/images/moolah6.png"/>
+  </a>
+</figure>
 
 So that's our Civ inspired budget. I'm sure you have a system of your
 own, but I wanted to share ours just in case you are still shopping
