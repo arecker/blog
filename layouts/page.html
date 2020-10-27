@@ -45,13 +45,6 @@
       </span>
     </nav>
     <hr/>
-    {% if page.banner %}
-    <figure>
-      <a href="/images/{{ page.banner }}">
-	<img alt="{alt}" src="/images/{{ page.banner }}"/>
-      </a>
-    </figure>
-    {% endif %}
     {{ content }}
     {% if page.next or page.previous %}
     <nav class="clearfix">
