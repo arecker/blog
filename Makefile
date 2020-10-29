@@ -1,19 +1,27 @@
-build: www/images www/site.css www/2020-10-27.html
+entries_sources := $(wildcard entries/*.md)
+entry_outputs := $(addprefix www/, $(notdir $(addsuffix .html, $(basename $(entries_sources)))))
+
+build: www/images www/site.css $(entry_outputs)
 
 www/images:
+	mkdir -p www
 	cp -r images $@
 
 www/site.css:
 	mkdir -p www
 	cp assets/site.css $@
 
-www/2020-10-27.html:
+$(entry_outputs):
 	mkdir -p www
 	cd www && pandoc \
 -s \
 --template=../templates/entry.html \
---lua-filter=../filters/entry.lua \
--o $(notdir $@) ../entries/2020-10-27.md
+--lua-filter=../scripts/entry_filter.lua \
+-o $(notdir $@) ../entries/$(addsuffix ".md", $(notdir $(basename $@)))
+
+.PHONY: clean
+clean:
+	rm -rf www
 
 .PHONY: serve
 serve: build
