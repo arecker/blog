@@ -1,9 +1,15 @@
-all: images
+all: images assets
 
 .PHONY: images
 image_files := $(shell find images -type f)
 images: $(addprefix www/,$(image_files))
 www/images/%: images/%
+	mkdir -p $(@D)
+	cp $< $@
+
+.PHONY: assets
+assets: www/site.css
+www/site.css: assets/site.css
 	mkdir -p $(@D)
 	cp $< $@
 
