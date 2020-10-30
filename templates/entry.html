@@ -10,6 +10,13 @@
     <hr/>
     ${ nav.html() }
     <hr/>
+    $if(banner)$
+    <figure>
+      <a href="/images/banners/$banner$">
+	<img alt="banner" src="/images/banners/$banner$"/>
+      </a>
+    </figure>
+    $endif$
     $body$
     ${ paginate.html() }
     <hr/>
