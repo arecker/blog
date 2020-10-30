@@ -26,5 +26,5 @@ clean:
 	rm -rf www/*.html
 
 .PHONY: serve
-serve:
+serve: all
 	python -m http.server -d www -b 127.0.0.1 4000
