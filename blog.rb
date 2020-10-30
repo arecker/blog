@@ -725,7 +725,8 @@ module Blog
     end
 
     def banner
-      find_banner(File.basename(filename, '.md'))
+      metadata['banner']
+      # find_banner(File.basename(filename, '.md'))
     end
 
     def title
