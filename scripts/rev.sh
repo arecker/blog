@@ -58,7 +58,7 @@ case "$1" in
 	;;
 esac
 
-VERSION_FILE="b./revision/$1"
+VERSION_FILE="./revision/$1"
 
 if git_is_dirty; then
     log "git is dirty... clean it up, you slob!"
