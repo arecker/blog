@@ -65,7 +65,7 @@ if git_is_dirty; then
     exit 1
 fi
 
-if !branch_is_master; then
+if ! branch_is_master; then
     log "not on master branch"
     log "what are you, some kind of careless child?"
     exit 1
