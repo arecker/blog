@@ -37,7 +37,15 @@ EOF
 }
 
 render_version() {
-    echo "$(cat ./revision/major) $(cat ./revision/minor) $(cat ./revision/patch)"
+    echo "$(cat ./revision/major).$(cat ./revision/minor).$(cat ./revision/patch)"
+}
+
+git_is_dirty() {
+    [[ $(git diff --stat) != '' ]]
+}
+
+branch_is_master() {
+    [[ "$(git rev-parse --abbrev-ref HEAD)" == "master" ]]
 }
 
 case "$1" in
@@ -50,7 +58,18 @@ case "$1" in
 	;;
 esac
 
-VERSION_FILE="../revsion/$1"
+VERSION_FILE="b./revision/$1"
+
+if git_is_dirty; then
+    log "git is dirty... clean it up, you slob!"
+    exit 1
+fi
+
+if !branch_is_master; then
+    log "not on master branch"
+    log "what are you, some kind of careless child?"
+    exit 1
+fi
 
 if ! prompt "Are you sure?"; then
     log "aborting"
@@ -60,9 +79,14 @@ fi
 BEFORE="$(cat $VERSION_FILE)"
 AFTER="$((BEFORE + 1))"
 log "incrementing $VERSION_FILE ($BEFORE -> $AFTER)"
-echo "$AFTER" > "$VERSION_FILE"
+# echo "$AFTER" > "$VERSION_FILE"
 
 NEWTAG="v$(render_version)"
 log "creating tag $NEWTAG"
+git tag "$NEWTAG"
 
+log "pushing tags"
+git push --tags
 
+log "pushing commit history"
+git push origin master:master
