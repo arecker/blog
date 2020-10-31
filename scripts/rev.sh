@@ -81,6 +81,9 @@ AFTER="$((BEFORE + 1))"
 log "incrementing $VERSION_FILE ($BEFORE -> $AFTER)"
 echo "$AFTER" > "$VERSION_FILE"
 
+log "committing results"
+git add -A && git commit -m "rev.sh: $VERSION_FILE ($BEFORE -> $AFTER)"
+
 NEWTAG="v$(render_version)"
 log "creating tag $NEWTAG"
 git tag "$NEWTAG"
