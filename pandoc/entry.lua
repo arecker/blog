@@ -16,17 +16,12 @@ function EntryFiles ()
 end
 
 function FindIndex (tbl, item)
-   local indexes = {}
-
-   for k, v in pairs(tbl) do
-      indexes[v] = k
+   for i, thing in pairs(tbl) do
+      if item == thing then return i end
    end
-
-   return indexes[item]
 end
 
 function Paginate (m)
-   local pages = {}
    local entries = EntryFiles()
    local index = FindIndex(entries, PANDOC_STATE.output_file)
    
