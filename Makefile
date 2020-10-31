@@ -13,13 +13,21 @@ www/site.css: assets/site.css
 	mkdir -p $(@D)
 	cp $< $@
 
+pandoc := pandoc -s -L ../pandoc/revision.lua --template ../pandoc/template.html
+
 .PHONY: entries
 entry_files := $(wildcard entries/*.md)
 entry_outputs := $(patsubst %.md,%.html,$(subst entries/,www/,$(entry_files)))
-pandoc_entry := pandoc -L ../pandoc/entry.lua --template ../pandoc/template.html
+pandoc_entry := $(pandoc) -L ../pandoc/entry.lua
 entries: $(entry_outputs)
 www/%.html: entries/%.md pandoc/entry.lua pandoc/template.html
 	cd www && $(pandoc_entry) -o $(notdir $@) ../$<
+
+.PHONY: pages
+pandoc_page := $(pandoc) -L ../pandoc/page.lua --template ../pandoc/template.html
+pages: www/index.html
+www/index.html: pages/index.html
+	cd www && $(pandoc_page) -o $(notdir $@) ../$<
 
 .PHONY: publish edit patch
 publish:; scripts/rev.sh major
@@ -33,4 +41,4 @@ clean:
 
 .PHONY: serve
 serve: all
-	python -m http.server -d www -b 127.0.0.1 4000
+	python -m http.server -d www -b 0.0.0.0 4000
