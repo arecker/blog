@@ -16,9 +16,15 @@ www/site.css: assets/site.css
 .PHONY: entries
 entry_files := $(wildcard entries/*.md)
 entry_outputs := $(patsubst %.md,%.html,$(subst entries/,www/,$(entry_files)))
+pandoc_entry := pandoc -L ../pandoc/entry.lua --template ../pandoc/template.html
 entries: $(entry_outputs)
 www/%.html: entries/%.md pandoc/entry.lua pandoc/template.html
-	cd www && pandoc -L ../pandoc/entry.lua --template ../pandoc/template.html -o $(notdir $@) ../$<
+	cd www && $(pandoc_entry) -o $(notdir $@) ../$<
+
+.PHONY: publish edit patch
+publish:; scripts/rev.sh major
+edit:; scripts/rev.sh minor
+patch:; scripts/rev.sh patch
 
 .PHONY: clean
 clean:
