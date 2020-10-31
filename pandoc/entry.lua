@@ -1,74 +1,49 @@
-function EntryIterator ()
-   local convertFilename = function (mdFile)
-      return mdFile:match("^(.+).md$") .. ".html"
+function SplitString (input)
+   local t = {}
+   for str in string.gmatch(input, "([^%s]+)") do
+      table.insert(t, str)
    end
-
-   local splitString = function (inputstr)
-      local t = {}
-      for str in string.gmatch(inputstr, "([^%s]+)") do
-	 table.insert(t, str)
-      end
-      return t
-   end
-
-   local output = splitString(pandoc.pipe("ls", { "../entries/" }, ""), " ")
-   local max = #output
-
-   local atIndex = function (i)
-      if i >= max then
-	 return nil
-      else
-	 return convertFilename(output[i])
-      end
-   end
-
-   local public = {}
-
-   public.index = 1
-
-   public.advance = function ()
-      if public.index == max then
-	 return nil
-      else
-	 public.index = public.index + 1
-	 return convertFilename(output[public.index - 1])
-      end
-   end
-
-   public.next = function ()
-      return atIndex(public.index + 1)
-   end
-
-   public.previous = function ()
-      return atIndex(public.index - 1)
-   end
-
-   return public
+   return t
 end
 
-function Paginate(m)
-   local iter = EntryIterator()
-   local thisOne = iter.advance()
+function EntryFiles ()
+   local output = pandoc.pipe("ls", { "../entries/" }, "")
+   local entries = {}
+   for _, md in pairs(SplitString(output)) do
+      table.insert(entries, md:match("^(.+).md$") .. ".html")
+   end
+   return entries
+end
 
-   while thisOne do
-      if thisOne == PANDOC_STATE.output_file then
-	 break
-      else
-	 thisOne = iter.advance()
-      end
+function FindIndex (tbl, item)
+   local indexes = {}
+
+   for k, v in pairs(tbl) do
+      indexes[v] = k
    end
 
-   if thisOne then
-      local previousOne, nextOne = iter.previous(), iter.next()
-      if previousOne then m.previous = previousOne end
-      if nextOne then m.next = nextOne end
-   end
+   return indexes[item]
+end
+
+function Paginate (m)
+   local pages = {}
+   local entries = EntryFiles()
+   local index = FindIndex(entries, PANDOC_STATE.output_file)
+   
+   if index > 1        then m.next = entries[index - 1] end
+   if index < #entries then m.previous = entries[index + 1] end
 
    return m
 end
 
+function DateTitle (filename)
+   local year, month, day = filename:match("^([0-9]+)-([0-9]+)-([0-9]+).html")
+   local time = os.time {year=year, month=month, day=day}
+   return os.date("%A, %B %d %Y", time)
+end
+
 function Meta (m)
    m.subtitle = m.title
-   m.title = os.date("%A, %B %d %Y")
+   m.title = DateTitle(PANDOC_STATE.output_file)
    return Paginate(m)
 end

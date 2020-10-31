@@ -17,7 +17,7 @@ www/site.css: assets/site.css
 entry_files := $(wildcard entries/*.md)
 entry_outputs := $(patsubst %.md,%.html,$(subst entries/,www/,$(entry_files)))
 entries: $(entry_outputs)
-www/%.html: entries/%.md pandoc/entry.lua
+www/%.html: entries/%.md pandoc/entry.lua pandoc/template.html
 	cd www && pandoc -L ../pandoc/entry.lua --template ../pandoc/template.html -o $(notdir $@) ../$<
 
 .PHONY: clean
