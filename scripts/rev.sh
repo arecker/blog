@@ -24,15 +24,13 @@ rev.sh - revision manager
 
 Usage:
 
-    rev.sh <major|minor|patch>
+    rev.sh ARG, where ARG is...
 
-    First, increments the number in the corresponding file
+    show:
+    print version and exit
 
-        major: ./revision/major
-        minor: ./revision/minor
-        patch: ./revision/patch
-
-    Creates a tag, 
+    <major|minor|patch>:
+    increment version file, create tag, and push.
 EOF
 }
 
@@ -49,6 +47,10 @@ branch_is_master() {
 }
 
 case "$1" in
+    show)
+	echo "v$(render_version)"
+	exit
+	;;
     major|minor|patch)
 	log "incrementing $1 version"
 	;;

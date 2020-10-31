@@ -1,5 +1,7 @@
 all: images assets entries
 
+REVISION := $(shell scripts/rev.sh show)
+
 .PHONY: images
 image_files := $(shell find images -type f)
 images: $(addprefix www/,$(image_files))
@@ -13,7 +15,7 @@ www/site.css: assets/site.css
 	mkdir -p $(@D)
 	cp $< $@
 
-pandoc := pandoc -s -L ../pandoc/revision.lua --template ../pandoc/template.html
+pandoc := pandoc -s --metadata revision="$(REVISION)" --template ../pandoc/template.html
 
 .PHONY: entries
 entry_files := $(wildcard entries/*.md)
