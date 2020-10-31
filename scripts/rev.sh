@@ -79,7 +79,7 @@ fi
 BEFORE="$(cat $VERSION_FILE)"
 AFTER="$((BEFORE + 1))"
 log "incrementing $VERSION_FILE ($BEFORE -> $AFTER)"
-# echo "$AFTER" > "$VERSION_FILE"
+echo "$AFTER" > "$VERSION_FILE"
 
 NEWTAG="v$(render_version)"
 log "creating tag $NEWTAG"
