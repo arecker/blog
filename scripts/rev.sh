@@ -24,22 +24,15 @@ rev.sh - revision manager
 
 Usage:
 
-    rev.sh ARG, where ARG is...
+    rev.sh ARG
 
-    show:
-    print version and exit
-
-    <major|minor|patch>:
-    increment version file, create tag, and push.
+    show: print version and exit
+    <major|minor|patch>: increment version
 EOF
 }
 
 render_version() {
     echo "$(cat ./revision/major).$(cat ./revision/minor).$(cat ./revision/patch)"
-}
-
-git_is_dirty() {
-    [[ $(git diff --stat) != '' ]]
 }
 
 branch_is_master() {
@@ -61,11 +54,6 @@ case "$1" in
 esac
 
 VERSION_FILE="./revision/$1"
-
-if git_is_dirty; then
-    log "git is dirty... clean it up, you slob!"
-    exit 1
-fi
 
 if ! branch_is_master; then
     log "not on master branch"
@@ -96,8 +84,8 @@ case "$1" in
 	;;
 esac
 
-log "committing results"
-git add -A && git commit -m "rev.sh: $VERSION_FILE ($BEFORE -> $AFTER)"
+log "amending results to last commit"
+git add -A && git commit --amend -C HEAD
 
 NEWTAG="v$(render_version)"
 log "creating tag $NEWTAG"
