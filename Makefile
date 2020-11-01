@@ -1,6 +1,11 @@
-all: images assets entries pages
+all: metadata images assets entries pages
 
 REVISION := $(shell scripts/rev.sh show)
+
+.PHONY: metadata
+metadata: www/revision.txt
+www/revision.txt: revision/major revision/minor revision/patch
+	echo "$(REVISION)" > www/revision.txt
 
 .PHONY: images
 image_files := $(shell find images -type f)
