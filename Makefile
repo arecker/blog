@@ -1,4 +1,4 @@
-all: images assets entries
+all: images assets entries pages
 
 REVISION := $(shell scripts/rev.sh show)
 
@@ -26,10 +26,11 @@ www/%.html: entries/%.md pandoc/entry.lua pandoc/template.html
 	cd www && $(pandoc_entry) -o $(notdir $@) ../$<
 
 .PHONY: pages
-pandoc_page := $(pandoc) -L ../pandoc/page.lua --template ../pandoc/template.html
-pages: www/index.html
-www/index.html: pages/index.html
-	cd www && $(pandoc_page) -o $(notdir $@) ../$<
+page_files := $(wildcard pages/*.html)
+pandoc_page := pandoc -L ../pandoc/page.lua --template ../pandoc/template.html
+pages: $(subst pages/,www/,$(page_files))
+www/%.html: pages/%.html pages/%.yml pandoc/template.html
+	cd www && $(pandoc_page) --metadata-file="../$(patsubst %.html,%.yml,$<)" -o $(notdir $@) ../$<
 
 .PHONY: publish edit patch
 publish:; scripts/rev.sh major
