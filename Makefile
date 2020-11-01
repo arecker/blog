@@ -27,7 +27,7 @@ www/%.html: entries/%.md pandoc/entry.lua pandoc/template.html
 
 .PHONY: pages
 page_files := $(wildcard pages/*.html)
-pandoc_page := pandoc -L ../pandoc/page.lua --template ../pandoc/template.html
+pandoc_page := $(pandoc) -L ../pandoc/page.lua
 pages: $(subst pages/,www/,$(page_files))
 www/%.html: pages/%.html pages/%.yml pandoc/template.html
 	cd www && $(pandoc_page) --metadata-file="../$(patsubst %.html,%.yml,$<)" -o $(notdir $@) ../$<
