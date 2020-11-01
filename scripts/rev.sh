@@ -7,7 +7,7 @@ log() {
 
 prompt() {
     local RESPONSE=""
-    
+
     while true; do
 	log "$1 [Yy/Nn]"
 	read RESPONSE
@@ -82,6 +82,19 @@ BEFORE="$(cat $VERSION_FILE)"
 AFTER="$((BEFORE + 1))"
 log "incrementing $VERSION_FILE ($BEFORE -> $AFTER)"
 echo "$AFTER" > "$VERSION_FILE"
+
+case "$1" in
+    major)
+	log "resetting minor"
+	echo "0" > revision/minor
+	log "resetting patch"
+	echo "0" > revision/patch
+	;;
+    minor)
+	log "resetting patch"
+	echo "0" > revision/patch
+	;;
+esac
 
 log "committing results"
 git add -A && git commit -m "rev.sh: $VERSION_FILE ($BEFORE -> $AFTER)"
