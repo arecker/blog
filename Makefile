@@ -7,9 +7,11 @@ metadata: www/revision.txt
 www/revision.txt: revision/major revision/minor revision/patch
 	echo "$(REVISION)" > www/revision.txt
 
-.PHONY: images
+.PHONY: images resize
 image_files := $(shell find images -type f)
 images: $(addprefix www/,$(image_files))
+resize:
+	scripts/autosize.sh
 www/images/%: images/%
 	mkdir -p $(@D)
 	cp $< $@
