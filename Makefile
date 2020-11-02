@@ -15,7 +15,7 @@ www/images/%: images/%
 	cp $< $@
 
 .PHONY: assets
-assets: www/site.css www/favicon.ico
+assets: $(addprefix www/,$(notdir $(shell find assets -type f)))
 www/%: assets/%
 	mkdir -p $(@D)
 	cp $< $@
