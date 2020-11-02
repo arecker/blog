@@ -18,6 +18,7 @@ resize() {
 }
 
 for img in $(list_images); do
+    log "checking $img"
     if needs_resize "$img"; then
 	log "resizing $img ($(identify -format %hx%w $img))"
 	resize "$img"
