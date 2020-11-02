@@ -46,8 +46,7 @@ patch:; scripts/rev.sh patch
 
 .PHONY: clean
 clean:
-	rm -rf www/images
-	rm -rf www/*.html
+	rm -rf www/*
 
 .PHONY: serve
 serve: all
