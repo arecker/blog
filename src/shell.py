@@ -2,6 +2,7 @@ import collections
 import logging
 import subprocess
 
+
 logger = logging.getLogger('blog')
 
 

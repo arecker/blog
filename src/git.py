@@ -2,6 +2,7 @@ import re
 
 from . import shell
 
+
 r_status_short = re.compile(
     r'^(?P<glypph>\S+)\s+(?P<path>.*)$',
     flags=re.MULTILINE
