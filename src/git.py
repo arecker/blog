@@ -25,8 +25,10 @@ def amend(commit='HEAD'):
 
 
 def push(remote='origin', local_branch='master', remote_branch='master'):
-    shell.run(f'git push --follow-tags origin {local_branch}:{remote_branch}')
+    shell.run(f'git push origin {local_branch}:{remote_branch}')
 
 
-def tag(name):
+def tag(name, push=True, remote='origin'):
     shell.run(f'git tag {name}')
+    if push:
+        shell.run(f'git push {remote} {name}')
