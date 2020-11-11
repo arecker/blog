@@ -18,3 +18,15 @@ def new_files():
 
 def stage(filepath):
     shell.run(f'git add {filepath}')
+
+
+def amend(commit='HEAD'):
+    shell.run(f'git commit --amend -C {commit}')
+
+
+def push(remote='origin', local_branch='master', remote_branch='master'):
+    shell.run(f'git push --follow-tags origin {local_branch}:{remote_branch}')
+
+
+def tag(name):
+    shell.run(f'git tag {name}')

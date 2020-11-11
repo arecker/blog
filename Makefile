@@ -1,16 +1,14 @@
 all: metadata images assets entries pages
 
-REVISION := $(shell scripts/rev.sh show)
 .PHONY: publish edit patch
-revision_files := revision/major revision/minor revision/patch
-publish:; scripts/rev.sh major
-edit:; scripts/rev.sh minor
-patch:; scripts/rev.sh patch
+publish:; python -m src.revision major
+edit:; python -m src.revision  minor
+patch:; python -m src.revision patch
 
 .PHONY: metadata
-metadata: www/revision.txt
-www/revision.txt: $(revision_files)
-	echo "$(REVISION)" > www/revision.txt
+metadata: www/VERSION
+www/VERSION: VERSION
+	cp $< $@
 
 .PHONY: images
 image_files := $(shell find images -type f)
