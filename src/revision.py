@@ -36,6 +36,13 @@ def make_next_version(current, level):
         'minor': int(current.minor),
         'patch': int(current.patch),
     }
+
+    if level in ['major', 'minor']:
+        values['patch'] = 0
+
+    if level == 'major':
+        values['minor'] = 0
+
     values[level] = values[level] + 1
     return Version(*[values[k] for k in ('major', 'minor', 'patch')])
 
