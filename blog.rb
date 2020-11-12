@@ -96,10 +96,6 @@ module Blog
   # Dependencies
   module Dependencies
     def self.images?
-      require 'fastimage'
-      require 'mini_magick'
-      true
-    rescue LoadError
       false
     end
 

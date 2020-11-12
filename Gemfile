@@ -10,9 +10,7 @@ gem 'simplecov'
 gem 'yard'
 
 group :local, optional: true do
-  gem 'fastimage'
   gem 'gruff'
-  gem 'mini_magick'
   gem 'pry'
   gem 'rack'
   gem 'rubocop'
