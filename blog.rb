@@ -95,10 +95,6 @@ module Blog
 
   # Dependencies
   module Dependencies
-    def self.images?
-      false
-    end
-
     def self.graphs?
       require 'gruff'
       true
@@ -189,28 +185,6 @@ module Blog
 
     def images
       files(path('images')).select { |f| image?(f) }
-    end
-
-    def dimensions(file)
-      result = FastImage.size(file)
-      if result.instance_of?(String)
-        result.split('x').map(&:to_i)
-      else
-        result
-      end
-    end
-
-    def resize(file, dims)
-      image = MiniMagick::Image.new(file)
-      image.resize "#{dims.first}x#{dims.last}"
-    end
-
-    def find_banner(basename)
-      image_extensions.each do |ext|
-        file = path('images/banners', basename + ext)
-        return 'banners/' + File.basename(file) if File.exist? file
-      end
-      nil
     end
   end
 
@@ -722,7 +696,6 @@ module Blog
 
     def banner
       metadata['banner']
-      # find_banner(File.basename(filename, '.md'))
     end
 
     def title
@@ -959,28 +932,12 @@ module Blog
   # Image Builder
   class ImageBuilder < Builder
     def generate(_ctx)
-      if resize?
-        resizeable_images.each do |image|
-          logger.info "resizing #{image}"
-          resize(image, [800, 800])
-        end
-      else
-        logger.info '(skipping image size scan)'
-      end
       logger.info "caching #{images.count} image(s) -> site/images"
       cache_images
     end
 
-    def resize?
-      options[:no_resize_images] != true && Dependencies.images?
-    end
-
     def cache_images
       FileUtils.copy_entry(src, target)
-    end
-
-    def resizeable_images
-      images.select { |i| too_big?(dimensions(i)) }
     end
 
     def target
@@ -989,10 +946,6 @@ module Blog
 
     def src
       path('images')
-    end
-
-    def too_big?(dimensions)
-      dimensions.first > 800 || dimensions.last > 800
     end
   end
 
