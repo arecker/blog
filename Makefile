@@ -11,6 +11,9 @@ metadata: www/VERSION
 www/VERSION: VERSION
 	cp $< $@
 
+.PHONY: resize
+resize:; python -m src.resize_images
+
 .PHONY: images
 images: www/images
 www/images: images/

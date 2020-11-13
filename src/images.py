@@ -1,7 +1,8 @@
 import collections
+import glob
 import os
 
-from . import shell
+from . import shell, paths
 
 
 IMAGE_EXTENSIONS = (
@@ -38,3 +39,7 @@ def imagemagick_installed():
 def is_image(filepath):
     _, ext = os.path.splitext(filepath)
     return ext.upper() in IMAGE_EXTENSIONS
+
+
+def files():
+    return list(filter(is_image, glob.glob(paths.join('images/**/*.*'))))
