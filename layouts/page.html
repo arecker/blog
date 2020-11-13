@@ -71,7 +71,7 @@
     <footer>
       <small>Last Updated: {{ last_updated }}</small>
       <small>
-	Powered by <a href="https://github.com/arecker/blog">{% nickname %}</a> (<a class="code" href="https://github.com/arecker/blog/commit/{{ git.HEAD }}">{{ git.shorthead }}</a>)
+	Powered by <a href="https://github.com/arecker/blog">{% nickname %}</a> (<a class="code" href="https://github.com/arecker/blog/releases/tag/{{ git.version }}">{{ git.version }}</a>)
       </small>
       <small>&copy; Copyright {{ year }} {{ config.author }}</small>
     </footer>

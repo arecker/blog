@@ -850,8 +850,7 @@ module Blog
       {
         'git' => {
           'commit_count' => Git.commit_count,
-          'HEAD' => Git.head,
-          'shorthead' => Git.shorthead
+          'version' => File.read('VERSION')
         }
       }
     end
