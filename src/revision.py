@@ -82,7 +82,7 @@ def main():
     git.amend()
 
     logger.debug('creating tag %s', new_version_string)
-    git.tag(new_version_string)
+    git.tag(new_version_string, annotation=git.shortlog_from_latest_tag())
 
     logger.debug('pushing tree')
     git.push()
