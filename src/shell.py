@@ -37,11 +37,12 @@ def result_to_string(cmd, result):
     return msg
 
 
-def run(cmd, raise_on_exit=True):
+def run(cmd, raise_on_exit=True, stdin=None):
     process = subprocess.Popen(
         cmd.split(' '),
         stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
+        stderr=subprocess.PIPE,
+        stdin=stdin,
     )
     stdout, stderr = [str(s, 'utf-8').strip() for s in process.communicate()]
     result = ShellResult(process.returncode, stdout, stderr)
