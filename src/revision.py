@@ -15,6 +15,10 @@ r_version = re.compile(r'^v(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)$')
 version_path = paths.join('VERSION')
 
 
+def build_annotation(level):
+    return f'new {level} version\n{git.shortlog_from_latest_tag()}'
+
+
 def version_from_string(vstring):
     match = r_version.search(vstring)
 
@@ -82,7 +86,7 @@ def main():
     git.amend()
 
     logger.debug('creating tag %s', new_version_string)
-    git.tag(new_version_string, annotation=git.shortlog_from_latest_tag())
+    git.tag(new_version_string, annotation=build_annotation(args.level))
 
     logger.debug('pushing tree')
     git.push()
