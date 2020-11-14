@@ -16,7 +16,7 @@ version_path = paths.join('VERSION')
 
 
 def build_annotation(level):
-    return f'new {level} version\n{git.shortlog_from_latest_tag()}'
+    return f'new {level} version\n\n{git.shortlog_from_latest_tag()}'
 
 
 def version_from_string(vstring):
