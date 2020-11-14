@@ -28,8 +28,12 @@ def push(remote='origin', local_branch='master', remote_branch='master'):
     shell.run(f'git push origin {local_branch}:{remote_branch}')
 
 
-def tag(name, push=True, remote='origin'):
-    shell.run(f'git tag {name}')
+def tag(name, push=True, remote='origin', annotation=''):
+    cmdlist = ['git', 'tag',  '-a', name]
+    if annotation:
+        cmdlist += ['-m', annotation]
+
+    shell.run(cmdlist=cmdlist)
     if push:
         shell.run(f'git push {remote} {name}')
 
