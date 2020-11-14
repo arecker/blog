@@ -1,15 +1,10 @@
-all: metadata images assets entries pages
+all: images assets entries pages
 
 .PHONY: publish edit patch
 REVISION := python -m src.revision
 publish:; $(REVISION) major
 edit:; $(REVISION) minor
 patch:; $(REVISION) patch
-
-.PHONY: metadata
-metadata: www/VERSION
-www/VERSION: VERSION
-	cp $< $@
 
 .PHONY: resize
 resize:; python -m src.resize_images
