@@ -37,9 +37,9 @@ def result_to_string(cmd, result):
     return msg
 
 
-def run(cmd, raise_on_exit=True, stdin=None):
+def run(cmd='', cmdlist=[], raise_on_exit=True, stdin=None):
     process = subprocess.Popen(
-        cmd.split(' '),
+        cmdlist or cmd.split(' '),
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         stdin=stdin,
