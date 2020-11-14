@@ -32,3 +32,13 @@ def tag(name, push=True, remote='origin'):
     shell.run(f'git tag {name}')
     if push:
         shell.run(f'git push {remote} {name}')
+
+
+def latest_tag():
+    output = shell.run('git tag --sort version:refname').stdout
+    return output.splitlines()[-1]
+
+
+def shortlog_from_latest_tag():
+    cmd = f'git shortlog {latest_tag()}..HEAD'
+    return shell.run(cmd).stdout
