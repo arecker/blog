@@ -54,7 +54,7 @@ argparser.add_argument('level', choices=['major', 'minor', 'patch'])
 def main():
     args = argparser.parse_args()
     with open(paths.join('VERSION'), 'r') as f:
-        version_content = f.read()
+        version_content = f.read().strip()
 
     current_v = version_from_string(version_content)
     logger.debug('current version is %s', current_v)
