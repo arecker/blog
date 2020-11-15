@@ -4,6 +4,7 @@
 
 all: hooks images assets entries pages
 
+.PHONY: hooks
 hooks: .git/hooks/pre-commit
 .git/hooks/pre-commit: scripts/pre-commit.bash
 	cp -R $< $@
@@ -16,7 +17,6 @@ www/images: images/
 .PHONY: assets
 assets: $(addprefix www/,$(notdir $(shell find assets -type f)))
 www/%: assets/%
-	mkdir -p $(@D)
 	cp $< $@
 
 revision := $(shell cat VERSION)
