@@ -64,6 +64,7 @@ increment_version() {
 	git add "$(version_path)" && git commit --amend -C HEAD
 	git tag -a "${new_version}" -m "$(annotation $1)"
 	git push origin "${new_version}"
+	git push origin master:master
 	log "${new_version} successfully published"
 	exit 0
     else
