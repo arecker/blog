@@ -7,7 +7,7 @@ edit:; $(REVISION) minor
 patch:; $(REVISION) patch
 
 .PHONY: resize
-resize:; python -m src.resize_images
+resize:; scripts/resize.sh
 
 .PHONY: images
 images: www/images
