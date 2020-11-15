@@ -1,4 +1,4 @@
-all: images assets entries pages
+all: hooks images assets entries pages
 
 .PHONY: publish edit patch
 REVISION := ./scripts/revision.bash
@@ -8,6 +8,10 @@ patch:; $(REVISION) patch
 
 .PHONY: resize
 resize:; scripts/resize.bash
+
+hooks: .git/hooks/pre-commit
+.git/hooks/pre-commit: scripts/pre-commit.bash
+	cp -R $< $@
 
 .PHONY: images
 images: www/images
