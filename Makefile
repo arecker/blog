@@ -34,4 +34,5 @@ test:
 
 .PHONY: serve
 serve: all
+	rm -rf www/ga.js
 	python -m http.server -d www -b 0.0.0.0 4000
