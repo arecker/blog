@@ -1,7 +1,7 @@
 all: images assets entries pages
 
 .PHONY: publish edit patch
-REVISION := python -m src.revision
+REVISION := ./scripts/revision.sh
 publish:; $(REVISION) major
 edit:; $(REVISION) minor
 patch:; $(REVISION) patch
