@@ -16,14 +16,14 @@ assets: $(addprefix www/,$(notdir $(shell find assets -type f)))
 www/%: assets/%
 	cp $< $@
 
-revision := $(shell cat VERSION)
-pandoc := pandoc -s --metadata revision="$(revision)"
+timestamp := $(shell date)
+pandoc := pandoc -s --metadata timestamp="$(timestamp)"
 
 entry_files := $(wildcard entries/*.md)
 entry_outputs := $(patsubst %.md,%.html,$(subst entries/,www/,$(entry_files)))
 pandoc_entry := $(pandoc) --template ../pandoc/entry.html -L ../pandoc/entry.lua
 entries: $(entry_outputs)
-www/%.html: entries/%.md pandoc/entry.lua pandoc/entry.html VERSION
+www/%.html: entries/%.md pandoc/entry.lua pandoc/entry.html
 	cd www && $(pandoc_entry) -o $(notdir $@) ../$<
 
 ############
