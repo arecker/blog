@@ -61,7 +61,7 @@ increment_version() {
 	local new_version="v${major}.${minor}.${patch}"
 	log "incrementing $(current_version) -> ${new_version}"
 	echo "${new_version}" > "$(version_path)"
-	git add "$(version_path)" && git commit --amend
+	git add "$(version_path)" && git commit --amend -C HEAD
 	git tag -a "${new_version}" -m "$(annotation $1)"
 	git push origin "${new_version}"
 	log "${new_version} successfully published"
