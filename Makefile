@@ -1,13 +1,13 @@
 all: images assets entries pages
 
 .PHONY: publish edit patch
-REVISION := ./scripts/revision.sh
+REVISION := ./scripts/revision.bash
 publish:; $(REVISION) major
 edit:; $(REVISION) minor
 patch:; $(REVISION) patch
 
 .PHONY: resize
-resize:; scripts/resize.sh
+resize:; scripts/resize.bash
 
 .PHONY: images
 images: www/images
