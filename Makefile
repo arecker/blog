@@ -27,7 +27,7 @@ entry_files := $(wildcard entries/*.md)
 entry_outputs := $(patsubst %.md,%.html,$(subst entries/,www/,$(entry_files)))
 pandoc_entry := $(pandoc) --template ../pandoc/entry.html -L ../pandoc/entry.lua
 entries: $(entry_outputs)
-www/%.html: entries/%.md pandoc/entry.lua pandoc/entry.html
+www/%.html: entries/%.md pandoc/entry.lua pandoc/entry.html VERSION
 	cd www && $(pandoc_entry) -o $(notdir $@) ../$<
 
 ############
