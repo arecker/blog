@@ -8,9 +8,11 @@ hooks: .git/hooks/pre-commit
 .git/hooks/pre-commit: scripts/pre-commit.bash
 	cp -R $< $@
 
-images: www/images
-www/images: images/
-	cp -R $< $@
+image_files := $(shell find images -type f)
+images: $(addprefix www/,$(image_files))
+www/images/%: images/%
+	mkdir -p $(@D)
+	cp $< $@
 
 assets: $(addprefix www/,$(notdir $(shell find assets -type f)))
 www/%: assets/%
