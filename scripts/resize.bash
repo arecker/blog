@@ -22,7 +22,7 @@ is_too_big() {
     if [[ "$(identify -format %wx%h $1)" =~ ^([0-9]+)x([0-9]+) ]]; then
 	local height="${BASH_REMATCH[1]}"
 	local width="${BASH_REMATCH[2]}"
-	[[ (( "$width" > "$max" )) || (("$heigth" > "$max")) ]]
+	[[ "$width" -gt "$max" || "$height" -gt "$max" ]]
     else
 	log "error checking size of $1"
 	exit 1
