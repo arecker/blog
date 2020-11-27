@@ -36,6 +36,7 @@ module Blog
         site.data.merge!(
           {
             'git_head' => git_head,
+            'git_head_summary' => git_head_summary,
             'git_shorthead' => git_short_head
           }
         )

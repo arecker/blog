@@ -70,9 +70,9 @@
     {% endif %}
     <hr/>
     <footer>
-      <small>Last Updated: {{ site.data.last_updated }}</small>
       <small>
-	Powered by <a href="https://github.com/arecker/blog">jekyll</a> (<a class="code" href="https://github.com/arecker/blog/commit/{{ site.data.git_head }}">{{ site.data.git_shorthead }}</a>)
+	<span>Last Updated: {{ site.data.last_updated }}</span>
+	- <span class="code">{{ site.data.git_head_summary }} (<a href="https://github.com/arecker/blog/commit/{{ site.data.git_head }}">{{ site.data.git_shorthead }}</a>)</span>
       </small>
       <small>&copy; Copyright {{ site.data.year }} Alex Recker</small>
     </footer>
