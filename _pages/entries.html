@@ -1,0 +1,23 @@
+---
+title: Entries
+description: Daily Journal Entries
+---
+
+<h2>Journal Entries</h2>
+<p>RSS feed available here:  <a href="/feed.xml">feed.xml</a></p>
+<table>
+  {% for post in site.posts %}
+  <tr>
+    <td>
+      <a href="{{ post.permalink }}">{{ post.filename }}</a>
+    </td>
+    <td>
+      {{ post.description }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+<blockquote>
+  "That's the whole ball of wax."
+  <footer>—Truman Burbank, <cite>The Truman Show</cite></footer>
+</blockquote>

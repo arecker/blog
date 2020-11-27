@@ -1,3 +1,4 @@
 site
 .bundle
 .yardoc
+.jekyll-cache

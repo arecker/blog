@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>{{ page.title }} | {{ page.description }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@alex_recker" />
+    <meta name="twitter:title" content="{{ page.title }}" />
+    <meta name="twitter:description" content="{{ page.description }}" />
+    <meta property="og:url" content="{{ page.url }}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ page.title }}"/>
+    <meta property="og:description" content="{{ page.description }}" />
+    {% if page.banner %}
+    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/{{ page.banner }}"/>
+    <meta property="og:image" content="/images/banners/{{ page.banner }}"/>
+    {% endif %}
+    <link href="/assets/site.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <header>
+      <h1 class="title">{{ page.title }}</h1>
+      <h2 class="subtitle">{{ page.description }}</h2>
+    </header>
+    <hr/>
+    <nav>
+      {% assign menu = 'entries.html, archives.html, stats.html, contact.html' | split: ', ' %}
+      {% if page.filename == "index.html" %}
+      <a href="/">index.html</a>
+      {% else %}
+      <a href="/">index.html</a>
+      <span> / </span>
+      <span>{{ page.filename }}</span>
+      {% endif %}
+      <span class="float-right hide-on-mobile">
+	{% for page in menu %}
+	<a href="/{{ page }}">{{ page }}</a>
+	{% endfor %}
+      </span>
+      <span class="show-on-mobile">
+	{% for page in menu %}
+	<a href="/{{ page }}">{{ page }}</a>
+	{% endfor %}
+      </span>
+    </nav>
+    <hr/>
+    {% if page.banner %}
+    <figure>
+      <a href="/images/banners/{{ page.banner }}">
+	<img alt="banner" src="/images/banners/{{ page.banner }}"/>
+      </a>
+    </figure>
+    {% endif %}
+    {{ content }}
+    {% if page.next or page.previous %}
+    <nav class="clearfix">
+      {% if page.next %}
+      <a href="{{ page.next.permalink }}">
+	⟵ {{ page.next.filename }}
+      </a>
+      {% endif %}
+      {% if page.previous %}
+      <a class="float-right" href="{{ page.previous.permalink }}">
+	{{ page.previous.filename }} ⟶
+      </a>
+      {% endif %}
+    </nav>
+    {% endif %}
+    <hr/>
+    <footer>
+      <small>Last Updated: {{ site.data.last_updated }}</small>
+      <small>
+	Powered by <a href="https://github.com/arecker/blog">jekyll</a> (<a class="code" href="https://github.com/arecker/blog/commit/{{ site.data.git_head }}">{{ site.data.git_shorthead }}</a>)
+      </small>
+      <small>&copy; Copyright {{ site.data.year }} Alex Recker</small>
+    </footer>
+    {% if jekyll.environment == "production" %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42540208-6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-42540208-6');
+    </script>
+    {% endif %}
+  </body>
+</html>
