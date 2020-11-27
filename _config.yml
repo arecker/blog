@@ -9,7 +9,6 @@ include:
 - old
 
 exclude:
-- blog.rb
 - Gemfile
 - Gemfile.lock
 - LICENSE
