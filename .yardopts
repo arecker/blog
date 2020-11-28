@@ -1,0 +1,4 @@
+--output-dir _site/docs/
+--readme README.md
+-
+_plugins/**/*.rb

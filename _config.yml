@@ -8,11 +8,16 @@ include:
 - images
 - old
 
+keep_files:
+- docs
+
 exclude:
+- .jekyll-cache
 - Gemfile
 - Gemfile.lock
 - LICENSE
 - README.md
+- spec
 
 defaults:
 -

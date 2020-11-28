@@ -4,8 +4,7 @@ module Blog
   # Math
   module Math
     def average(numlist)
-      calc = numlist.inject { |sum, el| sum + el }.to_f / numlist.size
-      calc.round
+      numlist.inject { |sum, el| sum + el }.to_f / numlist.size
     end
 
     def total(numlist)

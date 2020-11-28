@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'jekyll'
+require 'rake'
 
 module Blog
   # Generators
@@ -47,9 +48,7 @@ module Blog
     class ResizeGenerator < Jekyll::Generator
       include Base
 
-      def generate(site)
-
-      end
+      def generate(site); end
     end
 
     # FrontmatterGenerator
@@ -64,15 +63,9 @@ module Blog
 
       def scan_pages!(site)
         site.pages.each do |page|
-          filename = File.basename(page.name, '.*') + '.html'
+          filename = "#{File.basename(page.name, '.*')}.html"
           page.data['filename'] = filename
-          if page.data['permalink'].nil?
-            debug "setting permalink to #{filename}"
-            page.data['permalink'] = filename
-          else
-            debug "skipping #{page.name}, set to #{page.data['permalink']}"
-          end
-
+          page.data['permalink'] = filename if page.data['permalink'].nil?
         end
       end
 
@@ -87,6 +80,17 @@ module Blog
             }
           )
         end
+      end
+    end
+
+    # DocsGenerator
+    class DocsGenerator < Jekyll::Generator
+      include Base
+      include Blog::Shell
+
+      def generate(site)
+        info 'generating pluging documentation'
+        shell('rake docs')
       end
     end
   end
