@@ -27,6 +27,50 @@ module Blog
       end
     end
 
+    # Stats Generator
+    class Stats < Jekyll::Generator
+      include Base
+      include Blog::Math
+
+      attr_reader :site
+
+      def generate(site)
+        @site = Site.new(site)
+        info 'calculating statistics'
+        site.data['stats'] = stats
+      end
+
+      def stats
+        @stats ||= {
+          'total_words' => total(site.word_counts),
+          'average_words' => average(site.word_counts).round(0),
+          'total_posts' => site.entries.size,
+          'consecutive_posts' => consecutive_posts,
+          'swears' => calculate_swears
+        }
+      end
+
+      private
+
+      def consecutive_posts
+        calculate_streaks(site.dates).first['days']
+      end
+
+      def calculate_swears
+        results = Hash[count_swears]
+        results['total'] = total(results.values)
+        results
+      end
+
+      def count_swears
+        occurences(swears, site.words).reject { |_k, v| v.zero? }.sort_by { |_k, v| -v }
+      end
+
+      def swears
+        site.recker_config.fetch('swears', [])
+      end
+    end
+
     # GitGenerator
     class GitGenerator < Jekyll::Generator
       include Base

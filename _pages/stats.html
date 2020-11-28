@@ -4,6 +4,40 @@ description: Interesting Writing Statistics
 ---
 <div class="row">
   <div class="column">
+    <h2>Posts</h2>
+    <table>
+      <tr>
+	<td>Total Posts</td>
+	<td class="code">{{ site.data.stats.total_posts | pretty }}</td>
+      </tr>
+      <tr>
+	<td>Consecutive Daily Posts</td>
+	<td class="code">{{ site.data.stats.consecutive_posts | pretty }}</td>
+      </tr>
+    </table>
+    <h2>Word Count</h2>
+    <table>
+      <tr>
+	<td>Total Word Count</td>
+	<td class="code">{{ site.data.stats.total_words | pretty }}</td>
+      </tr>
+      <tr>
+	<td>Average Word Count</td>
+	<td class="code">{{ site.data.stats.average_words | pretty }}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="column">
+    <h2>Bad Words</h2>
+    <table>
+      <tr>
+	<td>Total Bad Words</td>
+	<td class="code">{{ site.data.stats.swears.total | pretty }}</td>
+      </tr>
+    </table>
+  </div>
+<div class="row">
+  <div class="column">
     <h2>Code</h2>
     <table>
       <tr>
