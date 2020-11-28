@@ -2,9 +2,5 @@
 
 source 'https://rubygems.org'
 
-gem 'jekyll'
+gem 'blog', path: __dir__
 gem 'jekyll-feed'
-gem 'rake'
-gem 'rspec'
-gem 'rubocop'
-gem 'yard'

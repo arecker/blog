@@ -1,3 +1,13 @@
+PATH
+  remote: .
+  specs:
+    blog (0.0.0)
+      jekyll
+      rake
+      rspec
+      rubocop
+      yard
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -97,12 +107,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll
+  blog!
   jekyll-feed
-  rake
-  rspec
-  rubocop
-  yard
 
 BUNDLED WITH
    2.1.4

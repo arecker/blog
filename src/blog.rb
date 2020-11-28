@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift(__dir__) unless $LOAD_PATH.include? __dir__
-
 # Blog
 module Blog
   autoload :Files, 'blog/files'

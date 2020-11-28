@@ -88,8 +88,8 @@ module Blog
       include Base
       include Blog::Shell
 
-      def generate(site)
-        info 'generating pluging documentation'
+      def generate(_site)
+        info 'generating plugin documentation'
         shell('rake docs')
       end
     end
