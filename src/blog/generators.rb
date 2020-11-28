@@ -38,7 +38,8 @@ module Blog
           {
             'git_head' => git_head,
             'git_head_summary' => git_head_summary,
-            'git_shorthead' => git_short_head
+            'git_shorthead' => git_short_head,
+            'git_commit_count' => git_commit_count
           }
         )
       end
@@ -91,6 +92,21 @@ module Blog
       def generate(_site)
         info 'generating plugin documentation'
         shell('rake docs')
+      end
+    end
+
+    # CoverageGenerator
+    class CoverageGenerator < Jekyll::Generator
+      include Base
+      include Blog::Files
+      include Blog::Shell
+
+      def generate(site)
+        info 'running tests'
+        shell('rake spec')
+        info 'reading code coverage'
+        data_file = join('_site/coverage/data.json')
+        site.data['coverage'] = JSON.parse(File.read(data_file))
       end
     end
   end

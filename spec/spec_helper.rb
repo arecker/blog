@@ -1,7 +1,50 @@
 # frozen_string_literal: true
 
-plugin_dir = File.expand_path(File.join(__dir__, '../_plugins'))
-$LOAD_PATH.unshift(plugin_dir) unless $LOAD_PATH.include? plugin_dir
+require 'bundler'
+require 'json'
+require 'simplecov'
+
+def root
+  File.expand_path('..', __dir__)
+end
+
+class JekyllDataReporter
+  def format(result)
+    json = JSON.pretty_generate(data(result))
+
+    File.open(output_filepath, 'w+') do |file|
+      file.puts json
+    end
+
+    json
+  end
+
+  def data(result)
+    {
+      metrics: {
+        covered_percent: result.covered_percent,
+        covered_strength: result.covered_strength.nan? ? 0.0 : result.covered_strength,
+        covered_lines: result.covered_lines,
+        total_lines: result.total_lines
+      }
+    }
+  end
+
+  def output_filepath
+    File.join(root, '_site/coverage/data.json')
+  end
+end
+
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::HTMLFormatter,
+    JekyllDataReporter
+  ]
+)
+
+SimpleCov.start do
+  coverage_dir File.join(root, '_site/coverage')
+end
 
 require 'blog'
 

@@ -11,9 +11,11 @@ include:
 
 keep_files:
 - docs
+- coverage
 
 exclude:
 - .jekyll-cache
+- .yardoc
 - Gemfile
 - Gemfile.lock
 - LICENSE

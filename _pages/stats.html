@@ -4,7 +4,23 @@ description: Interesting Writing Statistics
 ---
 <div class="row">
   <div class="column">
-    <h2>Under Construction!</h2>
-    <p>I'm currently rebuilding this page, please check again later!</p>
+    <h2>Code</h2>
+    <table>
+      <tr>
+	<td>Total Lines of Code</td>
+	<td class="code">{{ site.data.coverage.metrics.total_lines | pretty }}</td>
+	<td>(<a href="/docs/">API documentation</a>)</td>
+      </tr>
+      <tr>
+	<td>Total Commits</td>
+	<td class="code">{{ site.data.git_commit_count | pretty }}</td>
+	<td>(<a href="https://github.com/arecker/blog/">source code</a>)</td>
+      </tr>
+      <tr>
+	<td>Test Coverage</td>
+	<td class="code">{{ site.data.coverage.metrics.covered_percent | round: 2 }}%</td>
+	<td>(<a href="{{ site.base_url }}/coverage/">coverage report</a>)</td>
+      </tr>
+    </table>
   </div>
 </div>
