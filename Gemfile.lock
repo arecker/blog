@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     blog (0.0.0)
+      html-proofer
       jekyll
       rake
       rspec
@@ -22,9 +23,21 @@ GEM
     em-websocket (0.5.2)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
+    ethon (0.12.0)
+      ffi (>= 1.3.0)
     eventmachine (1.2.7)
     ffi (1.13.1)
     forwardable-extended (2.6.0)
+    html-proofer (3.15.3)
+      addressable (~> 2.3)
+      mercenary (~> 0.3)
+      nokogumbo (~> 2.0)
+      parallel (~> 1.3)
+      rainbow (~> 3.0)
+      typhoeus (~> 1.3)
+      yell (~> 2.0)
+    htmlbeautifier (1.3.1)
+    htmlcompressor (0.4.0)
     http_parser.rb (0.6.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
@@ -47,6 +60,10 @@ GEM
       jekyll (>= 3.7, < 5.0)
     jekyll-sass-converter (2.1.0)
       sassc (> 2.0.1, < 3.0)
+    jekyll-tidy (0.2.2)
+      htmlbeautifier
+      htmlcompressor
+      jekyll
     jekyll-watch (2.2.1)
       listen (~> 3.0)
     kramdown (2.3.0)
@@ -58,6 +75,11 @@ GEM
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     mercenary (0.4.0)
+    mini_portile2 (2.4.0)
+    nokogiri (1.10.10)
+      mini_portile2 (~> 2.4.0)
+    nokogumbo (2.0.2)
+      nokogiri (~> 1.8, >= 1.8.4)
     parallel (1.20.1)
     parser (2.7.2.0)
       ast (~> 2.4.1)
@@ -106,8 +128,11 @@ GEM
     simplecov-html (0.12.2)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
+    typhoeus (1.4.0)
+      ethon (>= 0.9.0)
     unicode-display_width (1.7.0)
     yard (0.9.25)
+    yell (2.2.2)
 
 PLATFORMS
   ruby
@@ -115,6 +140,7 @@ PLATFORMS
 DEPENDENCIES
   blog!
   jekyll-feed
+  jekyll-tidy
 
 BUNDLED WITH
    2.1.4
