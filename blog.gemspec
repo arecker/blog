@@ -15,6 +15,7 @@ Gem::Specification.new do |spec|
     Dir['src/**/*.rb']
   ].flatten
 
+  spec.add_runtime_dependency 'html-proofer'
   spec.add_runtime_dependency 'jekyll'
   spec.add_runtime_dependency 'rake'
   spec.add_runtime_dependency 'rspec'

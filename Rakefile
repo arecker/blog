@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'rubocop/rake_task'
+require 'html-proofer'
 require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 require 'yard'
 
 RuboCop::RakeTask.new(:style)
@@ -12,6 +13,18 @@ YARD::Rake::YardocTask.new(:docs) do |t|
     '--readme=README.md'
   ]
   t.files = ['src/**/*.rb']
+end
+
+task :html do
+  options = {
+    assume_extension: true,
+    disable_external: true,
+    file_ignore: [
+      %r{/.*/docs/.*},
+      %r{/.*/coverage/.*}
+    ]
+  }
+  HTMLProofer.check_directory('./_site', options).run
 end
 
 task default: %w[style spec docs]
