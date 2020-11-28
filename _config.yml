@@ -1,7 +1,10 @@
+url: https://www.alexrecker.com
+
 plugins:
-- jekyll-feed
-- jekyll-tidy
 - blog
+- jekyll-feed
+- jekyll-sitemap
+- jekyll-tidy
 
 include:
 - _pages

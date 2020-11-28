@@ -4,4 +4,5 @@ source 'https://rubygems.org'
 
 gem 'blog', path: __dir__
 gem 'jekyll-feed'
+gem 'jekyll-sitemap'
 gem 'jekyll-tidy'
