@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'html-proofer'
+require 'jekyll'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
 require 'yard'
@@ -15,6 +16,17 @@ YARD::Rake::YardocTask.new(:docs) do |t|
   t.files = ['src/**/*.rb']
 end
 
+task :build do
+  config = Jekyll.configuration(
+    {
+      'source' => './',
+      'destination' => './_site'
+    }
+  )
+  site = Jekyll::Site.new(config)
+  Jekyll::Commands::Build.build site, config
+end
+
 task :html do
   options = {
     assume_extension: true,
@@ -27,4 +39,4 @@ task :html do
   HTMLProofer.check_directory('./_site', options).run
 end
 
-task default: %w[style spec docs]
+task default: %w[build html]
