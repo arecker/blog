@@ -7,7 +7,7 @@ module Blog
   # Time
   module Time
     def timezone
-      'CST'
+      'UTC'
     end
 
     def today
