@@ -153,16 +153,5 @@ module Blog
         site.data['coverage'] = JSON.parse(File.read(data_file))
       end
     end
-
-    # MarkupValidationGenerator
-    class MarkupValidationGenerator < Jekyll::Generator
-      include Base
-      include Blog::Shell
-
-      def generate(_site)
-        info 'validating HTML'
-        shell('rake html')
-      end
-    end
   end
 end
