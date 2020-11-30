@@ -39,7 +39,7 @@ recker:
       channel: '#blog'
       username: 'reckerbot'
       emoji: ':reckerbot:'
-      webhook_cmd: pass slack/reckerfamily/webhook | tail -1
+      webhook_cmd: pass slack/reckers/webhook | tail -1
     redalenfamily:
       channel: '#blog'
       username: 'reckerbot'
