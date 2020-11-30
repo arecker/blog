@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper.rb'
+require 'spec_helper'
 
+# rubocop:disable Metrics/BlockLength
 describe Blog::Entry do
   let(:doc) { double('doc') }
 
@@ -84,3 +85,4 @@ describe Blog::Entry do
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

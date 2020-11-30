@@ -67,7 +67,11 @@ module Blog
       end
 
       def swears
-        site.recker_config.fetch('swears', [])
+        %w[
+          ass asshole booger
+          crap damn fart fuck hell jackass
+          piss poop shit
+        ]
       end
     end
 

@@ -1,4 +1,5 @@
- # frozen_string_literal: true
+# rubocop:disable Gemspec/RequiredRubyVersion
+# frozen_string_literal: true
 
 src = File.expand_path('src', __dir__)
 $LOAD_PATH.unshift(src) unless $LOAD_PATH.include?(src)
@@ -21,5 +22,8 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rspec'
   spec.add_runtime_dependency 'rubocop'
   spec.add_runtime_dependency 'simplecov'
+  spec.add_runtime_dependency 'slack-notifier'
+  spec.add_runtime_dependency 'twitter'
   spec.add_runtime_dependency 'yard'
 end
+# rubocop:enable Gemspec/RequiredRubyVersion

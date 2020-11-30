@@ -28,21 +28,6 @@ exclude:
 - spec
 - src
 
-recker:
-  swears:
-  - ass
-  - asshole
-  - booger
-  - crap
-  - damn
-  - fart
-  - fuck
-  - hell
-  - jackass
-  - piss
-  - poop
-  - shit
-
 defaults:
 -
   scope:
