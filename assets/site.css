@@ -98,6 +98,13 @@ footer small::after {
     display: none;
 }
 
+@media screen and (min-width: 600px) {
+    .float-right-on-desktop {
+	float: right;
+    }
+}
+
+
 @media screen and (max-width: 600px) {
   .column {
     width: 100%;

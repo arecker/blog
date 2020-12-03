@@ -39,4 +39,4 @@ task :html do
   HTMLProofer.check_directory('./_site', options).run
 end
 
-task default: %w[build html]
+task default: %w[style spec build docs html]

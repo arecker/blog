@@ -132,14 +132,24 @@ module Blog
       end
     end
 
-    # DocsGenerator
-    class DocsGenerator < Jekyll::Generator
+    # Nav Generator
+    class NavGenerator < Jekyll::Generator
       include Base
-      include Blog::Shell
 
-      def generate(_site)
-        info 'generating plugin documentation'
-        shell('rake docs')
+      attr_reader :site
+
+      def generate(site)
+        @site = Site.new(site)
+        info 'building site navigation'
+        site.data['nav'] = nav
+      end
+
+      def nav
+        flagged_pages.sort_by { |p| p.data['nav'].to_i }
+      end
+
+      def flagged_pages
+        site.pages.select { |p| p.data.key? 'nav' }
       end
     end
 
@@ -150,8 +160,6 @@ module Blog
       include Blog::Shell
 
       def generate(site)
-        info 'running tests'
-        shell('rake spec')
         info 'reading code coverage'
         data_file = join('_site/coverage/data.json')
         site.data['coverage'] = JSON.parse(File.read(data_file))

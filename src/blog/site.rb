@@ -15,6 +15,10 @@ module Blog
       entries.first
     end
 
+    def pages
+      @site.pages
+    end
+
     def production?
       ENV['JEKYLL_ENV'] == 'production'
     end
