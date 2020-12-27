@@ -6,22 +6,6 @@ require 'time'
 module Blog
   # Time
   module Time
-    def timezone
-      'UTC'
-    end
-
-    def today
-      @today ||= ::Date.today.to_datetime.new_offset(time_offset).to_date
-    end
-
-    def now
-      @now ||= ::DateTime.now.new_offset(time_offset)
-    end
-
-    def time_offset
-      ::Time.zone_offset(timezone)
-    end
-
     def time_to_date(time)
       ::Date.parse(time.strftime('%Y-%m-%d'))
     end
