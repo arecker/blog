@@ -38,10 +38,6 @@ module Blog
       date.strftime('%Y-%m-%d')
     end
 
-    def to_timestamp(date)
-      date.strftime('%B %-d %Y, %I:%M:%S %p ') + timezone
-    end
-
     def parse_date(datestr)
       ::Date.parse(datestr).to_datetime.new_offset(offset).to_date
     end

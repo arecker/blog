@@ -12,21 +12,6 @@ module Blog
       include Blog::Time
     end
 
-    # TimeGenerator
-    class TimeGenerator < Jekyll::Generator
-      include Base
-
-      def generate(site)
-        info 'generating build time'
-        site.data.merge!(
-          {
-            'year' => today.year,
-            'last_updated' => to_timestamp(now)
-          }
-        )
-      end
-    end
-
     # Stats Generator
     class Stats < Jekyll::Generator
       include Base
