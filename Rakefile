@@ -4,6 +4,7 @@ require 'html-proofer'
 require 'jekyll'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+require 'yaml'
 require 'yard'
 
 RuboCop::RakeTask.new(:style)
@@ -17,12 +18,9 @@ YARD::Rake::YardocTask.new(:docs) do |t|
 end
 
 task :build do
-  config = Jekyll.configuration(
-    {
-      'source' => './',
-      'destination' => './_site'
-    }
-  )
+  ENV['JEKYLL_ENV'] = 'production'
+  data = YAML.load_file('_config.yml')
+  config = Jekyll.configuration(data)
   site = Jekyll::Site.new(config)
   Jekyll::Commands::Build.build site, config
 end
