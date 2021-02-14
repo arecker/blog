@@ -4,3 +4,4 @@
 .yardoc
 _site
 .jekyll-metadata
+www/*.html
