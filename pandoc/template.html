@@ -46,20 +46,12 @@
     </figure>
     $endif$
     $body$
-    {% if page.next or page.previous %}
+    $if(paginate)$
     <nav class="clearfix">
-      {% if page.next %}
-      <a href="{{ page.next.permalink }}">
-        ⟵ {{ page.next.filename }}
-      </a>
-      {% endif %}
-      {% if page.previous %}
-      <a class="float-right" href="{{ page.previous.permalink }}">
-        {{ page.previous.filename }} ⟶
-      </a>
-      {% endif %}
+      $if(next)$<a href="/$next$">⟵ $next$</a>$endif$
+      $if(previous)$<a class="float-right" href="/$previous$">$previous$ ⟶</a>$endif$
     </nav>
-    {% endif %}
+    $endif$
     <hr/>
     <footer>
       <small>Last Updated: $timestamp$</small>
