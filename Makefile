@@ -6,8 +6,8 @@ ENTRY_SOURCES := $(wildcard _posts/*.md)
 ENTRY_TARGETS := $(patsubst _posts/%-entry.md, www/%.html, $(ENTRY_SOURCES))
 entries: $(ENTRY_TARGETS)
 
-www/%.html : _posts/%-entry.md
-	pandoc -s -o $@ $^
+www/%.html : _posts/%-entry.md pandoc/template.html pandoc/entry.lua
+	pandoc -s --lua-filter ./pandoc/entry.lua --template pandoc/template.html -o $@ $^
 
 .PHONY: images
 images:
