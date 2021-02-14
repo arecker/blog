@@ -13,10 +13,10 @@
     <meta property="og:type" content="article" />
     <meta property="og:title" content="$title$"/>
     <meta property="og:description" content="$description$" />
-    {% if page.banner %}
-    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/{{ page.banner }}"/>
-    <meta property="og:image" content="/images/banners/{{ page.banner }}"/>
-    {% endif %}
+    $if(banner)$
+    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/$banner$"/>
+    <meta property="og:image" content="/images/banners/$banner$"/>
+    $endif$
     <link href="/style.css" rel="stylesheet"/>
   </head>
   <body>
@@ -26,12 +26,9 @@
     </header>
     <hr/>
     <nav>
-      {% if page.filename == "index.html" %}
-      <a href="/">index.html</a>
-      {% else %}
       <a href="/">index.html</a>
       <span> / </span>
-      <span>{{ page.filename }}</span>
+      <span>$filename$</span>
       {% endif %}
       <br class="show-on-mobile"/>
       <span class="float-right-on-desktop">
@@ -41,13 +38,13 @@
       </span>
     </nav>
     <hr/>
-    {% if page.banner %}
+    $if(banner)$
     <figure>
-      <a href="/images/banners/{{ page.banner }}">
-        <img alt="banner" src="/images/banners/{{ page.banner }}"/>
+      <a href="/images/banners/$banner$">
+        <img alt="banner" src="/images/banners/$banner$"/>
       </a>
     </figure>
-    {% endif %}
+    $endif$
     $body$
     {% if page.next or page.previous %}
     <nav class="clearfix">
@@ -65,20 +62,11 @@
     {% endif %}
     <hr/>
     <footer>
-      <small>Last Updated: {{ site.time }}</small>
+      <small>Last Updated: $timestamp$</small>
       <small>Last Change:
-        <span>{{ site.data.git_head_summary }} (<a href="https://github.com/arecker/blog/commit/{{ site.data.git_head }}">{{ site.data.git_shorthead }}</a>)</span>
+        <span>$git_summary$ (<a href="https://github.com/arecker/blog/commit/$git_head$">$git_short_head$</a>)</span>
       </small>
-      <small>&copy; Copyright {{ site.time | date: "%Y" }} Alex Recker</small>
+      <small>&copy; Copyright $year$ Alex Recker</small>
     </footer>
-    {% if jekyll.environment == "production" %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42540208-6"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-42540208-6');
-    </script>
-    {% endif %}
   </body>
 </html>
