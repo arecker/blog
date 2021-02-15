@@ -27,8 +27,10 @@ exclude:
 - LICENSE
 - README.md
 - blog.gemspec
+- pandoc
 - spec
 - src
+- www
 
 recker:
   twitter:
