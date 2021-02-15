@@ -20,6 +20,7 @@ keep_files:
 - coverage
 
 exclude:
+- data
 - .jekyll-cache
 - .yardoc
 - Gemfile

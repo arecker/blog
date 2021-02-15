@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -e
+
+log() {
+    echo "pandoc-entry.bash: $@" 1>&2;
+}
+
+touch "www/$1.html"
+
+# pandoc \
+#     -V filename="$1.html" \
+#     -V git_head="$(git rev-parse HEAD)" \
+#     -V git_short_head="$(git rev-parse --short HEAD)" \
+#     -V git_summary="$(git log -1 --pretty=format:\"%s\" HEAD)" \
+#     -V timestamp="$(date)" \
+#     -V year="$(date +%Y)" \
+#     -V paginate="true" \
+#     -V next="$(get_next $1)" \
+#     -V previous="$(get_previous $1)" \
+#     --lua-filter pandoc/entry.lua \
+#     --template pandoc/template.html \
+#     -o www/${1}.html \
+#     _posts/${1}-entry.md
