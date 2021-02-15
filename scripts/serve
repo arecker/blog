@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 log() {
-    echo "serve.bash: $@" 1>&2;
+    echo "serve: $@" 1>&2;
 }
 
 help() {
     cat | <<EOF
-serve.bash <up|down>
+serve <up|down>
 EOF
 }
 

@@ -3,7 +3,7 @@
 set -e
 
 log() {
-    echo "pandoc-entry.bash: $@" 1>&2;
+    echo "pandoc-entry: $@" 1>&2;
 }
 
 touch "www/$1.html"
