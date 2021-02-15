@@ -29,4 +29,4 @@ images:
 SERVE_COMMANDS = up down
 .PHONY: $(SERVE_COMMANDS)
 $(SERVE_COMMANDS):
-	scripts/serve.bash $@
+	scripts/serve $@
