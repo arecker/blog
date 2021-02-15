@@ -11,11 +11,16 @@ www/%.html: _posts/%-entry.md scripts/pandoc-entry pandoc/template.html pandoc/e
 
 PAGE_SOURCES = $(wildcard _pages/*.html)
 
-DATA_FILES = nav git
+DATA_FILES = $(subst generate-, , $(notdir $(wildcard scripts/generate-*)))
 DATA_FILE_TARGETS = $(addsuffix .json, $(addprefix data/, $(DATA_FILES)))
+DATA_FILE_FLAGS = $(addprefix --metadata-file , $(DATA_FILE_TARGETS))
 data: $(DATA_FILE_TARGETS)
-data/%.json : scripts/generate-% $(ENTRY_SOURCES) $(PAGE_SOURCES)
+data/%.json : scripts/generate-% $(ENTRY_SOURCES) $(PAGE_SOURCES) .git
 	scripts/generate-$* > data/$*.json
+
+.PHONY: debug
+debug:
+	@echo $(DATA_FILE_FLAGS)
 
 .PHONY: clean
 clean:
