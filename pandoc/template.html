@@ -26,15 +26,18 @@
     </header>
     <hr/>
     <nav>
+      $if(index)$
+      <a href="/">index.html</a>
+      $else$
       <a href="/">index.html</a>
       <span> / </span>
       <span>$filename$</span>
-      {% endif %}
+      $endif$
       <br class="show-on-mobile"/>
       <span class="float-right-on-desktop">
-        {% for page in site.data.nav %}
-        <a href="{{ page.url }}">{{ page.filename }}</a>
-        {% endfor %}
+        $for(nav)$
+        <a href="/$nav$">$nav$</a>
+        $endfor$
       </span>
     </nav>
     <hr/>
@@ -54,11 +57,11 @@
     $endif$
     <hr/>
     <footer>
-      <small>Last Updated: $timestamp$</small>
+      <small>Last Updated: $time.timestamp$</small>
       <small>Last Change:
-        <span>$git_summary$ (<a href="https://github.com/arecker/blog/commit/$git_head$">$git_short_head$</a>)</span>
+        <span>$git.summary$ (<a href="https://github.com/arecker/blog/commit/$git.head$">$git.short_head$</a>)</span>
       </small>
-      <small>&copy; Copyright $year$ Alex Recker</small>
+      <small>&copy; Copyright $time.year$ Alex Recker</small>
     </footer>
   </body>
 </html>

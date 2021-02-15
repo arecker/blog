@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'json'
+
+data = {
+  time: {
+    year: `date +%Y`.strip,
+    timestamp: `date`.strip
+  }
+}
+
+puts data.to_json
