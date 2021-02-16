@@ -26,7 +26,7 @@ class Latest
     data.merge(
       {
         'description' => data['title'],
-        'title' =>  Date.strptime(filename, '%Y-%M-%d.html').strftime('%A, %B %-d %Y')
+        'title' => Date.strptime(filename, '%Y-%M-%d.html').strftime('%A, %B %-d %Y')
       }
     )
   end
