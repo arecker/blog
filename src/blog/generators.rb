@@ -147,6 +147,8 @@ module Blog
             {
               'title' => to_uyd_date(post.date),
               'description' => post.data['title'],
+              'excerpt' => post.data['title'],
+              'image' => "/images/banners/#{post.data['banner']}",
               'permalink' => "/#{to_filename_date(post.date)}.html",
               'filename' => "#{to_filename_date(post.date)}.html"
             }
