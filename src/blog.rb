@@ -12,7 +12,6 @@ module Blog
   autoload :Time, 'blog/time'
 
   # Eager Loads
-  require 'blog/commands'
   require 'blog/filters'
   require 'blog/generators'
 end
