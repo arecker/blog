@@ -9,7 +9,6 @@ module Blog
   autoload :Math, 'blog/math'
   autoload :Shell, 'blog/shell'
   autoload :Site, 'blog/site'
-  autoload :Social, 'blog/social'
   autoload :Time, 'blog/time'
 
   # Eager Loads

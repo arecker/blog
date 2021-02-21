@@ -8,8 +8,6 @@ PATH
       rspec
       rubocop
       simplecov
-      slack-notifier
-      twitter
       yard
 
 GEM
@@ -18,24 +16,17 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.1)
-    buftok (0.2.0)
     colorator (1.1.0)
     concurrent-ruby (1.1.7)
     diff-lcs (1.4.4)
     docile (1.3.2)
-    domain_name (0.5.20190701)
-      unf (>= 0.0.5, < 1.0.0)
     em-websocket (0.5.2)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
-    equalizer (0.0.11)
     ethon (0.12.0)
       ffi (>= 1.3.0)
     eventmachine (1.2.7)
     ffi (1.13.1)
-    ffi-compiler (1.0.1)
-      ffi (>= 1.0.0)
-      rake
     forwardable-extended (2.6.0)
     html-proofer (3.15.3)
       addressable (~> 2.3)
@@ -47,16 +38,6 @@ GEM
       yell (~> 2.0)
     htmlbeautifier (1.3.1)
     htmlcompressor (0.4.0)
-    http (4.4.1)
-      addressable (~> 2.3)
-      http-cookie (~> 1.0)
-      http-form_data (~> 2.2)
-      http-parser (~> 1.2.0)
-    http-cookie (1.0.3)
-      domain_name (~> 0.5)
-    http-form_data (2.3.0)
-    http-parser (1.2.1)
-      ffi-compiler (>= 1.0, < 2.0)
     http_parser.rb (0.6.0)
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
@@ -95,12 +76,8 @@ GEM
     listen (3.3.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    memoizable (0.4.2)
-      thread_safe (~> 0.3, >= 0.3.1)
     mercenary (0.4.0)
     mini_portile2 (2.4.0)
-    multipart-post (2.1.1)
-    naught (1.1.0)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     nokogumbo (2.0.2)
@@ -147,31 +124,14 @@ GEM
     safe_yaml (1.0.5)
     sassc (2.4.0)
       ffi (~> 1.9)
-    simple_oauth (0.3.1)
     simplecov (0.18.5)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
-    slack-notifier (2.3.2)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
-    thread_safe (0.3.6)
-    twitter (7.0.0)
-      addressable (~> 2.3)
-      buftok (~> 0.2.0)
-      equalizer (~> 0.0.11)
-      http (~> 4.0)
-      http-form_data (~> 2.0)
-      http_parser.rb (~> 0.6.0)
-      memoizable (~> 0.4.0)
-      multipart-post (~> 2.0)
-      naught (~> 1.0)
-      simple_oauth (~> 0.3.0)
     typhoeus (1.4.0)
       ethon (>= 0.9.0)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.7.7)
     unicode-display_width (1.7.0)
     yard (0.9.25)
     yell (2.2.2)
@@ -186,4 +146,4 @@ DEPENDENCIES
   jekyll-tidy
 
 BUNDLED WITH
-   2.1.4
+   2.2.3

@@ -34,24 +34,6 @@ exclude:
 - www
 - pages
 
-recker:
-  twitter:
-    access_token_secret_cmd: pass twitter/reckerbot/access-token-secret
-    access_token_cmd: pass twitter/reckerbot/access-token
-    consumer_api_key_cmd: pass twitter/reckerbot/consumer-api-key
-    consumer_api_secret_cmd: pass twitter/reckerbot/consumer-api-secret-key
-  slack:
-    reckerfamily:
-      channel: '#blog'
-      username: 'reckerbot'
-      emoji: ':reckerbot:'
-      webhook_cmd: pass slack/reckers/webhook | tail -1
-    redalenfamily:
-      channel: '#blog'
-      username: 'reckerbot'
-      emoji: ':reckerbot:'
-      webhook_cmd: pass slack/redalenfamily/webhook | tail -1
-
 defaults:
 -
   scope:
