@@ -4,50 +4,15 @@ log() {
     echo "serve: $@" 1>&2;
 }
 
-help() {
-    cat | <<EOF
-serve <up|down>
-EOF
-}
-
 is_running() {
-    [ -d "/proc/$(cat .serve-pid)" ]
+    test -f .serve-pid && ps -p $(cat .serve-pid) > /dev/null
 }
 
-up() {
-    if is_running; then
-        log "web server is already running"
-    else
-        log "starting web server"
-        python3 -m http.server --directory www > /dev/null 2>&1 &
-        echo "$!" > .serve-pid
-    fi
-}
-
-down() {
-    if is_running; then
-        kill "$(cat .serve-pid)"
-        log "web server stopped"
-    else
-        log "web server isn't running"
-    fi
-}
-
-case "$1" in
-    "up")
-        if ! up; then
-            log "could not start web server!"
-            exit 1
-        fi
-        ;;
-    "down")
-        if ! down; then
-            log "could not kill web server"
-            exit 1
-        fi
-        ;;
-    "*")
-        help
-        exit 1
-        ;;
-esac
+if is_running; then
+    kill "$(cat .serve-pid)"
+    log "web server stopped"
+else
+    log "web server starting"
+    python3 -m http.server --directory www > /dev/null 2>&1 &
+    echo "$!" > .serve-pid
+fi

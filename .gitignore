@@ -4,6 +4,4 @@
 .yardoc
 _site
 .jekyll-metadata
-www/*.html
-www/images
 .serve-pid
