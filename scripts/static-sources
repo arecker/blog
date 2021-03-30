@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# EXCLUDE_DIRS = [
+#     'data',
+#     'old',
+#     'scripts',
+#     'spec',
+#     'src',
+# ]
+
+read -d '' SKIP_FILES <<EOF
+data
+old
+scripts
+spec
+src
+www
+EOF
+
+skip_files_args() {
+    local newlines_removed="$(echo $SKIP_FILES | tr '\n' ' ')"
+    local flags_added="! -name $(echo $newlines_removed | sed 's/ / ! -name /g')"
+    echo "$flags_added"
+}
+
+find . \
+     -maxdepth 1 \
+     -mindepth 1 \
+     -type d \
+     ! -name "_*" ! -name ".*" \
+     $(skip_files_args) -printf "%f "
