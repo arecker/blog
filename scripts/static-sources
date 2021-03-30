@@ -1,13 +1,6 @@
 #!/usr/bin/env bash
 
-# EXCLUDE_DIRS = [
-#     'data',
-#     'old',
-#     'scripts',
-#     'spec',
-#     'src',
-# ]
-
+# don't treat these dirs like static dirs
 read -d '' SKIP_FILES <<EOF
 data
 old
