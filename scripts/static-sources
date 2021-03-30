@@ -24,8 +24,6 @@ skip_files_args() {
 }
 
 find . \
-     -maxdepth 1 \
-     -mindepth 1 \
-     -type d \
+     -maxdepth 1 -mindepth 1 -type d \
      ! -name "_*" ! -name ".*" \
      $(skip_files_args) -printf "%f "
