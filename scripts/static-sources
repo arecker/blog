@@ -1,22 +1,20 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ruby
+# frozen_string_literal: true
 
-# don't treat these dirs like static dirs
-read -d '' SKIP_FILES <<EOF
-data
-old
-scripts
-spec
-src
-www
-EOF
+require_relative '../newsrc/blog'
 
-skip_files_args() {
-    local newlines_removed="$(echo $SKIP_FILES | tr '\n' ' ')"
-    local flags_added="! -name $(echo $newlines_removed | sed 's/ / ! -name /g')"
-    echo "$flags_added"
-}
+SKIP_THESE = [
+  'data',
+  'newsrc',
+  'old',
+  'scripts',
+  'spec',
+  'src',
+  'www'
+]
 
-find . \
-     -maxdepth 1 -mindepth 1 -type d \
-     ! -name "_*" ! -name ".*" \
-     $(skip_files_args) -printf "%f "
+def static_directories
+  Blog::Files.directories.reject { |d| SKIP_THESE.include?(File.basename(d)) }
+end
+
+puts static_directories.join(' ')

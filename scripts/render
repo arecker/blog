@@ -53,6 +53,17 @@ class Arguments
   end
 end
 
+# Source
+#
+# Source file.
+class Source
+  attr_reader :path
+
+  def initialize(path)
+    @path = path
+  end
+end
+
 begin
   args = Arguments.parse
   puts args
