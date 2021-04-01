@@ -3,18 +3,18 @@
 
 require_relative '../newsrc/blog'
 
-SKIP_THESE = [
-  'data',
-  'newsrc',
-  'old',
-  'scripts',
-  'spec',
-  'src',
-  'www'
-]
+SKIP_THESE = %w[
+  data
+  newsrc
+  old
+  scripts
+  spec
+  src
+  www
+].freeze
 
-def static_directories
-  Blog::Files.directories.reject { |d| SKIP_THESE.include?(File.basename(d)) }
-end
+output = Blog::Files.directories.reject do |d|
+  SKIP_THESE.include?(File.basename(d))
+end.join(' ')
 
-puts static_directories.join(' ')
+puts output
