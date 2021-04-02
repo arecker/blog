@@ -2,72 +2,83 @@
 
 # frozen_string_literal: true
 
-require 'optparse'
+# require 'optparse'
 
-# Arguments
-#
-# Parse CLI Arguments
-class Arguments
-  class MissingArguments < StandardError; end
+# # Arguments
+# #
+# # Parse CLI Arguments
+# class Arguments
+#   class MissingArguments < StandardError; end
 
-  def self.parse
-    obj = new
-    obj.parse!
-    raise MissingArguments, obj.missing_args_message if obj.missing_args.any?
+#   def self.parse
+#     obj = new
+#     obj.parse!
+#     raise MissingArguments, obj.missing_args_message if obj.missing_args.any?
 
-    obj.options
-  end
+#     obj.options
+#   end
 
-  def required_args
-    {
-      from: 'render source path',
-      to: 'render target path'
-    }
-  end
+#   def required_args
+#     {
+#       from: 'render source path',
+#       to: 'render target path'
+#     }
+#   end
 
-  def missing_args
-    required_args.keys.reject { |k| options.key? k }
-  end
+#   def missing_args
+#     required_args.keys.reject { |k| options.key? k }
+#   end
 
-  def missing_args_message
-    args = missing_args.map { |a| "--#{a}" }.join(', ')
-    "Missing: #{args}"
-  end
+#   def missing_args_message
+#     args = missing_args.map { |a| "--#{a}" }.join(', ')
+#     "Missing: #{args}"
+#   end
 
-  def parse!
-    parser.parse!
-  end
+#   def parse!
+#     parser.parse!
+#   end
 
-  def options
-    @options ||= {}
-  end
+#   def options
+#     @options ||= {}
+#   end
 
-  def parser
-    @parser ||= OptionParser.new do |opts|
-      required_args.each do |name, help|
-        opts.on("--#{name}=path", help) do |value|
-          options[name] = value
-        end
-      end
-    end
-  end
-end
+#   def parser
+#     @parser ||= OptionParser.new do |opts|
+#       required_args.each do |name, help|
+#         opts.on("--#{name}=path", help) do |value|
+#           options[name] = value
+#         end
+#       end
+#     end
+#   end
+# end
 
-# Source
-#
-# Source file.
-class Source
-  attr_reader :path
+# # Source
+# #
+# # Source file.
+# class Source
+#   attr_reader :path
 
-  def initialize(path)
-    @path = path
-  end
-end
+#   def initialize(path)
+#     @path = path
+#   end
+# end
 
-begin
-  args = Arguments.parse
-  puts args
-rescue Arguments::MissingArguments => e
-  puts e.message
-  exit(1)
-end
+# begin
+#   args = Arguments.parse
+#   puts args
+# rescue Arguments::MissingArguments => e
+#   puts e.message
+#   exit(1)
+# end
+
+require_relative '../newsrc/blog'
+
+args = Blog::Arguments.parse(
+  [
+    [:from, 'path', nil, 'source file'],
+    [:to, 'path', nil, 'target file']
+  ]
+)
+
+puts args
