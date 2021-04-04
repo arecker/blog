@@ -2,6 +2,8 @@
 
 # frozen_string_literal: true
 
+require 'rdoc'
+
 require_relative '../newsrc/blog'
 
 args = Blog::Arguments.parse(
@@ -11,4 +13,4 @@ args = Blog::Arguments.parse(
   ]
 )
 
-puts args
+Blog::Markup.render(from=args[:from], to=args[:to])

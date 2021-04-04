@@ -30,5 +30,9 @@ module Blog
     def self.directories
       tree.directories
     end
+
+    def self.join(*paths)
+      File.join(tree.root, *paths)
+    end
   end
 end

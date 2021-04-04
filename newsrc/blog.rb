@@ -7,4 +7,5 @@ module Blog
   autoload :Arguments, 'blog/arguments.rb'
   autoload :Files, 'blog/files.rb'
   autoload :Logging, 'blog/logging.rb'
+  autoload :Markup, 'blog/markup.rb'
 end
