@@ -5,40 +5,18 @@ require 'yaml'
 module Blog
   # For working with markdown and HTML.
   module Markup
-    # Wrapper object for working with pages.
-    class Page
-      attr_reader :source
-
-      def initialize(source='')
-        @source = source
-      end
-
-      def markdown?
-        ['.md', '.markdown'].include? File.extname(source)
-      end
-
-      def frontmatter
-        YAML.load_file source
-      end
-
-      def content
-        data = File.read(source)
-        data unless markdown?
-
-        formatter = RDoc::Markup::ToHtml.new(RDoc::Options.new, nil)
-        RDoc::Markdown.parse(data).accept(formatter)
-      end
-
-      def render(target)
-        File.open(target, 'w+') do |f|
-          builder = DocBuilder.new(self)
-          f.write builder.to_html
-        end
-      end
+    # For building HTML documents from pages.
+    def self.strip_frontmatter(text)
+      text.gsub(/^---\n(.*?)\n---\n/, '')
     end
 
-    # For building HTML documents from pages.
-    class DocBuilder
+    def self.markdown_to_html(text)
+      formatter = RDoc::Markup::ToHtml.new(RDoc::Options.new, nil)
+      RDoc::Markdown.parse(text).accept(formatter)
+    end
+
+    # Buld an HTML doc.
+    class Document
       attr_reader :page
 
       def initialize(page)
@@ -68,23 +46,42 @@ module Blog
       end
 
       def body
+        <<~HTML
+          #{page.content}
+          #{footer}
+        HTML
+      end
+
+      def footer
+        <<~HTML
+          <hr/>
+          <footer>
+            <small>Last Updated: #{page.build_updated}</small>
+            <small>Last Change:
+              <span>#{page.build_summary} (<a href="https://github.com/arecker/blog/commit/#{page.build_head}">#{page.build_short_head}</a>)</span>
+            </small>
+            <small>&copy; Copyright #{page.build_year} Alex Recker</small>
+          </footer>
+        HTML
       end
 
       def to_html
         <<~HTML
-<!doctype html>
-<html lang="en">
-#{head}
-#{body}
-#{footer}
+          <!doctype html>
+          <html lang="en">
+          #{head}
+          #{body}
+          </html>
         HTML
       end
     end
 
     def self.render(from = '', to = '')
-      page = Page.new(Blog::Files.join(from))
-      puts page.frontmatter
-      # page.render(Blog::Files.join(to))
+      page = Blog::Page.new(Blog::Files.join(from))
+      document = Document.new(page)
+      File.open(Blog::Files.join(to), 'w+') do |output|
+        output.write document.to_html
+      end
     end
   end
 end

@@ -8,4 +8,5 @@ module Blog
   autoload :Files, 'blog/files.rb'
   autoload :Logging, 'blog/logging.rb'
   autoload :Markup, 'blog/markup.rb'
+  autoload :Page, 'blog/page.rb'
 end
