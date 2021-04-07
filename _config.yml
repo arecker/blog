@@ -20,7 +20,6 @@ keep_files:
 - coverage
 
 exclude:
-- data
 - .jekyll-cache
 - .yardoc
 - Gemfile
@@ -28,11 +27,13 @@ exclude:
 - LICENSE
 - README.md
 - blog.gemspec
+- data
+- netlify.toml
+- pages
 - pandoc
 - spec
 - src
 - www
-- pages
 
 defaults:
 -

@@ -1,0 +1,4 @@
+[build]
+  publish = "_site"
+  command = "bundle exec rake"
+  environment = { JEKYLL_ENV = "production" }
