@@ -6,7 +6,9 @@
 [[redirects]]
 from = "/our-new-sid-meiers-civilization-inspired-budget/"
 to = "https://archive.alexrecker.com/civ-budget.html"
+force = true
 
 [[redirects]]
 from = "/seinfeld.html"
 to = "https://archive.alexrecker.com/seinfeld.html"
+force = true
