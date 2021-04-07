@@ -2,3 +2,11 @@
   publish = "_site"
   command = "bundle exec rake"
   environment = { JEKYLL_ENV = "production" }
+
+[[redirects]]
+from = "https://www.alexrecker.com/our-new-sid-meiers-civilization-inspired-budget/"
+to = "https://archive.alexrecker.com/civ-budget.html"
+
+[[redirects]]
+from = "https://www.alexrecker.com/seinfeld.html"
+to = "https://archive.alexrecker.com/seinfeld.html"
