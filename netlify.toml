@@ -4,9 +4,9 @@
   environment = { JEKYLL_ENV = "production" }
 
 [[redirects]]
-from = "https://www.alexrecker.com/our-new-sid-meiers-civilization-inspired-budget/"
+from = "/our-new-sid-meiers-civilization-inspired-budget/"
 to = "https://archive.alexrecker.com/civ-budget.html"
 
 [[redirects]]
-from = "https://www.alexrecker.com/seinfeld.html"
+from = "/seinfeld.html"
 to = "https://archive.alexrecker.com/seinfeld.html"
