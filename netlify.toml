@@ -2,6 +2,7 @@
   publish = "_site"
   command = "bundle exec rake"
   environment = { JEKYLL_ENV = "production" }
+  processing = { skip_processing = true }
 
 [[redirects]]
 from = "/our-new-sid-meiers-civilization-inspired-budget/"
@@ -11,4 +12,64 @@ force = true
 [[redirects]]
 from = "/seinfeld.html"
 to = "https://archive.alexrecker.com/seinfeld.html"
+force = true
+
+[[redirects]]
+from = "/anxiety.html"
+to = "https://archive.alexrecker.com/anxiety.html"
+force = true
+
+[[redirects]]
+from = "/clockwork-orange.html"
+to = "https://archive.alexrecker.com/clockwork-orange.html"
+force = true
+
+[[redirects]]
+from = "/eyes-wide-shut.html"
+to = "https://archive.alexrecker.com/eyes-wide-shut.html"
+force = true
+
+[[redirects]]
+from = "/full-metal-jacket.html"
+to = "https://archive.alexrecker.com/full-metal-jacket.html"
+force = true
+
+[[redirects]]
+from = "/jane.html"
+to = "https://archive.alexrecker.com/jane.html"
+force = true
+
+[[redirects]]
+from = "/linux.html"
+to = "https://archive.alexrecker.com/linux.html"
+force = true
+
+[[redirects]]
+from = "/noah.html"
+to = "https://archive.alexrecker.com/noah.html"
+force = true
+
+[[redirects]]
+from = "/rockford.html"
+to = "https://archive.alexrecker.com/rockford.html"
+force = true
+
+[[redirects]]
+from = "/san-francisco.html"
+to = "https://archive.alexrecker.com/san-francisco.html"
+force = true
+
+[[redirects]]
+from = "/the-top-5-ways-that-my-corgi-has-taught-me-how-to-be-a-better-person.html"
+to = "https://archive.alexrecker.com/the-top-5-ways-that-my-corgi-has-taught-me-how-to-be-a-better-person.html"
+force = true
+
+[[redirects]]
+from = "/uhh-yeah-dude.html"
+to = "https://archive.alexrecker.com/uhh-yeah-dude.html"
+force = true
+
+[[redirects]]
+from = "/using-selenium-buy-bus-pass/"
+to = "https://archive.alexrecker.com/selenium-bus-pass.html"
 force = true
