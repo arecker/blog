@@ -47,14 +47,46 @@ module Blog
 
       def body
         <<~HTML
+          #{header}
+          <hr/>
+          #{nav}
+          <hr/>
           #{page.content}
+          <hr/>
           #{footer}
         HTML
       end
 
+      def header
+        <<~HTML
+          <header>
+            <h1 class="title">#{page.title}</h1>
+            <h2 class="subtitle">#{page.description}</h2>
+          </header>
+        HTML
+      end
+
+      def nav
+        elements = ['<a href="/">index.html</a>']
+        unless page.index?
+          elements += [
+            '<span> / </span>',
+            "<span>#{page.target_filename}</span>"
+          ]
+        end
+        elements += [
+          '<br class="show-on-mobile"/>',
+          '<span class="float-right-on-desktop">',
+          '<a href=\"entries.html\">entries.html</a>',
+          '<a href=\"stats.html\">stats.html</a>',
+          '<a href=\"contact.html\">contact.html</a>',
+          '</span>'
+        ]
+        ['<nav>', elements, '</nav>'].flatten.join("\n")
+      end
+
       def footer
         <<~HTML
-          <hr/>
           <footer>
             <small>Last Updated: #{page.build_updated}</small>
             <small>Last Change:

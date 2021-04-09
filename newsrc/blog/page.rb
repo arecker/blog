@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'date'
+
 module Blog
   # Page Mixin for working with entries.
   module PageEntry
@@ -22,7 +24,7 @@ module Blog
     def entry_date
       return nil unless entry?
 
-      entry_date_slug
+      Date.strptime(entry_date_slug, '%Y-%m-%d')
     end
   end
 
@@ -49,10 +51,18 @@ module Blog
     end
   end
 
+  # Mixin for working with page navigation
+  module PageNav
+    def index?
+      target_filename == 'index.html'
+    end
+  end
+
   # Wrapper object for working with pages.
   class Page
     include Blog::PageBuild
     include Blog::PageEntry
+    include Blog::PageNav
 
     attr_reader :source
 
@@ -98,7 +108,7 @@ module Blog
 
     def description
       if entry?
-        title
+        frontmatter.fetch('title')
       else
         frontmatter.fetch('description')
       end
