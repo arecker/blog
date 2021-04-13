@@ -23,6 +23,8 @@ exclude:
 - blog.gemspec
 - gem
 - netlify.toml
+- scripts
+- src
 
 defaults:
 -
