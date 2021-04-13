@@ -20,7 +20,7 @@ module Blog
     end
 
     def production?
-      ENV['JEKYLL_ENV'] == 'production'
+      true
     end
 
     def data

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'jekyll'
-require 'rake'
 
 module Blog
   # Generators
@@ -88,16 +87,7 @@ module Blog
       end
 
       def data
-        if site.production?
-          info 'reading git history'
-          real_data
-        else
-          info 'stubbing out git history'
-          stub_data
-        end
-      end
-
-      def real_data
+        info 'reading git history'
         {
           'git_head' => git_head,
           'git_head_summary' => git_head_summary,
@@ -105,22 +95,6 @@ module Blog
           'git_commit_count' => git_commit_count
         }
       end
-
-      def stub_data
-        {
-          'git_head' => '',
-          'git_head_summary' => '',
-          'git_shorthead' => '',
-          'git_commit_count' => 0
-        }
-      end
-    end
-
-    # ResizeGenerator
-    class ResizeGenerator < Jekyll::Generator
-      include Base
-
-      def generate(site); end
     end
 
     # FrontmatterGenerator
@@ -175,19 +149,6 @@ module Blog
 
       def flagged_pages
         site.pages.select { |p| p.data.key? 'nav' }
-      end
-    end
-
-    # CoverageGenerator
-    class CoverageGenerator < Jekyll::Generator
-      include Base
-      include Blog::Files
-      include Blog::Shell
-
-      def generate(site)
-        info 'reading code coverage'
-        data_file = join('_site/coverage/data.json')
-        site.data['coverage'] = JSON.parse(File.read(data_file))
       end
     end
   end

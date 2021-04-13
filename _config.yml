@@ -5,7 +5,6 @@ plugins:
 - blog
 - jekyll-feed
 - jekyll-sitemap
-- jekyll-tidy
 
 include:
 - _pages
@@ -15,25 +14,15 @@ include:
 - images
 - old
 
-keep_files:
-- docs
-- coverage
-
 exclude:
 - .jekyll-cache
-- .yardoc
 - Gemfile
 - Gemfile.lock
 - LICENSE
 - README.md
 - blog.gemspec
-- data
+- gem
 - netlify.toml
-- pages
-- pandoc
-- spec
-- src
-- www
 
 defaults:
 -

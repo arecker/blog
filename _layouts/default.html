@@ -1,30 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>{{ page.title }} | {{ page.description }}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@alex_recker" />
     <meta name="twitter:title" content="{{ page.title }}" />
     <meta name="twitter:description" content="{{ page.description }}" />
     <meta property="og:url" content="{{ page.url }}" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ page.title }}"/>
+    <meta property="og:title" content="{{ page.title }}" />
     <meta property="og:description" content="{{ page.description }}" />
     {% if page.banner %}
-    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/{{ page.banner }}"/>
-    <meta property="og:image" content="/images/banners/{{ page.banner }}"/>
+    <meta
+      name="twitter:image"
+      content="https://www.alexrecker.com/images/banners/{{ page.banner }}"
+    />
+    <meta property="og:image" content="/images/banners/{{ page.banner }}" />
     {% endif %}
-    <link href="/assets/site.css" rel="stylesheet"/>
+    <link href="/assets/site.css" rel="stylesheet" />
   </head>
   <body>
     <header>
       <h1 class="title">{{ page.title }}</h1>
       <h2 class="subtitle">{{ page.description }}</h2>
     </header>
-    <hr/>
+    <hr />
     <nav>
       {% if page.filename == "index.html" %}
       <a href="/">index.html</a>
@@ -33,52 +36,44 @@
       <span> / </span>
       <span>{{ page.filename }}</span>
       {% endif %}
-      <br class="show-on-mobile"/>
+      <br class="show-on-mobile" />
       <span class="float-right-on-desktop">
         {% for page in site.data.nav %}
         <a href="{{ page.url }}">{{ page.filename }}</a>
         {% endfor %}
       </span>
     </nav>
-    <hr/>
+    <hr />
     {% if page.banner %}
     <figure>
       <a href="/images/banners/{{ page.banner }}">
-        <img alt="banner" src="/images/banners/{{ page.banner }}"/>
+        <img alt="banner" src="/images/banners/{{ page.banner }}" />
       </a>
     </figure>
-    {% endif %}
-    {{ content }}
-    {% if page.next or page.previous %}
+    {% endif %} {{ content }} {% if page.next or page.previous %}
     <nav class="clearfix">
       {% if page.next %}
-      <a href="{{ page.next.permalink }}">
-        ⟵ {{ page.next.filename }}
-      </a>
-      {% endif %}
-      {% if page.previous %}
+      <a href="{{ page.next.permalink }}"> ⟵ {{ page.next.filename }} </a>
+      {% endif %} {% if page.previous %}
       <a class="float-right" href="{{ page.previous.permalink }}">
         {{ page.previous.filename }} ⟶
       </a>
       {% endif %}
     </nav>
     {% endif %}
-    <hr/>
+    <hr />
     <footer>
       <small>Last Updated: {{ site.time }}</small>
-      <small>Last Change:
-        <span>{{ site.data.git_head_summary }} (<a href="https://github.com/arecker/blog/commit/{{ site.data.git_head }}">{{ site.data.git_shorthead }}</a>)</span>
+      <small
+        >Last Change:
+        <span
+          >{{ site.data.git_head_summary }} (<a
+            href="https://github.com/arecker/blog/commit/{{ site.data.git_head }}"
+            >{{ site.data.git_shorthead }}</a
+          >)</span
+        >
       </small>
       <small>&copy; Copyright {{ site.time | date: "%Y" }} Alex Recker</small>
     </footer>
-    {% if jekyll.environment == "production" %}
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-42540208-6"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-42540208-6');
-    </script>
-    {% endif %}
   </body>
 </html>

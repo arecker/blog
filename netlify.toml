@@ -1,7 +1,7 @@
 [build]
   publish = "_site"
-  command = "bundle exec rake"
-  environment = { JEKYLL_ENV = "production" }
+  command = "bundle exec jekyll build"
+  environment = { }
   processing = { skip_processing = true }
 
 [[redirects]]
