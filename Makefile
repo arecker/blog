@@ -1,24 +1,34 @@
-STATIC_SOURCES := $(shell scripts/statics)
+PAGE_SOURCES := $(wildcard _pages/*)
+PAGE_TARGETS := $(addprefix www/,$(notdir $(PAGE_SOURCES)))
+ENTRY_SOURCES := $(wildcard _posts/*)
+ENTRY_TARGETS := $(addprefix www/,$(notdir $(patsubst %-entry.md,%.html, $(ENTRY_SOURCES))))
+STATIC_SOURCES := $(shell scripts/static-sources)
 STATIC_TARGETS := $(addprefix www/,$(STATIC_SOURCES))
 SCRIPTS := $(notdir $(wildcard scripts/*))
 
 .PHONY: all
-all: static partials
+all: static entries pages
 
 .PHONY: static
 static: $(STATIC_TARGETS)
 $(STATIC_TARGETS): $(STATIC_SOURCES)
 	rm -rf $@ && cp -r $(notdir $@) $@
 
-.PHONY: partials
-partials: partials/nav.html
-partials/nav.html:
-	scripts/nav > $@
+.PHONY: entries
+entries: $(ENTRY_TARGETS)
+www/%.html: _posts/%-entry.md
+	@echo building entry $@
+	@touch $@
+
+.PHONY: pages
+pages: $(PAGE_TARGETS)
+www/%.html: _pages/%.html
+	@echo building page $@
+	@touch $@
 
 .PHONY: clean
 clean:
 	rm -rf www/*
-	rm -rf partials/*
 
 .PHONY: $(SCRIPTS)
 $(SCRIPTS):

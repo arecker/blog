@@ -24,9 +24,9 @@ exclude:
 - blog.gemspec
 - gem
 - netlify.toml
-- partials
 - scripts
 - src
+- www
 
 defaults:
 -
