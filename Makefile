@@ -17,14 +17,12 @@ $(STATIC_TARGETS): $(STATIC_SOURCES)
 .PHONY: entries
 entries: $(ENTRY_TARGETS)
 www/%.html: _posts/%-entry.md
-	@echo building entry $@
-	@touch $@
+	scripts/render $^ > $@
 
 .PHONY: pages
 pages: $(PAGE_TARGETS)
 www/%.html: _pages/%.html
-	@echo building page $@
-	@touch $@
+	scripts/render $^ > $@
 
 .PHONY: clean
 clean:

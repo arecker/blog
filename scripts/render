@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require_relative '../src/lib'
+
+page = Blog::Page.new(ARGV.first)
+
+puts "[placeholder for rendering #{page.pathname}]"
