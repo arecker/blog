@@ -19,10 +19,12 @@ exclude:
 - Gemfile
 - Gemfile.lock
 - LICENSE
+- Makefile
 - README.md
 - blog.gemspec
 - gem
 - netlify.toml
+- partials
 - scripts
 - src
 

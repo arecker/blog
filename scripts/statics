@@ -2,10 +2,11 @@
 
 # frozen_string_literal: true
 
-require_relative '../src/blog'
+require_relative '../src/lib'
 
 EXCLUDE = [
   'gem',
+  'partials',
   'scripts',
   'src',
   'www',
