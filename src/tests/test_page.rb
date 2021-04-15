@@ -59,4 +59,11 @@ class TestPage < Test::Unit::TestCase
     page = Blog::Page.new('_pages/page.md')
     assert_false(page.entry?)
   end
+
+  def test_date
+    assert_nil(Blog::Page.new('_pages/page.md').date)
+
+    date = Blog::Page.new('_posts/2020-01-01-entry.md').date
+    assert_equal(date, Date.new(2020, 1, 1))
+  end
 end

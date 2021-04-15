@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'date'
 require 'yaml'
 
 module Blog
@@ -16,7 +17,11 @@ module Blog
     end
 
     def filename
-      "#{File.basename(source, '.*')}.html"
+      if entry?
+        "#{File.basename(source, '-entry.md')}.html"
+      else
+        "#{File.basename(source, '.*')}.html"
+      end
     end
 
     def content
@@ -25,6 +30,12 @@ module Blog
 
     def frontmatter
       YAML.safe_load(content)
+    end
+
+    def date
+      return nil unless entry?
+
+      Date.strptime(filename, '%Y-%m-%d.html')
     end
 
     def nav?
