@@ -30,5 +30,9 @@ module Blog
     def nav?
       frontmatter.key?('nav')
     end
+
+    def entry?
+      Blog.join(source).start_with?(Blog.join('_posts'))
+    end
   end
 end

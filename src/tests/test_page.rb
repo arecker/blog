@@ -52,4 +52,11 @@ class TestPage < Test::Unit::TestCase
     page = Blog::Page.new('test.md', content: content)
     assert_true(page.nav?)
   end
+
+  def test_entry?
+    page = Blog::Page.new('_posts/entry.md')
+    assert_true(page.entry?)
+    page = Blog::Page.new('_pages/page.md')
+    assert_false(page.entry?)
+  end
 end
