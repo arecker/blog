@@ -66,4 +66,39 @@ class TestPage < Test::Unit::TestCase
     date = Blog::Page.new('_posts/2020-01-01-entry.md').date
     assert_equal(date, Date.new(2020, 1, 1))
   end
+
+  def test_title
+    page = Blog::Page.new(
+      '_pages/page.md',
+      content: <<~FILE
+        ---
+        title: A Test Title
+        ---
+      FILE
+    )
+    assert_equal(page.title, 'A Test Title')
+    entry = Blog::Page.new('_posts/2020-01-01-entry.md')
+    assert_equal(entry.title, 'Wednesday, January 1 2020')
+  end
+
+  def test_description
+    page = Blog::Page.new(
+      '_pages/page.md',
+      content: <<~FILE
+        ---
+        description: a test description
+        ---
+      FILE
+    )
+    assert_equal(page.description, 'a test description')
+    entry = Blog::Page.new(
+      '_posts/2020-01-01-entry.md',
+      content: <<~FILE
+        ---
+        title: a fart in the wind
+        ---
+      FILE
+    )
+    assert_equal(entry.description, 'a fart in the wind')
+  end
 end

@@ -32,6 +32,22 @@ module Blog
       YAML.safe_load(content)
     end
 
+    def title
+      if entry?
+        date.strftime('%A, %B %-d %Y')
+      else
+        frontmatter.fetch('title')
+      end
+    end
+
+    def description
+      if entry?
+        frontmatter.fetch('title')
+      else
+        frontmatter.fetch('description')
+      end
+    end
+
     def date
       return nil unless entry?
 
