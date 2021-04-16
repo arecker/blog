@@ -1,6 +1,8 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env -S ruby --disable=gems
+#-*- mode: ruby; -*-
 # coding: utf-8
-
+# mode: ruby
+# coding: utf-8
 # frozen_string_literal: true
 
 require 'erb'
@@ -12,17 +14,17 @@ template = ERB.new <<~HTML
   <html lang="en">
     <head>
       <meta charset="UTF-8" />
-      <title>{{ page.title }} | {{ page.description }}</title>
+      <title><%= page.title %> | <%= page.description %></title>
       <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content="@alex_recker" />
-      <meta name="twitter:title" content="{{ page.title }}" />
-      <meta name="twitter:description" content="{{ page.description }}" />
+      <meta name="twitter:title" content="<%= page.title %>" />
+      <meta name="twitter:description" content="<%= page.description %>" />
       <meta property="og:url" content="https://www.alexrecker.com<%= page.pathname %>" />
       <meta property="og:type" content="article" />
-      <meta property="og:title" content="{{ page.title }}" />
-      <meta property="og:description" content="{{ page.description }}" />
+      <meta property="og:title" content="<%= page.title %>" />
+      <meta property="og:description" content="<%= page.description %>" />
       {% if page.banner %}
       <meta
         name="twitter:image"
@@ -34,18 +36,16 @@ template = ERB.new <<~HTML
     </head>
     <body>
       <header>
-        <h1 class="title">{{ page.title }}</h1>
-        <h2 class="subtitle">{{ page.description }}</h2>
+        <h1 class="title"><%= page.title %></h1>
+        <h2 class="subtitle"><%= page.description %></h2>
       </header>
       <hr />
       <nav>
-        {% if page.filename == "index.html" %}
         <a href="/">index.html</a>
-        {% else %}
-        <a href="/">index.html</a>
+        <% if !page.index? %>
         <span> / </span>
-        <span>{{ page.filename }}</span>
-        {% endif %}
+        <span><%= page.filename %></span>
+        <% end %>
         <br class="show-on-mobile" />
         <span class="float-right-on-desktop">
           {% for page in site.data.nav %}
@@ -60,7 +60,9 @@ template = ERB.new <<~HTML
           <img alt="banner" src="/images/banners/{{ page.banner }}" />
         </a>
       </figure>
-      {% endif %} {{ content }} {% if page.next or page.previous %}
+      {% endif %}
+      <%= page.render %>
+      {% if page.next or page.previous %}
       <nav class="clearfix">
         {% if page.next %}
         <a href="{{ page.next.permalink }}"> ⟵ {{ page.next.filename }} </a>

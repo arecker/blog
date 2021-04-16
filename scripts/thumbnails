@@ -2,7 +2,7 @@
 set -e
 
 log() {
-    echo "images: $@" 1>&2;
+    echo "thumbnails: $@" 1>&2;
 }
 
 check_installed() {

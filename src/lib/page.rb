@@ -28,6 +28,10 @@ module Blog
       @content ||= File.read(source)
     end
 
+    def render
+      content
+    end
+
     def frontmatter
       YAML.safe_load(content)
     end
@@ -56,6 +60,10 @@ module Blog
 
     def nav?
       frontmatter.key?('nav')
+    end
+
+    def index?
+      filename == 'index.html'
     end
 
     def entry?

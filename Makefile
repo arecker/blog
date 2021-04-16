@@ -1,3 +1,5 @@
+MAKEFLAGS += --no-builtin-rules
+
 PAGE_SOURCES := $(wildcard _pages/*)
 PAGE_TARGETS := $(addprefix www/,$(notdir $(PAGE_SOURCES)))
 ENTRY_SOURCES := $(wildcard _posts/*)
@@ -16,12 +18,12 @@ $(STATIC_TARGETS): $(STATIC_SOURCES)
 
 .PHONY: entries
 entries: $(ENTRY_TARGETS)
-www/%.html: _posts/%-entry.md
+www/%.html: _posts/%-entry.md scripts/render
 	scripts/render $^ > $@
 
 .PHONY: pages
 pages: $(PAGE_TARGETS)
-www/%.html: _pages/%.html
+www/%.html: _pages/%.html scripts/render
 	scripts/render $^ > $@
 
 .PHONY: clean
