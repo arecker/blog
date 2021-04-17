@@ -23,7 +23,9 @@ exclude:
 - README.md
 - blog.gemspec
 - gem
+- includes
 - netlify.toml
+- partials
 - scripts
 - src
 - www
