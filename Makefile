@@ -7,7 +7,7 @@ all: site
 
 .PHONY: site
 site: _site
-_site: sitemap.xml feed.xml _data/nav.yml $(wildcard _posts/*) $(wildcard _pages/*) _layouts/default.html
+_site: sitemap.xml feed.xml _data/git.yml _data/nav.yml $(wildcard _posts/*) $(wildcard _pages/*) _layouts/default.html
 	bundle exec jekyll build
 
 sitemap.xml: scripts/genxml $(wildcard _posts/*) $(wildcard _pages/*)
@@ -15,6 +15,9 @@ sitemap.xml: scripts/genxml $(wildcard _posts/*) $(wildcard _pages/*)
 
 feed.xml: scripts/genxml $(wildcard _posts/*)
 	scripts/genxml feed > $@
+
+_data/git.yml: scripts/gengit .git
+	scripts/gengit > $@
 
 _data/nav.yml: scripts/gennav $(wildcard _pages/*)
 	scripts/gennav > $@

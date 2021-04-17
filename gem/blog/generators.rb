@@ -59,29 +59,6 @@ module Blog
       end
     end
 
-    # GitGenerator
-    class GitGenerator < Jekyll::Generator
-      include Base
-      include Blog::Git
-
-      attr_reader :site
-
-      def generate(site)
-        @site = Site.new(site)
-        site.data.merge!(data)
-      end
-
-      def data
-        info 'reading git history'
-        {
-          'git_head' => git_head,
-          'git_head_summary' => git_head_summary,
-          'git_shorthead' => git_short_head,
-          'git_commit_count' => git_commit_count
-        }
-      end
-    end
-
     # FrontmatterGenerator
     class FrontmatterGenerator < Jekyll::Generator
       include Base

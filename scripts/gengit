@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'yaml'
+
+def shell(cmd)
+  `#{cmd}`.chomp
+end
+
+puts({
+  'git_head' => shell('git rev-parse HEAD'),
+  'git_head_summary' => shell('git log -1 --pretty=format:"%s" HEAD'),
+  'git_short_head' => shell('git rev-parse --short HEAD'),
+  'git_commit_count' => shell('git rev-list --count master')
+}.to_yaml)
