@@ -1,17 +1,34 @@
 MAKEFLAGS += --no-builtin-rules -j10
 
+SCRIPTS := thumbnails
+
 .PHONY: all
-all: entries
+all: site
 
-entries: $(patsubst _posts/%-entry.md, www/%.html, $(wildcard _posts/*))
-www/%.html: _posts/%-entry.md
-	scripts/strip-frontmatter "$^" | txt2html --outfile "$@"
+.PHONY: site
+site: _site
+_site: sitemap.xml feed.xml _data/nav.yml $(wildcard _posts/*) $(wildcard _pages/*) _layouts/default.html
+	bundle exec jekyll build
 
-SCRIPTS := thumbnails serve
+sitemap.xml: scripts/genxml $(wildcard _posts/*) $(wildcard _pages/*)
+	scripts/genxml sitemap > $@
+
+feed.xml: scripts/genxml $(wildcard _posts/*)
+	scripts/genxml feed > $@
+
+_data/nav.yml: scripts/gennav $(wildcard _pages/*)
+	scripts/gennav > $@
+
 .PHONY: $(SCRIPTS)
 $(SCRIPTS):
 	@scripts/$@
 
 .PHONY: clean
 clean:
-	rm -rf www/*
+	rm -rf _data/*
+	rm -rf feed.xml sitemap.xml
+	rm -rf _site
+
+.PHONY: serve
+serve: site
+	bundle exec jekyll serve

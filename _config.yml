@@ -3,8 +3,6 @@ url: https://www.alexrecker.com
 
 plugins:
 - blog
-- jekyll-feed
-- jekyll-sitemap
 
 include:
 - _pages

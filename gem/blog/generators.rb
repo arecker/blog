@@ -20,32 +20,17 @@ module Blog
 
       def generate(site)
         @site = Site.new(site)
-        site.data['stats'] = if @site.production?
-                               info 'calculating statistics'
-                               real_stats
-                             else
-                               info 'stubbing out statistics'
-                               stub_stats
-                             end
+        info 'calculating statistics'
+        site.data['stats'] = stats
       end
 
-      def real_stats
+      def stats
         {
           'total_words' => total(site.word_counts),
           'average_words' => average(site.word_counts).round(0),
           'total_posts' => site.entries.size,
           'consecutive_posts' => consecutive_posts,
           'swears' => calculate_swears
-        }
-      end
-
-      def stub_stats
-        {
-          'total_words' => 0,
-          'average_words' => 0,
-          'total_posts' => 0,
-          'consecutive_posts' => 0,
-          'swears' => 0
         }
       end
 
@@ -128,27 +113,6 @@ module Blog
             }
           )
         end
-      end
-    end
-
-    # Nav Generator
-    class NavGenerator < Jekyll::Generator
-      include Base
-
-      attr_reader :site
-
-      def generate(site)
-        @site = Site.new(site)
-        info 'building site navigation'
-        site.data['nav'] = nav
-      end
-
-      def nav
-        flagged_pages.sort_by { |p| p.data['nav'].to_i }
-      end
-
-      def flagged_pages
-        site.pages.select { |p| p.data.key? 'nav' }
       end
     end
   end

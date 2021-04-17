@@ -39,7 +39,7 @@
       <br class="show-on-mobile" />
       <span class="float-right-on-desktop">
         {% for page in site.data.nav %}
-        <a href="{{ page.url }}">{{ page.filename }}</a>
+        <a href="/{{ page }}">{{ page }}</a>
         {% endfor %}
       </span>
     </nav>
