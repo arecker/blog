@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+log() {
+    echo "serve: $@" 1>&2;
+}
+
+is_running() {
+    test -f .serve-pid && ps -p $(cat .serve-pid) > /dev/null
+}
+
+if is_running; then
+    kill "$(cat .serve-pid)"
+    log "web server stopped"
+else
+    log "web server starting"
+    python3 -m http.server --directory www > /dev/null 2>&1 &
+    echo "$!" > .serve-pid
+fi

@@ -1,17 +1,17 @@
-MAKEFLAGS += --no-builtin-rules
+MAKEFLAGS += --no-builtin-rules -j10
 
 .PHONY: all
 all: entries
 
-entries: www/2020-01-02.html
+entries: $(patsubst _posts/%-entry.md, www/%.html, $(wildcard _posts/*))
 www/%.html: _posts/%-entry.md
-	txt2html --infile "$^" --outfile "$@"
+	scripts/strip-frontmatter "$^" | txt2html --outfile "$@"
+
+SCRIPTS := thumbnails serve
+.PHONY: $(SCRIPTS)
+$(SCRIPTS):
+	@scripts/$@
 
 .PHONY: clean
 clean:
 	rm -rf www/*
-
-SCRIPTS := $(notdir $(wildcard scripts/*))
-.PHONY: $(SCRIPTS)
-$(SCRIPTS):
-	@scripts/$@
