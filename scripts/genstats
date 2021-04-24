@@ -1,0 +1,68 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'date'
+require 'yaml'
+
+SWEAR_WORDS = %w[
+  ass
+  asshole
+  booger
+  crap
+  damn
+  fart
+  fuck
+  hell
+  jackass
+  piss
+  poop
+  shit
+].freeze
+
+def entry_files
+  entry_dir = File.expand_path(File.join(__dir__, '../_posts'))
+  Dir["#{entry_dir}/*.md"].sort
+end
+
+def entry_dates
+  entry_files.map do |filename|
+    slug = File.basename(filename, '-entry.md')
+    Date.strptime(slug, '%Y-%m-%d')
+  end
+end
+
+def extract_words(content)
+  content.sub!(/^---\n.*?---\n/m, '')
+  words = content.split.map do |token|
+    token.gsub!(/[^0-9a-z ']/i, '')
+    token.downcase
+  end
+  words.reject(&:empty?)
+end
+
+def entry_words
+  @entry_words ||= entry_files.map { |f| extract_words(File.read(f)) }
+end
+
+def entry_words_average
+  entry_totals = entry_words.collect(&:size).sum
+  entry_totals.to_f / entry_words.size
+end
+
+def swear_count
+  entry_words.flatten.select { |w| SWEAR_WORDS.include? w }.size
+end
+
+def consecutive_dates
+  entry_dates.slice_when { |p, c| c != p - 1 && c != p + 1 }.to_a
+end
+
+stats = {
+  'total_posts' => entry_files.size,
+  'consecutive_posts' => consecutive_dates.last.size,
+  'total_words' => entry_words.flatten.size,
+  'average_words' => entry_words_average.truncate,
+  'swear_count' => swear_count
+}
+
+puts stats.to_yaml
