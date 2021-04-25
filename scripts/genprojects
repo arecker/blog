@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'yaml'
+
+results = {
+  'anti_journal' => [],
+  'look_back' => [],
+  'homework_vault' => []
+}
+
+def entry_files
+  entry_dir = File.expand_path(File.join(__dir__, '../_posts'))
+  Dir["#{entry_dir}/*.md"]
+end
+
+def url(file)
+  "#{File.basename(file, '-entry.md')}.html"
+end
+
+entry_files.each do |file|
+  title = YAML.load_file(file).fetch('title')
+  results['anti_journal'] << { 'url' => url(file), 'title' => title } if title =~ /^anti-journal\ \d$/
+  results['look_back'] << { 'url' => url(file), 'title' => title } if title =~ /^looking back on/
+  results['homework_vault'] << { 'url' => url(file), 'title' => title } if title =~ /^from the homework vault: /
+end
+
+puts results.to_yaml

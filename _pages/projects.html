@@ -21,6 +21,28 @@ permalink: /projects.html
       </a>
     </figure>
   </div>
+</div>
+<div class="row">
+  <div class="column">
+    <figure>
+      <a href="/images/banners/2020-10-17.jpg">
+        <img alt="look back on hockey" src="/images/banners/2020-10-17.jpg" />
+      </a>
+    </figure>
+  </div>
+  <div class="column">
+    <h2>Look Back</h2>
+    <p>
+      Old stories and other nostalgia bombs from my past.
+    </p>
+    <ul>
+      {% for entry in site.data.projects.look_back %}
+      <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+<div class="row">
   <div class="column">
     <h2>Anti-Journal</h2>
     <p>
@@ -28,5 +50,22 @@ permalink: /projects.html
       selections from my private pre-b log journals, which I've aptly named
       <em>the Anti-Journal</em>.
     </p>
+    <ul>
+      {% for entry in site.data.projects.anti_journal %}
+      <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+      {% endfor %}
+    </ul>
   </div>
+    <div class="column">
+    <h2>Homework Vault</h2>
+    <p>
+      To take a break from writing, I periodically share writing
+      assignments from high school and college.
+    </p>
+    <ul>
+      {% for entry in site.data.projects.homework_vault %}
+      <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+      {% endfor %}
+    </ul>
+    </div>
 </div>

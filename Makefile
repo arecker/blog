@@ -11,7 +11,7 @@ _site: sitemap.xml feed.xml data $(wildcard _posts/*) $(wildcard _pages/*) _layo
 	bundle exec jekyll build
 
 .PHONY: data
-data: _data/git.yml _data/nav.yml _data/stats.yml
+data: _data/git.yml _data/nav.yml _data/stats.yml _data/projects.yml
 
 sitemap.xml: scripts/genxml $(wildcard _posts/*) $(wildcard _pages/*)
 	scripts/genxml sitemap > $@
@@ -27,6 +27,9 @@ _data/nav.yml: scripts/gennav $(wildcard _pages/*)
 
 _data/stats.yml: scripts/genstats $(wildcard _posts/*)
 	scripts/genstats > $@
+
+_data/projects.yml: scripts/genprojects $(wildcard _posts/*)
+	scripts/genprojects > $@
 
 .PHONY: $(SCRIPTS)
 $(SCRIPTS):
