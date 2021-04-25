@@ -1,0 +1,13 @@
+<nav>
+  <a href="/">index.html</a>
+  {% if page.permalink != "/index.html" %}
+  <span>/</span>
+  <span>{{ page.url | remove_first: "/" }}</span>
+  {% endif %}
+  <br class="show-on-mobile" />
+  <span class="float-right-on-desktop">
+    {% for page in site.data.nav %}
+    <a href="/{{ page }}">{{ page }}</a>
+    {% endfor %}
+  </span>
+</nav>

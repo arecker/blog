@@ -1,79 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <title>{{ page.title }} | {{ page.description }}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:site" content="@alex_recker" />
-    <meta name="twitter:title" content="{{ page.title }}" />
-    <meta name="twitter:description" content="{{ page.description }}" />
-    <meta property="og:url" content="{{ page.url }}" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{ page.title }}" />
-    <meta property="og:description" content="{{ page.description }}" />
-    {% if page.banner %}
-    <meta
-      name="twitter:image"
-      content="https://www.alexrecker.com/images/banners/{{ page.banner }}"
-    />
-    <meta property="og:image" content="/images/banners/{{ page.banner }}" />
-    {% endif %}
-    <link href="/assets/site.css" rel="stylesheet" />
+    {% include head.html %}
   </head>
   <body>
-    <header>
-      <h1 class="title">{{ page.title }}</h1>
-      <h2 class="subtitle">{{ page.description }}</h2>
-    </header>
+    {% include header.html %}
     <hr />
-    <nav>
-      {% if page.filename == "index.html" %}
-      <a href="/">index.html</a>
-      {% else %}
-      <a href="/">index.html</a>
-      <span> / </span>
-      <span>{{ page.filename }}</span>
-      {% endif %}
-      <br class="show-on-mobile" />
-      <span class="float-right-on-desktop">
-        {% for page in site.data.nav %}
-        <a href="/{{ page }}">{{ page }}</a>
-        {% endfor %}
-      </span>
-    </nav>
+    {% include nav.html %}
     <hr />
-    {% if page.banner %}
-    <figure>
-      <a href="/images/banners/{{ page.banner }}">
-        <img alt="banner" src="/images/banners/{{ page.banner }}" />
-      </a>
-    </figure>
-    {% endif %} {{ content }} {% if page.next or page.previous %}
-    <nav class="clearfix">
-      {% if page.next %}
-      <a href="{{ page.next.permalink }}"> ⟵ {{ page.next.filename }} </a>
-      {% endif %} {% if page.previous %}
-      <a class="float-right" href="{{ page.previous.permalink }}">
-        {{ page.previous.filename }} ⟶
-      </a>
-      {% endif %}
-    </nav>
-    {% endif %}
+    {% include banner.html %}
+    {{ content }}
+    {% include pagination.html %}
     <hr />
-    <footer>
-      <small>Last Updated: {{ site.time }}</small>
-      <small
-        >Last Change:
-        <span
-          >{{ site.data.git.git_head_summary }} (<a
-            href="https://github.com/arecker/blog/commit/{{ site.data.git.git_head }}"
-            >{{ site.data.git.git_short_head }}</a
-          >)</span
-        >
-      </small>
-      <small>&copy; Copyright {{ site.time | date: "%Y" }} Alex Recker</small>
-    </footer>
+    {% include footer.html %}
   </body>
 </html>

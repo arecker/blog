@@ -8,7 +8,7 @@ all: site
 .PHONY: site
 site: _site
 _site: sitemap.xml feed.xml data $(wildcard _posts/*) $(wildcard _pages/*) _layouts/default.html
-	bundle exec jekyll build
+	jekyll build
 
 .PHONY: data
 data: _data/git.yml _data/nav.yml _data/stats.yml
@@ -40,4 +40,4 @@ clean:
 
 .PHONY: serve
 serve: site
-	bundle exec jekyll serve
+	jekyll serve

@@ -1,32 +1,16 @@
 permalink: /:year-:month-:day:output_ext
 url: https://www.alexrecker.com
 
-plugins:
-- blog
-
 include:
 - _pages
-- assets
-- audio
-- favicon.ico
-- images
-- old
 
 exclude:
 - .jekyll-cache
-- Gemfile
-- Gemfile.lock
 - LICENSE
 - Makefile
 - README.md
-- blog.gemspec
-- gem
-- includes
 - netlify.toml
-- partials
 - scripts
-- src
-- www
 
 defaults:
 -

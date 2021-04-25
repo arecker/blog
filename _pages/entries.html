@@ -2,19 +2,18 @@
 title: Entries
 description: Daily Journal Entries
 nav: 1
+permalink: /entries.html
 ---
 
 <h2>Journal Entries</h2>
-<p>RSS feed available here:  <a href="/feed.xml">feed.xml</a></p>
+<p>RSS feed available here: <a href="/feed.xml">feed.xml</a></p>
 <table>
   {% for post in site.posts %}
   <tr>
     <td>
-      <a href="{{ post.permalink }}">{{ post.filename }}</a>
+      <a href="{{ post.url }}">{{ post.url | remove_first: "/" }}</a>
     </td>
-    <td>
-      {{ post.description }}
-    </td>
+    <td>{{ post.title }}</td>
   </tr>
   {% endfor %}
 </table>

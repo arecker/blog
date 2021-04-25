@@ -2,6 +2,7 @@
 title: Stats
 description: Interesting Writing Statistics
 nav: 2
+permalink: /stats.html
 ---
 
 <div class="row">
@@ -10,18 +11,18 @@ nav: 2
     <table>
       <tr>
         <td>Total Posts</td>
-        <td class="code">{{ site.data.stats.total_posts | pretty }}</td>
+        <td class="code">{{ site.data.stats.total_posts }}</td>
       </tr>
       <tr>
         <td>Consecutive Daily Posts</td>
-        <td class="code">{{ site.data.stats.consecutive_posts | pretty }}</td>
+        <td class="code">{{ site.data.stats.consecutive_posts }}</td>
       </tr>
     </table>
     <h2>Word Count</h2>
     <table>
       <tr>
         <td>Total Word Count</td>
-        <td class="code">{{ site.data.stats.total_words | pretty }}</td>
+        <td class="code">{{ site.data.stats.total_words }}</td>
       </tr>
       <tr>
         <td>Average Word Count</td>
@@ -34,7 +35,7 @@ nav: 2
     <table>
       <tr>
         <td>Total Bad Words</td>
-        <td class="code">{{ site.data.stats.swear_count | pretty }}</td>
+        <td class="code">{{ site.data.stats.swear_count }}</td>
       </tr>
     </table>
   </div>

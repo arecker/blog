@@ -1,0 +1,13 @@
+<footer>
+  <small>Last Updated: {{ site.time }}</small>
+  <small
+    >Last Change:
+    <span
+      >{{ site.data.git.git_head_summary }} (<a
+        href="https://github.com/arecker/blog/commit/{{ site.data.git.git_head }}"
+        >{{ site.data.git.git_short_head }}</a
+      >)</span
+    >
+  </small>
+  <small>&copy; Copyright {{ site.time | date: "%Y" }} Alex Recker</small>
+</footer>
