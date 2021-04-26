@@ -11,7 +11,7 @@ results = {
 
 def entry_files
   entry_dir = File.expand_path(File.join(__dir__, '../_posts'))
-  Dir["#{entry_dir}/*.md"]
+  Dir["#{entry_dir}/*.md"].sort.reverse
 end
 
 def url(file)
