@@ -9,15 +9,18 @@ permalink: /projects.html
   <div class="column">
     <h2>Live Programming</h2>
     <p>
-      Tune in on late Saturday Mornings to watch me work on some code. I stream on
-      YouTube and Facebook live.
+      Tune in on late Saturday Mornings to watch me work on some code. I stream
+      on YouTube and Facebook live.
     </p>
-    <a href="https://youtube.com/playlist?list=PLhMFRzv8kTTCaaV27Si4arLhdw6nHsU-f">YouTube: live programming</a>
+    <a
+      href="https://youtube.com/playlist?list=PLhMFRzv8kTTCaaV27Si4arLhdw6nHsU-f"
+      >YouTube: live programming</a
+    >
   </div>
   <div class="column">
     <figure>
       <a href="/images/projects-coding.png">
-        <img alt="projects coding" src="/images/projects-coding.png"/>
+        <img alt="projects coding" src="/images/projects-coding.png" />
       </a>
     </figure>
   </div>
@@ -32,10 +35,8 @@ permalink: /projects.html
   </div>
   <div class="column">
     <h2>Look Back</h2>
-    <p>
-      Old stories and other nostalgia bombs from my past.
-    </p>
-    <ul>
+    <p>Old stories and other nostalgia bombs from my past.</p>
+    <ul class="unstyled">
       {% for entry in site.data.projects.look_back %}
       <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
       {% endfor %}
@@ -46,24 +47,25 @@ permalink: /projects.html
   <div class="column">
     <h2>Anti-Journal</h2>
     <p>
-      Publishing entries from my pre-blog private journal which I've aptly nicknamed <em>The Anti-Journal</em>.
+      Publishing entries from my pre-blog private journal which I've aptly
+      nicknamed <em>The Anti-Journal</em>.
     </p>
-    <ul>
+    <ul class="unstyled">
       {% for entry in site.data.projects.anti_journal %}
       <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
       {% endfor %}
     </ul>
   </div>
-    <div class="column">
+  <div class="column">
     <h2>Homework Vault</h2>
     <p>
-      To take a break from writing, I periodically share writing
-      assignments from high school and college.
+      To take a break from writing, I periodically share writing assignments
+      from high school and college.
     </p>
-    <ul>
+    <ul class="unstyled">
       {% for entry in site.data.projects.homework_vault %}
       <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
       {% endfor %}
     </ul>
-    </div>
+  </div>
 </div>
