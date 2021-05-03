@@ -1,8 +1,8 @@
+*.xml
 .bundle
 .jekyll-cache
+.jekyll-metadata
+.serve-pid
 .site
 .yardoc
 _site
-.jekyll-metadata
-.serve-pid
-*.xml

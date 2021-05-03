@@ -1,3 +1,0 @@
-# Stats
-
-The stats project.

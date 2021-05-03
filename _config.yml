@@ -13,7 +13,6 @@ exclude:
 - README.md
 - netlify.toml
 - scripts
-- stats
 
 defaults:
 -
