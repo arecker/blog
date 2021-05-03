@@ -7,6 +7,13 @@ permalink: /projects.html
 
 <div class="row">
   <div class="column">
+    <figure>
+      <a href="/images/projects-coding.png">
+        <img alt="projects coding" src="/images/projects-coding.png" />
+      </a>
+    </figure>
+  </div>
+  <div class="column">
     <h2>Live Programming</h2>
     <p>
       Tune in on late Saturday Mornings to watch me work on some code. I stream
@@ -17,10 +24,24 @@ permalink: /projects.html
       >YouTube: live programming</a
     >
   </div>
+</div>
+<div class="row">
+  <div class="column">
+    <h2>Fred, the Poet</h2>
+    <p>
+      Poems written by my Grandpa, Fred Recker. Some stories about him thrown in
+      there as well.
+    </p>
+    <ul class="unstyled">
+      {% for entry in site.data.projects.fred_poems %}
+      <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
   <div class="column">
     <figure>
-      <a href="/images/projects-coding.png">
-        <img alt="projects coding" src="/images/projects-coding.png" />
+      <a href="/images/banners/2021-05-02.jpeg">
+        <img alt="fred the poet" src="/images/banners/2021-05-02.jpeg" />
       </a>
     </figure>
   </div>

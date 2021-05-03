@@ -6,7 +6,8 @@ require 'yaml'
 results = {
   'anti_journal' => [],
   'look_back' => [],
-  'homework_vault' => []
+  'homework_vault' => [],
+  'fred_poems' => []
 }
 
 def entry_files
@@ -23,6 +24,7 @@ entry_files.each do |file|
   results['anti_journal'] << { 'url' => url(file), 'title' => title } if title =~ /^anti-journal\ \d$/
   results['look_back'] << { 'url' => url(file), 'title' => title } if title =~ /^looking back on/
   results['homework_vault'] << { 'url' => url(file), 'title' => title } if title =~ /^from the homework vault: /
+  results['fred_poems'] << { 'url' => url(file), 'title' => title } if title =~ /^fred, the poet: \d$/
 end
 
 puts results.to_yaml
