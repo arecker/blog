@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"path"
+	"strings"
 )
 
 var RootDir string = `.`
@@ -39,5 +40,5 @@ func main() {
 	log.Printf("We have %d entries, %d pages", len(entries), len(pages))
 
 	navList := Nav(pages)
-	log.Printf("Here is the site navigation %s", navList)
+	log.Printf("Here is the site navigation: %s", strings.Join(navList, ", "))
 }
