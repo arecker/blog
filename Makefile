@@ -31,6 +31,9 @@ _data/stats.yml: scripts/genstats $(wildcard _posts/*)
 _data/projects.yml: scripts/genprojects $(wildcard _posts/*)
 	scripts/genprojects > $@
 
+bin/blog: $(wildcard src/*.go)
+	go build -o $@ ./...
+
 .PHONY: $(SCRIPTS)
 $(SCRIPTS):
 	@scripts/$@
@@ -40,6 +43,7 @@ clean:
 	rm -rf _data/*
 	rm -rf feed.xml sitemap.xml
 	rm -rf _site
+	rm -rf bin/blog
 
 .PHONY: serve
 serve: site
