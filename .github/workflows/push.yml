@@ -4,11 +4,13 @@ on:
     - master
     paths:
     - '.github/**'
+    - 'LICENCE'
+    - 'README.md'
     - 'go.mod'
     - 'src/**'
 
 jobs:
-  push:
+  create:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -16,3 +18,19 @@ jobs:
       - uses: rymndhng/release-on-push-action@master
         with:
           bump_version_scheme: patch
+  publish:
+    needs: [create]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux, darwin]
+        goarch: [amd64]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: wangyoucao577/go-release-action@v1.17
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        goos: ${{ matrix.goos }}
+        goarch: ${{ matrix.goarch }}
+        build_command: make bin/blog
+        overwrite: true
