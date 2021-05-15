@@ -29,10 +29,6 @@ jobs:
         goarch: [amd64]
     steps:
     - uses: actions/checkout@v2
-    - uses: rez0n/actions-github-release@main
-      id: release
-      env:
-        repository: "arecker/blog"
     - uses: wangyoucao577/go-release-action@v1.17
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -40,4 +36,4 @@ jobs:
         goarch: ${{ matrix.goarch }}
         project_path: src
         overwrite: true
-        release_tag: ${{ steps.release.outputs.release }}
+        release_tag: ${{ steps.create.outputs.version }}
