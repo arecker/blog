@@ -1,3 +1,5 @@
+Name: Release
+
 on:
   release:
     types: [created]
@@ -18,3 +20,4 @@ jobs:
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
         build_command: make bin/blog
+        overwrite: true

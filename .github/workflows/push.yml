@@ -1,10 +1,15 @@
+Name: Push
+
 on:
   push:
     branches:
     - master
+    paths:
+    - src
+    - go.mod
 
 jobs:
-  release-on-push:
+  push:
     runs-on: ubuntu-latest
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
