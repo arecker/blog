@@ -29,6 +29,8 @@ jobs:
         goarch: [amd64]
     steps:
     - uses: actions/checkout@v2
+    - id: latest
+      uses: thebritican/fetch-latest-release@v1
     - uses: wangyoucao577/go-release-action@v1.17
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,4 +38,4 @@ jobs:
         goarch: ${{ matrix.goarch }}
         project_path: src
         overwrite: true
-        release_tag: latest
+        release_tag: ${{ steps.latest.outputs.tag_name }}
