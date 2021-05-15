@@ -36,4 +36,4 @@ jobs:
         goarch: ${{ matrix.goarch }}
         project_path: src
         overwrite: true
-        release_tag: ${{ steps.create.outputs.version }}
+        release_tag: latest
