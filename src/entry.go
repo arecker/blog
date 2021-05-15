@@ -16,6 +16,7 @@ func NewEntry(fileInfo fs.FileInfo) Entry {
 	entry.SourceFileName = fileInfo.Name()
 	entry.SourcePath = path.Join(EntriesDir, entry.SourceFileName)
 	entry.DateSlug = entry.SourceFileName[0:10]
+	entry.TargetFileName = entry.DateSlug + ".html"
 
 	return entry
 }
