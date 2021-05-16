@@ -37,7 +37,7 @@ case "$1" in
         NEXT_VERSION="$(major).$((( $(minor) + 1 ))).$(patch)"
         ;;
     "patch")
-        NEXT_VERSION="$(major).$(minor).$((( $(patch) + 1 ))))"
+        NEXT_VERSION="$(major).$(minor).$((( $(patch) + 1 )))"
         ;;
     *)
         usage
