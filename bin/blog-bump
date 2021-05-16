@@ -6,6 +6,13 @@ log() {
     echo "bump: $1" 1>&2
 }
 
+trap 'bail' ERR
+
+bail() {
+    log "script failed!"
+    exit 1
+}
+
 if [[ -z "${BLOG_PATH}" ]]; then
     log "please set a BLOG_PATH=\"\""
     exit 1
