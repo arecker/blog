@@ -26,7 +26,7 @@ func setupLogging() {
 func main() {
 	setupLogging()
 
-	log.Println("Hello!  Let's get started.")
+	log.Printf("Hello!  I'm blog, v%s.  Let's get started.", VERSION)
 	entries, err := Entries()
 	if err != nil {
 		log.Fatal(err)
@@ -37,8 +37,8 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Printf("We have %d entries, %d pages", len(entries), len(pages))
+	log.Printf(`First, some info.  This website has %d entries and %d pages`, len(entries), len(pages))
 
 	navList := Nav(pages)
-	log.Printf("Here is the site navigation: %s", strings.Join(navList, ", "))
+	log.Printf(`The pages in the navbar are as follows: %s`, strings.Join(navList, ", "))
 }

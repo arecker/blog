@@ -53,13 +53,16 @@ REMOTE="origin"
 BRANCH="master"
 
 log "writing VERSION file [${NEXT_VERSION}]"
-echo "${NEXT_VERSION}" > VERSION
+# echo "${NEXT_VERSION}" > VERSION
+
+log "updating src/version.go [const VERSION = \"${NEXT_VERSION}\"]"
+sed -i "s/$CURRENT_VERSION/$NEXT_VERSION/" src/version.go
 
 log "writing commit [$MESSAGE]"
-git add -A && git commit -m "$MESSAGE"
+# git add -A && git commit -m "$MESSAGE"
 
 log "creating tag [$TAG]"
-git tag -a "$TAG" -m "$MESSAGE"
+# git tag -a "$TAG" -m "$MESSAGE"
 
 log "pushing [$REMOTE:$BRANCH]"
-git push --atomic "$REMOTE" "$BRANCH" "v${NEXT_VERSION}"
+# git push --atomic "$REMOTE" "$BRANCH" "v${NEXT_VERSION}"
