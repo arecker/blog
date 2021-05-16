@@ -37,6 +37,14 @@ major() {
     echo "$CURRENT_VERSION" | "$BLOG_SED" -E 's/([0-9]*)\.([0-9]*)\.([0-9]*)/\1/'
 }
 
+latest_tag() {
+    git describe --abbrev=0
+}
+
+changelog() {
+    git shortlog "$(latest_tag)..HEAD"
+}
+
 case "$1" in
     "major")
         NEXT_VERSION="$((( $(major) + 1 ))).$(minor).$(patch)"
@@ -55,7 +63,9 @@ esac
 
 log "bumping $1 version [${CURRENT_VERSION} -> ${NEXT_VERSION}]"
 
-MESSAGE="bump: ${CURRENT_VERSION} -> ${NEXT_VERSION}"
+MESSAGE="bump $1: ${CURRENT_VERSION} -> ${NEXT_VERSION}
+
+$(changelog)"
 TAG="v${NEXT_VERSION}"
 REMOTE="origin"
 BRANCH="master"
