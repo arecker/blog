@@ -45,6 +45,32 @@ changelog() {
     git shortlog "$(latest_tag)..HEAD"
 }
 
+github_curl() {
+    curl \
+        -s \
+        -H "Authorization: token $(pass github/blog)" \
+        -H "application/vnd.github.v3+json " \
+        -H "Content-Type:application/json" \
+        $@
+}
+
+create_release_payload() {
+    cat <<EOF
+{
+  "tag_name": "v${NEXT_VERSION}",
+  "name": "${NEXT_VERSION}"
+  "body": "${MESSAGE}\n\n$(changelog)",
+  "draft": false,
+  "prerelease": false
+}
+EOF
+}
+
+create_release() {
+    local url="https://api.github.com/repos/arecker/blog/releases"
+    github_curl -X POST -d "$(create_release_payload)" "$url"
+}
+
 case "$1" in
     "major")
         NEXT_VERSION="$((( $(major) + 1 ))).$(minor).$(patch)"
@@ -87,3 +113,6 @@ $(changelog)" &> /dev/null
 
 log "pushing [$REMOTE:$BRANCH]"
 git push --atomic "$REMOTE" "$BRANCH" "v${NEXT_VERSION}" &> /dev/null
+
+log "creating release"
+echo "$(create_release)"
