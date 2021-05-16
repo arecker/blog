@@ -101,6 +101,12 @@ TAG="v${NEXT_VERSION}"
 REMOTE="origin"
 BRANCH="master"
 
+log "building binary [bin/blog]"
+make -B bin/blog &> /dev/null
+
+log "running tests"
+make -B test &> /dev/null
+
 log "writing VERSION file [${NEXT_VERSION}]"
 echo "${NEXT_VERSION}" > VERSION
 

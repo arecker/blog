@@ -56,3 +56,7 @@ info: bin/blog
 .PHONY: patch
 patch:
 	@bin/blog-bump patch
+
+.PHONY: test
+test:
+	go test ./...
