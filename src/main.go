@@ -1,16 +1,20 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
+	"os"
 	"path"
-	"strings"
+	"runtime"
 )
 
-var RootDir string = `.`
-var EntriesDir string = path.Join(RootDir, "_posts")
-var PagesDir string = path.Join(RootDir, "_pages")
-var DataDir string = path.Join(RootDir, "_data")
+var (
+	RootDir    string
+	EntriesDir string
+	PagesDir   string
+	DataDir    string
+)
 
 type logWriter struct{}
 
@@ -23,22 +27,45 @@ func setupLogging() {
 	log.SetOutput(new(logWriter))
 }
 
+func setupConfig() {
+	val, present := os.LookupEnv("BLOG_PATH")
+	if present {
+		RootDir = val
+	} else {
+		RootDir = "."
+	}
+
+	EntriesDir = path.Join(RootDir, "_posts")
+	PagesDir = path.Join(RootDir, "_pages")
+	DataDir = path.Join(RootDir, "_data")
+}
+
 func main() {
+	versionFlag := flag.Bool("version", false, "Print version information.")
+
 	setupLogging()
+	setupConfig()
 
-	log.Printf("Hello!  I'm blog, v%s.  Let's get started.", VERSION)
-	entries, err := Entries()
-	if err != nil {
-		log.Fatal(err)
+	flag.Parse()
+
+	if *versionFlag {
+		log.Printf("running v%s (%s)", VERSION, runtime.Version())
+		os.Exit(0)
 	}
 
-	pages, err := Pages()
-	if err != nil {
-		log.Fatal(err)
+	if !*versionFlag {
+		log.Printf("no commands were specified, try 'blog -help'")
 	}
 
-	log.Printf(`First, some info.  This website has %d entries and %d pages`, len(entries), len(pages))
+	// entries, err := Entries()
+	// if err != nil {
+	//	log.Fatal(err)
+	// }
 
-	navList := Nav(pages)
-	log.Printf(`The pages in the navbar are as follows: %s`, strings.Join(navList, ", "))
+	// pages, err := Pages()
+	// if err != nil {
+	//	log.Fatal(err)
+	// }
+
+	// navList := Nav(pages)
 }
