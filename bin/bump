@@ -47,19 +47,19 @@ esac
 
 log "bumping $1 version [${CURRENT_VERSION} -> ${NEXT_VERSION}]"
 
-log "writing VERSION file"
-echo "${NEXT_VERSION}" > VERSION
-
 MESSAGE="bump: ${CURRENT_VERSION} -> ${NEXT_VERSION}"
 TAG="v${NEXT_VERSION}"
 REMOTE="origin"
 BRANCH="master"
 
-log "writing commit"
+log "writing VERSION file [${NEXT_VERSION}]"
+echo "${NEXT_VERSION}" > VERSION
+
+log "writing commit [$MESSAGE]"
 git add -A && git commit -m "$MESSAGE"
 
 log "creating tag [$TAG]"
 git tag -a "$TAG" -m "$MESSAGE"
 
-log "pushing"
+log "pushing [$REMOTE:$BRANCH]"
 git push --atomic "$REMOTE" "$BRANCH" "v${NEXT_VERSION}"
