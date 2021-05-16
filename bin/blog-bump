@@ -45,6 +45,14 @@ print_changelog() {
     git shortlog "$(latest_tag)..HEAD"
 }
 
+print_commit_message() {
+    cat <<EOF
+${MESSAGE_TOPIC}
+
+${MESSAGE_BODY}
+EOF
+}
+
 create_release_payload() {
     cat <<EOF
 {
@@ -88,9 +96,7 @@ log "bumping $1 version [${CURRENT_VERSION} -> ${NEXT_VERSION}]"
 
 MESSAGE_TOPIC="bump $1: ${CURRENT_VERSION} -> ${NEXT_VERSION}"
 MESSAGE_BODY="$(print_changelog)"
-MESSAGE_FULL="${MESSAGE_TOPIC}
-
-${MESSAGE_BODY}"
+MESSAGE_FULL="$(print_commit_message)"
 TAG="v${NEXT_VERSION}"
 REMOTE="origin"
 BRANCH="master"
