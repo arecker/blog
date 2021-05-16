@@ -58,7 +58,7 @@ create_release_payload() {
 {
   "tag_name": "${TAG}",
   "name": "${NEXT_VERSION}",
-  "body": "${MESSAGE_FULL}",
+  "body": "${MESSAGE_TOPIC}",
   "draft": false,
   "prerelease": false
 }
