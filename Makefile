@@ -48,3 +48,11 @@ clean:
 .PHONY: serve
 serve: site
 	bundle exec jekyll serve
+
+.PHONY: info
+info: bin/blog
+	@bin/blog -info -version
+
+.PHONY: patch
+patch:
+	@bin/blog-bump patch

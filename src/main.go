@@ -17,6 +17,7 @@ var (
 	ImagesDir  string
 	VideosDir  string
 	AudiosDir  string
+	ScriptsDir string
 )
 
 type logWriter struct{}
@@ -44,6 +45,7 @@ func setupConfig() {
 	ImagesDir = path.Join(RootDir, "images")
 	VideosDir = path.Join(RootDir, "vids")
 	AudiosDir = path.Join(RootDir, "audio")
+	ScriptsDir = path.Join(RootDir, "scripts")
 }
 
 func main() {
@@ -97,6 +99,11 @@ func main() {
 		log.Fatal(err)
 	}
 
+	scripts, scriptsSize, err := Files(ScriptsDir)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	navPages := Nav(pages)
 
 	if *infoFlag {
@@ -106,6 +113,7 @@ func main() {
 		log.Printf(`%d images (%s)`, len(images), imagesSize)
 		log.Printf(`%d vids (%s)`, len(videos), videosSize)
 		log.Printf(`%d audios (%s)`, len(audios), audiosSize)
+		log.Printf(`%d scripts (%s)`, len(scripts), scriptsSize)
 		log.Printf(`nav - %s`, navPages)
 	}
 }
