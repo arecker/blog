@@ -2,11 +2,18 @@
 
 set -e
 
-CURRENT_VERSION="$(cat VERSION)"
-
 log() {
     echo "bump: $1" 1>&2
 }
+
+if [[ -z "${BLOG_PATH}" ]]; then
+    log "please set a BLOG_PATH=\"\""
+    exit 1
+else
+    cd "$BLOG_PATH"
+fi
+
+CURRENT_VERSION="$(cat VERSION)"
 
 usage() {
     cat <<EOF
