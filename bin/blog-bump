@@ -45,15 +45,6 @@ changelog() {
     git shortlog "$(latest_tag)..HEAD"
 }
 
-github_curl() {
-    curl \
-        -s \
-        -H "Authorization: token $(pass github/blog)" \
-        -H "application/vnd.github.v3+json " \
-        -H "Content-Type:application/json" \
-        $@
-}
-
 create_release_payload() {
     cat <<EOF
 {
@@ -68,7 +59,13 @@ EOF
 
 create_release() {
     local url="https://api.github.com/repos/arecker/blog/releases"
-    github_curl -X POST -d "$(create_release_payload)" "$url"
+    curl \
+        -H "Authorization: token $(pass github/blog)" \
+        -H "application/vnd.github.v3+json" \
+        -H "Content-Type:application/json" \
+        -X POST \
+        -d "$(create_release_payload)" \
+        "$url"
 }
 
 case "$1" in
