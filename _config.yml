@@ -12,7 +12,9 @@ exclude:
 - LICENSE
 - Makefile
 - README.md
+- VERSION
 - bin
+- jsonnet
 - netlify.toml
 - scripts
 - src

@@ -1,42 +1,42 @@
-on:
-  push:
-    branches:
-    - master
-    paths:
-    - '.github/**'
-    - 'LICENCE'
-    - 'README.md'
-    - 'go.mod'
-    - 'src/**'
+# on:
+#   push:
+#     branches:
+#     - master
+#     paths:
+#     - '.github/**'
+#     - 'LICENCE'
+#     - 'README.md'
+#     - 'go.mod'
+#     - 'src/**'
 
-jobs:
-  create:
-    name: Create Release
-    runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    steps:
-      - uses: rymndhng/release-on-push-action@master
-        with:
-          bump_version_scheme: patch
-  publish:
-    name: Publish Binaries
-    needs: [create]
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        goos: [linux, darwin]
-        goarch: [amd64]
-    steps:
-    - uses: actions/checkout@v2
-    - id: latest
-      uses: thebritican/fetch-latest-release@v2.0.0
-    - uses: wangyoucao577/go-release-action@v1.17
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        goos: ${{ matrix.goos }}
-        goarch: ${{ matrix.goarch }}
-        project_path: src
-        overwrite: true
-        release_tag: ${{ steps.latest.outputs.tag_name }}
-        asset_name: blog-${{ matrix.goos }}-${{ matrix.goarch }}
+# jobs:
+#   create:
+#     name: Create Release
+#     runs-on: ubuntu-latest
+#     env:
+#       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     steps:
+#       - uses: rymndhng/release-on-push-action@master
+#         with:
+#           bump_version_scheme: patch
+#   publish:
+#     name: Publish Binaries
+#     needs: [create]
+#     runs-on: ubuntu-latest
+#     strategy:
+#       matrix:
+#         goos: [linux, darwin]
+#         goarch: [amd64]
+#     steps:
+#     - uses: actions/checkout@v2
+#     - id: latest
+#       uses: thebritican/fetch-latest-release@v2.0.0
+#     - uses: wangyoucao577/go-release-action@v1.17
+#       with:
+#         github_token: ${{ secrets.GITHUB_TOKEN }}
+#         goos: ${{ matrix.goos }}
+#         goarch: ${{ matrix.goarch }}
+#         project_path: src
+#         overwrite: true
+#         release_tag: ${{ steps.latest.outputs.tag_name }}
+#         asset_name: blog-${{ matrix.goos }}-${{ matrix.goarch }}
