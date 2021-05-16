@@ -41,7 +41,7 @@ latest_tag() {
     git describe --abbrev=0
 }
 
-changelog() {
+print_changelog() {
     git shortlog "$(latest_tag)..HEAD"
 }
 
@@ -50,7 +50,7 @@ create_release_payload() {
 {
   "tag_name": "${TAG}",
   "name": "${NEXT_VERSION}",
-  "body": "${MESSAGE}\n\n$(changelog)",
+  "body": "${MESSAGE_FULL}",
   "draft": false,
   "prerelease": false
 }
@@ -86,7 +86,9 @@ esac
 
 log "bumping $1 version [${CURRENT_VERSION} -> ${NEXT_VERSION}]"
 
-MESSAGE="bump $1: ${CURRENT_VERSION} -> ${NEXT_VERSION}"
+MESSAGE_TOPIC="bump $1: ${CURRENT_VERSION} -> ${NEXT_VERSION}"
+MESSAGE_BODY="$(print_changelog)"
+MESSAGE_FULL="${MESSAGE_TOPIC}\n\n${MESSAGE_BODY}"
 TAG="v${NEXT_VERSION}"
 REMOTE="origin"
 BRANCH="master"
@@ -97,16 +99,12 @@ echo "${NEXT_VERSION}" > VERSION
 log "updating src/version.go [const VERSION = \"${NEXT_VERSION}\"]"
 "$BLOG_SED" -i "s/$CURRENT_VERSION/$NEXT_VERSION/" src/version.go
 
-log "writing commit [$MESSAGE]"
+log "writing commit [${MESSAGE_TOPIC}]"
 git add -A &> /dev/null
-git commit -m "$MESSAGE
-
-$(changelog)" &> /dev/null
+git commit -m "${MESSAGE_FULL}" &> /dev/null
 
 log "creating tag [$TAG]"
-git tag -a "$TAG" -m "$MESSAGE
-
-$(changelog)" &> /dev/null
+git tag -a "$TAG" -m "${MESSAGE_FULL}" &> /dev/null
 
 log "pushing [$REMOTE:$BRANCH]"
 git push --atomic "$REMOTE" "$BRANCH" "v${NEXT_VERSION}" &> /dev/null
