@@ -39,3 +39,4 @@ jobs:
         project_path: src
         overwrite: true
         release_tag: ${{ steps.latest.outputs.tag_name }}
+        asset_name: blog-${{ matrix.goos }}-${{ matrix.goarch }}
