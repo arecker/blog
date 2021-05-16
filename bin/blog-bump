@@ -67,10 +67,11 @@ log "updating src/version.go [const VERSION = \"${NEXT_VERSION}\"]"
 "$BLOG_SED" -i "s/$CURRENT_VERSION/$NEXT_VERSION/" src/version.go
 
 log "writing commit [$MESSAGE]"
-git add -A && git commit -m "$MESSAGE"
+git add -A &> /dev/null
+git commit -m "$MESSAGE" &> /dev/null
 
 log "creating tag [$TAG]"
-git tag -a "$TAG" -m "$MESSAGE"
+git tag -a "$TAG" -m "$MESSAGE" &> /dev/null
 
 log "pushing [$REMOTE:$BRANCH]"
-git push --atomic "$REMOTE" "$BRANCH" "v${NEXT_VERSION}"
+git push --atomic "$REMOTE" "$BRANCH" "v${NEXT_VERSION}" &> /dev/null
