@@ -45,7 +45,6 @@ func setupConfig() {
 	ImagesDir = path.Join(RootDir, "images")
 	VideosDir = path.Join(RootDir, "vids")
 	AudiosDir = path.Join(RootDir, "audio")
-	ScriptsDir = path.Join(RootDir, "scripts")
 }
 
 func main() {
@@ -66,54 +65,20 @@ func main() {
 		log.Printf("running v%s (%s)", VERSION, runtime.Version())
 	}
 
-	entries, err := Entries()
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, entriesSize, err := Files(EntriesDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	pages, err := Pages()
-	if err != nil {
-		log.Fatal(err)
-	}
-	_, pagesSize, err := Files(PagesDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	images, imagesSize, err := Files(ImagesDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	videos, videosSize, err := Files(VideosDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	audios, audiosSize, err := Files(AudiosDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	scripts, scriptsSize, err := Files(ScriptsDir)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	navPages := Nav(pages)
-
 	if *infoFlag {
-		log.Printf(`using "%s" as BLOG_PATH`, RootDir)
-		log.Printf(`%d entries (%s)`, len(entries), entriesSize)
-		log.Printf(`%d pages (%s)`, len(pages), pagesSize)
-		log.Printf(`%d images (%s)`, len(images), imagesSize)
-		log.Printf(`%d vids (%s)`, len(videos), videosSize)
-		log.Printf(`%d audios (%s)`, len(audios), audiosSize)
-		log.Printf(`%d scripts (%s)`, len(scripts), scriptsSize)
-		log.Printf(`nav - %s`, navPages)
+		printDirectoryInfo("entries", EntriesDir)
+		printDirectoryInfo("pages", PagesDir)
+		printDirectoryInfo("images", ImagesDir)
+		printDirectoryInfo("vids", VideosDir)
+		printDirectoryInfo("audios", AudiosDir)
 	}
+}
+
+func printDirectoryInfo(name string, path string) {
+	files, size, err := Files(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Printf(`%d %s (%s)`, len(files), name, size)
 }
