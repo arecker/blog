@@ -58,5 +58,5 @@ patch:
 	@bin/blog-bump patch
 
 .PHONY: test
-test:
+test: bin/blog
 	go test ./...
