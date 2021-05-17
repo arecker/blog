@@ -4,7 +4,7 @@ MAKEFLAGS += --no-builtin-rules -j10
 all: bin/blog
 
 bin/blog: go.mod $(wildcard src/*.go)
-	go build -o $@ src/*.go
+	go build -ldflags="-X 'main.VERSION=$(shell cat VERSION)'" -o $@ src/*.go
 
 .PHONY: xml
 XML_TARGETS := sitemap.xml feed.xml

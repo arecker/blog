@@ -126,9 +126,6 @@ make -B test &> /dev/null
 log "writing VERSION file [${NEXT_VERSION}]"
 echo "${NEXT_VERSION}" > VERSION
 
-log "updating src/version.go [const VERSION = \"${NEXT_VERSION}\"]"
-"$BLOG_SED" -i "s/$CURRENT_VERSION/$NEXT_VERSION/" src/version.go
-
 log "building binaries"
 make -B binaries &> /dev/null
 

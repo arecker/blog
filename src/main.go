@@ -12,6 +12,7 @@ import (
 )
 
 var (
+	VERSION    string
 	RootDir    string
 	EntriesDir string
 	PagesDir   string
