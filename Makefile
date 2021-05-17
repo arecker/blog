@@ -5,7 +5,7 @@ GOOSES := darwin linux freebsd
 BINARY_TARGETS := $(addprefix bin/blog-, $(GOOSES))
 
 .PHONY: all
-all: site
+all: download site
 
 .PHONY: site
 site: _site
@@ -68,3 +68,7 @@ patch:
 .PHONY: test
 test: bin/blog
 	go test ./...
+
+.PHONY: download
+download:
+	@bin/blog-download
