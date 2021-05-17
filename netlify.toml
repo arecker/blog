@@ -1,6 +1,6 @@
 [build]
   publish = "_site"
-  command = "make"
+  command = "./bin/blog-deploy"
   environment = { }
   processing = { skip_processing = true }
 

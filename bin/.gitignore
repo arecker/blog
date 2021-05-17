@@ -1,5 +1,5 @@
 blog
-blog-*
-!blog-download
-!blog-bump
+blog-linux
+blog-darwin
+blog-freebsd
 !.gitignore
