@@ -5,7 +5,7 @@ GOOSES := darwin linux freebsd
 BINARY_TARGETS := $(addprefix bin/blog-, $(GOOSES))
 
 .PHONY: all
-all: download newsite site
+all: newsite site
 
 .PHONY: newsite
 newsite: ./bin/blog
@@ -34,8 +34,7 @@ _data/stats.yml: scripts/genstats $(wildcard _posts/*)
 _data/projects.yml: scripts/genprojects $(wildcard _posts/*)
 	scripts/genprojects > $@
 
-bin/blog: $(wildcard src/*.go)
-	go build -o $@ ./...
+bin/blog: download
 
 .PHONY: $(SCRIPTS)
 $(SCRIPTS):
