@@ -1,6 +1,8 @@
 MAKEFLAGS += --no-builtin-rules -j10
 
 SCRIPTS := thumbnails
+GOOSES := darwin linux freebsd
+BINARY_TARGETS := $(addprefix bin/blog-, $(GOOSES))
 
 .PHONY: all
 all: site
@@ -44,6 +46,12 @@ clean:
 	rm -rf feed.xml sitemap.xml
 	rm -rf _site
 	rm -rf bin/blog
+	rm -rf $(BINARY_TARGETS)
+
+.PHONY: binaries
+binaries: $(BINARY_TARGETS)
+bin/blog-%: $(wildcard src/*.go)
+	GOOS=$* go build -o $@ src/*.go
 
 .PHONY: serve
 serve: site

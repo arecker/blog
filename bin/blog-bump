@@ -74,13 +74,25 @@ EOF
 
 create_release() {
     local url="https://api.github.com/repos/arecker/blog/releases"
-    curl \
-        -H "Authorization: token $(pass github/blog)" \
-        -H "application/vnd.github.v3+json" \
-        -H "Content-Type:application/json" \
-        -X POST \
-        -d "$(create_release_payload)" \
-        "$url"
+    local response_url=`curl \
+          -s \
+          -H "Authorization: token $(pass github/blog)" \
+          -H "application/vnd.github.v3+json" \
+          -H "Content-Type:application/json" \
+          -X POST \
+          -d "$(create_release_payload)" \
+          "$url" | jq -r '.upload_url'`
+    local upload_url="$(echo $response_url | sed 's|{?name,label}||')"
+    for binary in $(cd bin; ls blog-*); do
+        curl \
+            -s \
+            -X POST \
+            -H "Authorization: token $(pass github/blog)" \
+            -H "application/vnd.github.v3+json" \
+            -H "Content-Type:application/json" \
+            --data-binary @bin/${binary} \
+            "${upload_url}?name=${binary}"
+    done
 }
 
 case "$1" in
@@ -116,6 +128,9 @@ echo "${NEXT_VERSION}" > VERSION
 
 log "updating src/version.go [const VERSION = \"${NEXT_VERSION}\"]"
 "$BLOG_SED" -i "s/$CURRENT_VERSION/$NEXT_VERSION/" src/version.go
+
+log "building binaries"
+make -B binaries &> /dev/null
 
 log "writing commit [${MESSAGE_TOPIC}]"
 git add -A &> /dev/null
