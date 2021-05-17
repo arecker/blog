@@ -21,7 +21,7 @@ _data/%.yml:
 BINARY_TARGETS := $(addprefix bin/blog-, darwin linux freebsd)
 binaries: $(BINARY_TARGETS)
 bin/blog-%: $(wildcard src/*.go)
-	GOOS=$* go build -o $@ src/*.go
+	GOOS=$* go build -ldflags="-X 'main.VERSION=$(shell cat VERSION)'" -o $@ src/*.go
 
 BUMP_COMMANDS := major minor patch
 .PHONY: $(BUMP_COMMANDS)
