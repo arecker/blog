@@ -83,7 +83,7 @@ create_release() {
           -d "$(create_release_payload)" \
           "$url" | jq -r '.upload_url'`
     local upload_url="$(echo $response_url | sed 's|{?name,label}||')"
-    for binary in $(cd bin; ls blog-*); do
+    for binary in blog-darwin blog-linux blog-freebsd; do
         curl \
             -s \
             -X POST \

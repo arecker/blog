@@ -1,3 +1,5 @@
 blog
 blog-*
+!blog-download
+!blog-bump
 !.gitignore
