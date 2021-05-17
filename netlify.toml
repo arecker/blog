@@ -4,6 +4,9 @@
   environment = { }
   processing = { skip_processing = true }
 
+[[plugins]]
+package = "/netlify"
+
 [[redirects]]
 from = "/our-new-sid-meiers-civilization-inspired-budget/"
 to = "https://archive.alexrecker.com/civ-budget.html"

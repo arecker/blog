@@ -15,6 +15,7 @@ exclude:
 - VERSION
 - bin
 - jsonnet
+- netlify
 - netlify.toml
 - scripts
 - src
