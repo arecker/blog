@@ -5,7 +5,11 @@ GOOSES := darwin linux freebsd
 BINARY_TARGETS := $(addprefix bin/blog-, $(GOOSES))
 
 .PHONY: all
-all: download site
+all: download newsite site
+
+.PHONY: newsite
+newsite: ./bin/blog
+	./bin/blog -info -data
 
 .PHONY: site
 site: _site
@@ -13,7 +17,7 @@ _site: sitemap.xml feed.xml data $(wildcard _posts/*) $(wildcard _pages/*) _layo
 	bundle exec jekyll build
 
 .PHONY: data
-data: _data/git.yml _data/nav.yml _data/stats.yml _data/projects.yml
+data: _data/git.yml _data/stats.yml _data/projects.yml
 
 sitemap.xml: scripts/genxml $(wildcard _posts/*) $(wildcard _pages/*)
 	scripts/genxml sitemap > $@
@@ -23,9 +27,6 @@ feed.xml: scripts/genxml $(wildcard _posts/*)
 
 _data/git.yml: scripts/gengit .git
 	scripts/gengit > $@
-
-_data/nav.yml: scripts/gennav $(wildcard _pages/*)
-	scripts/gennav > $@
 
 _data/stats.yml: scripts/genstats $(wildcard _posts/*)
 	scripts/genstats > $@
@@ -54,7 +55,7 @@ bin/blog-%: $(wildcard src/*.go)
 	GOOS=$* go build -o $@ src/*.go
 
 .PHONY: serve
-serve: site
+serve: newsite site
 	bundle exec jekyll serve
 
 .PHONY: info

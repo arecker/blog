@@ -1,8 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -50,13 +52,14 @@ func setupConfig() {
 func main() {
 	versionFlag := flag.Bool("version", false, "Print version information.")
 	infoFlag := flag.Bool("info", false, "Print website information.")
+	dataFlag := flag.Bool("data", false, "Generate website data.")
 
 	setupLogging()
 	setupConfig()
 
 	flag.Parse()
 
-	if !(*versionFlag || *infoFlag) {
+	if !(*versionFlag || *infoFlag || *dataFlag) {
 		log.Printf("no commands were specified, try 'blog -help'")
 		os.Exit(1)
 	}
@@ -72,6 +75,30 @@ func main() {
 		printDirectoryInfo("vids", VideosDir)
 		printDirectoryInfo("audios", AudiosDir)
 	}
+
+	if *dataFlag {
+		pages, err := Pages()
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Printf("generating data - nav.json")
+		navPages := Nav(pages)
+		if err := writeNav(navPages); err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+
+func writeNav(pageList []string) error {
+	content, err := json.MarshalIndent(pageList, "", "  ")
+	if err != nil {
+		return err
+	}
+
+	navTarget := path.Join(DataDir, "nav.json")
+
+	err = ioutil.WriteFile(navTarget, content, 0644)
+	return err
 }
 
 func printDirectoryInfo(name string, path string) {
