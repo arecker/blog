@@ -21,7 +21,7 @@ end
 
 entry_files.each do |file|
   title = YAML.load_file(file).fetch('title')
-  results['anti_journal'] << { 'url' => url(file), 'title' => title } if title =~ /^anti-journal\ \d$/
+  results['anti_journal'] << { 'url' => url(file), 'title' => title } if title =~ /^anti-journal\ \d+$/
   results['look_back'] << { 'url' => url(file), 'title' => title } if title =~ /^looking back on/
   results['homework_vault'] << { 'url' => url(file), 'title' => title } if title =~ /^from the homework vault: /
   results['fred_poems'] << { 'url' => url(file), 'title' => title } if title =~ /^fred, the poet: \d$/
