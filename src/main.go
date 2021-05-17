@@ -50,6 +50,7 @@ func setupConfig() {
 }
 
 func main() {
+	allFlag := flag.Bool("all", false, "Run everything.")
 	versionFlag := flag.Bool("version", false, "Print version information.")
 	infoFlag := flag.Bool("info", false, "Print website information.")
 	dataFlag := flag.Bool("data", false, "Generate website data.")
@@ -59,16 +60,16 @@ func main() {
 
 	flag.Parse()
 
-	if !(*versionFlag || *infoFlag || *dataFlag) {
+	if !(*allFlag || *versionFlag || *infoFlag || *dataFlag) {
 		log.Printf("no commands were specified, try 'blog -help'")
 		os.Exit(1)
 	}
 
-	if *versionFlag {
+	if *versionFlag || *allFlag {
 		log.Printf("running v%s (%s)", VERSION, runtime.Version())
 	}
 
-	if *infoFlag {
+	if *infoFlag || *allFlag {
 		printDirectoryInfo("entries", EntriesDir)
 		printDirectoryInfo("pages", PagesDir)
 		printDirectoryInfo("images", ImagesDir)
@@ -76,7 +77,7 @@ func main() {
 		printDirectoryInfo("audios", AudiosDir)
 	}
 
-	if *dataFlag {
+	if *dataFlag || *allFlag {
 		pages, err := Pages()
 		if err != nil {
 			log.Fatal(err)
