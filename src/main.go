@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -85,21 +84,29 @@ func main() {
 		}
 		log.Printf("generating data - nav.json")
 		navPages := Nav(pages)
-		if err := writeNav(navPages); err != nil {
+		if err := writeData("nav.json", navPages); err != nil {
+			log.Fatal(err)
+		}
+
+		log.Printf("generating data - git.json")
+		gitData, err := Git()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if err := writeData("git.json", gitData); err != nil {
 			log.Fatal(err)
 		}
 	}
 }
 
-func writeNav(pageList []string) error {
-	content, err := json.MarshalIndent(pageList, "", "  ")
+func writeData(filename string, data interface{}) error {
+	content, err := JSON(data)
 	if err != nil {
 		return err
 	}
 
-	navTarget := path.Join(DataDir, "nav.json")
-
-	err = ioutil.WriteFile(navTarget, content, 0644)
+	target := path.Join(DataDir, filename)
+	err = ioutil.WriteFile(target, content, 0644)
 	return err
 }
 
