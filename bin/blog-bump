@@ -140,4 +140,4 @@ log "pushing [$REMOTE:$BRANCH]"
 git push --atomic "$REMOTE" "$BRANCH" "v${NEXT_VERSION}" &> /dev/null
 
 log "creating release"
-create_release
+create_release &> /dev/null
