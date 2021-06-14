@@ -13,8 +13,10 @@ xml: $(XML_TARGETS)
 	scripts/genxml $* > $@
 
 .PHONY: data
-data: _data/stats.yml _data/projects.yml
+data: _data/stats.yml _data/projects.yml _data/git.json
 _data/%.yml:
+	scripts/gen$* > $@
+_data/%.json:
 	scripts/gen$* > $@
 
 .PHONY: binaries

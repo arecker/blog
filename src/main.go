@@ -87,15 +87,6 @@ func main() {
 		if err := writeData("nav.json", navPages); err != nil {
 			log.Fatal(err)
 		}
-
-		log.Printf("generating data - git.json")
-		gitData, err := Git()
-		if err != nil {
-			log.Fatal(err)
-		}
-		if err := writeData("git.json", gitData); err != nil {
-			log.Fatal(err)
-		}
 	}
 }
 

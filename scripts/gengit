@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+cat <<EOF
+{
+  "git_head": "$(git rev-parse HEAD)",
+  "git_head_summary": "$(git log -1 --pretty=format:%s HEAD)",
+  "git_short_head": "$(git rev-parse --short HEAD)",
+  "git_commit_count": "$(git rev-list --count master)"
+}
+EOF
