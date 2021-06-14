@@ -76,18 +76,6 @@ func main() {
 		printDirectoryInfo("vids", VideosDir)
 		printDirectoryInfo("audios", AudiosDir)
 	}
-
-	if *dataFlag || *allFlag {
-		pages, err := Pages()
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.Printf("generating data - nav.json")
-		navPages := Nav(pages)
-		if err := writeData("nav.json", navPages); err != nil {
-			log.Fatal(err)
-		}
-	}
 }
 
 func writeData(filename string, data interface{}) error {
