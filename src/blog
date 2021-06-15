@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require 'yaml'
+
+def join(*args)
+  rel = File.join(File.dirname(__FILE__), '..', *args)
+  File.expand_path rel
+end
+
+def log(msg)
+  puts "blog :: #{msg}"
+end
+
+def pages
+  Dir.glob(join('_pages/**/*.html'))
+end
+
+def nav
+  @nav ||= pages.map do |p|
+    [File.basename(p, '*.html'), YAML.load_file(p)['nav']]
+  end.select(&:all?).sort_by(&:last).collect(&:first)
+end
+
+def main
+  log "src = #{join('src')}"
+  log "nav = #{nav}"
+end
+
+main if __FILE__ == $PROGRAM_NAME
