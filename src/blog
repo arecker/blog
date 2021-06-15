@@ -4,31 +4,39 @@
 
 require 'yaml'
 
-require_relative 'lib/git.rb'
+require_relative 'lib/git'
 
+# Like File.join, except relative to the blog root.  Returns the blog
+# root if called withour args.
 def join(*args)
   rel = File.join(File.dirname(__FILE__), '..', *args)
   File.expand_path rel
 end
 
+# Logs a message for the user.
 def log(msg)
   puts "blog :: #{msg}"
 end
 
+# Returns the blog version string.
 def version
   IO.read(join('VERSION')).chomp
 end
 
+# Returns a list of blog pages.
 def pages
   Dir.glob(join('_pages/**/*.html'))
 end
 
+# Returns a sorted list of pages as they should appear in the site
+# navigation.
 def nav
   @nav ||= pages.map do |p|
     [File.basename(p, '*.html'), YAML.load_file(p)['nav']]
   end.select(&:all?).sort_by(&:last).collect(&:first)
 end
 
+# Runs the main blog routine.
 def main
   log "Hi!  I'm blog (v#{version})."
   log "I built the following nav from page data: #{nav.join(', ')}."
