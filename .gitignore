@@ -1,5 +1,4 @@
 *.xml
-.bundle
 .jekyll-cache
 .jekyll-metadata
 .serve-pid
