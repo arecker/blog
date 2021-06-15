@@ -4,6 +4,8 @@
 
 require 'yaml'
 
+require_relative 'lib/git.rb'
+
 def join(*args)
   rel = File.join(File.dirname(__FILE__), '..', *args)
   File.expand_path rel
@@ -11,6 +13,10 @@ end
 
 def log(msg)
   puts "blog :: #{msg}"
+end
+
+def version
+  IO.read(join('VERSION')).chomp
 end
 
 def pages
@@ -24,8 +30,9 @@ def nav
 end
 
 def main
-  log "src = #{join('src')}"
-  log "nav = #{nav}"
+  log "Hi!  I'm blog (v#{version})."
+  log "I built the following nav from page data: #{nav.join(', ')}."
+  log "The current commit is #{Git.short_head} (#{Git.head_summary})."
 end
 
 main if __FILE__ == $PROGRAM_NAME
