@@ -4,8 +4,11 @@
 
 require 'yaml'
 
+require_relative 'lib/entry'
 require_relative 'lib/git'
+require_relative 'lib/projects'
 require_relative 'lib/stats'
+require_relative 'lib/template'
 
 # Like File.join, except relative to the blog root.  Returns the blog
 # root if called withour args.
@@ -21,7 +24,7 @@ end
 
 # Returns the blog version string.
 def version
-  IO.read(join('VERSION')).chomp
+  IO.read(join('src/VERSION')).chomp
 end
 
 # Returns a list of blog pages.
@@ -31,15 +34,12 @@ end
 
 # Returns a list of journal entries..
 def entries
-  Dir.glob(join('_posts/*.md')).sort
+  Dir.glob(join('_posts/*.md')).sort.map { |f| Entry.new f }
 end
 
 # Returns a list of jorunal entriy dates.
 def dates
-  entries.map do |filename|
-    slug = File.basename(filename, '-entry.md')
-    Date.strptime(slug, '%Y-%m-%d')
-  end
+  entries.collect(&:date)
 end
 
 # Returns a sorted list of pages as they should appear in the site
@@ -54,10 +54,23 @@ end
 def main
   log "Hi!  I'm blog (v#{version})."
 
-  log 'Generating the site data.'
+  log 'Generating nav data...'
   File.open(join('_data/nav.yml'), 'w') { |f| f.write(nav.to_yaml) }
+
+  log 'Generating git data...'
   File.open(join('_data/git.yml'), 'w') { |f| f.write(Git.context.to_yaml) }
+
+  log 'Generating stats data...'
   File.open(join('_data/stats.yml'), 'w') { |f| f.write(Stats.context.to_yaml) }
+
+  log 'Generating project data...'
+  File.open(join('_data/projects.yml'), 'w') { |f| f.write(Projects.context.to_yaml) }
+
+  log 'Generating sitemap...'
+  File.open(join('sitemap.xml'), 'w') { |f| f.write(Template.sitemap.result(binding)) }
+
+  log 'Generating feed...'
+  File.open(join('feed.xml'), 'w') { |f| f.write(Template.feed.result(binding)) }
 end
 
 main if __FILE__ == $PROGRAM_NAME

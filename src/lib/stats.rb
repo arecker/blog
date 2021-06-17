@@ -31,7 +31,7 @@ module Stats
 
   # Returns a list of journal entry word.
   def self.entry_words
-    @entry_words ||= entries.map { |f| extract_words(File.read(f)) }
+    @entry_words ||= entries.map { |e| extract_words(File.read(e.source)) }
   end
 
   # Returns the average number of words per entry.
