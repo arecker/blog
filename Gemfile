@@ -2,4 +2,10 @@
 
 source 'https://rubygems.org'
 
-gem 'jekyll'
+group :default do
+  gem 'jekyll', '4.2.0'
+end
+
+group :build do
+  gem 'rubocop'
+end
