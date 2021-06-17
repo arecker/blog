@@ -5,6 +5,7 @@
 require 'yaml'
 
 require_relative 'lib/git'
+require_relative 'lib/stats'
 
 # Like File.join, except relative to the blog root.  Returns the blog
 # root if called withour args.
@@ -15,7 +16,7 @@ end
 
 # Logs a message for the user.
 def log(msg)
-  puts "blog :: #{msg}"
+  puts msg
 end
 
 # Returns the blog version string.
@@ -26,6 +27,19 @@ end
 # Returns a list of blog pages.
 def pages
   Dir.glob(join('_pages/**/*.html'))
+end
+
+# Returns a list of journal entries..
+def entries
+  Dir.glob(join('_posts/*.md')).sort
+end
+
+# Returns a list of jorunal entriy dates.
+def dates
+  entries.map do |filename|
+    slug = File.basename(filename, '-entry.md')
+    Date.strptime(slug, '%Y-%m-%d')
+  end
 end
 
 # Returns a sorted list of pages as they should appear in the site
@@ -39,8 +53,11 @@ end
 # Runs the main blog routine.
 def main
   log "Hi!  I'm blog (v#{version})."
-  log "I built the following nav from page data: #{nav.join(', ')}."
-  log "The current commit is #{Git.short_head} (#{Git.head_summary})."
+
+  log 'Generating the site data.'
+  File.open(join('_data/nav.yml'), 'w') { |f| f.write(nav.to_yaml) }
+  File.open(join('_data/git.yml'), 'w') { |f| f.write(Git.context.to_yaml) }
+  File.open(join('_data/stats.yml'), 'w') { |f| f.write(Stats.context.to_yaml) }
 end
 
 main if __FILE__ == $PROGRAM_NAME
