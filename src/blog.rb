@@ -10,8 +10,13 @@ autoload :Build, 'lib/build'
 autoload :Entry, 'lib/entry'
 autoload :Files, 'lib/files'
 autoload :Git, 'lib/git'
+autoload :Info, 'lib/info'
+autoload :Markdown, 'lib/markdown'
 autoload :Nav, 'lib/nav'
+autoload :Page, 'lib/page'
 autoload :Projects, 'lib/projects'
+autoload :Run, 'lib/run'
+autoload :Shell, 'lib/shell'
 autoload :Stats, 'lib/stats'
 autoload :Template, 'lib/template'
 
@@ -25,44 +30,17 @@ def version
   @version ||= IO.read(Files.join('src/VERSION')).chomp
 end
 
-# Decorates a section
-def section(name, &block)
-  log "## #{name} "
-  yield block
-  log ''
-end
-
-# Run the block and return the execution time difference
-def time_it
-  start = Time.now
-  yield
-  stop = Time.now
-  stop - start
-end
-
 # Runs the main blog routine.
 def main
-  section('starting BLOG') do
-    log "current version:  v#{version}"
-    log "current last commit: #{Git.label}"
+  Run.greeting
+
+  time = Run.time_it do
+    Run.data
+    Run.pages
   end
 
-  time = time_it do
-    section('generating site data') do
-      Build.info
-      Build.nav
-      Build.stats
-      Build.projects
-    end
-
-    section('building site pages') do
-      Build.sitemap
-      Build.feed
-    end
-  end
-
-  section('report') do
-    log "total build time: #{time.round(4)}s"
+  Run.section('build report') do
+    log "total time: #{time.round(2)}s"
   end
 end
 

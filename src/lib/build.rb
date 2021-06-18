@@ -4,43 +4,45 @@
 module Build
   # Build sitemap.
   def self.sitemap
-    context = { entries: Files.entries, pages: Files.pages }
-    content = Template.render('sitemap.xml', context)
-    target = Files.target('sitemap.xml')
-    Files.write(target, content)
+    Files.generate(Files.target('sitemap.xml')) do
+      context = { entries: Files.entries, pages: Files.pages }
+      Template.render('sitemap.xml', context)
+    end
   end
 
   # Build atom feed.
   def self.feed
-    context = { entries: Files.entries, pages: Files.pages }
-    content = Template.render('feed.xml', context)
-    target = Files.target('feed.xml')
-    Files.write(target, content)
+    Files.generate(Files.target('feed.xml')) do
+      context = { entries: Files.entries, pages: Files.pages }
+      Template.render('feed.xml', context)
+    end
   end
 
   # Build site info
   def self.info
-    context = {}.merge(Git.context)
-    target = Files.join('_data/git.yml')
-    Files.write(target, context.to_yaml)
+    Files.generate(Files.join('_data/git.yml')) do
+      Git.context.to_yaml
+    end
   end
 
   # Build site projects
   def self.projects
-    context = {}.merge(Projects.context)
-    target = Files.join('_data/projects.yml')
-    Files.write(target, context.to_yaml)
+    Files.generate(Files.join('_data/projects.yml')) do
+      Projects.context.to_yaml
+    end
   end
 
   # Build site navigation
   def self.nav
-    target = Files.join('_data/nav.yml')
-    Files.write(target, Nav.pages.to_yaml)
+    Files.generate(Files.join('_data/nav.yml')) do
+      Nav.pages.to_yaml
+    end
   end
 
   # Build site statistics.
   def self.stats
-    target = Files.join('_data/stats.yml')
-    Files.write(target, Stats.context.to_yaml)
+    Files.generate(Files.join('_data/stats.yml')) do
+      Stats.context.to_yaml
+    end
   end
 end

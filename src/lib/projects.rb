@@ -1,28 +1,27 @@
 # frozen_string_literal: true
 
-require 'yaml'
-
 # Functions for extracting projects from entries.
 module Projects
-  # Returns the permalink for an entry file.
-  def self.url(file)
-    "#{File.basename(file, '-entry.md')}.html"
+  # Returns a map of project keys to patterns.
+  def self.pattern_map
+    {
+      'anti_journal' => /^anti-journal\ \d+$/,
+      'look_back' => /^looking back on/,
+      'homework_vault' => /^from the homework vault: /,
+      'fred_poems' => /^fred, the poet: \d$/
+    }.sort
   end
 
   # Returns the project context.
   def self.context
-    results = {
-      'anti_journal' => [],
-      'look_back' => [],
-      'homework_vault' => [],
-      'fred_poems' => []
-    }
-    Files.entries.each do |e|
-      title = YAML.load_file(e.source).fetch('title')
-      results['anti_journal'] << { 'url' => url(e.source), 'title' => title } if title =~ /^anti-journal\ \d+$/
-      results['look_back'] << { 'url' => url(e.source), 'title' => title } if title =~ /^looking back on/
-      results['homework_vault'] << { 'url' => url(e.source), 'title' => title } if title =~ /^from the homework vault: /
-      results['fred_poems'] << { 'url' => url(e.source), 'title' => title } if title =~ /^fred, the poet: \d$/
+    results = Hash.new { |h, k| h[k] = [] }
+    Files.entries.reverse.each do |e|
+      pattern_map.each do |key, pattern|
+        if pattern.match?(e.description)
+          results[key] << { 'url' => e.permalink, 'title' => e.description }
+          break
+        end
+      end
     end
     results
   end

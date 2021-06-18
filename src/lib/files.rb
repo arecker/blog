@@ -25,7 +25,7 @@ module Files
 
   # Returns a list of pages.
   def self.pages
-    Dir.glob(Files.join('_pages/*.html'))
+    Dir.glob(Files.join('_pages/*.html')).map { |f| Page.new f }
   end
 
   # Returns a list of ruby test files.
@@ -38,15 +38,17 @@ module Files
     path.delete_prefix("#{root}/")
   end
 
-  # Writes a file (and reports the size of the file)
-  def self.write(path, content)
-    start = Time.now
-    File.open(path, 'w') do |file|
-      file.write(content)
+  # Generates a file.  Expects a path and a block that returns a
+  # string.  Will report execution time and size.
+  def self.generate(path, &block)
+    elapsed = Run.time_it do
+      content = yield block
+      File.open(path, 'w') do |file|
+        file.write(content)
+      end
     end
-    stop = Time.now
     size = File.size(path)
-    time = "#{(stop - start).round(2)} s"
+    time = "#{elapsed.round(2)}s"
     log "generated #{shorten(path)} (#{size} b) [#{time}]-> www/#{shorten(path)}"
   end
 

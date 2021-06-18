@@ -6,7 +6,7 @@ module Nav
   # navigation.
   def self.pages
     Files.pages.map do |p|
-      [File.basename(p, '*.html'), YAML.load_file(p)['nav']]
+      [p.permalink, p.frontmatter['nav']]
     end.select(&:all?).sort_by(&:last).collect(&:first)
   end
 end

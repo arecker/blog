@@ -10,11 +10,11 @@
     <email>alex@reckerfamily.com</email>
   </author>
   <id>https://www.alexrecker.com/feed.xml</id>
-  <% entries.reverse.take(ATOM_LIMIT).each do |entry| %>
+  <% entries.reverse.take(20).each do |entry| %>
   <entry>
     <title><%= entry.title %></title>
-    <link href="https://www.alexrecker.com<%= entry.pathname %>"/>
-    <id>https://www.alexrecker.com<%= entry.pathname %></id>
+    <link href="https://www.alexrecker.com/<%= entry.permalink %>"/>
+    <id>https://www.alexrecker.com/<%= entry.permalink %></id>
     <published><%= entry.date.to_time.iso8601 %></published>
     <updated><%= entry.date.to_time.iso8601 %></updated>
     <summary><%= entry.description %></summary>
@@ -22,7 +22,7 @@
       <name>Alex Recker</name>
       <email>alex@reckerfamily.com</email>
     </author>
-    <% if entry.banner? %>
+    <% if entry.banner %>
     <media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://www.alexrecker.com/images/banners/<%= entry.banner %>"/>
     <media:content medium="image" url="https://www.alexrecker.com/images/banners/<%= entry.banner %>" xmlns:media="http://search.yahoo.com/mrss/" />
     <% end %>

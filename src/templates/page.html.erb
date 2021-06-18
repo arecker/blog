@@ -50,10 +50,10 @@
     <nav>
       <a href="/">index.html</a>
       <span>/</span>
-      <span><% page %></span>
+      <span><% permalink %></span>
       <br class="show-on-mobile" />
       <span class="float-right-on-desktop">
-        <% nav.each do |page| %>
+        <% info.nav.each do |page| %>
         <a href="/<% page %>"><% page %></a>
         <% end %>
       </span>
@@ -76,25 +76,26 @@
 <% content %>
     <!-- conent: end -->
 
-    <!-- Pagination -->
-    <% if next || previous %>
+    <!-- pagination: begin -->
+    <% if pagination %>
     <nav class="clearfix">
-      <% if next %>
-      <a class="float-right" href="/<% next %>"><% next %> ⟶</a>
+      <% if pagination.next %>
+      <a class="float-right" href="/<% pagination.next %>"><% pagination.next %> ⟶</a>
       <% end %>
-      <% if previous %>
-      <a class="float-left" href="/<% previous %>">⟵ <% previous %></a>
+      <% if pagination.previous %>
+      <a class="float-left" href="/<% pagination.previous %>">⟵ <% pagination.previous %></a>
       <% end %>
     </nav>
     <% end %>
+    <!-- pagination: end -->
 
     <hr />
 
     <!-- footer: begin -->
     <footer>
-      <small>Last Updated: 2021-06-18 04:35:32 +0000</small>
-      <small>Last Change:<span>Less noisy timer (<a href="https://github.com/arecker/blog/commit/688a622605041f2dc1a20b0f2b64ea6ceb12db3d">688a6226</a>)</span></small>
-      <small>&copy; Copyright <% year %> Alex Recker</small>
+      <small>Last Updated: <% info.build_time %></small>
+      <small>Last Change:<span><% info.git_head_summary %> (<a href="https://github.com/arecker/blog/commit/<% info.git_head %>"><% info.git_short_head %></a>)</span></small>
+      <small>&copy; Copyright <% info.build_year %> Alex Recker</small>
     </footer>
     <!-- footer: end -->
 

@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# Journal entry object.
-class Entry
+# Special type of Page object for working with journal entries.
+class Entry < Page
   attr_reader :source
 
-  def initialize(source)
-    @source = source
+  def permalink
+    "#{File.basename(source, '-entry.md')}.html"
   end
 
   def date
@@ -18,22 +18,6 @@ class Entry
   end
 
   def description
-    frontmatter.fetch('title')
-  end
-
-  def frontmatter
-    @frontmatter ||= YAML.load_file(source)
-  end
-
-  def pathname
-    "/#{File.basename(source, '-entry.md')}.html"
-  end
-
-  def banner?
-    frontmatter.key? 'banner'
-  end
-
-  def banner
-    frontmatter.fetch('banner')
+    frontmatter.fetch('title').to_s
   end
 end

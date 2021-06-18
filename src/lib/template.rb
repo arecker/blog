@@ -5,8 +5,6 @@ require 'erb'
 require 'ostruct'
 require 'time'
 
-ATOM_LIMIT = 20
-
 # Functions for working with templates
 module Template
   def self.template(name)
