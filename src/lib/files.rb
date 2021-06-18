@@ -28,6 +28,11 @@ module Files
     Dir.glob(Files.join('_pages/*.html'))
   end
 
+  # Returns a list of ruby test files.
+  def self.tests
+    Dir.glob(Files.join('src/spec/test_*.rb'))
+  end
+
   # Shorten a filepath relative to the root
   def self.shorten(path)
     path.delete_prefix("#{root}/")
