@@ -7,6 +7,20 @@ class TestMarkdown < Test::Unit::TestCase
   def test_to_html
     expected = "\n<p><em>Hello World</em></p>\n"
     actual = Markdown.to_html('_Hello World_')
-    assert_equal(expected, actual, 'Markdown.to_html to convert a markdown string to HTML')
+    assert_equal(expected, actual)
+  end
+
+  def test_strip_frontmatter
+    content = <<~TEXT
+      ---
+      title: some title
+      description: some description
+      ---
+      Document begins here!
+    TEXT
+
+    actual = Markdown.strip_frontmatter(content.chomp)
+    expected = "Document begins here!"
+    assert_equal(expected, actual)
   end
 end

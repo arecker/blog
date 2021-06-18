@@ -28,6 +28,26 @@ class Page
     frontmatter['banner']
   end
 
+  def content
+    Markdown.strip_frontmatter(File.read(source))
+  end
+
+  def render
+    padded = content.lines.map { |l| "    #{l}" }.join
+    Template.render('page.html', padded, context)
+  end
+
+  def context
+    {
+      'banner' => banner,
+      'description' => description,
+      'info' => info,
+      'pagination' => pagination,
+      'permalink' => permalink,
+      'title' => title
+    }
+  end
+
   def info
     Info.context
   end

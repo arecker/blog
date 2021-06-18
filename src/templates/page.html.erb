@@ -12,35 +12,35 @@
     <!-- assets: end -->
 
     <!-- title: begin -->
-    <title><% title %> | <% description %></title>
+    <title><%= title %> | <%= description %></title>
     <!-- title: end -->
 
     <!-- twitter: begin -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@alex_recker" />
-    <meta name="twitter:title" content="<% title %>" />
-    <meta name="twitter:description" content="<% description %>" />
-    <% if banner %>
-    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/<% banner %>" />
-    <% end %>
+    <meta name="twitter:title" content="<%= title %>" />
+    <meta name="twitter:description" content="<%= description %>" />
+    <%- if banner -%>
+    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/<%= banner %>" />
+    <%- end -%>
     <!-- twitter: end -->
 
     <!-- og: begin-->
-    <meta property="og:url" content="/<% page %>" />
+    <meta property="og:url" content="/<%= permalink %>" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="<% title %>" />
-    <meta property="og:description" content="<% description %>" />
-    <% if banner %>
-    <meta property="og:image" content="/images/banners/<% banner %>" />
-    <% end %>
+    <meta property="og:title" content="<%= title %>" />
+    <meta property="og:description" content="<%= description %>" />
+    <%- if banner -%>
+    <meta property="og:image" content="/images/banners/<%= banner %>" />
+    <%- end -%>
     <!-- og: end -->
   </head>
   <body>
 
     <!-- header: begin -->
     <header>
-      <h1 class="title"><% title %></h1>
-      <h2 class="subtitle"><% description %></h2>
+      <h1 class="title"><%= title %></h1>
+      <h2 class="subtitle"><%= description %></h2>
     </header>
     <!-- header: end -->
 
@@ -50,12 +50,12 @@
     <nav>
       <a href="/">index.html</a>
       <span>/</span>
-      <span><% permalink %></span>
+      <span><%= permalink %></span>
       <br class="show-on-mobile" />
       <span class="float-right-on-desktop">
-        <% info.nav.each do |page| %>
-        <a href="/<% page %>"><% page %></a>
-        <% end %>
+        <%- info['nav'].each do |page| -%>
+        <a href="/<%= page %>"><%= page %></a>
+        <%- end -%>
       </span>
     </nav>
     <!-- nav: end -->
@@ -63,39 +63,39 @@
     <hr/>
 
     <!-- banner: begin -->
-    <% if banner %>
+    <%- if banner -%>
     <figure>
-      <a href="/images/banners/<% banner %>">
-        <img alt="banner" src="/images/banners/<% banner %>" />
+      <a href="/images/banners/<%= banner %>">
+        <img alt="banner" src="/images/banners/<%= banner %>" />
       </a>
     </figure>
-    <% end %>
+    <%- end -%>
     <!-- banner: end -->
 
     <!-- content: begin -->
-<% content %>
+$CONTENT$
     <!-- conent: end -->
 
     <!-- pagination: begin -->
-    <% if pagination %>
+    <%- if pagination -%>
     <nav class="clearfix">
-      <% if pagination.next %>
-      <a class="float-right" href="/<% pagination.next %>"><% pagination.next %> ⟶</a>
-      <% end %>
-      <% if pagination.previous %>
-      <a class="float-left" href="/<% pagination.previous %>">⟵ <% pagination.previous %></a>
-      <% end %>
+      <%- if pagination['next'] -%>
+      <a class="float-right" href="/<%= pagination['next'] %>"><%= pagination['next'] %> ⟶</a>
+      <%- end -%>
+      <%- if pagination['previous'] -%>
+      <a class="float-left" href="/<%= pagination['previous'] %>">⟵ <%= pagination['previous'] %></a>
+      <%- end -%>
     </nav>
-    <% end %>
+    <%- end -%>
     <!-- pagination: end -->
 
     <hr />
 
     <!-- footer: begin -->
     <footer>
-      <small>Last Updated: <% info.build_time %></small>
-      <small>Last Change:<span><% info.git_head_summary %> (<a href="https://github.com/arecker/blog/commit/<% info.git_head %>"><% info.git_short_head %></a>)</span></small>
-      <small>&copy; Copyright <% info.build_year %> Alex Recker</small>
+      <small>Last Updated: <%= info['build_time'] %></small>
+      <small>Last Change:<span><%= info['git_head_summary'] %> (<a href="https://github.com/arecker/blog/commit/<%= info['git_head'] %>"><%= info['git_short_head'] %></a>)</span></small>
+      <small>&copy; Copyright <%= info['build_year'] %> Alex Recker</small>
     </footer>
     <!-- footer: end -->
 

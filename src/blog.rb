@@ -36,7 +36,8 @@ def main
 
   time = Run.time_it do
     Run.data
-    Run.pages
+    Run.feeds
+    # Run.pages
   end
 
   Run.section('build report') do

@@ -20,11 +20,18 @@ module Run
     end
   end
 
+  # Builds site feeds.
+  def self.feeds
+    section('building site feeds') do
+      Build.sitemap
+      Build.feed
+    end
+  end
+
   # Builds site pages.
   def self.pages
     section('building site pages') do
-      Build.sitemap
-      Build.feed
+      Build.pages
     end
   end
 

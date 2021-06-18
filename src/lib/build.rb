@@ -45,4 +45,13 @@ module Build
       Stats.context.to_yaml
     end
   end
+
+  # Build site pages
+  def self.pages
+    Files.pages.each do |page|
+      Files.generate(Files.target(page.permalink)) do
+        page.render
+      end
+    end
+  end
 end
