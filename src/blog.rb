@@ -25,12 +25,14 @@ def version
   @version ||= IO.read(Files.join('src/VERSION')).chomp
 end
 
+# Decorates a section
 def section(name, &block)
   log "## #{name} "
   yield block
   log ''
 end
 
+# Run the block and return the execution time difference
 def time_it
   start = Time.now
   yield
@@ -41,8 +43,8 @@ end
 # Runs the main blog routine.
 def main
   section('starting BLOG') do
-    log "version v#{version}"
-    log "last commit #{Git.label}"
+    log "current version:  v#{version}"
+    log "current last commit: #{Git.label}"
   end
 
   time = time_it do
