@@ -1,6 +1,6 @@
 [build]
   publish = "_site"
-  command = "./src/blog && bundle exec jekyll build"
+  command = "./src/blog.rb && bundle exec jekyll build"
   environment = { }
   processing = { skip_processing = true }
 
