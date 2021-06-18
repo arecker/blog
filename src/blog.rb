@@ -27,10 +27,7 @@ end
 
 def section(name, &block)
   log "## #{name} "
-  time = time_it do
-    yield block
-  end
-  log "#{name} time: #{time.round(4)}s"
+  yield block
   log ''
 end
 
