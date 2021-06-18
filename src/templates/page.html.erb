@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include head.html %}
+  </head>
+  <body>
+    {% include header.html %}
+    <hr />
+    <nav>
+      <a href="/">index.html</a>
+      {% if page.permalink != "/index.html" %}
+      <span>/</span>
+      <span>{{ page.url | remove_first: "/" }}</span>
+      {% endif %}
+      <br class="show-on-mobile" />
+      <span class="float-right-on-desktop">
+        <% nav.each do |page| %><a href="/<%= page %>"<%= page %></a><% end >
+      </span>
+    </nav>
+    <hr />
+    {% include banner.html %}
+    {{ content }}
+    {% include pagination.html %}
+    <hr />
+    {% include footer.html %}
+  </body>
+</html>

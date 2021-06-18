@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'pathname'
+require 'time'
 
 # Functions for working with files
 module Files
@@ -32,13 +33,16 @@ module Files
     path.delete_prefix("#{root}/")
   end
 
-  # Writes a file (and returns the size of the file)
+  # Writes a file (and reports the size of the file)
   def self.write(path, content)
+    start = Time.now
     File.open(path, 'w') do |file|
       file.write(content)
     end
+    stop = Time.now
     size = File.size(path)
-    log "generated #{shorten(path)} (#{size} b) -> www/#{shorten(path)}"
+    time = "#{(stop - start).round(2)} s"
+    log "generated #{shorten(path)} (#{size} b) [#{time}]-> www/#{shorten(path)}"
   end
 
   # Joins a file path relative to the site root (www/ by default).

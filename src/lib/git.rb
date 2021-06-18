@@ -22,6 +22,11 @@ module Git
     `git rev-list --count master`.chomp.to_i
   end
 
+  # Descriptive git label for logs.
+  def self.label
+    "#{short_head} (#{head_summary})"
+  end
+
   # Returns all git data for site.
   def self.context
     {
