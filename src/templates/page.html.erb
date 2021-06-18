@@ -1,33 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- meta: begin -->
     <meta charset="UTF-8" />
-    <title> Thursday, June 17 2021 | anti-journal 15 </title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- meta: end -->
+
+    <!-- assets: begin -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link href="/assets/site.css" rel="stylesheet" />
+    <!-- assets: end -->
+
+    <!-- title: begin -->
+    <title><% title %> | <% description %></title>
+    <!-- title: end -->
+
+    <!-- twitter: begin -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@alex_recker" />
-    <meta name="twitter:title" content="Thursday, June 17 2021" />
-    <meta name="twitter:description" content="anti-journal 15" />
-    <meta property="og:url" content="/2021-06-17.html" />
+    <meta name="twitter:title" content="<% title %>" />
+    <meta name="twitter:description" content="<% description %>" />
+    <% if banner %>
+    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/<% banner %>" />
+    <% end %>
+    <!-- twitter: end -->
+
+    <!-- og: begin-->
+    <meta property="og:url" content="/<% page %>" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Thursday, June 17 2021" />
-    <meta property="og:description" content="anti-journal 15" />
-    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/2021-06-17.jpg" />
-    <meta property="og:image" content="/images/banners/2021-06-17.jpg" />
-    <link href="/assets/site.css" rel="stylesheet" />
+    <meta property="og:title" content="<% title %>" />
+    <meta property="og:description" content="<% description %>" />
+    <% if banner %>
+    <meta property="og:image" content="/images/banners/<% banner %>" />
+    <% end %>
+    <!-- og: end -->
   </head>
   <body>
 
-    <!-- Header -->
+    <!-- header: begin -->
     <header>
-      <h1 class="title">Thursday, June 17 2021</h1>
-      <h2 class="subtitle">anti-journal 15</h2>
+      <h1 class="title"><% title %></h1>
+      <h2 class="subtitle"><% description %></h2>
     </header>
+    <!-- header: end -->
 
     <hr/>
 
-    <!-- Navigation -->
+    <!-- nav: begin -->
     <nav>
       <a href="/">index.html</a>
       <span>/</span>
@@ -39,10 +58,11 @@
         <% end %>
       </span>
     </nav>
+    <!-- nav: end -->
 
     <hr/>
 
-    <!-- Banner Image -->
+    <!-- banner: begin -->
     <% if banner %>
     <figure>
       <a href="/images/banners/<% banner %>">
@@ -50,8 +70,11 @@
       </a>
     </figure>
     <% end %>
+    <!-- banner: end -->
 
-    <!-- Content -->
+    <!-- content: begin -->
+<% content %>
+    <!-- conent: end -->
 
     <!-- Pagination -->
     <% if next || previous %>
@@ -67,14 +90,25 @@
 
     <hr />
 
-    <!-- Footer -->
+    <!-- footer: begin -->
     <footer>
       <small>Last Updated: 2021-06-18 04:35:32 +0000</small>
       <small>Last Change:<span>Less noisy timer (<a href="https://github.com/arecker/blog/commit/688a622605041f2dc1a20b0f2b64ea6ceb12db3d">688a6226</a>)</span></small>
       <small>&copy; Copyright <% year %> Alex Recker</small>
     </footer>
+    <!-- footer: end -->
 
   </body>
 
-  <!-- No Scripts!  Just enjoy the reading -->
+<!--
+ _____________________________________
+< No scripts! Just enjoy the reading! >
+ -------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+ -->
+
 </html>
