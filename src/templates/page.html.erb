@@ -1,27 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% include head.html %}
+    <meta charset="UTF-8" />
+    <title> Thursday, June 17 2021 | anti-journal 15 </title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@alex_recker" />
+    <meta name="twitter:title" content="Thursday, June 17 2021" />
+    <meta name="twitter:description" content="anti-journal 15" />
+    <meta property="og:url" content="/2021-06-17.html" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Thursday, June 17 2021" />
+    <meta property="og:description" content="anti-journal 15" />
+    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/2021-06-17.jpg" />
+    <meta property="og:image" content="/images/banners/2021-06-17.jpg" />
+    <link href="/assets/site.css" rel="stylesheet" />
   </head>
   <body>
-    {% include header.html %}
-    <hr />
+
+    <!-- Header -->
+    <header>
+      <h1 class="title">Thursday, June 17 2021</h1>
+      <h2 class="subtitle">anti-journal 15</h2>
+    </header>
+
+    <hr/>
+
+    <!-- Navigation -->
     <nav>
       <a href="/">index.html</a>
-      {% if page.permalink != "/index.html" %}
       <span>/</span>
-      <span>{{ page.url | remove_first: "/" }}</span>
-      {% endif %}
+      <span><% page %></span>
       <br class="show-on-mobile" />
       <span class="float-right-on-desktop">
-        <% nav.each do |page| %><a href="/<%= page %>"<%= page %></a><% end >
+        <% nav.each do |page| %>
+        <a href="/<% page %>"><% page %></a>
+        <% end %>
       </span>
     </nav>
+
+    <hr/>
+
+    <!-- Banner Image -->
+    <% if banner %>
+    <figure>
+      <a href="/images/banners/<% banner %>">
+        <img alt="banner" src="/images/banners/<% banner %>" />
+      </a>
+    </figure>
+    <% end %>
+
+    <!-- Content -->
+
+    <!-- Pagination -->
+    <% if next || previous %>
+    <nav class="clearfix">
+      <% if next %>
+      <a class="float-right" href="/<% next %>"><% next %> ⟶</a>
+      <% end %>
+      <% if previous %>
+      <a class="float-left" href="/<% previous %>">⟵ <% previous %></a>
+      <% end %>
+    </nav>
+    <% end %>
+
     <hr />
-    {% include banner.html %}
-    {{ content }}
-    {% include pagination.html %}
-    <hr />
-    {% include footer.html %}
+
+    <!-- Footer -->
+    <footer>
+      <small>Last Updated: 2021-06-18 04:35:32 +0000</small>
+      <small>Last Change:<span>Less noisy timer (<a href="https://github.com/arecker/blog/commit/688a622605041f2dc1a20b0f2b64ea6ceb12db3d">688a6226</a>)</span></small>
+      <small>&copy; Copyright <% year %> Alex Recker</small>
+    </footer>
+
   </body>
+
+  <!-- No Scripts!  Just enjoy the reading -->
 </html>
