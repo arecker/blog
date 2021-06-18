@@ -19,7 +19,7 @@ end
 
 # Logs a message for the user.
 def log(msg)
-  puts msg
+  puts "blog :: #{msg}"
 end
 
 # Returns the blog version string.
@@ -52,24 +52,24 @@ end
 
 # Runs the main blog routine.
 def main
-  log "Hi!  I'm blog (v#{version})."
+  log "starting blog (v#{version})."
 
-  log 'Generating nav data...'
+  log 'writing nav data'
   File.open(join('_data/nav.yml'), 'w') { |f| f.write(nav.to_yaml) }
 
-  log 'Generating git data...'
+  log 'writing git data'
   File.open(join('_data/git.yml'), 'w') { |f| f.write(Git.context.to_yaml) }
 
-  log 'Generating stats data...'
+  log 'writing stats data'
   File.open(join('_data/stats.yml'), 'w') { |f| f.write(Stats.context.to_yaml) }
 
-  log 'Generating project data...'
+  log 'writing project data'
   File.open(join('_data/projects.yml'), 'w') { |f| f.write(Projects.context.to_yaml) }
 
-  log 'Generating sitemap...'
+  log 'writing sitemap'
   File.open(join('sitemap.xml'), 'w') { |f| f.write(Template.sitemap.result(binding)) }
 
-  log 'Generating feed...'
+  log 'writing feed'
   File.open(join('feed.xml'), 'w') { |f| f.write(Template.feed.result(binding)) }
 end
 
