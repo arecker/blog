@@ -81,7 +81,7 @@ PLATFORMS
 
 DEPENDENCIES
   jekyll (= 4.2.0)
-  rubocop
+  rubocop (= 1.17.0)
 
 BUNDLED WITH
    2.2.20
