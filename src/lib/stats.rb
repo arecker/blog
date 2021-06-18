@@ -31,7 +31,7 @@ module Stats
 
   # Returns a list of journal entry word.
   def self.entry_words
-    @entry_words ||= entries.map { |e| extract_words(File.read(e.source)) }
+    @entry_words ||= Files.entries.map { |e| extract_words(File.read(e.source)) }
   end
 
   # Returns the average number of words per entry.
@@ -47,13 +47,13 @@ module Stats
 
   # Returns the journal entry dates, sliced by consecutive dates.
   def self.consecutive_dates
-    dates.slice_when { |p, c| c != p - 1 && c != p + 1 }.to_a
+    Files.entries.collect(&:date).slice_when { |p, c| c != p - 1 && c != p + 1 }.to_a
   end
 
   # Return all the stats data for site.
   def self.context
     {
-      'total_posts' => entries.size,
+      'total_posts' => Files.entries.size,
       'consecutive_posts' => consecutive_dates.last.size,
       'total_words' => entry_words.flatten.size,
       'average_words' => entry_words_average.truncate,
