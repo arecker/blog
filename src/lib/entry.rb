@@ -30,7 +30,7 @@ class Entry < Page
   end
 
   def permalink
-    "#{File.basename(source, '-entry.md')}.html"
+    "#{File.basename(source, '.md')}.html"
   end
 
   def content
@@ -39,7 +39,7 @@ class Entry < Page
   end
 
   def date
-    slug = File.basename(source, '-entry.md')
+    slug = File.basename(source, '.md')
     Date.strptime(slug, '%Y-%m-%d')
   end
 
