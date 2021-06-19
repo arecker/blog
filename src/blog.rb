@@ -39,10 +39,8 @@ def main
     Run.data
     Run.feeds
     Run.pages
-    # Run.entries
+    Run.entries
   end
-
-  Serve.start
 
   Run.section('build report') do
     log "total time: #{time.round(2)}s"
