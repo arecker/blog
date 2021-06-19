@@ -12,27 +12,22 @@ module Run
 
   # Builds site data.
   def self.data
-    section('building site data') do
-      Build.info
-      Build.nav
-      Build.stats
-      Build.projects
-    end
+    section('building site data') { Context.generate_all }
   end
 
   # Builds site feeds.
   def self.feeds
-    section('building site feeds') do
-      Build.sitemap
-      Build.feed
-    end
+    section('building site feeds') { Feeds.generate_all }
   end
 
   # Builds site pages.
   def self.pages
-    section('building site pages') do
-      Build.pages
-    end
+    section('building site pages') { Page.generate_all }
+  end
+
+  # Builds site entries.
+  def self.entries
+    section('building site entries') { Entry.generate_all }
   end
 
   # Decorates a section

@@ -6,8 +6,9 @@ $LOAD_PATH.unshift File.dirname(__FILE__)
 
 require 'yaml'
 
-autoload :Build, 'lib/build'
+autoload :Context, 'lib/context'
 autoload :Entry, 'lib/entry'
+autoload :Feeds, 'lib/feeds'
 autoload :Files, 'lib/files'
 autoload :Git, 'lib/git'
 autoload :Info, 'lib/info'
@@ -17,9 +18,14 @@ autoload :Nav, 'lib/nav'
 autoload :Page, 'lib/page'
 autoload :Projects, 'lib/projects'
 autoload :Run, 'lib/run'
+autoload :Serve, 'lib/serve'
 autoload :Shell, 'lib/shell'
 autoload :Stats, 'lib/stats'
 autoload :Template, 'lib/template'
+
+# 3rd party libraries
+autoload :Kramdown, 'lib/kramdown'
+autoload :Parallel, 'lib/parallel'
 
 # Logs a message for the user.
 def log(msg)
@@ -39,6 +45,7 @@ def main
     Run.data
     Run.feeds
     Run.pages
+    Run.entries
   end
 
   Run.section('build report') do

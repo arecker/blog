@@ -18,17 +18,4 @@ module Template
     namespace = OpenStruct.new(context)
     template(name, content: content).result(namespace.instance_eval { binding })
   end
-
-  # Returns (and caches) the global context for all templates.
-  def self.context
-    @context ||= {
-      'entries' => Files.entries.reverse,
-      'git' => Git,
-      'info' => Info,
-      'latest' => Files.entries.reverse.first,
-      'nav' => Nav.pages,
-      'projects' => Projects.context,
-      'stats' => Stats.context
-    }
-  end
 end

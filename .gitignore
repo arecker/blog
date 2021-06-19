@@ -1,8 +1,4 @@
-*.xml
-.jekyll-cache
-.jekyll-metadata
-.serve-pid
-.site
-.yardoc
-_site
 .bundle
+www/api/*.json
+www/*.html
+www/*.xml

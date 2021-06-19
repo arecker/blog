@@ -4,6 +4,14 @@
 class Page
   attr_reader :source
 
+  # Generates all site pages.
+  def self.generate_all
+    Files.pages.each do |page|
+      target = Files.target(page.permalink)
+      Files.generate(target) { page.render }
+    end
+  end
+
   def initialize(source)
     @source = source
   end
@@ -38,7 +46,7 @@ class Page
   end
 
   def context
-    Template.context.merge(
+    Context.global.merge(
       {
         'banner' => banner,
         'description' => description,
