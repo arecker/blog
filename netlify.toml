@@ -1,6 +1,6 @@
 [build]
   publish = "www"
-  command = "bundle exec ./src/blog.rb"
+  command = "bundle exec ruby ./src/blog.rb"
   environment = { }
   processing = { skip_processing = true }
 
