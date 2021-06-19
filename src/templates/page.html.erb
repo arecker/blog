@@ -49,11 +49,13 @@
     <!-- nav: begin -->
     <nav>
       <a href="/">index.html</a>
+      <%- if permalink != "index.html" -%>
       <span>/</span>
       <span><%= permalink %></span>
+      <%- end -%>
       <br class="show-on-mobile" />
       <span class="float-right-on-desktop">
-        <%- info['nav'].each do |page| -%>
+        <%- nav.each do |page| -%>
         <a href="/<%= page %>"><%= page %></a>
         <%- end -%>
       </span>
@@ -62,40 +64,40 @@
 
     <hr/>
 
-    <!-- banner: begin -->
     <%- if banner -%>
+    <!-- banner: begin -->
     <figure>
       <a href="/images/banners/<%= banner %>">
         <img alt="banner" src="/images/banners/<%= banner %>" />
       </a>
     </figure>
-    <%- end -%>
     <!-- banner: end -->
+    <%- end -%>
 
     <!-- content: begin -->
 $CONTENT$
     <!-- conent: end -->
 
+    <%- if page_previous || page_next -%>
     <!-- pagination: begin -->
-    <%- if pagination -%>
     <nav class="clearfix">
-      <%- if pagination['next'] -%>
-      <a class="float-right" href="/<%= pagination['next'] %>"><%= pagination['next'] %> ⟶</a>
+      <%- if page_next -%>
+      <a class="float-right" href="/<%= page_next %>"><%= page_next %> ⟶</a>
       <%- end -%>
-      <%- if pagination['previous'] -%>
-      <a class="float-left" href="/<%= pagination['previous'] %>">⟵ <%= pagination['previous'] %></a>
+      <%- if page_previous -%>
+      <a class="float-left" href="/<%= page_previous %>">⟵ <%= page_previous %></a>
       <%- end -%>
     </nav>
-    <%- end -%>
     <!-- pagination: end -->
+    <%- end -%>
 
     <hr />
 
     <!-- footer: begin -->
     <footer>
-      <small>Last Updated: <%= info['build_time'] %></small>
-      <small>Last Change:<span><%= info['git_head_summary'] %> (<a href="https://github.com/arecker/blog/commit/<%= info['git_head'] %>"><%= info['git_short_head'] %></a>)</span></small>
-      <small>&copy; Copyright <%= info['build_year'] %> Alex Recker</small>
+      <small>Last Updated: <%= info.build_time %></small>
+      <small>Last Change:<span><%= git.head_summary %> (<a href="https://github.com/arecker/blog/commit/<%= git.head %>"><%= git.short_head %></a>)</span></small>
+      <small>&copy; Copyright <%= info.build_year %> Alex Recker</small>
     </footer>
     <!-- footer: end -->
 

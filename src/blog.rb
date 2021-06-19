@@ -11,6 +11,7 @@ autoload :Entry, 'lib/entry'
 autoload :Files, 'lib/files'
 autoload :Git, 'lib/git'
 autoload :Info, 'lib/info'
+autoload :Lists, 'lib/lists'
 autoload :Markdown, 'lib/markdown'
 autoload :Nav, 'lib/nav'
 autoload :Page, 'lib/page'
@@ -37,7 +38,7 @@ def main
   time = Run.time_it do
     Run.data
     Run.feeds
-    # Run.pages
+    Run.pages
   end
 
   Run.section('build report') do

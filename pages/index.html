@@ -1,32 +1,32 @@
 ---
 title: Dear Journal
 description: Daily, public journal by Alex Recker
-permalink: /index.html
 ---
 
-{% assign latest = site.posts.first %}
 <div class="row">
+  <%- if latest -%>
+  <!-- latest: begin -->
   <div class="column">
     <h2>Today's Post</h2>
-    <a href="{{ latest.url }}">
-      <h3 class="title">{{ latest.date | date: "%A, %B %-d %Y" }}</h3>
+    <a href="/<%= latest.permalink %>">
+      <h3 class="title"><%= latest.title %></h3>
     </a>
-    {% if latest.banner %}
+    <%- if latest.banner -%>
     <figure>
-      <a href="{{ latest.url }}">
-        <img
-          alt="{{ latest.title }}"
-          src="/images/banners/{{ latest.banner }}"
+      <a href="/<%= latest.permalink %>">
+        <img alt="<%= latest.description %>" src="/images/banners/<%= latest.banner %>"
         />
       </a>
       <figcaption>
-        <p>{{ latest.title }}</p>
+        <p><%= latest.description %></p>
       </figcaption>
     </figure>
-    {% else %}
-    <p>{{ latest.description }}</p>
-    {% endif %}
+    <%- else -%>
+    <p><%= latest.description %></p>
+    <%- end -%>
   </div>
+  <!-- latest: end -->
+  <%- end -%>
   <div class="column">
     <h2>What's New?</h2>
     <h3>Projects Page</h3>

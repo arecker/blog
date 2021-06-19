@@ -1,9 +1,6 @@
 permalink: /:year-:month-:day:output_ext
 url: https://www.alexrecker.com
 
-include:
-- _pages
-
 exclude:
 - .github
 - .jekyll-cache
@@ -17,6 +14,7 @@ exclude:
 - jsonnet
 - netlify
 - netlify.toml
+- pages
 - scripts
 - src
 

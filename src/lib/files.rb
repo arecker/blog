@@ -20,12 +20,12 @@ module Files
 
   # Returns a list of entries.
   def self.entries
-    Dir.glob(Files.join('_posts/*.md')).sort.map { |f| Entry.new f }
+    @entries ||= Entry.build_paginated_list
   end
 
   # Returns a list of pages.
   def self.pages
-    Dir.glob(Files.join('_pages/*.html')).map { |f| Page.new f }
+    Dir.glob(Files.join('pages/*.html')).map { |f| Page.new f }
   end
 
   # Returns a list of ruby test files.

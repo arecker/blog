@@ -38,21 +38,13 @@ class Page
   end
 
   def context
-    {
-      'banner' => banner,
-      'description' => description,
-      'info' => info,
-      'pagination' => pagination,
-      'permalink' => permalink,
-      'title' => title
-    }
-  end
-
-  def info
-    Info.context
-  end
-
-  def pagination
-    nil
+    Template.context.merge(
+      {
+        'banner' => banner,
+        'description' => description,
+        'permalink' => permalink,
+        'title' => title
+      }
+    )
   end
 end

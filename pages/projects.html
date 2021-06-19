@@ -2,7 +2,6 @@
 title: "Projects"
 description: "Stuff that I'm working on"
 nav: 3
-permalink: /projects.html
 ---
 
 <div class="row">
@@ -19,10 +18,7 @@ permalink: /projects.html
       Tune in on late Saturday Mornings to watch me work on some code. I stream
       on YouTube and Facebook live.
     </p>
-    <a
-      href="https://youtube.com/playlist?list=PLhMFRzv8kTTCaaV27Si4arLhdw6nHsU-f"
-      >YouTube: live programming</a
-    >
+    <a href="https://youtube.com/playlist?list=PLhMFRzv8kTTCaaV27Si4arLhdw6nHsU-f">YouTube: live programming</a>
   </div>
 </div>
 <div class="row">
@@ -33,9 +29,9 @@ permalink: /projects.html
       there as well.
     </p>
     <ul class="unstyled">
-      {% for entry in site.data.projects.fred_poems %}
-      <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
-      {% endfor %}
+      <%- projects[:fred_poems].each do |project| -%>
+      <li><a href="<%= project.permalink %>"><%= project.description %></a></li>
+      <%- end -%>
     </ul>
   </div>
   <div class="column">
@@ -58,9 +54,9 @@ permalink: /projects.html
     <h2>Look Back</h2>
     <p>Old stories and other nostalgia bombs from my past.</p>
     <ul class="unstyled">
-      {% for entry in site.data.projects.look_back %}
-      <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
-      {% endfor %}
+      <%- projects[:look_back].each do |project| -%>
+      <li><a href="<%= project.permalink %>"><%= project.description %></a></li>
+      <%- end -%>
     </ul>
   </div>
 </div>
@@ -72,9 +68,9 @@ permalink: /projects.html
       nicknamed <em>The Anti-Journal</em>.
     </p>
     <ul class="unstyled">
-      {% for entry in site.data.projects.anti_journal %}
-      <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
-      {% endfor %}
+      <%- projects[:anti_journal].each do |project| -%>
+      <li><a href="<%= project.permalink %>"><%= project.description %></a></li>
+      <%- end -%>
     </ul>
   </div>
   <div class="column">
@@ -84,9 +80,9 @@ permalink: /projects.html
       from high school and college.
     </p>
     <ul class="unstyled">
-      {% for entry in site.data.projects.homework_vault %}
-      <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
-      {% endfor %}
+      <%- projects[:homework_vault].each do |project| -%>
+      <li><a href="<%= project.permalink %>"><%= project.description %></a></li>
+      <%- end -%>
     </ul>
   </div>
 </div>

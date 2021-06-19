@@ -10,6 +10,14 @@ module Info
     build.merge(nav).merge(Git.context)
   end
 
+  def self.build_time
+    Time.now
+  end
+
+  def self.build_year
+    Date.today.year
+  end
+
   # Returns build info context.
   def self.build
     {
