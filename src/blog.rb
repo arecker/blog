@@ -23,10 +23,6 @@ autoload :Shell, 'lib/shell'
 autoload :Stats, 'lib/stats'
 autoload :Template, 'lib/template'
 
-# 3rd party libraries
-autoload :Kramdown, 'lib/kramdown'
-autoload :Parallel, 'lib/parallel'
-
 # Logs a message for the user.
 def log(msg)
   puts "blog :: #{msg}"

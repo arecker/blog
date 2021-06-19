@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'kramdown'
+
 # Functions for working with (shudder) markdown.
 module Markdown
   # Render an markdown string to HTML.

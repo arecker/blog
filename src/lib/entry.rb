@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'parallel'
+
 # Special type of Page object for working with journal entries.
 class Entry < Page
   attr_reader :source
