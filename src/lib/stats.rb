@@ -6,19 +6,19 @@ module Blog
   # Functions for statistics.
   module Stats
     SWEAR_WORDS = %w[
-    ass
-    asshole
-    booger
-    crap
-    damn
-    fart
-    fuck
-    hell
-    jackass
-    piss
-    poop
-    shit
-  ].freeze
+      ass
+      asshole
+      booger
+      crap
+      damn
+      fart
+      fuck
+      hell
+      jackass
+      piss
+      poop
+      shit
+    ].freeze
 
     # Extract the words from a string.
     def self.extract_words(content)
