@@ -3,33 +3,35 @@
 require 'date'
 require 'time'
 
-# Functions for getting basic build info.
-module Info
-  # Returns full info context.
-  def self.context
-    build.merge(nav).merge(Git.context)
-  end
+module Blog
+  # Functions for getting basic build info.
+  module Info
+    # Returns full info context.
+    def self.context
+      build.merge(nav).merge(Git.context)
+    end
 
-  def self.build_time
-    Time.now
-  end
+    def self.build_time
+      Time.now
+    end
 
-  def self.build_year
-    Date.today.year
-  end
+    def self.build_year
+      Date.today.year
+    end
 
-  # Returns build info context.
-  def self.build
-    {
-      'build_year' => Date.today.year,
-      'build_time' => Time.now
-    }
-  end
+    # Returns build info context.
+    def self.build
+      {
+        'build_year' => Date.today.year,
+        'build_time' => Time.now
+      }
+    end
 
-  # Returns nav context.
-  def self.nav
-    {
-      'nav' => Nav.pages
-    }
+    # Returns nav context.
+    def self.nav
+      {
+        'nav' => Nav.pages
+      }
+    end
   end
 end

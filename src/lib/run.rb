@@ -1,47 +1,54 @@
 # frozen_string_literal: true
 
-# Functions for running pieces of the blog program.
-module Run
-  # Prints a program greeting.
-  def self.greeting
-    section('BLOG ##') do
-      log "version: v#{version}"
-      log "commit: #{Git.label}"
+module Blog
+  # Functions for running pieces of the blog program.
+  module Run
+    # Returns the blog version string.
+    def self.version
+      @version ||= IO.read(Files.join('src/VERSION')).chomp
     end
-  end
 
-  # Builds site data.
-  def self.data
-    section('building site data') { Context.generate_all }
-  end
+    # Prints a program greeting.
+    def self.greeting
+      section('BLOG ##') do
+        Log.info "version: v#{version}"
+        Log.info "commit: #{Git.label}"
+      end
+    end
 
-  # Builds site feeds.
-  def self.feeds
-    section('building site feeds') { Feeds.generate_all }
-  end
+    # Builds site data.
+    def self.data
+      section('building site data') { Context.generate_all }
+    end
 
-  # Builds site pages.
-  def self.pages
-    section('building site pages') { Page.generate_all }
-  end
+    # Builds site feeds.
+    def self.feeds
+      section('building site feeds') { Feeds.generate_all }
+    end
 
-  # Builds site entries.
-  def self.entries
-    section('building site entries') { Entry.generate_all }
-  end
+    # Builds site pages.
+    def self.pages
+      section('building site pages') { Page.generate_all }
+    end
 
-  # Decorates a section
-  def self.section(name, &block)
-    log "## #{name} "
-    yield block
-    log ''
-  end
+    # Builds site entries.
+    def self.entries
+      section('building site entries') { Entry.generate_all }
+    end
 
-  # Run the block and return the execution time difference
-  def self.time_it
-    start = Time.now
-    yield
-    stop = Time.now
-    stop - start
+    # Decorates a section
+    def self.section(name, &block)
+      Log.info "## #{name} "
+      yield block
+      Log.info ''
+    end
+
+    # Run the block and return the execution time difference
+    def self.time_it
+      start = Time.now
+      yield
+      stop = Time.now
+      stop - start
+    end
   end
 end

@@ -2,6 +2,6 @@
 
 require_relative './blog'
 
-Files.tests.each do |file|
+Blog::Files.tests.each do |file|
   require file
 end

@@ -5,8 +5,8 @@ require 'test/unit'
 # Unit tests for Markdown module
 class TestMarkdown < Test::Unit::TestCase
   def test_to_html
-    expected = "\n<p><em>Hello World</em></p>\n"
-    actual = Markdown.to_html('_Hello World_')
+    expected = "<p><em>Hello World</em></p>\n"
+    actual = Blog::Markdown.to_html('_Hello World_')
     assert_equal(expected, actual)
   end
 
@@ -19,8 +19,8 @@ class TestMarkdown < Test::Unit::TestCase
       Document begins here!
     TEXT
 
-    actual = Markdown.strip_frontmatter(content.chomp)
-    expected = "Document begins here!"
+    actual = Blog::Markdown.strip_frontmatter(content.chomp)
+    expected = 'Document begins here!'
     assert_equal(expected, actual)
   end
 end
