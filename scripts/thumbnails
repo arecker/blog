@@ -29,7 +29,7 @@ for cmd in convert identify; do
     check_installed "$cmd"
 done
 
-for image in $(find ~/src/blog/images -type f); do
+for image in $(find ~/src/blog/www/images -type f); do
     if is_too_big "$image"; then
         log "resizing $image"
         convert "$image" -resize "800x800" -auto-orient "$image"
