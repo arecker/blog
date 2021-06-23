@@ -1,0 +1,21 @@
+import argparse
+import functools
+
+parser = argparse.ArgumentParser(prog='blog', description='blog - the greatest static HTML journal generator ever written')
+parser.add_argument('-v', '--verbose', default=False, action='store_true', help='print debug logs')
+parser.add_argument('-s', '--silent', default=False, action='store_true', help='hide all logs')
+
+subparser = parser.add_subparsers(dest='command', required=True, help='command')
+commands = {}
+
+
+def command(func):
+    functools.wraps(func)
+
+    commands[func.__name__] = func
+    subparser.add_parser(func.__name__, help=func.__doc__.strip())
+
+
+def main():
+    args = parser.parse_args()
+    commands[args.command]()
