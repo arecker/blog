@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-from lib import files, args
+from lib import files, cli
 
-@args.command
-def version():
+@cli.command
+def version(_args):
     """
     print version and exit
     """
@@ -11,12 +11,12 @@ def version():
         print(f.read().strip())
 
 
-@args.command
-def build():
+@cli.command
+def build(_args):
     """
     build the website
     """
 
 
 if __name__ == '__main__':
-    args.main()
+    cli.main()

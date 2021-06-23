@@ -18,4 +18,4 @@ def command(func):
 
 def main():
     args = parser.parse_args()
-    commands[args.command]()
+    commands[args.command](args)
