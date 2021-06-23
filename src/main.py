@@ -3,7 +3,7 @@
 from lib import files, cli
 
 @cli.command
-def version(_args):
+def version():
     """
     print version and exit
     """
@@ -12,7 +12,7 @@ def version(_args):
 
 
 @cli.command
-def build(_args):
+def build():
     """
     build the website
     """

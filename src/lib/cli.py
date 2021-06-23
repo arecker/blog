@@ -11,11 +11,10 @@ commands = {}
 
 def command(func):
     functools.wraps(func)
-
     commands[func.__name__] = func
     subparser.add_parser(func.__name__, help=func.__doc__.strip())
 
 
 def main():
     args = parser.parse_args()
-    commands[args.command](args)
+    commands[args.command]()
