@@ -1,14 +1,6 @@
 #!/usr/bin/env python
 
-from lib import files, cli
-
-@cli.command
-def version():
-    """
-    print version and exit
-    """
-    with open(files.join('src/VERSION')) as f:
-        print(f.read().strip())
+from lib import cli, debug
 
 
 @cli.command
@@ -16,6 +8,14 @@ def build():
     """
     build the website
     """
+
+
+@cli.command
+def console():
+    """
+    open an interactive python shell
+    """
+    debug.interact()
 
 
 if __name__ == '__main__':
