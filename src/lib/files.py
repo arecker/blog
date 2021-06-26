@@ -16,6 +16,11 @@ def target(*args):
 
 
 class Page(object):
+    @staticmethod
+    def context():
+        data = {}
+        return data
+
     def __init__(self, source):
         self.source = source
 
@@ -27,6 +32,9 @@ class Page(object):
     def __unicode__(self): return self.name
 
     def __str__(self): return self.__unicode__()
+
+    def generate(self, context):
+        pass
 
 
 class Entry(Page):
