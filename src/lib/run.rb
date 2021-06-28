@@ -16,11 +16,6 @@ module Blog
       end
     end
 
-    # Builds site data.
-    def self.data
-      section('building site data') { Context.generate_all }
-    end
-
     # Builds site feeds.
     def self.feeds
       section('building site feeds') { Feeds.generate_all }

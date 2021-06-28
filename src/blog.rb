@@ -21,7 +21,6 @@ module Blog
   autoload :Run, 'lib/run'
   autoload :Serve, 'lib/serve'
   autoload :Shell, 'lib/shell'
-  autoload :Stats, 'lib/stats'
   autoload :Template, 'lib/template'
 
   # Runs the main blog routine.
@@ -29,7 +28,6 @@ module Blog
     Run.greeting
 
     time = Run.time_it do
-      Run.data
       Run.feeds
       Run.pages
       Run.entries

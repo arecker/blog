@@ -18,11 +18,6 @@ module Blog
       `git log -1 --pretty=format:%s #{head}`
     end
 
-    # Returns the number of commits on master.
-    def self.commit_count
-      `git rev-list --count master`.chomp.to_i
-    end
-
     # Descriptive git label for logs.
     def self.label
       "#{short_head} (#{head_summary})"
@@ -33,8 +28,7 @@ module Blog
       {
         'git_head' => head,
         'git_head_summary' => head_summary,
-        'git_short_head' => short_head,
-        'git_commit_count' => commit_count
+        'git_short_head' => short_head
       }
     end
   end
