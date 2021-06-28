@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import code
+import unittest
 
 import lib as blog
 
@@ -30,6 +31,23 @@ def build():
     for entry, current, total in count(entries):
         print(f'generating entry {current}/{total} - {entry}')
         entry.generate(context)
+
+
+@blog.command
+def write():
+    """
+    enter writing mode
+    """
+    pass
+
+
+@blog.command
+def test():
+    """
+    run the code unit tests
+    """
+    testsuite = unittest.TestLoader().discover(blog.join('src/test'))
+    unittest.TextTestRunner(verbosity=1).run(testsuite)
 
 
 @blog.command

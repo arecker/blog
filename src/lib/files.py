@@ -19,28 +19,28 @@ class Page(object):
     def __init__(self, source):
         self.source = source
 
+    def __repr__(self):
+        return f'<Page {self.name}>'
+
     @property
     def name(self):
         filename = os.path.basename(self.source)
         return os.path.splitext(filename)[0] + '.html'
-
-    def __unicode__(self): return self.name
-
-    def __str__(self): return self.__unicode__()
 
     def generate(self, context):
         pass
 
 
 class Entry(Page):
-    pass
+    def __repr__(self):
+        return f'<Entry {self.name}>'
 
 
 def pages():
-    paths = sorted(glob.glob(join('pages/*.*')))
+    paths = sorted(glob.glob(join('pages/*.*')), reverse=True)
     return [Page(p) for p in paths]
 
 
 def entries():
-    paths = sorted(glob.glob(join('entries/*.*')))
+    paths = sorted(glob.glob(join('entries/*.*')), reverse=True)
     return [Entry(p) for p in paths]
