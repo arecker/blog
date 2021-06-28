@@ -16,11 +16,6 @@ def target(*args):
 
 
 class Page(object):
-    @staticmethod
-    def context():
-        data = {}
-        return data
-
     def __init__(self, source):
         self.source = source
 
