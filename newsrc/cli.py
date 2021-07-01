@@ -1,6 +1,7 @@
 import argparse
 import functools
 import logging
+import sys
 
 from .version import version as version_string, python_version, python_executable
 from .logger import info, logger as blogLogger
@@ -37,6 +38,10 @@ def version():
 
 def main():
     args = parser.parse_args()
+
+    if args.silent and args.verbose:
+        blogLogger.error('hey smartass, how am I supposed to be silent AND verbose?')
+        sys.exit(1)
 
     if args.silent:
         blogLogger.disabled = True
