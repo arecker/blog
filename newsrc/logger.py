@@ -23,3 +23,7 @@ def info(msg, *args):
 
 def debug(msg, *args):
     logger.debug(msg, *args)
+
+
+def error(msg, *args):
+    logger.error(f'ERROR - {msg}', *args)

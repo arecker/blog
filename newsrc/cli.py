@@ -4,7 +4,7 @@ import logging
 import sys
 
 from .version import version as version_string, python_version, python_executable
-from .logger import info, logger as blogLogger
+from .logger import info, error, logger
 
 parser = argparse.ArgumentParser(prog='blog', description='blog - the greatest static HTML journal generator ever written')
 parser.add_argument('-v', '--verbose', default=False, action='store_true', help='print debug logs')
@@ -40,13 +40,13 @@ def main():
     args = parser.parse_args()
 
     if args.silent and args.verbose:
-        blogLogger.error('hey smartass, how am I supposed to be silent AND verbose?')
+        error('hey smartass, how am I supposed to be silent AND verbose?')
         sys.exit(1)
 
     if args.silent:
-        blogLogger.disabled = True
+        logger.disabled = True
     elif args.verbose:
-        blogLogger.setLevel(logging.DEBUG)
-        blogLogger.debug('enabled debug logs for --verbose flag')
+        logger.setLevel(logging.DEBUG)
+        logger.debug('enabled debug logs for --verbose flag')
 
     commands[args.command or 'help']()
