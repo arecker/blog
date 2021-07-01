@@ -1,7 +1,9 @@
 import argparse
 import functools
+import logging
 
-from . import files
+from .version import version as version_string, python_version, python_executable
+from .logger import info, logger as blogLogger
 
 parser = argparse.ArgumentParser(prog='blog', description='blog - the greatest static HTML journal generator ever written')
 parser.add_argument('-v', '--verbose', default=False, action='store_true', help='print debug logs')
@@ -20,7 +22,7 @@ def command(func):
 @command
 def help():
     """
-    shows help documentation
+    print program documentation
     """
     parser.print_help()
 
@@ -28,12 +30,18 @@ def help():
 @command
 def version():
     """
-    show version and exit
+    print program information
     """
-    with open(files.join('src/VERSION')) as f:
-        print(f.read().strip())
+    info(f'v{version_string}, python v{python_version} ({python_executable})')
 
 
 def main():
     args = parser.parse_args()
+
+    if args.silent:
+        blogLogger.disabled = True
+    elif args.verbose:
+        blogLogger.setLevel(logging.DEBUG)
+        blogLogger.debug('enabled debug logs for --verbose flag')
+
     commands[args.command or 'help']()
