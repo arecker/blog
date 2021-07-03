@@ -6,6 +6,8 @@ def write():
     """
     run blog in local writing mode
     """
+    # latest = blog.entries()[0]
+    # latest.build()
     blog.serve()
 
 
@@ -15,6 +17,14 @@ def test():
     run the unit tests
     """
     blog.run_tests()
+
+
+@blog.command
+def serve():
+    """
+    serve site locally
+    """
+    blog.serve()
 
 
 
