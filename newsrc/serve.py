@@ -17,7 +17,7 @@ class Handler(SimpleHTTPRequestHandler):
 def serve():
     httpd = HTTPServer(('', PORT), Handler)
     try:
-        info(f'starting webserver: http://0.0.0.0:{PORT}')
+        info(f'starting webserver - http://0.0.0.0:{PORT}')
         httpd.serve_forever()
     except KeyboardInterrupt:
         info('stopping web server')

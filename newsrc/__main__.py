@@ -6,8 +6,8 @@ def write():
     """
     run blog in local writing mode
     """
-    # latest = blog.entries()[0]
-    # latest.build()
+    latest = blog.entries()[0]
+    latest.build()
     blog.serve()
 
 
@@ -25,6 +25,14 @@ def serve():
     serve site locally
     """
     blog.serve()
+
+
+@blog.command
+def debug():
+    """
+    launch interactive debug console
+    """
+    blog.launch_console()
 
 
 
