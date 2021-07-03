@@ -14,7 +14,7 @@ def test():
     """
     run the unit tests
     """
-    blog.bail('no unit tests found!')
+    blog.run_tests()
 
 
 
