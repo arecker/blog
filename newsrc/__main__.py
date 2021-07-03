@@ -6,6 +6,11 @@ def write():
     """
     run blog in local writing mode
     """
+    # build pages
+    for page in blog.pages():
+        page.build()
+
+    # build latest entry
     latest = blog.entries()[0]
     latest.build()
     blog.serve()
@@ -28,9 +33,9 @@ def serve():
 
 
 @blog.command
-def debug():
+def shell():
     """
-    launch interactive debug console
+    launch interactive python shell
     """
     blog.launch_console()
 
