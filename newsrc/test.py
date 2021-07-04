@@ -2,9 +2,10 @@ import unittest
 
 from .files import join
 
+test_dir = join('newsrc/test')
+
 
 def run_tests():
-    suite = unittest.TestLoader().discover(
-        start_dir=join('newsrc/test'), pattern='test_*.py'
-    )
+    loader = unittest.TestLoader()
+    suite = loader.discover(start_dir=test_dir, pattern='test_*.py')
     unittest.TextTestRunner().run(suite)

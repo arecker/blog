@@ -29,6 +29,11 @@ class Page(object):
         base, _ = os.path.splitext(self.filename, )
         return f'www/{base}.html'
 
+    @property
+    def permalink(self):
+        base, _ = os.path.splitext(self.filename, )
+        return f'{base}.html'
+
     def build(self):
         info(f'building {self} -> {self.relative_target}')
 
