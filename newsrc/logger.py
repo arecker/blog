@@ -29,6 +29,10 @@ def error(msg, *args):
     logger.error(f'ERROR - {msg}', *args)
 
 
+def warn(msg, *args):
+    logger.warning(f'WARNING - {msg}', *args)
+
+
 def bail(msg, *args):
     error(msg, *args)
     sys.exit(1)

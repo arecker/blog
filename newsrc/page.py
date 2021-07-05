@@ -1,8 +1,9 @@
 import glob
 import os
 
-from .logger import info
+from .config import config
 from .files import join
+from .logger import info
 
 
 def files():
@@ -36,6 +37,14 @@ class Page(object):
 
     def build(self):
         info(f'building {self} -> {self.relative_target}')
+
+    def context(self):
+        twitter = config('twitter')
+        return {
+            'title': self.title,
+            'description': self.description,
+            'twitter_handle': twitter['handle']
+        }
 
 
 def pages():

@@ -1,4 +1,5 @@
 from .cli import main, command
+from .config import config
 from .debug import launch_console
 from .entry import entries
 from .files import join, root, target
