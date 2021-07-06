@@ -6,7 +6,7 @@ from .page import Page
 
 
 def files():
-    return list(sorted(glob.glob(join('entries/*.*'))))
+    return list(reversed(sorted(glob.glob(join('entries/*.*')))))
 
 
 class Entry(Page):
