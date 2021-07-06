@@ -1,9 +1,11 @@
+import functools
 import glob
 import os
 
 from .config import config
-from .files import join
+from .files import join, target
 from .logger import info
+from .metadata import parse_metadata
 
 
 def files():
@@ -38,6 +40,17 @@ class Page(object):
     def build(self):
         info(f'building {self} -> {self.relative_target}')
 
+    @functools.cached_property
+    def metadata(self):
+        with open(self.source) as f:
+            data, _ = parse_metadata(f.read())
+        return data
+
+    @property
+    def title(self):
+        return self.metadata['title']
+
+    @functools.cached_property
     def context(self):
         twitter = config('twitter')
         return {

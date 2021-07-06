@@ -1,6 +1,6 @@
 from .cli import main, command
 from .config import config
-from .debug import launch_console
+from .debug import launch_console, set_trace
 from .entry import entries
 from .files import join, root, target
 from .logger import logger, info, debug, error, bail

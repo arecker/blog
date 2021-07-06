@@ -40,6 +40,18 @@ def shell():
     blog.launch_console()
 
 
+@blog.command
+def context(source):
+    """
+    show the context injected into a page
+    """
+    from pprint import pprint
+
+    page = blog.page.Page(source)
+
+    blog.info('{page}.context:')
+    pprint(page.context)
+
 
 if __name__ == '__main__':
     blog.main()
