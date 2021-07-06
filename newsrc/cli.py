@@ -5,6 +5,7 @@ import logging
 import sys
 
 from .debug import set_trace_callback
+from .files import root
 from .logger import logger as l
 from .version import version as version_string, python_version, python_executable
 
@@ -48,9 +49,14 @@ def version():
     """
     print program information
     """
+    message = '''showing program information
+blog v%s (%s)
+python %s (%s)
+'''.rstrip()
+
     l.info(
-        'running v%s, python v%s (%s)',
-        version_string, python_version, python_executable
+        message,
+        version_string, root, python_version, python_executable
     )
 
 
