@@ -1,7 +1,7 @@
 import glob
 
 from .files import join, target
-from .logger import info
+from .logger import logger as l
 from .page import Page
 
 

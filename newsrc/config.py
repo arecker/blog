@@ -2,7 +2,7 @@ import configparser
 import functools
 
 from .files import join
-from .logger import info, debug, warn
+from .logger import logger as l
 
 
 path = join('blog.conf')
@@ -17,7 +17,7 @@ def cache_config(func):
         global parser
 
         if parser is None:
-            info('loading program config from %s', path)
+            l.info('loading program config from %s', path)
             parser = configparser.ConfigParser()
             parser.read(path)
 
@@ -34,5 +34,5 @@ def config(section_name=''):
             raise ValueError
         return data
     except (configparser.NoSectionError, ValueError):
-        warn('config - no data found for section_name %s', section)
+        l.warn('config - no data found for section_name %s', section)
         return {}

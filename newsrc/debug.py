@@ -1,6 +1,6 @@
 import code
 
-from .logger import info
+from .logger import logger as l
 
 
 def launch_console():
@@ -8,10 +8,10 @@ def launch_console():
 
     try:
         import IPython
-        info('launching ipython console')
+        l.info('launching ipython console')
         IPython.embed()
     except ImportError:
-        info('launching python console')
+        l.info('launching python console')
         code.interact(local=globals())
 
 

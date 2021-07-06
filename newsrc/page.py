@@ -4,8 +4,9 @@ import os
 
 from .config import config
 from .files import join, target
-from .logger import info
 from .metadata import parse_metadata
+from .files import join
+from .logger import logger as l
 
 
 def files():
@@ -38,7 +39,7 @@ class Page(object):
         return f'{base}.html'
 
     def build(self):
-        info(f'building {self} -> {self.relative_target}')
+        l.info(f'building {self} -> {self.relative_target}')
 
     @functools.cached_property
     def metadata(self):

@@ -4,9 +4,9 @@ import inspect
 import logging
 import sys
 
-from .version import version as version_string, python_version, python_executable
-from .logger import info, error, logger
 from .debug import set_trace
+from .logger import logger as l
+from .version import version as version_string, python_version, python_executable
 
 parser = argparse.ArgumentParser(prog='blog', description='blog - the greatest static HTML journal generator in the world')
 parser.add_argument('-d', '--debug', default=False, action='store_true', help='step through code interactively')
@@ -48,7 +48,10 @@ def version():
     """
     print program information
     """
-    info(f'v{version_string}, python v{python_version} ({python_executable})')
+    l.info(
+        'running v%s, python v%s (%s)',
+        version_string, python_version, python_executable
+    )
 
 
 def main():
@@ -65,10 +68,10 @@ def main():
         sys.exit(1)
 
     if arguments.silent:
-        logger.disabled = True
+        l.disabled = True
     elif arguments.verbose:
-        logger.setLevel(logging.DEBUG)
-        logger.debug('enabled debug logs for --verbose flag')
+        l.setLevel(logging.DEBUG)
+        l.debug('enabled debug logs for --verbose flag')
 
     func = commands[arguments.command or 'help']
     spec = inspect.getargspec(func)
