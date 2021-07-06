@@ -44,12 +44,16 @@ class Page(object):
     @functools.cached_property
     def metadata(self):
         with open(self.source) as f:
-            data, _ = parse_metadata(f.read())
+            data, _ = parse_metadata(f.read(), legacy=True)
         return data
 
     @property
     def title(self):
         return self.metadata['title']
+
+    @property
+    def description(self):
+        return self.metadata['description']
 
     @functools.cached_property
     def context(self):

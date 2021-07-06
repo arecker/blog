@@ -15,10 +15,10 @@ def launch_console():
         code.interact(local=globals())
 
 
-def set_trace():
+def set_trace_callback():
     try:
         import ipdb as pdb
     except ImportError:
         import pdb
 
-    pdb.set_trace()
+    return pdb.set_trace

@@ -1,3 +1,5 @@
+import json
+
 import newsrc as blog
 
 
@@ -45,12 +47,9 @@ def context(source):
     """
     show the context injected into a page
     """
-    from pprint import pprint
-
-    page = blog.page.Page(source)
-
-    blog.info('{page}.context:')
-    pprint(page.context)
+    page = blog.page.Page(blog.join(source))
+    data = json.dumps(page.context, indent=2, sort_keys=True)
+    blog.logger.info('rendering context for %s\n%s', page, data)
 
 
 if __name__ == '__main__':

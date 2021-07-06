@@ -4,7 +4,7 @@ from .yaml import parse_yaml
 
 
 pattern = re.compile(r'<!--\s+blog:(?P<key>[A-Za-z-_\/]+)\s*:\s*(?P<value>.+?)\s*-->')
-legacy_pattern = re.compile(r'^-{3}\n(.*?)\n-{3}\n')
+legacy_pattern = re.compile(r'^-{3}\n(.*?)\n-{3}\n', flags=re.DOTALL)
 
 
 def parse_metadata(content, legacy=False):
@@ -22,6 +22,6 @@ def parse_metadata(content, legacy=False):
             leftovers = content[match.end():]
             return data, leftovers
         else:
-            return {}, leftovers
+            return {}, content
     else:
         return dict(pattern.findall(content))

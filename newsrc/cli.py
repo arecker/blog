@@ -4,7 +4,7 @@ import inspect
 import logging
 import sys
 
-from .debug import set_trace
+from .debug import set_trace_callback
 from .logger import logger as l
 from .version import version as version_string, python_version, python_executable
 
@@ -60,8 +60,7 @@ def main():
     arguments = parser.parse_args()
 
     if arguments.debug:
-        info('debug mode enabled, starting trace')
-        set_trace()
+        debug_callback = set_trace_callback()
 
     if arguments.silent and arguments.verbose:
         error('hey smartass, how am I supposed to be silent AND verbose?')
@@ -76,6 +75,10 @@ def main():
     func = commands[arguments.command or 'help']
     spec = inspect.getargspec(func)
     psargs = [getattr(arguments, key) for key in spec.args]
+
+    if arguments.debug:
+        l.info('starting trace on command %s with args %s', arguments.command, psargs)
+        debug_callback()
 
     # Finally, we call ther damn thing.
     func(*psargs)
