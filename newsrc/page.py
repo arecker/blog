@@ -7,6 +7,7 @@ from .config import config
 from .files import join, target
 from .logger import logger as l
 from .metadata import parse_metadata
+from .partials import header
 from .template import render_page
 
 
@@ -58,15 +59,24 @@ class Page(BannerMixin):
 
     @functools.cached_property
     def context(self):
-        twitter = config('twitter')
+        data = {}
 
-        return {
+        data.update(self.banner_context)
+
+        twitter = config('twitter')
+        data.update({'twitter_handle': twitter['handle']})
+
+        data.update({
             'description': self.description,
             'permalink': self.filename,
             'title': self.title,
-            'twitter_handle': twitter['handle'],
-        } | self.banner_context
+        })
 
+        data.update({
+            'partial_header': header(title=self.title, description=self.description)
+        })
+
+        return data
 
     def render(self):
         return render_page(**self.context)
