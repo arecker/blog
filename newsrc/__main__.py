@@ -49,7 +49,8 @@ def context(source):
     """
     page = blog.whatever_type_by_file(blog.join(source))
     data = json.dumps(page.context, indent=2, sort_keys=True)
-    blog.logger.info('rendering context for %s\n%s', page, data)
+    blog.logger.info('rendering context for %s', page)
+    print(data)
 
 
 @blog.command
@@ -58,7 +59,8 @@ def render(source):
     render a page as HTML
     """
     page = blog.whatever_type_by_file(blog.join(source))
-    blog.logger.info('rendering %s as HTML\n%s', page, page.render())
+    blog.logger.info('rendering %s as HTML', page)
+    print(page.render())
 
 
 if __name__ == '__main__':
