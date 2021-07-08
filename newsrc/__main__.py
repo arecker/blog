@@ -58,9 +58,10 @@ def render(source):
     """
     render a page as HTML
     """
+    context = blog.make_global_context()
     page = blog.whatever_type_by_file(blog.join(source))
     blog.logger.info('rendering %s as HTML', page)
-    print(page.render())
+    print(page.render(global_context=context))
 
 
 if __name__ == '__main__':

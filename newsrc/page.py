@@ -15,6 +15,15 @@ def files():
     return list(sorted(glob.glob(join('pages/*.*'))))
 
 
+def make_global_context():
+    data = {}
+
+    twitter = config('twitter')
+    data.update({'twitter_handle': twitter['handle']})
+
+    return data
+
+
 class Page(BannerMixin):
     def __init__(self, source):
         self.source = source
@@ -64,12 +73,9 @@ class Page(BannerMixin):
 
     @functools.cached_property
     def context(self):
-        data = {}
+        data={}
 
         data.update(self.banner_context)
-
-        twitter = config('twitter')
-        data.update({'twitter_handle': twitter['handle']})
 
         data.update({
             'content': self.content,
@@ -84,8 +90,9 @@ class Page(BannerMixin):
 
         return data
 
-    def render(self):
-        return render_page(**self.context)
+    def render(self, global_context={}):
+        context = global_context | self.context
+        return render_page(**context)
 
 
 def pages():
