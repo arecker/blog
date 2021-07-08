@@ -33,12 +33,7 @@
   </head>
   <body>
 
-    <!-- header: begin -->
-    <header>
-      <h1 class="title">${title}</h1>
-      <h2 class="subtitle">${description}</h2>
-    </header>
-    <!-- header: end -->
+${partial_header}
 
     <hr/>
 
@@ -71,7 +66,7 @@
     <%- end -%>
 
     <!-- content: begin -->
-$CONTENT$
+    ${content}
     <!-- conent: end -->
 
     <%- if page_previous || page_next -%>
