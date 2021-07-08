@@ -15,7 +15,7 @@ def partial(func, level=0, *args, **kwargs):
     return indented + '\n'
 
 
-@partial(level=2)
+@partial(level=4)
 def header(title='Title', description='Description'):
     return '''
 <header>

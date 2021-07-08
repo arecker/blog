@@ -57,6 +57,11 @@ class Page(BannerMixin):
     def description(self):
         return self.metadata['description']
 
+    @property
+    def content(self):
+        with open(self.source) as f:
+            return f.read()
+
     @functools.cached_property
     def context(self):
         data = {}
@@ -67,6 +72,7 @@ class Page(BannerMixin):
         data.update({'twitter_handle': twitter['handle']})
 
         data.update({
+            'content': self.content,
             'description': self.description,
             'permalink': self.filename,
             'title': self.title,
