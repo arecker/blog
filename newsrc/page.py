@@ -2,42 +2,16 @@ import functools
 import glob
 import os
 
+from .banner import BannerMixin
 from .config import config
 from .files import join, target
-from .metadata import parse_metadata
-from .files import join
 from .logger import logger as l
+from .metadata import parse_metadata
+from .template import render_page
 
 
 def files():
     return list(sorted(glob.glob(join('pages/*.*'))))
-
-
-class BannerMixin(object):
-    @property
-    def banner_context(self):
-        if self.banner_filename:
-            return {
-                'banner_full_url': self.banner_full_url,
-                'banner_relative_url': self.banner_relative_url,
-            }
-        else:
-            return {}
-
-    @property
-    def banner_filename(self):
-        return self.metadata.get('banner')
-
-    @property
-    def banner_relative_url(self):
-        if self.banner_filename:
-            return f'/images/banners/{banner_filename}'
-
-    @property
-    def banner_full_url(self):
-        if self.banner_filename:
-            base = 'https://www.alexrecker.com'
-            return f'{base}/images/banners/{banner_filename}'
 
 
 class Page(BannerMixin):
@@ -87,10 +61,15 @@ class Page(BannerMixin):
         twitter = config('twitter')
 
         return {
-            'title': self.title,
             'description': self.description,
+            'permalink': self.filename,
+            'title': self.title,
             'twitter_handle': twitter['handle'],
         } | self.banner_context
+
+
+    def render(self):
+        return render_page(**self.context)
 
 
 def pages():
