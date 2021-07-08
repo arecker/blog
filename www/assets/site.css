@@ -12,7 +12,7 @@ body {
                  "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
-.subtitle, p, ol, ul {
+header h2, p, ol, ul {
     font-size: 18px;
 }
 
@@ -34,7 +34,7 @@ header h1, header h2 {
     margin: 0;
 }
 
-blockquote, small, figcaption, .subtitle {
+blockquote, small, figcaption, header h2 {
     color: #6f7370;
 }
 
