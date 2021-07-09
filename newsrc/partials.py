@@ -39,3 +39,14 @@ def banner(filename='', href=None):
   </a>
 </figure>
 '''.format(filename=filename, href=href)
+
+
+@partial(level=4)
+def footer(year='', author='', timestamp=''):
+    return '''
+<footer>
+  <small>Last Updated: {timestamp}</small>
+  <small>Last Change:<span><%= git.head_summary %> (<a href="https://github.com/arecker/blog/commit/<%= git.head %>"><%= git.short_head %></a>)</span></small>
+  <small>&copy; Copyright {year} {author}</small>
+</footer>
+'''.format(year=year, author=author, timestamp=timestamp)

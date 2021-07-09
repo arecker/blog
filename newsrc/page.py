@@ -1,3 +1,4 @@
+import datetime
 import functools
 import glob
 import os
@@ -20,6 +21,18 @@ def make_global_context():
 
     twitter = config('twitter')
     data.update({'twitter_handle': twitter['handle']})
+
+    # partials
+    site = config('site')
+    now = datetime.datetime.now().astimezone()
+    timestamp = now.strftime('%B %-d %Y, %I:%M %p %Z')
+    data.update({
+        'partial_footer': partials.footer(
+            year=now.year,
+            author=site['author'],
+            timestamp=timestamp,
+        )
+    })
 
     return data
 

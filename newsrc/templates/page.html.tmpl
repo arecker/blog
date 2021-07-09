@@ -76,13 +76,7 @@ ${content}
 
     <hr />
 
-    <!-- footer: begin -->
-    <footer>
-      <small>Last Updated: <%= info.build_time %></small>
-      <small>Last Change:<span><%= git.head_summary %> (<a href="https://github.com/arecker/blog/commit/<%= git.head %>"><%= git.short_head %></a>)</span></small>
-      <small>&copy; Copyright <%= info.build_year %> Alex Recker</small>
-    </footer>
-    <!-- footer: end -->
+${partial_footer}
 
   </body>
 
