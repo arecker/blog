@@ -7,7 +7,7 @@ class MetadataTestCase(unittest.TestCase):
     def test_parse_metadata(self):
         content = '''
 
-<!-- blog:title: party, dumplings, and blogging -->
+<!-- metadata:title: party, dumplings, and blogging -->
 
 Dear Journal,
 

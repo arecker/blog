@@ -3,7 +3,7 @@ import re
 from .yaml import parse_yaml
 
 
-pattern = re.compile(r'<!--\s+blog:(?P<key>[A-Za-z-_\/]+)\s*:\s*(?P<value>.+?)\s*-->')
+pattern = re.compile(r'<!--\s+metadata:(?P<key>[A-Za-z-_\/]+)\s*:\s*(?P<value>.+?)\s*-->')
 legacy_pattern = re.compile(r'^-{3}\n(.*?)\n-{3}\n', flags=re.DOTALL)
 
 
@@ -11,7 +11,7 @@ def parse_metadata(content, legacy=False):
     """
     Parses HTML metadata in comments.
 
-    <!-- blog:key: value -->
+    <!-- metadata:key: value -->
 
     Or YAML frontmatter for legacy=True.
     """
