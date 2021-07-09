@@ -55,18 +55,10 @@ ${partial_header}
 
     <hr/>
 
-    <%- if banner -%>
-    <!-- banner: begin -->
-    <figure>
-      <a href="/images/banners/<%= banner %>">
-        <img alt="banner" src="/images/banners/<%= banner %>" />
-      </a>
-    </figure>
-    <!-- banner: end -->
-    <%- end -%>
+${partial_banner}
 
     <!-- content: begin -->
-    ${content}
+${content}
     <!-- conent: end -->
 
     <%- if page_previous || page_next -%>

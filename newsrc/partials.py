@@ -22,4 +22,20 @@ def header(title='Title', description='Description'):
   <h1 class="title">{title}</h1>
   <h2 class="subtitle">{description}</h2>
 </header>
-'''.format(title=title, description=description, indent='')
+'''.format(title=title, description=description)
+
+
+@partial(level=4)
+def banner(filename='', href=None):
+    if not filename:
+        return ''
+
+    href = href or f'/images/banners/{filename}'
+
+    return '''
+<figure>
+  <a href="{href}">
+    <img alt="banner" src="/images/banners/{filename}" />
+  </a>
+</figure>
+'''.format(filename=filename, href=href)

@@ -2,12 +2,12 @@ import functools
 import glob
 import os
 
+from . import partials
 from .banner import BannerMixin
 from .config import config
 from .files import join, target
 from .logger import logger as l
 from .metadata import parse_metadata
-from .partials import header
 from .template import render_page
 
 
@@ -75,17 +75,18 @@ class Page(BannerMixin):
     def context(self):
         data={}
 
-        data.update(self.banner_context)
-
+        # Page metadata
         data.update({
             'content': self.content,
             'description': self.description,
             'permalink': self.filename,
             'title': self.title,
-        })
+        } | self.banner_context)
 
+        # Page partials
         data.update({
-            'partial_header': header(title=self.title, description=self.description)
+            'partial_banner': partials.banner(filename=self.banner_filename),
+            'partial_header': partials.header(title=self.title, description=self.description),
         })
 
         return data
