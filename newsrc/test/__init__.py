@@ -1,6 +1,6 @@
 import unittest
 
-from .files import join
+from newsrc.files import join
 
 test_dir = join('newsrc/test')
 

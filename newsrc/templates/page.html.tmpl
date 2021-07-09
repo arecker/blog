@@ -37,7 +37,6 @@ ${partial_header}
 
     <hr/>
 
-    <!-- nav: begin -->
     <nav>
       <a href="/">index.html</a>
       <%- if permalink != "index.html" -%>
@@ -46,12 +45,9 @@ ${partial_header}
       <%- end -%>
       <br class="show-on-mobile" />
       <span class="float-right-on-desktop">
-        <%- nav.each do |page| -%>
-        <a href="/<%= page %>"><%= page %></a>
-        <%- end -%>
+${partial_nav}
       </span>
     </nav>
-    <!-- nav: end -->
 
     <hr/>
 
