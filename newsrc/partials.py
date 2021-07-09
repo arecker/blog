@@ -42,11 +42,11 @@ def banner(filename='', href=None):
 
 
 @partial(level=4)
-def footer(year='', author='', timestamp=''):
+def footer(year='', author='', timestamp='', git_commit='', git_commit_short='', git_commit_summary=''):
     return '''
 <footer>
   <small>Last Updated: {timestamp}</small>
-  <small>Last Change:<span><%= git.head_summary %> (<a href="https://github.com/arecker/blog/commit/<%= git.head %>"><%= git.short_head %></a>)</span></small>
+  <small>Last Change: <span>{git_commit_summary} (<a href="https://github.com/arecker/blog/commit/{git_commit}">{git_commit_short}</a>)</span></small>
   <small>&copy; Copyright {year} {author}</small>
 </footer>
-'''.format(year=year, author=author, timestamp=timestamp)
+'''.format(year=year, author=author, timestamp=timestamp, git_commit='', git_commit_short='', git_commit_summary='')
