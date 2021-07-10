@@ -1,11 +1,10 @@
+import datetime
 import glob
 
-from .banner import BannerMixin
-from .files import join, target
-from .logger import logger as l
-from .page import Page
-from newsrc.paginate import paginate_entries
 from newsrc import partials
+from newsrc.files import join
+from newsrc.page import Page
+from newsrc.paginate import paginate_entries
 
 
 def files():
@@ -18,6 +17,11 @@ class Entry(Page):
 
         self.next_page = None
         self.previous_page = None
+
+    @property
+    def title(self):
+        date = datetime.datetime.strptime(self.permalink, '%Y-%m-%d.html')
+        return date.strftime('%A %B %-d, %Y')
 
     @property
     def description(self):
