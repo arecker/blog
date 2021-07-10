@@ -4,17 +4,32 @@ import newsrc as blog
 
 
 @blog.command
+def build():
+    """
+    build the website
+    """
+    context = blog.make_global_context()
+
+    for page in blog.pages():
+        page.build(context)
+
+    for entry in blog.entries():
+        entry.build(context)
+
+
+@blog.command
 def write():
     """
     run blog in local writing mode
     """
-    # build pages
+    context = blog.make_global_context()
+
     for page in blog.pages():
-        page.build()
+        page.build(context)
 
     # build latest entry
     latest = blog.entries()[0]
-    latest.build()
+    latest.build(context)
     blog.serve()
 
 

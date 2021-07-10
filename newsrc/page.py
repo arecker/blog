@@ -67,8 +67,10 @@ class Page(BannerMixin):
         base, _ = os.path.splitext(self.filename, )
         return f'{base}.html'
 
-    def build(self):
+    def build(self, context={}):
         logger.info(f'building {self} -> {self.relative_target}')
+        with open(self.target, 'w+') as f:
+            f.write(self.render(global_context=context))
 
     @functools.cached_property
     def metadata(self):
