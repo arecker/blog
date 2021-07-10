@@ -24,7 +24,7 @@ def make_global_context():
     data.update({'twitter_handle': twitter['handle']})
 
     # nav
-    data.update({'partial_nav': partials.navlist(pagelist=build_nav_list())})
+    data.update({'partial_nav': partials.nav(pagelist=build_nav_list())})
 
     # footer
     site = config('site')
@@ -103,6 +103,8 @@ class Page(BannerMixin):
 
         # Page partials
         data.update({
+            'partial_breadcrumbs':
+            partials.breadcrumbs(permalink=self.permalink),
             'partial_banner':
             partials.banner(filename=self.banner_filename),
             'partial_header':
@@ -110,6 +112,13 @@ class Page(BannerMixin):
         })
 
         return data
+
+    @property
+    def nav_index(self):
+        try:
+            return self.metadata.get('nav')
+        except TypeError:
+            return None
 
     def render(self, global_context={}):
         context = global_context | self.context
@@ -127,18 +136,8 @@ def build_nav_list() -> [str]:
 
     <!-- metadata:nav: 1 -->
     """
-    nav = []
+    included_pages = [page for page in pages() if page.nav_index]
+    sorted_pages = sorted(included_pages, key=lambda p: p.nav_index)
 
-    for page in pages():
-        try:
-            index = int(page.metadata.get('nav'))
-            nav.insert(index, page.permalink)
-            logger.debug('inserting %s into %d of site navigation', page,
-                         index)
-        except TypeError:
-            logger.debug('%s of %s is not an int, skipping',
-                         page.metadata.get('nav'), page)
-            continue
-
-    logger.info('extracted site navigation: %s', nav)
-    return nav
+    logger.info('extracted site navigation: %s', sorted_pages)
+    return [p.permalink for p in sorted_pages]

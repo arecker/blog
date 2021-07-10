@@ -1,5 +1,7 @@
 import decorator
 
+from newsrc import git
+
 
 @decorator.decorator
 def partial(func, level=0, *args, **kwargs):
@@ -11,7 +13,7 @@ def partial(func, level=0, *args, **kwargs):
 <!-- end: {name} -->
 '''.format(name=func.__name__, result=result).strip()
     indented = '\n'.join([indent + line for line in commented.splitlines()])
-    return indented + '\n'
+    return indented
 
 
 @partial(level=4)
@@ -56,13 +58,27 @@ def footer(year='',
 '''.format(year=year,
            author=author,
            timestamp=timestamp,
-           git_commit='',
-           git_commit_short='',
-           git_commit_summary='')
+           git_commit=git.head(),
+           git_commit_short=git.short_head(),
+           git_commit_summary=git.head_summary())
 
 
 @partial(level=8)
-def navlist(pagelist=[]):
+def nav(pagelist=[]):
     tmpl = '<a href="/{page}">{page}</a>'
     elements = [tmpl.format(page=page) for page in pagelist]
     return '\n'.join(elements)
+
+
+@partial(level=6)
+def breadcrumbs(permalink=''):
+    if permalink == 'index.html':
+        return '''
+<a href="/">index.html</a>
+'''.strip()
+
+    return '''
+<a href="/">index.html</a>
+<span>/</span>
+<span>{permalink}</span>
+'''.format(permalink=permalink).strip()

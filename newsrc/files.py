@@ -1,8 +1,16 @@
 import os
-
+import contextlib
 
 here = os.path.dirname(os.path.realpath(__file__))
 root = os.path.abspath(os.path.join(here, '../'))
+
+
+@contextlib.contextmanager
+def in_root():
+    current = os.curdir
+    os.chdir(root)
+    yield
+    os.chdir(current)
 
 
 def join(*subpaths):

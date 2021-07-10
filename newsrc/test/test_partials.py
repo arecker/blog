@@ -5,9 +5,9 @@ from newsrc import partials
 
 class PartialsTestCase(unittest.TestCase):
     def test_header(self):
-        actual = partials.header(title='Title', description='Description' )
+        actual = partials.header(title='Title', description='Description')
         expected = '''
-    <!-- begin: header -->
+    <!-- partial: header -->
     <header>
       <h1 class="title">Title</h1>
       <h2 class="subtitle">Description</h2>

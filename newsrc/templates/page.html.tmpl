@@ -38,14 +38,14 @@ ${partial_header}
     <hr/>
 
     <nav>
-      <a href="/">index.html</a>
-      <%- if permalink != "index.html" -%>
-      <span>/</span>
-      <span><%= permalink %></span>
-      <%- end -%>
+
+${partial_breadcrumbs}
+
       <br class="show-on-mobile" />
       <span class="float-right-on-desktop">
+
 ${partial_nav}
+
       </span>
     </nav>
 
