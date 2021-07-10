@@ -109,9 +109,14 @@ class Page(BannerMixin):
             partials.banner(filename=self.banner_filename),
             'partial_header':
             partials.header(title=self.title, description=self.description),
+            'partial_pagination':
+            self.render_pagination()
         })
 
         return data
+
+    def render_pagination(self):
+        return ''
 
     @property
     def nav_index(self):

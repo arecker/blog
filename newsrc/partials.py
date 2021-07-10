@@ -82,3 +82,19 @@ def breadcrumbs(permalink=''):
 <span>/</span>
 <span>{permalink}</span>
 '''.format(permalink=permalink).strip()
+
+
+@partial(level=6)
+def pagination(next_page=None, previous_page=None):
+    elements = []
+    if next_page:
+        elements.append(
+            '<a class="float-right" href="/{next_page}">{next_page} ⟶</a>'.
+            format(next_page=next_page))
+
+    if previous_page:
+        elements.append(
+            '<a class="float-left" href="/{previous_page}">⟵ {previous_page}</a>'
+            .format(previous_page=previous_page))
+
+    return '\n'.join(elements)
