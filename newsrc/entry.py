@@ -3,8 +3,21 @@ import glob
 
 from newsrc import partials
 from newsrc.files import join
+from newsrc.logger import logger
 from newsrc.page import Page
-from newsrc.paginate import paginate_entries
+
+
+def paginate_entries(entries=[]):
+    logger.info('building pagination for %d entries', len(entries))
+
+    for i, entry in enumerate(entries):
+        if i != 0:
+            entry.previous_page = entries[i - 1].permalink
+
+        try:
+            entry.next_page = entries[i + 1].permalink
+        except IndexError:
+            pass
 
 
 def files():
