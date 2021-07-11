@@ -18,7 +18,13 @@ def files():
 
 
 def make_global_context():
+    from newsrc.entry import entries
+
     data = {}
+
+    # entries
+    latest = entries()[0]
+    data.update({'partial_latest': partials.latest(entry=latest)})
 
     # metadata
     twitter = config('twitter')
@@ -100,7 +106,7 @@ class Page(BannerMixin):
             # in HTML files from the old workflow.
             _, body = parse_metadata(raw, legacy=True)
 
-        return '\n'.join(['    ' + line for line in body.splitlines()])
+        return body
 
     @functools.cached_property
     def context(self):

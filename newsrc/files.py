@@ -29,7 +29,6 @@ def relative(*subpaths):
 def whatever_type_by_file(path):
     from .page import Page
     from .entry import entries
-    from .paginate import paginate_entries
 
     directory = relative(path).split('/')[0]
 
@@ -37,5 +36,4 @@ def whatever_type_by_file(path):
         return Page(path)
     elif directory == 'entries':
         all_entries = entries()
-        paginate_entries(entries=all_entries)
         return next((entry for entry in all_entries if entry.source == path))

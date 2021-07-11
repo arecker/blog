@@ -62,8 +62,9 @@ def context(source):
     """
     show the context injected into a page
     """
+    global_context = blog.make_global_context()
     page = blog.whatever_type_by_file(blog.join(source))
-    data = json.dumps(page.context, indent=2, sort_keys=True)
+    data = json.dumps(global_context | page.context, indent=2, sort_keys=True)
     blog.logger.info('rendering context for %s', page)
     print(data)
 

@@ -11,7 +11,7 @@ def partial(func, level=0, *args, **kwargs):
 <!-- partial: {name} -->
 {result}
 <!-- end: {name} -->
-'''.format(name=func.__name__, result=result).strip()
+'''.strip().format(name=func.__name__, result=result)
     indented = '\n'.join([indent + line for line in commented.splitlines()])
     return indented
 
@@ -98,3 +98,31 @@ def pagination(next_page=None, previous_page=None):
             .format(previous_page=previous_page))
 
     return '\n'.join(elements)
+
+
+@partial(level=8)
+def latest(entry):
+    if entry.banner_filename:
+        return '''
+<figure>
+  <a href="/{permalink}">
+    <img alt="{description}" src="{banner_relative_url}" />
+  </a>
+  <figcaption>
+    <a href="/{permalink}">
+      <h2>{title}</h2>
+    </a>
+    <p>{description}</p>
+  </figcaption>
+</figure>'''.strip().format(permalink=entry.permalink,
+                            title=entry.title,
+                            description=entry.description,
+                            banner_relative_url=entry.banner_relative_url)
+    else:
+        return '''
+<a href="/{permalink}">
+  <h2>{title}</h2>
+</a>
+<p>{description}</p>'''.strip().format(permalink=entry.permalink,
+                                       title=entry.title,
+                                       description=entry.description)
