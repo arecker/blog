@@ -126,3 +126,21 @@ def latest(entry):
 <p>{description}</p>'''.strip().format(permalink=entry.permalink,
                                        title=entry.title,
                                        description=entry.description)
+
+
+@partial(level=4)
+def entries_table(entries=[]):
+    elements = ['<table>']
+
+    for entry in entries:
+        row = '''  <tr>
+    <td>
+      <a href="/{permalink}">{permalink}</a>
+    </td>
+    <td>{description}</td>
+  </tr>'''.format(permalink=entry.permalink, description=entry.description)
+        elements.append(row)
+
+    elements.append('</table>')
+
+    return '\n'.join(elements)

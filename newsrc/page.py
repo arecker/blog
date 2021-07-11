@@ -18,13 +18,19 @@ def files():
 
 
 def make_global_context():
-    from newsrc.entry import entries
+    from newsrc import entry
 
     data = {}
 
     # entries
-    latest = entries()[0]
-    data.update({'partial_latest': partials.latest(entry=latest)})
+    entries = entry.entries()
+    latest = entries[0]
+    data.update({
+        'partial_latest':
+        partials.latest(entry=latest),
+        'partial_entries_table':
+        partials.entries_table(entries=entries)
+    })
 
     # metadata
     twitter = config('twitter')
