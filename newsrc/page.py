@@ -3,13 +3,14 @@ import functools
 import glob
 import os
 
-from . import partials
-from .banner import BannerMixin
-from .config import config
-from .files import join, target
-from .logger import logger
-from .metadata import parse_metadata
-from .template import render_page
+from newsrc import partials
+from newsrc.banner import BannerMixin
+from newsrc.config import config
+from newsrc.files import join, target
+from newsrc.logger import logger
+from newsrc.markdown import parse_markdown
+from newsrc.metadata import parse_metadata
+from newsrc.template import render_page
 
 
 def files():
@@ -89,7 +90,17 @@ class Page(BannerMixin):
     @property
     def content(self):
         with open(self.source) as f:
-            return f.read()
+            raw = f.read()
+
+        if self.is_markdown:
+            _, rest = parse_metadata(raw, legacy=True)
+            body = parse_markdown(rest)
+        else:
+            # TODO: temporarily strip frontmatter while that's still
+            # in HTML files from the old workflow.
+            _, body = parse_metadata(raw, legacy=True)
+
+        return '\n'.join(['    ' + line for line in body.splitlines()])
 
     @functools.cached_property
     def context(self):
@@ -97,7 +108,6 @@ class Page(BannerMixin):
 
         # Page metadata
         data.update({
-            'content': self.content,
             'description': self.description,
             'permalink': self.filename,
             'title': self.title,
@@ -127,9 +137,14 @@ class Page(BannerMixin):
         except TypeError:
             return None
 
+    @property
+    def is_markdown(self):
+        _, ext = os.path.splitext(self.source)
+        return ext == '.md'
+
     def render(self, global_context={}):
         context = global_context | self.context
-        return render_page(**context)
+        return render_page(content=self.content, **context)
 
 
 def pages():

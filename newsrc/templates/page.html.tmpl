@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <!-- meta: begin -->
     <meta charset="UTF-8" />
@@ -8,7 +9,7 @@
 
     <!-- assets: begin -->
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link href="/assets/site.css" rel="stylesheet" />
+    <link type="text/css" href="/assets/site.css" rel="stylesheet" />
     <!-- assets: end -->
 
     <!-- title: begin -->
@@ -31,21 +32,19 @@
     <meta property="og:image" content="${banner_relative_url}" />
     <!-- og: end -->
   </head>
-  <body>
 
+  <body>
 ${partial_header}
 
     <hr/>
 
     <nav>
-
 ${partial_breadcrumbs}
 
       <br class="show-on-mobile" />
+
       <span class="float-right-on-desktop">
-
 ${partial_nav}
-
       </span>
     </nav>
 
@@ -54,8 +53,8 @@ ${partial_nav}
 ${partial_banner}
 
     <!-- content: begin -->
-${content}
-    <!-- conent: end -->
+<!-- CHILD_CONTENT -->
+    <!-- content: end -->
 
     <nav class="clearfix">
 ${partial_pagination}
@@ -64,18 +63,20 @@ ${partial_pagination}
     <hr />
 
 ${partial_footer}
-
   </body>
 
 <!--
- _____________________________________
-< No scripts! Just enjoy the reading! >
- -------------------------------------
+
+ ____________________________________
+/ No stinking JavaScript today! Just \
+\ enjoy the reading! -- Alex         /
+ ------------------------------------
         \   ^__^
          \  (oo)\_______
             (__)\       )\/\
                 ||----w |
                 ||     ||
- -->
+
+-->
 
 </html>

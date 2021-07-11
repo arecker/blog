@@ -1,14 +1,16 @@
 import string
 
-from .files import join
-from .logger import logger as l
-
+from newsrc.files import join
 
 page_template_path = join('newsrc/templates/page.html.tmpl')
-with open(page_template_path) as f:
-    page_template = string.Template(f.read())
-    l.debug('loaded page template from %s', page_template_path)
 
 
-def render_page(**kwargs):
-    return page_template.substitute(**kwargs)
+def render_page(content='', **kwargs):
+    with open(page_template_path) as f:
+        base_template_content = f.read()
+
+    full_template_content = base_template_content.replace(
+        '<!-- CHILD_CONTENT -->', content.replace('$', '$$'))
+    full_template = string.Template(full_template_content)
+
+    return full_template.substitute(**kwargs)
