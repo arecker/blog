@@ -6,7 +6,7 @@ import sys
 
 from .debug import set_trace_callback
 from .files import root
-from .logger import logger as l
+from newsrc.logger import logger
 from .version import version as version_string, python_version, python_executable
 
 parser = argparse.ArgumentParser(prog='blog', description='blog - the greatest static HTML journal generator in the world')
@@ -54,7 +54,7 @@ blog v%s (%s)
 python %s (%s)
 '''.rstrip()
 
-    l.info(
+    logger.info(
         message,
         version_string, root, python_version, python_executable
     )
@@ -69,21 +69,21 @@ def main():
         debug_callback = set_trace_callback()
 
     if arguments.silent and arguments.verbose:
-        error('hey smartass, how am I supposed to be silent AND verbose?')
+        logger.error('hey smartass, how am I supposed to be silent AND verbose?')
         sys.exit(1)
 
     if arguments.silent:
-        l.disabled = True
+        logger.disabled = True
     elif arguments.verbose:
-        l.setLevel(logging.DEBUG)
-        l.debug('enabled debug logs for --verbose flag')
+        logger.setLevel(logging.DEBUG)
+        logger.debug('enabled debug logs for --verbose flag')
 
     func = commands[arguments.command or 'help']
     spec = inspect.getargspec(func)
     psargs = [getattr(arguments, key) for key in spec.args]
 
     if arguments.debug:
-        l.info('starting trace on command %s with args %s', arguments.command, psargs)
+        logger.info('starting trace on command %s with args %s', arguments.command, psargs)
         debug_callback()
 
     # Finally, we call ther damn thing.
