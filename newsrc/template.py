@@ -29,7 +29,7 @@ def escape_dollar_signs(content):
     'The total of my ${thing} was $$5.'
     """
     pattern = re.compile(r'(\$)(?!{)')
-    return pattern.sub('\1$', content)
+    return pattern.sub(r'\1$', content)
 
 
 def indent_body(content):
