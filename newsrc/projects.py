@@ -32,7 +32,10 @@ def build_project_map(entries=[]):
         for project in projects:
             if re.match(project.pattern, entry.description):
                 logger.debug('adding %s to %s', entry, project)
-                result[project.key].append(entry)
+                result[project.key].append({
+                    'description': entry.description,
+                    'permalink': entry.permalink,
+                })
                 break
 
     return result
