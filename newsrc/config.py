@@ -1,38 +1,27 @@
 import configparser
-import functools
+import os
 
-from .files import join
-from .logger import logger as l
-
-
-path = join('blog.conf')
-parser = None
+from newsrc import files
 
 
-def cache_config(func):
-    global parser
-
-    @functools.wraps(func)
-    def wrapper(*args):
-        global parser
-
-        if parser is None:
-            l.info('loading program config from %s', path)
-            parser = configparser.ConfigParser()
-            parser.read(path)
-
-        return func(*args)
-
-    return wrapper
+class ConfigFileProblem(BaseException):
+    """
+    Something preventing BLOG from loading the config file.
+    """
 
 
-@cache_config
-def config(section_name=''):
-    try:
-        data = dict(parser.items(section_name, {}))
-        if not data:
-            raise ValueError
-        return data
-    except (configparser.NoSectionError, ValueError):
-        l.warn('config - no data found for section_name %s', section)
-        return {}
+def load_config(config_path=files.join('blog.conf')):
+    """
+    Loads the program config from config_path
+    """
+    if not os.path.exists(config_path):
+        raise ConfigFileProblem(
+            f'cannot load config, {config_path} does not exist!')
+
+    if not os.access(config_path, os.R_OK):
+        raise ConfigFileProblem(
+            f'cannot load config, {config_path} is not readable!')
+
+    parser = configparser.ConfigParser()
+    parser.read(config_path)
+    return parser

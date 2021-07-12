@@ -4,8 +4,7 @@ import glob
 import os
 
 from newsrc import partials
-from newsrc.banner import BannerMixin
-from newsrc.config import config
+from newsrc.config import load_config
 from newsrc.files import join, target
 from newsrc.logger import logger
 from newsrc.markdown import parse_markdown
@@ -20,6 +19,8 @@ def files():
 def make_global_context():
     from newsrc import entry
 
+    config = load_config()
+
     data = {}
 
     # entries
@@ -33,14 +34,14 @@ def make_global_context():
     })
 
     # metadata
-    twitter = config('twitter')
+    twitter = dict(config.items('twitter', {}))
     data.update({'twitter_handle': twitter['handle']})
 
     # nav
     data.update({'partial_nav': partials.nav(pagelist=build_nav_list())})
 
     # footer
-    site = config('site')
+    site = dict(config.items('site', {}))
     now = datetime.datetime.now().astimezone()
     timestamp = now.strftime('%B %-d %Y, %I:%M %p %Z')
     data.update({
@@ -53,6 +54,37 @@ def make_global_context():
     })
 
     return data
+
+
+class BannerMixin(object):
+    '''
+    Page Mixin, for working with banners.
+    '''
+    @property
+    def banner_context(self):
+        return {
+            'banner_full_url': self.banner_full_url,
+            'banner_relative_url': self.banner_relative_url,
+        }
+
+    @property
+    def banner_filename(self):
+        return self.metadata.get('banner', '')
+
+    @property
+    def banner_relative_url(self):
+        if self.banner_filename:
+            return f'/images/banners/{self.banner_filename}'
+        else:
+            return ''
+
+    @property
+    def banner_full_url(self):
+        if self.banner_filename:
+            base = 'https://www.alexrecker.com'
+            return f'{base}/images/banners/{self.banner_filename}'
+        else:
+            return ''
 
 
 class Page(BannerMixin):

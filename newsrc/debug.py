@@ -1,6 +1,6 @@
 import code
 
-from .logger import logger as l
+from newsrc import logger
 
 
 def launch_console():
@@ -8,10 +8,10 @@ def launch_console():
 
     try:
         import IPython
-        l.info('launching ipython console')
+        logger.info('launching ipython console')
         IPython.embed()
     except ImportError:
-        l.info('launching python console')
+        logger.info('launching python console')
         code.interact(local=globals())
 
 

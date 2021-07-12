@@ -1,12 +1,6 @@
-import platform
-import sys
-
-from .files import join
+from newsrc import files
 
 
-with open(join('src/VERSION')) as f:
-    version = f.read().strip()
-
-
-python_version = platform.python_version()
-python_executable = sys.executable
+def version_string():
+    with open(files.join('src/VERSION')) as f:
+        return f.read().strip()

@@ -6,7 +6,7 @@ from newsrc.files import in_root
 encoding = 'UTF-8'
 
 
-def command(command):
+def shell_command(command):
     args = command.split()
 
     with in_root():

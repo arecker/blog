@@ -30,7 +30,7 @@ def write():
     # build latest entry
     latest = blog.entries()[0]
     latest.build(context)
-    blog.serve()
+    blog.start_web_server()
 
 
 @blog.command
@@ -46,7 +46,7 @@ def serve():
     """
     serve site locally
     """
-    blog.serve()
+    blog.start_web_server()
 
 
 @blog.command
@@ -78,6 +78,15 @@ def render(source):
     page = blog.whatever_type_by_file(blog.join(source))
     blog.logger.info('rendering %s as HTML', page)
     print(page.render(global_context=context))
+
+
+@blog.command
+def projects():
+    """
+    print project map from entries
+    """
+    result = blog.build_project_map(entries=blog.entries())
+    print(json.dumps(result, indent=2, sort_keys=True))
 
 
 if __name__ == '__main__':

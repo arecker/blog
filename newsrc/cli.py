@@ -4,15 +4,30 @@ import inspect
 import logging
 import sys
 
-from .debug import set_trace_callback
-from .files import root
+from newsrc.debug import set_trace_callback
+from newsrc.files import root
 from newsrc.logger import logger
-from .version import version as version_string, python_version, python_executable
+from newsrc.version import version_string
 
-parser = argparse.ArgumentParser(prog='blog', description='blog - the greatest static HTML journal generator in the world')
-parser.add_argument('-d', '--debug', default=False, action='store_true', help='step through code interactively')
-parser.add_argument('-s', '--silent', default=False, action='store_true', help='hide all logs')
-parser.add_argument('-v', '--verbose', default=False, action='store_true', help='print debug logs')
+parser = argparse.ArgumentParser(
+    prog='blog',
+    description='blog - the greatest static HTML journal generator in the world'
+)
+parser.add_argument('-d',
+                    '--debug',
+                    default=False,
+                    action='store_true',
+                    help='step through code interactively')
+parser.add_argument('-s',
+                    '--silent',
+                    default=False,
+                    action='store_true',
+                    help='hide all logs')
+parser.add_argument('-v',
+                    '--verbose',
+                    default=False,
+                    action='store_true',
+                    help='print debug logs')
 
 subparser = parser.add_subparsers(dest='command', help='command')
 commands = {}
@@ -49,15 +64,7 @@ def version():
     """
     print program information
     """
-    message = '''showing program information
-blog v%s (%s)
-python %s (%s)
-'''.rstrip()
-
-    logger.info(
-        message,
-        version_string, root, python_version, python_executable
-    )
+    print(version_string())
 
 
 def main():
@@ -69,7 +76,8 @@ def main():
         debug_callback = set_trace_callback()
 
     if arguments.silent and arguments.verbose:
-        logger.error('hey smartass, how am I supposed to be silent AND verbose?')
+        logger.error(
+            'hey smartass, how am I supposed to be silent AND verbose?')
         sys.exit(1)
 
     if arguments.silent:
@@ -83,8 +91,11 @@ def main():
     psargs = [getattr(arguments, key) for key in spec.args]
 
     if arguments.debug:
-        logger.info('starting trace on command %s with args %s', arguments.command, psargs)
+        logger.info('starting trace on command %s with args %s',
+                    arguments.command, psargs)
         debug_callback()
 
     # Finally, we call ther damn thing.
+    # (And if you got here from running debug mode (--debug/-d), then
+    # just step through this function to get going.
     func(*psargs)
