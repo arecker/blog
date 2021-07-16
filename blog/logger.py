@@ -6,6 +6,8 @@ def make_logger():
     """Make a copy of the blog global logger
 
     >>> logger = make_logger()
+    >>> logger
+    <Logger blog (INFO)>
     """
 
     logger = logging.getLogger('blog')
