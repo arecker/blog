@@ -1,6 +1,6 @@
-from inspect import getargspec
 import argparse
 import functools
+import inspect
 import logging
 import pdb
 import sys
@@ -68,7 +68,7 @@ def build_arg_parser():
     # Add subparsers for each registered command
     for key in sorted(commands.keys()):
         func = commands[key]
-        args = getargspec(func).args
+        args = inspect.signature(func).parameters
         note = func.__doc__.strip()
         this_parser = subparser.add_parser(key, help=note)
         for arg in args:
@@ -77,6 +77,23 @@ def build_arg_parser():
         logger.debug('registered command %s with args %s', key, args)
 
     return parser
+
+
+def extract_subargs(args: dict, function: callable):
+    """Pull list from args based on signature of function
+
+    >>> function = lambda a, b: a + 1
+    >>> args = {'a': 1, 'b': 2, 'c': 3}
+    >>> extract_subargs(args, function)
+    [1, 2]
+    """
+
+    subargs = []
+
+    for param in inspect.signature(function).parameters:
+        subargs.append(args.get(param))
+
+    return subargs
 
 
 def main():
@@ -110,7 +127,7 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    subargs = [getattr(args, key) for key in getargspec(function).args]
+    subargs = extract_subargs(vars(args), function)
     logger.debug('calling %s with args %s', function, subargs)
 
     if args.debug:
