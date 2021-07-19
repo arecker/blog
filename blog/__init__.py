@@ -8,4 +8,4 @@ from .files import root_directory
 from .command import main, register_command
 from .page import Page
 from .serve import start_web_server
-from .test import run_tests
+from .test import load_tests, run_tests
