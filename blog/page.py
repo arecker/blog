@@ -1,6 +1,7 @@
 import datetime
 import os
 import pathlib
+from xml.etree import ElementTree
 
 
 class Page:
@@ -74,8 +75,27 @@ class Page:
         return self.date.strftime('%A, %B %-d %Y')
 
     @property
+    def description(self):
+        """The page description.
+
+        If the page is an entry, this will map to the 'title' metadata
+        field.
+
+        >>> Page('entries/test.html', {'title': 'my big dumb mouth'}).description
+        'my big dumb mouth'
+
+        Otherwise, this will map to the 'description' metadata field.
+
+        >>> Page('index.html', {'description': 'The Index'}).description
+        'The Index'
+        """
+        if self.is_entry:
+            return self.metadata['title']
+        return self.metadata['description']
+
+    @property
     def date(self) -> datetime.datetime:
-        """Returns the entry date based on the filename.
+        """Entry date based on the filename.
 
         >>> Page('entries/2020-01-01.html').date
         datetime.datetime(2020, 1, 1, 0, 0)
@@ -90,6 +110,31 @@ class Page:
 
         slug, _ = os.path.splitext(self.filename)
         return datetime.datetime.strptime(slug, '%Y-%m-%d')
+
+    def html_header(self):
+        """Renders the HTML page header, based on the page title and
+        description.
+
+        >>> metadata = {'title': 'One Fat Summer', 'description': 'A Book Report'}
+        >>> element = Page('page.html', metadata).html_header()
+        >>> ElementTree.indent(element)
+        >>> ElementTree.dump(element)
+        <header>
+          <h1>One Fat Summer</h1>
+          <h1>A Book Report</h1>
+        </header>
+        """
+
+        tree = ElementTree.TreeBuilder()
+        tree.start('header', {})
+        tree.start('h1', {})
+        tree.data(self.title)
+        tree.end('h1')
+        tree.start('h1', {})
+        tree.data(self.description)
+        tree.end('h1')
+        tree.end('header')
+        return tree.close()
 
     def render(self, context: dict):
         """Render a page as an HTML string."""
