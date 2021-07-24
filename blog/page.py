@@ -12,6 +12,9 @@ class Page:
 
         self._metadata = metadata
 
+    def __repr__(self):
+        return f'<Page {self.filename}>'
+
     @property
     def is_entry(self) -> bool:
         """Returns True if the source file is an entry.
