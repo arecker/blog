@@ -29,7 +29,13 @@ def render(source):
 
     document = Page(source)
     logger.info('rendering %s', document)
-    print(document.render({}))
+
+    # TODO: build this dynamically from metadata
+    nav_pages = ['entries.html', 'projects.html', 'contact.html']
+
+    result = document.render(nav_pages=nav_pages)
+
+    print(result)
 
 
 if __name__ == '__main__':

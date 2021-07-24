@@ -246,7 +246,7 @@ class Page:
         >>> ET.dump(element)
         <header>
           <h1>One Fat Summer</h1>
-          <h1>A Book Report</h1>
+          <h2>A Book Report</h2>
         </header>
         """
 
@@ -255,11 +255,48 @@ class Page:
         tree.start('h1', {})
         tree.data(self.title)
         tree.end('h1')
-        tree.start('h1', {})
+        tree.start('h2', {})
         tree.data(self.description)
-        tree.end('h1')
+        tree.end('h2')
         tree.end('header')
         return tree.close()
+
+    def html_breadcrumbs(self) -> [ET.Element]:
+        """Renders breadcrumb elements for the page.
+
+        >>> elements = Page('page.html', {}).html_breadcrumbs()
+        >>> _ = [ET.dump(element) for element in elements]
+        <a href="/">index.html</a>
+        <span>/</span>
+        <span>page.html</span>
+
+        If the page is named "index.html", then just the homepage link
+        is returned.
+
+        >>> elements = Page('index.html', {}).html_breadcrumbs()
+        >>> _ = [ET.dump(element) for element in elements]
+        <a href="/">index.html</a>
+        """
+
+        elements = []
+
+        # home link
+        home = ET.Element('a', href='/')
+        home.text = 'index.html'
+        elements.append(home)
+
+        if self.filename == 'index.html':
+            return elements
+
+        divider = ET.Element('span')
+        divider.text = '/'
+        elements.append(divider)
+
+        page = ET.Element('span')
+        page.text = self.filename
+        elements.append(page)
+
+        return elements
 
     def html_head(self) -> ET.Element:
         """Renders HTML head"""
@@ -295,11 +332,65 @@ class Page:
 
         return head
 
-    def render(self, context: dict):
+    def html_site_navigation(self, pages: list) -> ET.Element:
+        """Renders site navigation
+
+        >>> pages = ['a.html', 'b.html', 'c.html']
+        >>> element = Page('page.html', {}).html_site_navigation(pages)
+        >>> ET.indent(element)
+        >>> ET.dump(element)
+        <span class="float-right-on-desktop">
+          <a href="/a.html">a.html</a>
+          <a href="/b.html">b.html</a>
+          <a href="/c.html">c.html</a>
+        </span>
+        """
+
+        tree = ET.TreeBuilder()
+
+        # TODO: another class to get rid of
+        tree.start('span', {'class': 'float-right-on-desktop'})
+
+        for page in pages:
+            tree.start('a', {'href': f'/{page}'})
+            tree.data(page)
+            tree.end('a')
+
+        tree.end('span')
+        return tree.close()
+
+    def html_nav(self, nav_pages=[]):
+        """Render HTMl nav."""
+
+        nav = ET.Element('nav')
+
+        for element in self.html_breadcrumbs():
+            nav.append(element)
+
+        # TODO: get rid of CSS class
+        nav.append(ET.Element('br', attrib={'class': 'show-on-mobile'}))
+
+        # site navigation
+        nav.append(self.html_site_navigation(nav_pages))
+
+        return nav
+
+    def html_body(self, nav_pages=[]):
+        """Renders HTML body"""
+
+        body = ET.Element('body')
+        body.append(self.html_header())
+        body.append(ET.Element('hr'))
+        body.append(self.html_nav(nav_pages=nav_pages))
+
+        return body
+
+    def render(self, nav_pages=[]):
         """Render a page as an HTML string."""
 
         html = ET.Element('html', lang='en')
         html.append(self.html_head())
+        html.append(self.html_body(nav_pages=nav_pages))
 
         ET.indent(html)
         document = ET.tostring(html).decode('UTF-8')
