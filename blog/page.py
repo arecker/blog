@@ -3,6 +3,8 @@ import os
 import pathlib
 from xml.etree import ElementTree as ET
 
+from . import logger, markdown
+
 
 class Page:
     def __init__(self, source, metadata={}):
@@ -45,6 +47,14 @@ class Page:
         name, _ = os.path.splitext(basename)
         return name + '.html'
 
+    def read(self):
+        """Read raw contents of source file."""
+
+        logger.debug('opening %s for read', self.source)
+
+        with open(self.source, 'r') as f:
+            return f.read()
+
     @property
     def metadata(self):
         """Page metadata.
@@ -53,6 +63,11 @@ class Page:
         """
         if self._metadata:
             return self._metadata
+
+        # For now, both HTML and Markdown files use frontmatter.
+        data, _ = markdown.extract_markdown_frontmatter(self.read())
+        logger.debug('extracted frontmatter %s from %s', data, self.source)
+        return data
 
     @property
     def title(self):
@@ -246,7 +261,47 @@ class Page:
         tree.end('header')
         return tree.close()
 
+    def html_head(self) -> ET.Element:
+        """Renders HTML head"""
+
+        head = ET.Element('head')
+
+        # title tag
+        head.append(self.html_head_title())
+
+        #link
+        head.append(
+            ET.Element('link',
+                       rel='shortcut icon',
+                       type='image/x-icon',
+                       href='/favicon.ico'))
+        head.append(
+            ET.Element('link', href='/assets/site.css', rel='stylesheet'))
+
+        # meta
+        head.append(ET.Element('meta', charset='UTF-8'))
+        head.append(
+            ET.Element('meta',
+                       name='viewport',
+                       content='width=device-width, initial-scale=1'))
+
+        # meta:twitter
+        for element in self.html_meta_twitter():
+            head.append(element)
+
+        # meta:og
+        for element in self.html_meta_og():
+            head.append(element)
+
+        return head
+
     def render(self, context: dict):
         """Render a page as an HTML string."""
 
-        return ''
+        html = ET.Element('html', lang='en')
+        html.append(self.html_head())
+
+        ET.indent(html)
+        document = ET.tostring(html).decode('UTF-8')
+
+        return f'<!DOCTYPE html>\n{document}'
