@@ -1,7 +1,7 @@
 import datetime
 import os
 import pathlib
-from xml.etree import ElementTree
+from xml.etree import ElementTree as ET
 
 
 class Page:
@@ -111,21 +111,49 @@ class Page:
         slug, _ = os.path.splitext(self.filename)
         return datetime.datetime.strptime(slug, '%Y-%m-%d')
 
+    def html_meta_og(self):
+        """Renders property="og:..." meta elements.
+
+        >>> metadata = {'title': 'Test', 'description': 'A Test'}
+        >>> elements = Page('page.html', metadata).html_meta_og()
+        >>> _ = [ET.dump(element) for element in elements]
+        <meta property="og:url" content="/page.html" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="Test" />
+        <meta property="og:description" content="A Test" />
+        """
+
+        tags = {
+            'url': f'/{self.filename}',
+            'type': 'article',
+            'title': self.title,
+            'description': self.description,
+        }
+
+        elements = []
+
+        for k, v in tags.items():
+            attributes = {'property': f'og:{k}', 'content': v}
+            el = ET.Element('meta', **attributes)
+            elements.append(el)
+
+        return elements
+
     def html_header(self):
         """Renders the HTML page header, based on the page title and
         description.
 
         >>> metadata = {'title': 'One Fat Summer', 'description': 'A Book Report'}
         >>> element = Page('page.html', metadata).html_header()
-        >>> ElementTree.indent(element)
-        >>> ElementTree.dump(element)
+        >>> ET.indent(element)
+        >>> ET.dump(element)
         <header>
           <h1>One Fat Summer</h1>
           <h1>A Book Report</h1>
         </header>
         """
 
-        tree = ElementTree.TreeBuilder()
+        tree = ET.TreeBuilder()
         tree.start('header', {})
         tree.start('h1', {})
         tree.data(self.title)
