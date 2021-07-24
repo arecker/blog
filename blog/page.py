@@ -264,6 +264,40 @@ class Page:
         tree.end('header')
         return tree.close()
 
+    def html_banner(self):
+        """Renders the HTML banner.
+
+        >>> metadata = {'banner': 'test.jpg'}
+        >>> element = Page('page.html', metadata).html_banner()
+        >>> ET.indent(element)
+        >>> ET.dump(element)
+        <figure>
+          <a href="/images/banners/test.jpg">
+            <img alt="banner" src="/images/banners/test.jpg" />
+          </a>
+        </figure>
+
+        Returns None if there is no banner associated to the page.
+
+        >>> Page('page.html', {'title': 'Test'}).html_banner() is None
+        True
+        """
+
+        if not self.banner:
+            return None
+
+        url = f'/images/banners/{self.banner}'
+
+        tree = ET.TreeBuilder()
+        tree.start('figure', {})
+        tree.start('a', {'href': url})
+        tree.start('img', {'alt': 'banner', 'src': url})
+        tree.end('img')
+        tree.end('a')
+        tree.end('figure')
+
+        return tree.close()
+
     def html_breadcrumbs(self) -> [ET.Element]:
         """Renders breadcrumb elements for the page.
 
@@ -385,6 +419,10 @@ class Page:
         body.append(self.html_header())
         body.append(ET.Element('hr'))
         body.append(self.html_nav(nav_pages=nav_pages))
+        body.append(ET.Element('hr'))
+
+        if banner := self.html_banner():
+            body.append(banner)
 
         return body
 
