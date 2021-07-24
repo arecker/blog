@@ -27,24 +27,30 @@ def serve():
     start_web_server()
 
 
+def render_page(path):
+    document = Page(path)
+    result = document.render(nav_pages=nav_pages)
+    target = root_directory.joinpath('www/', document.filename)
+    with open(target, 'w+') as f:
+        f.write(result)
+    logger.debug('rendered %s -> %s', document, target)
+
+
 @register_command
 def build():
     """build the website"""
 
     start = time.time()
 
-    pages = list(root_directory.glob('pages/*.html'))
-    entries = list(root_directory.glob('entries/*.md'))
+    pages = list(sorted(root_directory.glob('pages/*.html')))
+    logger.info('building %d pages', len(pages))
+    for page in pages:
+        render_page(page)
 
-    logger.info('rendering %d pages, %d entries', len(pages), len(entries))
-
-    for page in pages + entries:
-        document = Page(page)
-        result = document.render(nav_pages=nav_pages)
-        target = root_directory.joinpath('www/', document.filename)
-        with open(target, 'w+') as f:
-            f.write(result)
-        logger.debug('rendered %s -> %s', document, target)
+    entries = list(sorted(root_directory.glob('entries/*.md')))
+    logger.info('building %d entries', len(entries))
+    for page in entries:
+        render_page(page)
 
     elapsed = time.strftime("%H:%M:%S", time.gmtime(time.time() - start))
 
