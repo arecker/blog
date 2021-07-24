@@ -94,6 +94,21 @@ class Page:
         return self.metadata['description']
 
     @property
+    def banner(self) -> str:
+        """Filename of the page banner.
+
+        >>> metadata = {'title': 'Test', 'banner': 'test.jpg'}
+        >>> Page('page.html', metadata).banner
+        'test.jpg'
+
+        None if there is no banner set in metadata.
+
+        >>> Page('page.html', metadata={'title': 'Test'}).banner is None
+        True
+        """
+        return self.metadata.get('banner', None)
+
+    @property
     def date(self) -> datetime.datetime:
         """Entry date based on the filename.
 
@@ -111,7 +126,60 @@ class Page:
         slug, _ = os.path.splitext(self.filename)
         return datetime.datetime.strptime(slug, '%Y-%m-%d')
 
-    def html_meta_og(self):
+    def html_head_title(self) -> ET.Element:
+        """Render page title tag.
+
+        >>> metadata = {'title': 'One Fat Summer', 'description': 'A Book Report'}
+        >>> element = Page('page.html', metadata).html_head_title()
+        >>> ET.indent(element)
+        >>> ET.dump(element)
+        <title>One Fat Summer | A Book Report</title>
+        """
+
+        tree = ET.TreeBuilder()
+        tree.start('title', {})
+        tree.data(f'{self.title} | {self.description}')
+        tree.end('title')
+        return tree.close()
+
+    def html_meta_twitter(self) -> [ET.Element]:
+        """Renders property="twitter:..." meta elements.
+
+        >>> metadata = {'title': 'Test', 'description': 'A Test'}
+        >>> elements = Page('page.html', metadata).html_meta_twitter()
+        >>> _ = [ET.dump(element) for element in elements]
+        <meta name="twitter:title" content="Test" />
+        <meta name="twitter:description" content="A Test" />
+
+        If there is a banner, that will be added as well.
+
+        >>> metadata = {'title': 'Test', 'description': 'A Test', 'banner': 'test.jpg'}
+        >>> elements = Page('page.html', metadata).html_meta_twitter()
+        >>> _ = [ET.dump(element) for element in elements]
+        <meta name="twitter:title" content="Test" />
+        <meta name="twitter:description" content="A Test" />
+        <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/test.jpg" />
+        """
+
+        tags = {
+            'title': self.title,
+            'description': self.description,
+        }
+
+        if self.banner:
+            tags[
+                'image'] = f'https://www.alexrecker.com/images/banners/{self.banner}'
+
+        elements = []
+
+        for k, v in tags.items():
+            attributes = {'name': f'twitter:{k}', 'content': v}
+            el = ET.Element('meta', **attributes)
+            elements.append(el)
+
+        return elements
+
+    def html_meta_og(self) -> [ET.Element]:
         """Renders property="og:..." meta elements.
 
         >>> metadata = {'title': 'Test', 'description': 'A Test'}
@@ -121,6 +189,17 @@ class Page:
         <meta property="og:type" content="article" />
         <meta property="og:title" content="Test" />
         <meta property="og:description" content="A Test" />
+
+        If there is a banner, that will be added as well.
+
+        >>> metadata = {'title': 'Test', 'description': 'A Test', 'banner': 'test.jpg'}
+        >>> elements = Page('page.html', metadata).html_meta_og()
+        >>> _ = [ET.dump(element) for element in elements]
+        <meta property="og:url" content="/page.html" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content="Test" />
+        <meta property="og:description" content="A Test" />
+        <meta property="og:image" content="/images/banners/test.jpg" />
         """
 
         tags = {
@@ -129,6 +208,9 @@ class Page:
             'title': self.title,
             'description': self.description,
         }
+
+        if self.banner:
+            tags['image'] = f'/images/banners/{self.banner}'
 
         elements = []
 
