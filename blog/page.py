@@ -430,10 +430,10 @@ class Page:
         >>> ET.indent(element)
         >>> ET.dump(element)
         <footer>
-          <small>Last Updated: Saturday September 29 1990, 00:09 AM</small>
+          <small>Last Updated: Saturday September 29 1990, 12:00 AM</small>
           <small>Last Change: <span>R&amp;D: unit test work (<a href="https://github.com/arecker/blog/commit/abcdefghij">abc</a>)</span>
           </small>
-          <small>&amp;copy; Copyright 1990 Alex Recker</small>
+          <small>© Copyright 1990 Alex Recker</small>
         </footer>
         """
 
