@@ -1,8 +1,7 @@
-import sys
-import time
+import datetime
 
 from . import (register_command, run_tests, start_web_server, main, logger,
-               root_directory, Page)
+               root_directory, Page, fetch_git_info)
 
 # TODO: build this dynamically from metadata
 nav_pages = ['entries.html', 'projects.html', 'contact.html']
@@ -11,6 +10,9 @@ nav_pages = ['entries.html', 'projects.html', 'contact.html']
 @register_command
 def version():
     """print program version"""
+
+    info = fetch_git_info()
+    print(info)
 
 
 @register_command
@@ -27,9 +29,11 @@ def serve():
     start_web_server()
 
 
-def render_page(path):
+def render_page(path, timestamp=None, git_info=None, nav_pages=[]):
     document = Page(path)
-    result = document.render(nav_pages=nav_pages)
+    result = document.render(timestamp=timestamp,
+                             git_info=git_info,
+                             nav_pages=nav_pages)
     target = root_directory.joinpath('www/', document.filename)
     with open(target, 'w+') as f:
         f.write(result)
@@ -40,21 +44,29 @@ def render_page(path):
 def build():
     """build the website"""
 
-    start = time.time()
+    start = datetime.datetime.now()
+
+    git_info = fetch_git_info()
 
     pages = list(sorted(root_directory.glob('pages/*.html')))
     logger.info('building %d pages', len(pages))
     for page in pages:
-        render_page(page)
+        render_page(page,
+                    timestamp=start,
+                    git_info=git_info,
+                    nav_pages=nav_pages)
 
     entries = list(sorted(root_directory.glob('entries/*.md')))
     logger.info('building %d entries', len(entries))
     for page in entries:
-        render_page(page)
+        render_page(page,
+                    timestamp=start,
+                    git_info=git_info,
+                    nav_pages=nav_pages)
 
-    elapsed = time.strftime("%H:%M:%S", time.gmtime(time.time() - start))
+    elapsed = (datetime.datetime.now() - start).total_seconds()
 
-    logger.info('total build time was - %s', elapsed)
+    logger.info('total build time was %ds', elapsed)
 
 
 @register_command
@@ -64,7 +76,12 @@ def render(source):
     document = Page(source)
     logger.info('rendering %s', document)
 
-    result = document.render(nav_pages=nav_pages)
+    timestamp = datetime.datetime.now()
+    git_info = fetch_git_info()
+
+    result = document.render(timestamp=timestamp,
+                             git_info=git_info,
+                             nav_pages=nav_pages)
 
     print(result)
 

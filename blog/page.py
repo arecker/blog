@@ -412,7 +412,64 @@ class Page:
 
         return nav
 
-    def html_body(self, nav_pages=[]):
+    def html_footer(self, timestamp=None, git_info=None):
+        """Render HTML footer
+
+        git_info is a GitInfo named tuple
+
+        >>> from collections import namedtuple
+        >>> GitInfo = namedtuple('GitInfo', 'head head_short summary')
+        >>> git_info = GitInfo('abcdefghij', 'abc', 'R&D: unit test work')
+
+        timestamp is a datetime
+
+        >>> timestamp = datetime.datetime(1990, 9, 29)
+
+        >>> page = Page('page.html', {})
+        >>> element = page.html_footer(timestamp=timestamp, git_info=git_info)
+        >>> ET.indent(element)
+        >>> ET.dump(element)
+        <footer>
+          <small>Last Updated: Saturday September 29 1990, 00:09 AM</small>
+          <small>Last Change: <span>R&amp;D: unit test work (<a href="https://github.com/arecker/blog/commit/abcdefghij">abc</a>)</span>
+          </small>
+          <small>&amp;copy; Copyright 1990 Alex Recker</small>
+        </footer>
+        """
+
+        updated = timestamp.strftime('%A %B %d %Y, %H:%m %p')
+        url = f'https://github.com/arecker/blog/commit/{git_info.head}'
+        year = timestamp.year
+
+        tree = ET.TreeBuilder()
+        tree.start('footer', {})
+
+        # Last Updated
+        tree.start('small', {})
+        tree.data(f'Last Updated: {updated}')
+        tree.end('small')
+
+        # Last Change
+        tree.start('small', {})
+        tree.data('Last Change: ')
+        tree.start('span', {})
+        tree.data(f'{git_info.summary} (')
+        tree.start('a', {'href': url})
+        tree.data(git_info.head_short)
+        tree.end('a')
+        tree.data(')')
+        tree.end('span')
+        tree.end('small')
+
+        # Copyright
+        tree.start('small', {})
+        tree.data(f'© Copyright {year} Alex Recker')
+        tree.end('small')
+
+        tree.end('footer')
+        return tree.close()
+
+    def html_body(self, timestamp=None, git_info=None, nav_pages=[]):
         """Renders HTML body"""
 
         body = ET.Element('body')
@@ -424,16 +481,25 @@ class Page:
         if banner := self.html_banner():
             body.append(banner)
 
+        body.append(ET.Element('hr'))
+
+        footer = self.html_footer(timestamp=timestamp, git_info=git_info)
+        body.append(footer)
+
         return body
 
-    def render(self, nav_pages=[]):
+    def render(self, timestamp=None, git_info=None, nav_pages=[]):
         """Render a page as an HTML string."""
 
         html = ET.Element('html', lang='en')
         html.append(self.html_head())
-        html.append(self.html_body(nav_pages=nav_pages))
+
+        body = self.html_body(timestamp=timestamp,
+                              git_info=git_info,
+                              nav_pages=nav_pages)
+        html.append(body)
 
         ET.indent(html)
-        document = ET.tostring(html).decode('UTF-8')
+        document = ET.tostring(html, encoding='unicode')
 
         return f'<!DOCTYPE html>\n{document}'
