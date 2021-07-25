@@ -437,7 +437,7 @@ class Page:
         </footer>
         """
 
-        updated = timestamp.strftime('%A %B %d %Y, %H:%m %p')
+        updated = timestamp.strftime('%A %B %d %Y, %I:%M %p')
         url = f'https://github.com/arecker/blog/commit/{git_info.head}'
         year = timestamp.year
 
