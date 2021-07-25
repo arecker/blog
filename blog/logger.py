@@ -1,24 +1,24 @@
 import logging
 import sys
 
-
-def make_logger():
-    """Make a copy of the blog global logger
-
-    >>> logger = make_logger()
-    >>> logger
-    <Logger blog (INFO)>
-    """
-
-    logger = logging.getLogger('blog')
-    handler = logging.StreamHandler(stream=sys.stderr)
-    formatter = logging.Formatter('blog: %(message)s')
-
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
-
-    return logger
+logger = logging.getLogger(__name__)
 
 
-logger = make_logger()
+def configure_logging(verbose=False, silent=False):
+    if verbose and silent:
+        raise ValueError(
+            'hey smartass, how am I supposed to be silent AND verbose?')
+
+    if silent:
+        logging.disable()
+        return
+
+    if verbose:
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+
+    fmt = 'blog - %(levelname)s - %(name)s - %(message)s'
+
+    logging.basicConfig(level=level, stream=sys.stderr, format=fmt)
+    logger.debug('configured logging with level = %s', level)

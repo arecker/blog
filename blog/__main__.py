@@ -1,90 +1,61 @@
-import datetime
+import logging
+import sys
 
-from . import (register_command, run_tests, start_web_server, main, logger,
-               root_directory, Page, fetch_git_info)
+import blog
 
-# TODO: build this dynamically from metadata
-nav_pages = ['entries.html', 'projects.html', 'contact.html']
+logger = logging.getLogger(__name__)
 
-
-@register_command
-def version():
-    """print program version"""
-
-    info = fetch_git_info()
-    print(info)
-
-
-@register_command
-def test():
-    """run program test suite"""
-
-    run_tests()
-
-
-@register_command
-def serve():
-    """serve site locally"""
-
-    start_web_server()
+SUBCOMMANDS = {
+    'help': {
+        'help': 'print program usage'
+    },
+    'render': {
+        'posargs': [{
+            'key': 'path',
+            'type': str,
+            'help': 'path to entry or page',
+        }],
+        'help':
+        'print a rendered page'
+    }
+}
 
 
-def render_page(path, timestamp=None, git_info=None, nav_pages=[]):
-    document = Page(path)
-    result = document.render(timestamp=timestamp,
-                             git_info=git_info,
-                             nav_pages=nav_pages)
-    target = root_directory.joinpath('www/', document.filename)
-    with open(target, 'w+') as f:
-        f.write(result)
-    logger.debug('rendered %s -> %s', document, target)
+def main():
+    """The main routine.
 
+    Parse global args and call the right function based on the
+    subcommand.
+    """
 
-@register_command
-def build():
-    """build the website"""
+    default_config_path = str(blog.root_directory.joinpath('blog.conf'))
 
-    start = datetime.datetime.now()
+    # Parse global arguments
+    parser = blog.build_global_argparser(default_config_path,
+                                         subcommands=SUBCOMMANDS)
+    global_args = parser.parse_args()
 
-    git_info = fetch_git_info()
+    # Setup logging
+    blog.configure_logging(verbose=global_args.verbose,
+                           silent=global_args.silent)
 
-    pages = list(sorted(root_directory.glob('pages/*.html')))
-    logger.info('building %d pages', len(pages))
-    for page in pages:
-        render_page(page,
-                    timestamp=start,
-                    git_info=git_info,
-                    nav_pages=nav_pages)
+    logger.debug('parsed args %s', vars(global_args))
 
-    entries = list(sorted(root_directory.glob('entries/*.md')))
-    logger.info('building %d entries', len(entries))
-    for page in entries:
-        render_page(page,
-                    timestamp=start,
-                    git_info=git_info,
-                    nav_pages=nav_pages)
+    # Print help if needed
+    if not global_args.subcommand:
+        parser.print_help()
+        sys.exit(1)
+    elif global_args.subcommand == 'help':
+        parser.print_help()
+        sys.exit(0)
 
-    elapsed = (datetime.datetime.now() - start).total_seconds()
-
-    logger.info('total build time was %ds', elapsed)
-
-
-@register_command
-def render(source):
-    """render a page"""
-
-    document = Page(source)
-    logger.info('rendering %s', document)
-
-    timestamp = datetime.datetime.now()
-    git_info = fetch_git_info()
-
-    result = document.render(timestamp=timestamp,
-                             git_info=git_info,
-                             nav_pages=nav_pages)
-
-    print(result)
+    # Build config
+    config = blog.load_config(global_args.config)
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception:
+        logger.exception('Unhandled exception!')
+        sys.exit(1)
