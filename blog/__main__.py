@@ -45,7 +45,7 @@ def render(source, config, info):
     page = blog.Page(source)
 
     result = blog.build_html_page(page=page, config=config, info=info)
-    logger.info('rendered %s to HTML', page)
+    logger.debug('rendered %s to HTML', page)
     return result
 
 
