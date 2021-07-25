@@ -111,7 +111,7 @@ def build_html_body_navigation(page=None, config=None):
     return nav
 
 
-def build_html_body_navigation_breadcrumbs(page=None):
+def build_html_body_navigation_breadcrumbs(page=None) -> [ET.Element]:
     elements = []
 
     # home link
