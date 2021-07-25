@@ -1,5 +1,6 @@
 import argparse
 import os
+import pathlib
 
 
 def real_file_path(path: str):
@@ -14,27 +15,27 @@ def real_file_path(path: str):
         raise argparse.ArgumentTypeError(
             f'file {path} exists, but it\'s not readable!')
 
-    return path
+    return pathlib.Path(path)
 
 
-def build_subparsers(parser, subcommands):
-    subparser = parser.add_subparsers(dest='subcommand',
-                                      help='subcommand to run')
+def build_subparsers(parser):
+    subcommand = parser.add_subparsers(dest='subcommand',
+                                       help='subcommand to run')
 
-    for key in sorted(subcommands.keys()):
-        info = subcommands[key]
-        localparser = subparser.add_parser(key, help=info['help'])
-        for posarg in info.get('posargs', []):
-            localparser.add_argument(
-                posarg['key'],
-                type=posarg['type'],
-                help=posarg['help'],
-            )
+    # help
+    subcommand.add_parser('help', help='print program usage')
+
+    # render
+    subparser = subcommand.add_parser('render',
+                                      help='print a rendered page or entry')
+    subparser.add_argument('source',
+                           type=real_file_path,
+                           help='path to source file')
 
     return parser
 
 
-def build_global_argparser(default_config_path: str, subcommands={}):
+def build_argparser(default_config_path: str):
     description = 'blog - the greatest static HTML journal generator ever made'
     parser = argparse.ArgumentParser(prog='blog', description=description)
 
@@ -62,4 +63,4 @@ def build_global_argparser(default_config_path: str, subcommands={}):
                         default=default_config_path,
                         help='path to config file')
 
-    return build_subparsers(parser, subcommands)
+    return build_subparsers(parser)

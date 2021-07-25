@@ -5,21 +5,6 @@ import blog
 
 logger = logging.getLogger(__name__)
 
-SUBCOMMANDS = {
-    'help': {
-        'help': 'print program usage'
-    },
-    'render': {
-        'posargs': [{
-            'key': 'path',
-            'type': str,
-            'help': 'path to entry or page',
-        }],
-        'help':
-        'print a rendered page'
-    }
-}
-
 
 def main():
     """The main routine.
@@ -30,27 +15,38 @@ def main():
 
     default_config_path = str(blog.root_directory.joinpath('blog.conf'))
 
-    # Parse global arguments
-    parser = blog.build_global_argparser(default_config_path,
-                                         subcommands=SUBCOMMANDS)
-    global_args = parser.parse_args()
+    # Parse arguments
+    parser = blog.build_argparser(default_config_path)
+    args = parser.parse_args()
 
     # Setup logging
-    blog.configure_logging(verbose=global_args.verbose,
-                           silent=global_args.silent)
+    blog.configure_logging(verbose=args.verbose, silent=args.silent)
 
-    logger.debug('parsed args %s', vars(global_args))
+    logger.debug('parsed args %s', vars(args))
 
     # Print help if needed
-    if not global_args.subcommand:
+    if not args.subcommand:
         parser.print_help()
         sys.exit(1)
-    elif global_args.subcommand == 'help':
+    elif args.subcommand == 'help':
         parser.print_help()
         sys.exit(0)
 
-    # Build config
-    config = blog.load_config(global_args.config)
+    # Build config and info
+    config = blog.load_config(args.config)
+    info = blog.gather_build_info()
+
+    if args.subcommand == 'render':
+        result = render(args.source, config, info)
+        print(result)
+
+
+def render(source, config, info):
+    page = blog.Page(source)
+
+    result = blog.build_html_page(page=page, config=config, info=info)
+    logger.info('rendered %s to HTML', page)
+    return result
 
 
 if __name__ == '__main__':
