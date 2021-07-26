@@ -32,6 +32,9 @@ def build_subparsers(parser):
                            type=real_file_path,
                            help='path to source file')
 
+    # serve
+    subcommand.add_parser('serve', help='serve the website locally')
+
     return parser
 
 

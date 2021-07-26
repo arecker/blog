@@ -1,19 +1,17 @@
+import logging
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
-from . import logger, root_directory
+logger = logging.getLogger(__name__)
 
 
-class Handler(SimpleHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args,
-                         directory=root_directory.joinpath('www/'),
-                         **kwargs)
+def start_web_server(directory, port=8000):
+    class Handler(SimpleHTTPRequestHandler):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, directory=directory, **kwargs)
 
-    def log_message(self, format, *args):
-        logger.debug(f'{format}', *args)
+        def log_message(self, format, *args):
+            logger.debug(f'{format}', *args)
 
-
-def start_web_server(port=8000):
     httpd = HTTPServer(('', port), Handler)
     try:
         logger.info(f'starting webserver - http://0.0.0.0:{port}')

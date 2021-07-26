@@ -34,11 +34,14 @@ def main():
 
     # Build config and info
     config = blog.load_config(args.config)
-    info = blog.gather_build_info()
+
+    info = blog.gather_info(entries=list(all_entries()))
 
     if args.subcommand == 'render':
         result = render(args.source, config, info)
         print(result)
+    elif args.subcommand == 'serve':
+        blog.start_web_server(blog.root_directory.joinpath('www/'))
 
 
 def render(source, config, info):
@@ -47,6 +50,11 @@ def render(source, config, info):
     result = blog.build_html_page(page=page, config=config, info=info)
     logger.debug('rendered %s to HTML', page)
     return result
+
+
+def all_entries():
+    for path in sorted(blog.root_directory.glob('entries/*.*')):
+        yield blog.Page(path)
 
 
 if __name__ == '__main__':

@@ -10,6 +10,9 @@ def build_html_page(page=None, config=None, info=None) -> str:
     body = build_html_body(page=page, config=config, info=info)
     html.append(body)
 
+    comment = build_html_comment()
+    html.append(comment)
+
     ET.indent(html)
     xml = ET.tostring(html, encoding='unicode', method='html')
     return f'<!doctype html>\n{xml}'
@@ -75,6 +78,14 @@ def build_html_body(page=None, config=None, info=None):
 
     nav = build_html_body_navigation(page=page, config=config)
     body.append(nav)
+
+    if banner := build_html_body_banner(page=page):
+        body.append(banner)
+
+    if pagination := build_html_body_pagination(page=page, info=info):
+        body.append(pagination)
+
+    body.append(ET.Element('hr'))
 
     footer = build_html_body_footer(info=info, config=config)
     body.append(footer)
@@ -148,10 +159,49 @@ def build_html_body_navigation_pages(pages=[]) -> ET.Element:
     return tree.close()
 
 
+def build_html_body_banner(page=None) -> ET.Element:
+    if not page.banner:
+        return None
+
+    url = f'/images/banners/{page.banner}'
+    tree = ET.TreeBuilder()
+    tree.start('figure', {})
+    tree.start('a', {'href': url})
+    tree.start('img', {'alt': 'banner', 'src': url})
+    tree.end('img')
+    tree.end('a')
+    tree.end('figure')
+    return tree.close()
+
+
+def build_html_body_pagination(page=None, info=None) -> ET.Element:
+    if not page.is_entry():
+        return None
+
+    next_page = info.pagination[page.filename].next
+    prev_page = info.pagination[page.filename].previous
+
+    tree = ET.TreeBuilder()
+    tree.start('nav', {'class': 'clearfix'})
+
+    if next_page:
+        tree.start('a', {'class': 'float-left', 'href': f'/{next_page}'})
+        tree.data(f'⟵ {next_page}')
+        tree.end('a')
+
+    if prev_page:
+        tree.start('a', {'class': 'float-right', 'href': f'/{prev_page}'})
+        tree.data(f'{prev_page} ⟶')
+        tree.end('a')
+
+    tree.end('nav')
+    return tree.close()
+
+
 def build_html_body_footer(info=None, config=None):
     author = config['site']['author']
     updated = info.timestamp.strftime('%A %B %d %Y, %I:%M %p')
-    url = f'https://github.com/arecker/blog/commit/{info.git_head}'
+    url = f'https://github.com/arecker/blog/commit/{info.git.head}'
     year = info.timestamp.year
 
     tree = ET.TreeBuilder()
@@ -166,9 +216,9 @@ def build_html_body_footer(info=None, config=None):
     tree.start('small', {})
     tree.data('Last Change: ')
     tree.start('span', {})
-    tree.data(f'{info.git_head_summary} (')
+    tree.data(f'{info.git.head_summary} (')
     tree.start('a', {'href': url})
-    tree.data(info.git_head_short)
+    tree.data(info.git.head_short)
     tree.end('a')
     tree.data(')')
     tree.end('span')
@@ -181,3 +231,18 @@ def build_html_body_footer(info=None, config=None):
 
     tree.end('footer')
     return tree.close()
+
+
+def build_html_comment():
+    text = '''
+ _____________________________________
+< No scripts! Just enjoy the reading! >
+ -------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+'''.strip()
+    comment = ET.Comment(text=text)
+    return comment
