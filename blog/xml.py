@@ -10,9 +10,6 @@ def build_html_page(page=None, config=None, info=None) -> str:
     body = build_html_body(page=page, config=config, info=info)
     html.append(body)
 
-    comment = build_html_comment()
-    html.append(comment)
-
     ET.indent(html)
     xml = ET.tostring(html, encoding='unicode', method='html')
     return f'<!doctype html>\n{xml}'
@@ -79,8 +76,12 @@ def build_html_body(page=None, config=None, info=None):
     nav = build_html_body_navigation(page=page, config=config)
     body.append(nav)
 
+    body.append(ET.Element('hr'))
+
     if banner := build_html_body_banner(page=page):
         body.append(banner)
+
+    body.append(build_html_body_content(page=page))
 
     if pagination := build_html_body_pagination(page=page, info=info):
         body.append(pagination)
@@ -174,6 +175,10 @@ def build_html_body_banner(page=None) -> ET.Element:
     return tree.close()
 
 
+def build_html_body_content(page=None) -> ET.Element:
+    return ET.fromstring(page.content)
+
+
 def build_html_body_pagination(page=None, info=None) -> ET.Element:
     if not page.is_entry():
         return None
@@ -231,18 +236,3 @@ def build_html_body_footer(info=None, config=None):
 
     tree.end('footer')
     return tree.close()
-
-
-def build_html_comment():
-    text = '''
- _____________________________________
-< No scripts! Just enjoy the reading! >
- -------------------------------------
-        \   ^__^
-         \  (oo)\_______
-            (__)\       )\/\
-                ||----w |
-                ||     ||
-'''.strip()
-    comment = ET.Comment(text=text)
-    return comment

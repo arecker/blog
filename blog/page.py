@@ -4,6 +4,7 @@ import logging
 import os
 import pathlib
 import re
+import sys
 
 logger = logging.getLogger(__name__)
 
@@ -54,8 +55,26 @@ class Page:
     def banner(self):
         return self.metadata.get('banner', None)
 
+    @property
+    def content(self):
+        # TODO: get rid of frontmatter!
+        _, body = extract_markdown_frontmatter(self.read())
+        if self.is_markdown():  # TODO: get rid of markdown!
+            try:
+                import markdown
+                return markdown.markdown(body)
+            except ImportError:
+                logger.fatal('markdown package must be installed!')
+                sys.exit(1)
+        else:
+            return body
+
     def is_entry(self):
         return self.source.parent.name == 'entries'
+
+    def is_markdown(self):
+        _, ext = os.path.splitext(self.source.name)
+        return ext in ['.md', '.markdown']
 
 
 def extract_markdown_frontmatter(content: str) -> dict:
