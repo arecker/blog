@@ -26,7 +26,7 @@ module Blog
 
     # Returns a list of pages.
     def self.pages
-      Dir.glob(Files.join('pages/*.html')).map { |f| Page.new f }
+      Dir.glob(Files.join('pages.old/*.html')).map { |f| Page.new f }
     end
 
     # Returns a list of ruby test files.
