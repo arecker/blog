@@ -1,4 +1,5 @@
 import datetime
+import functools
 import logging
 import os
 import pathlib
@@ -9,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 class Page:
-    def __init__(self, source: pathlib.Path):
+    def __init__(self, source):
         self.source = pathlib.Path(source)
 
     def __repr__(self):
@@ -19,16 +20,11 @@ class Page:
         with open(self.source) as f:
             return f.read()
 
-    @property
+    @functools.cached_property
     def metadata(self):
-        if getattr(self, '_metadata'):
-            return self._metadata
-
-        legacy_metadata, rest = extract_markdown_frontmatter(self.read())
-        metadata, rest = extract_metadata_from_comments(rest)
-        self._metadata = legacy_metadata | metadata
+        metadata, _ = extract_markdown_frontmatter(self.read())
         logger.debug('extracted metadata %s from %s', metadata, self)
-        return self._metadata
+        return metadata
 
     @property
     def date(self):
@@ -61,18 +57,17 @@ class Page:
 
     @property
     def content(self):
+        # TODO: get rid of frontmatter!
         _, body = extract_markdown_frontmatter(self.read())
-
-        if self.is_markdown():
+        if self.is_markdown():  # TODO: get rid of markdown!
             try:
                 import markdown
-                body = markdown.markdown(body)
+                return markdown.markdown(body)
             except ImportError:
                 logger.fatal('markdown package must be installed!')
                 sys.exit(1)
-
-        _, body = extract_metadata_from_comments(body)
-        return body
+        else:
+            return body
 
     def is_entry(self):
         return self.source.parent.name == 'entries'
@@ -104,19 +99,3 @@ def extract_markdown_frontmatter(content: str) -> dict:
         return data, rest
 
     return None, content
-
-
-def extract_metadata_from_comments(content):
-
-    pattern = re.compile(
-        r'^\s?<!--\s?blog:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$')
-
-    metadata, rest = [], []
-
-    for line in content.splitlines():
-        if match := pattern.match(line):
-            metadata.append(match.groups())
-        else:
-            rest.append(line)
-
-    return dict(metadata), '\n'.join(rest)
