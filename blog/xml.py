@@ -175,8 +175,19 @@ def build_html_body_banner(page=None) -> ET.Element:
     return tree.close()
 
 
+class CommentedTreeBuilder(ET.TreeBuilder):
+    def comment(self, data):
+        self.start(ET.Comment, {})
+        self.data(data)
+        self.end(ET.Comment)
+
+
 def build_html_body_content(page=None) -> ET.Element:
-    return ET.fromstring(page.content)
+    parser = ET.XMLParser(target=CommentedTreeBuilder())
+    parser.feed(page.content)
+    root = parser.close()
+    for child in root.iter():
+        print(child)
 
 
 def build_html_body_pagination(page=None, info=None) -> ET.Element:
