@@ -175,19 +175,23 @@ def build_html_body_banner(page=None) -> ET.Element:
     return tree.close()
 
 
-class CommentedTreeBuilder(ET.TreeBuilder):
-    def comment(self, data):
-        self.start(ET.Comment, {})
-        self.data(data)
-        self.end(ET.Comment)
-
-
 def build_html_body_content(page=None) -> ET.Element:
-    parser = ET.XMLParser(target=CommentedTreeBuilder())
-    parser.feed(page.content)
+    content = f'<article>{page.content}</article>'
+    parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))
+    parser.feed(content)
     root = parser.close()
-    for child in root.iter():
-        print(child)
+
+    parent_map = {c: p for p in root.iter() for c in p}
+
+    for element in root.iter():
+        if 'function Comment' not in str(element.tag):
+            continue
+
+        # TODO: expand magic comment
+        parent = parent_map[element]
+        parent.remove(element)
+
+    return root
 
 
 def build_html_body_pagination(page=None, info=None) -> ET.Element:
