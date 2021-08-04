@@ -19,7 +19,7 @@ def build_html_head(page=None, config=None):
     head = ET.Element('head')
 
     # title
-    head.append(ET.Element('head', text=f'{page.title} | {page.description}'))
+    head.append(ET.Element('title', text=f'{page.title} | {page.description}'))
 
     # link
     head.append(
@@ -206,7 +206,7 @@ def expand_magic_comment(comment: ET.Element, info=None):
     if key == 'latest':
         new_elements = build_html_latest(info=info)
     if key == 'entries':
-        new_elements = build_entries_table(entries=info.entries)
+        new_elements = [build_entries_table(entries=info.entries)]
     return new_elements + [end_comment]
 
 
@@ -242,28 +242,27 @@ def build_html_latest(info=None):
     return elements
 
 
-def build_entries_table(entries=[]) -> [ET.Element]:
-    elements = []
+def build_entries_table(entries=[]) -> ET.Element:
+    table = ET.Element('table')
 
     for entry in reversed(entries):
         row = ET.Element('tr')
 
         # link
-        cell = ET.Element('td')
+        link_cell = ET.Element('td')
         link = ET.Element('a', href=f'/{entry.filename}')
         link.text = entry.filename
-        cell.append(link)
-        row.append(cell)
+        link_cell.append(link)
+        row.append(link_cell)
 
         # description
-        cell = ET.Element('td')
-        link.text = entry.description
-        cell.append(link)
-        row.append(cell)
+        desc_cell = ET.Element('td')
+        desc_cell.text = entry.description
+        row.append(desc_cell)
 
-        elements.append(row)
+        table.append(row)
 
-    return elements
+    return table
 
 
 def build_html_body_pagination(page=None, info=None) -> ET.Element:
