@@ -103,13 +103,12 @@ def extract_markdown_frontmatter(content: str) -> dict:
         data = dict(r_frontmatter_line.findall(body))
         return data, rest
 
-    return None, content
+    return {}, content
 
 
 def extract_metadata_from_comments(content):
-
     pattern = re.compile(
-        r'^\s?<!--\s?blog:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$')
+        r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$')
 
     metadata, rest = [], []
 

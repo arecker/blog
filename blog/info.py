@@ -8,8 +8,8 @@ logger = logging.getLogger(__name__)
 Pages = collections.namedtuple('Pages', ['next', 'previous'])
 GitInfo = collections.namedtuple('GitInfo',
                                  ['head', 'head_short', 'head_summary'])
-
-Info = collections.namedtuple('Info', ['timestamp', 'git', 'pagination'])
+Info = collections.namedtuple(
+    'Info', ['timestamp', 'git', 'pagination', 'latest', 'entries'])
 
 
 def shell_command(cmd):
@@ -54,4 +54,11 @@ def gather_info(entries=[]) -> Info:
     pagination = build_pagination_map(entries)
     logger.debug('built pagination map from %d entry file(s)', len(entries))
 
-    return Info(timestamp=timestamp, git=git, pagination=pagination)
+    latest = entries[-1]
+    logger.debug('cached latest entry %s', latest)
+
+    return Info(timestamp=timestamp,
+                git=git,
+                pagination=pagination,
+                latest=latest,
+                entries=entries)

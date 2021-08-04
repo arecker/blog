@@ -81,7 +81,7 @@ def build_html_body(page=None, config=None, info=None):
     if banner := build_html_body_banner(page=page):
         body.append(banner)
 
-    body.append(build_html_body_content(page=page))
+    body.append(build_html_body_content(page=page, info=info))
 
     if pagination := build_html_body_pagination(page=page, info=info):
         body.append(pagination)
@@ -175,23 +175,95 @@ def build_html_body_banner(page=None) -> ET.Element:
     return tree.close()
 
 
-def build_html_body_content(page=None) -> ET.Element:
+def build_html_body_content(page=None, info=None) -> ET.Element:
     content = f'<article>{page.content}</article>'
     parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))
     parser.feed(content)
     root = parser.close()
 
     parent_map = {c: p for p in root.iter() for c in p}
+    new_elements_map = {}
 
     for element in root.iter():
         if 'function Comment' not in str(element.tag):
             continue
 
-        # TODO: expand magic comment
         parent = parent_map[element]
-        parent.remove(element)
+        new_elements = expand_magic_comment(comment=element, info=info)
+        new_elements_map[parent] = new_elements
+
+    for parent, elements in new_elements_map.items():
+        for element in elements:
+            parent.append(element)
 
     return root
+
+
+def expand_magic_comment(comment: ET.Element, info=None):
+    _, key = [t.strip() for t in comment.text.split(':')]
+    comment.text = f' begin blog:{key} '
+    end_comment = ET.Comment(text=f'end blog:{key}')
+    if key == 'latest':
+        new_elements = build_html_latest(info=info)
+    if key == 'entries':
+        new_elements = build_entries_table(entries=info.entries)
+    return new_elements + [end_comment]
+
+
+def build_html_latest(info=None):
+    elements = []
+
+    href = f'/{info.latest.filename}'
+    banner_href = f'/images/banners/{info.latest.banner}'
+
+    link = ET.Element('a', href=href)
+    title = ET.Element('h3', attrib={'class': 'title'})
+    title.text = info.latest.title
+    link.append(title)
+    elements.append(link)
+
+    if info.latest.banner:
+        figure = ET.Element('figure')
+        link = ET.Element('a', href=href)
+        image = ET.Element('img', src=banner_href)
+        link.append(image)
+        figure.append(link)
+        caption = ET.Element('figcaption')
+        caption_text = ET.Element('p')
+        caption_text.text = info.latest.description
+        caption.append(caption_text)
+        figure.append(caption)
+        elements.append(figure)
+    else:
+        caption = ET.Element('p')
+        caption.text = info.latest.description
+        elements.append(caption)
+
+    return elements
+
+
+def build_entries_table(entries=[]) -> [ET.Element]:
+    elements = []
+
+    for entry in reversed(entries):
+        row = ET.Element('tr')
+
+        # link
+        cell = ET.Element('td')
+        link = ET.Element('a', href=f'/{entry.filename}')
+        link.text = entry.filename
+        cell.append(link)
+        row.append(cell)
+
+        # description
+        cell = ET.Element('td')
+        link.text = entry.description
+        cell.append(link)
+        row.append(cell)
+
+        elements.append(row)
+
+    return elements
 
 
 def build_html_body_pagination(page=None, info=None) -> ET.Element:
