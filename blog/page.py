@@ -27,7 +27,6 @@ class Page:
         legacy_metadata, rest = extract_markdown_frontmatter(self.read())
         metadata, rest = extract_metadata_from_comments(rest)
         self._metadata = legacy_metadata | metadata
-        logger.debug('extracted metadata %s from %s', metadata, self)
         return self._metadata
 
     @property
@@ -114,7 +113,7 @@ def extract_metadata_from_comments(content):
 
     for line in content.splitlines():
         if match := pattern.match(line):
-            metadata.append(match.groups())
+            metadata.append([i.strip() for i in match.groups()])
         else:
             rest.append(line)
 

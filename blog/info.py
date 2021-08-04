@@ -9,7 +9,7 @@ Pages = collections.namedtuple('Pages', ['next', 'previous'])
 GitInfo = collections.namedtuple('GitInfo',
                                  ['head', 'head_short', 'head_summary'])
 Info = collections.namedtuple(
-    'Info', ['timestamp', 'git', 'pagination', 'latest', 'entries'])
+    'Info', ['timestamp', 'git', 'pagination', 'latest', 'entries', 'pages'])
 
 
 def shell_command(cmd):
@@ -44,7 +44,7 @@ def gather_git_info() -> GitInfo:
     )
 
 
-def gather_info(entries=[]) -> Info:
+def gather_info(entries=[], pages=[]) -> Info:
     timestamp = datetime.datetime.now()
     logger.debug('created build timestamp %s', timestamp)
 
@@ -61,4 +61,5 @@ def gather_info(entries=[]) -> Info:
                 git=git,
                 pagination=pagination,
                 latest=latest,
-                entries=entries)
+                entries=entries,
+                pages=pages)

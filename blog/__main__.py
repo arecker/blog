@@ -1,4 +1,5 @@
 import logging
+import collections
 import sys
 
 import blog
@@ -34,10 +35,13 @@ def main():
 
     # Build config and info
     config = blog.load_config(args.config)
+    entries = list(all_entries())
+    pages = list(all_pages())
+    info = blog.gather_info(entries=entries, pages=pages)
 
-    info = blog.gather_info(entries=list(all_entries()))
-
-    if args.subcommand == 'render':
+    if args.subcommand == 'build':
+        run_build(config, info)
+    elif args.subcommand == 'render':
         result = render(args.source, config, info)
         print(result)
     elif args.subcommand == 'serve':
@@ -52,8 +56,42 @@ def render(source, config, info):
     return result
 
 
+TargetGroup = collections.namedtuple('TargetGroup',
+                                     ['singular', 'plural', 'targets'])
+
+
+def run_build(config, info):
+
+    pages = TargetGroup(singular='page', plural='pages', targets=info.pages)
+    entries = TargetGroup(singular='entry',
+                          plural='entries',
+                          targets=info.entries)
+
+    for target_group in [pages, entries]:
+        for target in target_group.targets:
+            target_path = f'www/{target.filename}'
+            with open(target_path, 'w') as f:
+                result = blog.build_html_page(page=target,
+                                              config=config,
+                                              info=info)
+                f.write(result)
+                logger.debug('rendered %s to %s', target, target_path)
+        if len(target_group.targets) == 1:
+            logger.info('rendered 1 %s -> %s', target_group.singular,
+                        target_path)
+        else:
+            logger.info('rendered %d %s -> %s', len(target_group),
+                        target_group.plural, target_path)
+        logger.info('built %d page(s)', len(info.pages))
+
+
 def all_entries():
     for path in sorted(blog.root_directory.glob('entries/*.*')):
+        yield blog.Page(path)
+
+
+def all_pages():
+    for path in sorted(blog.root_directory.glob('pages/*.*')):
         yield blog.Page(path)
 
 
