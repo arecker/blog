@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Dear Journal</title>
+  <subtitle>Daily, public journal by Alex Recker</subtitle>
+  <link href="https://www.alexrecker.com/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="https://www.alexrecker.com/" rel="alternate" type="text/html" />
+  <updated><%= Time.now.iso8601 %></updated>
+  <author>
+    <name>Alex Recker</name>
+    <email>alex@reckerfamily.com</email>
+  </author>
+  <id>https://www.alexrecker.com/feed.xml</id>
+  <% entries.reverse.take(20).each do |entry| %>
+  <entry>
+    <title><%= entry.title %></title>
+    <link href="https://www.alexrecker.com/<%= entry.permalink %>"/>
+    <id>https://www.alexrecker.com/<%= entry.permalink %></id>
+    <published><%= entry.date.to_time.iso8601 %></published>
+    <updated><%= entry.date.to_time.iso8601 %></updated>
+    <summary><%= entry.description %></summary>
+    <author>
+      <name>Alex Recker</name>
+      <email>alex@reckerfamily.com</email>
+    </author>
+    <% if entry.banner %>
+    <media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://www.alexrecker.com/images/banners/<%= entry.banner %>"/>
+    <media:content medium="image" url="https://www.alexrecker.com/images/banners/<%= entry.banner %>" xmlns:media="http://search.yahoo.com/mrss/" />
+    <% end %>
+  </entry>
+  <% end %>
+</feed>

@@ -1,7 +1,7 @@
 [build]
   publish = "www"
-  command = "python -m src build"
-  environment = { PYTHON_VERSION = "3.7" }
+  command = "bundle exec blog"
+  environment = { }
   processing = { skip_processing = true }
 
 [[redirects]]

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- meta: begin -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- meta: end -->
+
+    <!-- assets: begin -->
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link href="/assets/site.css" rel="stylesheet" />
+    <!-- assets: end -->
+
+    <!-- title: begin -->
+    <title><%= title %> | <%= description %></title>
+    <!-- title: end -->
+
+    <!-- twitter: begin -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@alex_recker" />
+    <meta name="twitter:title" content="<%= title %>" />
+    <meta name="twitter:description" content="<%= description %>" />
+    <%- if banner -%>
+    <meta name="twitter:image" content="https://www.alexrecker.com/images/banners/<%= banner %>" />
+    <%- end -%>
+    <!-- twitter: end -->
+
+    <!-- og: begin-->
+    <meta property="og:url" content="/<%= permalink %>" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="<%= title %>" />
+    <meta property="og:description" content="<%= description %>" />
+    <%- if banner -%>
+    <meta property="og:image" content="/images/banners/<%= banner %>" />
+    <%- end -%>
+    <!-- og: end -->
+  </head>
+  <body>
+
+    <!-- header: begin -->
+    <header>
+      <h1><%= title %></h1>
+      <h2><%= description %></h2>
+    </header>
+    <!-- header: end -->
+
+    <hr/>
+
+    <!-- nav: begin -->
+    <nav>
+      <a href="/">index.html</a>
+      <%- if permalink != "index.html" -%>
+      <span>/</span>
+      <span><%= permalink %></span>
+      <%- end -%>
+      <br class="show-on-mobile" />
+      <span class="float-right-on-desktop">
+        <%- nav.each do |page| -%>
+        <a href="/<%= page %>"><%= page %></a>
+        <%- end -%>
+      </span>
+    </nav>
+    <!-- nav: end -->
+
+    <hr/>
+
+    <%- if banner -%>
+    <!-- banner: begin -->
+    <figure>
+      <a href="/images/banners/<%= banner %>">
+        <img alt="banner" src="/images/banners/<%= banner %>" />
+      </a>
+    </figure>
+    <!-- banner: end -->
+    <%- end -%>
+
+    <!-- content: begin -->
+$CONTENT$
+    <!-- conent: end -->
+
+    <%- if page_previous || page_next -%>
+    <!-- pagination: begin -->
+    <nav class="clearfix">
+      <%- if page_next -%>
+      <a class="float-right" href="/<%= page_next %>"><%= page_next %> ⟶</a>
+      <%- end -%>
+      <%- if page_previous -%>
+      <a class="float-left" href="/<%= page_previous %>">⟵ <%= page_previous %></a>
+      <%- end -%>
+    </nav>
+    <!-- pagination: end -->
+    <%- end -%>
+
+    <hr />
+
+    <!-- footer: begin -->
+    <footer>
+      <small>Last Updated: <%= info.build_time %></small>
+      <small>Last Change:<span><%= git.head_summary %> (<a href="https://github.com/arecker/blog/commit/<%= git.head %>"><%= git.short_head %></a>)</span></small>
+      <small>&copy; Copyright <%= info.build_year %> Alex Recker</small>
+    </footer>
+    <!-- footer: end -->
+
+  </body>
+
+<!--
+ _____________________________________
+< No scripts! Just enjoy the reading! >
+ -------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+ -->
+
+</html>

@@ -1,0 +1,88 @@
+---
+title: "Projects"
+description: "Stuff that I'm working on"
+nav: 3
+---
+
+<div class="row">
+  <div class="column">
+    <figure>
+      <a href="/images/projects-coding.png">
+        <img alt="projects coding" src="/images/projects-coding.png" />
+      </a>
+    </figure>
+  </div>
+  <div class="column">
+    <h2>Live Programming</h2>
+    <p>
+      Tune in on late Saturday Mornings to watch me work on some code. I stream
+      on YouTube and Facebook live.
+    </p>
+    <a href="https://youtube.com/playlist?list=PLhMFRzv8kTTCaaV27Si4arLhdw6nHsU-f">YouTube: live programming</a>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <h2>Fred, the Poet</h2>
+    <p>
+      Poems written by my Grandpa, Fred Recker. Some stories about him thrown in
+      there as well.
+    </p>
+    <ul class="unstyled">
+      <%- projects[:fred_poems].each do |project| -%>
+      <li><a href="<%= project.permalink %>"><%= project.description %></a></li>
+      <%- end -%>
+    </ul>
+  </div>
+  <div class="column">
+    <figure>
+      <a href="/images/banners/2021-05-02.jpeg">
+        <img alt="fred the poet" src="/images/banners/2021-05-02.jpeg" />
+      </a>
+    </figure>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <figure>
+      <a href="/images/banners/2020-10-17.jpg">
+        <img alt="look back on hockey" src="/images/banners/2020-10-17.jpg" />
+      </a>
+    </figure>
+  </div>
+  <div class="column">
+    <h2>Look Back</h2>
+    <p>Old stories and other nostalgia bombs from my past.</p>
+    <ul class="unstyled">
+      <%- projects[:look_back].each do |project| -%>
+      <li><a href="<%= project.permalink %>"><%= project.description %></a></li>
+      <%- end -%>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="column">
+    <h2>Anti-Journal</h2>
+    <p>
+      Publishing entries from my pre-blog private journal which I've aptly
+      nicknamed <em>The Anti-Journal</em>.
+    </p>
+    <ul class="unstyled">
+      <%- projects[:anti_journal].each do |project| -%>
+      <li><a href="<%= project.permalink %>"><%= project.description %></a></li>
+      <%- end -%>
+    </ul>
+  </div>
+  <div class="column">
+    <h2>Homework Vault</h2>
+    <p>
+      To take a break from writing, I periodically share writing assignments
+      from high school and college.
+    </p>
+    <ul class="unstyled">
+      <%- projects[:homework_vault].each do |project| -%>
+      <li><a href="<%= project.permalink %>"><%= project.description %></a></li>
+      <%- end -%>
+    </ul>
+  </div>
+</div>
