@@ -1,6 +1,6 @@
 [build]
   publish = "www"
-  command = "python -m blog build"
+  command = "python -m src build"
   environment = { }
   processing = { skip_processing = true }
 
