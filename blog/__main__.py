@@ -47,6 +47,8 @@ def main():
 
     if args.subcommand == 'build':
         run_build(config, info)
+    if args.subcommand == 'migrate':
+        run_migrate(info)
     elif args.subcommand == 'render':
         result = render(args.source, config, info)
         print(result)
@@ -89,6 +91,22 @@ def run_build(config, info):
             logger.info('rendered %d %s -> %s', len(target_group),
                         target_group.plural, target_path)
         logger.info('built %d page(s)', len(info.pages))
+
+
+def run_migrate(info):
+    for entry in info.entries:
+        if not entry.is_markdown():
+            continue
+
+        metadata = '\n'.join(
+            [f'<!-- meta:{k} {v} -->' for k, v in entry.metadata.items()])
+
+        with open(root_directory.joinpath('entries/', entry.filename),
+                  'w') as f:
+            f.write(metadata + '\n\n')
+            f.write(entry.content)
+
+        logger.info('migrated %s from markdown', entry)
 
 
 def all_entries():
