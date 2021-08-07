@@ -1,10 +1,16 @@
-import logging
+import os
 import collections
+import logging
+import pathlib
 import sys
 
 import blog
 
 logger = logging.getLogger(__name__)
+
+this_directory = os.path.dirname(os.path.realpath(__file__))
+root_directory = pathlib.Path(
+    os.path.abspath(os.path.join(this_directory, '../')))
 
 
 def main():
@@ -14,7 +20,7 @@ def main():
     subcommand.
     """
 
-    default_config_path = str(blog.root_directory.joinpath('blog.conf'))
+    default_config_path = str(root_directory.joinpath('blog.conf'))
 
     # Parse arguments
     parser = blog.build_argparser(default_config_path)
@@ -23,7 +29,7 @@ def main():
     # Setup logging
     blog.configure_logging(verbose=args.verbose, silent=args.silent)
 
-    logger.debug('parsed args %s', vars(args))
+    logger.debug('parsed args %s, running from %s', vars(args), root_directory)
 
     # Print help if needed
     if not args.subcommand:
@@ -45,7 +51,7 @@ def main():
         result = render(args.source, config, info)
         print(result)
     elif args.subcommand == 'serve':
-        blog.start_web_server(blog.root_directory.joinpath('www/'))
+        blog.start_web_server(root_directory.joinpath('www/'))
 
 
 def render(source, config, info):
@@ -86,12 +92,12 @@ def run_build(config, info):
 
 
 def all_entries():
-    for path in sorted(blog.root_directory.glob('entries/*.*')):
+    for path in sorted(root_directory.glob('entries/*.*')):
         yield blog.Page(path)
 
 
 def all_pages():
-    for path in sorted(blog.root_directory.glob('pages/*.*')):
+    for path in sorted(root_directory.glob('pages/*.*')):
         yield blog.Page(path)
 
 

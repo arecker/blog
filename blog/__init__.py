@@ -2,7 +2,6 @@
 
 from .args import build_argparser
 from .config import load_config
-from .files import root_directory
 from .info import gather_info
 from .logger import configure_logging
 from .page import Page
