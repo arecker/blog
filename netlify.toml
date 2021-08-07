@@ -1,7 +1,7 @@
 [build]
   publish = "www"
   command = "python -m src build"
-  environment = { PYTHON_VERSION = "3.9.5" }
+  environment = { PYTHON_VERSION = "3.7" }
   processing = { skip_processing = true }
 
 [[redirects]]
