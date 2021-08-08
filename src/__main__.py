@@ -51,10 +51,7 @@ def main():
                                        pages=pages.targets)
 
     if args.subcommand == 'build':
-        run_build(config, context, target_groups=[
-            entries,
-            pages,
-        ])
+        run_build(config, context, entries=entries, pages=pages)
     if args.subcommand == 'migrate':
         run_migrate(context)
     elif args.subcommand == 'render':
@@ -72,8 +69,8 @@ def render(source, config, context):
     return result
 
 
-def run_build(config, context, target_groups=[]):
-    for target_group in target_groups:
+def run_build(config, context, entries=None, pages=None):
+    for target_group in [pages, entries]:
         for target in target_group.targets:
             target_path = f'www/{target.filename}'
             with open(target_path, 'w') as f:
@@ -88,6 +85,13 @@ def run_build(config, context, target_groups=[]):
         else:
             logger.info('rendered %d %s', len(target_group.targets),
                         target_group.plural)
+
+    with open('www/feed.xml', 'w') as f:
+        f.write(
+            src.build_rss_feed(config=config,
+                               entries=entries.targets,
+                               context=context))
+    logger.info('rendered RSS feed')
 
 
 def run_migrate(info):

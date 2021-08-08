@@ -1,5 +1,4 @@
 import collections
-import contextlib
 
 TargetGroup = collections.namedtuple('TargetGroup',
                                      ['singular', 'plural', 'targets'])
