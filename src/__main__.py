@@ -43,6 +43,7 @@ def main():
     entries = list(src.all_entries(root_directory))
     pages = list(src.all_pages(root_directory))
     context = src.build_global_context(root_directory=root_directory,
+                                       config=config,
                                        entries=entries,
                                        pages=pages)
 
