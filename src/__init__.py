@@ -2,10 +2,11 @@
 
 from .args import build_argparser
 from .config import load_config
-from .info import gather_info
+from .info import build_global_context
 from .logger import configure_logging
 from .page import Page
 from .serve import start_web_server
+from .targets import pages_target_group, entries_target_group
 from .xml import build_html_page
 
 # iffy modules that depend on things

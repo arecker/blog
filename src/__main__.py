@@ -39,48 +39,47 @@ def main():
         parser.print_help()
         sys.exit(0)
 
-    # Build config and info
+    # Build config, target groups, and info
     config = src.load_config(args.config)
-    entries = list(all_entries())
-    pages = list(all_pages())
-    info = src.gather_info(entries=entries, pages=pages)
+
+    # Build target groups
+    entries = src.entries_target_group(root_directory, src.Page)
+    pages = src.pages_target_group(root_directory, src.Page)
+
+    # Build info
+    context = src.build_global_context(entries=entries.targets,
+                                       pages=pages.targets)
 
     if args.subcommand == 'build':
-        run_build(config, info)
+        run_build(config, context, target_groups=[
+            entries,
+            pages,
+        ])
     if args.subcommand == 'migrate':
-        run_migrate(info)
+        run_migrate(context)
     elif args.subcommand == 'render':
-        result = render(args.source, config, info)
+        result = render(args.source, config, context)
         print(result)
     elif args.subcommand == 'serve':
         src.start_web_server(root_directory.joinpath('www/'))
 
 
-def render(source, config, info):
+def render(source, config, context):
     page = src.Page(source)
 
-    result = src.build_html_page(page=page, config=config, info=info)
+    result = src.build_html_page(page=page, config=config, context=context)
     logger.debug('rendered %s to HTML', page)
     return result
 
 
-TargetGroup = collections.namedtuple('TargetGroup',
-                                     ['singular', 'plural', 'targets'])
-
-
-def run_build(config, info):
-    pages = TargetGroup(singular='page', plural='pages', targets=info.pages)
-    entries = TargetGroup(singular='entry',
-                          plural='entries',
-                          targets=info.entries)
-
-    for target_group in [pages, entries]:
+def run_build(config, context, target_groups=[]):
+    for target_group in target_groups:
         for target in target_group.targets:
             target_path = f'www/{target.filename}'
             with open(target_path, 'w') as f:
                 result = src.build_html_page(page=target,
                                              config=config,
-                                             info=info)
+                                             context=context)
                 f.write(result)
                 logger.debug('rendered %s to %s', target, target_path)
 

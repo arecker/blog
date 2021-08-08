@@ -44,7 +44,7 @@ def gather_git_info() -> GitInfo:
     )
 
 
-def gather_info(entries=[], pages=[]) -> Info:
+def build_global_context(entries=[], pages=[]) -> Info:
     timestamp = datetime.datetime.now()
     logger.debug('created build timestamp %s', timestamp)
 

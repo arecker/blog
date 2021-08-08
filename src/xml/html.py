@@ -1,13 +1,13 @@
 from xml.etree import ElementTree as ET
 
 
-def build_html_page(page=None, config=None, info=None) -> str:
+def build_html_page(page=None, config=None, context=None) -> str:
     html = ET.Element('html', lang='en')
 
     head = build_html_head(page=page, config=config)
     html.append(head)
 
-    body = build_html_body(page=page, config=config, info=info)
+    body = build_html_body(page=page, config=config, info=context)
     html.append(body)
 
     ET.indent(html)
