@@ -42,23 +42,23 @@ def main():
     config = src.load_config(args.config)
     entries = list(src.all_entries(root_directory))
     pages = list(src.all_pages(root_directory))
-    context = src.build_global_context(entries=entries, pages=pages)
+    context = src.build_global_context(root_directory=root_directory,
+                                       entries=entries,
+                                       pages=pages)
 
     if args.subcommand == 'build':
         pave_webroot()
         run_build(config, context)
-    if args.subcommand == 'migrate':
-        run_migrate(context)
     elif args.subcommand == 'render':
         result = render(args.source, config, context)
         print(result)
     elif args.subcommand == 'serve':
-        src.start_web_server(root_directory.joinpath('www/'))
+        src.start_web_server(context=context)
 
 
 def render(source, config, context):
     if not source.is_absolute():
-        source = root_directory.joinpath(source)
+        source = context.root_directory.joinpath(source)
 
     for page in itertools.chain(context.pages, context.entries):
         if page.source == source:
@@ -107,22 +107,6 @@ def run_build(config, context):
     with open('www/sitemap.xml', 'w') as f:
         f.write(src.build_sitemap(context=context))
     logger.info('rendered sitemap.xml')
-
-
-def run_migrate(info):
-    for entry in info.entries:
-        if not entry.is_markdown():
-            continue
-
-        metadata = '\n'.join(
-            [f'<!-- meta:{k} {v} -->' for k, v in entry.metadata.items()])
-
-        with open(root_directory.joinpath('entries/', entry.filename),
-                  'w') as f:
-            f.write(metadata + '\n\n')
-            f.write(entry.content)
-
-        logger.info('migrated %s from markdown', entry)
 
 
 if __name__ == '__main__':

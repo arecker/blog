@@ -5,11 +5,18 @@ import subprocess
 
 logger = logging.getLogger(__name__)
 
-Pages = collections.namedtuple('Pages', ['next', 'previous'])
+Pagination = collections.namedtuple('Pagination', ['next', 'previous'])
 GitInfo = collections.namedtuple('GitInfo',
                                  ['head', 'head_short', 'head_summary'])
-Info = collections.namedtuple(
-    'Info', ['timestamp', 'git', 'pagination', 'latest', 'entries', 'pages'])
+Context = collections.namedtuple('Context', [
+    'entries',
+    'git',
+    'latest',
+    'pages',
+    'pagination',
+    'root_directory',
+    'timestamp',
+])
 
 
 def shell_command(cmd):
@@ -31,7 +38,7 @@ def build_pagination_map(entries=[]) -> dict:
         except IndexError:
             next_entry = None
 
-        pagination[entry.filename] = Pages(next_entry, previous_entry)
+        pagination[entry.filename] = Pagination(next_entry, previous_entry)
 
     return pagination
 
@@ -44,7 +51,7 @@ def gather_git_info() -> GitInfo:
     )
 
 
-def build_global_context(entries=[], pages=[]) -> Info:
+def build_global_context(root_directory=None, entries=[], pages=[]) -> Context:
     timestamp = datetime.datetime.now()
     logger.debug('created build timestamp %s', timestamp)
 
@@ -57,9 +64,10 @@ def build_global_context(entries=[], pages=[]) -> Info:
     latest = entries[-1]
     logger.debug('cached latest entry %s', latest)
 
-    return Info(timestamp=timestamp,
-                git=git,
-                pagination=pagination,
-                latest=latest,
-                entries=entries,
-                pages=pages)
+    return Context(root_directory=root_directory,
+                   timestamp=timestamp,
+                   git=git,
+                   pagination=pagination,
+                   latest=latest,
+                   entries=entries,
+                   pages=pages)

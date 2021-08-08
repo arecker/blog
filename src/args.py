@@ -28,10 +28,6 @@ def build_subparsers(parser):
     # build
     subparser = subcommand.add_parser('build', help='build the website')
 
-    # migrate
-    subparser = subcommand.add_parser('migrate',
-                                      help='convert markdown entries to html')
-
     # render
     subparser = subcommand.add_parser('render',
                                       help='print a rendered page or entry')
