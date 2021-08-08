@@ -1,6 +1,6 @@
-import os
-import collections
+import itertools
 import logging
+import os
 import pathlib
 import sys
 
@@ -51,6 +51,7 @@ def main():
                                        pages=pages.targets)
 
     if args.subcommand == 'build':
+        pave_webroot()
         run_build(config, context, entries=entries, pages=pages)
     if args.subcommand == 'migrate':
         run_migrate(context)
@@ -67,6 +68,27 @@ def render(source, config, context):
     result = src.build_html_page(page=page, config=config, context=context)
     logger.debug('rendered %s to HTML', page)
     return result
+
+
+def build_feeds(config, entries, context):
+    with open('www/feed.xml', 'w') as f:
+        f.write(
+            src.build_rss_feed(config=config,
+                               entries=entries.targets,
+                               context=context))
+    logger.info('rendered feed.xml')
+
+    with open('www/sitemap.xml', 'w') as f:
+        f.write(src.build_sitemap(context=context))
+    logger.info('rendered sitemap.xml')
+
+
+def pave_webroot():
+    old_files = itertools.chain(root_directory.glob('www/*.html'),
+                                root_directory.glob('www/*.xml'))
+    for file in old_files:
+        os.remove(file)
+        logger.debug('deleting %s', file)
 
 
 def run_build(config, context, entries=None, pages=None):
@@ -86,12 +108,7 @@ def run_build(config, context, entries=None, pages=None):
             logger.info('rendered %d %s', len(target_group.targets),
                         target_group.plural)
 
-    with open('www/feed.xml', 'w') as f:
-        f.write(
-            src.build_rss_feed(config=config,
-                               entries=entries.targets,
-                               context=context))
-    logger.info('rendered RSS feed')
+    build_feeds(config, entries, context)
 
 
 def run_migrate(info):
