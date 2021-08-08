@@ -118,3 +118,13 @@ def extract_metadata_from_comments(content):
             rest.append(line)
 
     return dict(metadata), '\n'.join(rest)
+
+
+def all_pages(root_directory):
+    for path in sorted(root_directory.glob('pages/*.*')):
+        yield Page(path)
+
+
+def all_entries(root_directory):
+    for path in sorted(root_directory.glob('entries/*.*')):
+        yield Page(path)

@@ -39,20 +39,14 @@ def main():
         parser.print_help()
         sys.exit(0)
 
-    # Build config, target groups, and info
     config = src.load_config(args.config)
-
-    # Build target groups
-    entries = src.entries_target_group(root_directory, src.Page)
-    pages = src.pages_target_group(root_directory, src.Page)
-
-    # Build info
-    context = src.build_global_context(entries=entries.targets,
-                                       pages=pages.targets)
+    entries = list(src.all_entries(root_directory))
+    pages = list(src.all_pages(root_directory))
+    context = src.build_global_context(entries=entries, pages=pages)
 
     if args.subcommand == 'build':
         pave_webroot()
-        run_build(config, context, entries=entries, pages=pages)
+        run_build(config, context)
     if args.subcommand == 'migrate':
         run_migrate(context)
     elif args.subcommand == 'render':
@@ -63,24 +57,18 @@ def main():
 
 
 def render(source, config, context):
-    page = src.Page(source)
+    if not source.is_absolute():
+        source = root_directory.joinpath(source)
 
-    result = src.build_html_page(page=page, config=config, context=context)
-    logger.debug('rendered %s to HTML', page)
-    return result
+    for page in itertools.chain(context.pages, context.entries):
+        if page.source == source:
+            result = src.build_html_page(page=page,
+                                         config=config,
+                                         context=context)
+            logger.debug('rendered %s to HTML', page)
+            return result
 
-
-def build_feeds(config, entries, context):
-    with open('www/feed.xml', 'w') as f:
-        f.write(
-            src.build_rss_feed(config=config,
-                               entries=entries.targets,
-                               context=context))
-    logger.info('rendered feed.xml')
-
-    with open('www/sitemap.xml', 'w') as f:
-        f.write(src.build_sitemap(context=context))
-    logger.info('rendered sitemap.xml')
+    raise ValueError(f'could not find {source} {root_directory}')
 
 
 def pave_webroot():
@@ -91,24 +79,34 @@ def pave_webroot():
         logger.debug('deleting %s', file)
 
 
-def run_build(config, context, entries=None, pages=None):
-    for target_group in [pages, entries]:
-        for target in target_group.targets:
-            target_path = f'www/{target.filename}'
-            with open(target_path, 'w') as f:
-                result = src.build_html_page(page=target,
-                                             config=config,
-                                             context=context)
-                f.write(result)
-                logger.debug('rendered %s to %s', target, target_path)
+def run_build(config, context):
+    for i, page in enumerate(context.entries):
+        target = f'www/{page.filename}'
+        result = src.build_html_page(page=page, config=config, context=context)
+        with open(target, 'w') as f:
+            f.write(result)
+        logger.debug('rendered %s to %s', page, target)
 
-        if len(target_group.targets) == 1:
-            logger.info('rendered 1 %s', target_group.singular)
-        else:
-            logger.info('rendered %d %s', len(target_group.targets),
-                        target_group.plural)
+        # Log an update every 100 entries and at the end of the list
+        if (i + 1) % 100 == 0 or (i + 1) == len(context.entries):
+            logger.info('rendered %d out of %d entries', i + 1,
+                        len(context.entries))
 
-    build_feeds(config, entries, context)
+    for i, page in enumerate(context.pages):
+        target = f'www/{page.filename}'
+        result = src.build_html_page(page=page, config=config, context=context)
+        with open(target, 'w') as f:
+            f.write(result)
+
+        logger.info('rendered %s', page.filename)
+
+    with open('www/feed.xml', 'w') as f:
+        f.write(src.build_rss_feed(config=config, context=context))
+    logger.info('rendered feed.xml')
+
+    with open('www/sitemap.xml', 'w') as f:
+        f.write(src.build_sitemap(context=context))
+    logger.info('rendered sitemap.xml')
 
 
 def run_migrate(info):
@@ -125,16 +123,6 @@ def run_migrate(info):
             f.write(entry.content)
 
         logger.info('migrated %s from markdown', entry)
-
-
-def all_entries():
-    for path in sorted(root_directory.glob('entries/*.*')):
-        yield src.Page(path)
-
-
-def all_pages():
-    for path in sorted(root_directory.glob('pages/*.*')):
-        yield src.Page(path)
 
 
 if __name__ == '__main__':

@@ -100,12 +100,12 @@ def build_rss_feed(entries=[], config=None, context=None) -> str:
     # updated
     updated = ET.TreeBuilder()
     updated.start('updated', {})
-    updated.data(to_feed_date(entries[-1].date))
+    updated.data(to_feed_date(context.latest.date))
     updated.end('updated')
     feed.append(updated.close())
 
     # entries
-    for page in reversed(entries[-30:]):
+    for page in reversed(context.entries[-30:]):
         entry = build_feed_entry(page, config)
         feed.append(entry)
 
