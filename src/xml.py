@@ -19,7 +19,9 @@ def build_html_head(page=None, config=None):
     head = ET.Element('head')
 
     # title
-    head.append(ET.Element('title', text=f'{page.title} | {page.description}'))
+    title = ET.Element('title')
+    title.text = f'{page.title} | {page.description}'
+    head.append(title)
 
     # link
     head.append(
