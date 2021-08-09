@@ -50,6 +50,8 @@ def main():
     if args.subcommand == 'build':
         pave_webroot()
         run_build(config, context)
+    elif args.subcommand == 'images':
+        src.resize_images(root_directory=context.root_directory)
     elif args.subcommand == 'render':
         result = render(args.source, config, context)
         print(result)

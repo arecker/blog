@@ -28,6 +28,9 @@ def build_subparsers(parser):
     # build
     subparser = subcommand.add_parser('build', help='build the website')
 
+    # images
+    subcommand.add_parser('images', help='resize images')
+
     # render
     subparser = subcommand.add_parser('render',
                                       help='print a rendered page or entry')
