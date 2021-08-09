@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    // when { tag "release-*" }
     environment {
         PYENV_ROOT = '/var/lib/jenkins/.pyenv/'
     }
