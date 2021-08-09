@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     environment {
+        NETLIFY_SITE_ID = credentials('netlify-blog-site-id')
         NETLIFY_TOKEN = credentials('netlify-token')
         PYENV_ROOT = '/var/lib/jenkins/.pyenv/'
     }
@@ -21,7 +22,7 @@ pipeline {
 
         stage('Publish') {
             steps {
-                sh 'netlifyctl deploy -y -A "${NETLIFY_TOKEN}" -n "www.alexrecker.com" -m "jenkins: ${BUILD_TAG}"'
+                sh 'netlifyctl deploy -y -A "${NETLIFY_TOKEN}" -s "${NETLIFY_SITE_ID}" -m "jenkins: ${BUILD_TAG}"'
             }
         }
     }
