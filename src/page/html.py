@@ -7,7 +7,7 @@ def build_html_page(page=None, config=None, context=None) -> str:
     head = build_html_head(page=page, config=config)
     html.append(head)
 
-    body = build_html_body(page=page, config=config, info=context)
+    body = build_html_body(page=page, config=config, context=context)
     html.append(body)
 
     ET.indent(html)
@@ -67,7 +67,7 @@ def build_html_head(page=None, config=None):
     return head
 
 
-def build_html_body(page=None, config=None, info=None):
+def build_html_body(page=None, config=None, context=None):
     body = ET.Element('body')
 
     header = build_html_body_header(page=page)
@@ -83,14 +83,14 @@ def build_html_body(page=None, config=None, info=None):
     if banner := build_html_body_banner(page=page):
         body.append(banner)
 
-    body.append(build_html_body_content(page=page, info=info))
+    body.append(build_html_body_content(page=page, context=context))
 
-    if pagination := build_html_body_pagination(page=page, info=info):
+    if pagination := build_html_body_pagination(page=page, context=context):
         body.append(pagination)
 
     body.append(ET.Element('hr'))
 
-    footer = build_html_body_footer(info=info, config=config)
+    footer = build_html_body_footer(context=context, config=config)
     body.append(footer)
 
     return body
@@ -177,7 +177,7 @@ def build_html_body_banner(page=None) -> ET.Element:
     return tree.close()
 
 
-def build_html_body_content(page=None, info=None) -> ET.Element:
+def build_html_body_content(page=None, context=None) -> ET.Element:
     content = f'<article>{page.content}</article>'
     parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))
     parser.feed(content)
@@ -191,7 +191,7 @@ def build_html_body_content(page=None, info=None) -> ET.Element:
             continue
 
         parent = parent_map[element]
-        new_elements = expand_magic_comment(comment=element, info=info)
+        new_elements = expand_magic_comment(comment=element, context=context)
         new_elements_map[parent] = new_elements
 
     for parent, elements in new_elements_map.items():
@@ -201,30 +201,30 @@ def build_html_body_content(page=None, info=None) -> ET.Element:
     return root
 
 
-def expand_magic_comment(comment: ET.Element, info=None):
+def expand_magic_comment(comment: ET.Element, context=None):
     _, key = [t.strip() for t in comment.text.split(':')]
     comment.text = f' begin blog:{key} '
     end_comment = ET.Comment(text=f'end blog:{key}')
     if key == 'latest':
-        new_elements = build_html_latest(info=info)
+        new_elements = build_html_latest(context=context)
     if key == 'entries':
-        new_elements = [build_entries_table(entries=info.entries)]
+        new_elements = [build_entries_table(entries=context.entries)]
     return new_elements + [end_comment]
 
 
-def build_html_latest(info=None):
+def build_html_latest(context=None):
     elements = []
 
-    href = f'/{info.latest.filename}'
-    banner_href = f'/images/banners/{info.latest.banner}'
+    href = f'/{context.latest.filename}'
+    banner_href = f'/images/banners/{context.latest.banner}'
 
     link = ET.Element('a', href=href)
     title = ET.Element('h3', attrib={'class': 'title'})
-    title.text = info.latest.title
+    title.text = context.latest.title
     link.append(title)
     elements.append(link)
 
-    if info.latest.banner:
+    if context.latest.banner:
         figure = ET.Element('figure')
         link = ET.Element('a', href=href)
         image = ET.Element('img', src=banner_href)
@@ -232,13 +232,13 @@ def build_html_latest(info=None):
         figure.append(link)
         caption = ET.Element('figcaption')
         caption_text = ET.Element('p')
-        caption_text.text = info.latest.description
+        caption_text.text = context.latest.description
         caption.append(caption_text)
         figure.append(caption)
         elements.append(figure)
     else:
         caption = ET.Element('p')
-        caption.text = info.latest.description
+        caption.text = context.latest.description
         elements.append(caption)
 
     return elements
@@ -267,12 +267,12 @@ def build_entries_table(entries=[]) -> ET.Element:
     return table
 
 
-def build_html_body_pagination(page=None, info=None) -> ET.Element:
+def build_html_body_pagination(page=None, context=None) -> ET.Element:
     if not page.is_entry():
         return None
 
-    next_page = info.pagination[page.filename].next
-    prev_page = info.pagination[page.filename].previous
+    next_page = context.pagination[page.filename].next
+    prev_page = context.pagination[page.filename].previous
 
     tree = ET.TreeBuilder()
     tree.start('nav', {'class': 'clearfix'})
@@ -291,11 +291,11 @@ def build_html_body_pagination(page=None, info=None) -> ET.Element:
     return tree.close()
 
 
-def build_html_body_footer(info=None, config=None):
+def build_html_body_footer(context=None, config=None):
     author = config['site']['author']
-    updated = info.timestamp.strftime('%A %B %d %Y, %I:%M %p')
-    url = f'https://github.com/arecker/blog/commit/{info.git.head}'
-    year = info.timestamp.year
+    updated = context.timestamp.strftime('%A %B %d %Y, %I:%M %p')
+    url = f'https://github.com/arecker/blog/commit/{context.git.head}'
+    year = context.timestamp.year
 
     tree = ET.TreeBuilder()
     tree.start('footer', {})
@@ -309,9 +309,9 @@ def build_html_body_footer(info=None, config=None):
     tree.start('small', {})
     tree.data('Last Change: ')
     tree.start('span', {})
-    tree.data(f'{info.git.head_summary} (')
+    tree.data(f'{context.git.head_summary} (')
     tree.start('a', {'href': url})
-    tree.data(info.git.head_short)
+    tree.data(context.git.head_short)
     tree.end('a')
     tree.data(')')
     tree.end('span')
