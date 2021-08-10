@@ -1,6 +1,6 @@
 import collections
-import imghdr
 import logging
+import os
 import subprocess
 
 logger = logging.getLogger(__name__)
@@ -29,6 +29,17 @@ def read_dimensions(path):
     return Dimensions(height=int(height), width=int(width))
 
 
+def is_image(path):
+    _, ext = os.path.splitext(path)
+    return ext.lower() in (
+        '.bmp',
+        '.gif',
+        '.jpeg',
+        '.jpg',
+        '.png',
+    )
+
+
 def resize_image(path, maxiumum):
     dimensions = f'{maxiumum}x{maxiumum}'
     command = ['convert', path, '-resize', dimensions, '-auto-orient', path]
@@ -38,7 +49,17 @@ def resize_image(path, maxiumum):
                    stderr=subprocess.DEVNULL)
 
 
-def resize_images(root_directory=None, maximum=800):
+def check_image(path, maximum=800):
+    dimensions = read_dimensions(path)
+
+    if dimensions.height > maximum or dimensions.width > maximum:
+        resize_image(path, maximum)
+        logger.info('resized %s from %s', path, dimensions)
+    else:
+        logger.debug('%s is correct size at %s', path, dimensions)
+
+
+def resize_all_images(root_directory=None, maximum=800):
     if missing := validate_commands():
         raise RuntimeError(
             f'Cannot resize images, commands not found in path: {missing}')
@@ -46,13 +67,6 @@ def resize_images(root_directory=None, maximum=800):
     images = list(root_directory.glob('www/images/**/*.*'))
 
     for i, path in enumerate(images):
-        dimensions = read_dimensions(path)
-
-        if dimensions.height > maximum or dimensions.width > maximum:
-            resize_image(path, maximum)
-            logger.info('resized %s from %s', path, dimensions)
-        else:
-            logger.debug('%s is correct size at %s', path, dimensions)
-
+        check_image(path, maximum=maximum)
         if (i + 1) % 100 == 0 or (i + 1) == len(images):
             logger.info('scanned %d out of %d images', i + 1, len(images))

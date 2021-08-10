@@ -31,6 +31,9 @@ def build_subparsers(parser):
     # images
     subcommand.add_parser('images', help='resize images')
 
+    # publish
+    subcommand.add_parser('publish', help='publish working files as new entry')
+
     # render
     subparser = subcommand.add_parser('render',
                                       help='print a rendered page or entry')

@@ -51,7 +51,9 @@ def main():
         pave_webroot()
         run_build(config, context)
     elif args.subcommand == 'images':
-        src.resize_images(root_directory=context.root_directory)
+        src.resize_all_images(root_directory=context.root_directory)
+    elif args.subcommand == 'publish':
+        run_publish(config, context)
     elif args.subcommand == 'render':
         result = render(args.source, config, context)
         print(result)
@@ -110,6 +112,14 @@ def run_build(config, context):
     with open('www/sitemap.xml', 'w') as f:
         f.write(src.build_sitemap(context=context))
     logger.info('rendered sitemap.xml')
+
+
+def run_publish(config, context):
+    new_files = src.git_new_files(context.root_directory)
+    logger.debug('found new unstaged files %s', new_files)
+
+    for image_file in filter(src.is_image, new_files):
+        src.check_image(image_file)
 
 
 if __name__ == '__main__':
