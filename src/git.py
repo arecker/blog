@@ -32,12 +32,20 @@ def git_write_tag(root_directory=os.curdir, tag=''):
 
 def git_push_master(root_directory=os.curdir):
     cmd = 'git push origin master:master'
-    subprocess.run(cmd.split(' '), cwd=root_directory, check=True)
+    subprocess.run(cmd.split(' '),
+                   cwd=root_directory,
+                   check=True,
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
 
 
 def git_push_tag(root_directory, tag=''):
     cmd = f'git push origin {tag}'
-    subprocess.run(cmd.split(' '), cwd=root_directory, check=True)
+    subprocess.run(cmd.split(' '),
+                   cwd=root_directory,
+                   check=True,
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
 
 
 def git_publish_entry(context):
