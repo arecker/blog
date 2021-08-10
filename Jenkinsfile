@@ -27,6 +27,7 @@ pipeline {
         }
 
         stage('Publish') {
+            when { branch 'master' }
             steps {
                 sh 'netlifyctl deploy -y -A "${NETLIFY_TOKEN}" -s "${NETLIFY_SITE_ID}" -m "jenkins: ${BUILD_TAG}"'
             }
