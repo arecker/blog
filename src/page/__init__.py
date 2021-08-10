@@ -2,4 +2,4 @@
 
 from .html import build_html_page
 
-from .page import Page, all_entries, all_pages
+from .page import Page

@@ -94,8 +94,11 @@ def gather_git_info() -> GitInfo:
 
 def build_global_context(root_directory=None,
                          config=None,
-                         entries=[],
-                         pages=[]) -> Context:
+                         file_wrapper=object) -> Context:
+
+    entries = [file_wrapper(p) for p in root_directory.glob('entries/*.html')]
+    pages = [file_wrapper(p) for p in root_directory.glob('pages/*.html')]
+
     timestamp = datetime.datetime.now()
     logger.debug('created build timestamp %s', timestamp)
 

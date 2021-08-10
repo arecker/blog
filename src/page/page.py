@@ -15,7 +15,7 @@ class Page:
         self.source = pathlib.Path(source)
 
     def __repr__(self):
-         return f'<Page {self.source.name}>'
+        return f'<Page {self.source.name}>'
 
     def read(self):
         with open(self.source) as f:
@@ -131,13 +131,3 @@ def extract_metadata_from_comments(content):
             rest.append(line)
 
     return dict(metadata), '\n'.join(rest)
-
-
-def all_pages(root_directory):
-    for path in sorted(root_directory.glob('pages/*.*')):
-        yield Page(path)
-
-
-def all_entries(root_directory):
-    for path in sorted(root_directory.glob('entries/*.*')):
-        yield Page(path)

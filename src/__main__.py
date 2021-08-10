@@ -1,35 +1,18 @@
 import itertools
 import logging
 import os
-import pathlib
 import sys
 
-import src
+import src as blog
 
 logger = logging.getLogger(__name__)
 
-this_directory = os.path.dirname(os.path.realpath(__file__))
-root_directory = pathlib.Path(
-    os.path.abspath(os.path.join(this_directory, '../')))
-
 
 def main():
-    """The main routine.
-
-    Parse global args and call the right function based on the
-    subcommand.
-    """
-
-    default_config_path = str(root_directory.joinpath('blog.conf'))
-
-    # Parse arguments
-    parser = src.build_argparser(default_config_path)
+    parser = blog.build_argparser()
     args = parser.parse_args()
-
-    # Setup logging
-    src.configure_logging(verbose=args.verbose, silent=args.silent)
-
-    logger.debug('parsed args %s, running from %s', vars(args), root_directory)
+    blog.configure_logging(verbose=args.verbose, silent=args.silent)
+    logger.debug('parsed args %s, ', vars(args))
 
     # Print help if needed
     if not args.subcommand:
@@ -39,29 +22,25 @@ def main():
         parser.print_help()
         sys.exit(0)
 
-    config = src.load_config(args.config)
-    entries = list(src.all_entries(root_directory))
-    pages = list(src.all_pages(root_directory))
-    context = src.build_global_context(root_directory=root_directory,
-                                       config=config,
-                                       entries=entries,
-                                       pages=pages)
+    config = blog.load_config(args.config)
+    context = blog.build_global_context(root_directory=args.root_directory,
+                                        config=config,
+                                        file_wrapper=blog.Page)
 
     if args.subcommand == 'build':
-        pave_webroot()
+        pave_webroot(context)
         run_build(config, context)
     elif args.subcommand == 'images':
-        src.resize_all_images(root_directory=context.root_directory)
+        blog.resize_all_images(root_directory=context.root_directory)
     elif args.subcommand == 'publish':
         run_publish(config, context)
     elif args.subcommand == 'render':
-        result = render(args.source, config, context)
-        print(result)
+        run_render(args.source, config, context)
     elif args.subcommand == 'serve':
-        src.start_web_server(context=context)
+        blog.start_web_server(context=context)
 
 
-def render(source, config, context):
+def run_render(source, config, context):
     if not source.is_absolute():
         source = context.root_directory.joinpath(source)
 
@@ -69,21 +48,22 @@ def render(source, config, context):
         if page.source == source:
             result = page.render(config=config, context=context)
             logger.debug('rendered %s to HTML', page)
-            return result
+            print(result)
+            return
 
-    raise ValueError(f'could not find {source} {root_directory}')
+    raise ValueError(f'could not find {source} in pages/ nor entries/')
 
 
-def pave_webroot():
-    old_files = itertools.chain(root_directory.glob('www/*.html'),
-                                root_directory.glob('www/*.xml'))
+def pave_webroot(context):
+    old_files = itertools.chain(context.root_directory.glob('www/*.html'),
+                                context.root_directory.glob('www/*.xml'))
     for file in old_files:
         os.remove(file)
         logger.debug('deleting %s', file)
 
 
 def run_build(config, context):
-    src.build_feeds(config=config, context=context)
+    blog.build_feeds(config=config, context=context)
 
     for page in context.pages:
         page.build(context=context, config=config)
@@ -100,11 +80,11 @@ def run_build(config, context):
 
 
 def run_publish(config, context):
-    new_files = src.git_new_files(context.root_directory)
+    new_files = blog.git_new_files(context.root_directory)
     logger.debug('found new unstaged files %s', new_files)
 
-    for image_file in filter(src.is_image, new_files):
-        src.check_image(image_file)
+    for image_file in filter(blog.is_image, new_files):
+        blog.check_image(image_file)
 
 
 if __name__ == '__main__':

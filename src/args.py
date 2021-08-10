@@ -2,6 +2,10 @@ import argparse
 import os
 import pathlib
 
+this_directory = os.path.dirname(os.path.realpath(__file__))
+root_directory = pathlib.Path(
+    os.path.abspath(os.path.join(this_directory, '../')))
+
 
 def real_file_path(path: str):
     if not os.path.exists(path):
@@ -14,6 +18,17 @@ def real_file_path(path: str):
     if not os.access(path, os.R_OK):
         raise argparse.ArgumentTypeError(
             f'file {path} exists, but it\'s not readable!')
+
+    return pathlib.Path(path)
+
+
+def real_directory_path(path: str):
+    if not os.path.exists(path):
+        raise argparse.ArgumentTypeError(f'path {path} does not exist!')
+
+    if not os.path.isdir(path):
+        raise argparse.ArgumentTypeError(
+            f'path {path} exists, but it\'s not a directory!')
 
     return pathlib.Path(path)
 
@@ -47,7 +62,7 @@ def build_subparsers(parser):
     return parser
 
 
-def build_argparser(default_config_path: str):
+def build_argparser():
     description = 'blog - the greatest static HTML journal generator ever made'
     parser = argparse.ArgumentParser(prog='blog', description=description)
 
@@ -69,10 +84,16 @@ def build_argparser(default_config_path: str):
                         action='store_true',
                         help='step through code interactively')
 
+    parser.add_argument('-r',
+                        '--root_directory',
+                        type=real_directory_path,
+                        default=root_directory,
+                        help='path to blog root directory')
+
     parser.add_argument('-c',
                         '--config',
                         type=real_file_path,
-                        default=default_config_path,
+                        default=root_directory / 'blog.conf',
                         help='path to config file')
 
     return build_subparsers(parser)

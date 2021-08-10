@@ -7,5 +7,5 @@ from .feed import build_feeds
 from .git import git_new_files
 from .images import resize_all_images, is_image, check_image
 from .logger import configure_logging
-from .page import all_entries, all_pages
+from .page import Page
 from .serve import start_web_server
