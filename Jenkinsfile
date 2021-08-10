@@ -14,6 +14,12 @@ pipeline {
             }
         }
 
+        stage('Test') {
+            steps {
+                sh '${PYENV_ROOT}/shims/python -m unittest'
+            }
+        }
+
         stage('Build') {
             steps {
                 sh '${PYENV_ROOT}/shims/python -m src build'

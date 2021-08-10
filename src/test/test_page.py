@@ -1,7 +1,7 @@
 import datetime
 import unittest
 
-from src import Page
+from ..page import Page
 
 
 class PageTestCase(unittest.TestCase):
