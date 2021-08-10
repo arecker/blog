@@ -80,10 +80,10 @@ def run_build(config, context):
 
 
 def run_publish(config, context):
-    new_images = filter(blog.is_image,
-                        blog.git_new_files(context.root_directory))
+    new_images = list(
+        filter(blog.is_image, blog.git_new_files(context.root_directory)))
 
-    logger.info('checking dimensions for new images: %s', list(new_images))
+    logger.info('checking dimensions for new images: %s', new_images)
     for path in new_images:
         blog.check_image(path)
 
