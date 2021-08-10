@@ -64,7 +64,7 @@ def resize_all_images(root_directory=None, maximum=800):
         raise RuntimeError(
             f'Cannot resize images, commands not found in path: {missing}')
 
-    images = list(root_directory.glob('www/images/**/*.*'))
+    images = list(filter(is_image, root_directory.glob('www/**/*.*')))
 
     for i, path in enumerate(images):
         check_image(path, maximum=maximum)
