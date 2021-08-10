@@ -35,13 +35,17 @@ class Page:
     def date(self):
         if not self.is_entry():
             return None
+        else:
+            return datetime.datetime.strptime(self.slug, '%Y-%m-%d')
+
+    @property
+    def slug(self):
         slug, _ = os.path.splitext(self.source.name)
-        return datetime.datetime.strptime(slug, '%Y-%m-%d')
+        return slug
 
     @property
     def filename(self):
-        slug, _ = os.path.splitext(self.source.name)
-        return slug + '.html'
+        return self.slug + '.html'
 
     @property
     def title(self):

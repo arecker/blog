@@ -80,11 +80,14 @@ def run_build(config, context):
 
 
 def run_publish(config, context):
-    new_files = blog.git_new_files(context.root_directory)
-    logger.debug('found new unstaged files %s', new_files)
+    new_images = filter(blog.is_image,
+                        blog.git_new_files(context.root_directory))
 
-    for image_file in filter(blog.is_image, new_files):
-        blog.check_image(image_file)
+    logger.info('checking dimensions for new images: %s', list(new_images))
+    for path in new_images:
+        blog.check_image(path)
+
+    blog.git_publish_entry(context)
 
 
 if __name__ == '__main__':

@@ -31,5 +31,12 @@ pipeline {
                 sh 'netlifyctl deploy -y -A "${NETLIFY_TOKEN}" -s "${NETLIFY_SITE_ID}" -m "jenkins: ${BUILD_TAG}"'
             }
         }
+
+        stage('Notify') {
+            when { tag "entry-*" }
+            steps {
+                sh '(TODO: tweet, slack, and facebook)'
+            }
+        }
     }
 }
