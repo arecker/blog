@@ -96,8 +96,12 @@ def build_global_context(root_directory=None,
                          config=None,
                          file_wrapper=object) -> Context:
 
-    entries = [file_wrapper(p) for p in root_directory.glob('entries/*.html')]
-    pages = [file_wrapper(p) for p in root_directory.glob('pages/*.html')]
+    entries = [
+        file_wrapper(p) for p in sorted(root_directory.glob('entries/*.html'))
+    ]
+    pages = [
+        file_wrapper(p) for p in sorted(root_directory.glob('pages/*.html'))
+    ]
 
     timestamp = datetime.datetime.now()
     logger.debug('created build timestamp %s', timestamp)
