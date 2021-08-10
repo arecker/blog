@@ -90,7 +90,7 @@ class Page:
         return build_html_page(page=self, config=config, context=context)
 
     def build(self, config=None, context=None):
-        with open(context.root_directory.joinpath(self.target), 'w') as f:
+        with open(context.root_directory / self.target, 'w') as f:
             f.write(self.render(config=config, context=context))
 
 

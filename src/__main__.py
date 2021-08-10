@@ -83,6 +83,12 @@ def pave_webroot():
 
 
 def run_build(config, context):
+    src.build_feeds(config=config, context=context)
+
+    for page in context.pages:
+        page.build(context=context, config=config)
+        logger.info('rendered %s', page.filename)
+
     for i, page in enumerate(context.entries):
         page.build(config=config, context=context)
         logger.debug('rendered %s to %s', page, page.target)
@@ -91,18 +97,6 @@ def run_build(config, context):
         if (i + 1) % 100 == 0 or (i + 1) == len(context.entries):
             logger.info('rendered %d out of %d entries', i + 1,
                         len(context.entries))
-
-    for page in context.pages:
-        page.build(context=context, config=config)
-        logger.info('rendered %s', page.filename)
-
-    with open('www/feed.xml', 'w') as f:
-        f.write(src.build_rss_feed(config=config, context=context))
-    logger.info('rendered feed.xml')
-
-    with open('www/sitemap.xml', 'w') as f:
-        f.write(src.build_sitemap(context=context))
-    logger.info('rendered sitemap.xml')
 
 
 def run_publish(config, context):

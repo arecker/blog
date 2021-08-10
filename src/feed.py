@@ -1,5 +1,8 @@
 from xml.etree import ElementTree as ET
 import datetime
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def build_feed_entry(page, config):
@@ -160,3 +163,13 @@ def build_rss_feed_author(config):
 
 def to_feed_date(timestamp):
     return timestamp.replace(tzinfo=datetime.timezone.utc).isoformat()
+
+
+def build_feeds(context=None, config=None):
+    with open(context.root_directory / 'www/feed.xml', 'w') as f:
+        f.write(build_rss_feed(config=config, context=context))
+    logger.info('rendered feed.xml')
+
+    with open(context.root_directory / 'www/sitemap.xml', 'w') as f:
+        f.write(build_sitemap(context=context))
+    logger.info('rendered sitemap.xml')
