@@ -5,6 +5,8 @@ import pathlib
 import re
 import sys
 
+from .html import build_html_page
+
 logger = logging.getLogger(__name__)
 
 
@@ -13,7 +15,7 @@ class Page:
         self.source = pathlib.Path(source)
 
     def __repr__(self):
-        return f'<Page {self.source.name}>'
+         return f'<Page {self.source.name}>'
 
     def read(self):
         with open(self.source) as f:
@@ -79,6 +81,17 @@ class Page:
     def is_markdown(self):
         _, ext = os.path.splitext(self.source.name)
         return ext in ['.md', '.markdown']
+
+    @property
+    def target(self):
+        return f'www/{self.filename}'
+
+    def render(self, config=None, context=None):
+        return build_html_page(page=self, config=config, context=context)
+
+    def build(self, config=None, context=None):
+        with open(context.root_directory.joinpath(self.target), 'w') as f:
+            f.write(self.render(config=config, context=context))
 
 
 def extract_markdown_frontmatter(content: str) -> dict:

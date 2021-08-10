@@ -67,9 +67,7 @@ def render(source, config, context):
 
     for page in itertools.chain(context.pages, context.entries):
         if page.source == source:
-            result = src.build_html_page(page=page,
-                                         config=config,
-                                         context=context)
+            result = page.render(config=config, context=context)
             logger.debug('rendered %s to HTML', page)
             return result
 
@@ -86,23 +84,16 @@ def pave_webroot():
 
 def run_build(config, context):
     for i, page in enumerate(context.entries):
-        target = f'www/{page.filename}'
-        result = src.build_html_page(page=page, config=config, context=context)
-        with open(target, 'w') as f:
-            f.write(result)
-        logger.debug('rendered %s to %s', page, target)
+        page.build(config=config, context=context)
+        logger.debug('rendered %s to %s', page, page.target)
 
         # Log an update every 100 entries and at the end of the list
         if (i + 1) % 100 == 0 or (i + 1) == len(context.entries):
             logger.info('rendered %d out of %d entries', i + 1,
                         len(context.entries))
 
-    for i, page in enumerate(context.pages):
-        target = f'www/{page.filename}'
-        result = src.build_html_page(page=page, config=config, context=context)
-        with open(target, 'w') as f:
-            f.write(result)
-
+    for page in context.pages:
+        page.build(context=context, config=config)
         logger.info('rendered %s', page.filename)
 
     with open('www/feed.xml', 'w') as f:

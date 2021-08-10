@@ -1,4 +1,5 @@
 # flake8: noqa
 
 from .html import build_html_page
-from .feed import build_rss_feed, build_sitemap
+
+from .page import Page, all_entries, all_pages
