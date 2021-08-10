@@ -27,16 +27,20 @@ pipeline {
         }
 
         stage('Publish') {
-            when { branch 'master' }
+            when { branch 'master-blah' }
             steps {
                 sh 'netlifyctl deploy -y -A "${NETLIFY_TOKEN}" -s "${NETLIFY_SITE_ID}" -m "jenkins: ${BUILD_TAG}"'
             }
         }
 
         stage('Notify') {
-            when { tag "entry-*" }
+            when {
+                expression {
+                    return sh(returnStdout: true, script: "git tag --sort version:refname | tail -1").trim().matches("entry-(.*)")
+                }
+            }
             steps {
-                sh '(TODO: tweet, slack, and facebook)'
+                sh 'echo TODO: tweet, slack, and facebook'
             }
         }
     }
