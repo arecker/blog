@@ -23,11 +23,17 @@ def git_stage_all(root_directory=os.curdir):
 def git_write_commit(root_directory=os.curdir, message=''):
     subprocess.run(['git', 'commit', '-m', message],
                    cwd=root_directory,
-                   check=True)
+                   check=True,
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
 
 
 def git_write_tag(root_directory=os.curdir, tag=''):
-    subprocess.run(['git', 'tag', tag], cwd=root_directory, check=True)
+    subprocess.run(['git', 'tag', tag],
+                   cwd=root_directory,
+                   check=True,
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
 
 
 def git_push_master(root_directory=os.curdir):
