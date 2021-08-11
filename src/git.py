@@ -66,10 +66,10 @@ def git_publish_entry(context):
     git_write_tag(context.root_directory, tag=tag)
     logger.debug('wrote tag %s', tag)
 
-    # git_push_tag(context.root_directory, tag=tag)
-    # logger.debug('pushed tag %s', tag)
+    git_push_tag(context.root_directory, tag=tag)
+    logger.debug('pushed tag %s', tag)
 
-    # git_push_master(context.root_directory)
-    # logger.debug('successfully pushed repo')
+    git_push_master(context.root_directory)
+    logger.debug('successfully pushed repo')
 
     logger.info('successfully published %s (%s)', tag, message)
