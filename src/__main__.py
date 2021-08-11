@@ -32,6 +32,8 @@ def main():
         run_build(config, context)
     elif args.subcommand == 'images':
         blog.resize_all_images(root_directory=context.root_directory)
+    elif args.subcommand == 'jenkins':
+        blog.run_jenkins_pipeline(config=config, context=context)
     elif args.subcommand == 'publish':
         run_publish(config, context)
     elif args.subcommand == 'render':

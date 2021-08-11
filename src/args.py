@@ -46,6 +46,9 @@ def build_subparsers(parser):
     # images
     subcommand.add_parser('images', help='resize images')
 
+    # jenkins
+    subcommand.add_parser('jenkins', help='run built-in jenkins pipeline')
+
     # publish
     subcommand.add_parser('publish', help='publish working files as new entry')
 
