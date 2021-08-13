@@ -1,6 +1,5 @@
 # flake8: noqa
 
-from .args import build_argparser
 from .config import load_config
 from .context import build_global_context
 from .feed import build_feeds
