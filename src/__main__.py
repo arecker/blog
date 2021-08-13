@@ -4,7 +4,6 @@ blog - the greatest static HTML journal generator ever made
 
 import argparse
 import importlib
-import itertools
 import logging
 import os
 import pathlib
@@ -49,34 +48,51 @@ parser.add_argument('-c',
                     default=root_directory / 'blog.conf',
                     help='path to config file')
 
-subparser = parser.add_subparsers(dest='subcommand', help='subcommand to run')
 
-
-def register_commands():
-    global parser
-    global subparser
+def register_commands(parser):
+    subparser = parser.add_subparsers(dest='subcommand')
 
     callbacks = {}
-    command_files = [p.name for p in root_directory.glob('src/commands/*.py')]
-    command_modules = [
-        os.path.splitext(p)[0] for p in command_files if p != '__init__.py'
+    commands = [
+        os.path.splitext(p.name)[0]
+        for p in root_directory.glob('src/commands/*.py')
+        if p.name != '__init__.py'
     ]
 
-    for module in command_modules:
-        command = importlib.import_module(f'src.commands.{module}')
-        subparser.add_parser(module, help=command.__doc__.strip())
-        callbacks[module] = command.main
+    for command in sorted(commands):
+        module = importlib.import_module(f'src.commands.{command}')
+        subparser.add_parser(command, help=module.__doc__.strip())
+        callbacks[command] = module.main
+
+    subparser.add_parser('help', help='print program usage')
 
     return callbacks
 
 
-subparser.add_parser('help', help='print program usage')
-callbacks = register_commands()
+def configure_logging(verbose=False, silent=False):
+    if verbose and silent:
+        raise ValueError(
+            'hey smartass, how am I supposed to be silent AND verbose?')
+
+    if silent:
+        logging.disable()
+        return
+
+    if verbose:
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+
+    fmt = 'blog - %(levelname)s - %(name)s - %(message)s'
+
+    logging.basicConfig(level=level, stream=sys.stderr, format=fmt)
+    logger.debug('configured logging with level = %s', level)
 
 
 def main():
+    callbacks = register_commands(parser)
     args = parser.parse_args()
-    blog.configure_logging(verbose=args.verbose, silent=args.silent)
+    configure_logging(verbose=args.verbose, silent=args.silent)
     logger.debug('parsed args %s, ', vars(args))
 
     if args.subcommand == 'help':
