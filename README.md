@@ -9,7 +9,7 @@ This is the source code for my blog, [alexrecker.com]
 Don't be a fancy pants.  Just use a hecking alias.
 
 ```shell
-alias b='cd ~/src/blog && python -m blog'
+alias b='cd ~/src/blog && python -m src
 ```
 
 ## Usage
