@@ -8,12 +8,12 @@ import src as blog
 logger = logging.getLogger(__name__)
 
 
-def main(config, context):
+def main(args):
     new_images = list(
-        filter(blog.is_image, blog.git_new_files(context.root_directory)))
+        filter(blog.is_image, blog.git_new_files(args.root_directory)))
 
     logger.info('checking dimensions for new images: %s', new_images)
     for path in new_images:
         blog.check_image(path)
 
-    blog.git_publish_entry(context)
+    blog.git_publish_entry(blog.Site(args))

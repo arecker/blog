@@ -1,11 +1,10 @@
-import collections
 import datetime
 import functools
 import logging
 import os
 import pathlib
 import re
-import subprocess
+
 from xml.etree import ElementTree as ET
 
 logger = logging.getLogger(__name__)
@@ -203,14 +202,15 @@ class Document:
         _, key = [t.strip() for t in comment.text.split(':')]
         comment.text = f' begin blog:{key} '
         end_comment = ET.Comment(text=f'end blog:{key}')
-        
+
         if key == 'latest':
             new_elements = self.latest()
         elif key == 'entries':
             new_elements = [self.entries()]
         else:
-            raise ValueError(f'don\'t know what to do with magic comment "{key}"')
-        
+            raise ValueError(
+                f'don\'t know what to do with magic comment "{key}"')
+
         return new_elements + [end_comment]
 
     def latest(self):
@@ -322,161 +322,3 @@ class Document:
         tree.end('small')
 
 
-class Page:
-    def __init__(self, source):
-        self.source = pathlib.Path(source)
-
-    def __repr__(self):
-        return f'<Page {self.filename}>'
-
-    @property
-    def slug(self):
-        return os.path.splitext(self.source.name)[0]
-
-    @property
-    def filename(self):
-        return self.slug + '.html'
-
-    @property
-    def target(self):
-        return f'www/{self.filename}'
-
-    @property
-    def is_entry(self):
-        return self.source.parent.name == 'entries'
-
-    @property
-    def raw_content(self):
-        with open(self.source, 'r') as f:
-            return f.read()
-
-    @functools.cached_property
-    def metadata(self) -> dict:
-        pattern = re.compile(
-            r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$',
-            re.MULTILINE)
-        return dict([(k.strip(), v.strip())
-                     for k, v in pattern.findall(self.raw_content)])
-
-    @property
-    def date(self):
-        if not self.is_entry:
-            return None
-        else:
-            return datetime.datetime.strptime(self.slug, '%Y-%m-%d')
-
-    @property
-    def title(self):
-        if self.is_entry:
-            return self.date.strftime('%A, %B %-d %Y')
-        else:
-            return self.metadata['title']
-
-    @property
-    def description(self):
-        if self.is_entry:
-            return self.metadata['title']
-        return self.metadata['description']
-
-    @property
-    def banner(self):
-        return self.metadata.get('banner', None)
-
-    @property
-    def nav_index(self):
-        try:
-            return int(self.metadata['nav'])
-        except (ValueError, KeyError):
-            return None
-
-    def build(self, site):
-        document = Document(site=site, page=self)
-        content = document.render()
-        with open(site.directory / self.target, 'w') as f:
-            f.write(content)
-        logger.debug('rendered %s -> %s', self, document)
-
-
-Pagination = collections.namedtuple('Pagination', ['next', 'previous'])
-Commit = collections.namedtuple('Commit', ['short_hash', 'long_hash', 'summary'])
-
-
-class Site:
-    def __init__(self, directory):
-        self.directory = pathlib.Path(directory).absolute()
-        self.timestamp = datetime.datetime.now()
-        self.author = 'Alex Recker'
-
-    def __repr__(self):
-        home = pathlib.Path.home()
-        abbrerviated = re.sub(f'^{home}/', '~/', str(self.directory))
-        return f'<Site {abbrerviated}>'
-
-    @property
-    def entries(self):
-        return map(Page, sorted(self.directory.glob('entries/*.html'), reverse=True))
-
-    @property
-    def pages(self):
-        return map(Page, sorted(self.directory.glob('pages/*.html')))
-
-    @functools.cached_property
-    def nav(self):
-        pages = sorted(filter(lambda p: p.nav_index, self.pages),
-                       key=lambda p: p.nav_index)
-        return [p.filename for p in pages]
-
-    @functools.cached_property
-    def latest(self):
-        return next(self.entries, None)
-
-    @functools.cached_property
-    def pagination(self):
-        pagination = {}
-        entries = list(reversed(list(self.entries)))
-
-        for i, entry in enumerate(entries):
-            if i > 0:
-                previous_entry = entries[i - 1].filename
-            else:
-                previous_entry = None
-
-            try:
-                next_entry = entries[i + 1].filename
-            except IndexError:
-                next_entry = None
-
-            pagination[entry.filename] = Pagination(next_entry, previous_entry)
-
-        return pagination
-
-    @functools.cached_property
-    def commit(self):
-        def shell_command(cmd):
-            result = subprocess.run(cmd.split(' '), capture_output=True)
-            return result.stdout.decode('UTF-8').strip()
-
-        return Commit(
-            short_hash=shell_command('git rev-parse --short HEAD'),
-            long_hash=shell_command('git rev-parse HEAD'),
-            summary=shell_command('git log -1 --pretty=format:%s HEAD')
-        )
-
-    @property
-    def commit_url(self):
-        return f'https://github.com/arecker/blog/commit/{self.commit.long_hash}'
-
-    def build(self):
-        for page in self.pages:
-            page.build(self)
-            logger.info('rendered %s', page.filename)
-
-        total_entries = sum(1 for _ in self.entries)
-
-        for i, page in enumerate(self.entries):
-            page.build(self)
-            logger.debug('rendered %s to %s', page, page.target)
-
-            # Log an update every 100 entries and at the end of the list
-            if (i + 1) % 100 == 0 or (i + 1) == total_entries:
-                logger.info('rendered %d out of %d entries', i + 1, total_entries)

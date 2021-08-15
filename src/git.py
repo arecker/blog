@@ -54,22 +54,22 @@ def git_push_tag(root_directory, tag=''):
                    stderr=subprocess.DEVNULL)
 
 
-def git_publish_entry(context):
-    git_stage_all(context.root_directory)
+def git_publish_entry(site):
+    git_stage_all(site.directory)
     logger.debug('staged all files')
 
-    message = f'entry: {context.latest.title}'
-    git_write_commit(context.root_directory, message=message)
+    message = f'entry: {site.latest.title}'
+    git_write_commit(site.directory, message=message)
     logger.debug('wrote commit: %s', message)
 
-    tag = f'entry-{context.latest.slug}'
-    git_write_tag(context.root_directory, tag=tag)
+    tag = f'entry-{site.latest.slug}'
+    git_write_tag(site.directory, tag=tag)
     logger.debug('wrote tag %s', tag)
 
-    git_push_tag(context.root_directory, tag=tag)
+    git_push_tag(site.directory, tag=tag)
     logger.debug('pushed tag %s', tag)
 
-    git_push_master(context.root_directory)
+    git_push_master(site.directory)
     logger.debug('successfully pushed repo')
 
     logger.info('successfully published %s (%s)', tag, message)

@@ -7,9 +7,8 @@ import importlib
 import logging
 import os
 import pathlib
+import pdb
 import sys
-
-import src as blog
 
 logger = logging.getLogger(__name__)
 
@@ -41,12 +40,6 @@ parser.add_argument('-r',
                     type=pathlib.Path,
                     default=root_directory,
                     help='path to blog root directory')
-
-parser.add_argument('-c',
-                    '--config',
-                    type=pathlib.Path,
-                    default=root_directory / 'blog.conf',
-                    help='path to config file')
 
 
 def register_commands(parser):
@@ -83,7 +76,7 @@ def configure_logging(verbose=False, silent=False):
     else:
         level = logging.INFO
 
-    fmt = 'blog - %(levelname)s - %(name)s - %(message)s'
+    fmt = 'BLOG: %(message)s'
 
     logging.basicConfig(level=level, stream=sys.stderr, format=fmt)
     logger.debug('configured logging with level = %s', level)
@@ -99,16 +92,18 @@ def main():
         parser.print_help()
         sys.exit(0)
 
-    config = blog.load_config(args.config)
-    context = blog.build_global_context(root_directory=args.root_directory,
-                                        config=config,
-                                        file_wrapper=blog.Page)
-
     try:
-        callbacks[args.subcommand](config=config, context=context)
+        callback = callbacks[args.subcommand]
     except KeyError:
         parser.print_help()
         sys.exit(1)
+
+    if args.debug:
+        logger.info('running %s command interactively for debug mode',
+                    args.subcommand)
+        pdb.runcall(callback, args)
+    else:
+        callback(args)
 
 
 if __name__ == '__main__':

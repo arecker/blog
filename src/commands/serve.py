@@ -8,9 +8,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 logger = logging.getLogger(__name__)
 
 
-def start_web_server(context, port=8000):
-    webroot = context.root_directory.joinpath('www/')
-
+def start_web_server(webroot, port=8000):
     class Handler(SimpleHTTPRequestHandler):
         def __init__(self, *args, **kwargs):
             super().__init__(*args, directory=webroot, **kwargs)
@@ -27,5 +25,5 @@ def start_web_server(context, port=8000):
         httpd.server_close()
 
 
-def main(config, context):
-    start_web_server(context)
+def main(args):
+    start_web_server(args.root_directory / 'www')

@@ -25,5 +25,5 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def main(config=None, context=None):
-    pass
+def main(args):
+    logger.info('nothing here yet, lol')
