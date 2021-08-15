@@ -41,7 +41,7 @@ class Document:
         }
 
         if self.banner_url:
-            tags['image'] = 'https://www.alexrecker.com/{self.banner_url}'
+            tags['image'] = self.site.href(self.banner_url)
 
         return tags
 
@@ -55,7 +55,7 @@ class Document:
         }
 
         if self.banner_url:
-            tags['image'] = 'https://www.alexrecker.com/{self.banner_url}'
+            tags['image'] = self.site.href(self.banner_url)
 
         return tags
 
@@ -320,5 +320,3 @@ class Document:
         year = self.site.timestamp.year
         tree.data(f'© Copyright {year} {self.site.author}')
         tree.end('small')
-
-

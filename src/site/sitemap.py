@@ -44,7 +44,7 @@ class Sitemap:
             url = ET.TreeBuilder()
             url.start('url', {})
             url.start('loc', {})
-            url.data(f'https://www.alexrecker.com/{page.filename}')
+            url.data(self.site.href(page.filename))
             url.end('loc')
 
             if page.is_entry:

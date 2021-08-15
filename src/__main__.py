@@ -41,6 +41,35 @@ parser.add_argument('-r',
                     default=root_directory,
                     help='path to blog root directory')
 
+parser.add_argument('--title',
+                    type=str,
+                    default='Dear Journal',
+                    help='website title')
+parser.add_argument('--subtitle',
+                    type=str,
+                    default='Daily, public journal by Alex Recker',
+                    help='website subtitle')
+parser.add_argument('--author',
+                    type=str,
+                    default='Alex Recker',
+                    help='website author\'s name')
+parser.add_argument('--email',
+                    type=str,
+                    default='alex@reckerfamily.com',
+                    help='website author\'s email')
+parser.add_argument('--domain',
+                    type=str,
+                    default='www.alexrecker.com',
+                    help='website domain')
+parser.add_argument('--protocol',
+                    type=str,
+                    default='https',
+                    help='website protocol')
+parser.add_argument('--basepath',
+                    type=str,
+                    default='/',
+                    help='website base path')
+
 
 def register_commands(parser):
     subparser = parser.add_subparsers(dest='subcommand')

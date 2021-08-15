@@ -22,16 +22,25 @@ class Site:
         self.directory = pathlib.Path(args.root_directory).absolute()
         self.timestamp = datetime.datetime.now()
 
-        # TODO: obviously hard coded
-        self.title = 'Dear Journal'
-        self.subtitle = 'Daily, public journal by Alex Recker'
-        self.author = 'Alex Recker'
-        self.email = 'alex@reckerfamily.com'
+        self.title = args.title
+        self.subtitle = args.subtitle
+        self.author = args.author
+        self.email = args.email
+        self.domain = args.domain
+        self.protocol = args.protocol
+        self.basepath = args.basepath
 
     def __repr__(self):
         home = pathlib.Path.home()
         abbrerviated = re.sub(f'^{home}/', '~/', str(self.directory))
         return f'<Site {abbrerviated}>'
+
+    @property
+    def uri(self):
+        return f'{self.protocol}://{self.domain}{self.basepath}'
+
+    def href(self, path):
+        return self.uri + path
 
     @property
     def entries(self):

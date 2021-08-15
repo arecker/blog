@@ -71,13 +71,13 @@ class Feed(object):
         elements = []
         elements.append(
             ET.Element('link',
-                       href='https://www.alexrecker.com/feed.xml',
+                       href=self.site.href('feed.xml'),
                        rel='self',
                        type='application/atom+xml'))
 
         elements.append(
             ET.Element('link',
-                       href='https://www.alexrecker.com/',
+                       href=self.site.uri,
                        rel='alternate',
                        type='text/html'))
         return elements
@@ -85,7 +85,7 @@ class Feed(object):
     def identifier(self):
         identifier = ET.TreeBuilder()
         identifier.start('id', {})
-        identifier.data('https://www.alexrecker.com/feed.xml')
+        identifier.data(self.site.href('feed.xml'))
         identifier.end('id')
         return identifier.close()
 
@@ -128,7 +128,7 @@ class Feed(object):
         item.append(self.author())
 
         # entry ID/link
-        permalink = f'https://www.alexrecker.com/{entry.filename}'
+        permalink = self.site.href(entry.filename)
         item.append(ET.Element('link', href=permalink))
         identifier = ET.TreeBuilder()
         identifier.start('id', {})
@@ -137,7 +137,7 @@ class Feed(object):
         item.append(identifier.close())
 
         if entry.banner:
-            banner_url = f'https://www.alexrecker.com/images/banners/{entry.banner}'
+            banner_url = self.site.href(f'images/banners/{entry.banner}')
             item.append(
                 ET.Element('media:thumbnail',
                            attrib={
