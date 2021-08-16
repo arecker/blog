@@ -35,7 +35,6 @@ def is_image(path):
     _, ext = os.path.splitext(path)
     return ext.lower() in (
         '.bmp',
-        '.gif',
         '.jpeg',
         '.jpg',
         '.png',
