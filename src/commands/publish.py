@@ -9,6 +9,8 @@ logger = logging.getLogger(__name__)
 
 
 def main(args):
+    blog.validate_image_dependencies()
+
     new_images = list(
         filter(blog.is_image, blog.git_new_files(args.root_directory)))
 

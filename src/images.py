@@ -6,7 +6,7 @@ import subprocess
 logger = logging.getLogger(__name__)
 
 
-def validate_commands():
+def validate_image_dependencies():
     missing = []
 
     for command in ['convert', 'identify']:
@@ -16,7 +16,9 @@ def validate_commands():
         if result.returncode != 0:
             missing.append(command)
 
-    return missing
+    if missing:
+        raise RuntimeError(
+            f'Cannot resize images, commands not found in path: {missing}')
 
 
 Dimensions = collections.namedtuple('Dimensions', ['height', 'width'])
@@ -57,16 +59,3 @@ def check_image(path, maximum=800):
         logger.info('resized %s from %s', path, dimensions)
     else:
         logger.debug('%s is correct size at %s', path, dimensions)
-
-
-def resize_all_images(root_directory=None, maximum=800):
-    if missing := validate_commands():
-        raise RuntimeError(
-            f'Cannot resize images, commands not found in path: {missing}')
-
-    images = list(filter(is_image, root_directory.glob('www/**/*.*')))
-
-    for i, path in enumerate(images):
-        check_image(path, maximum=maximum)
-        if (i + 1) % 100 == 0 or (i + 1) == len(images):
-            logger.info('scanned %d out of %d images', i + 1, len(images))
