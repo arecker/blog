@@ -77,8 +77,10 @@ class Page:
         except (ValueError, KeyError):
             return None
 
-    def build(self, site):
+    def render(self, site):
         document = Document(site=site, page=self)
-        content = document.render()
+        return document.render()
+
+    def build(self, site):
         with open(site.directory / self.target, 'w') as f:
-            f.write(content)
+            f.write(self.render(site))

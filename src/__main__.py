@@ -72,7 +72,7 @@ parser.add_argument('--basepath',
 
 
 def register_commands(parser):
-    subparser = parser.add_subparsers(dest='subcommand')
+    subcommand = parser.add_subparsers(dest='subcommand')
 
     callbacks = {}
     commands = [
@@ -83,10 +83,16 @@ def register_commands(parser):
 
     for command in sorted(commands):
         module = importlib.import_module(f'src.commands.{command}')
-        subparser.add_parser(command, help=module.__doc__.strip())
+        subparser = subcommand.add_parser(command, help=module.__doc__.strip())
+
+        try:
+            module.register(subparser)
+        except AttributeError:
+            pass
+
         callbacks[command] = module.main
 
-    subparser.add_parser('help', help='print program usage')
+    subcommand.add_parser('help', help='print program usage')
 
     return callbacks
 

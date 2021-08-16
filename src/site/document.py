@@ -23,6 +23,7 @@ class Document:
         html.append(self.head())
         html.append(self.body())
         ET.indent(html)
+
         xml = ET.tostring(html, encoding='unicode', method='html')
         return f'<!doctype html>\n{xml}'
 
