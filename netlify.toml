@@ -1,75 +1,90 @@
-[build]
-  publish = "www"
-  command = "python -m src build"
-  environment = { }
-  processing = { skip_processing = true }
+[Settings]
+  ID = "6db0d11b-247f-43e4-b048-61a5168349a4"
 
-[[redirects]]
-from = "/our-new-sid-meiers-civilization-inspired-budget/"
-to = "https://archive.alexrecker.com/civ-budget.html"
-force = true
+[Build]
+  Publish = "www"
+  Functions = ""
 
-[[redirects]]
-from = "/seinfeld.html"
-to = "https://archive.alexrecker.com/seinfeld.html"
-force = true
+[[Redirects]]
+  From = "/our-new-sid-meiers-civilization-inspired-budget/"
+  To = "https://archive.alexrecker.com/civ-budget.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/anxiety.html"
-to = "https://archive.alexrecker.com/anxiety.html"
-force = true
+[[Redirects]]
+  From = "/seinfeld.html"
+  To = "https://archive.alexrecker.com/seinfeld.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/clockwork-orange.html"
-to = "https://archive.alexrecker.com/clockwork-orange.html"
-force = true
+[[Redirects]]
+  From = "/anxiety.html"
+  To = "https://archive.alexrecker.com/anxiety.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/eyes-wide-shut.html"
-to = "https://archive.alexrecker.com/eyes-wide-shut.html"
-force = true
+[[Redirects]]
+  From = "/clockwork-orange.html"
+  To = "https://archive.alexrecker.com/clockwork-orange.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/full-metal-jacket.html"
-to = "https://archive.alexrecker.com/full-metal-jacket.html"
-force = true
+[[Redirects]]
+  From = "/eyes-wide-shut.html"
+  To = "https://archive.alexrecker.com/eyes-wide-shut.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/jane.html"
-to = "https://archive.alexrecker.com/jane.html"
-force = true
+[[Redirects]]
+  From = "/full-metal-jacket.html"
+  To = "https://archive.alexrecker.com/full-metal-jacket.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/linux.html"
-to = "https://archive.alexrecker.com/linux.html"
-force = true
+[[Redirects]]
+  From = "/jane.html"
+  To = "https://archive.alexrecker.com/jane.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/noah.html"
-to = "https://archive.alexrecker.com/noah.html"
-force = true
+[[Redirects]]
+  From = "/linux.html"
+  To = "https://archive.alexrecker.com/linux.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/rockford.html"
-to = "https://archive.alexrecker.com/rockford.html"
-force = true
+[[Redirects]]
+  From = "/noah.html"
+  To = "https://archive.alexrecker.com/noah.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/san-francisco.html"
-to = "https://archive.alexrecker.com/san-francisco.html"
-force = true
+[[Redirects]]
+  From = "/rockford.html"
+  To = "https://archive.alexrecker.com/rockford.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/the-top-5-ways-that-my-corgi-has-taught-me-how-to-be-a-better-person.html"
-to = "https://archive.alexrecker.com/the-top-5-ways-that-my-corgi-has-taught-me-how-to-be-a-better-person.html"
-force = true
+[[Redirects]]
+  From = "/san-francisco.html"
+  To = "https://archive.alexrecker.com/san-francisco.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/uhh-yeah-dude.html"
-to = "https://archive.alexrecker.com/uhh-yeah-dude.html"
-force = true
+[[Redirects]]
+  From = "/the-top-5-ways-that-my-corgi-has-taught-me-how-to-be-a-better-person.html"
+  To = "https://archive.alexrecker.com/the-top-5-ways-that-my-corgi-has-taught-me-how-to-be-a-better-person.html"
+  Status = 0
+  Force = true
 
-[[redirects]]
-from = "/using-selenium-buy-bus-pass/"
-to = "https://archive.alexrecker.com/selenium-bus-pass.html"
-force = true
+[[Redirects]]
+  From = "/uhh-yeah-dude.html"
+  To = "https://archive.alexrecker.com/uhh-yeah-dude.html"
+  Status = 0
+  Force = true
+
+[[Redirects]]
+  From = "/using-selenium-buy-bus-pass/"
+  To = "https://archive.alexrecker.com/selenium-bus-pass.html"
+  Status = 0
+  Force = true
