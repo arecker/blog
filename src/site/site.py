@@ -9,6 +9,7 @@ import re
 import subprocess
 
 from . import Page, Feed, Sitemap
+from .. import git
 
 logger = logging.getLogger(__name__)
 
@@ -99,6 +100,10 @@ class Site:
             short_hash=shell_command('git rev-parse --short HEAD'),
             long_hash=shell_command('git rev-parse HEAD'),
             summary=shell_command('git log -1 --pretty=format:%s HEAD'))
+
+    @functools.cached_property
+    def is_entry_tagged(self):
+        return git.head_is_entry_tagged(root_directory=self.directory)
 
     @property
     def commit_url(self):

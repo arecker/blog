@@ -52,3 +52,17 @@ def git_push_tag(root_directory, tag=''):
                    check=True,
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL)
+
+
+def head_is_entry_tagged(root_directory):
+    cmd = 'git describe --exact-match --tags HEAD'
+    result = subprocess.run(cmd.split(' '),
+                            cwd=root_directory,
+                            capture_output=True,
+                            check=False)
+
+    if result.returncode != 0:  # HEAD isn't tagged
+        return False
+
+    output = result.stdout.decode('UTF-8').strip()
+    return output.startswith('entry-')
