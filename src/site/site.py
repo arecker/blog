@@ -9,7 +9,7 @@ import re
 import subprocess
 
 from . import Page, Feed, Sitemap
-from .. import git
+from .. import git, netlify
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +30,8 @@ class Site:
         self.domain = args.domain
         self.protocol = args.protocol
         self.basepath = args.basepath
+
+        self.args = args
 
     def __repr__(self):
         home = pathlib.Path.home()
@@ -141,3 +143,8 @@ class Site:
             if (i + 1) % 100 == 0 or (i + 1) == total_entries:
                 logger.info('rendered %d out of %d entries', i + 1,
                             total_entries)
+
+    def deploy(self):
+        netlify.deploy(site_name=self.domain,
+                       token=self.args.netlify_token,
+                       webroot=self.directory / 'www')
