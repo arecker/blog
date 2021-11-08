@@ -28,7 +28,7 @@ def make_request(path,
     headers = {
         'Authorization': f'Bearer {token}',
         'Content-type': content_type,
-        'User-Agent': 'blog (alex@reckerfamily.com)',
+        'User-Agent': 'blog',
     }
 
     if data and content_type == 'application/json':
@@ -37,7 +37,7 @@ def make_request(path,
     elif not data:
         data = None
 
-    request = urllib.request.Request(method='GET',
+    request = urllib.request.Request(method=method,
                                      url=url,
                                      headers=headers,
                                      data=data)
