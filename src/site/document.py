@@ -1,9 +1,4 @@
-import datetime
-import functools
 import logging
-import os
-import pathlib
-import re
 
 from xml.etree import ElementTree as ET
 
@@ -292,29 +287,9 @@ class Document:
     def footer(self):
         tree = ET.TreeBuilder()
         tree.start('footer', {})
-        self.last_updated(tree)
-        self.last_change(tree)
         self.copyright(tree)
         tree.end('footer')
         return tree.close()
-
-    def last_updated(self, tree):
-        tree.start('small', {})
-        updated = self.site.timestamp.strftime("%A %B %d %Y, %I:%M %p")
-        tree.data(f'Last Updated: {updated}')
-        tree.end('small')
-
-    def last_change(self, tree):
-        tree.start('small', {})
-        tree.data('Last Change: ')
-        tree.start('span', {})
-        tree.data(f'{self.site.commit.summary} (')
-        tree.start('a', {'href': self.site.commit_url})
-        tree.data(self.site.commit.short_hash)
-        tree.end('a')
-        tree.data(')')
-        tree.end('span')
-        tree.end('small')
 
     def copyright(self, tree):
         tree.start('small', {})
