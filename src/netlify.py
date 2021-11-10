@@ -73,7 +73,7 @@ def hash_file(path, buffer_size=65536):
 def build_new_deploy(webroot):
     digest_map = {}
 
-    files = list(webroot.glob('**/*.*'))
+    files = [p for p in webroot.glob('**/*') if p.is_file()]
     total = len(files)
     for i, f in enumerate(files):
         key = '/' + str(f.relative_to(webroot))
