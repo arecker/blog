@@ -5,6 +5,7 @@ functions for working with Netlify's API
 import hashlib
 import json
 import logging
+import time
 import urllib.request
 
 logger = logging.getLogger(__name__)
@@ -81,10 +82,11 @@ def build_new_deploy(webroot):
         if (i + 1) % 500 == 0 or (i + 1) == total:
             logger.info('hashed %d of %d file(s)', i + 1, total)
 
-    return {'files': digest_map, 'draft': False}
+    return {'files': digest_map, 'draft': False, 'async': False}
 
 
 def deploy(site_name='', token='', webroot=None):
+    start_time = time.time()
     site_id = fetch_site_id(site_name, token=token)
     logger.info('found netlify site %s (%s)', site_name, site_id)
 
@@ -96,5 +98,23 @@ def deploy(site_name='', token='', webroot=None):
                             token=token,
                             method='POST',
                             data=payload)
+
+    deploy_id = response['id']
+    total = len(response['required'])
     logger.info('created deploy %s, %d file(s) need to be uploaded',
-                response['id'], len(response['required']))
+                response['id'], total)
+
+    hash_map = dict([(v, k) for k, v in payload['files'].items()])
+    for i, sha in enumerate(response['required']):
+        path = hash_map[sha]
+        with open(str(webroot) + path, 'rb') as f:
+            data = f.read()
+        url = f'/deploys/{deploy_id}/files{path}'
+        response = make_request(path=url,
+                                token=token,
+                                method='PUT',
+                                data=data,
+                                content_type='application/octet-stream')
+        logger.info('uploaded %s (%d/%d)', path, i + 1, total)
+
+    logger.info('deploy finished (%d s)', time.time() - start_time)
