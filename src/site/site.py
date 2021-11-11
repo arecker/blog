@@ -19,19 +19,19 @@ Commit = collections.namedtuple('Commit',
 
 
 class Site:
-    def __init__(self, args):
-        self.directory = pathlib.Path(args.root_directory).absolute()
-        self.timestamp = datetime.datetime.now()
+    def __init__(self, args=None, timestamp=None):
+        self.timestamp = timestamp or datetime.datetime.now()
 
-        self.title = args.title
-        self.subtitle = args.subtitle
-        self.author = args.author
-        self.email = args.email
-        self.domain = args.domain
-        self.protocol = args.protocol
-        self.basepath = args.basepath
-
-        self.args = args
+        if args:
+            self.args = args
+            self.directory = pathlib.Path(args.root_directory).absolute()
+            self.title = args.title
+            self.subtitle = args.subtitle
+            self.author = args.author
+            self.email = args.email
+            self.domain = args.domain
+            self.protocol = args.protocol
+            self.basepath = args.basepath
 
     def __repr__(self):
         home = pathlib.Path.home()
