@@ -6,7 +6,7 @@ import logging
 import sys
 
 from src import Site
-from src.commands import test
+from src.commands import test, deploy
 
 logger = logging.getLogger(__name__)
 
@@ -18,18 +18,8 @@ def register(subparser):
 
 
 def main(args):
-    site = Site(args)
-    logger.info('===> runninng tests')
     test.main(args)
+    deploy.main(args)
 
-    logger.info('===> building site')
-    site.build()
-
-    logger.info('===> deploying site')
-    site.deploy()
-
-    if not site.is_entry_tagged:
-        logger.info('===> build finished')
+    if not Site(args).is_entry_tagged:
         sys.exit(0)
-
-    logger.info('===> build finished')

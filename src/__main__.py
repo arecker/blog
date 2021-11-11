@@ -111,7 +111,7 @@ def configure_logging(verbose=False, silent=False):
     else:
         level = logging.INFO
 
-    fmt = 'BLOG: %(message)s'
+    fmt = 'BLOG :: %(message)s'
 
     logging.basicConfig(level=level, stream=sys.stderr, format=fmt)
     logger.debug('configured logging with level = %s', level)

@@ -5,6 +5,8 @@ serve webroot locally
 import logging
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
+from src.commands import build
+
 logger = logging.getLogger(__name__)
 
 
@@ -26,4 +28,5 @@ def start_web_server(webroot, port=8000):
 
 
 def main(args):
+    build.main(args)
     start_web_server(args.root_directory / 'www')

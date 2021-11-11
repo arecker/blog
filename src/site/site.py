@@ -9,7 +9,7 @@ import re
 import subprocess
 
 from . import Page, Feed, Sitemap
-from .. import git, netlify
+from .. import git
 
 logger = logging.getLogger(__name__)
 
@@ -110,41 +110,3 @@ class Site:
     @property
     def commit_url(self):
         return f'https://github.com/arecker/blog/commit/{self.commit.long_hash}'
-
-    def pave(self):
-        for page in itertools.chain(self.entries, self.pages,
-                                    [self.feed, self.sitemap]):
-            target = self.directory / page.target
-            if not os.path.exists(target):
-                continue
-            os.remove(target)
-            logger.debug('removed old target %s', target)
-
-    def build(self):
-        self.pave()
-
-        for page in self.pages:
-            page.build(self)
-            logger.info('rendered %s', page)
-
-        self.feed.build()
-        logger.info('rendered %s', self.feed)
-
-        self.sitemap.build()
-        logger.info('rendered %s', self.sitemap)
-
-        total_entries = sum(1 for _ in self.entries)
-
-        for i, page in enumerate(self.entries):
-            page.build(self)
-            logger.debug('rendered %s', page)
-
-            # Log an update every 100 entries and at the end of the list
-            if (i + 1) % 100 == 0 or (i + 1) == total_entries:
-                logger.info('rendered %d out of %d entries', i + 1,
-                            total_entries)
-
-    def deploy(self):
-        netlify.deploy(site_name=self.domain,
-                       token=self.args.netlify_token,
-                       webroot=self.directory / 'www')
