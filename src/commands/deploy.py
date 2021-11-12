@@ -94,9 +94,9 @@ def main(args):
     site_id = fetch_site_id(site.domain, token=args.netlify_token)
     logger.info('found netlify site %s (%s)', site.domain, site_id)
 
-    payload = build_new_deploy(site.directory / 'webroot')
+    payload = build_new_deploy(site.directory / 'www')
     logger.info('built payload from %d file(s) in %s',
-                len(payload['files'].keys()), site.directory / 'webroot')
+                len(payload['files'].keys()), site.directory / 'www')
 
     response = make_request(path=f'/sites/{site_id}/deploys/',
                             token=args.netlify_token,
