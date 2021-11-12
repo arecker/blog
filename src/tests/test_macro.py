@@ -1,3 +1,4 @@
+import copy
 import datetime
 import unittest
 
@@ -5,33 +6,34 @@ from src import macro
 from src.models import Site, Page
 
 
-class TestExpandText(unittest.TestCase):
-    def test_expand_text(self):
-        timestamp = datetime.datetime(year=1990,
-                                      month=9,
-                                      day=29,
-                                      hour=3,
-                                      minute=0)
-        site = Site(timestamp=timestamp)
-        actual = macro.expand_text('<!-- blog:timestamp -->',
-                                   site=site,
-                                   suppress_logs=True)
+class TestExpander(unittest.TestCase):
+    def setUp(self):
+        self.timestamp = datetime.datetime(year=1990,
+                                           month=9,
+                                           day=29,
+                                           hour=3,
+                                           minute=0)
+        self.latest = Page(source='2014-11-10.html',
+                           is_entry=True,
+                           metadata={
+                               'title': 'planes, trains, and automobiles',
+                               'banner': '2014-11-10.bmp'
+                           })
+
+        self.site = Site(entries=[self.latest], timestamp=self.timestamp)
+        self.expander = macro.Expander(site=self.site)
+        self.expander.populate()
+
+    def test_expand_timestamp(self):
+        actual = self.expander.markup['timestamp']
         expected = 'Saturday, September 29 1990 3:00 AM CST'
         self.assertEqual(actual, expected)
 
     def test_expand_latest(self):
-        latest = Page(source='2014-11-10.html',
-                      metadata={
-                          'title': 'planes, trains, and automobiles',
-                          'banner': '2014-11-10.bmp'
-                      })
-        site = Site(entries=[latest])
-        actual = macro.expand_text('<!-- blog:latest -->',
-                                   site=site,
-                                   suppress_logs=True)
+        actual = self.expander.markup['latest']
         expected = '''
 <a href="/2014-11-10.html">
-  <h3 class="title">Thursday, November 10 2014</h3>
+  <h3 class="title">Monday, November 10 2014</h3>
 </a>
 <figure>
   <a href="/2014-11-10.html">
@@ -40,6 +42,62 @@ class TestExpandText(unittest.TestCase):
   <figcaption>
     <p>planes, trains, and automobiles</p>
   </figcaption>
-</figure>
+</figure>'''.strip()
+        self.assertEqual(actual, expected)
+
+        del self.latest.metadata['banner']
+        self.expander.populate()
+        actual = self.expander.markup['latest']
+        expected = '''
+<a href="/2014-11-10.html">
+  <h3 class="title">Thursday, November 10 2014</h3>
+</a>
+<p>planes, trains, and automobiles</p>
 '''.strip()
-        # self.assertEqual(actual, expected)
+
+    def test_expand(self):
+        markup = '''
+    <div>
+      <p>
+        <!-- blog:timestamp -->
+      </p>
+    </div>
+'''
+        expected = '''
+    <div>
+      <p>
+        Saturday, September 29 1990 3:00 AM CST
+      </p>
+    </div>
+'''
+        actual = self.expander.expand(markup)
+        self.assertEqual(actual, expected)
+
+        markup = '''
+  <div class="row">
+    <div class="column">
+      <h2>Latest Post</h2>
+      <!-- blog:latest -->
+    </div>
+  </div>
+'''
+        actual = self.expander.expand(markup)
+        expected = '''
+  <div class="row">
+    <div class="column">
+      <h2>Latest Post</h2>
+      <a href="/2014-11-10.html">
+        <h3 class="title">Monday, November 10 2014</h3>
+      </a>
+      <figure>
+        <a href="/2014-11-10.html">
+          <img src="/images/banners/2014-11-10.bmp">
+        </a>
+        <figcaption>
+          <p>planes, trains, and automobiles</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+'''
+        self.assertEqual(actual, expected)

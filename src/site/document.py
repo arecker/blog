@@ -184,6 +184,11 @@ class Document:
             if not element.text.strip().startswith('blog:'):
                 continue
 
+            # TODO: moving away from this type of macro.  This is a
+            # shortcut until a better archive system is built out
+            if 'blog:entries' not in element.text:
+                continue
+
             parent = parent_map[element]
             new_elements = self.expand_magic_comment(comment=element)
             new_elements_map[parent] = new_elements
@@ -199,46 +204,10 @@ class Document:
         comment.text = f' begin blog:{key} '
         end_comment = ET.Comment(text=f'end blog:{key}')
 
-        if key == 'latest':
-            new_elements = self.latest()
-        elif key == 'entries':
+        if key == 'entries':
             new_elements = [self.entries()]
-        else:
-            raise ValueError(
-                f'don\'t know what to do with magic comment "{key}"')
 
         return new_elements + [end_comment]
-
-    def latest(self):
-        elements = []
-
-        href = f'/{self.site.latest.filename}'
-        banner_href = f'/images/banners/{self.site.latest.banner}'
-
-        link = ET.Element('a', href=href)
-        title = ET.Element('h3', attrib={'class': 'title'})
-        title.text = self.site.latest.title
-        link.append(title)
-        elements.append(link)
-
-        if self.site.latest.banner:
-            figure = ET.Element('figure')
-            link = ET.Element('a', href=href)
-            image = ET.Element('img', src=banner_href)
-            link.append(image)
-            figure.append(link)
-            caption = ET.Element('figcaption')
-            caption_text = ET.Element('p')
-            caption_text.text = self.site.latest.description
-            caption.append(caption_text)
-            figure.append(caption)
-            elements.append(figure)
-        else:
-            caption = ET.Element('p')
-            caption.text = self.site.latest.description
-            elements.append(caption)
-
-        return elements
 
     def entries(self):
         table = ET.Element('table')

@@ -8,6 +8,8 @@ import pathlib
 import re
 import subprocess
 
+from src import macro
+
 from . import Page, Feed, Sitemap
 from .. import git
 
@@ -35,6 +37,9 @@ class Site:
             self.domain = args.domain
             self.protocol = args.protocol
             self.basepath = args.basepath
+
+        self.expander = macro.Expander(site=self)
+        self.expander.populate()
 
     def __repr__(self):
         home = pathlib.Path.home()

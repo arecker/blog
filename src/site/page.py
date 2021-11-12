@@ -11,10 +11,12 @@ logger = logging.getLogger(__name__)
 
 
 class Page:
-    def __init__(self, source=None, metadata={}):
+    def __init__(self, source=None, metadata={}, is_entry=None):
         self.source = pathlib.Path(source)
         if metadata:
             self._metadata = metadata
+        if is_entry is not None:
+            self._is_entry = is_entry
 
     def __repr__(self):
         return f'<Page {self.filename}>'
@@ -33,7 +35,9 @@ class Page:
 
     @property
     def is_entry(self):
-        return self.source.parent.name == 'entries'
+        if not hasattr(self, '_is_entry'):
+            return self.source.parent.name == 'entries'
+        return self._is_entry
 
     @property
     def raw_content(self):
@@ -88,5 +92,10 @@ class Page:
         return document.render()
 
     def build(self, site):
+        rendered = self.render(site)
+
+        # expand macros in the page
+        rendered = site.expander.expand(rendered)
+
         with open(site.directory / self.target, 'w') as f:
-            f.write(self.render(site))
+            f.write(rendered)
