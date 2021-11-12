@@ -11,8 +11,10 @@ logger = logging.getLogger(__name__)
 
 
 class Page:
-    def __init__(self, source):
+    def __init__(self, source=None, metadata={}):
         self.source = pathlib.Path(source)
+        if metadata:
+            self._metadata = metadata
 
     def __repr__(self):
         return f'<Page {self.filename}>'
@@ -38,13 +40,17 @@ class Page:
         with open(self.source, 'r') as f:
             return f.read()
 
-    @functools.cached_property
+    @property
     def metadata(self) -> dict:
-        pattern = re.compile(
-            r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$',
-            re.MULTILINE)
-        return dict([(k.strip(), v.strip())
-                     for k, v in pattern.findall(self.raw_content)])
+        if not hasattr(self, '_metadata'):
+            pattern = re.compile(
+                r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$',
+                re.MULTILINE)
+            values = [(k.strip(), v.strip())
+                      for k, v in pattern.findall(self.raw_content)]
+            self._metadata = dict(values)
+
+        return self._metadata
 
     @property
     def date(self):

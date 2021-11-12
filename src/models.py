@@ -1,1 +1,1 @@
-from src.site import Site
+from src.site import Site, Page

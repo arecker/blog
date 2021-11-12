@@ -19,8 +19,11 @@ Commit = collections.namedtuple('Commit',
 
 
 class Site:
-    def __init__(self, args=None, timestamp=None):
+    def __init__(self, args=None, timestamp=None, entries=[]):
         self.timestamp = timestamp or datetime.datetime.now()
+
+        if entries:
+            self._entries = entries
 
         if args:
             self.args = args
@@ -47,8 +50,13 @@ class Site:
 
     @property
     def entries(self):
-        return map(Page,
-                   sorted(self.directory.glob('entries/*.html'), reverse=True))
+        if not hasattr(self, '_entries'):
+            from src.models import Page
+            sources = sorted(self.directory.glob('entries/*.html'),
+                             reverse=True)
+            self._entries = [Page(source=source) for source in sources]
+
+        return self._entries
 
     @property
     def pages(self):
@@ -68,9 +76,9 @@ class Site:
                        key=lambda p: p.nav_index)
         return [p.filename for p in pages]
 
-    @functools.cached_property
+    @property
     def latest(self):
-        return next(self.entries, None)
+        return self.entries[0]
 
     @functools.cached_property
     def pagination(self):
