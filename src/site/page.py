@@ -94,8 +94,9 @@ class Page:
     def build(self, site):
         rendered = self.render(site)
 
-        # expand macros in the page
-        rendered = site.expander.expand(rendered)
+        if not self.is_entry:
+            # expand macros in page
+            rendered = site.expander.expand(rendered)
 
         with open(site.directory / self.target, 'w') as f:
             f.write(rendered)
