@@ -1,10 +1,9 @@
 """deploy site to Netlify"""
 
 import hashlib
-import json
 import logging
-import urllib.request
 
+from src import http
 from src.models import Site
 from src.commands import build
 
@@ -23,30 +22,17 @@ def make_request(path,
                  data={},
                  encoding='UTF-8',
                  content_type='application/json'):
+
     if not path.startswith('/'):
         path = '/' + path
 
     url = f'https://api.netlify.com/api/v1{path}'
 
-    headers = {
-        'Authorization': f'Bearer {token}',
-        'Content-type': content_type,
-        'User-Agent': 'blog',
-    }
-
-    if data and content_type == 'application/json':
-        data = json.dumps(data)
-        data = data.encode(encoding)
-    elif not data:
-        data = None
-
-    request = urllib.request.Request(method=method,
-                                     url=url,
-                                     headers=headers,
-                                     data=data)
-    response = urllib.request.urlopen(request)
-    response_data = response.read().decode(encoding)
-    return json.loads(response_data)
+    return http.make_request(url=url,
+                             method=method,
+                             authorization=f'Bearer {token}',
+                             data=data,
+                             content_type=content_type)
 
 
 def fetch_site_id(site_name, token=''):

@@ -6,15 +6,14 @@ import logging
 import sys
 
 from src import Site
-from src.commands import test, deploy
+from src.commands import test, deploy, slack
 
 logger = logging.getLogger(__name__)
 
 
 def register(subparser):
-    subparser.add_argument('--netlify-token',
-                           required=True,
-                           help='Netlify API token')
+    deploy.register(subparser)
+    slack.register(subparser)
 
 
 def main(args):
@@ -23,3 +22,5 @@ def main(args):
 
     if not Site(args).is_entry_tagged:
         sys.exit(0)
+
+    slack.main(args=args)
