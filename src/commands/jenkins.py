@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 def register(subparser):
     deploy.register(subparser)
     slack.register(subparser)
+    tweet.register(subparser)
 
 
 def main(args):
