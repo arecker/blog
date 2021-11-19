@@ -6,7 +6,7 @@ import logging
 import sys
 
 from src import Site
-from src.commands import test, deploy, slack
+from src.commands import test, deploy, slack, tweet
 
 logger = logging.getLogger(__name__)
 
@@ -24,3 +24,4 @@ def main(args):
         sys.exit(0)
 
     slack.main(args=args)
+    tweet.main(args=args)
