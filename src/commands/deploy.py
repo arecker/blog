@@ -131,4 +131,4 @@ def main(args):
             raise RuntimeError('timeout for netlify deploy %s exceeded',
                                deploy_id)
 
-    logger.info('deploy %s finished!')
+    logger.info('deploy %s finished!', deploy_id)
