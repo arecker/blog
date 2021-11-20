@@ -11,12 +11,18 @@ logger = logging.getLogger(__name__)
 
 
 class Page:
-    def __init__(self, source=None, metadata={}, is_entry=None):
+    def __init__(self,
+                 source=None,
+                 raw_content=None,
+                 metadata={},
+                 is_entry=None):
         self.source = pathlib.Path(source)
         if metadata:
             self._metadata = metadata
         if is_entry is not None:
             self._is_entry = is_entry
+        if raw_content:
+            self._raw_content = raw_content
 
     def __repr__(self):
         return f'<Page {self.filename}>'
@@ -41,8 +47,10 @@ class Page:
 
     @property
     def raw_content(self):
-        with open(self.source, 'r') as f:
-            return f.read()
+        if not hasattr(self, '_raw_content'):
+            with open(self.source, 'r') as f:
+                self._raw_content = f.read()
+        return self._raw_content
 
     @property
     def metadata(self) -> dict:

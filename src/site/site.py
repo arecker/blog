@@ -21,15 +21,19 @@ Commit = collections.namedtuple('Commit',
 
 
 class Site:
-    def __init__(self, args=None, timestamp=None, entries=[]):
+    def __init__(self, args=None, timestamp=None, entries=[], directory=None):
         self.timestamp = timestamp or datetime.datetime.now()
 
         if entries:
             self._entries = entries
 
+        if directory:
+            self.directory = pathlib.Path(directory).expanduser().absolute()
+
         if args:
             self.args = args
-            self.directory = pathlib.Path(args.root_directory).absolute()
+            self.directory = pathlib.Path(
+                args.root_directory).expanduser().absolute()
             self.title = args.title
             self.subtitle = args.subtitle
             self.author = args.author
@@ -39,12 +43,14 @@ class Site:
             self.basepath = args.basepath
 
         self.expander = macro.Expander(site=self)
-        self.expander.populate()
+
+    @property
+    def directory_pretty(self):
+        home = pathlib.Path.home()
+        return re.sub(f'^{home}/', '~/', str(self.directory))
 
     def __repr__(self):
-        home = pathlib.Path.home()
-        abbrerviated = re.sub(f'^{home}/', '~/', str(self.directory))
-        return f'<Site {abbrerviated}>'
+        return f'<Site {self.directory_pretty}>'
 
     @property
     def uri(self):

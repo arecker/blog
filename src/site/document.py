@@ -2,6 +2,8 @@ import logging
 
 from xml.etree import ElementTree as ET
 
+from src import html as HTML
+
 logger = logging.getLogger(__name__)
 
 
@@ -88,7 +90,11 @@ class Document:
 
     def body(self) -> ET.Element:
         body = ET.Element('body')
-        body.append(self.header())
+
+        header = HTML.build_page_header(title=self.page.title,
+                                        description=self.page.description)
+        body.append(header)
+
         body.append(ET.Element('hr'))
         body.append(self.nav())
         body.append(ET.Element('hr'))
@@ -100,18 +106,6 @@ class Document:
         body.append(ET.Element('hr'))
         body.append(self.footer())
         return body
-
-    def header(self):
-        tree = ET.TreeBuilder()
-        tree.start('header', {})
-        tree.start('h1', {})
-        tree.data(self.page.title)
-        tree.end('h1')
-        tree.start('h2', {})
-        tree.data(self.page.description)
-        tree.end('h2')
-        tree.end('header')
-        return tree.close()
 
     def nav(self):
         nav = ET.Element('nav')
