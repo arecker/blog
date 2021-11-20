@@ -50,6 +50,14 @@ figure img {
     display: block;
 }
 
+video {
+    width: 100%;
+    height: auto;
+    max-width: 625px;
+    margin-right: auto;
+    display: block;
+}
+
 figure figcaption p {
     font-style: italic;
     line-height: 1.3;
