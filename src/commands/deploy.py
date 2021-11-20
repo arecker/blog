@@ -2,6 +2,7 @@
 
 import hashlib
 import logging
+import time
 
 from src import http
 from src.models import Site
@@ -105,4 +106,29 @@ def main(args):
                                 method='PUT',
                                 data=data,
                                 content_type='application/octet-stream')
-        logger.info('uploaded %s (%d/%d)', path, i + 1, total)
+
+    logger.info('uploaded %s (%d/%d)', path, i + 1, total)
+
+    max_seconds = 120
+    seconds = max_seconds
+
+    while True:
+        response = make_request(path=f'/deploys/{deploy_id}',
+                                token=args.netlify_token,
+                                method='GET')
+        status = response['state']
+
+        logger.info('deploy %s is in status "%s" (%d/%ds)', deploy_id, status,
+                    seconds, max_seconds)
+
+        if status == 'ready':
+            break
+
+        if seconds > 0:
+            seconds = seconds - 1
+            time.sleep(1)
+        else:
+            raise RuntimeError('timeout for netlify deploy %s exceeded',
+                               deploy_id)
+
+    logger.info('deploy %s finished!')
