@@ -119,6 +119,7 @@ class Document:
         for element in self.nav_breadcrumbs():
             nav.append(element)
 
+        nav.append(ET.Element('br', attrib={'class': 'show-on-mobile'}))
         nav.append(self.nav_pages())
 
         return nav
@@ -156,6 +157,7 @@ class Document:
             tree.end('a')
 
         tree.end('span')
+
         return tree.close()
 
     def banner(self):
