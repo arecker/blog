@@ -3,7 +3,7 @@
 import logging
 import sys
 
-from src import Site
+from src.models import Site
 
 logger = logging.getLogger(__name__)
 

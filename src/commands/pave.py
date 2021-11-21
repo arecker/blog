@@ -4,7 +4,7 @@ import itertools
 import logging
 import os
 
-import src as blog
+from src.models import Site
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +16,7 @@ def make_target_list(site):
 
 
 def main(args):
-    site = blog.Site(args)
+    site = Site(args)
     targets = make_target_list(site)
 
     for target in filter(os.path.exists, targets):

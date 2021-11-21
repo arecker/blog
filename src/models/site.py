@@ -1,17 +1,12 @@
 import collections
 import datetime
 import functools
-import itertools
 import logging
-import os
 import pathlib
 import re
 import subprocess
 
-from src import macro
-
-from . import Page, Feed, Sitemap
-from .. import git
+from src import macro, git
 
 logger = logging.getLogger(__name__)
 
@@ -21,14 +16,30 @@ Commit = collections.namedtuple('Commit',
 
 
 class Site:
-    def __init__(self, args=None, timestamp=None, entries=[], directory=None):
+    def __init__(self,
+                 args=None,
+                 timestamp=None,
+                 entries=[],
+                 pages=[],
+                 directory=None,
+                 feed=None,
+                 sitemap=None):
         self.timestamp = timestamp or datetime.datetime.now()
 
         if entries:
             self._entries = entries
 
+        if pages:
+            self._pages = pages
+
         if directory:
             self.directory = pathlib.Path(directory).expanduser().absolute()
+
+        if feed:
+            self._feed = feed
+
+        if sitemap:
+            self._sitemap = sitemap
 
         if args:
             self.args = args
@@ -65,21 +76,36 @@ class Site:
             from src.models import Page
             sources = sorted(self.directory.glob('entries/*.html'),
                              reverse=True)
-            self._entries = [Page(source=source) for source in sources]
+            self._entries = [
+                Page(source=source, site=self) for source in sources
+            ]
 
         return self._entries
 
     @property
     def pages(self):
-        return map(Page, sorted(self.directory.glob('pages/*.html')))
+        if not hasattr(self, '_pages'):
+            from src.models import Page
+            sources = sorted(self.directory.glob('pages/*.html'))
+            self._pages = [
+                Page(source=source, site=self) for source in sources
+            ]
+
+        return self._pages
 
     @property
     def feed(self):
-        return Feed(site=self)
+        if not hasattr(self, '_feed'):
+            from src.models import Feed
+            self._feed = Feed(site=self)
+        return self._feed
 
     @property
     def sitemap(self):
-        return Sitemap(site=self)
+        if not hasattr(self, '_sitemap'):
+            from src.models import Sitemap
+            self._sitemap = Sitemap(site=self)
+        return self._sitemap
 
     @functools.cached_property
     def nav(self):

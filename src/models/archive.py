@@ -1,7 +1,3 @@
-from src.site import Site, Page
-from src import html
-
-
 class Archive:
     def __init__(self, site=None):
         self.site = site

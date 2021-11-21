@@ -1,11 +1,8 @@
 import datetime
-import functools
 import logging
 import os
 import pathlib
 import re
-
-from . import Document
 
 logger = logging.getLogger(__name__)
 
@@ -13,10 +10,12 @@ logger = logging.getLogger(__name__)
 class Page:
     def __init__(self,
                  source=None,
+                 site=None,
                  raw_content=None,
                  metadata={},
                  is_entry=None):
         self.source = pathlib.Path(source)
+        self.site = site
         if metadata:
             self._metadata = metadata
         if is_entry is not None:
@@ -89,13 +88,46 @@ class Page:
         return self.metadata.get('banner', None)
 
     @property
+    def banner_url(self):
+        if self.banner:
+            return self.site.uri + f'images/banners/{self.banner}'
+        return None
+
+    @property
     def nav_index(self):
         try:
             return int(self.metadata['nav'])
         except (ValueError, KeyError):
             return None
 
+    @property
+    def meta_og_attrs(self):
+        tags = {
+            'url': f'/{self.filename}',
+            'type': 'article',
+            'title': self.title,
+            'description': self.description,
+        }
+
+        if image := self.banner_url:
+            tags['image'] = image
+
+        return tags
+
+    @property
+    def meta_twitter_attrs(self):
+        tags = {
+            'twitter:title': self.title,
+            'twitter:description': self.description,
+        }
+
+        if image := self.banner_url:
+            tags['image'] = image
+
+        return tags
+
     def render(self, site):
+        from src.models import Document
         document = Document(site=site, page=self)
         return document.render()
 
