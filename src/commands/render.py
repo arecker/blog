@@ -19,6 +19,7 @@ def main(args):
     for page in itertools.chain(site.entries, site.pages):
         if page.source == target:
             logger.info('rendering %s', target)
+            site.expander.populate()
             print(page.render())
             return
 

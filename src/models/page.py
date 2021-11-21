@@ -151,14 +151,12 @@ class Page:
         body.append(footer)
         root.append(body)
         root = html.stringify_xml(root)
+
+        if not self.is_entry:
+            root = self.site.expander.expand(root)
+
         return f'<!doctype html>\n{root}'
 
     def build(self):
-        rendered = self.render()
-
-        if not self.is_entry:
-            # expand macros in page
-            rendered = self.site.expander.expand(rendered)
-
         with open(self.site.directory / self.target, 'w') as f:
-            f.write(rendered)
+            f.write(self.render())
