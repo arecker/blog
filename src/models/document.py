@@ -43,7 +43,8 @@ class Document:
         body.append(ET.Element('hr'))
 
         if self.page.banner:
-            banner = HTML.build_page_banner(self.page.banner_url)
+            banner = HTML.build_page_banner(
+                f'images/banners/{self.page.banner}')
             body.append(banner)
 
         body.append(self.article())
