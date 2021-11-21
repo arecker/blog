@@ -19,7 +19,7 @@ def main(args):
     for page in itertools.chain(site.entries, site.pages):
         if page.source == target:
             logger.info('rendering %s', target)
-            print(page.render(site))
+            print(page.render())
             return
 
     logger.error('could not find page %s!', target)

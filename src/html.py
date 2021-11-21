@@ -3,6 +3,18 @@
 from xml.etree import ElementTree as ET
 
 
+def root():
+    return ET.Element('html', lang='en')
+
+
+def divider():
+    return ET.Element('hr')
+
+
+def body():
+    return ET.Element('body')
+
+
 def build_page_head(page_filename='',
                     page_title='',
                     page_description='',
@@ -117,6 +129,14 @@ def build_page_banner(banner_url):
     tree.end('a')
     tree.end('figure')
     return tree.close()
+
+
+def build_page_article(raw_content=''):
+    content = f'<article>{raw_content}</article>'
+    parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))
+    parser.feed(content)
+    root = parser.close()
+    return root
 
 
 def build_page_pagination(next_page='', previous_page=''):

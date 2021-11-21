@@ -4,6 +4,8 @@ import os
 import pathlib
 import re
 
+from src import html
+
 logger = logging.getLogger(__name__)
 
 
@@ -106,43 +108,57 @@ class Page:
         except (ValueError, KeyError):
             return None
 
-    @property
-    def meta_og_attrs(self):
-        tags = {
-            'url': f'/{self.filename}',
-            'type': 'article',
-            'title': self.title,
-            'description': self.description,
-        }
+    def render(self):
+        root = html.root()
 
-        if image := self.banner_url:
-            tags['image'] = image
+        head = html.build_page_head(page_filename=self.filename,
+                                    page_title=self.title,
+                                    page_description=self.description,
+                                    page_banner_url=self.banner_absolute_url)
+        root.append(head)
 
-        return tags
+        body = html.body()
 
-    @property
-    def meta_twitter_attrs(self):
-        tags = {
-            'twitter:title': self.title,
-            'twitter:description': self.description,
-        }
+        header = html.build_page_header(title=self.title,
+                                        description=self.description)
+        body.append(header)
 
-        if image := self.banner_url:
-            tags['image'] = image
+        body.append(html.divider())
 
-        return tags
+        nav = html.build_page_nav(filename=self.filename,
+                                  nav_pages=self.site.nav)
+        body.append(nav)
 
-    def render(self, site):
-        from src.models import Document
-        document = Document(site=site, page=self)
-        return document.render()
+        body.append(html.divider())
 
-    def build(self, site):
-        rendered = self.render(site)
+        if self.banner:
+            banner = html.build_page_banner(self.banner_url)
+            body.append(banner)
+
+        article = html.build_page_article(raw_content=self.raw_content)
+        body.append(article)
+
+        if self.is_entry:
+            pages = self.site.pagination[self.filename]
+            pagination = html.build_page_pagination(
+                next_page=pages.next, previous_page=pages.previous)
+            body.append(pagination)
+
+        body.append(html.divider())
+
+        footer = html.build_page_footer(author=self.site.author,
+                                        year=self.site.timestamp.year)
+        body.append(footer)
+        root.append(body)
+        root = html.stringify_xml(root)
+        return f'<!doctype html>\n{root}'
+
+    def build(self):
+        rendered = self.render()
 
         if not self.is_entry:
             # expand macros in page
-            rendered = site.expander.expand(rendered)
+            rendered = self.site.expander.expand(rendered)
 
-        with open(site.directory / self.target, 'w') as f:
+        with open(self.site.directory / self.target, 'w') as f:
             f.write(rendered)

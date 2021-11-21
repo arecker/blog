@@ -110,6 +110,17 @@ class TestHtml(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_build_page_article(self):
+        actual = html.build_page_article('<!-- test -->')
+        actual = html.stringify_xml(actual)
+        expected = '''
+<article>
+  <!-- test -->
+</article>
+'''.strip()
+
+        self.assertEqual(actual, expected)
+
     def test_build_page_pagination(self):
         actual = html.build_page_pagination(next_page='next.html',
                                             previous_page='previous.html')
