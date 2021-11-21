@@ -55,6 +55,18 @@ class TestExpander(unittest.TestCase):
 <p>planes, trains, and automobiles</p>
 '''.strip()
 
+    def test_expand_entries(self):
+        actual = self.expander.markup['entries']
+        expected = '''
+<table>
+  <tr>
+    <td><a href="/2014-11-10.html">2014-11-10.html</a></td>
+    <td>planes, trains, and automobiles</td>
+  </tr>
+</table>
+'''.strip()
+        self.assertEqual(actual, expected)
+
     def test_expand(self):
         markup = '''
     <div>
