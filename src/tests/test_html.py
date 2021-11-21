@@ -4,6 +4,54 @@ from src import html
 
 
 class TestHtml(unittest.TestCase):
+    def test_build_page_head(self):
+        actual = html.build_page_head(page_filename='test.html',
+                                      page_title='Test Page',
+                                      page_description='This is a test page.',
+                                      page_banner_url='/images/picture.jpg')
+        actual = html.stringify_xml(actual)
+        expected = '''
+<head>
+  <title>Test Page</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  <link href="/assets/site.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:title" content="Test Page">
+  <meta name="twitter:description" content="This is a test page.">
+  <meta name="image" content="/images/picture.jpg">
+  <meta property="og:url" content="/test.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Test Page">
+  <meta property="og:description" content="This is a test page.">
+  <meta property="og:image" content="/images/picture.jpg">
+</head>
+'''.strip()
+
+        self.assertEqual(actual, expected)
+
+        actual = html.build_page_head(page_filename='test.html',
+                                      page_title='Test Page',
+                                      page_description='This is a test page.')
+        actual = html.stringify_xml(actual)
+        expected = '''
+<head>
+  <title>Test Page</title>
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+  <link href="/assets/site.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:title" content="Test Page">
+  <meta name="twitter:description" content="This is a test page.">
+  <meta property="og:url" content="/test.html">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Test Page">
+  <meta property="og:description" content="This is a test page.">
+</head>
+'''.strip()
+
+        self.assertEqual(actual, expected)
+
     def test_build_page_nav(self):
         actual = html.build_page_nav(filename='index.html',
                                      nav_pages=['a.html', 'b.html'])
@@ -58,6 +106,39 @@ class TestHtml(unittest.TestCase):
     <img alt="banner" src="/images/me.jpg">
   </a>
 </figure>
+'''.strip()
+
+        self.assertEqual(actual, expected)
+
+    def test_build_page_pagination(self):
+        actual = html.build_page_pagination(next_page='next.html',
+                                            previous_page='previous.html')
+        actual = html.stringify_xml(actual)
+        expected = '''
+<nav class="clearfix">
+  <a class="float-left" href="/next.html">⟵ next.html</a>
+  <a class="float-right" href="/previous.html">previous.html ⟶</a>
+</nav>
+'''.strip()
+
+        self.assertEqual(actual, expected)
+
+        actual = html.build_page_pagination(previous_page='previous.html')
+        actual = html.stringify_xml(actual)
+        expected = '''
+<nav class="clearfix">
+  <a class="float-right" href="/previous.html">previous.html ⟶</a>
+</nav>
+'''.strip()
+
+        self.assertEqual(actual, expected)
+
+        actual = html.build_page_pagination(next_page='next.html')
+        actual = html.stringify_xml(actual)
+        expected = '''
+<nav class="clearfix">
+  <a class="float-left" href="/next.html">⟵ next.html</a>
+</nav>
 '''.strip()
 
         self.assertEqual(actual, expected)

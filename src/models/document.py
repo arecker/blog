@@ -18,7 +18,11 @@ class Document:
     def render(self) -> str:
         html = ET.Element('html', lang='en')
 
-        head = HTML.build_page_head(self.page)
+        head = HTML.build_page_head(
+            page_filename=self.page.filename,
+            page_title=self.page.title,
+            page_description=self.page.description,
+            page_banner_url=self.page.banner_absolute_url)
         html.append(head)
 
         html.append(self.body())
@@ -48,8 +52,13 @@ class Document:
             body.append(banner)
 
         body.append(self.article())
+
         if self.page.is_entry:
-            body.append(self.pagination())
+            pages = self.site.pagination[self.page.filename]
+            pagination = HTML.build_page_pagination(
+                next_page=pages.next, previous_page=pages.previous)
+            body.append(pagination)
+
         body.append(ET.Element('hr'))
 
         footer = HTML.build_page_footer(author=self.site.author,
@@ -120,25 +129,3 @@ class Document:
             table.append(row)
 
         return table
-
-    def pagination(self):
-        pages = self.site.pagination[self.page.filename]
-
-        tree = ET.TreeBuilder()
-        tree.start('nav', {'class': 'clearfix'})
-
-        if pages.next:
-            tree.start('a', {'class': 'float-left', 'href': f'/{pages.next}'})
-            tree.data(f'⟵ {pages.next}')
-            tree.end('a')
-
-        if pages.previous:
-            tree.start('a', {
-                'class': 'float-right',
-                'href': f'/{pages.previous}'
-            })
-            tree.data(f'{pages.previous} ⟶')
-            tree.end('a')
-
-        tree.end('nav')
-        return tree.close()

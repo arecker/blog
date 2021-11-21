@@ -3,11 +3,15 @@
 from xml.etree import ElementTree as ET
 
 
-def build_page_head(page):
+def build_page_head(page_filename='',
+                    page_title='',
+                    page_description='',
+                    page_banner_url=''):
+
     head = ET.Element('head')
 
     title = ET.Element('title')
-    title.text = page.title
+    title.text = page_title
     head.append(title)
 
     head.append(
@@ -15,19 +19,39 @@ def build_page_head(page):
                    rel='shortcut icon',
                    type='image/x-icon',
                    href='/favicon.ico'))
+
     head.append(ET.Element('link', href='/assets/site.css', rel='stylesheet'))
 
     head.append(ET.Element('meta', charset='UTF-8'))
+
     head.append(
         ET.Element('meta',
                    name='viewport',
                    content='width=device-width, initial-scale=1'))
 
-    for k, v in page.meta_twitter_attrs.items():
+    twitter_tags = {
+        'twitter:title': page_title,
+        'twitter:description': page_description,
+    }
+
+    if page_banner_url:
+        twitter_tags['image'] = page_banner_url
+
+    for k, v in twitter_tags.items():
         attributes = {'name': k, 'content': v}
         head.append(ET.Element('meta', **attributes))
 
-    for k, v in page.meta_og_attrs.items():
+    og_tags = {
+        'url': f'/{page_filename}',
+        'type': 'article',
+        'title': page_title,
+        'description': page_description,
+    }
+
+    if page_banner_url:
+        og_tags['image'] = page_banner_url
+
+    for k, v in og_tags.items():
         attributes = {'property': f'og:{k}', 'content': v}
         head.append(ET.Element('meta', **attributes))
 
@@ -92,6 +116,24 @@ def build_page_banner(banner_url):
     tree.end('img')
     tree.end('a')
     tree.end('figure')
+    return tree.close()
+
+
+def build_page_pagination(next_page='', previous_page=''):
+    tree = ET.TreeBuilder()
+    tree.start('nav', {'class': 'clearfix'})
+
+    if next_page:
+        tree.start('a', {'class': 'float-left', 'href': f'/{next_page}'})
+        tree.data(f'⟵ {next_page}')
+        tree.end('a')
+
+    if previous_page:
+        tree.start('a', {'class': 'float-right', 'href': f'/{previous_page}'})
+        tree.data(f'{previous_page} ⟶')
+        tree.end('a')
+
+    tree.end('nav')
     return tree.close()
 
 

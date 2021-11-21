@@ -90,6 +90,12 @@ class Page:
     @property
     def banner_url(self):
         if self.banner:
+            return f'/images/banners/{self.banner}'
+        return None
+
+    @property
+    def banner_absolute_url(self):
+        if self.banner:
             return self.site.uri + f'images/banners/{self.banner}'
         return None
 
