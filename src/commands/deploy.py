@@ -107,7 +107,7 @@ def main(args):
                                 data=data,
                                 content_type='application/octet-stream')
 
-    logger.info('uploaded %s (%d/%d)', path, i + 1, total)
+        logger.info('uploaded %s (%d/%d)', path, i + 1, total)
 
     max_seconds = 120
     seconds = max_seconds
