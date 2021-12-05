@@ -50,10 +50,25 @@ class Page:
 
     @property
     def target(self):
+        """Write destination of the web page file, relative to the
+        site root directory.
+
+        >>> Page(source='pages/test.html').target
+        'www/test.html'
+        """
+
         return f'www/{self.filename}'
 
     @property
     def is_entry(self):
+        """True if the source in the entries folder and the page
+        should be treated like an entry.
+
+        >>> Page(source='entries/test.html').is_entry
+        True
+        >>> Page(source='pages/test.html').is_entry
+        False
+        """
         if not hasattr(self, '_is_entry'):
             return self.source.parent.name == 'entries'
         return self._is_entry
