@@ -31,3 +31,13 @@ class TestArchive(unittest.TestCase):
         self.assertEqual(len(entries), 1)
         self.assertEqual(entries[0].date,
                          datetime.datetime(year=2021, month=5, day=1))
+
+
+class TestPage(unittest.TestCase):
+    def test_slug(self):
+        page = Page(source='some/directory/page.md')
+        self.assertEqual(page.slug, 'page')
+
+    def test_filename(self):
+        page = Page(source='some/directory/page.md')
+        self.assertEqual(page.filename, 'page.html')

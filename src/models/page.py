@@ -30,10 +30,22 @@ class Page:
 
     @property
     def slug(self):
+        """The web page file name without the file extension.
+
+        >>> Page(source='pages/index.html').slug
+        'index'
+        """
+
         return os.path.splitext(self.source.name)[0]
 
     @property
     def filename(self):
+        """The web page file name, as it exists in the public webroot.
+
+        >>> Page(source='pages/index.md').filename
+        'index.html'
+        """
+
         return self.slug + '.html'
 
     @property
