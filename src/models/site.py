@@ -7,10 +7,10 @@ import re
 import subprocess
 
 from src import macro, git
+from src.pagination import paginate_list
 
 logger = logging.getLogger(__name__)
 
-Pagination = collections.namedtuple('Pagination', ['next', 'previous'])
 Commit = collections.namedtuple('Commit',
                                 ['short_hash', 'long_hash', 'summary'])
 
@@ -119,23 +119,8 @@ class Site:
 
     @functools.cached_property
     def pagination(self):
-        pagination = {}
-        entries = list(reversed(list(self.entries)))
-
-        for i, entry in enumerate(entries):
-            if i > 0:
-                previous_entry = entries[i - 1].filename
-            else:
-                previous_entry = None
-
-            try:
-                next_entry = entries[i + 1].filename
-            except IndexError:
-                next_entry = None
-
-            pagination[entry.filename] = Pagination(next_entry, previous_entry)
-
-        return pagination
+        filenames = [f.filename for f in reversed(self.entries)]
+        return paginate_list(filenames)
 
     @functools.cached_property
     def commit(self):
