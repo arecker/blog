@@ -40,7 +40,7 @@ def DirectoryType(value, validate=True) -> pathlib.Path:
     if not validate:
         return directory
 
-    if not directory.exists() and not directory.is_dir():
+    if directory.exists() and not directory.is_dir():
         raise argparse.ArgumentTypeError(f'{value} is not a directory!')
 
     return directory
