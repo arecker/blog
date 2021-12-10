@@ -1,8 +1,12 @@
+import collections
 import logging
 import os
 import subprocess
 
 logger = logging.getLogger(__name__)
+
+Commit = collections.namedtuple('Commit',
+                                ['short_hash', 'long_hash', 'summary'])
 
 
 def git_new_files(root_directory=os.curdir):
@@ -52,6 +56,16 @@ def git_push_tag(root_directory, tag=''):
                    check=True,
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL)
+
+
+def get_head_commit(root_directory):
+    def shell_command(cmd):
+        result = subprocess.run(cmd.split(' '), capture_output=True)
+        return result.stdout.decode('UTF-8').strip()
+
+    return Commit(short_hash=shell_command('git rev-parse --short HEAD'),
+                  long_hash=shell_command('git rev-parse HEAD'),
+                  summary=shell_command('git log -1 --pretty=format:%s HEAD'))
 
 
 def head_is_entry_tagged(root_directory):

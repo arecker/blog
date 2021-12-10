@@ -76,7 +76,7 @@ def build_new_deploy(webroot):
 
 def main(args):
     build.main(args)
-    site = Site(args=args)
+    site = Site(**vars(args))
 
     site_id = fetch_site_id(site.domain, token=args.netlify_token)
     logger.info('found netlify site %s (%s)', site.domain, site_id)

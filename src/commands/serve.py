@@ -29,4 +29,4 @@ def start_web_server(webroot, port=8000):
 
 def main(args):
     build.main(args)
-    start_web_server(args.root_directory / 'www')
+    start_web_server(args.directory / 'www')

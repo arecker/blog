@@ -13,7 +13,7 @@ def main(args):
     images.validate_image_dependencies()
 
     all_images = list(
-        filter(images.is_image, args.root_directory.glob('www/**/*.*')))
+        filter(images.is_image, args.directory.glob('www/**/*.*')))
 
     for i, path in enumerate(all_images):
         images.check_image(path)

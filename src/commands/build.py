@@ -9,9 +9,7 @@ logger = logging.getLogger(__name__)
 
 
 def main(args):
-    site = Site(args)
-    site.expander.populate()
-
+    site = Site(**vars(args))
     pave.main(args)
 
     site.feed.build()

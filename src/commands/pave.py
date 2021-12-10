@@ -16,7 +16,7 @@ def make_target_list(site):
 
 
 def main(args):
-    site = Site(args)
+    site = Site(**vars(args))
     targets = make_target_list(site)
 
     for target in filter(os.path.exists, targets):

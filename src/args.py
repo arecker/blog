@@ -81,8 +81,7 @@ def make_new_parser():
                         action='store_true',
                         help='step through code interactively')
 
-    parser.add_argument('-r',
-                        '--root_directory',
+    parser.add_argument('--directory',
                         type=DirectoryType,
                         default=str(get_this_root_directory()),
                         help='path to blog root directory')

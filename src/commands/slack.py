@@ -25,7 +25,7 @@ def register(subparser):
 
 
 def main(args):
-    site = Site(args=args)
+    site = Site(**vars(args))
     url = site.uri + site.latest.filename
     message = '\n'.join([site.latest.title, site.latest.description, url])
     payload = {

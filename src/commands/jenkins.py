@@ -21,7 +21,7 @@ def main(args):
     test.main(args)
     deploy.main(args)
 
-    if not Site(args).is_entry_tagged:
+    if not Site(**vars(args)).is_entry_tagged:
         sys.exit(0)
 
     slack.main(args=args)

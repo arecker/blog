@@ -3,23 +3,29 @@
 import doctest
 import logging
 import os
+import sys
 import unittest
+
+from src.args import get_this_root_directory
 
 logger = logging.getLogger(__name__)
 
 
 def main(args):
     loader = unittest.TestLoader()
-    modules = loader.discover(start_dir=args.root_directory / 'src/tests')
+    root_directory = get_this_root_directory()
+    modules = loader.discover(start_dir=root_directory / 'src/tests')
 
-    for module in find_modules(args.root_directory):
+    for module in find_modules(root_directory):
         modules.addTest(doctest.DocTestSuite(module))
         logger.debug('registered doctests for %s', module)
 
     runner = unittest.TextTestRunner()
     runner.verbosity = 0
     logger.info('running unit tests')
-    runner.run(test=modules)
+    if not runner.run(test=modules).wasSuccessful():
+        logger.error('test suite failed!')
+        sys.exit(1)
 
 
 def find_modules(root):

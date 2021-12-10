@@ -31,7 +31,7 @@ def main(args):
         logger.error('tweepy librarly not found, tweet command not available')
         sys.exit(1)
 
-    site = Site(args=args)
+    site = Site(**vars(args))
     url = site.uri + site.latest.filename
     tweet = '\n'.join([site.latest.title, site.latest.description, url])
     client.update_status(tweet)

@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def main(args):
-    site = Site(args)
+    site = Site(**vars(args))
     target = site.directory / pathlib.Path(args.page)
 
     for page in itertools.chain(site.entries, site.pages):

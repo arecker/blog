@@ -1,59 +1,34 @@
-import collections
 import datetime
 import functools
 import logging
 import pathlib
 import re
-import subprocess
 
 from src import macro, git
+from src.models.feed import Feed
+from src.models.page import Page
+from src.models.sitemap import Sitemap
 from src.pagination import paginate_list
 
 logger = logging.getLogger(__name__)
 
-Commit = collections.namedtuple('Commit',
-                                ['short_hash', 'long_hash', 'summary'])
-
 
 class Site:
-    def __init__(self,
-                 args=None,
-                 timestamp=None,
-                 entries=[],
-                 pages=[],
-                 directory=None,
-                 feed=None,
-                 sitemap=None):
-        self.timestamp = timestamp or datetime.datetime.now()
+    def __init__(self, **kwargs):
+        self.author = kwargs.pop('author', None)
+        self.basepath = kwargs.pop('basepath', None)
+        self.directory = kwargs.pop('directory', None)
+        self.domain = kwargs.pop('domain', None)
+        self.email = kwargs.pop('email', None)
+        self.protocol = kwargs.pop('protocol', None)
+        self.subtitle = kwargs.pop('subtitle', None)
+        self.timestamp = kwargs.pop('timestamp', datetime.datetime.now())
+        self.title = kwargs.pop('title', None)
 
-        if entries:
-            self._entries = entries
-
-        if pages:
-            self._pages = pages
-
-        if directory:
-            self.directory = pathlib.Path(directory).expanduser().absolute()
-
-        if feed:
-            self._feed = feed
-
-        if sitemap:
-            self._sitemap = sitemap
-
-        if args:
-            self.args = args
-            self.directory = pathlib.Path(
-                args.root_directory).expanduser().absolute()
-            self.title = args.title
-            self.subtitle = args.subtitle
-            self.author = args.author
-            self.email = args.email
-            self.domain = args.domain
-            self.protocol = args.protocol
-            self.basepath = args.basepath
-
-        self.expander = macro.Expander(site=self)
+        self._pages = kwargs.pop('pages', None)
+        self._entries = kwargs.pop('entries', None)
+        self._sitemap = kwargs.pop('sitemap', None)
+        self._feed = kwargs.pop('feed', None)
 
     @property
     def directory_pretty(self):
@@ -72,8 +47,7 @@ class Site:
 
     @property
     def entries(self):
-        if not hasattr(self, '_entries'):
-            from src.models import Page
+        if not self._entries:
             sources = sorted(self.directory.glob('entries/*.html'),
                              reverse=True)
             self._entries = [
@@ -84,8 +58,7 @@ class Site:
 
     @property
     def pages(self):
-        if not hasattr(self, '_pages'):
-            from src.models import Page
+        if not self._pages:
             sources = sorted(self.directory.glob('pages/*.html'))
             self._pages = [
                 Page(source=source, site=self) for source in sources
@@ -95,15 +68,13 @@ class Site:
 
     @property
     def feed(self):
-        if not hasattr(self, '_feed'):
-            from src.models import Feed
+        if not self._feed:
             self._feed = Feed(site=self)
         return self._feed
 
     @property
     def sitemap(self):
-        if not hasattr(self, '_sitemap'):
-            from src.models import Sitemap
+        if not self._sitemap:
             self._sitemap = Sitemap(site=self)
         return self._sitemap
 
@@ -118,20 +89,19 @@ class Site:
         return self.entries[0]
 
     @functools.cached_property
+    def expander(self):
+        e = macro.Expander(site=self)
+        e.populate()
+        return e
+
+    @functools.cached_property
     def pagination(self):
         filenames = [f.filename for f in reversed(self.entries)]
         return paginate_list(filenames)
 
     @functools.cached_property
     def commit(self):
-        def shell_command(cmd):
-            result = subprocess.run(cmd.split(' '), capture_output=True)
-            return result.stdout.decode('UTF-8').strip()
-
-        return Commit(
-            short_hash=shell_command('git rev-parse --short HEAD'),
-            long_hash=shell_command('git rev-parse HEAD'),
-            summary=shell_command('git log -1 --pretty=format:%s HEAD'))
+        return git.get_head_commit(self.directory)
 
     @functools.cached_property
     def is_entry_tagged(self):
