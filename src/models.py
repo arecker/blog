@@ -6,7 +6,7 @@ import os
 import pathlib
 import re
 
-from src import macro, git, html, xml, pagination
+from src import macro, git, html, xml, utils
 
 logger = logging.getLogger(__name__)
 
@@ -20,8 +20,9 @@ class Page:
         except KeyError:
             self.source = None
 
-        self._is_entry = kwargs.pop('is_entry', None)
+        self._banner = kwargs.pop('banner', None)
         self._content = kwargs.pop('content', None)
+        self._is_entry = kwargs.pop('is_entry', None)
         self._metadata = kwargs.pop('metadata', None)
 
     def __repr__(self):
@@ -92,12 +93,7 @@ class Page:
     @property
     def metadata(self) -> dict:
         if self._metadata is None:
-            pattern = re.compile(
-                r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$',
-                re.MULTILINE)
-            values = [(k.strip(), v.strip())
-                      for k, v in pattern.findall(self.content)]
-            self._metadata = dict(values)
+            self._metadata = utils.parse_html_metadata_comments(self.content)
 
         return self._metadata
 
@@ -123,9 +119,27 @@ class Page:
 
     @property
     def banner(self):
-        return self.metadata.get('banner', None)
+        if not self._banner:
+            self._banner = self.metadata.get('banner', None)
+        return self._banner
 
     def banner_href(self, full=False):
+        """Render the href of the page's banner image.
+
+        >>> Page(banner='test.jpg', site=Site()).banner_href()
+        '/images/banners/test.jpg'
+
+        Use full to render the full URI.
+
+        >>> Page(banner='test.jpg', site=Site(protocol='http', domain='test.com')).banner_href(full=True)
+        'http://test.com/images/banners/test.jpg'
+
+        Returns None if the page doesn't have a banner.
+
+        >>> Page(metadata={}).banner_href() is None
+        True
+        """
+
         if self.banner:
             return self.site.href(f'/images/banners/{self.banner}', full=full)
 
@@ -196,7 +210,7 @@ class Archive:
         self.site = site
 
     def __repr__(self):
-        path = '/'.join([self.site.directory_pretty, 'entries/'])
+        path = utils.prettify_path(self.site.directory + '/entries/')
         return f'<Archive {path}>'
 
     def list_years(self):
@@ -279,13 +293,8 @@ class Site:
         self._sitemap = kwargs.pop('sitemap', None)
         self._feed = kwargs.pop('feed', None)
 
-    @property
-    def directory_pretty(self):
-        home = pathlib.Path.home()
-        return re.sub(f'^{home}/', '~/', str(self.directory))
-
     def __repr__(self):
-        return f'<Site {self.directory_pretty}>'
+        return f'<Site {utils.prettify_path(self.directory)}>'
 
     def href(self, path='', full=False):
         """Render an path as an href.
@@ -388,7 +397,7 @@ class Site:
     @functools.cached_property
     def pagination(self):
         filenames = [f.filename for f in reversed(self.entries)]
-        return pagination.paginate_list(filenames)
+        return utils.paginate_list(filenames)
 
     @functools.cached_property
     def commit(self):
