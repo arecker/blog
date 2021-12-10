@@ -125,7 +125,7 @@ class Page:
     @property
     def banner_absolute_url(self):
         if self.banner:
-            return self.site.uri + f'images/banners/{self.banner}'
+            return self.site.href(f'images/banners/{self.banner}', full=True)
         return None
 
     @property
