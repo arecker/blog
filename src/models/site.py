@@ -6,24 +6,17 @@ import os
 import pathlib
 import re
 
-from src import macro, git, xml
-from src.models.feed import Feed
+from src import macro, git, xml, pagination
 from src.models.page import Page
-from src.pagination import paginate_list
 
 logger = logging.getLogger(__name__)
 
 
-class Sitemap:
+class Sitemap(Page):
+    filename = 'sitemap.xml'
+
     def __init__(self, site):
         self.site = site
-
-    def __repr__(self):
-        return '<Sitemap sitemap.xml>'
-
-    @property
-    def target(self):
-        return 'www/sitemap.xml'
 
     def render(self):
         root = xml.new_sitemap()
@@ -33,10 +26,6 @@ class Sitemap:
 
         return xml.stringify_xml(root)
 
-    def build(self):
-        with open(self.site.directory / 'www/sitemap.xml', 'w') as f:
-            f.write(self.render())
-
     @property
     def locations(self):
         for page in itertools.chain(self.site.entries, self.site.pages):
@@ -45,6 +34,30 @@ class Sitemap:
                 yield url, page.date
             else:
                 yield url, self.site.timestamp
+
+
+class Feed(Page):
+    filename = 'feed.xml'
+
+    def __init__(self, site):
+        self.site = site
+
+    def render(self):
+        feed = xml.new_feed(title=self.site.title,
+                            subtitle=self.site.subtitle,
+                            author=self.site.author,
+                            email=self.site.email,
+                            timestamp=self.site.latest.date,
+                            feed_uri=self.site.href('feed.xml', full=True),
+                            site_uri=self.site.href(full=True))
+
+        for item in self.items():
+            feed.append(item)
+
+        return xml.stringify_xml(feed)
+
+    def items(self):
+        return map(xml.as_feed_entry, itertools.islice(self.site.entries, 30))
 
 
 class Site:
@@ -173,7 +186,7 @@ class Site:
     @functools.cached_property
     def pagination(self):
         filenames = [f.filename for f in reversed(self.entries)]
-        return paginate_list(filenames)
+        return pagination.paginate_list(filenames)
 
     @functools.cached_property
     def commit(self):
@@ -182,7 +195,3 @@ class Site:
     @functools.cached_property
     def is_entry_tagged(self):
         return git.head_is_entry_tagged(root_directory=self.directory)
-
-    @property
-    def commit_url(self):
-        return f'https://github.com/arecker/blog/commit/{self.commit.long_hash}'

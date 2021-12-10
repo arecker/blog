@@ -49,7 +49,7 @@ class Expander:
 
         # commit
         self.markup[
-            'commit'] = f'[<a href="{self.site.commit_url}">{self.site.commit.short_hash}</a>]<br/>{self.site.commit.summary}'
+            'commit'] = f'[<a href="{self.site.commit.url}">{self.site.commit.short_hash}</a>]<br/>{self.site.commit.summary}'
 
         # entries
         # TODO: this is temporary, just to get rid of the old magic

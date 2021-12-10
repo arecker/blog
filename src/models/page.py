@@ -48,6 +48,9 @@ class Page:
 
         return self.slug + '.html'
 
+    def href(self, full=False):
+        return self.site.href(self.filename, full=full)
+
     @property
     def target(self):
         """Write destination of the web page file, relative to the
@@ -115,6 +118,10 @@ class Page:
     @property
     def banner(self):
         return self.metadata.get('banner', None)
+
+    def banner_href(self, full=False):
+        if self.banner:
+            return self.site.href(f'/images/banners/{self.banner}', full=full)
 
     @property
     def banner_url(self):
