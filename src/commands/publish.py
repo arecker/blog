@@ -13,13 +13,13 @@ def main(args):
     images.validate_image_dependencies()
 
     new_images = list(
-        filter(images.is_image, git.git_new_files(args.root_directory)))
+        filter(images.is_image, git.git_new_files(args.directory)))
 
     logger.info('checking dimensions for new images: %s', new_images)
     for path in new_images:
         images.check_image(path)
 
-    site = Site(args)
+    site = Site(**vars(args))
 
     git.git_stage_all(site.directory)
     message = f'entry: {site.latest.title}'
