@@ -32,7 +32,7 @@ def main(args):
         sys.exit(1)
 
     site = Site(**vars(args))
-    url = site.uri + site.latest.filename
+    url = site.latest.href(full=True)
     tweet = '\n'.join([site.latest.title, site.latest.description, url])
     client.update_status(tweet)
     logger.info('shared "%s" to twitter', site.latest.description)
