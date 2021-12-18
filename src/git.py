@@ -58,7 +58,7 @@ def git_push_tag(root_directory, tag=''):
                    stderr=subprocess.DEVNULL)
 
 
-def get_head_commit(root_directory):
+def get_head_commit(root_directory=os.curdir):
     def shell_command(cmd):
         result = subprocess.run(cmd.split(' '), capture_output=True)
         return result.stdout.decode('UTF-8').strip()
