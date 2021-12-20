@@ -174,7 +174,7 @@ def stringify_xml(html_tree, prettify=True):
     return ET.tostring(html_tree, encoding='unicode', method='html')
 
 
-def build_link_table(rows=[], header=[]):
+def build_link_table(rows=[], header=[], root='/'):
     if len(set([len(r) for r in rows])) != 1:
         raise ValueError('every row should have same number of columns!')
 
@@ -191,3 +191,25 @@ def build_link_table(rows=[], header=[]):
             table.data(col)
             table.end('th')
         table.end('tr')
+
+    for row in rows:
+        table.start('tr', {})
+
+        # link column
+        table.start('td', {})
+        filename = row.pop(0)
+        table.start('a', {'href': root + filename})
+        table.data(filename)
+        table.end('a')
+        table.end('td')
+
+        # rest of columns...
+        for item in row:
+            table.start('td', {})
+            table.data(item)
+            table.end('td')
+
+        table.end('tr')
+
+    table.end('table')
+    return table.close()
