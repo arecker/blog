@@ -16,6 +16,7 @@ class Page:
 
         self._banner = kwargs.pop('banner', None)
         self._content = kwargs.pop('content', None)
+        self._filename = kwargs.pop('filename', None)
         self._is_entry = kwargs.pop('is_entry', None)
         self._metadata = kwargs.pop('metadata', None)
 
@@ -39,8 +40,10 @@ class Page:
         >>> Page(source='pages/index.md').filename
         'index.html'
         """
-
-        return self.slug + '.html'
+        if self._filename:
+            return self._filename
+        else:
+            return self.slug + '.html'
 
     def href(self, full=False):
         return self.site.href(self.filename, full=full)

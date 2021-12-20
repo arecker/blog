@@ -7,6 +7,7 @@ from src import macro, git, utils
 from src.models.page import Page
 from src.models.feed import Feed
 from src.models.sitemap import Sitemap
+from src.models.archive import Archive
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +24,7 @@ class Site:
         self.timestamp = kwargs.pop('timestamp', datetime.datetime.now())
         self.title = kwargs.pop('title', None)
 
+        self._archive = kwargs.pop('archive', None)
         self._pages = kwargs.pop('pages', None)
         self._entries = kwargs.pop('entries', None)
         self._sitemap = kwargs.pop('sitemap', None)
@@ -112,6 +114,12 @@ class Site:
         if not self._sitemap:
             self._sitemap = Sitemap(site=self)
         return self._sitemap
+
+    @property
+    def archive(self):
+        if not self._archive:
+            self._archive = Archive(site=self)
+        return self._archive
 
     @functools.cached_property
     def nav(self):

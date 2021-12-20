@@ -164,3 +164,34 @@ class TestHtml(unittest.TestCase):
 '''.strip()
 
         self.assertEqual(actual, expected)
+
+    def test_build_link_table(self):
+        with self.assertRaises(ValueError):
+            html.build_link_table(rows=[[1], [1, 2]])
+
+        with self.assertRaises(ValueError):
+            html.build_link_table(rows=[[1], [2], [3]], header=[1, 2])
+
+        # actual = html.build_link_table(rows=[['a.html', 'The Letter A'],
+        #                                      ['b.html', 'The Letter b']],
+        #                                header=['Page', 'Description'])
+        # actual = html.stringify_xml(actual)
+        expected = '''
+<table>
+  <tr>
+    <th>Page</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>
+      <a href="/a.html">a.html</a>
+    </td>
+    <td>The Letter A</td>
+  </tr>
+  <tr>
+    <td>
+      <a href="/b.html">b.html</a>
+    </td>
+    <td>The Letter B</td>
+  </tr></table>
+'''.strip()

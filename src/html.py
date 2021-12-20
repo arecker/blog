@@ -172,3 +172,22 @@ def stringify_xml(html_tree, prettify=True):
     if prettify:
         ET.indent(html_tree)
     return ET.tostring(html_tree, encoding='unicode', method='html')
+
+
+def build_link_table(rows=[], header=[]):
+    if len(set([len(r) for r in rows])) != 1:
+        raise ValueError('every row should have same number of columns!')
+
+    if header and len(header) != len(rows[0]):
+        raise ValueError('header should have same number of columns as rows!')
+
+    table = ET.TreeBuilder()
+    table.start('table', {})
+
+    if header:
+        table.start('tr', {})
+        for col in header:
+            table.start('th', {})
+            table.data(col)
+            table.end('th')
+        table.end('tr')
