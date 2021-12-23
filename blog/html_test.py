@@ -172,8 +172,8 @@ class TestHtml(unittest.TestCase):
         with self.assertRaises(ValueError):
             html.build_link_table(rows=[[1], [2], [3]], header=[1, 2])
 
-        actual = html.build_link_table(rows=[['a.html', 'The Letter A'],
-                                             ['b.html', 'The Letter B']],
+        actual = html.build_link_table(rows=[['/a.html', 'The Letter A'],
+                                             ['/b.html', 'The Letter B']],
                                        header=['Page', 'Description'])
         actual = html.stringify_xml(actual)
         expected = '''

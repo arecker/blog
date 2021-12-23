@@ -1,6 +1,7 @@
 """Some random functions."""
 
 import collections
+import datetime
 import pathlib
 import re
 
@@ -64,3 +65,17 @@ def prettify_path(path, home=pathlib.Path.home()):
     """
 
     return re.sub(f'^{home}/', '~/', str(path))
+
+
+def month_name(month_int: int) -> str:
+    """Return a month name for the integer.
+
+    >>> month_name(6)
+    'June'
+
+    >>> month_name(1)
+    'January'
+    """
+
+    date = datetime.datetime.strptime(str(month_int), '%m')
+    return date.strftime('%B')

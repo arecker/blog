@@ -16,9 +16,11 @@ class Page:
 
         self._banner = kwargs.pop('banner', None)
         self._content = kwargs.pop('content', None)
+        self._description = kwargs.pop('description', None)
         self._filename = kwargs.pop('filename', None)
         self._is_entry = kwargs.pop('is_entry', None)
         self._metadata = kwargs.pop('metadata', None)
+        self._title = kwargs.pop('title', None)
 
     def __repr__(self):
         return f'<Page {self.filename}>'
@@ -103,16 +105,21 @@ class Page:
 
     @property
     def title(self):
-        if self.is_entry:
+        if self._title:
+            return self._title
+        elif self.is_entry:
             return self.date.strftime('%A, %B %-d %Y')
         else:
             return self.metadata['title']
 
     @property
     def description(self):
-        if self.is_entry:
+        if self._description:
+            return self._description
+        elif self.is_entry:
             return self.metadata['title']
-        return self.metadata['description']
+        else:
+            return self.metadata['description']
 
     @property
     def banner(self):
