@@ -3,8 +3,8 @@ publish working files as a new entry
 '''
 import logging
 
-from src import git, images
-from src.models import Site
+from blog import git, images
+from blog.models import Site
 
 logger = logging.getLogger(__name__)
 

@@ -1,6 +1,6 @@
 import unittest
 
-from src.models import Page
+from blog.models import Page
 
 
 class TestPage(unittest.TestCase):

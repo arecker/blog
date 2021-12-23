@@ -2,8 +2,8 @@ import copy
 import datetime
 import unittest
 
-from src import macro
-from src.models import Site, Page
+from blog import macro
+from blog.models import Site, Page
 
 
 class TestExpander(unittest.TestCase):

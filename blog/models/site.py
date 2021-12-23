@@ -3,11 +3,11 @@ import functools
 import logging
 import os
 
-from src import macro, git, utils
-from src.models.page import Page
-from src.models.feed import Feed
-from src.models.sitemap import Sitemap
-from src.models.archive import Archive
+from blog import macro, git, utils
+from blog.models.page import Page
+from blog.models.feed import Feed
+from blog.models.sitemap import Sitemap
+from blog.models.archive import Archive
 
 logger = logging.getLogger(__name__)
 

@@ -5,7 +5,7 @@ serve webroot locally
 import logging
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
-from src.commands import build
+from blog.commands import build
 
 logger = logging.getLogger(__name__)
 

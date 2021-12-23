@@ -2,8 +2,8 @@
 
 import logging
 
-from src.commands import pave
-from src.models import Site
+from blog.commands import pave
+from blog.models import Site
 
 logger = logging.getLogger(__name__)
 

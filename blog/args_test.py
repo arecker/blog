@@ -1,6 +1,6 @@
 import unittest
 
-from src import args
+from blog import args
 
 
 class TestGetDefaultRootDirectory(unittest.TestCase):

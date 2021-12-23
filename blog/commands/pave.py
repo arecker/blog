@@ -4,7 +4,7 @@ import itertools
 import logging
 import os
 
-from src.models import Site
+from blog.models import Site
 
 logger = logging.getLogger(__name__)
 

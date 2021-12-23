@@ -1,7 +1,7 @@
 import unittest
 import datetime
 
-from src.models import Page, Site, Archive
+from blog.models import Page, Site, Archive
 
 
 class TestArchive(unittest.TestCase):

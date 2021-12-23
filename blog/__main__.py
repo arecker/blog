@@ -6,7 +6,7 @@ import logging
 import pdb
 import sys
 
-from src.args import (make_new_parser, fetch_callback_for_command)
+from blog.args import (make_new_parser, fetch_callback_for_command)
 
 logger = logging.getLogger(__name__)
 

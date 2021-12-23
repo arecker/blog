@@ -2,8 +2,8 @@
 
 import logging
 
-from src import http
-from src.models import Site
+from blog import http
+from blog.models import Site
 
 logger = logging.getLogger(__name__)
 

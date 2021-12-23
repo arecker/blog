@@ -2,7 +2,7 @@ import datetime
 import os
 import pathlib
 
-from src import html, utils
+from blog import html, utils
 
 
 class Page:
@@ -122,7 +122,7 @@ class Page:
 
     def banner_href(self, full=False):
         """Render the href of the page's banner image.
-        >>> from src.models import Site
+        >>> from blog.models import Site
         >>> Page(banner='test.jpg', site=Site()).banner_href()
         '/images/banners/test.jpg'
 

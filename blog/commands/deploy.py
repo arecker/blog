@@ -4,9 +4,9 @@ import hashlib
 import logging
 import time
 
-from src import http
-from src.models import Site
-from src.commands import build
+from blog import http
+from blog.models import Site
+from blog.commands import build
 
 logger = logging.getLogger(__name__)
 

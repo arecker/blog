@@ -5,7 +5,7 @@ import os
 import pathlib
 import importlib
 
-import src
+import blog
 
 
 def get_this_root_directory(this_file=__file__) -> pathlib.Path:
@@ -62,7 +62,7 @@ def make_new_parser():
     """
 
     parser = argparse.ArgumentParser(prog='blog',
-                                     description=src.__doc__.strip())
+                                     description=blog.__doc__.strip())
     parser.add_argument('-s',
                         '--silent',
                         default=False,
@@ -129,7 +129,7 @@ def register_commands(parser):
     subcommand = parser.add_subparsers(dest='subcommand')
 
     for command in list_commands():
-        module = importlib.import_module(f'src.commands.{command}')
+        module = importlib.import_module(f'blog.commands.{command}')
         subparser = subcommand.add_parser(command, help=module.__doc__.strip())
 
         try:
@@ -145,7 +145,7 @@ def list_commands(root_directory=get_this_root_directory()):
 
     return sorted([
         os.path.splitext(p.name)[0]
-        for p in root_directory.glob('src/commands/*.py')
+        for p in root_directory.glob('blog/commands/*.py')
         if p.name != '__init__.py'
     ])
 
@@ -153,5 +153,5 @@ def list_commands(root_directory=get_this_root_directory()):
 def fetch_callback_for_command(command):
     """Fetch a command by name as a callable."""
 
-    module = importlib.import_module(f'src.commands.{command}')
+    module = importlib.import_module(f'blog.commands.{command}')
     return module.main

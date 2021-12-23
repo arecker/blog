@@ -1,7 +1,7 @@
 import itertools
 
-from src import xml
-from src.models.page import Page
+from blog import xml
+from blog.models.page import Page
 
 
 class Sitemap(Page):

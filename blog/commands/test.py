@@ -6,7 +6,7 @@ import os
 import sys
 import unittest
 
-from src.args import get_this_root_directory
+from blog.args import get_this_root_directory
 
 logger = logging.getLogger(__name__)
 
@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 def main(args):
     loader = unittest.TestLoader()
     root_directory = get_this_root_directory()
-    modules = loader.discover(start_dir=root_directory / 'src',
+    modules = loader.discover(start_dir=root_directory / 'blog',
                               pattern='*_test.py')
 
     for module in find_modules(root_directory):

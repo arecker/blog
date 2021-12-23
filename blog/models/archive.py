@@ -1,5 +1,5 @@
-from src import utils, html
-from src.models.page import Page
+from blog import utils, html
+from blog.models.page import Page
 
 
 class Archive:

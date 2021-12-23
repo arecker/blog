@@ -4,7 +4,7 @@ resize all images in the webroot
 
 import logging
 
-from src import images
+from blog import images
 
 logger = logging.getLogger(__name__)
 
