@@ -31,18 +31,6 @@ class Archive:
 
     def pages(self):
         for year in self.list_years():
-            for month in self.list_months(year):
-                yield Page(filename=f'{year}-{month:02}.html',
-                           title=f'{year}-{month:02}',
-                           description=' '.join([
-                               'All Entries from',
-                               utils.month_name(month),
-                               str(year)
-                           ]),
-                           is_entry=False,
-                           banner=self.pick_banner(year=year, month=month),
-                           content=self.build_month_page_content(year, month),
-                           site=self.site)
             yield Page(filename=f'{year}.html',
                        title=str(year),
                        description=f'All Entries from {year}',
@@ -51,13 +39,19 @@ class Archive:
                        content=self.build_year_page_content(year),
                        site=self.site)
 
+    @property
+    def page_names(self):
+        return [f'{year}.html' for year in self.list_years()]
+
     def build_year_page_data(self, year):
-        months = self.list_months(year)
-        data = [[
-            self.site.href(f'{year}-{m:02}.html'),
-            len(self.list_entries(year, m))
-        ] for m in months]
-        return data
+        rows = []
+
+        for month in self.list_months(year):
+            entries = self.list_entries(year, month)
+            rows += [[self.site.href(e.filename), e.description]
+                     for e in entries]
+
+        return rows
 
     def build_year_page_content(self, year):
         rows = self.build_year_page_data(year)
