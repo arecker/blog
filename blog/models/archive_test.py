@@ -74,14 +74,9 @@ class TestArchive(unittest.TestCase):
 
     def test_build_year_page_content(self):
         actual = self.archive.build_year_page_content(2021)
-        actual = html.stringify_xml(actual)
         self.assertEqual(
             actual, '''
 <table>
-  <tr>
-    <th>Month Index</th>
-    <th>No. of Entries</th>
-  </tr>
   <tr>
     <td>
       <a href="/2021-05.html">2021-05.html</a>

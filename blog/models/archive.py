@@ -41,13 +41,15 @@ class Archive:
                            ]),
                            is_entry=False,
                            banner=self.pick_banner(year=year, month=month),
-                           content=self.build_month_page_content(year, month))
+                           content=self.build_month_page_content(year, month),
+                           site=self.site)
             yield Page(filename=f'{year}.html',
                        title=str(year),
                        description=f'All Entries from {year}',
                        banner=self.pick_banner(year=year),
                        is_entry=False,
-                       content=self.build_year_page_content(year))
+                       content=self.build_year_page_content(year),
+                       site=self.site)
 
     def build_year_page_data(self, year):
         months = self.list_months(year)
@@ -58,18 +60,20 @@ class Archive:
         return data
 
     def build_year_page_content(self, year):
-        columns = ["Month Index", "No. of Entries"]
         rows = self.build_year_page_data(year)
-        return html.build_link_table(rows=rows, header=columns)
+        content = html.build_link_table(rows=rows)
+        return html.stringify_xml(content)
 
     def build_month_page_content(self, year, month):
         entries = self.list_entries(year, month)
-        columns = ['Link', 'Date', 'Title']
-        rows = [[self.site.href(e.filename), e.title, e.description]
-                for e in entries]
-        return html.build_link_table(rows=rows, header=columns)
+        rows = [[self.site.href(e.filename), e.description] for e in entries]
+        content = html.build_link_table(rows=rows)
+        return html.stringify_xml(content)
 
     def pick_banner(self, year='', month=''):
         entries = self.list_entries(year=year, month=month)
         choices = filter(None, (e.banner for e in entries))
-        return random.choice(list(choices))
+        try:
+            return random.choice(list(choices))
+        except IndexError:
+            return None
