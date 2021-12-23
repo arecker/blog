@@ -1,7 +1,7 @@
-import datetime
 import unittest
+import datetime
 
-from src.models import Site, Archive, Page
+from src.models import Page, Site, Archive
 
 
 class TestArchive(unittest.TestCase):
@@ -56,13 +56,3 @@ class TestArchive(unittest.TestCase):
             ('/2021-02.html', 1),
             ('/2021-01.html', 1),
         ])
-
-
-class TestPage(unittest.TestCase):
-    def test_slug(self):
-        page = Page(source='some/directory/page.md')
-        self.assertEqual(page.slug, 'page')
-
-    def test_filename(self):
-        page = Page(source='some/directory/page.md')
-        self.assertEqual(page.filename, 'page.html')

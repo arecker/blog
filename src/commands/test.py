@@ -14,7 +14,8 @@ logger = logging.getLogger(__name__)
 def main(args):
     loader = unittest.TestLoader()
     root_directory = get_this_root_directory()
-    modules = loader.discover(start_dir=root_directory / 'src/tests')
+    modules = loader.discover(start_dir=root_directory / 'src',
+                              pattern='*_test.py')
 
     for module in find_modules(root_directory):
         modules.addTest(doctest.DocTestSuite(module))
