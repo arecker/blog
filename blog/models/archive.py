@@ -16,11 +16,6 @@ class Archive:
         years = [entry.date.year for entry in self.site.entries]
         return sorted(set(years), reverse=True)
 
-    def list_months(self, year):
-        entries = filter(lambda e: year == e.date.year, self.site.entries)
-        months = [e.date.month for e in entries]
-        return sorted(set(months), reverse=True)
-
     def list_entries(self, year='', month=''):
         entries = (e for e in self.site.entries)
         if year:
@@ -43,29 +38,13 @@ class Archive:
     def page_names(self):
         return [f'{year}.html' for year in self.list_years()]
 
-    def build_year_page_data(self, year):
-        rows = []
-
-        for month in self.list_months(year):
-            entries = self.list_entries(year, month)
-            rows += [[self.site.href(e.filename), e.description]
-                     for e in entries]
-
-        return rows
-
     def build_year_page_content(self, year):
-        rows = self.build_year_page_data(year)
+        rows = [(e.href, e.description) for e in self.list_entries(year=year)]
         content = html.build_link_table(rows=rows)
         return html.stringify_xml(content)
 
-    def build_month_page_content(self, year, month):
-        entries = self.list_entries(year, month)
-        rows = [[self.site.href(e.filename), e.description] for e in entries]
-        content = html.build_link_table(rows=rows)
-        return html.stringify_xml(content)
-
-    def pick_banner(self, year='', month=''):
-        entries = self.list_entries(year=year, month=month)
+    def pick_banner(self, year=''):
+        entries = self.list_entries(year=year)
         choices = filter(None, (e.banner for e in entries))
         try:
             return random.choice(list(choices))

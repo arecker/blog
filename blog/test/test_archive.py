@@ -1,7 +1,6 @@
 import unittest
 import datetime
 
-from blog import html
 from blog.models import Page, Site, Archive
 
 
