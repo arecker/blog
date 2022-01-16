@@ -22,6 +22,7 @@ class Sitemap(Page):
     def locations(self):
         pages = itertools.chain(self.site.entries, self.site.pages,
                                 self.site.archive.pages())
+        pages = sorted(pages, key=lambda p: p.filename)
         for page in pages:
             url = self.site.href(page.filename, full=True)
             if page.is_entry:
