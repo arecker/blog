@@ -28,9 +28,6 @@ class TestArchive(unittest.TestCase):
     def test_list_years(self):
         self.assertEqual(self.archive.list_years(), [2021, 2020, 2019, 2018])
 
-    def test_list_months(self):
-        self.assertEqual(self.archive.list_months(2021), [5, 4, 3, 2, 1])
-
     def test_list_entries(self):
         entries = self.archive.list_entries(2021, 5)
         self.assertEqual(len(entries), 1)
