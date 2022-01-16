@@ -20,7 +20,9 @@ class Sitemap(Page):
 
     @property
     def locations(self):
-        for page in itertools.chain(self.site.entries, self.site.pages):
+        pages = itertools.chain(self.site.entries, self.site.pages,
+                                self.site.archive.pages())
+        for page in pages:
             url = self.site.href(page.filename, full=True)
             if page.is_entry:
                 yield url, page.date
