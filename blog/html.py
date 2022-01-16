@@ -11,6 +11,14 @@ def divider():
     return ET.Element('hr')
 
 
+def div():
+    return ET.Element('div')
+
+
+def p():
+    return ET.Element('p')
+
+
 def body():
     return ET.Element('body')
 
@@ -70,7 +78,25 @@ def build_page_head(page_filename='',
     return head
 
 
-def build_page_nav(filename='', nav_pages=[]):
+def _nav():
+    return ET.Element('nav')
+
+
+def build_page_nav(nav_pages=[], attrs={}):
+    nav = ET.TreeBuilder()
+    nav.start('span', attrs)
+
+    for page in nav_pages:
+        nav.start('a', {'href': f'/{page}'})
+        nav.data(page)
+        nav.end('a')
+
+    nav.end('span')
+
+    return nav.close()
+
+
+def build_site_nav(filename='', nav_pages=[]):
     nav = ET.Element('nav')
 
     breadcrumbs = []
@@ -91,18 +117,9 @@ def build_page_nav(filename='', nav_pages=[]):
         nav.append(element)
 
     nav.append(ET.Element('br', attrib={'class': 'show-on-mobile'}))
-
-    favorites = ET.TreeBuilder()
-    favorites.start('span', {'class': 'float-right-on-desktop'})
-
-    for page in nav_pages:
-        favorites.start('a', {'href': f'/{page}'})
-        favorites.data(page)
-        favorites.end('a')
-
-    favorites.end('span')
-
-    nav.append(favorites.close())
+    nav.append(
+        build_page_nav(nav_pages=nav_pages,
+                       attrs={'class': 'float-right-on-desktop'}))
 
     return nav
 

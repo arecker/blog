@@ -125,7 +125,7 @@ class Site:
     def nav(self):
         pages = sorted(filter(lambda p: p.nav_index, self.pages),
                        key=lambda p: p.nav_index)
-        return [p.filename for p in pages]
+        return ['entries.html'] + [p.filename for p in pages]
 
     @property
     def latest(self):

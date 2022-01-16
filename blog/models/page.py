@@ -172,7 +172,7 @@ class Page:
 
         body.append(html.divider())
 
-        nav = html.build_page_nav(filename=self.filename,
+        nav = html.build_site_nav(filename=self.filename,
                                   nav_pages=self.site.nav)
         body.append(nav)
 

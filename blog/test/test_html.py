@@ -52,8 +52,8 @@ class TestHtml(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
-    def test_build_page_nav(self):
-        actual = html.build_page_nav(filename='index.html',
+    def test_build_site_nav(self):
+        actual = html.build_site_nav(filename='index.html',
                                      nav_pages=['a.html', 'b.html'])
         actual = html.stringify_xml(actual)
         expected = '''
@@ -68,7 +68,7 @@ class TestHtml(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
-        actual = html.build_page_nav(filename='b.html',
+        actual = html.build_site_nav(filename='b.html',
                                      nav_pages=['a.html', 'b.html'])
         actual = html.stringify_xml(actual)
         expected = '''

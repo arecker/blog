@@ -28,3 +28,9 @@ def main(args):
         logger.debug('generated %s (%d/%d)', page.target, i + 1, total)
         if (i + 1) % 100 == 0 or (i + 1) == total:
             logger.info('generated %d out of %d entries', i + 1, total)
+
+    archives = list(site.archive.pages())
+    total = len(archives)
+    for i, page in enumerate(archives):
+        page.build()
+        logger.info('generated %d out of %d archive page(s)', i + 1, total)
