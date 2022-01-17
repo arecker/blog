@@ -25,8 +25,7 @@ def configure_logging(verbose=False, silent=False):
     else:
         level = logging.INFO
 
-    fmt = '[%(levelname)s] %(message)s'
-    logging.basicConfig(level=level, stream=sys.stderr, format=fmt)
+    logging.basicConfig(level=level, stream=sys.stderr)
     logger.debug('configured logging with level = %s', level)
 
 

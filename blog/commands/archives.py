@@ -1,7 +1,11 @@
+"""generate journal archives"""
 import random
+import logging
 
 from blog import utils, html
-from blog.models.page import Page
+from blog.models import Page, Site
+
+logger = logging.getLogger('blog')
 
 
 class Archive:
@@ -26,7 +30,7 @@ class Archive:
 
     def pages(self):
         years = self.list_years()
-        yield Page(filename=f'entries.html',
+        yield Page(filename='entries.html',
                    title='Entries',
                    description='Complete Archive of Journal Entries',
                    banner=self.pick_banner(),
@@ -79,3 +83,13 @@ class Archive:
             return random.choice(list(choices))
         except IndexError:
             return None
+
+
+def main(args):
+    site = Site(**vars(args))
+    archive = Archive(site=site)
+    pages = list(archive.pages())
+    total = len(pages)
+    for i, page in enumerate(pages):
+        page.build()
+        logger.info('generated archive page %s (%d/%d)', page, i + 1, total)

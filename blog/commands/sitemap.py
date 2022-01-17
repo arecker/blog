@@ -1,7 +1,12 @@
+"""generate sitemap.xml"""
 import itertools
+import logging
 
 from blog import xml
-from blog.models.page import Page
+from blog.commands.archives import Archive
+from blog.models import Page, Site
+
+logger = logging.getLogger('blog')
 
 
 class Sitemap(Page):
@@ -21,7 +26,7 @@ class Sitemap(Page):
     @property
     def locations(self):
         pages = itertools.chain(self.site.entries, self.site.pages,
-                                self.site.archive.pages())
+                                Archive(site=self.site).pages())
         pages = sorted(pages, key=lambda p: p.filename)
         for page in pages:
             url = self.site.href(page.filename, full=True)
@@ -29,3 +34,11 @@ class Sitemap(Page):
                 yield url, page.date
             else:
                 yield url, self.site.timestamp
+
+
+def main(args):
+    site = Site(**vars(args))
+    sitemap = Sitemap(site=site)
+    sitemap.build()
+    logger.info('generated sitemap %s (%d locations)', sitemap,
+                len(list(sitemap.locations)))

@@ -5,9 +5,6 @@ import os
 
 from blog import macro, git, utils
 from blog.models.page import Page
-from blog.models.feed import Feed
-from blog.models.sitemap import Sitemap
-from blog.models.archive import Archive
 
 logger = logging.getLogger(__name__)
 
@@ -24,11 +21,8 @@ class Site:
         self.timestamp = kwargs.pop('timestamp', datetime.datetime.now())
         self.title = kwargs.pop('title', None)
 
-        self._archive = kwargs.pop('archive', None)
         self._pages = kwargs.pop('pages', None)
         self._entries = kwargs.pop('entries', None)
-        self._sitemap = kwargs.pop('sitemap', None)
-        self._feed = kwargs.pop('feed', None)
 
     def __repr__(self):
         return f'<Site {utils.prettify_path(self.directory)}>'
@@ -102,24 +96,6 @@ class Site:
             ]
 
         return self._pages
-
-    @property
-    def feed(self):
-        if not self._feed:
-            self._feed = Feed(site=self)
-        return self._feed
-
-    @property
-    def sitemap(self):
-        if not self._sitemap:
-            self._sitemap = Sitemap(site=self)
-        return self._sitemap
-
-    @property
-    def archive(self):
-        if not self._archive:
-            self._archive = Archive(site=self)
-        return self._archive
 
     @functools.cached_property
     def nav(self):

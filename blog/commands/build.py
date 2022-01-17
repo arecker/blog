@@ -2,20 +2,23 @@
 
 import logging
 
-from blog.commands import pave
+from blog.commands import pave, sitemap, feed, archives
 from blog.models import Site
 
 logger = logging.getLogger(__name__)
 
 
-def main(args):
-    site = Site(**vars(args))
-    pave.main(args)
+def register(parser):
+    feed.register(parser)
 
-    site.feed.build()
-    logger.info('generated %s (1/2 feeds)', site.feed.target)
-    site.sitemap.build()
-    logger.info('generated %s (2/2 feeds)', site.sitemap.target)
+
+def main(args):
+    pave.main(args)
+    archives.main(args)
+    feed.main(args)
+    sitemap.main(args)
+
+    site = Site(**vars(args))
 
     total = len(list(site.pages))
     for i, page in enumerate(site.pages):
@@ -28,9 +31,3 @@ def main(args):
         logger.debug('generated %s (%d/%d)', page.target, i + 1, total)
         if (i + 1) % 100 == 0 or (i + 1) == total:
             logger.info('generated %d out of %d entries', i + 1, total)
-
-    archives = list(site.archive.pages())
-    total = len(archives)
-    for i, page in enumerate(archives):
-        page.build()
-        logger.info('generated %d out of %d archive page(s)', i + 1, total)

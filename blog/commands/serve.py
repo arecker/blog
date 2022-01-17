@@ -27,6 +27,10 @@ def start_web_server(webroot, port=8000):
         httpd.server_close()
 
 
+def register(parser):
+    build.register(parser)
+
+
 def main(args):
     build.main(args)
     start_web_server(args.directory / 'www')
