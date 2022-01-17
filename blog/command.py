@@ -1,23 +1,91 @@
-"""Functions and objects for parsing main program subcommands and arguments"""
-
 import argparse
+import importlib
+import logging
 import os
 import pathlib
-import importlib
 
-import blog
+from . import __doc__ as DOCSTRING
+
+here = pathlib.Path(__file__).parent
+
+logger = logging.getLogger('blog')
 
 
-def get_this_root_directory(this_file=__file__) -> pathlib.Path:
-    """Get the root directory of this project
+def register(parser):
+    """Register the commandline parser.
 
-    >>> root = get_this_root_directory()
-    >>> root.exists() and root.is_dir()
-    True
+    Place this function in your command file if you wish to add
+    additional arguments to the global parser.
+
+    Otherwise you just get this empty function.
     """
 
-    this_file = pathlib.Path(this_file)
-    return this_file.parent.parent
+
+class Command:
+    def __init__(self, source: pathlib.Path):
+        self.source = source
+
+    def __repr__(self):
+        return f'<Command {self.name}>'
+
+    @property
+    def name(self):
+        """Command name, equivalent to commands/<name>.py"""
+
+        return os.path.splitext(self.source.name)[0]
+
+    @property
+    def module(self):
+        """The command file imported as a module."""
+
+        return importlib.import_module(f'.commands.{self.name}',
+                                       package='blog')
+
+    @property
+    def help(self):
+        """Pass through to the command file's doc string."""
+
+        return self.module.__doc__.strip()
+
+    @property
+    def main(self):
+        """Pass through to the command file's main function."""
+
+        try:
+            return self.module.main
+        except AttributeError:
+            raise NotImplementedError(f'{self} has no main function!')
+
+    @property
+    def register(self):
+        """Pass through to command file's register function.
+
+        Returns an empty one if none is found
+        """
+
+        try:
+            return self.module.register
+        except AttributeError:
+            logger.debug(
+                '%s has no register function, using empty one instead', self)
+            return register
+
+
+def all_commands():
+    files = here.glob('commands/*.py')
+    files = [f for f in files if f.name not in ('__init__.py', '__main__.py')]
+    files = sorted(files)
+    return [Command(source=f) for f in files]
+
+
+def fetch_command(name: str) -> Command:
+    """Fetch command object by name."""
+
+    for command in all_commands():
+        if name == command.name:
+            return command
+
+    raise ValueError(f'command "{name}" not found!')
 
 
 def DirectoryType(value, validate=True) -> pathlib.Path:
@@ -46,23 +114,11 @@ def DirectoryType(value, validate=True) -> pathlib.Path:
     return directory
 
 
-def make_new_parser():
-    """Make a new main arg parser.
-
-    >>> parser = make_new_parser()
-    >>> values = parser.parse_args(['-dv', 'build'])
-    >>> values.debug
-    True
-    >>> values.verbose
-    True
-    >>> values.silent
-    False
-    >>> values.subcommand
-    'build'
-    """
+def new_command_parser() -> argparse.ArgumentParser:
+    """Make a new command parser."""
 
     parser = argparse.ArgumentParser(prog='blog',
-                                     description=blog.__doc__.strip())
+                                     description=DOCSTRING.strip())
     parser.add_argument('-s',
                         '--silent',
                         default=False,
@@ -83,7 +139,7 @@ def make_new_parser():
 
     parser.add_argument('--directory',
                         type=DirectoryType,
-                        default=str(get_this_root_directory()),
+                        default=str(here.parent),
                         help='path to blog root directory')
 
     parser.add_argument('--title',
@@ -115,43 +171,12 @@ def make_new_parser():
                         default='/',
                         help='website base path')
 
-    register_commands(parser)
-    return parser
-
-
-def register_commands(parser):
-    """Register all modules in the commands package as program subcommands.
-
-    If the command module has a register() function, call it with the
-    subcommand's parser.
-    """
-
     subcommand = parser.add_subparsers(dest='subcommand')
-
-    for command in list_commands():
-        module = importlib.import_module(f'blog.commands.{command}')
-        subparser = subcommand.add_parser(command, help=module.__doc__.strip())
-
-        try:
-            module.register(subparser)
-        except AttributeError:
-            pass
+    for command in all_commands():
+        subparser = subcommand.add_parser(command.name, help=command.help)
+        command.register(subparser)
+        logger.debug('registered %s as subcommand', command)
 
     subcommand.add_parser('help', help='print program usage')
 
-
-def list_commands(root_directory=get_this_root_directory()):
-    """List all the available command names from the command package."""
-
-    return sorted([
-        os.path.splitext(p.name)[0]
-        for p in root_directory.glob('blog/commands/*.py')
-        if p.name != '__init__.py'
-    ])
-
-
-def fetch_callback_for_command(command):
-    """Fetch a command by name as a callable."""
-
-    module = importlib.import_module(f'blog.commands.{command}')
-    return module.main
+    return parser

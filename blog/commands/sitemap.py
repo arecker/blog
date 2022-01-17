@@ -6,7 +6,7 @@ from blog import xml
 from blog.commands.archives import Archive
 from blog.models import Page, Site
 
-logger = logging.getLogger('blog')
+logger = logging.getLogger(__name__)
 
 
 class Sitemap(Page):

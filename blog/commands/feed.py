@@ -5,7 +5,7 @@ import logging
 from blog import xml
 from blog.models import Page, Site
 
-logger = logging.getLogger('blog')
+logger = logging.getLogger(__name__)
 
 
 class Feed(Page):

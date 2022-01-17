@@ -6,7 +6,7 @@ import logging
 import pdb
 import sys
 
-from blog.args import (make_new_parser, fetch_callback_for_command)
+from . import new_command_parser, fetch_command
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +30,7 @@ def configure_logging(verbose=False, silent=False):
 
 
 def main():
-    parser = make_new_parser()
+    parser = new_command_parser()
     args = parser.parse_args()
     configure_logging(verbose=args.verbose, silent=args.silent)
     logger.debug('parsed args %s, ', vars(args))
@@ -43,14 +43,15 @@ def main():
         parser.print_help()
         sys.exit(1)
 
-    callback = fetch_callback_for_command(args.subcommand)
+    command = fetch_command(args.subcommand)
 
     if args.debug:
         logger.info('running %s command interactively for debug mode',
                     args.subcommand)
-        pdb.runcall(callback, args)
+        pdb.runcall(command.main, args)
     else:
-        callback(args)
+        logger.debug('invoking main routine of %s', command)
+        command.main(args)
 
 
 if __name__ == '__main__':
