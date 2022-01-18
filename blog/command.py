@@ -3,6 +3,7 @@ import importlib
 import logging
 import os
 import pathlib
+import sys
 
 from . import __doc__ as DOCSTRING
 
@@ -180,3 +181,27 @@ def new_command_parser() -> argparse.ArgumentParser:
     subcommand.add_parser('help', help='print program usage')
 
     return parser
+
+
+def load_command() -> (Command, argparse.ArgumentParser):
+    """Load the current command from the system args.
+
+    Will exit and print help documentation if argparse isn't happy.
+
+    Returns Command object as well as parsed args.
+    """
+
+    parser = new_command_parser()
+    args = parser.parse_args()
+
+    if args.subcommand == 'help':
+        parser.print_help()
+        sys.exit(0)
+
+    if not args.subcommand:
+        parser.print_help()
+        sys.exit(1)
+
+    command = fetch_command(args.subcommand)
+
+    return command, args

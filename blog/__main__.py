@@ -6,7 +6,7 @@ import logging
 import pdb
 import sys
 
-from . import new_command_parser, fetch_command
+from . import load_command
 
 logger = logging.getLogger(__name__)
 
@@ -30,20 +30,10 @@ def configure_logging(verbose=False, silent=False):
 
 
 def main():
-    parser = new_command_parser()
-    args = parser.parse_args()
+    command, args = load_command()
+
     configure_logging(verbose=args.verbose, silent=args.silent)
     logger.debug('parsed args %s, ', vars(args))
-
-    if args.subcommand == 'help':
-        parser.print_help()
-        sys.exit(0)
-
-    if not args.subcommand:
-        parser.print_help()
-        sys.exit(1)
-
-    command = fetch_command(args.subcommand)
 
     if args.debug:
         logger.info('running %s command interactively for debug mode',
