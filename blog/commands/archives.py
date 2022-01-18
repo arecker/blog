@@ -1,27 +1,32 @@
 """generate journal archives"""
 import random
 import logging
+import pathlib
 
 from blog import utils, html
 from blog.models import Page, Site
 
 logger = logging.getLogger(__name__)
+here = pathlib.Path(__file__).parent
 
 
 class Archive:
-    def __init__(self, site=None):
+    def __init__(self, site=None, entries=[], protocol='', domain=''):
         self.site = site
+        self.entries = entries
+        self.protocol = protocol
+        self.domain = domain
 
     def __repr__(self):
-        path = utils.prettify_path(self.site.directory + '/entries/')
+        path = utils.prettify_path(here.parent.parent / 'entries/')
         return f'<Archive {path}>'
 
     def list_years(self):
-        years = [entry.date.year for entry in self.site.entries]
+        years = [entry.date.year for entry in self.entries]
         return sorted(set(years), reverse=True)
 
     def list_entries(self, year='', month=''):
-        entries = (e for e in self.site.entries)
+        entries = (e for e in self.entries)
         if year:
             entries = filter(lambda e: year == e.date.year, entries)
         if month:
@@ -65,7 +70,7 @@ class Archive:
         content = f'''
 <p>
   <span>
-    <a href="https://validator.w3.org/feed/check.cgi?url=https%3A//{self.site.domain}/feed.xml">
+    <a href="https://validator.w3.org/feed/check.cgi?url={self.protocol}%3A//{self.domain}/feed.xml">
       <img src="/assets/valid-atom.png" alt="[Valid Atom 1.0]" title="Validate my Atom 1.0 feed" />
     </a>
   </span>
@@ -87,7 +92,10 @@ class Archive:
 
 def main(args):
     site = Site(**vars(args))
-    archive = Archive(site=site)
+    archive = Archive(site=site,
+                      entries=site.entries,
+                      protocol=args.protocol,
+                      domain=args.domain)
     pages = list(archive.pages())
     total = len(pages)
     for i, page in enumerate(pages):
