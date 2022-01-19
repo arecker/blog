@@ -21,10 +21,10 @@ class TestArchive(unittest.TestCase):
                  banner=f'2021-0{month}-01.jpg') for month in (2, 3, 4, 5)
         ]
         self.site = Site(directory='~/src/blog', entries=self.entries)
-        self.archive = Archive(site=self.site)
+        self.archive = Archive(site=self.site, entries=self.entries)
 
     def test_repr(self):
-        self.assertEqual(repr(self.archive), '<Archive ~/src/blog/entries/>')
+        self.assertEqual(repr(self.archive), '<Archive ~/src/blog/entries>')
 
     def test_list_years(self):
         self.assertEqual(self.archive.list_years(), [2021, 2020, 2019, 2018])
