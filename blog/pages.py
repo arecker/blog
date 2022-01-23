@@ -156,9 +156,11 @@ class Page:
         except (ValueError, KeyError):
             return None
 
-    def render(self, author=''):
+    def render(self, author='', year=''):
         if not author:
             raise ValueError('author not set!')
+        if not year:
+            raise ValueError('year not set!')
 
         root = html.root()
 
@@ -198,8 +200,7 @@ class Page:
 
         body.append(html.divider())
 
-        footer = html.build_page_footer(author=author,
-                                        year=self.site.timestamp.year)
+        footer = html.build_page_footer(author=author, year=year)
         body.append(footer)
         root.append(body)
         root = html.stringify_xml(root)

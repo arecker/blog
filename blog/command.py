@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import importlib
 import logging
 import os
@@ -146,6 +147,10 @@ def new_command_parser() -> argparse.ArgumentParser:
                         type=str,
                         default='Daily, public journal by Alex Recker',
                         help='website subtitle')
+    parser.add_argument('--year',
+                        type=int,
+                        default=datetime.datetime.now().year,
+                        help='website copyright year')
     parser.add_argument('--author',
                         type=str,
                         default='Alex Recker',
