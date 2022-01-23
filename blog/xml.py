@@ -98,7 +98,12 @@ def as_location_elements(locations=[]):
         yield url.close()
 
 
-def as_feed_entry(entry):
+def as_feed_entry(entry, author='', email=''):
+    if not author:
+        raise ValueError('author not set!')
+    if not email:
+        raise ValueError('email not set!')
+
     item = ET.Element('entry')
 
     # entry title
@@ -124,7 +129,7 @@ def as_feed_entry(entry):
         item.append(tree.close())
 
     # entry author
-    author = build_author(name=entry.site.author, email=entry.site.email)
+    author = build_author(name=author, email=email)
     item.append(author)
 
     # entry ID/link

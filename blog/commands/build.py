@@ -22,12 +22,12 @@ def main(args):
 
     total = len(list(site.pages))
     for i, page in enumerate(site.pages):
-        page.build()
+        page.build(author=args.author)
         logger.info('generated %s (%d/%d pages)', page.target, i + 1, total)
 
     total = len(list(site.entries))
     for i, page in enumerate(site.entries):
-        page.build()
+        page.build(author=args.author)
         logger.debug('generated %s (%d/%d)', page.target, i + 1, total)
         if (i + 1) % 100 == 0 or (i + 1) == total:
             logger.info('generated %d out of %d entries', i + 1, total)

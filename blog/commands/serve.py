@@ -3,11 +3,13 @@ serve webroot locally
 '''
 
 import logging
+import pathlib
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
 from blog.commands import build
 
 logger = logging.getLogger(__name__)
+root_dir = pathlib.Path(__file__).parent.parent
 
 
 def start_web_server(webroot, port=8000):
@@ -33,4 +35,4 @@ def register(parser):
 
 def main(args):
     build.main(args)
-    start_web_server(args.directory / 'www')
+    start_web_server(root_dir / 'www')

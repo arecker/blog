@@ -3,18 +3,20 @@
 import doctest
 import logging
 import os
+import pathlib
 import sys
 import unittest
 
 logger = logging.getLogger(__name__)
+root_dir = pathlib.Path(__file__).parent.parent.parent
 
 
 def main(args):
     loader = unittest.TestLoader()
-    modules = loader.discover(start_dir=args.directory / 'blog/test',
+    modules = loader.discover(start_dir=str(root_dir / 'blog/test'),
                               pattern='test_*.py')
 
-    for module in find_modules(args.directory):
+    for module in find_modules(root_dir):
         modules.addTest(doctest.DocTestSuite(module))
         logger.debug('registered doctests for %s', module)
 

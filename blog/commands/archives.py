@@ -99,5 +99,5 @@ def main(args):
     pages = list(archive.pages())
     total = len(pages)
     for i, page in enumerate(pages):
-        page.build()
+        page.build(author=args.author)
         logger.info('generated archive page %s (%d/%d)', page, i + 1, total)

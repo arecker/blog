@@ -2,30 +2,28 @@ import datetime
 import functools
 import logging
 import os
+import pathlib
 
 from blog import macro, git, utils
 from blog.models.page import Page
 
 logger = logging.getLogger(__name__)
+here = pathlib.Path(__file__).parent
+root_dir = here.parent.parent
 
 
 class Site:
     def __init__(self, **kwargs):
-        self.author = kwargs.pop('author', None)
         self.basepath = kwargs.pop('basepath', '/')
-        self.directory = kwargs.pop('directory', None)
         self.domain = kwargs.pop('domain', None)
-        self.email = kwargs.pop('email', None)
         self.protocol = kwargs.pop('protocol', None)
-        self.subtitle = kwargs.pop('subtitle', None)
         self.timestamp = kwargs.pop('timestamp', datetime.datetime.now())
-        self.title = kwargs.pop('title', None)
 
         self._pages = kwargs.pop('pages', None)
         self._entries = kwargs.pop('entries', None)
 
     def __repr__(self):
-        return f'<Site {utils.prettify_path(self.directory)}>'
+        return f'<Site {utils.prettify_path(root_dir)}>'
 
     def href(self, path='', full=False):
         """Render an path as an href.
@@ -79,8 +77,7 @@ class Site:
     @property
     def entries(self):
         if not self._entries:
-            sources = sorted(self.directory.glob('entries/*.html'),
-                             reverse=True)
+            sources = sorted(root_dir.glob('entries/*.html'), reverse=True)
             self._entries = [
                 Page(source=source, site=self) for source in sources
             ]
@@ -90,7 +87,7 @@ class Site:
     @property
     def pages(self):
         if not self._pages:
-            sources = sorted(self.directory.glob('pages/*.html'))
+            sources = sorted(root_dir.glob('pages/*.html'))
             self._pages = [
                 Page(source=source, site=self) for source in sources
             ]
@@ -120,8 +117,8 @@ class Site:
 
     @functools.cached_property
     def commit(self):
-        return git.get_head_commit(self.directory)
+        return git.get_head_commit(root_dir)
 
     @functools.cached_property
     def is_entry_tagged(self):
-        return git.head_is_entry_tagged(root_directory=self.directory)
+        return git.head_is_entry_tagged(root_directory=root_dir)
