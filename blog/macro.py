@@ -51,21 +51,6 @@ class Expander:
         self.markup[
             'commit'] = f'[<a href="{self.site.commit.url}">{self.site.commit.short_hash}</a>]<br/>{self.site.commit.summary}'
 
-        # entries
-        # TODO: this is temporary, just to get rid of the old magic
-        # comments stuff burried in Document.
-        row_fmt = '''
-  <tr>
-    <td><a href="/{filename}">{filename}</a></td>
-    <td>{description}</td>
-  </tr>
-'''.strip()
-        rows = '\n'.join([
-            row_fmt.format(filename=e.filename, description=e.description)
-            for e in self.site.entries
-        ])
-        self.markup['entries'] = f'<table>\n  {rows}\n</table>'
-
     def expand(self, html):
         return self.r_macro.sub(self.replace, html)
 
