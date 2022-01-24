@@ -2,15 +2,14 @@
 
 import hashlib
 import logging
-import pathlib
 import time
 
-from blog import http
-from blog.models import Site
-from blog.commands import build
+from .. import http
+from ..utils import ROOT_DIR
+from ..models import Site
+from . import build
 
 logger = logging.getLogger(__name__)
-root_dir = pathlib.Path(__file__).parent.parent.parent
 
 
 def register(subparser):
@@ -85,9 +84,9 @@ def main(args):
     site_id = fetch_site_id(domain, token=args.netlify_token)
     logger.info('found netlify site %s (%s)', domain, site_id)
 
-    payload = build_new_deploy(root_dir / 'www')
+    payload = build_new_deploy(ROOT_DIR / 'www')
     logger.info('built payload from %d file(s) in %s',
-                len(payload['files'].keys()), root_dir / 'www')
+                len(payload['files'].keys()), ROOT_DIR / 'www')
 
     response = make_request(path=f'/sites/{site_id}/deploys/',
                             token=args.netlify_token,
@@ -102,7 +101,7 @@ def main(args):
     hash_map = dict([(v, k) for k, v in payload['files'].items()])
     for i, sha in enumerate(response['required']):
         path = hash_map[sha]
-        with open(str(root_dir / 'www') + path, 'rb') as f:
+        with open(str(ROOT_DIR / 'www') + path, 'rb') as f:
             data = f.read()
         url = f'/deploys/{deploy_id}/files{path}'
         response = make_request(path=url,

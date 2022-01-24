@@ -4,7 +4,7 @@ import logging
 import sys
 from urllib.parse import urljoin
 
-from blog.models import Site
+from ..models import Site
 
 logger = logging.getLogger(__name__)
 

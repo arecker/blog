@@ -2,7 +2,7 @@
 
 import logging
 
-from blog.models import Site
+from ..models import Site
 
 logger = logging.getLogger(__name__)
 

@@ -3,8 +3,8 @@
 import logging
 from urllib.parse import urljoin
 
-from blog import http
-from blog.models import Site
+from .. import http
+from ..models import Site
 
 logger = logging.getLogger(__name__)
 

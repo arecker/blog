@@ -1,8 +1,8 @@
 import unittest
 import datetime
 
-from blog.models import Page, Site
-from blog.commands.archives import Archive
+from ..models import Page, Site
+from ..commands.archives import Archive
 
 
 class TestArchive(unittest.TestCase):

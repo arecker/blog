@@ -3,8 +3,8 @@ from urllib.parse import urljoin
 import itertools
 import logging
 
-from blog import xml2 as xml
-from blog.models import Page, Site
+from .. import xml2 as xml
+from ..models import Page, Site
 
 logger = logging.getLogger(__name__)
 

@@ -1,13 +1,11 @@
 """generate journal archives"""
 import random
 import logging
-import pathlib
 
-from blog import utils, html
-from blog.models import Page, Site
+from .. import utils, html
+from ..models import Page, Site
 
 logger = logging.getLogger(__name__)
-here = pathlib.Path(__file__).parent
 
 
 class Archive:
@@ -20,7 +18,7 @@ class Archive:
             self.domain = full_url.netloc
 
     def __repr__(self):
-        path = utils.prettify_path(here.parent.parent / 'entries/')
+        path = utils.prettify_path(utils.ROOT_DIR / 'entries/')
         return f'<Archive {path}>'
 
     def list_years(self):

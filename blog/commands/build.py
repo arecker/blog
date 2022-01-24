@@ -2,7 +2,7 @@
 
 import logging
 
-from blog.commands import pave, sitemap, feed, archives, entries, pages
+from ..commands import pave, sitemap, feed, archives, entries, pages
 
 logger = logging.getLogger(__name__)
 

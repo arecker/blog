@@ -5,8 +5,8 @@ run the full jenkins pipeline
 import logging
 import sys
 
-from blog.commands import test, deploy, slack, tweet
-from blog.models import Site
+from ..commands import test, deploy, slack, tweet
+from ..models import Site
 
 logger = logging.getLogger(__name__)
 

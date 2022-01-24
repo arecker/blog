@@ -1,6 +1,6 @@
 import unittest
 
-from blog import html
+from .. import html
 
 
 class TestHtml(unittest.TestCase):

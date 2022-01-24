@@ -5,18 +5,17 @@ render a blog page
 import itertools
 import logging
 import pathlib
-import pathlib
 import sys
 
-from blog.models import Site
+from ..models import Site
+from ..utils import ROOT_DIR
 
 logger = logging.getLogger(__name__)
-root_dir = pathlib.Path(__file__).parent.parent.parent
 
 
 def main(args):
     site = Site(**vars(args))
-    target = root_dir / pathlib.Path(args.page)
+    target = ROOT_DIR / pathlib.Path(args.page)
 
     for page in itertools.chain(site.entries, site.pages):
         if page.source == target:

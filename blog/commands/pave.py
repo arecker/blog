@@ -2,14 +2,14 @@
 
 import logging
 import os
-import pathlib
+
+from ..utils import ROOT_DIR
 
 logger = logging.getLogger(__name__)
-root_dir = pathlib.Path(__file__).parent.parent.parent
 
 
 def main(args):
-    targets = list(root_dir.glob('www/*.html'))
+    targets = list(ROOT_DIR.glob('www/*.html'))
     for target in targets:
         os.remove(target)
         logger.debug('removed old target %s', target)

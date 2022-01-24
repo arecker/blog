@@ -3,9 +3,8 @@ publish working files as a new entry
 '''
 import logging
 
-from blog import git, images
-from blog.models import Site
-
+from .. import git, images
+from ..models import Site
 from ..utils import ROOT_DIR
 
 logger = logging.getLogger(__name__)
