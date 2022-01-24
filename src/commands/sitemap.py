@@ -1,7 +1,8 @@
 """generate sitemap.xml"""
+from urllib.parse import urljoin
+import datetime
 import itertools
 import logging
-from urllib.parse import urljoin
 
 from .. import xml2 as xml
 from ..commands.archives import Archive
@@ -42,7 +43,7 @@ class Sitemap(Page):
             if page.is_entry:
                 yield url, page.date
             else:
-                yield url, self.site.timestamp
+                yield url, datetime.datetime.now()
 
 
 def main(args):

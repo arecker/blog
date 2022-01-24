@@ -1,5 +1,6 @@
 """functions for expanding magic comment macros"""
 
+import datetime
 import logging
 import re
 
@@ -13,17 +14,17 @@ class Expander:
     def __init__(self, site=None):
         self.site = site
         self.markup = {}
+        self.timestamp = datetime.datetime.now()
 
     def populate(self):
         # timestamp
         timestamp_format = '%A, %B %d %Y %-I:%M %p'
-        if zone := self.site.timestamp.tzname():
+        if zone := self.timestamp.tzname():
             timestamp_format += f' {zone}'
         else:
             timestamp_format += ' CST'
 
-        self.markup['timestamp'] = self.site.timestamp.strftime(
-            timestamp_format)
+        self.markup['timestamp'] = self.timestamp.strftime(timestamp_format)
 
         # latest
         if self.site.latest.banner:

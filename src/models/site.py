@@ -11,7 +11,6 @@ logger = logging.getLogger(__name__)
 class Site:
     def __init__(self, **kwargs):
         self.basepath = kwargs.pop('basepath', '/')
-        self.timestamp = kwargs.pop('timestamp', datetime.datetime.now())
 
         self._pages = kwargs.pop('pages', None)
         self._entries = kwargs.pop('entries', None)
