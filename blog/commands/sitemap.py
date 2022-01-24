@@ -3,7 +3,7 @@ import itertools
 import logging
 from urllib.parse import urljoin
 
-from blog import xml
+from blog import xml2 as xml
 from blog.commands.archives import Archive
 from blog.models import Page, Site
 
