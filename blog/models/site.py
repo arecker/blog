@@ -15,8 +15,6 @@ root_dir = here.parent.parent
 class Site:
     def __init__(self, **kwargs):
         self.basepath = kwargs.pop('basepath', '/')
-        self.domain = kwargs.pop('domain', None)
-        self.protocol = kwargs.pop('protocol', None)
         self.timestamp = kwargs.pop('timestamp', datetime.datetime.now())
 
         self._pages = kwargs.pop('pages', None)
@@ -24,55 +22,6 @@ class Site:
 
     def __repr__(self):
         return f'<Site {utils.prettify_path(root_dir)}>'
-
-    def href(self, path='', full=False):
-        """Render an path as an href.
-
-        >>> Site().href('test.html')
-        '/test.html'
-
-        Will add a trailing slash if there is no file extension.
-
-        >>> Site().href('something')
-        '/something/'
-
-        Will account for the site's basepath.
-
-        >>> Site(basepath='/subpath/').href('another')
-        '/subpath/another/'
-
-        Can do full URI's as well.
-
-        >>> Site(domain='test.com', protocol='http', basepath='/subdir/').href('test.html', full=True)
-        'http://test.com/subdir/test.html'
-
-        Calling no args just returns the site's basepath.
-
-        >>> Site().href()
-        '/'
-
-        Calling with just full returns the site URI.
-
-        >>> Site(domain='test.com', protocol='http').href(full=True)
-        'http://test.com/'
-        """
-        if path.startswith('/'):
-            path = path[1:]
-
-        if path and not path.endswith('/') and not os.path.splitext(path)[1]:
-            path = path + '/'
-
-        if not (self.basepath.startswith('/') and self.basepath.endswith('/')):
-            raise ValueError(
-                f'basepath "{self.basepath}" should start and end with a slash!'
-            )
-
-        relative = self.basepath + path
-
-        if full:
-            return f'{self.protocol}://{self.domain}{relative}'
-        else:
-            return relative
 
     @property
     def entries(self):

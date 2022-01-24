@@ -1,6 +1,7 @@
 """generate sitemap.xml"""
 import itertools
 import logging
+from urllib.parse import urljoin
 
 from blog import xml
 from blog.commands.archives import Archive
@@ -12,8 +13,9 @@ logger = logging.getLogger(__name__)
 class Sitemap(Page):
     filename = 'sitemap.xml'
 
-    def __init__(self, site):
+    def __init__(self, site, full_url):
         self.site = site
+        self.full_url = full_url
 
     def render(self):
         root = xml.new_sitemap()
@@ -23,13 +25,20 @@ class Sitemap(Page):
 
         return xml.stringify_xml(root)
 
+    def href(self, path):
+        url = self.full_url.scheme
+        url += '://' + self.full_url.netloc
+        url += self.full_url.path
+        return urljoin(url, path)
+
     @property
     def locations(self):
-        pages = itertools.chain(self.site.entries, self.site.pages,
-                                Archive(site=self.site).pages())
+        pages = itertools.chain(
+            self.site.entries, self.site.pages,
+            Archive(site=self.site, full_url=self.full_url).pages())
         pages = sorted(pages, key=lambda p: p.filename)
         for page in pages:
-            url = self.site.href(page.filename, full=True)
+            url = self.href(page.filename)
             if page.is_entry:
                 yield url, page.date
             else:
@@ -38,7 +47,7 @@ class Sitemap(Page):
 
 def main(args):
     site = Site(**vars(args))
-    sitemap = Sitemap(site=site)
+    sitemap = Sitemap(site=site, full_url=args.full_url)
     sitemap.build()
     logger.info('generated sitemap %s (%d locations)', sitemap,
                 len(list(sitemap.locations)))

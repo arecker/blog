@@ -1,6 +1,7 @@
 """Functions for building and maniupulating XML elements."""
 
 from xml.etree import ElementTree as ET
+from urllib.parse import urljoin
 import datetime
 
 
@@ -98,13 +99,9 @@ def as_location_elements(locations=[]):
         yield url.close()
 
 
-def as_feed_entry(entry, author='', email=''):
-    if not author:
-        raise ValueError('author not set!')
-    if not email:
-        raise ValueError('email not set!')
-
+def as_feed_entry(entry, author='', email='', full_url=''):
     item = ET.Element('entry')
+    assert all([author, email, full_url]), 'required!'
 
     # entry title
     title = ET.TreeBuilder()
@@ -133,7 +130,7 @@ def as_feed_entry(entry, author='', email=''):
     item.append(author)
 
     # entry ID/link
-    permalink = entry.href(full=True)
+    permalink = f'{full_url.scheme}://{full_url.netloc}/{entry.filename}'
     item.append(ET.Element('link', href=permalink))
     identifier = ET.TreeBuilder()
     identifier.start('id', {})
@@ -142,18 +139,21 @@ def as_feed_entry(entry, author='', email=''):
     item.append(identifier.close())
 
     if entry.banner:
+        banner_url = urljoin(
+            f'{full_url.scheme}://{full_url.netloc}{full_url.path}',
+            f'images/banners/{entry.banner}')
         item.append(
             ET.Element('media:thumbnail',
                        attrib={
                            'xmlns:media': 'http://search.yahoo.com/mrss/',
-                           'url': entry.banner_href(full=True),
+                           'url': banner_url,
                        }))
         item.append(
             ET.Element('media:content',
                        attrib={
                            'medium': 'image',
                            'xmlns:media': 'http://search.yahoo.com/mrss/',
-                           'url': entry.banner_href(full=True),
+                           'url': banner_url,
                        }))
 
     return item

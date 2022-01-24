@@ -5,6 +5,7 @@ import logging
 import os
 import pathlib
 import sys
+from urllib.parse import urlparse
 
 from . import __doc__ as DOCSTRING
 
@@ -116,6 +117,11 @@ def DirectoryType(value, validate=True) -> pathlib.Path:
     return directory
 
 
+def FullURL(value):
+    value = urlparse(value)
+    return value
+
+
 def new_command_parser() -> argparse.ArgumentParser:
     """Make a new command parser."""
 
@@ -159,14 +165,10 @@ def new_command_parser() -> argparse.ArgumentParser:
                         type=str,
                         default='alex@reckerfamily.com',
                         help='website author\'s email')
-    parser.add_argument('--domain',
-                        type=str,
-                        default='www.alexrecker.com',
-                        help='website domain')
-    parser.add_argument('--protocol',
-                        type=str,
-                        default='https',
-                        help='website protocol')
+    parser.add_argument('--full-url',
+                        type=FullURL,
+                        default='https://www.alexrecker.com',
+                        help='Full URL of the website')
     parser.add_argument('--basepath',
                         type=str,
                         default='/',

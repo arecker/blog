@@ -9,7 +9,7 @@ from http.server import HTTPServer, SimpleHTTPRequestHandler
 from blog.commands import build
 
 logger = logging.getLogger(__name__)
-root_dir = pathlib.Path(__file__).parent.parent
+root_dir = pathlib.Path(__file__).parent.parent.parent
 
 
 def start_web_server(webroot, port=8000):
@@ -22,7 +22,7 @@ def start_web_server(webroot, port=8000):
 
     httpd = HTTPServer(('', port), Handler)
     try:
-        logger.info(f'starting webserver - http://0.0.0.0:{port}')
+        logger.info(f'starting webserver at {webroot} - http://0.0.0.0:{port}')
         httpd.serve_forever()
     except KeyboardInterrupt:
         logger.info('stopping web server')

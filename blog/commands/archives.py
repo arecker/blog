@@ -11,11 +11,13 @@ here = pathlib.Path(__file__).parent
 
 
 class Archive:
-    def __init__(self, site=None, entries=[], protocol='', domain=''):
+    def __init__(self, site=None, entries=[], full_url=''):
         self.site = site
         self.entries = entries
-        self.protocol = protocol
-        self.domain = domain
+
+        if full_url:
+            self.protocol = full_url.scheme
+            self.domain = full_url.netloc
 
     def __repr__(self):
         path = utils.prettify_path(here.parent.parent / 'entries/')
@@ -61,7 +63,7 @@ class Archive:
         content = html.stringify_xml(root)
 
         if year:
-            rows = [[e.href(), e.description]
+            rows = [[f'./{e.filename}', e.description]
                     for e in self.list_entries(year=year)]
             table = html.build_link_table(rows=rows)
             table = html.stringify_xml(table)
@@ -92,12 +94,9 @@ class Archive:
 
 def main(args):
     site = Site(**vars(args))
-    archive = Archive(site=site,
-                      entries=site.entries,
-                      protocol=args.protocol,
-                      domain=args.domain)
+    archive = Archive(site=site, entries=site.entries, full_url=args.full_url)
     pages = list(archive.pages())
     total = len(pages)
     for i, page in enumerate(pages):
-        page.build(author=args.author, year=args.year)
+        page.build(author=args.author, year=args.year, full_url=args.full_url)
         logger.info('generated archive page %s (%d/%d)', page, i + 1, total)

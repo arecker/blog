@@ -1,6 +1,7 @@
 import datetime
 import os
 import pathlib
+from urllib.parse import urljoin
 
 from blog import html, utils
 
@@ -129,26 +130,6 @@ class Page:
             self._banner = self.metadata.get('banner', None)
         return self._banner
 
-    def banner_href(self, full=False):
-        """Render the href of the page's banner image.
-        >>> from blog.models import Site
-        >>> Page(banner='test.jpg', site=Site()).banner_href()
-        '/images/banners/test.jpg'
-
-        Use full to render the full URI.
-
-        >>> Page(banner='test.jpg', site=Site(protocol='http', domain='test.com')).banner_href(full=True)
-        'http://test.com/images/banners/test.jpg'
-
-        Returns None if the page doesn't have a banner.
-
-        >>> Page(metadata={}).banner_href() is None
-        True
-        """
-
-        if self.banner:
-            return self.site.href(f'/images/banners/{self.banner}', full=full)
-
     @property
     def nav_index(self):
         try:
@@ -156,19 +137,24 @@ class Page:
         except (ValueError, KeyError):
             return None
 
-    def render(self, author='', year=''):
+    def render(self, author='', year='', full_url=''):
         if not author:
             raise ValueError('author not set!')
         if not year:
             raise ValueError('year not set!')
+        if not full_url:
+            raise ValueError('full_url not set!')
 
         root = html.root()
 
-        head = html.build_page_head(
-            page_filename=self.filename,
-            page_title=self.title,
-            page_description=self.description,
-            page_banner_url=self.banner_href(full=True))
+        banner_url = urljoin(
+            f'{full_url.scheme}://{full_url.netloc}{full_url.path}',
+            f'images/banners/{self.banner}')
+
+        head = html.build_page_head(page_filename=self.filename,
+                                    page_title=self.title,
+                                    page_description=self.description,
+                                    page_banner_url=banner_url)
         root.append(head)
 
         body = html.body()
@@ -186,7 +172,8 @@ class Page:
         body.append(html.divider())
 
         if self.banner:
-            banner = html.build_page_banner(self.banner_href())
+            banner_url = f'./images/banners/{self.banner}'
+            banner = html.build_page_banner(banner_url)
             body.append(banner)
 
         article = html.build_page_article(raw_content=self.content)

@@ -1,4 +1,5 @@
 """generate journal RSS feed """
+from urllib.parse import urljoin
 import itertools
 import logging
 
@@ -15,38 +16,39 @@ class Feed(Page):
         self.site = site
         self.max_feed_items = max_feed_items
 
-    def render(self, author='', email='', title='', subtitle=''):
-        if not title:
-            raise ValueError('title not set!')
-        if not author:
-            raise ValueError('author not set!')
-        if not email:
-            raise ValueError('email not set!')
-        if not subtitle:
-            raise ValueError('subtitle not set!')
+    def render(self, author='', email='', title='', subtitle='', full_url=''):
+        assert full_url
+        feed_url = urljoin(
+            f'{full_url.scheme}://{full_url.netloc}{full_url.path}',
+            '/feed.xml',
+        )
+        site_url = f'{full_url.scheme}://{full_url.netloc}{full_url.path}'
 
+        assert all([title, subtitle, author, email])
         feed = xml.new_feed(title=title,
                             subtitle=subtitle,
                             author=author,
                             email=email,
                             timestamp=self.site.latest.date,
-                            feed_uri=self.site.href('feed.xml', full=True),
-                            site_uri=self.site.href(full=True))
+                            feed_uri=feed_url,
+                            site_uri=site_url)
 
-        for item in self.items(author=author, email=email):
+        for item in self.items(author=author, email=email, full_url=full_url):
             feed.append(item)
 
         return xml.stringify_xml(feed)
 
-    def items(self, author='', email='', **kwargs):
+    def items(self, author='', email='', full_url='', **kwargs):
         if self.max_feed_items == 0:
             items = self.site.entries
         else:
             items = itertools.islice(self.site.entries, self.max_feed_items)
 
         return [
-            xml.as_feed_entry(entry, author=author, email=email)
-            for entry in items
+            xml.as_feed_entry(entry,
+                              author=author,
+                              email=email,
+                              full_url=full_url) for entry in items
         ]
 
 
@@ -65,6 +67,7 @@ def main(args):
         'email': args.email,
         'subtitle': args.subtitle,
         'title': args.title,
+        'full_url': args.full_url
     }
     feed.build(**kwargs)
     logger.info('generated RSS feed %s (%d items)', feed,
