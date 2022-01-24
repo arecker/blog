@@ -81,8 +81,9 @@ def main(args):
     build.main(args)
     site = Site(**vars(args))
 
-    site_id = fetch_site_id(site.domain, token=args.netlify_token)
-    logger.info('found netlify site %s (%s)', site.domain, site_id)
+    domain = args.full_url.netloc
+    site_id = fetch_site_id(domain, token=args.netlify_token)
+    logger.info('found netlify site %s (%s)', domain, site_id)
 
     payload = build_new_deploy(root_dir / 'www')
     logger.info('built payload from %d file(s) in %s',
