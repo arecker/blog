@@ -5,6 +5,8 @@ import datetime
 import pathlib
 import re
 
+ROOT_DIR = pathlib.Path(__file__).parent.parent
+
 
 def parse_html_metadata_comments(content):
     """Parse metadata from magic HTML comments.

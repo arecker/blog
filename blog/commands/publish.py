@@ -6,14 +6,15 @@ import logging
 from blog import git, images
 from blog.models import Site
 
+from ..utils import ROOT_DIR
+
 logger = logging.getLogger(__name__)
 
 
 def main(args):
     images.validate_image_dependencies()
 
-    new_images = list(
-        filter(images.is_image, git.git_new_files(args.directory)))
+    new_images = list(filter(images.is_image, git.git_new_files(ROOT_DIR)))
 
     logger.info('checking dimensions for new images: %s', new_images)
     for path in new_images:
@@ -21,19 +22,19 @@ def main(args):
 
     site = Site(**vars(args))
 
-    git.git_stage_all(site.directory)
+    git.git_stage_all(ROOT_DIR)
     message = f'entry: {site.latest.title}'
-    git.git_write_commit(site.directory, message=message)
+    git.git_write_commit(ROOT_DIR, message=message)
     logger.info('added commit: %s', message)
 
     tag = f'entry-{site.latest.slug}'
-    git.git_write_tag(site.directory, tag=tag)
+    git.git_write_tag(ROOT_DIR, tag=tag)
     logger.info('created tag %s', tag)
 
-    git.git_push_tag(site.directory, tag=tag)
+    git.git_push_tag(ROOT_DIR, tag=tag)
     logger.info('pushed tag %s', tag)
 
-    git.git_push_master(site.directory)
+    git.git_push_master(ROOT_DIR)
     logger.info('pushed branch')
 
     logger.info('successfully published %s (%s)', tag, message)

@@ -38,9 +38,9 @@ def build_page_head(page_filename='',
         ET.Element('link',
                    rel='shortcut icon',
                    type='image/x-icon',
-                   href='/favicon.ico'))
+                   href='./favicon.ico'))
 
-    head.append(ET.Element('link', href='/assets/site.css', rel='stylesheet'))
+    head.append(ET.Element('link', href='./assets/site.css', rel='stylesheet'))
 
     head.append(ET.Element('meta', charset='UTF-8'))
 
@@ -161,12 +161,12 @@ def build_page_pagination(next_page='', previous_page=''):
     tree.start('nav', {'class': 'clearfix'})
 
     if next_page:
-        tree.start('a', {'class': 'float-left', 'href': f'/{next_page}'})
+        tree.start('a', {'class': 'float-left', 'href': f'./{next_page}'})
         tree.data(f'⟵ {next_page}')
         tree.end('a')
 
     if previous_page:
-        tree.start('a', {'class': 'float-right', 'href': f'/{previous_page}'})
+        tree.start('a', {'class': 'float-right', 'href': f'./{previous_page}'})
         tree.data(f'{previous_page} ⟶')
         tree.end('a')
 

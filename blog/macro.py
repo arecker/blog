@@ -32,8 +32,8 @@ class Expander:
   <h3 class="title">{self.site.latest.title}</h3>
 </a>
 <figure>
-  <a href="/{self.site.latest.filename}">
-    <img src="/images/banners/{self.site.latest.banner}">
+  <a href="./{self.site.latest.filename}">
+    <img src="./images/banners/{self.site.latest.banner}">
   </a>
   <figcaption>
     <p>{self.site.latest.description}</p>
@@ -41,7 +41,7 @@ class Expander:
 </figure>'''.strip()
         else:
             self.markup['latest'] = f'''
-<a href="/{self.site.latest.filename}">
+<a href="./{self.site.latest.filename}">
   <h3 class="title">{self.site.latest.title}</h3>
 </a>
 <p>{self.site.latest.description}</p>
