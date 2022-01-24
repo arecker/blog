@@ -28,7 +28,7 @@ class Expander:
         # latest
         if self.site.latest.banner:
             self.markup['latest'] = f'''
-<a href="/{self.site.latest.filename}">
+<a href="./{self.site.latest.filename}">
   <h3 class="title">{self.site.latest.title}</h3>
 </a>
 <figure>

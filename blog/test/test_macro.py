@@ -32,12 +32,12 @@ class TestExpander(unittest.TestCase):
     def test_expand_latest(self):
         actual = self.expander.markup['latest']
         expected = '''
-<a href="/2014-11-10.html">
+<a href="./2014-11-10.html">
   <h3 class="title">Monday, November 10 2014</h3>
 </a>
 <figure>
-  <a href="/2014-11-10.html">
-    <img src="/images/banners/2014-11-10.bmp">
+  <a href="./2014-11-10.html">
+    <img src="./images/banners/2014-11-10.bmp">
   </a>
   <figcaption>
     <p>planes, trains, and automobiles</p>
@@ -49,7 +49,7 @@ class TestExpander(unittest.TestCase):
         self.expander.populate()
         actual = self.expander.markup['latest']
         expected = '''
-<a href="/2014-11-10.html">
+<a href="./2014-11-10.html">
   <h3 class="title">Thursday, November 10 2014</h3>
 </a>
 <p>planes, trains, and automobiles</p>
@@ -86,12 +86,12 @@ class TestExpander(unittest.TestCase):
   <div class="row">
     <div class="column">
       <h2>Latest Post</h2>
-      <a href="/2014-11-10.html">
+      <a href="./2014-11-10.html">
         <h3 class="title">Monday, November 10 2014</h3>
       </a>
       <figure>
-        <a href="/2014-11-10.html">
-          <img src="/images/banners/2014-11-10.bmp">
+        <a href="./2014-11-10.html">
+          <img src="./images/banners/2014-11-10.bmp">
         </a>
         <figcaption>
           <p>planes, trains, and automobiles</p>
