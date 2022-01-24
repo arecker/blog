@@ -1,15 +1,11 @@
 import datetime
 import functools
 import logging
-import os
-import pathlib
 
-from blog import macro, git, utils
-from blog.models.page import Page
+from .. import macro, git, utils
+from ..models.page import Page
 
 logger = logging.getLogger(__name__)
-here = pathlib.Path(__file__).parent
-root_dir = here.parent.parent
 
 
 class Site:
@@ -21,12 +17,13 @@ class Site:
         self._entries = kwargs.pop('entries', None)
 
     def __repr__(self):
-        return f'<Site {utils.prettify_path(root_dir)}>'
+        return f'<Site {utils.prettify_path(utils.ROOT_DIR)}>'
 
     @property
     def entries(self):
         if not self._entries:
-            sources = sorted(root_dir.glob('entries/*.html'), reverse=True)
+            sources = sorted(utils.ROOT_DIR.glob('entries/*.html'),
+                             reverse=True)
             self._entries = [
                 Page(source=source, site=self) for source in sources
             ]
@@ -36,7 +33,7 @@ class Site:
     @property
     def pages(self):
         if not self._pages:
-            sources = sorted(root_dir.glob('pages/*.html'))
+            sources = sorted(utils.ROOT_DIR.glob('pages/*.html'))
             self._pages = [
                 Page(source=source, site=self) for source in sources
             ]
@@ -66,8 +63,8 @@ class Site:
 
     @functools.cached_property
     def commit(self):
-        return git.get_head_commit(root_dir)
+        return git.get_head_commit(utils.ROOT_DIR)
 
     @functools.cached_property
     def is_entry_tagged(self):
-        return git.head_is_entry_tagged(root_directory=root_dir)
+        return git.head_is_entry_tagged(root_directory=utils.ROOT_DIR)

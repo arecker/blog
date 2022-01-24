@@ -42,7 +42,7 @@ class Command:
         """The command file imported as a module."""
 
         return importlib.import_module(f'.commands.{self.name}',
-                                       package='blog')
+                                       package=here.name)
 
     @property
     def help(self):

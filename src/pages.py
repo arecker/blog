@@ -3,9 +3,7 @@ import os
 import pathlib
 from urllib.parse import urljoin
 
-from blog import html, utils
-
-root_dir = pathlib.Path(__file__).parent.parent
+from . import html, utils
 
 
 class Page:
@@ -198,5 +196,5 @@ class Page:
         return f'<!doctype html>\n{root}'
 
     def build(self, **kwargs):
-        with open(root_dir / self.target, 'w') as f:
+        with open(utils.ROOT_DIR / self.target, 'w') as f:
             f.write(self.render(**kwargs))
