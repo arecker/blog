@@ -1,6 +1,7 @@
 """share latest entry in a slack post"""
 
 import logging
+from urllib.parse import urljoin
 
 from blog import http
 from blog.models import Site
@@ -26,7 +27,10 @@ def register(subparser):
 
 def main(args):
     site = Site(**vars(args))
-    url = site.latest.href(full=True)
+    url = urljoin(
+        f'{args.full_url.scheme}://{args.full_url.netloc}{args.full_url.path}',
+        f'{site.latest.filename}')
+
     message = '\n'.join([site.latest.title, site.latest.description, url])
     payload = {
         'text': message,

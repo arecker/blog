@@ -2,6 +2,7 @@
 
 import logging
 import sys
+from urllib.parse import urljoin
 
 from blog.models import Site
 
@@ -32,7 +33,10 @@ def main(args):
         sys.exit(1)
 
     site = Site(**vars(args))
-    url = site.latest.href(full=True)
+    url = urljoin(
+        f'{args.full_url.scheme}://{args.full_url.netloc}{args.full_url.path}',
+        f'{site.latest.filename}')
+
     tweet = '\n'.join([site.latest.title, site.latest.description, url])
     client.update_status(tweet)
     logger.info('shared "%s" to twitter', site.latest.description)
