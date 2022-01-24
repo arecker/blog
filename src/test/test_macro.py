@@ -19,8 +19,9 @@ class TestExpander(unittest.TestCase):
                                'banner': '2014-11-10.bmp'
                            })
 
-        self.site = Site(entries=[self.latest], timestamp=self.timestamp)
-        self.expander = macro.Expander(site=self.site)
+        self.site = Site(entries=[self.latest])
+        self.expander = macro.Expander(site=self.site,
+                                       timestamp=self.timestamp)
         self.expander.populate()
 
     def test_expand_timestamp(self):

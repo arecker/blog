@@ -11,10 +11,10 @@ class Expander:
     r_macro = re.compile(r'(?P<whitespace> *)<!-- blog:(?P<key>\S+) -->',
                          re.MULTILINE)
 
-    def __init__(self, site=None):
+    def __init__(self, site=None, timestamp=None):
         self.site = site
         self.markup = {}
-        self.timestamp = datetime.datetime.now()
+        self.timestamp = timestamp or datetime.datetime.now()
 
     def populate(self):
         # timestamp
