@@ -57,7 +57,3 @@ class Site:
     def pagination(self):
         filenames = [f.filename for f in reversed(self.entries)]
         return utils.paginate_list(filenames)
-
-    @functools.cached_property
-    def commit(self):
-        return git.get_head_commit(utils.ROOT_DIR)

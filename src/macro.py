@@ -4,6 +4,8 @@ import datetime
 import logging
 import re
 
+from . import git
+
 logger = logging.getLogger(__name__)
 
 
@@ -49,8 +51,9 @@ class Expander:
 '''.strip()
 
         # commit
+        commit = git.get_head_commit()
         self.markup[
-            'commit'] = f'[<a href="{self.site.commit.url}">{self.site.commit.short_hash}</a>]<br/>{self.site.commit.summary}'
+            'commit'] = f'[<a href="{commit.url}">{commit.short_hash}</a>]<br/>{commit.summary}'
 
     def expand(self, html):
         return self.r_macro.sub(self.replace, html)
