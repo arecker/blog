@@ -6,7 +6,7 @@ import logging
 import sys
 
 from ..commands import test, deploy, slack, tweet
-from ..models import Site
+from ..git import head_is_entry_tagged
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +21,8 @@ def main(args):
     test.main(args)
     deploy.main(args)
 
-    if not Site(**vars(args)).is_entry_tagged:
+    if not head_is_entry_tagged():
+        logger.info('exiting, since HEAD commit is not tagged')
         sys.exit(0)
 
     slack.main(args=args)

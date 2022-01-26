@@ -169,10 +169,6 @@ def new_command_parser() -> argparse.ArgumentParser:
                         type=FullURL,
                         default='https://www.alexrecker.com',
                         help='Full URL of the website')
-    parser.add_argument('--basepath',
-                        type=str,
-                        default='/',
-                        help='website base path')
 
     subcommand = parser.add_subparsers(dest='subcommand')
     for command in all_commands():

@@ -10,8 +10,6 @@ logger = logging.getLogger(__name__)
 
 class Site:
     def __init__(self, **kwargs):
-        self.basepath = kwargs.pop('basepath', '/')
-
         self._pages = kwargs.pop('pages', None)
         self._entries = kwargs.pop('entries', None)
 
@@ -63,7 +61,3 @@ class Site:
     @functools.cached_property
     def commit(self):
         return git.get_head_commit(utils.ROOT_DIR)
-
-    @functools.cached_property
-    def is_entry_tagged(self):
-        return git.head_is_entry_tagged(root_directory=utils.ROOT_DIR)
