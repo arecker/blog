@@ -4,6 +4,7 @@ import logging
 
 from .. import utils, html
 from ..models import Page, Site
+from ..pages import build_nav_list
 
 logger = logging.getLogger(__name__)
 
@@ -95,6 +96,10 @@ def main(args):
     archive = Archive(site=site, entries=site.entries, full_url=args.full_url)
     pages = list(archive.pages())
     total = len(pages)
+    nav_pages = build_nav_list()
     for i, page in enumerate(pages):
-        page.build(author=args.author, year=args.year, full_url=args.full_url)
+        page.build(author=args.author,
+                   year=args.year,
+                   full_url=args.full_url,
+                   nav_pages=nav_pages)
         logger.info('generated archive page %s (%d/%d)', page, i + 1, total)

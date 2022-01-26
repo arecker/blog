@@ -135,13 +135,8 @@ class Page:
         except (ValueError, KeyError):
             return None
 
-    def render(self, author='', year='', full_url=''):
-        if not author:
-            raise ValueError('author not set!')
-        if not year:
-            raise ValueError('year not set!')
-        if not full_url:
-            raise ValueError('full_url not set!')
+    def render(self, author='', year='', full_url='', nav_pages=[]):
+        assert all([author, year, full_url, nav_pages]), 'missing some args!'
 
         root = html.root()
 
@@ -163,8 +158,7 @@ class Page:
 
         body.append(html.divider())
 
-        nav = html.build_site_nav(filename=self.filename,
-                                  nav_pages=self.site.nav)
+        nav = html.build_site_nav(filename=self.filename, nav_pages=nav_pages)
         body.append(nav)
 
         body.append(html.divider())
@@ -198,3 +192,12 @@ class Page:
     def build(self, **kwargs):
         with open(utils.ROOT_DIR / self.target, 'w') as f:
             f.write(self.render(**kwargs))
+
+
+def build_nav_list():
+    pages = utils.ROOT_DIR.glob('pages/*.html')
+    pages = [Page(source=source) for source in pages]
+    pages = filter(lambda p: p.nav_index, pages)
+    pages = sorted(pages, key=lambda p: p.nav_index)
+
+    return ['entries.html'] + [p.filename for p in pages]
