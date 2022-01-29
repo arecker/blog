@@ -35,22 +35,26 @@ class Archive:
 
     def pages(self):
         years = self.list_years()
-        yield Page(filename='entries.html',
-                   title='Entries',
-                   description='Complete Archive of Journal Entries',
-                   banner=self.pick_banner(),
-                   is_entry=False,
-                   content=self.build_page_content(year=None, years=years),
-                   site=self.site)
+
+        page = Page(filename='entries.html',
+                    title='Entries',
+                    description='Complete Archive of Journal Entries',
+                    banner=self.pick_banner(),
+                    is_entry=False,
+                    content=self.build_page_content(year=None, years=years),
+                    site=self.site)
+        yield page
 
         for year in years:
-            yield Page(filename=f'{year}.html',
-                       title=str(year),
-                       description=f'All Entries from {year}',
-                       banner=self.pick_banner(year=year),
-                       is_entry=False,
-                       content=self.build_page_content(year=year, years=years),
-                       site=self.site)
+            page = Page(filename=f'{year}.html',
+                        title=str(year),
+                        description=f'All Entries from {year}',
+                        banner=self.pick_banner(year=year),
+                        is_entry=False,
+                        content=self.build_page_content(year=year,
+                                                        years=years),
+                        site=self.site)
+            yield page
 
     def build_page_content(self, year=None, years=[]):
         root = html.p()
@@ -83,7 +87,7 @@ class Archive:
 
     def pick_banner(self, year=''):
         entries = self.list_entries(year=year)
-        choices = filter(None, (e.banner for e in entries))
+        choices = filter(None, (e.banner_filename() for e in entries))
         try:
             return random.choice(list(choices))
         except IndexError:

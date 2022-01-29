@@ -138,10 +138,8 @@ def as_feed_entry(entry, author='', email='', full_url=''):
     identifier.end('id')
     item.append(identifier.close())
 
-    if entry.banner:
-        banner_url = urljoin(
-            f'{full_url.scheme}://{full_url.netloc}{full_url.path}',
-            f'images/banners/{entry.banner}')
+    if entry.banner_filename():
+        banner_url = entry.banner_href(full_url=full_url)
         item.append(
             ET.Element('media:thumbnail',
                        attrib={

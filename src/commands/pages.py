@@ -26,30 +26,28 @@ def build_nav_list():
 class PageMetadata:
     """Mixin for Page Metadata
 
-    Helps the page parse its own metadata either from HTML comments...
+    Helps the page parse its own metadata either from HTML comments.
 
-    >>> html = '<!-- meta:title A Tale of Two Cities -->'
-    >>> PageMetadata(content=html).metadata()
+    >>> o = PageMetadata()
+    >>> o._content = '<!-- meta:title A Tale of Two Cities -->'
+    >>> o.metadata()
     {'title': 'A Tale of Two Cities'}
 
-    ...or from kwargs.
+    Set `_metadata` to override the results.
 
-    >>> PageMetadata(metadata={'anything': 'Hello!'}).metadata()
+    >>> o._metadata = {'anything': 'Hello!'}
+    >>> o.metadata()
     {'anything': 'Hello!'}
     """
-    def __init__(self, content='', metadata={}, **kwargs):
-        super()
-        self._content = content
-        self._metadata = metadata
-
     def metadata(self) -> dict:
-        if self._metadata:
-            return self._metadata
+        if data := getattr(self, '_metadata', None):
+            return data
 
-        if self._content:
-            return self.metadata_parse_html(self._content)
+        if data := getattr(self, '_content', None):
+            content = data
+        else:
+            content = self.read()
 
-        content = self.read()
         return self.metadata_parse_html(content)
 
     def metadata_parse_html(self, content):
@@ -66,7 +64,58 @@ class PageMetadata:
         return dict(values)
 
 
-class Page(PageMetadata):
+class PageBanner:
+    """Mixin Page Banner
+
+    Helps the page find and render its banner.
+
+    >>> o = PageBanner()
+    >>> o._banner = 'test.jpg'
+    >>> o.banner_filename()
+    'test.jpg'
+
+    Can render relative URL...
+
+    >>> o = PageBanner()
+    >>> o._banner = 'test.jpg'
+    >>> o.banner_href()
+    './images/banners/test.jpg'
+
+    ... or a full url, if the full_url param is provided.
+
+    >>> from urllib.parse import urlparse
+    >>> full_url = urlparse('https://www.yoursite.biz')
+    >>> o = PageBanner()
+    >>> o._banner = 'test.jpg'
+    >>> o.banner_href(full_url=full_url)
+    'https://www.yoursite.biz/images/banners/test.jpg'
+    """
+    def banner_filename(self):
+        """Return the banner filename.
+
+        If none was given in kwargs, attempt to access the Page's
+        metadata.
+        """
+        if banner := getattr(self, '_banner', None):
+            return banner
+
+        metadata = self.metadata()
+        return metadata.get('banner')
+
+    def banner_href(self, full_url=None):
+        filename = self.banner_filename()
+
+        if not filename:
+            return None
+
+        if not full_url:
+            return f'./images/banners/{filename}'
+
+        return urljoin(f'{full_url.scheme}://{full_url.netloc}{full_url.path}',
+                       f'images/banners/{filename}')
+
+
+class Page(PageMetadata, PageBanner):
     def __init__(self, **kwargs):
         self.site = kwargs.pop('site', None)
 
@@ -178,13 +227,6 @@ class Page(PageMetadata):
             return metadata['description']
 
     @property
-    def banner(self):
-        if not self._banner:
-            metadata = self.metadata()
-            self._banner = metadata.get('banner', None)
-        return self._banner
-
-    @property
     def nav_index(self):
         try:
             metadata = self.metadata()
@@ -197,14 +239,12 @@ class Page(PageMetadata):
 
         root = html.root()
 
-        banner_url = urljoin(
-            f'{full_url.scheme}://{full_url.netloc}{full_url.path}',
-            f'images/banners/{self.banner}')
+        head = html.build_page_head(
+            page_filename=self.filename,
+            page_title=self.title,
+            page_description=self.description,
+            page_banner_url=self.banner_href(full_url=full_url))
 
-        head = html.build_page_head(page_filename=self.filename,
-                                    page_title=self.title,
-                                    page_description=self.description,
-                                    page_banner_url=banner_url)
         root.append(head)
 
         body = html.body()
@@ -220,9 +260,8 @@ class Page(PageMetadata):
 
         body.append(html.divider())
 
-        if self.banner:
-            banner_url = f'./images/banners/{self.banner}'
-            banner = html.build_page_banner(banner_url)
+        if self.banner_filename():
+            banner = html.build_page_banner(self.banner_href())
             body.append(banner)
 
         article = html.build_page_article(raw_content=self.content)

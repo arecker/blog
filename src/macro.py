@@ -29,14 +29,14 @@ class Expander:
         self.markup['timestamp'] = self.timestamp.strftime(timestamp_format)
 
         # latest
-        if self.site.latest.banner:
+        if self.site.latest.banner_filename():
             self.markup['latest'] = f'''
 <a href="./{self.site.latest.filename}">
   <h3 class="title">{self.site.latest.title}</h3>
 </a>
 <figure>
   <a href="./{self.site.latest.filename}">
-    <img src="./images/banners/{self.site.latest.banner}">
+    <img src="{self.site.latest.banner_href()}">
   </a>
   <figcaption>
     <p>{self.site.latest.description}</p>
