@@ -45,7 +45,7 @@ class TestExpander(unittest.TestCase):
 </figure>'''.strip()
         self.assertEqual(actual, expected)
 
-        del self.latest.metadata['banner']
+        del self.latest._metadata['banner']
         self.expander.populate()
         actual = self.expander.markup['latest']
         expected = '''

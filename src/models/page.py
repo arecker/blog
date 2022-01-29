@@ -1,1 +1,1 @@
-from ..pages import Page
+from ..commands.pages import Page

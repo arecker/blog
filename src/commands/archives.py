@@ -3,8 +3,7 @@ import random
 import logging
 
 from .. import utils, html
-from ..models import Page, Site
-from ..pages import build_nav_list
+from .pages import Page, build_nav_list
 
 logger = logging.getLogger(__name__)
 
@@ -92,7 +91,10 @@ class Archive:
 
 
 def main(args):
+    # TODO: remove once Site is gone
+    from ..models import Site
     site = Site(**vars(args))
+
     archive = Archive(site=site, entries=site.entries, full_url=args.full_url)
     pages = list(archive.pages())
     total = len(pages)

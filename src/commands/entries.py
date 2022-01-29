@@ -2,8 +2,7 @@
 
 import logging
 
-from ..models import Site
-from ..pages import Page, build_nav_list
+from .pages import Page, build_nav_list
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +12,10 @@ def register(parser):
 
 
 def main(args):
+    # TODO: remove once Site is gone
+    from ..models import Site
     site = Site(**vars(args))
+
     total = len(list(site.entries))
     nav_pages = build_nav_list()
     for i, page in enumerate(site.entries):
