@@ -7,6 +7,7 @@ import logging
 from .. import xml2 as xml
 from ..commands.archives import Archive
 from ..models import Page, Site
+from .entries import Entry
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +41,7 @@ class Sitemap(Page):
         pages = sorted(pages, key=lambda p: p.filename)
         for page in pages:
             url = self.href(page.filename)
-            if page.is_entry:
+            if isinstance(page, Entry):
                 yield url, page.date
             else:
                 yield url, datetime.datetime.now()

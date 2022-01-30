@@ -202,7 +202,6 @@ class Page(PageMetadata, PageBanner, PageMarkup):
         self._content = kwargs.pop('content', None)
         self._description = kwargs.pop('description', None)
         self._filename = kwargs.pop('filename', None)
-        self._is_entry = kwargs.pop('is_entry', None)
         self._metadata = kwargs.pop('metadata', None)
         self._title = kwargs.pop('title', None)
 
@@ -246,27 +245,6 @@ class Page(PageMetadata, PageBanner, PageMarkup):
         return f'www/{self.filename}'
 
     @property
-    def is_entry(self):
-        """True if the source in the entries folder and the page
-        should be treated like an entry.
-
-        >>> Page(source='entries/test.html').is_entry
-        True
-
-        >>> Page(source='pages/test.html').is_entry
-        False
-
-        You can also override this when making a page for testing.
-
-        >>> Page(is_entry=False).is_entry
-        False
-        """
-        if self._is_entry is None:
-            return self.source.parent.name == 'entries'
-        else:
-            return self._is_entry
-
-    @property
     def content(self):
         if not self._content:
             with open(self.source, 'r') as f:
@@ -274,18 +252,9 @@ class Page(PageMetadata, PageBanner, PageMarkup):
         return self._content
 
     @property
-    def date(self):
-        if not self.is_entry:
-            return None
-        else:
-            return datetime.datetime.strptime(self.slug, '%Y-%m-%d')
-
-    @property
     def title(self):
         if self._title:
             return self._title
-        elif self.is_entry:
-            return self.date.strftime('%A, %B %-d %Y')
         else:
             return self.metadata()['title']
 
@@ -295,10 +264,7 @@ class Page(PageMetadata, PageBanner, PageMarkup):
             return self._description
 
         metadata = self.metadata()
-        if self.is_entry:
-            return metadata['title']
-        else:
-            return metadata['description']
+        return metadata['description']
 
     @property
     def nav_index(self):
@@ -334,8 +300,9 @@ class Page(PageMetadata, PageBanner, PageMarkup):
         root.append(body)
         root = html.stringify_xml(root)
 
-        if not self.is_entry:
-            root = self.site.expander.expand(root)
+        # TODO: rewrite the index page as a separate Page type so we
+        # can get rid of this expander
+        root = self.site.expander.expand(root)
 
         return f'<!doctype html>\n{root}'
 

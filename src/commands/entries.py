@@ -1,6 +1,7 @@
 """build journal entries"""
 
 import logging
+import datetime
 
 from .pages import Page, build_nav_list
 from .. import html
@@ -11,6 +12,19 @@ logger = logging.getLogger(__name__)
 class Entry(Page):
     def __repr__(self):
         return f'<Entry {self.filename}>'
+
+    @property
+    def title(self):
+        return self.date.strftime('%A, %B %-d %Y')
+
+    @property
+    def description(self):
+        metadata = self.metadata()
+        return metadata['title']
+
+    @property
+    def date(self):
+        return datetime.datetime.strptime(self.slug, '%Y-%m-%d')
 
     def paginate(self, next_filename=None, previous_filename=None):
         self.next_filename = next_filename
