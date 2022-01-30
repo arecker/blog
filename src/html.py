@@ -11,16 +11,69 @@ def divider():
     return ET.Element('hr')
 
 
+def row():
+    return ET.Element('div', attrib={'class': 'row'})
+
+
+def column():
+    return ET.Element('div', attrib={'class': 'column'})
+
+
 def div():
     return ET.Element('div')
 
 
-def p():
-    return ET.Element('p')
+def p(text=''):
+    el = ET.Element('p')
+    if text:
+        el.text = text
+    return el
 
 
 def body():
     return ET.Element('body')
+
+
+def h2(text=''):
+    el = ET.Element('h2')
+    if text:
+        el.text = text
+    return el
+
+
+def h3(text='', _class=''):
+    attrs = {}
+    if _class:
+        attrs['class'] = _class
+    el = ET.Element('h3', attrib=attrs)
+    if text:
+        el.text = text
+    return el
+
+
+def link(href='', element=None):
+    el = ET.Element('a', attrib={'href': href})
+    el.append(element)
+    return el
+
+
+def img(src=''):
+    return ET.Element('img', attrib={'src': src})
+
+
+def figure(src='', href='', caption=''):
+    el = ET.Element('figure')
+    if href:
+        el.append(link(href=href, element=img(src=src)))
+    else:
+        el.append(img(src=src))
+
+    if caption:
+        figcaption = ET.Element('figcaption')
+        figcaption.append(p(text=caption))
+        el.append(figcaption)
+
+    return el
 
 
 def build_page_head(page_filename='',
@@ -150,10 +203,13 @@ def build_page_banner(banner_url):
 
 def build_page_article(raw_content=''):
     content = f'<article>{raw_content}</article>'
-    parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True))
-    parser.feed(content)
-    root = parser.close()
-    return root
+    parser = ET.XMLParser(target=ET.TreeBuilder(insert_comments=True), )
+    try:
+        parser.feed(content)
+        root = parser.close()
+        return root
+    except ET.ParseError as e:
+        raise ValueError(f'{e}\n---\n{content}\n---')
 
 
 def build_page_pagination(next_page='', previous_page=''):
