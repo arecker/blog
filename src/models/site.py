@@ -1,8 +1,8 @@
-import datetime
+import copy
 import functools
 import logging
 
-from .. import macro, git, utils
+from .. import macro, utils
 from ..models.page import Page
 
 logger = logging.getLogger(__name__)
@@ -16,24 +16,23 @@ class Site:
     def __repr__(self):
         return f'<Site {utils.prettify_path(utils.ROOT_DIR)}>'
 
-    @property
+    @functools.cached_property
     def entries(self):
         from ..commands.entries import Entry
-        if not self._entries:
-            sources = sorted(utils.ROOT_DIR.glob('entries/*.html'),
-                             reverse=True)
-            self._entries = [
-                Entry(source=source, site=self) for source in sources
-            ]
+        if self._entries:
+            return self._entries
 
-        filenames = [f.filename for f in reversed(self._entries)]
+        entries = sorted(utils.ROOT_DIR.glob('entries/*.html'), reverse=True)
+
+        entries = [Entry(source=source, site=self) for source in entries]
+
+        filenames = [f.filename for f in reversed(entries)]
         pagination = utils.paginate_list(filenames)
-        for entry in self._entries:
+        for entry in entries:
             pages = pagination[entry.filename]
             entry.paginate(next_filename=pages.next,
                            previous_filename=pages.previous)
-
-        return self._entries
+        return entries
 
     @property
     def pages(self):
