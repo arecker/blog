@@ -115,7 +115,54 @@ class PageBanner:
                        f'images/banners/{filename}')
 
 
-class Page(PageMetadata, PageBanner):
+class PageMarkup:
+    """Mixin for Page Markup.
+
+    Helps the page generate HTML.
+    """
+    def html_head(self,
+                  filename='',
+                  title='',
+                  description='',
+                  full_url='',
+                  banner_url=''):
+        """Generates HTML <head> section.
+
+        :param str filename: The name of the rendered file in the webroot        
+
+        >>> o = PageMarkup()
+        >>> kwargs = {'title': 'Test', 'description': 'A Test Page'}
+        >>> kwargs.update({'full_url': 'test.html', 'banner_url': 'test.jpg'})
+        >>> from ..html import stringify_xml
+        >>> xml = o.html_head(**kwargs)
+        >>> print(stringify_xml(xml))
+        <head>
+          <title>Test</title>
+          <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
+          <link href="./assets/site.css" rel="stylesheet">
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta name="twitter:title" content="Test">
+          <meta name="twitter:description" content="A Test Page">
+          <meta name="image" content="test.jpg">
+          <meta property="og:url" content="/">
+          <meta property="og:type" content="article">
+          <meta property="og:title" content="Test">
+          <meta property="og:description" content="A Test Page">
+          <meta property="og:image" content="test.jpg">
+        </head>
+        """
+        kwargs = {
+            'page_filename': filename,
+            'page_title': title,
+            'page_description': description,
+            'page_banner_url': banner_url,
+        }
+
+        return html.build_page_head(**kwargs)
+
+
+class Page(PageMetadata, PageBanner, PageMarkup):
     def __init__(self, **kwargs):
         self.site = kwargs.pop('site', None)
 
@@ -239,12 +286,11 @@ class Page(PageMetadata, PageBanner):
 
         root = html.root()
 
-        head = html.build_page_head(
-            page_filename=self.filename,
-            page_title=self.title,
-            page_description=self.description,
-            page_banner_url=self.banner_href(full_url=full_url))
-
+        head = self.html_head(filename=self.filename,
+                              title=self.title,
+                              description=self.description,
+                              full_url=full_url,
+                              banner_url=self.banner_href(full_url=full_url))
         root.append(head)
 
         body = html.body()
