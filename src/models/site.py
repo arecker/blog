@@ -18,12 +18,20 @@ class Site:
 
     @property
     def entries(self):
+        from ..commands.entries import Entry
         if not self._entries:
             sources = sorted(utils.ROOT_DIR.glob('entries/*.html'),
                              reverse=True)
             self._entries = [
-                Page(source=source, site=self) for source in sources
+                Entry(source=source, site=self) for source in sources
             ]
+
+        filenames = [f.filename for f in reversed(self._entries)]
+        pagination = utils.paginate_list(filenames)
+        for entry in self._entries:
+            pages = pagination[entry.filename]
+            entry.paginate(next_filename=pages.next,
+                           previous_filename=pages.previous)
 
         return self._entries
 

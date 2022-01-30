@@ -161,6 +161,33 @@ class PageMarkup:
 
         return html.build_page_head(**kwargs)
 
+    def html_body(self,
+                  title='',
+                  description='',
+                  filename='',
+                  nav_pages=[],
+                  banner_href='',
+                  content=''):
+        """Generates HTML <body>"""
+
+        body = html.body()
+        header = html.build_page_header(title=title, description=description)
+        body.append(header)
+        body.append(html.divider())
+        nav = html.build_site_nav(filename=filename, nav_pages=nav_pages)
+        body.append(nav)
+
+        body.append(html.divider())
+
+        if banner_href:
+            banner = html.build_page_banner(banner_href)
+            body.append(banner)
+
+        article = html.build_page_article(raw_content=content)
+        body.append(article)
+
+        return body
+
 
 class Page(PageMetadata, PageBanner, PageMarkup):
     def __init__(self, **kwargs):
@@ -293,36 +320,17 @@ class Page(PageMetadata, PageBanner, PageMarkup):
                               banner_url=self.banner_href(full_url=full_url))
         root.append(head)
 
-        body = html.body()
-
-        header = html.build_page_header(title=self.title,
-                                        description=self.description)
-        body.append(header)
-
-        body.append(html.divider())
-
-        nav = html.build_site_nav(filename=self.filename, nav_pages=nav_pages)
-        body.append(nav)
+        body = self.html_body(title=self.title,
+                              description=self.description,
+                              filename=self.filename,
+                              nav_pages=nav_pages,
+                              banner_href=self.banner_href(),
+                              content=self.read())
 
         body.append(html.divider())
-
-        if self.banner_filename():
-            banner = html.build_page_banner(self.banner_href())
-            body.append(banner)
-
-        article = html.build_page_article(raw_content=self.content)
-        body.append(article)
-
-        if self.is_entry:
-            pages = self.site.pagination[self.filename]
-            pagination = html.build_page_pagination(
-                next_page=pages.next, previous_page=pages.previous)
-            body.append(pagination)
-
-        body.append(html.divider())
-
         footer = html.build_page_footer(author=author, year=year)
         body.append(footer)
+
         root.append(body)
         root = html.stringify_xml(root)
 
@@ -333,6 +341,10 @@ class Page(PageMetadata, PageBanner, PageMarkup):
 
     def read(self):
         """Returns the content of the pages off the filesystem."""
+
+        # TODO: override read() in archive instead
+        if content := getattr(self, '_content', None):
+            return content
 
         with open(self.source, 'r') as f:
             return f.read()

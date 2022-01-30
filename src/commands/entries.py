@@ -3,8 +3,25 @@
 import logging
 
 from .pages import Page, build_nav_list
+from .. import html
 
 logger = logging.getLogger(__name__)
+
+
+class Entry(Page):
+    def __repr__(self):
+        return f'<Entry {self.filename}>'
+
+    def paginate(self, next_filename=None, previous_filename=None):
+        self.next_filename = next_filename
+        self.previous_filename = previous_filename
+
+    def read(self):
+        content = super(Entry, self).read()
+        pagination = html.build_page_pagination(
+            next_page=self.next_filename, previous_page=self.previous_filename)
+        pagination = html.stringify_xml(pagination)
+        return content + '\n' + pagination
 
 
 def register(parser):
