@@ -44,6 +44,15 @@ class Index(Page):
         return column
 
     def fix_self_closing_tags(self, html: str):
+        """Adds extra slash to self-closing tags.
+
+        Unfortunately this is needed to satisfy the XML library's
+        parser while reading data.
+
+        >>> html = '<div><img src="bleh.jpg"></div>'
+        >>> Index().fix_self_closing_tags(html)
+        '<div><img src="bleh.jpg"/></div>'
+        """
         p = re.compile(r'\<img src=\"(.*)\"\>')
         return p.sub(r'<img src="\1"/>', html)
 
