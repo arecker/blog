@@ -31,7 +31,7 @@ class Index(Page):
         latest = self.fetch_latest_entry()
         column.append(
             html.link(href=f'./{latest.filename}',
-                      element=html.h3(_class='title', text=latest.title)))
+                      children=[html.h3(_class='title', text=latest.title)]))
 
         if image := latest.banner_href():
             column.append(

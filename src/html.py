@@ -30,6 +30,12 @@ def p(text=''):
     return el
 
 
+def h1(text=''):
+    el = ET.Element('h1')
+    el.text = text
+    return el
+
+
 def body():
     return ET.Element('body')
 
@@ -51,9 +57,28 @@ def h3(text='', _class=''):
     return el
 
 
-def link(href='', element=None):
+def link(href='', text='', children=[]):
+    """Create a <a> element.
+
+    >>> stringify_xml(link(href='google.com', text='the google'))
+    '<a href="google.com">the google</a>'
+
+    Supports child elements as well!
+
+    >>> second = h1(text='second')
+    >>> second.tail = ' some floating text'
+    >>> children = [h1(text='first'), second]
+    >>> stringify_xml(link(href='#', children=children), prettify=False)
+    '<a href="#"><h1>first</h1><h1>second</h1> some floating text</a>'
+    """
     el = ET.Element('a', attrib={'href': href})
-    el.append(element)
+
+    if text:
+        el.text = text
+        
+    for child in children:
+        el.append(child)
+            
     return el
 
 
