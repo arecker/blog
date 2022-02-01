@@ -82,6 +82,34 @@ def link(href='', text='', children=[]):
     return el
 
 
+def flatten_element_list(things=[]):
+    """Turns a list of elements and strings into a list of elements.
+
+    >>> root = div()
+    >>> things = [h1(text='test'), ' test ', divider()]
+    >>> things = flatten_element_list(things=things)
+    >>> for thing in things:
+    ...     root.append(thing)
+    >>> print(stringify_xml(root))
+    <div>
+      <h1>test</h1> test <hr>
+    </div>
+    """
+    new_things = []
+    
+    for i, thing in enumerate(things):
+        if isinstance(thing, ET.Element):
+            new_things.append(thing)
+        elif isinstance(thing, str):
+            previous = new_things[i - 1]
+            if previous.tail:
+                previous.tail += thing
+            else:
+                previous.tail = thing
+
+    return new_things
+
+
 def img(src=''):
     return ET.Element('img', attrib={'src': src})
 
