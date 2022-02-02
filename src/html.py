@@ -117,7 +117,7 @@ def img(src=''):
 def figure(src='', href='', caption=''):
     el = ET.Element('figure')
     if href:
-        el.append(link(href=href, element=img(src=src)))
+        el.append(link(href=href, children=[img(src=src)]))
     else:
         el.append(img(src=src))
 

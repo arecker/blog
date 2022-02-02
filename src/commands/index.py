@@ -19,27 +19,52 @@ class Index(Page):
 
     def read(self):
         row = html.row()
-        row.append(self.html_latest_post())
+        latest = self.fetch_latest_entry()
+        column = self.html_latest_post(
+            title=latest.title,
+            description=latest.description,
+            page_href=f'./{latest.filename}',
+            banner_href=latest.banner_href()
+        )
+        row.append(column)
         row = html.stringify_xml(row)
         row = self.fix_self_closing_tags(row)
         return row
 
-    def html_latest_post(self):
+    def html_latest_post(self, title='', description='', page_href='', banner_href=''):
+        """Render latest post column.
+
+        >>> kwargs = {'title': 'Test', 'description': 'a test'}
+        >>> kwargs.update({'page_href': 'test.html', 'banner_href': 'test.jpg'})
+        >>> print(html.stringify_xml(Index().html_latest_post(**kwargs)))
+        <div class="column">
+          <h2>Latest Post</h2>
+          <a href="test.html">
+            <h3 class="title">Test</h3>
+          </a>
+          <figure>
+            <a href="test.html">
+              <img src="test.jpg">
+            </a>
+            <figcaption>
+              <p>a test</p>
+            </figcaption>
+          </figure>
+        </div>
+        """
         column = html.column()
         column.append(html.h2(text='Latest Post'))
 
-        latest = self.fetch_latest_entry()
         column.append(
-            html.link(href=f'./{latest.filename}',
-                      children=[html.h3(_class='title', text=latest.title)]))
+            html.link(href=page_href, children=[html.h3(_class='title', text=title)]))
 
-        if image := latest.banner_href():
+        if banner_href:
             column.append(
-                html.figure(src=image,
-                            href=f'./{latest.filename}',
-                            caption=latest.description))
+                html.figure(src=banner_href,
+                            href=page_href,
+                            caption=description))
         else:
-            column.append(html.p(text=latest.description))
+            column.append(html.p(text=description))
 
         return column
 
