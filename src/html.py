@@ -23,10 +23,33 @@ def div():
     return ET.Element('div')
 
 
-def p(text=''):
+def small(text='',  _class='', children=[]):
+    attrib = {}
+
+    if _class:
+        attrib['class'] = _class
+
+    el = ET.Element('small', attrib=attrib)
+
+    if text:
+        el.text = text
+
+    for child in flatten_element_list(children, parent=el):
+        el.append(child)
+
+    return el
+
+
+def br():
+    return ET.Element('br')
+
+
+def p(text='', children=[]):
     el = ET.Element('p')
     if text:
         el.text = text
+    for child in children:
+        el.append(child)
     return el
 
 
@@ -75,14 +98,14 @@ def link(href='', text='', children=[]):
 
     if text:
         el.text = text
-        
+
     for child in children:
         el.append(child)
-            
+
     return el
 
 
-def flatten_element_list(things=[]):
+def flatten_element_list(things=[], parent=None):
     """Turns a list of elements and strings into a list of elements.
 
     >>> root = div()
@@ -94,18 +117,51 @@ def flatten_element_list(things=[]):
     <div>
       <h1>test</h1> test <hr>
     </div>
+
+    Also works if the first child is a string, but if this is the case
+    you should also pass in the parent element.
+
+    >>> parent = div()
+    >>> things = ['a', br()]
+    >>> things = flatten_element_list(things=things, parent=parent)
+    >>> for thing in things:
+    ...     parent.append(thing)
+    >>> print(stringify_xml(parent))
+    <div>a<br>
+    </div>
+
+    Another example.
+
+    >>> parent = div()
+    >>> things = [link(href='google.com'), 'b']
+    >>> things = flatten_element_list(things=things, parent=parent)
+    >>> for thing in things:
+    ...     parent.append(thing)
+    >>> print(stringify_xml(parent))
+    <div>
+      <a href="google.com"></a>b</div>
     """
     new_things = []
-    
-    for i, thing in enumerate(things):
-        if isinstance(thing, ET.Element):
-            new_things.append(thing)
-        elif isinstance(thing, str):
-            previous = new_things[i - 1]
-            if previous.tail:
-                previous.tail += thing
+    last_element = None
+
+    while things:
+        this_thing = things.pop(0)
+        if isinstance(this_thing, ET.Element):
+            new_things.append(this_thing)
+            last_element = this_thing
+        elif isinstance(this_thing, str):
+            if last_element is not None:
+                # Attach it to the tail of the last element.
+                if last_element.tail:
+                    last_element.tail += this_thing
+                else:
+                    last_element.tail = this_thing
             else:
-                previous.tail = thing
+                # Attach it to the text of the parent element.
+                if parent.text:
+                    parent.text += this_thing
+                else:
+                    parent.text = this_thing
 
     return new_things
 

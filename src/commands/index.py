@@ -1,9 +1,10 @@
 """generate the site homepage"""
 
+import datetime
 import logging
 import re
 
-from .. import html, utils
+from .. import html, utils, git
 from .pages import Page, build_nav_list
 from .entries import Entry
 
@@ -27,6 +28,11 @@ class Index(Page):
             banner_href=latest.banner_href()
         )
         row.append(column)
+
+        commit = git.get_head_commit()
+        column = self.html_last_updated(commit=commit, timestamp=self.make_timestamp())
+        row.append(column)
+        
         row = html.stringify_xml(row)
         row = self.fix_self_closing_tags(row)
         return row
@@ -68,6 +74,48 @@ class Index(Page):
 
         return column
 
+    def html_last_updated(self, commit=None, timestamp=None):
+        """Render last update column.
+
+        >>> commit = git.Commit(short_hash='abc', long_hash='abcdefg', summary='Fake Commit', url='git.biz/abcdefg')
+        >>> timestamp = 'Friday, February 04 2022 9:18 AM CST'
+        >>> xml = Index().html_last_updated(commit=commit, timestamp=timestamp)
+        >>> print(html.stringify_xml(xml))
+        <div class="column">
+          <h2>Last Updated</h2>
+          <p>
+            <small class="code">[<a href="git.biz/abcdefg">abc</a>]<br>Fake Commit</small>
+            <br>
+            <small>Friday, February 04 2022 9:18 AM CST</small>
+          </p>
+        </div>
+        """
+        column = html.column()
+        column.append(html.h2(text='Last Updated'))
+        column.append(html.p(children=[
+            html.small(_class='code', children=[
+                '[',
+                html.link(href=commit.url, text=commit.short_hash),
+                ']',
+                html.br(),
+                commit.summary,
+            ]),
+            html.br(),
+            html.small(text=timestamp),
+        ]))
+        
+        return column
+
+    def make_timestamp(self):
+        timestamp = datetime.datetime.now()
+        timestamp_format = '%A, %B %d %Y %-I:%M %p'
+        if zone := timestamp.tzname():
+            timestamp_format += f' {zone}'
+        else:
+            timestamp_format += ' CST'
+
+        return timestamp.strftime(timestamp_format)
+
     def fix_self_closing_tags(self, html: str):
         """Adds extra slash to self-closing tags.
 
@@ -78,8 +126,12 @@ class Index(Page):
         >>> Index().fix_self_closing_tags(html)
         '<div><img src="bleh.jpg"/></div>'
         """
-        p = re.compile(r'\<img src=\"(.*)\"\>')
-        return p.sub(r'<img src="\1"/>', html)
+        p_img = re.compile(r'\<img src=\"(.*)\"\>')
+        html =  p_img.sub(r'<img src="\1"/>', html)
+
+        p_br = re.compile(r'\<br\>')
+        html =  p_br.sub('<br/>', html)
+        return html
 
     def fetch_latest_entry(self):
         """Return latest journal entry."""
