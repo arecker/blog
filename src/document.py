@@ -1,5 +1,4 @@
 import datetime
-import pathlib
 import string
 import xml.etree.ElementTree
 
@@ -32,18 +31,6 @@ class Document:
         self.title = title
         self.url = url
         self.year = year
-
-    @property
-    def target(self) -> str:
-        """Absolute path to the target file"""
-
-        here = pathlib.Path(__file__).parent.absolute()
-        root = here.parent
-        webroot = root / 'www'
-
-        assert self.filename, "Can't render target unless filename is set!"
-        return str(webroot / self.filename)
-        
 
     def render(self) -> str:
         """Render the document as a string."""
@@ -155,14 +142,12 @@ class Document:
     def render_body_article(self) -> str:
         """Render page <article>.
 
-        Returns Document().content if it's set, otherwise will try to
-        build it dynamically from rows and columns.
+        Returns Document().content.  Adds pagination if it's there too.
         """
         if self.content:
             content = self.content
         else:
-            # TODO: Render from rows, columns, and objects?
-            content = ''
+            raise ValueError('where is your content, bub?')
 
         pages = []
         if self.page_previous:
