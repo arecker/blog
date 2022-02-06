@@ -13,8 +13,8 @@ class TestDocument(unittest.TestCase):
         expected = """
 <head>
   <title>Test Page</title>
-  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico">
-  <link href="./assets/site.css" rel="stylesheet">
+  <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
+  <link href="./assets/site.css" rel="stylesheet"/>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="twitter:title" content="Test Page"/>
@@ -27,7 +27,7 @@ class TestDocument(unittest.TestCase):
   <meta property="og:image" content=""/>
 </head>
 """.strip()
-
+        self.maxDiff = None
         self.assertEqual(actual, expected)
 
     def test_render_body_header(self):

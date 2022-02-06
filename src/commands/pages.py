@@ -278,8 +278,7 @@ class Page(PageMetadata, PageBanner, PageMarkup):
                author='',
                year='',
                full_url='',
-               nav_pages=[],
-               expand_macros=True):
+               nav_pages=[]):
         assert all([author, year, full_url, nav_pages]), 'missing some args!'
 
         root = html.root()
@@ -304,11 +303,6 @@ class Page(PageMetadata, PageBanner, PageMarkup):
 
         root.append(body)
         root = html.stringify_xml(root)
-
-        if expand_macros:
-            # TODO: rewrite the index page as a separate Page type so we
-            # can get rid of this expander
-            root = self.site.expander.expand(root)
 
         return f'<!doctype html>\n{root}'
 

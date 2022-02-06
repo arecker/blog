@@ -2,7 +2,7 @@ import copy
 import functools
 import logging
 
-from .. import macro, utils
+from .. import utils
 from ..models.page import Page
 
 logger = logging.getLogger(__name__)
@@ -47,12 +47,6 @@ class Site:
     @property
     def latest(self):
         return self.entries[0]
-
-    @functools.cached_property
-    def expander(self):
-        e = macro.Expander(site=self)
-        e.populate()
-        return e
 
     @functools.cached_property
     def pagination(self):
