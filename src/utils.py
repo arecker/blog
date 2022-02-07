@@ -2,10 +2,12 @@
 
 import collections
 import datetime
+import logging
 import pathlib
 import re
 
 ROOT_DIR = pathlib.Path(__file__).parent.parent
+logger = logging.getLogger(__name__)
 
 
 def parse_html_metadata_comments(content):
@@ -14,6 +16,67 @@ def parse_html_metadata_comments(content):
     >>> parse_html_metadata_comments('<!-- meta:title A Tale of Two Cities -->')
     {'title': 'A Tale of Two Cities'}
     """
+
+    pattern = re.compile(
+        r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$',
+        re.MULTILINE)
+    values = [(k.strip(), v.strip()) for k, v in pattern.findall(content)]
+    return dict(values)
+
+
+Entry = collections.namedtuple(
+    'Entry', [
+        'banner',
+        'date',
+        'description',
+        'filename',
+        'page_next',
+        'page_previous',
+        'source',
+        'title',
+    ]
+)
+
+
+def fetch_entries(entries_dir: pathlib.Path) -> list[Entry]:
+    """Returns a list of paginated entries, latest first."""
+
+    files = sorted(entries_dir.glob('*.html'), reverse=True)
+    pages = paginate_list([f.name for f in files])
+
+    entries = []
+
+    for source in files:
+        kwargs = {}
+
+        # Data from the file path
+        kwargs['filename'] = source.name
+        kwargs['source'] = source.absolute()
+        kwargs['date'] = datetime.datetime.strptime(source.stem, '%Y-%m-%d')
+        kwargs['title'] = kwargs['date'].strftime('%A, %B %-d %Y')
+
+        # From the metadata
+        with open(kwargs['source'], 'r') as f:
+            # TODO: it sucks we have to read the file just to get the
+            # metadata.  Maybe something faster?
+            content = f.read()
+        metadata = metadata_parse_html(content)
+        kwargs['banner'] = metadata.get('banner') # banner is optional
+        kwargs['description'] = metadata['title'] # title is required
+
+        # Set the pagination
+        pagination = pages[source.name]
+        kwargs['page_next'] = pagination.next
+        kwargs['page_previous'] = pagination.previous
+
+        entries.append(Entry(**kwargs))
+
+    logger.info('parsed %d entries from %s', len(entries), prettify_path(entries_dir))
+    return entries
+
+
+def metadata_parse_html(content) -> dict:
+    """Parse metadata from magic HTML comments."""
 
     pattern = re.compile(
         r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$',
