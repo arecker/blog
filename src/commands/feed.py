@@ -1,74 +1,80 @@
 """generate journal RSS feed """
-from urllib.parse import urljoin
-import itertools
-import logging
 
-from .. import xml2 as xml
-from ..models import Page, Site
+import logging
+import urllib.parse
+
+from .. import utils
 
 logger = logging.getLogger(__name__)
 
 
-class Feed(Page):
-    filename = 'feed.xml'
-
-    def __init__(self, site, max_feed_items=30):
-        self.site = site
-        self.max_feed_items = max_feed_items
-
-    def render(self, author='', email='', title='', subtitle='', full_url=''):
-        assert full_url
-        feed_url = urljoin(
-            f'{full_url.scheme}://{full_url.netloc}{full_url.path}',
-            '/feed.xml',
-        )
-        site_url = f'{full_url.scheme}://{full_url.netloc}{full_url.path}'
-
-        assert all([title, subtitle, author, email])
-        feed = xml.new_feed(title=title,
-                            subtitle=subtitle,
-                            author=author,
-                            email=email,
-                            timestamp=self.site.latest.date,
-                            feed_uri=feed_url,
-                            site_uri=site_url)
-
-        for item in self.items(author=author, email=email, full_url=full_url):
-            feed.append(item)
-
-        return xml.stringify_xml(feed)
-
-    def items(self, author='', email='', full_url='', **kwargs):
-        if self.max_feed_items == 0:
-            items = self.site.entries
-        else:
-            items = itertools.islice(self.site.entries, self.max_feed_items)
-
-        return [
-            xml.as_feed_entry(entry,
-                              author=author,
-                              email=email,
-                              full_url=full_url) for entry in items
-        ]
-
-
 def register(parser):
-    parser.add_argument('--max-feed-items',
-                        help='max number of items in RSS feed (0 for none)',
-                        type=int,
-                        default=30)
+    return parser
 
+
+def render_info(title='', subtitle='', author='', email='', full_url=None, timestamp=None) -> str:
+    url = full_url.geturl()
+    feed_url = urllib.parse.urljoin(url, 'feed.xml')
+    
+    return f"""  <title>{title}</title>
+  <subtitle>{subtitle}</subtitle>
+  <author>
+    <name>{author}</name>
+    <email>{email}</email>
+  </author>
+  <updated>{utils.to_iso_date(timestamp)}</updated>
+  <link href="{feed_url}" rel="self" type="application/atom+xml" />
+  <link href="{url}" rel="alternate" type="text/html" />
+  <id>{feed_url}</id>"""
+
+
+def render_entry(entry: utils.Entry, author='', email='', full_url=None):
+    timestamp = utils.to_iso_date(entry.date)
+    url = urllib.parse.urljoin(full_url.geturl(), entry.filename)
+
+    if entry.banner:
+        banner_url = urllib.parse.urljoin(full_url.geturl(), f'images/banners/{entry.banner}')
+        banner_data = f"""    <media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="{banner_url}" />
+    <media:content medium="image" xmlns:media="http://search.yahoo.com/mrss/" url="{banner_url}" />"""
+    else:
+        banner_data = ""
+    
+    return f"""  <entry>
+    <title>{entry.title}</title>
+    <summary>{entry.description}</summary>
+    <published>{timestamp}</published>
+    <updated>{timestamp}</updated>
+    <author>
+      <name>{author}</name>
+      <email>{email}</email>
+    </author>
+    <link href="{url}" />
+    <id>{url}</id>
+{banner_data}
+  </entry>"""
 
 def main(args):
-    site = Site(**vars(args))
-    feed = Feed(site=site, max_feed_items=args.max_feed_items)
-    kwargs = {
-        'author': args.author,
-        'email': args.email,
-        'subtitle': args.subtitle,
-        'title': args.title,
-        'full_url': args.full_url
-    }
-    feed.build(**kwargs)
-    logger.info('generated RSS feed %s (%d items)', feed,
-                len(list(feed.items(**kwargs))))
+    entries = utils.fetch_entries(args.directory / 'entries')
+    info = render_info(
+        title=args.title,
+        subtitle=args.subtitle,
+        author=args.author,
+        email=args.email,
+        full_url=args.full_url,
+        timestamp=entries[0].date,
+    )
+    entries = '\n'.join([
+        render_entry(e, author=args.author, email=args.email, full_url=args.full_url)
+        for e in entries
+    ][:30])
+    feed = f'''
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+{info}
+{entries}
+</feed>
+'''.lstrip()
+
+    with open(args.directory / 'www/feed.xml', 'w') as f:
+        f.write(feed)
+    logger.info('generated %s', 'feed.xml')

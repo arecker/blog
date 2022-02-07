@@ -1,55 +1,55 @@
 """generate sitemap.xml"""
-from urllib.parse import urljoin
-import datetime
-import itertools
-import logging
 
-from .. import xml2 as xml
-from ..commands.archives import Archive
-from ..models import Page, Site
-from .entries import Entry
+import collections
+import logging
+import urllib.parse
+
+from .. import utils
 
 logger = logging.getLogger(__name__)
+Location = collections.namedtuple('Location', ['filename', 'modified'])
 
 
-class Sitemap(Page):
-    filename = 'sitemap.xml'
+def register(parser):
+    return parser
 
-    def __init__(self, site, full_url):
-        self.site = site
-        self.full_url = full_url
 
-    def render(self):
-        root = xml.new_sitemap()
+def to_xml(location: Location, full_url: urllib.parse.ParseResult) -> str:
+    """Convert a Location to XML"""
 
-        for element in xml.as_location_elements(locations=self.locations):
-            root.append(element)
-
-        return xml.stringify_xml(root)
-
-    def href(self, path):
-        url = self.full_url.scheme
-        url += '://' + self.full_url.netloc
-        url += self.full_url.path
-        return urljoin(url, path)
-
-    @property
-    def locations(self):
-        pages = itertools.chain(
-            self.site.entries, self.site.pages,
-            Archive(site=self.site, full_url=self.full_url).pages())
-        pages = sorted(pages, key=lambda p: p.filename)
-        for page in pages:
-            url = self.href(page.filename)
-            if isinstance(page, Entry):
-                yield url, page.date
-            else:
-                yield url, datetime.datetime.now()
+    item = urllib.parse.urljoin(full_url.geturl(), location.filename)
+    item = f'    <loc>{item}</loc>'
+    if location.modified:
+        item += f'\n    <lastmod>{utils.to_iso_date(location.modified)}</lastmod>'
+    return f'  <url>\n{item}\n  </url>\n'
 
 
 def main(args):
-    site = Site(**vars(args))
-    sitemap = Sitemap(site=site, full_url=args.full_url)
-    sitemap.build()
-    logger.info('generated sitemap %s (%d locations)', sitemap,
-                len(list(sitemap.locations)))
+    locations = []
+
+    # index page
+    locations.append(Location(modified=None, filename='index.html'))
+
+    # other pages
+    locations += [Location(modified=None, filename=s.name) for s in args.directory.glob('pages/*.html')]
+
+    # entries
+    entries = utils.fetch_entries(args.directory / 'entries')
+    locations += [Location(modified=e.date, filename=e.filename) for e in entries]
+
+    # archives
+    locations.append(Location(modified=None, filename='entries.html'))
+    years = set([e.date.year for e in entries])
+    locations += [Location(modified=None, filename=f'{y}.html') for y in years]
+
+    # convert to XML
+    locations = [to_xml(l, full_url=args.full_url) for l in locations]
+
+    # write the sitemap file
+    with open(args.directory / 'www/sitemap.xml', 'w') as f:
+        f.write('<?xml version="1.0" encoding="utf-8"?>\n')
+        f.write('<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+        f.writelines(locations)
+        f.write('</urlset>\n')
+
+    logger.info('generated sitemap.xml with %d location(s)', len(locations))

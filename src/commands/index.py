@@ -4,48 +4,21 @@ import collections
 import datetime
 import json
 import logging
-import pathlib
 import re
 
-from .. import Document, git
+from .. import git, utils
 
 logger = logging.getLogger(__name__)
-here = pathlib.Path(__file__).absolute().parent
+
+NewsItem = collections.namedtuple('NewsItem', ['title', 'description'])
 
 
-Post = collections.namedtuple('Post', ['title', 'description', 'banner', 'filename'])
-Update = collections.namedtuple('Update', ['title', 'description'])
-
-
-def fetch_latest() -> Post:
-    """Fetch latest post."""
-
-    posts = here.parent.parent.glob('entries/*.html')
-    posts = list(sorted(posts, reverse=True))
-    latest = posts[0]
-
-    with open(latest, 'r') as f:
-        content = f.read()
-
-    metadata = metadata_parse_html(content)
-
-    date = datetime.datetime.strptime(latest.stem, '%Y-%m-%d')
-    title = date.strftime('%A, %B %-d %Y')
-
-    return Post(
-        title=title,
-        description=metadata['title'],
-        banner=metadata['banner'],
-        filename=latest.name,
-    )
-
-
-def read_news():
-    target = here.parent.parent / 'data/news.json'
+def read_news(data_dir):
+    target = data_dir / 'news.json'
     with open(target, 'r') as f:
         data = json.load(f)
 
-    news = [Update(**dict(o.items())) for o in data]
+    news = [NewsItem(**dict(o.items())) for o in data]
     logger.info("loaded %d news item(s) from %s", len(news), target)
     return news
 
@@ -59,47 +32,60 @@ def metadata_parse_html(content) -> dict:
     return dict(values)
 
 
-def render_content(latest: Post, commit: git.Commit, timestamp=None, news=[]) -> str:
+def render_content(latest: utils.Entry, commit: git.Commit, timestamp=None, news=[]) -> str:
     """Render latest post column."""
 
-    news = '\n'.join([f'   <h3>{update.title}</h3>\n   <p>{update.description}</p>' for update in news])
+    html = utils.StringWriter(starting_indent=4)
 
-    # TODO: lol
+    # row: begin
+    html.write('<div class="row">', indent=True, blank=True)
+
+    # Latest Post
+    html.write('<!-- Latest Post -->')
+    html.write('<div class="column">', indent=True)
+    html.write('<h2>Latest Post</h2>')
+    html.write(f'<a href="./{latest.filename}">', indent=True)
+    html.write(f'<h3 class="title">{latest.title}</h3>', unindent=True)
+    html.write('</a>')
+    html.write('<figure>', indent=True)
+    html.write(f'<a href="./{latest.filename}">', indent=True)
+    html.write(f'<img src="./images/banners/{latest.banner}" />', unindent=True)
+    html.write('</a>')
+    html.write('<figcaption>', indent=True)
+    html.write(f'<p>{latest.description}</p>', unindent=True)
+    html.write('</figcaption>', unindent=True)
+    html.write('</figure>', unindent=True)
+    html.write('</div>', blank=True)
+
+    html.write('<!-- Last Updated -->')
+    html.write('<div class="column">', indent=True)
+    html.write('<h2>Last Updated</h2>')
+    html.write('<p>', indent=True)
+    html.write('<small class="code">', indent=True)
+    commit_url = f'https://github.com/arecker/blog/commit/{commit.long_hash}'
     commit_summary = commit.summary.replace('&', '&amp;')
+    html.write(f'[<a href="{commit_url}">{commit.short_hash}</a>]<br/>{commit_summary}', unindent=True)
+    html.write('</small>')
+    html.write('<br/>')
+    html.write('<small>', indent=True)
+    html.write(timestamp, unindent=True)
+    html.write('</small>', unindent=True)
+    html.write('</p>', unindent=True)
+    html.write('</div>', blank=True)
 
-    return f"""
-<div class="row">
-  <div class="column">
-    <h2>Latest Post</h2>
-    <a href="./{latest.filename}">
-      <h3 class="title">{latest.title}</h3>
-    </a>
-    <figure>
-      <a href="./{latest.filename}">
-        <img src="./images/banners/{latest.banner}" />
-      </a>
-      <figcaption>
-        <p>{latest.description}</p>
-      </figcaption>
-    </figure>
-  </div>
-  <div class="column">
-    <h2>Last Updated</h2>
-    <p>
-      <small class="code">
-        [<a href="https://github.com/arecker/blog/commit/{commit.long_hash}">{commit.short_hash}</a>]<br/>{commit_summary}
-      </small>
-      <br/>
-      <small>
-        {timestamp}
-      </small>
-    </p>
-  </div>
-  <div class="column">
-    <h2>What's New?</h2>
-    {news}
-  </div>
-</div>""".strip()
+    html.write('<!-- What\'s New? -->')
+    html.write('<div class="column">', indent=True)
+    html.write('<h2>What\'s New?</h2>')
+    for item in news:
+        html.write(f'<h3>{item.title}</h3>')
+        html.write(f'<p>{item.description}</p>')
+    html.unindent()
+    html.write('</div>', unindent=True, blank=True)
+
+    html.write('</div>')
+    # row: end
+
+    return html.text
 
 
 def new_timestamp() -> str:
@@ -118,26 +104,36 @@ def register(parser):
 
 
 def main(args):
-    latest = fetch_latest()
+    latest = utils.fetch_entries(args.directory / 'entries')[0]
     logger.info('fetched latest post %s', latest)
 
     commit = git.get_head_commit()
     logger.info('fetched head commit %s', commit)
 
     timestamp = new_timestamp()
-    news = read_news()
-    content = render_content(latest=latest, commit=commit, timestamp=timestamp, news=news)
+    news = read_news(args.directory / 'data')
+    content = render_content(
+        latest=latest,
+        commit=commit,
+        timestamp=timestamp,
+        news=news
+    ).rstrip()
 
-    document = Document(
+    page = utils.Page(
         filename='index.html',
         title=args.title,
         description=args.subtitle,
-        author=args.author,
-        nav_pages=['entries.html', 'pets.html', 'contact.html'],
-        content=content,
+        banner=None,
     )
-
-    target = here.parent.parent / f'www/{document.filename}'
+    output = utils.render_page(
+        page=page,
+        full_url=args.full_url,
+        content=content,
+        nav_pages=['entries.html', 'pets.html', 'contact.html'],
+        year=args.year,
+        author=args.author,
+    )
+    target = args.directory / 'www/index.html'
     with open(target, 'w') as f:
-        f.write(document.render())
-    logger.info('generated %s', target)
+        f.write(output)
+    logger.info('generated index.html')

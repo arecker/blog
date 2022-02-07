@@ -145,6 +145,11 @@ def new_command_parser() -> argparse.ArgumentParser:
                         action='store_true',
                         help='step through code interactively')
 
+    parser.add_argument('--directory',
+                        type=DirectoryType,
+                        default=here.parent.absolute(),
+                        help='root directory of website files')
+
     parser.add_argument('--title',
                         type=str,
                         default='Dear Journal',

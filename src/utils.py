@@ -1,10 +1,12 @@
 """Some random functions."""
 
 import collections
+import contextlib
 import datetime
 import logging
 import pathlib
 import re
+import urllib.parse
 
 ROOT_DIR = pathlib.Path(__file__).parent.parent
 logger = logging.getLogger(__name__)
@@ -144,3 +146,155 @@ def month_name(month_int: int) -> str:
 
     date = datetime.datetime.strptime(str(month_int), '%m')
     return date.strftime('%B')
+
+
+def to_iso_date(date):
+    return date.replace(tzinfo=datetime.timezone.utc).isoformat()
+
+
+class StringWriter:
+    def __init__(self, each_indent=2, starting_indent=0):
+        self.each_indent = int(each_indent)
+        self.current_indent = starting_indent
+        self.text = ''
+
+    def indent(self):
+        self.current_indent += self.each_indent
+
+    def unindent(self):
+        result = self.current_indent - self.each_indent
+        if result < 0:
+            raise ValueError('indented too far!')
+        self.current_indent = result
+
+    def write(self, text, indent=False, unindent=False, blank=False):
+        padding = self.current_indent * ' '
+        self.text += f'{padding}{text}\n'
+
+        if blank:
+            with self.indentation_reset():
+                self.write('')
+
+        if indent:
+            self.indent()
+        if unindent:
+            self.unindent()
+
+    @contextlib.contextmanager
+    def indentation_reset(self):
+        current = self.current_indent
+        self.current_indent = 0
+        yield
+        self.current_indent = current
+
+
+Page = collections.namedtuple(
+    'Page', [
+        'filename',
+        'title',
+        'description',
+        'banner',
+    ],
+)
+
+
+def render_page(
+        page: Page, full_url: urllib.parse.ParseResult,
+        content='', nav_pages=[], year=None, author=None,
+) -> str:
+    """Render an HTML page as a string."""
+
+    html = StringWriter()
+
+    # html:begin
+    html.write('<!doctype html>')
+    html.write('<html lang="en">', blank=True)
+
+    # head: end
+    page_url = urllib.parse.urljoin(full_url.geturl(), page.filename)
+    html.write('<head>', indent=True)
+    html.write(f'<title>{page.title}</title>')
+    html.write('<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>')
+    html.write('<link href="./assets/site.css" rel="stylesheet"/>', blank=True)
+
+    html.write('<!-- meta -->')
+    html.write('<meta charset="UTF-8"/>')
+    html.write('<meta name="viewport" content="width=device-width, initial-scale=1"/>')
+    html.write(f'<meta name="twitter:title" content="{page.title}"/>')
+    html.write(f'<meta name="twitter:description" content="{page.description}"/>')
+    html.write(f'<meta property="og:url" content="{page_url}"/>')
+    html.write('<meta property="og:type" content="article"/>')
+    html.write(f'<meta property="og:title" content="{page.title}"/>')
+    html.write(f'<meta property="og:description" content="{page.description}"/>')
+    if page.banner:
+        banner = urllib.parse.urljoin(full_url.geturl(), f'/images/banners/{page.banner}')
+        html.write(f'<meta name="image" content="{banner}"/>')
+        html.write(f'<meta property="og:image" content="{banner}"/>')
+    with html.indentation_reset():
+        html.write('')
+    html.unindent()
+
+    html.write('</head>', blank=True)
+
+    html.write('<body>', indent=True, blank=True)
+    html.write('<!-- header -->')
+    html.write('<header>')
+    html.indent()
+    html.write(f'<h1>{page.title}</h1>')
+    html.write(f'<h2>{page.description}</h2>')
+    html.unindent()
+    html.write('</header>', blank=True)
+
+    html.write('<hr/>', blank=True)
+
+    html.write('<!-- nav -->')
+    html.write('<nav>')
+    html.indent()
+    html.write('<a href="./index.html">index.html</a>')
+    if page.filename != 'index.html':
+        html.write('<span>/</span>')
+        html.write(f'<span>{page.filename}</span>')
+    # TODO: remove these classes - just target the elements and make
+    # the markup more generic.
+    html.write('<br class="show-on-mobile">')
+    html.write('<span class="float-right-on-desktop">')
+    html.indent()
+    for nav_page in nav_pages:
+        html.write(f'<a href="./{nav_page}">{nav_page}</a>')
+    html.unindent()
+    html.write('</span>')
+    html.unindent()
+    html.write('</nav>', blank=True)
+
+    html.write('<hr/>', blank=True)
+
+    if page.banner:
+        html.write('<!-- banner -->')
+        html.write('<figure>')
+        html.indent()
+        html.write(f'<a href="./images/banners/{page.banner}">')
+        html.indent()
+        html.write(f'<img alt="banner" src="./images/banners/{page.banner}">')
+        html.unindent()
+        html.write('</a>')
+        html.unindent()
+        html.write('</figure>', blank=True)
+
+    html.write('<!-- article -->')
+    html.write('<article>', blank=True)
+    with html.indentation_reset():
+        html.write(content, blank=True)
+    html.write('</article>', blank=True)
+
+    html.write('<hr/>', blank=True)
+
+    html.write('<!-- footer -->')
+    html.write('<footer>', indent=True)
+    html.write(f'<small>© Copyright {year} {author}</small>', unindent=True)
+    html.write('</footer>', blank=True, unindent=True)
+
+    html.write('</body>', blank=True)
+    html.write('</html>')
+    # html: end
+
+    return html.text
