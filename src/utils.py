@@ -187,6 +187,24 @@ class StringWriter:
         yield
         self.current_indent = current
 
+    @contextlib.contextmanager
+    def wrapper(self, element_name, **attributes):
+        """Context manager that wraps contents in an element.
+
+        Will reset the indentation back to its starting position, so
+        do whatever you want while inside.
+        """
+        starting_indent = self.current_indent
+        attributes = ' '.join([f'{k}="{v}"' for k, v in attributes.items()])
+        attributes = attributes.strip()
+        if attributes:
+            self.write(f'<{element_name} {attributes}>', indent=True)
+        else:
+            self.write(f'<{element_name}>', indent=True)
+        yield
+        self.current_indent = starting_indent
+        self.write(f'</{element_name}>')
+
 
 Page = collections.namedtuple(
     'Page', [

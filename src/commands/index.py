@@ -44,17 +44,16 @@ def render_content(latest: utils.Entry, commit: git.Commit, timestamp=None, news
     html.write('<!-- Latest Post -->')
     html.write('<div class="column">', indent=True)
     html.write('<h2>Latest Post</h2>')
-    html.write(f'<a href="./{latest.filename}">', indent=True)
-    html.write(f'<h3 class="title">{latest.title}</h3>', unindent=True)
-    html.write('</a>')
-    html.write('<figure>', indent=True)
-    html.write(f'<a href="./{latest.filename}">', indent=True)
-    html.write(f'<img src="./images/banners/{latest.banner}" />', unindent=True)
-    html.write('</a>')
-    html.write('<figcaption>', indent=True)
-    html.write(f'<p>{latest.description}</p>', unindent=True)
-    html.write('</figcaption>', unindent=True)
-    html.write('</figure>', unindent=True)
+
+    with html.wrapper('a', href=f'./{latest.filename}'):
+        html.write(f'<h3 class="title">{latest.title}</h3>', unindent=True)
+    with html.wrapper('figure'):
+        with html.wrapper('a', href=f'./{latest.filename}'):
+            html.write(f'<img src="./images/banners/{latest.banner}" />')
+        with html.wrapper('figcaption'):
+            html.write(f'<p>{latest.description}</p>', unindent=True)
+
+    html.unindent()
     html.write('</div>', blank=True)
 
     html.write('<!-- Last Updated -->')
