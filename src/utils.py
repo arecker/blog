@@ -167,9 +167,11 @@ class StringWriter:
             raise ValueError('indented too far!')
         self.current_indent = result
 
-    def write(self, text, indent=False, unindent=False, blank=False):
+    def write(self, text, indent=False, unindent=False, blank=False, newline=True):
         padding = self.current_indent * ' '
-        self.text += f'{padding}{text}\n'
+        self.text += f'{padding}{text}'
+        if newline:
+            self.text += '\n'
 
         if blank:
             with self.indentation_reset():
@@ -187,23 +189,41 @@ class StringWriter:
         yield
         self.current_indent = current
 
+    def comment(self, text):
+        self.write(f'<!-- {text} -->')
+
     @contextlib.contextmanager
-    def wrapper(self, element_name, **attributes):
+    def block(self, element_name, blank=False, blank_before=False, _class='', **attributes):
         """Context manager that wraps contents in an element.
 
         Will reset the indentation back to its starting position, so
         do whatever you want while inside.
         """
         starting_indent = self.current_indent
-        attributes = ' '.join([f'{k}="{v}"' for k, v in attributes.items()])
+
+        if _class:
+            attributes['class'] = _class
+
+        attributes = sorted([f'{k}="{v}"' for k, v in attributes.items()])
+        attributes = ' '.join(attributes)
         attributes = attributes.strip()
+
         if attributes:
-            self.write(f'<{element_name} {attributes}>', indent=True)
+            self.write(f'<{element_name} {attributes}>', indent=True, blank=blank_before)
         else:
-            self.write(f'<{element_name}>', indent=True)
+            self.write(f'<{element_name}>', indent=True, blank=blank_before)
         yield
         self.current_indent = starting_indent
-        self.write(f'</{element_name}>')
+        self.write(f'</{element_name}>', blank=blank)
+
+    def figure(self, src, href='', caption=''):
+        with self.block('figure'):
+            with self.block('a', href=href or src):
+                self.write(f'<img src="{src}" />')
+
+            if caption:
+                with self.block('figcaption'):
+                    self.write(f'<p>{caption}</p>')
 
 
 Page = collections.namedtuple(

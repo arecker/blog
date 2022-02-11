@@ -37,52 +37,41 @@ def render_content(latest: utils.Entry, commit: git.Commit, timestamp=None, news
 
     html = utils.StringWriter(starting_indent=4)
 
-    # row: begin
-    html.write('<div class="row">', indent=True, blank=True)
+    with html.block('div', _class='row', blank=True, blank_before=True):
+        # Latest Post
+        html.comment('Latest Post')
+        with html.block('div', _class='column', blank=True):
+            html.write('<h2>Latest Post</h2>')
+            with html.block('a', href=f'./{latest.filename}'):
+                html.write(f'<h3 class="title">{latest.title}</h3>', unindent=True)
+            html.figure(
+                src=f'./images/banners/{latest.banner}',
+                href=f'./{latest.filename}',
+                caption=latest.description
+            )
 
-    # Latest Post
-    html.write('<!-- Latest Post -->')
-    html.write('<div class="column">', indent=True)
-    html.write('<h2>Latest Post</h2>')
+        # Last Updated
+        commit_url = f'https://github.com/arecker/blog/commit/{commit.long_hash}'
+        commit_summary = commit.summary.replace('&', '&amp;')
+        html.comment('Last Updated')
+        with html.block('div', _class='column', blank=True):
+            html.write('<h2>Last Updated</h2>')
+            with html.block('p'):
+                with html.block('small', _class='code'):
+                    html.write(f'[<a href="{commit_url}">{commit.short_hash}</a>]')
+                    html.write('<br/>')
+                    html.write(commit_summary)
+                html.write('<br/>')
+                with html.block('small'):
+                    html.write(timestamp)
 
-    with html.wrapper('a', href=f'./{latest.filename}'):
-        html.write(f'<h3 class="title">{latest.title}</h3>', unindent=True)
-    with html.wrapper('figure'):
-        with html.wrapper('a', href=f'./{latest.filename}'):
-            html.write(f'<img src="./images/banners/{latest.banner}" />')
-        with html.wrapper('figcaption'):
-            html.write(f'<p>{latest.description}</p>', unindent=True)
-
-    html.unindent()
-    html.write('</div>', blank=True)
-
-    html.write('<!-- Last Updated -->')
-    html.write('<div class="column">', indent=True)
-    html.write('<h2>Last Updated</h2>')
-    html.write('<p>', indent=True)
-    html.write('<small class="code">', indent=True)
-    commit_url = f'https://github.com/arecker/blog/commit/{commit.long_hash}'
-    commit_summary = commit.summary.replace('&', '&amp;')
-    html.write(f'[<a href="{commit_url}">{commit.short_hash}</a>]<br/>{commit_summary}', unindent=True)
-    html.write('</small>')
-    html.write('<br/>')
-    html.write('<small>', indent=True)
-    html.write(timestamp, unindent=True)
-    html.write('</small>', unindent=True)
-    html.write('</p>', unindent=True)
-    html.write('</div>', blank=True)
-
-    html.write('<!-- What\'s New? -->')
-    html.write('<div class="column">', indent=True)
-    html.write('<h2>What\'s New?</h2>')
-    for item in news:
-        html.write(f'<h3>{item.title}</h3>')
-        html.write(f'<p>{item.description}</p>')
-    html.unindent()
-    html.write('</div>', unindent=True, blank=True)
-
-    html.write('</div>')
-    # row: end
+        # What's New?
+        html.write('<!-- What\'s New? -->')
+        with html.block('div', _class='column', blank=True):
+            html.write('<h2>What\'s New?</h2>', blank=True)
+            for item in news:
+                html.write(f'<h3>{item.title}</h3>')
+                html.write(f'<p>{item.description}</p>', blank=True)
 
     return html.text
 
