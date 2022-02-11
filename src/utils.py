@@ -26,18 +26,16 @@ def parse_html_metadata_comments(content):
     return dict(values)
 
 
-Entry = collections.namedtuple(
-    'Entry', [
-        'banner',
-        'date',
-        'description',
-        'filename',
-        'page_next',
-        'page_previous',
-        'source',
-        'title',
-    ]
-)
+Entry = collections.namedtuple('Entry', [
+    'banner',
+    'date',
+    'description',
+    'filename',
+    'page_next',
+    'page_previous',
+    'source',
+    'title',
+])
 
 
 def fetch_entries(entries_dir: pathlib.Path) -> list[Entry]:
@@ -63,8 +61,8 @@ def fetch_entries(entries_dir: pathlib.Path) -> list[Entry]:
             # metadata.  Maybe something faster?
             content = f.read()
         metadata = metadata_parse_html(content)
-        kwargs['banner'] = metadata.get('banner') # banner is optional
-        kwargs['description'] = metadata['title'] # title is required
+        kwargs['banner'] = metadata.get('banner')  # banner is optional
+        kwargs['description'] = metadata['title']  # title is required
 
         # Set the pagination
         pagination = pages[source.name]
@@ -73,7 +71,8 @@ def fetch_entries(entries_dir: pathlib.Path) -> list[Entry]:
 
         entries.append(Entry(**kwargs))
 
-    logger.info('parsed %d entries from %s', len(entries), prettify_path(entries_dir))
+    logger.info('parsed %d entries from %s', len(entries),
+                prettify_path(entries_dir))
     return entries
 
 
@@ -167,7 +166,12 @@ class StringWriter:
             raise ValueError('indented too far!')
         self.current_indent = result
 
-    def write(self, text, indent=False, unindent=False, blank=False, newline=True):
+    def write(self,
+              text,
+              indent=False,
+              unindent=False,
+              blank=False,
+              newline=True):
         padding = self.current_indent * ' '
         self.text += f'{padding}{text}'
         if newline:
@@ -193,7 +197,12 @@ class StringWriter:
         self.write(f'<!-- {text} -->')
 
     @contextlib.contextmanager
-    def block(self, element_name, blank=False, blank_before=False, _class='', **attributes):
+    def block(self,
+              element_name,
+              blank=False,
+              blank_before=False,
+              _class='',
+              **attributes):
         """Context manager that wraps contents in an element.
 
         Will reset the indentation back to its starting position, so
@@ -209,7 +218,9 @@ class StringWriter:
         attributes = attributes.strip()
 
         if attributes:
-            self.write(f'<{element_name} {attributes}>', indent=True, blank=blank_before)
+            self.write(f'<{element_name} {attributes}>',
+                       indent=True,
+                       blank=blank_before)
         else:
             self.write(f'<{element_name}>', indent=True, blank=blank_before)
         yield
@@ -227,7 +238,8 @@ class StringWriter:
 
 
 Page = collections.namedtuple(
-    'Page', [
+    'Page',
+    [
         'filename',
         'title',
         'description',
@@ -237,8 +249,12 @@ Page = collections.namedtuple(
 
 
 def render_page(
-        page: Page, full_url: urllib.parse.ParseResult,
-        content='', nav_pages=[], year=None, author=None,
+    page: Page,
+    full_url: urllib.parse.ParseResult,
+    content='',
+    nav_pages=[],
+    year=None,
+    author=None,
 ) -> str:
     """Render an HTML page as a string."""
 
@@ -252,20 +268,26 @@ def render_page(
     page_url = urllib.parse.urljoin(full_url.geturl(), page.filename)
     html.write('<head>', indent=True)
     html.write(f'<title>{page.title}</title>')
-    html.write('<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>')
+    html.write(
+        '<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>')
     html.write('<link href="./assets/site.css" rel="stylesheet"/>', blank=True)
 
     html.write('<!-- meta -->')
     html.write('<meta charset="UTF-8"/>')
-    html.write('<meta name="viewport" content="width=device-width, initial-scale=1"/>')
+    html.write(
+        '<meta name="viewport" content="width=device-width, initial-scale=1"/>'
+    )
     html.write(f'<meta name="twitter:title" content="{page.title}"/>')
-    html.write(f'<meta name="twitter:description" content="{page.description}"/>')
+    html.write(
+        f'<meta name="twitter:description" content="{page.description}"/>')
     html.write(f'<meta property="og:url" content="{page_url}"/>')
     html.write('<meta property="og:type" content="article"/>')
     html.write(f'<meta property="og:title" content="{page.title}"/>')
-    html.write(f'<meta property="og:description" content="{page.description}"/>')
+    html.write(
+        f'<meta property="og:description" content="{page.description}"/>')
     if page.banner:
-        banner = urllib.parse.urljoin(full_url.geturl(), f'/images/banners/{page.banner}')
+        banner = urllib.parse.urljoin(full_url.geturl(),
+                                      f'/images/banners/{page.banner}')
         html.write(f'<meta name="image" content="{banner}"/>')
         html.write(f'<meta property="og:image" content="{banner}"/>')
     with html.indentation_reset():
