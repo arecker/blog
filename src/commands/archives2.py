@@ -22,7 +22,7 @@ def main(args):
             link = args.full_url.geturl()
             link = urllib.parse.urljoin(link, 'feed.xml')
             link = urllib.parse.quote_plus(link)
-            link = f'https://validator.w3.org/feed/check.cgi?url={link}">'
+            link = f'https://validator.w3.org/feed/check.cgi?url={link}>'
             with html.block('a', href=link):
                 src = './assets/valid-atom.png'
                 title = 'Validate my Atom 1.0 feed'
