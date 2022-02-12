@@ -13,13 +13,15 @@ def regiser(parser):
     return parser
 
 
-def main(args):
+def render_entries_page(entries=[],
+                        full_url=None,
+                        nav=[],
+                        year=None,
+                        author=''):
     html = utils.StringWriter(starting_indent=4)
-    entries = utils.fetch_entries(args.directory / 'entries')
-
     html.comment('RSS Feed')
-    with html.block('span', blank=True):
-        link = args.full_url.geturl()
+    with html.block('p', blank=True):
+        link = full_url.geturl()
         link = urllib.parse.urljoin(link, 'feed.xml')
         link = urllib.parse.quote_plus(link)
         link = f'https://validator.w3.org/feed/check.cgi?url={link}'
@@ -28,8 +30,10 @@ def main(args):
             title = 'Validate my Atom 1.0 feed'
             alt = '[Valid Atom 1.0]'
             html.write(f'<img src="{src}" alt="{alt}" title="{title}">')
-    html.write('<br/>')
-    html.write('RSS feed available here: <a href="./feed.xml">feed.xml</a>')
+
+    with html.block('p', blank=True):
+        html.write(
+            'RSS feed available here: <a href="./feed.xml">feed.xml</a>')
 
     years = set([e.date.year for e in entries])
 
@@ -45,16 +49,25 @@ def main(args):
     caption = f'Taken from {link}, "{choice.description}"'
     html.figure(src=f'./images/banners/{choice.banner}', caption=caption)
 
-    nav = utils.read_nav(args.directory / 'data')
     page = utils.Page('entries.html', 'Entries',
                       'Complete Archive of Journal Entries', None)
-    content = utils.render_page(page,
-                                args.full_url,
-                                content=html.text.rstrip(),
-                                nav_pages=nav,
-                                year=args.year,
-                                author=args.author)
+    return utils.render_page(page,
+                             full_url,
+                             content=html.text.rstrip(),
+                             nav_pages=nav,
+                             year=year,
+                             author=author)
 
+
+def main(args, entries=[], nav=[]):
+    nav = nav or utils.read_nav(args.directory / 'data')
+    entries = entries or utils.fetch_entries(args.directory / 'entries')
+
+    output = render_entries_page(entries=entries,
+                                 full_url=args.full_url,
+                                 nav=nav,
+                                 year=args.year,
+                                 author=args.author)
     with open(args.directory / 'www/entries.html', 'w') as f:
-        f.write(content)
+        f.write(output)
     logger.info('generated entries.html')
