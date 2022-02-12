@@ -3,6 +3,7 @@
 import collections
 import contextlib
 import datetime
+import json
 import logging
 import pathlib
 import re
@@ -24,6 +25,11 @@ def parse_html_metadata_comments(content):
         re.MULTILINE)
     values = [(k.strip(), v.strip()) for k, v in pattern.findall(content)]
     return dict(values)
+
+
+def read_nav(data_dir: pathlib.Path):
+    with open(data_dir / 'nav.json', 'r') as f:
+        return json.load(f)
 
 
 Entry = collections.namedtuple('Entry', [
@@ -340,11 +346,10 @@ def render_page(
         html.unindent()
         html.write('</figure>', blank=True)
 
-    html.write('<!-- article -->')
-    html.write('<article>', blank=True)
-    with html.indentation_reset():
-        html.write(content, blank=True)
-    html.write('</article>', blank=True)
+    html.comment('article')
+    with html.block('article', blank=True, blank_before=True):
+        with html.indentation_reset():
+            html.write(content)
 
     html.write('<hr/>', blank=True)
 

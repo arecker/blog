@@ -32,7 +32,10 @@ def metadata_parse_html(content) -> dict:
     return dict(values)
 
 
-def render_content(latest: utils.Entry, commit: git.Commit, timestamp=None, news=[]) -> str:
+def render_content(latest: utils.Entry,
+                   commit: git.Commit,
+                   timestamp=None,
+                   news=[]) -> str:
     """Render latest post column."""
 
     html = utils.StringWriter(starting_indent=4)
@@ -43,12 +46,11 @@ def render_content(latest: utils.Entry, commit: git.Commit, timestamp=None, news
         with html.block('div', _class='column', blank=True):
             html.write('<h2>Latest Post</h2>')
             with html.block('a', href=f'./{latest.filename}'):
-                html.write(f'<h3 class="title">{latest.title}</h3>', unindent=True)
-            html.figure(
-                src=f'./images/banners/{latest.banner}',
-                href=f'./{latest.filename}',
-                caption=latest.description
-            )
+                html.write(f'<h3 class="title">{latest.title}</h3>',
+                           unindent=True)
+            html.figure(src=f'./images/banners/{latest.banner}',
+                        href=f'./{latest.filename}',
+                        caption=latest.description)
 
         # Last Updated
         commit_url = f'https://github.com/arecker/blog/commit/{commit.long_hash}'
@@ -58,7 +60,8 @@ def render_content(latest: utils.Entry, commit: git.Commit, timestamp=None, news
             html.write('<h2>Last Updated</h2>')
             with html.block('p'):
                 with html.block('small', _class='code'):
-                    html.write(f'[<a href="{commit_url}">{commit.short_hash}</a>]')
+                    html.write(
+                        f'[<a href="{commit_url}">{commit.short_hash}</a>]')
                     html.write('<br/>')
                     html.write(commit_summary)
                 html.write('<br/>')
@@ -100,12 +103,10 @@ def main(args):
 
     timestamp = new_timestamp()
     news = read_news(args.directory / 'data')
-    content = render_content(
-        latest=latest,
-        commit=commit,
-        timestamp=timestamp,
-        news=news
-    ).rstrip()
+    content = render_content(latest=latest,
+                             commit=commit,
+                             timestamp=timestamp,
+                             news=news).rstrip()
 
     page = utils.Page(
         filename='index.html',
@@ -117,7 +118,7 @@ def main(args):
         page=page,
         full_url=args.full_url,
         content=content,
-        nav_pages=['entries.html', 'pets.html', 'contact.html'],
+        nav_pages=utils.read_nav(args.directory / 'data'),
         year=args.year,
         author=args.author,
     )
