@@ -6,7 +6,6 @@ import time
 
 from .. import http
 from ..utils import ROOT_DIR
-from ..models import Site
 from . import build
 
 logger = logging.getLogger(__name__)
@@ -78,7 +77,6 @@ def build_new_deploy(webroot):
 
 def main(args):
     build.main(args)
-    site = Site(**vars(args))
 
     domain = args.full_url.netloc
     site_id = fetch_site_id(domain, token=args.netlify_token)

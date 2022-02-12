@@ -2,9 +2,9 @@
 
 import logging
 import sys
-from urllib.parse import urljoin
+import urllib.parse
 
-from ..models import Site
+from .. import utils
 
 logger = logging.getLogger(__name__)
 
@@ -25,18 +25,18 @@ def make_twitter_client(args):
     return tweepy.API(auth)
 
 
-def main(args):
+def main(args, entries=[]):
+    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    latest = entries[0]
+
     try:
         client = make_twitter_client(args)
     except ImportError:
         logger.error('tweepy librarly not found, tweet command not available')
         sys.exit(1)
 
-    site = Site(**vars(args))
-    url = urljoin(
-        f'{args.full_url.scheme}://{args.full_url.netloc}{args.full_url.path}',
-        f'{site.latest.filename}')
+    url = urllib.parse.urljoin(args.full_url.geturl(), latest.filename)
 
-    tweet = '\n'.join([site.latest.title, site.latest.description, url])
+    tweet = '\n'.join([latest.title, latest.description, url])
     client.update_status(tweet)
-    logger.info('shared "%s" to twitter', site.latest.description)
+    logger.info('shared "%s" to twitter', latest.description)
