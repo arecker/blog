@@ -13,7 +13,6 @@ def register(subparser):
     subparser.add_argument('--netlify-token',
                            required=True,
                            help='Netlify API token')
-    build.register(subparser)
 
 
 def make_request(path,
