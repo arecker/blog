@@ -134,6 +134,16 @@ local spiders = [
 
 local pets = dogs + fish + reptiles + spiders;
 
+local News(title, description) = {
+  title: title,
+  description: description,
+};
+
+local news = [
+  News('Pet Registry', 'How many animals do we have?  See for yourself!  Check out our new pet registry on <a href="./pets.html">pets.html</a> (still in progress).'),
+  News('The Streak is Broken!', 'After 672 consecutive days of blogging, I finally took a day off!  In fact, I liked it so much that I might start taking off regularly on Sunday nights.  It was fun while it lasted.'),
+];
+
 {
   'data/contact.json': {
     email: 'alex@reckerfamily.com',
@@ -145,5 +155,6 @@ local pets = dogs + fish + reptiles + spiders;
     scratch: 'mcrist0',
   },
   'data/nav.json': ['entries.html', 'pets.html', 'contact.html'],
+  'data/news.json': news,
   'data/pets.json': pets,
 }
