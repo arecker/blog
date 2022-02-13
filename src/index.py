@@ -6,7 +6,7 @@ import json
 import logging
 import re
 
-from .. import git, utils
+from . import git, utils
 
 logger = logging.getLogger(__name__)
 
@@ -90,15 +90,11 @@ def new_timestamp() -> str:
     return timestamp.strftime(timestamp_format)
 
 
-def register(parser):
-    return parser
-
-
 def main(args, nav=[]):
     latest = utils.fetch_entries(args.directory / 'entries')[0]
     logger.info('fetched latest post %s', latest)
 
-    commit = git.get_head_commit()
+    commit = git.get_head_commit(args.directory)
     logger.info('fetched head commit %s', commit)
 
     timestamp = new_timestamp()

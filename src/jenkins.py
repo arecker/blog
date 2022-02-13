@@ -5,8 +5,7 @@ run the full jenkins pipeline
 import logging
 import sys
 
-from ..commands import test, deploy, slack, tweet
-from ..git import head_is_entry_tagged
+from . import test, deploy, slack, tweet, git
 
 logger = logging.getLogger(__name__)
 
@@ -21,7 +20,7 @@ def main(args):
     test.main(args)
     deploy.main(args)
 
-    if not head_is_entry_tagged():
+    if not git.head_is_entry_tagged(args.directory):
         logger.info('exiting, since HEAD commit is not tagged')
         sys.exit(0)
 

@@ -5,8 +5,7 @@ serve webroot locally
 import logging
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
-from ..commands import build
-from ..utils import ROOT_DIR
+from . import build
 
 logger = logging.getLogger(__name__)
 
@@ -34,4 +33,4 @@ def register(parser):
 
 def main(args):
     build.main(args)
-    start_web_server(ROOT_DIR / 'www')
+    start_web_server(args.directory / 'www')

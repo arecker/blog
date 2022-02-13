@@ -4,14 +4,10 @@ import collections
 import logging
 import urllib.parse
 
-from .. import utils
+from . import utils
 
 logger = logging.getLogger(__name__)
 Location = collections.namedtuple('Location', ['filename', 'modified'])
-
-
-def register(parser):
-    return parser
 
 
 def to_xml(location: Location, full_url: urllib.parse.ParseResult) -> str:

@@ -3,7 +3,7 @@
 import logging
 import urllib.parse
 
-from .. import http, utils
+from . import http, utils
 
 logger = logging.getLogger(__name__)
 

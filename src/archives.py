@@ -4,13 +4,9 @@ import logging
 import random
 import urllib.parse
 
-from .. import utils
+from . import utils
 
 logger = logging.getLogger(__name__)
-
-
-def regiser(parser):
-    return parser
 
 
 def render_feed_link(html: utils.StringWriter,

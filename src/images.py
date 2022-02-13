@@ -1,3 +1,5 @@
+"""resize images in webroot"""
+
 import collections
 import logging
 import os
@@ -58,3 +60,14 @@ def check_image(path, maximum=800):
         logger.info('resized %s from %s', path, dimensions)
     else:
         logger.debug('%s is correct size at %s', path, dimensions)
+
+
+def main(args):
+    validate_image_dependencies()
+
+    all_images = list(filter(is_image, args.directory.glob('www/**/*.*')))
+
+    for i, path in enumerate(all_images):
+        check_image(path)
+        if (i + 1) % 100 == 0 or (i + 1) == len(all_images):
+            logger.info('scanned %d out of %d images', i + 1, len(all_images))

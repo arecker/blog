@@ -3,13 +3,9 @@
 import logging
 import json
 
-from .. import utils
+from . import utils
 
 logger = logging.getLogger(__name__)
-
-
-def register(parser):
-    return parser
 
 
 def load_data(target):

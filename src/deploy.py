@@ -4,9 +4,7 @@ import hashlib
 import logging
 import time
 
-from .. import http
-from ..utils import ROOT_DIR
-from . import build
+from . import http, build
 
 logger = logging.getLogger(__name__)
 
@@ -82,9 +80,9 @@ def main(args):
     site_id = fetch_site_id(domain, token=args.netlify_token)
     logger.info('found netlify site %s (%s)', domain, site_id)
 
-    payload = build_new_deploy(ROOT_DIR / 'www')
+    payload = build_new_deploy(args.directory / 'www')
     logger.info('built payload from %d file(s) in %s',
-                len(payload['files'].keys()), ROOT_DIR / 'www')
+                len(payload['files'].keys()), args.directory / 'www')
 
     response = make_request(path=f'/sites/{site_id}/deploys/',
                             token=args.netlify_token,
@@ -99,7 +97,7 @@ def main(args):
     hash_map = dict([(v, k) for k, v in payload['files'].items()])
     for i, sha in enumerate(response['required']):
         path = hash_map[sha]
-        with open(str(ROOT_DIR / 'www') + path, 'rb') as f:
+        with open(str(args.directory / 'www') + path, 'rb') as f:
             data = f.read()
         url = f'/deploys/{deploy_id}/files{path}'
         response = make_request(path=url,

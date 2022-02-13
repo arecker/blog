@@ -3,13 +3,11 @@
 import logging
 import os
 
-from ..utils import ROOT_DIR
-
 logger = logging.getLogger(__name__)
 
 
 def main(args):
-    targets = list(ROOT_DIR.glob('www/*.html'))
+    targets = list(args.directory.glob('www/*.html'))
     for target in targets:
         os.remove(target)
         logger.debug('removed old target %s', target)

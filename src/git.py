@@ -2,15 +2,13 @@ import collections
 import logging
 import subprocess
 
-from .utils import ROOT_DIR
-
 logger = logging.getLogger(__name__)
 
 Commit = collections.namedtuple('Commit',
                                 ['short_hash', 'long_hash', 'summary', 'url'])
 
 
-def git_new_files(root_directory=ROOT_DIR):
+def git_new_files(root_directory):
     cmd = 'git status --porcelain'.split(' ')
     result = subprocess.run(cmd,
                             cwd=root_directory,
@@ -21,11 +19,11 @@ def git_new_files(root_directory=ROOT_DIR):
     return [root_directory / m for m in matches]
 
 
-def git_stage_all(root_directory=ROOT_DIR):
+def git_stage_all(root_directory):
     subprocess.run(['git', 'add', '-A'], cwd=root_directory, check=True)
 
 
-def git_write_commit(root_directory=ROOT_DIR, message=''):
+def git_write_commit(root_directory, message=''):
     subprocess.run(['git', 'commit', '-m', message],
                    cwd=root_directory,
                    check=True,
@@ -33,7 +31,7 @@ def git_write_commit(root_directory=ROOT_DIR, message=''):
                    stderr=subprocess.DEVNULL)
 
 
-def git_write_tag(root_directory=ROOT_DIR, tag=''):
+def git_write_tag(root_directory, tag=''):
     subprocess.run(['git', 'tag', tag],
                    cwd=root_directory,
                    check=True,
@@ -41,7 +39,7 @@ def git_write_tag(root_directory=ROOT_DIR, tag=''):
                    stderr=subprocess.DEVNULL)
 
 
-def git_push_master(root_directory=ROOT_DIR):
+def git_push_master(root_directory):
     cmd = 'git push origin master:master'
     subprocess.run(cmd.split(' '),
                    cwd=root_directory,
@@ -59,7 +57,7 @@ def git_push_tag(root_directory, tag=''):
                    stderr=subprocess.DEVNULL)
 
 
-def get_head_commit(root_directory=ROOT_DIR):
+def get_head_commit(root_directory):
     def shell_command(cmd):
         result = subprocess.run(cmd.split(' '), capture_output=True)
         return result.stdout.decode('UTF-8').strip()
@@ -72,7 +70,7 @@ def get_head_commit(root_directory=ROOT_DIR):
                   url=f'https://github.com/arecker/blog/commit/{long_hash}')
 
 
-def head_is_entry_tagged(root_directory=ROOT_DIR):
+def head_is_entry_tagged(root_directory):
     cmd = 'git describe --exact-match --tags HEAD'
     result = subprocess.run(cmd.split(' '),
                             cwd=root_directory,

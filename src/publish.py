@@ -3,7 +3,7 @@
 import logging
 import os
 
-from .. import git, images, utils
+from . import git, images, utils
 
 logger = logging.getLogger(__name__)
 

@@ -2,14 +2,9 @@
 
 import logging
 
-from ..commands import pave, sitemap, feed, index, archives, entries as entriescmd, pets, contact
-from .. import utils
+from . import pave, sitemap, feed, index, archives, entries as entriescmd, pets, contact, utils
 
 logger = logging.getLogger(__name__)
-
-
-def register(parser):
-    return parser
 
 
 def main(args, nav=[], entries=[]):

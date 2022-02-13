@@ -80,7 +80,7 @@ parser.add_argument('--full-url',
 
 
 def all_commands():
-    commands = [f.name for f in HERE.glob('commands/*.py')]
+    commands = [f.name for f in HERE.glob('*.py')]
     commands = [f for f in commands if f not in ('__main__.py', '__init__.py')]
     commands = [os.path.splitext(f)[0] for f in sorted(commands)]
     return commands
@@ -89,7 +89,7 @@ def all_commands():
 # Register subommands from submodules that have a main function.
 COMMANDS, subcommand = {}, parser.add_subparsers(dest='subcommand')
 for command in all_commands():
-    module = importlib.import_module(f'.commands.{command}', package=HERE.name)
+    module = importlib.import_module(f'.{command}', package=HERE.name)
     try:
         COMMANDS[command] = module.main
     except AttributeError:
@@ -120,7 +120,9 @@ def configure_logging(verbose=False, silent=False):
     else:
         level = logging.INFO
 
-    logging.basicConfig(level=level, stream=sys.stderr)
+    logging.basicConfig(level=level,
+                        stream=sys.stderr,
+                        format='%(name)s: %(message)s')
     logger.debug('configured logging with level = %s', level)
 
 

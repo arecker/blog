@@ -3,13 +3,9 @@
 import logging
 import urllib.parse
 
-from .. import utils
+from . import utils
 
 logger = logging.getLogger(__name__)
-
-
-def register(parser):
-    return parser
 
 
 def render_info(title='',
