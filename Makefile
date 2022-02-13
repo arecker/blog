@@ -1,6 +1,10 @@
-.phony: all
+.PHONY: all
 all: test
 
-.phony: test
+.PHONY: test
 test:
 	python -m unittest discover
+
+.PHONY: data
+data:
+	jsonnet -m . data.jsonnet
