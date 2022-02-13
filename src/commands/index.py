@@ -94,7 +94,7 @@ def register(parser):
     return parser
 
 
-def main(args):
+def main(args, nav=[]):
     latest = utils.fetch_entries(args.directory / 'entries')[0]
     logger.info('fetched latest post %s', latest)
 
@@ -118,7 +118,7 @@ def main(args):
         page=page,
         full_url=args.full_url,
         content=content,
-        nav_pages=utils.read_nav(args.directory / 'data'),
+        nav_pages=nav or utils.read_nav(args.directory / 'data'),
         year=args.year,
         author=args.author,
     )

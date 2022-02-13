@@ -6,6 +6,7 @@ import datetime
 import json
 import logging
 import pathlib
+import platform
 import re
 import urllib.parse
 
@@ -357,12 +358,19 @@ def render_page(
     html.write('<hr/>', blank=True)
 
     html.write('<!-- footer -->')
-    html.write('<footer>', indent=True)
-    html.write(f'<small>© Copyright {year} {author}</small>', unindent=True)
-    html.write('</footer>', blank=True, unindent=True)
+    with html.block('footer', blank=True):
+        # python verison
+        html.write(
+            f'<small>Built with Python {platform.python_version()}</small>')
+
+        # copyright
+        html.write(f'<small>© Copyright {year} {author}</small>')
+    html.unindent()
 
     html.write('</body>', blank=True)
+
+    html.comment(
+        'No JavaScript, cookies, or tracking.  Just enjoy the reading!')
     html.write('</html>')
-    # html: end
 
     return html.text

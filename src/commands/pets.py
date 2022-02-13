@@ -128,7 +128,7 @@ def main(args, nav=[]):
         f.write(
             utils.render_page(page,
                               args.full_url,
-                              content=html.text,
+                              content=html.text.rstrip(),
                               nav_pages=nav,
                               year=args.year,
                               author=args.author))
