@@ -3,8 +3,8 @@
 import logging
 import datetime
 
-from .pages import Page, build_nav_list
-from .. import html
+from .pages import Page
+from .. import html, utils
 
 logger = logging.getLogger(__name__)
 
@@ -48,7 +48,7 @@ def main(args):
     site = Site(**vars(args))
 
     total = len(list(site.entries))
-    nav_pages = build_nav_list()
+    nav_pages = utils.read_nav(args.directory / 'data')
     for i, page in enumerate(site.entries):
         page.build(author=args.author,
                    year=args.year,
