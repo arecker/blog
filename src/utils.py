@@ -208,6 +208,7 @@ class StringWriter:
               blank=False,
               blank_before=False,
               _class='',
+              _type='',
               **attributes):
         """Context manager that wraps contents in an element.
 
@@ -218,6 +219,8 @@ class StringWriter:
 
         if _class:
             attributes['class'] = _class
+        if _type:
+            attributes['type'] = _type
 
         attributes = sorted([f'{k}="{v}"' for k, v in attributes.items()])
         attributes = ' '.join(attributes)

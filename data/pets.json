@@ -2,8 +2,8 @@
    {
       "aliases": "Crig, The Big Cheese, The Queso-Man, Cheese-a-Rone",
       "birthplace": "Elizabeth, Illinois",
-      "breed": "Pembroke Welsh Corgi",
       "category": "Dogs",
+      "common": "Pembroke Welsh Corgi",
       "dislikes": "Invading his personal bubble",
       "gotcha": "May 25, 2014",
       "image": "pets-ollie.jpg",
@@ -14,11 +14,11 @@
    {
       "aliases": "Peanut, Peen-peen, Suh-peena, The Mosasaurus",
       "birthplace": "Philadelphia, Pennsylvania",
-      "breed": "Cardigan Welsh Corgi",
       "category": "Dogs",
+      "common": "Cardigan Welsh Corgi",
       "dislikes": "Being ignored, dogs on the TV, things that suddenly get really big",
       "gotcha": "October 11, 2017",
-      "image": "pets-ziggie.jpg",
+      "image": "pets-ziggy.jpg",
       "likes": "Agility, Walks with dad, Special treatment",
       "name": "Ziggy",
       "species": "Canis lupus familiaris"
@@ -26,8 +26,8 @@
    {
       "aliases": "Iron Minnie, Minnistrone, Dylan \"Strone\", Minniestrouneliotis",
       "birthplace": "Lewisberry, Pennsylvania",
-      "breed": "Cardigan Welsh Corgi",
       "category": "Dogs",
+      "common": "Cardigan Welsh Corgi",
       "dislikes": "Guilty feelings",
       "gotcha": "April 10, 2021",
       "image": "pets-minnie.jpg",
@@ -38,7 +38,7 @@
    {
       "aliases": "The one without the dots",
       "category": "Fish",
-      "commonName": "Clown Fish",
+      "common": "Clown Fish",
       "dislikes": "Obb",
       "gotcha": "September 24, 2020",
       "image": "pets-ibb.jpg",
@@ -49,7 +49,7 @@
    {
       "aliases": "The one with the dots",
       "category": "Fish",
-      "commonName": "Clown Fish",
+      "common": "Clown Fish",
       "dislikes": "Death (especially anemones)",
       "gotcha": "September 24, 2020",
       "image": "pets-obb.jpg",
@@ -60,7 +60,7 @@
    {
       "aliases": "Duckasaurus, Duckanator",
       "category": "Reptiles",
-      "commonName": "Leopard Gecko",
+      "common": "Leopard Gecko",
       "dislikes": "Superworms, head scratches, hard work",
       "gotcha": "October 21, 2021",
       "image": "pets-ducky.jpg",

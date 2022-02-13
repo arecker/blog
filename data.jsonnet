@@ -10,7 +10,7 @@ local Dog(name, image) = Pet(name, 'Dogs', image) {
 
 local dogs = [
   Dog('Ollie', 'pets-ollie.jpg') {
-    breed: 'Pembroke Welsh Corgi',
+    common: 'Pembroke Welsh Corgi',
     birthplace: 'Elizabeth, Illinois',
     gotcha: 'May 25, 2014',
     aliases: 'Crig, The Big Cheese, The Queso-Man, Cheese-a-Rone',
@@ -18,8 +18,8 @@ local dogs = [
     dislikes: 'Invading his personal bubble',
   },
 
-  Dog('Ziggy', 'pets-ziggie.jpg') {
-    breed: 'Cardigan Welsh Corgi',
+  Dog('Ziggy', 'pets-ziggy.jpg') {
+    common: 'Cardigan Welsh Corgi',
     birthplace: 'Philadelphia, Pennsylvania',
     gotcha: 'October 11, 2017',
     aliases: 'Peanut, Peen-peen, Suh-peena, The Mosasaurus',
@@ -28,7 +28,7 @@ local dogs = [
   },
 
   Dog('Minnie', 'pets-minnie.jpg') {
-    breed: 'Cardigan Welsh Corgi',
+    common: 'Cardigan Welsh Corgi',
     birthplace: 'Lewisberry, Pennsylvania',
     gotcha: 'April 10, 2021',
     aliases: 'Iron Minnie, Minnistrone, Dylan "Strone", Minniestrouneliotis',
@@ -42,7 +42,7 @@ local Fish(name, image) = Pet(name, 'Fish', image);
 local fish = [
   Fish('Ibb', 'pets-ibb.jpg') {
     species: 'Amphiprioninae',
-    commonName: 'Clown Fish',
+    common: 'Clown Fish',
     gotcha: 'September 24, 2020',
     aliases: 'The one without the dots',
     likes: 'Food, Clean water, Finding Nemo',
@@ -50,7 +50,7 @@ local fish = [
   },
   Fish('Obb', 'pets-obb.jpg') {
     species: 'Amphiprioninae',
-    commonName: 'Clown Fish',
+    common: 'Clown Fish',
     gotcha: 'September 24, 2020',
     aliases: 'The one with the dots',
     likes: 'Anemones, food, imposing her will',
@@ -63,7 +63,7 @@ local Reptile(name, image) = Pet(name, 'Reptiles', image);
 local reptiles = [
   Reptile('Ducky', 'pets-ducky.jpg') {
     species: 'Eublepharis macularius',
-    commonName: 'Leopard Gecko',
+    common: 'Leopard Gecko',
     gotcha: 'October 21, 2021',
     aliases: 'Duckasaurus, Duckanator',
     likes: 'Naps, mealworms, warm surfaces',
