@@ -8,6 +8,7 @@ import logging
 import pathlib
 import platform
 import re
+import typing
 import urllib.parse
 
 ROOT_DIR = pathlib.Path(__file__).parent.parent
@@ -259,7 +260,7 @@ Page = collections.namedtuple(
 
 
 def render_page(
-    page: Page,
+    page: typing.Union[Page, Entry],
     full_url: urllib.parse.ParseResult,
     content='',
     nav_pages=[],

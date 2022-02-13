@@ -1,59 +1,51 @@
-"""build journal entries"""
+"""render journal entries"""
 
 import logging
-import datetime
 
-from .pages import Page
-from .. import html, utils
+from .. import utils
 
 logger = logging.getLogger(__name__)
-
-
-class Entry(Page):
-    def __repr__(self):
-        return f'<Entry {self.filename}>'
-
-    @property
-    def title(self):
-        return self.date.strftime('%A, %B %-d %Y')
-
-    @property
-    def description(self):
-        metadata = self.metadata()
-        return metadata['title']
-
-    @property
-    def date(self):
-        return datetime.datetime.strptime(self.slug, '%Y-%m-%d')
-
-    def paginate(self, next_filename=None, previous_filename=None):
-        self.next_filename = next_filename
-        self.previous_filename = previous_filename
-
-    def read(self):
-        content = super(Entry, self).read()
-        pagination = html.build_page_pagination(
-            next_page=self.next_filename, previous_page=self.previous_filename)
-        pagination = html.stringify_xml(pagination)
-        return content + '\n' + pagination
 
 
 def register(parser):
     return parser
 
 
-def main(args):
-    # TODO: remove once Site is gone
-    from ..models import Site
-    site = Site(**vars(args))
+def main(args, nav=[], entries=[]):
+    nav = nav or utils.read_nav(args.directory / 'data')
+    entries = entries or utils.fetch_entries(args.directory / 'entries')
 
-    total = len(list(site.entries))
-    nav_pages = utils.read_nav(args.directory / 'data')
-    for i, page in enumerate(site.entries):
-        page.build(author=args.author,
-                   year=args.year,
-                   full_url=args.full_url,
-                   nav_pages=nav_pages)
-        logger.debug('generated %s (%d/%d)', page.target, i + 1, total)
+    total = len(entries)
+    for i, entry in enumerate(entries):
+        html = utils.StringWriter(starting_indent=4)
+
+        # copy entry contents
+        with open(args.directory / f'entries/{entry.filename}', 'r') as f:
+            for line in f.readlines():
+                html.write(line.rstrip())
+
+        html.write('')
+
+        html.comment('Pagination')
+        # add pagination
+        with html.block('nav', _class='clearfix', blank=True):
+            if entry.page_next:
+                html.write(
+                    f'<a class="float-right" href="./{entry.page_next}">{entry.page_next} ⟶</a>'
+                )
+            if entry.page_previous:
+                html.write(
+                    f'<a class="float-left" href="./{entry.page_previous}">⟵ {entry.page_previous}</a>'
+                )
+
+        with open(args.directory / f'www/{entry.filename}', 'w') as f:
+            output = utils.render_page(entry,
+                                       args.full_url,
+                                       content=html.text.rstrip(),
+                                       nav_pages=nav,
+                                       year=args.year,
+                                       author=args.author)
+            f.write(output)
+        logger.debug('generated %s', entry.filename)
         if (i + 1) % 100 == 0 or (i + 1) == total:
             logger.info('generated %d out of %d entries', i + 1, total)
