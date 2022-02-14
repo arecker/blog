@@ -8,78 +8,57 @@ from . import utils
 logger = logging.getLogger(__name__)
 
 
-def render_info(title='',
-                subtitle='',
-                author='',
-                email='',
-                full_url=None,
-                timestamp=None) -> str:
-    url = full_url.geturl()
-    feed_url = urllib.parse.urljoin(url, 'feed.xml')
-
-    return f"""  <title>{title}</title>
-  <subtitle>{subtitle}</subtitle>
-  <author>
-    <name>{author}</name>
-    <email>{email}</email>
-  </author>
-  <updated>{utils.to_iso_date(timestamp)}</updated>
-  <link href="{feed_url}" rel="self" type="application/atom+xml" />
-  <link href="{url}" rel="alternate" type="text/html" />
-  <id>{feed_url}</id>"""
-
-
-def render_entry(entry: utils.Entry, author='', email='', full_url=None):
-    timestamp = utils.to_iso_date(entry.date)
-    url = urllib.parse.urljoin(full_url.geturl(), entry.filename)
-
-    if entry.banner:
-        banner_url = urllib.parse.urljoin(full_url.geturl(),
-                                          f'images/banners/{entry.banner}')
-        banner_data = f"""    <media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="{banner_url}" />
-    <media:content medium="image" xmlns:media="http://search.yahoo.com/mrss/" url="{banner_url}" />"""
-    else:
-        banner_data = ""
-
-    return f"""  <entry>
-    <title>{entry.title}</title>
-    <summary>{entry.description}</summary>
-    <published>{timestamp}</published>
-    <updated>{timestamp}</updated>
-    <author>
-      <name>{author}</name>
-      <email>{email}</email>
-    </author>
-    <link href="{url}" />
-    <id>{url}</id>
-{banner_data}
-  </entry>"""
-
-
 def main(args, entries=[]):
     entries = entries or utils.fetch_entries(args.directory / 'entries')
-    info = render_info(
-        title=args.title,
-        subtitle=args.subtitle,
-        author=args.author,
-        email=args.email,
-        full_url=args.full_url,
-        timestamp=entries[0].date,
-    )
-    entries = '\n'.join([
-        render_entry(e,
-                     author=args.author,
-                     email=args.email,
-                     full_url=args.full_url) for e in entries
-    ][:30])
-    feed = f'''
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-{info}
-{entries}
-</feed>
-'''.lstrip()
+
+    xml = utils.StringWriter()
+    xml.write('<?xml version="1.0" encoding="utf-8"?>')
+    with xml.block('feed', xmlns='http://www.w3.org/2005/Atom'):
+        xml.write(f'<title>{args.title}</title>')
+        xml.write(f'<subtitle>{args.subtitle}</subtitle>')
+        with xml.block('author'):
+            xml.write(f'<name>{args.author}</name>')
+            xml.write(f'<email>{args.email}</email>')
+
+        timestamp = entries[0].date
+        xml.write(f'<updated>{utils.to_iso_date(timestamp)}</updated>')
+
+        url = args.full_url.geturl()
+        feed_url = urllib.parse.urljoin(url, 'feed.xml')
+        xml.write(
+            f'<link href="{feed_url}" rel="self" type="application/atom+xml" />'
+        )
+        xml.write(f'<link href="{url}" rel="alternate" type="text/html" />')
+        xml.write(f'<id>{feed_url}</id>')
+
+        for entry in entries:
+            with xml.block('entry'):
+                xml.write(f'<title>{entry.title}</title>')
+
+                xml.write(
+                    f'<summary><![CDATA[{entry.description}]]></summary>')
+
+                timestamp = utils.to_iso_date(entry.date)
+                xml.write(f'<published>{timestamp}</published>')
+                xml.write(f'<updated>{timestamp}</updated>')
+
+                with xml.block('author'):
+                    xml.write(f'<name>{args.author}</name>')
+                    xml.write(f'<email>{args.email}</email>')
+
+                entry_url = urllib.parse.urljoin(url, entry.filename)
+                xml.write(f'<link href="{entry_url}" />')
+                xml.write(f'<id>{entry_url}</id>')
+                if entry.banner:
+                    banner_url = urllib.parse.urljoin(
+                        url, f'images/banners/{entry.banner}')
+                    xml.write(
+                        f'<media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="{banner_url}" />'
+                    )
+                    xml.write(
+                        f'<media:content medium="image" xmlns:media="http://search.yahoo.com/mrss/" url="{banner_url}" />'
+                    )
 
     with open(args.directory / 'www/feed.xml', 'w') as f:
-        f.write(feed)
-    logger.info('generated %s', 'feed.xml')
+        f.write(xml.text)
+    logger.info('generated %s with %d entries', 'feed.xml', len(entries))
