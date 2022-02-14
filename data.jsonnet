@@ -154,7 +154,7 @@ local news = [
     linkedin: 'alex-recker-a0316481',
     scratch: 'mcrist0',
   },
-  'data/nav.json': ['entries.html', 'pets.html', 'contact.html'],
+  'data/nav.json': ['entries.html', 'games.html', 'pets.html', 'contact.html'],
   'data/news.json': news,
   'data/pets.json': pets,
 }
