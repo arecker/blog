@@ -18,4 +18,4 @@ def main(args, nav=[], entries=[]):
     entriescmd.main(args, nav=nav, entries=entries)
     archives.main(args, nav=nav, entries=entries)
     feed.main(args, entries=entries)
-    sitemap.main(args)
+    sitemap.main(args, entries=entries)
