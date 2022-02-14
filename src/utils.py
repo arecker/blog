@@ -11,22 +11,7 @@ import re
 import typing
 import urllib.parse
 
-ROOT_DIR = pathlib.Path(__file__).parent.parent
 logger = logging.getLogger(__name__)
-
-
-def parse_html_metadata_comments(content):
-    """Parse metadata from magic HTML comments.
-
-    >>> parse_html_metadata_comments('<!-- meta:title A Tale of Two Cities -->')
-    {'title': 'A Tale of Two Cities'}
-    """
-
-    pattern = re.compile(
-        r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$',
-        re.MULTILINE)
-    values = [(k.strip(), v.strip()) for k, v in pattern.findall(content)]
-    return dict(values)
 
 
 def read_nav(data_dir: pathlib.Path):
