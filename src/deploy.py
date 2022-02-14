@@ -94,7 +94,8 @@ def main(args):
                 response['id'], total)
 
     hash_map = dict([(v, k) for k, v in payload['files'].items()])
-    for i, sha in enumerate(response['required']):
+    required = sorted(response['required'], key=lambda r: hash_map[r])
+    for i, sha in enumerate(required):
         path = hash_map[sha]
         with open(str(args.directory / 'www') + path, 'rb') as f:
             data = f.read()

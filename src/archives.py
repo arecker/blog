@@ -77,7 +77,6 @@ def render_entries_page(entries=[],
                              full_url,
                              content=html.text.rstrip(),
                              nav_pages=nav,
-                             year=year,
                              author=author)
 
 
@@ -85,7 +84,6 @@ def render_year_page(year=None,
                      entries=[],
                      full_url=None,
                      nav=[],
-                     copyright_year=None,
                      author='',
                      years=[]):
     html = utils.StringWriter(starting_indent=4)
@@ -105,7 +103,6 @@ def render_year_page(year=None,
                              full_url,
                              content=html.text.rstrip(),
                              nav_pages=nav,
-                             year=copyright_year,
                              author=author)
 
 
@@ -117,7 +114,6 @@ def main(args, entries=[], nav=[]):
     output = render_entries_page(entries=entries,
                                  full_url=args.full_url,
                                  nav=nav,
-                                 year=args.year,
                                  author=args.author,
                                  years=years)
     with open(args.directory / 'www/entries.html', 'w') as f:
@@ -131,7 +127,6 @@ def main(args, entries=[], nav=[]):
             entries=year_entries,
             full_url=args.full_url,
             nav=nav,
-            copyright_year=args.year,
             author=args.author,
             years=years,
         )

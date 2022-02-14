@@ -223,10 +223,13 @@ class StringWriter:
         self.current_indent = starting_indent
         self.write(f'</{element_name}>', blank=blank)
 
-    def figure(self, src, href='', caption=''):
-        with self.block('figure'):
+    def figure(self, src, href='', caption='', alt='', blank=False):
+        with self.block('figure', blank=blank):
             with self.block('a', href=href or src):
-                self.write(f'<img src="{src}" />')
+                if alt:
+                    self.write(f'<img src="{src}" alt="{alt}" />')
+                else:
+                    self.write(f'<img src="{src}" />')
 
             if caption:
                 with self.block('figcaption'):
@@ -245,114 +248,96 @@ Page = collections.namedtuple(
 
 
 def render_page(
-    page: typing.Union[Page, Entry],
-    full_url: urllib.parse.ParseResult,
-    content='',
-    nav_pages=[],
-    year=None,
-    author=None,
+        page: typing.Union[Page, Entry],
+        full_url: urllib.parse.ParseResult,
+        content='',
+        nav_pages=[],
+        copyright_year=datetime.datetime.now().year,
+        python_version=platform.python_version(),
+        author=None,
 ) -> str:
     """Render an HTML page as a string."""
 
     html = StringWriter()
 
-    # html:begin
     html.write('<!doctype html>')
     html.write('<html lang="en">', blank=True)
 
-    # head: end
     page_url = urllib.parse.urljoin(full_url.geturl(), page.filename)
-    html.write('<head>', indent=True)
-    html.write(f'<title>{page.title}</title>')
-    html.write(
-        '<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>')
-    html.write('<link href="./assets/site.css" rel="stylesheet"/>', blank=True)
+    with html.block('head', blank=True):
+        html.write(f'<title>{page.title}</title>', blank=True)
 
-    html.write('<!-- meta -->')
-    html.write('<meta charset="UTF-8"/>')
-    html.write(
-        '<meta name="viewport" content="width=device-width, initial-scale=1"/>'
-    )
-    html.write(f'<meta name="twitter:title" content="{page.title}"/>')
-    html.write(
-        f'<meta name="twitter:description" content="{page.description}"/>')
-    html.write(f'<meta property="og:url" content="{page_url}"/>')
-    html.write('<meta property="og:type" content="article"/>')
-    html.write(f'<meta property="og:title" content="{page.title}"/>')
-    html.write(
-        f'<meta property="og:description" content="{page.description}"/>')
-    if page.banner:
-        banner = urllib.parse.urljoin(full_url.geturl(),
-                                      f'/images/banners/{page.banner}')
-        html.write(f'<meta name="image" content="{banner}"/>')
-        html.write(f'<meta property="og:image" content="{banner}"/>')
-    with html.indentation_reset():
-        html.write('')
-    html.unindent()
+        html.comment('Page Assets')
+        html.write(
+            '<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>'
+        )
+        html.write('<link href="./assets/site.css" rel="stylesheet"/>',
+                   blank=True)
 
-    html.write('</head>', blank=True)
+        html.comment('Page Metadata')
+        html.write('<meta charset="UTF-8"/>')
+        html.write(
+            '<meta name="viewport" content="width=device-width, initial-scale=1"/>'
+        )
+        html.write(f'<meta name="twitter:title" content="{page.title}"/>')
+        html.write(
+            f'<meta name="twitter:description" content="{page.description}"/>')
+        html.write(f'<meta property="og:url" content="{page_url}"/>')
+        html.write('<meta property="og:type" content="article"/>')
+        html.write(f'<meta property="og:title" content="{page.title}"/>')
+        html.write(
+            f'<meta property="og:description" content="{page.description}"/>')
+        if page.banner:
+            banner = urllib.parse.urljoin(full_url.geturl(),
+                                          f'/images/banners/{page.banner}')
+            html.write(f'<meta name="image" content="{banner}"/>')
+            html.write(f'<meta property="og:image" content="{banner}"/>')
+        with html.indentation_reset():
+            html.write('')
 
     html.write('<body>', indent=True, blank=True)
-    html.write('<!-- header -->')
-    html.write('<header>')
-    html.indent()
-    html.write(f'<h1>{page.title}</h1>')
-    html.write(f'<h2>{page.description}</h2>')
-    html.unindent()
-    html.write('</header>', blank=True)
+
+    html.comment('Page Header')
+    with html.block('header', blank=True):
+        html.write(f'<h1>{page.title}</h1>')
+        html.write(f'<h2>{page.description}</h2>')
 
     html.write('<hr/>', blank=True)
 
-    html.write('<!-- nav -->')
-    html.write('<nav>')
-    html.indent()
-    html.write('<a href="./index.html">index.html</a>')
-    if page.filename != 'index.html':
-        html.write('<span>/</span>')
-        html.write(f'<span>{page.filename}</span>')
-    # TODO: remove these classes - just target the elements and make
-    # the markup more generic.
-    html.write('<br class="show-on-mobile">')
-    html.write('<span class="float-right-on-desktop">')
-    html.indent()
-    for nav_page in nav_pages:
-        html.write(f'<a href="./{nav_page}">{nav_page}</a>')
-    html.unindent()
-    html.write('</span>')
-    html.unindent()
-    html.write('</nav>', blank=True)
+    html.write('<!-- Site Navigation -->')
+    with html.block('nav', blank=True):
+        html.write('<a href="./index.html">index.html</a>')
+        if page.filename != 'index.html':
+            html.write('<span>/</span>')
+            html.write(f'<span>{page.filename}</span>')
+        # TODO: remove these classes - just target the elements and make
+        # the markup more generic.
+        html.write('<br class="show-on-mobile">')
+        with html.block('span', _class='float-right-on-desktop'):
+            for nav_page in nav_pages:
+                html.write(f'<a href="./{nav_page}">{nav_page}</a>')
 
     html.write('<hr/>', blank=True)
 
     if page.banner:
-        html.write('<!-- banner -->')
-        html.write('<figure>')
-        html.indent()
-        html.write(f'<a href="./images/banners/{page.banner}">')
-        html.indent()
-        html.write(f'<img alt="banner" src="./images/banners/{page.banner}">')
-        html.unindent()
-        html.write('</a>')
-        html.unindent()
-        html.write('</figure>', blank=True)
+        html.comment('Page Banner')
+        html.figure(src=f'./images/banners/{page.banner}',
+                    alt='banner',
+                    blank=True)
 
-    html.comment('article')
+    html.comment('Page Content')
     with html.block('article', blank=True, blank_before=True):
         with html.indentation_reset():
             html.write(content)
 
     html.write('<hr/>', blank=True)
 
-    html.write('<!-- footer -->')
+    html.write('<!-- Page Footer -->')
     with html.block('footer', blank=True):
-        # python verison
-        html.write(
-            f'<small>Built with Python {platform.python_version()}</small>')
+        html.write(f'<small>Built with Python {python_version}</small>')
+        html.write(f'<small>© Copyright {copyright_year} {author}</small>')
 
-        # copyright
-        html.write(f'<small>© Copyright {year} {author}</small>')
     html.unindent()
-
     html.write('</body>', blank=True)
 
     html.comment(

@@ -73,6 +73,5 @@ And also <a href="https://www.linkedin.com/in/{linkedin}">LinkedIn</a>, <a href=
                               args.full_url,
                               content=html.text.rstrip(),
                               nav_pages=nav,
-                              year=args.year,
                               author=args.author))
     logger.info('generated contact.html')

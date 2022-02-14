@@ -126,6 +126,5 @@ def main(args, nav=[]):
                               args.full_url,
                               content=html.text.rstrip(),
                               nav_pages=nav,
-                              year=args.year,
                               author=args.author))
     logger.info('generated pets.html')

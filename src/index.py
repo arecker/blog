@@ -115,7 +115,6 @@ def main(args, nav=[]):
         full_url=args.full_url,
         content=content,
         nav_pages=nav or utils.read_nav(args.directory / 'data'),
-        year=args.year,
         author=args.author,
     )
     target = args.directory / 'www/index.html'

@@ -31,7 +31,8 @@ class TestRenderPage(unittest.TestCase):
             full_url=urllib.parse.urlparse('http://localhost:8000'),
             content='Some content',
             nav_pages=['a.html', 'b.html'],
-            year=1969,
+            copyright_year=1969,
+            python_version='1.2.3',
             author='Dick Butkus')
 
         expected = '''
@@ -40,10 +41,12 @@ class TestRenderPage(unittest.TestCase):
 
 <head>
   <title>Test</title>
+
+  <!-- Page Assets -->
   <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico"/>
   <link href="./assets/site.css" rel="stylesheet"/>
 
-  <!-- meta -->
+  <!-- Page Metadata -->
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="twitter:title" content="Test"/>
@@ -59,7 +62,7 @@ class TestRenderPage(unittest.TestCase):
 
 <body>
 
-  <!-- header -->
+  <!-- Page Header -->
   <header>
     <h1>Test</h1>
     <h2>A Test Page</h2>
@@ -67,7 +70,7 @@ class TestRenderPage(unittest.TestCase):
 
   <hr/>
 
-  <!-- nav -->
+  <!-- Site Navigation -->
   <nav>
     <a href="./index.html">index.html</a>
     <span>/</span>
@@ -81,14 +84,14 @@ class TestRenderPage(unittest.TestCase):
 
   <hr/>
 
-  <!-- banner -->
+  <!-- Page Banner -->
   <figure>
     <a href="./images/banners/test.jpg">
-      <img alt="banner" src="./images/banners/test.jpg">
+      <img src="./images/banners/test.jpg" alt="banner" />
     </a>
   </figure>
 
-  <!-- article -->
+  <!-- Page Content -->
   <article>
 
 Some content
@@ -96,9 +99,9 @@ Some content
 
   <hr/>
 
-  <!-- footer -->
+  <!-- Page Footer -->
   <footer>
-    <small>Built with Python 3.9.5</small>
+    <small>Built with Python 1.2.3</small>
     <small>© Copyright 1969 Dick Butkus</small>
   </footer>
 

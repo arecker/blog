@@ -39,7 +39,6 @@ def main(args, nav=[], entries=[]):
                                        args.full_url,
                                        content=html.text.rstrip(),
                                        nav_pages=nav,
-                                       year=args.year,
                                        author=args.author)
             f.write(output)
         logger.debug('generated %s', entry.filename)
