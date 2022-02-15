@@ -43,6 +43,15 @@ class TestMetadataParseHTML(unittest.TestCase):
         self.assertDictEqual(actual, expected)
 
 
+class TestPaginateList(unittest.TestCase):
+    def test_one(self):
+        result = utils.paginate_list(['a', 'b', 'c'])
+        self.assertIsNone(result['a'].previous)
+        self.assertEqual(result['a'].next, 'b')
+        self.assertEqual(result['c'].previous, 'b')
+        self.assertIsNone(result['c'].next)
+
+
 class TestRenderPage(unittest.TestCase):
     def test_page(self):
         page = utils.Page(filename='test.html',
