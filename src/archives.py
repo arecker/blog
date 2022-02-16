@@ -116,7 +116,10 @@ def main(args, entries=[], nav=[]):
                                  nav=nav,
                                  author=args.author,
                                  years=years)
-    with open(args.directory / 'www/entries.html', 'w') as f:
+
+    with utils.write_page(args.directory,
+                          'entries.html',
+                          overwrite_ok=args.overwrite) as f:
         f.write(output)
     logger.info('generated entries.html')
 
@@ -130,6 +133,10 @@ def main(args, entries=[], nav=[]):
             author=args.author,
             years=years,
         )
-        with open(args.directory / f'www/{year}.html', 'w') as f:
+
+        with utils.write_page(args.directory,
+                              f'{year}.html',
+                              overwrite_ok=args.overwrite) as f:
             f.write(output)
+
         logger.info('generated %s', f'{year}.html')

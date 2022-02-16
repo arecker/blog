@@ -34,12 +34,14 @@ def main(args, nav=[], entries=[]):
                     f'<a class="float-left" href="./{entry.page_previous}">⟵ {entry.page_previous}</a>'
                 )
 
-        with open(args.directory / f'www/{entry.filename}', 'w') as f:
-            output = utils.render_page(entry,
-                                       args.full_url,
-                                       content=html.text.rstrip(),
-                                       nav_pages=nav,
-                                       author=args.author)
+        output = utils.render_page(entry,
+                                   args.full_url,
+                                   content=html.text.rstrip(),
+                                   nav_pages=nav,
+                                   author=args.author)
+        with utils.write_page(args.directory,
+                              entry.filename,
+                              overwrite_ok=args.overwrite) as f:
             f.write(output)
         logger.debug('generated %s', entry.filename)
         if (i + 1) % 100 == 0 or (i + 1) == total:

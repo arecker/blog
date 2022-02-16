@@ -27,10 +27,13 @@ def main(args, nav=[]):
                       title='Games',
                       description='Play Games and Waste Time',
                       banner=None)
-    with open(args.directory / 'www/games.html', 'w') as f:
+    with utils.write_page(args.directory,
+                          'games.html',
+                          overwrite_ok=args.overwrite) as f:
         f.write(
             utils.render_page(page,
                               full_url=args.full_url,
                               nav_pages=nav,
                               author=args.author,
                               content=html.text.rstrip()))
+    logger.info('generated games.html')

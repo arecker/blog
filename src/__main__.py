@@ -49,6 +49,11 @@ parser.add_argument('-d',
                     default=False,
                     action='store_true',
                     help='step through code interactively')
+parser.add_argument('-o',
+                    '--overwrite',
+                    default=False,
+                    action='store_true',
+                    help='Allow pages in webroot to be overwritten')
 parser.add_argument('--directory',
                     type=DirectoryType,
                     default=HERE.parent,

@@ -4,7 +4,7 @@ import collections
 import datetime
 import json
 import logging
-import re
+import pathlib
 
 from . import git, utils
 
@@ -13,23 +13,14 @@ logger = logging.getLogger(__name__)
 NewsItem = collections.namedtuple('NewsItem', ['title', 'description'])
 
 
-def read_news(data_dir):
-    target = data_dir / 'news.json'
+def read_news(directory: pathlib.Path) -> list[NewsItem]:
+    target = directory / 'data/news.json'
     with open(target, 'r') as f:
         data = json.load(f)
 
     news = [NewsItem(**dict(o.items())) for o in data]
     logger.info("loaded %d news item(s) from %s", len(news), target)
     return news
-
-
-def metadata_parse_html(content) -> dict:
-    """Parse metadata from magic HTML comments."""
-    pattern = re.compile(
-        r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$',
-        re.MULTILINE)
-    values = [(k.strip(), v.strip()) for k, v in pattern.findall(content)]
-    return dict(values)
 
 
 def render_content(latest: utils.Entry,
@@ -92,13 +83,13 @@ def new_timestamp() -> str:
 
 def main(args, nav=[]):
     latest = utils.fetch_entries(args.directory / 'entries')[0]
-    logger.info('fetched latest post %s', latest)
+    logger.info('fetched latest post %s', latest.filename)
 
     commit = git.get_head_commit(args.directory)
-    logger.info('fetched head commit %s', commit)
+    logger.info('fetched head commit \"%s\"', commit.summary)
 
     timestamp = new_timestamp()
-    news = read_news(args.directory / 'data')
+    news = read_news(args.directory)
     content = render_content(latest=latest,
                              commit=commit,
                              timestamp=timestamp,
@@ -117,7 +108,9 @@ def main(args, nav=[]):
         nav_pages=nav or utils.read_nav(args.directory / 'data'),
         author=args.author,
     )
-    target = args.directory / 'www/index.html'
-    with open(target, 'w') as f:
+
+    with utils.write_page(args.directory,
+                          'index.html',
+                          overwrite_ok=args.overwrite) as f:
         f.write(output)
     logger.info('generated index.html')

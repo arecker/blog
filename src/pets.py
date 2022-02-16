@@ -120,7 +120,9 @@ def main(args, nav=[]):
                       description='The Recker Family Pet Registy',
                       banner=None)
 
-    with open(args.directory / 'www/pets.html', 'w') as f:
+    with utils.write_page(args.directory,
+                          'pets.html',
+                          overwrite_ok=args.overwrite) as f:
         f.write(
             utils.render_page(page,
                               args.full_url,
