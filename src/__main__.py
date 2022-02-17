@@ -1,7 +1,6 @@
 """blog - the greatest static HTML journal generator ever made"""
 
 import argparse
-import datetime
 import importlib
 import logging
 import os

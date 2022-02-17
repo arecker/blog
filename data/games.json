@@ -1,0 +1,16 @@
+[
+   {
+      "category": "Scratch Games",
+      "description": "Try to click on as many ghosts as you can before the time runs out, or you will have to suffer - LITERALLY - the spookiest sound ever recorded. A scratch game.",
+      "filename": "ghost-busters.html",
+      "image": "games-ghost-busters.png",
+      "title": "Ghost Busters"
+   },
+   {
+      "category": "Pico 8 Games",
+      "description": "Can you swing your free-falling parachuter and narrowly avoid scary balloons?",
+      "filename": "parachute.html",
+      "image": "games-parachute.png",
+      "title": "Parachute"
+   }
+]

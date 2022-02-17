@@ -225,7 +225,7 @@ class StringWriter:
         self.current_indent = starting_indent
         self.write(f'</{element_name}>', blank=blank)
 
-    def figure(self, src, href='', caption='', alt='', blank=False):
+    def figure(self, src, href='', caption='', alt='', blank=False, **attrs):
         with self.block('figure', blank=blank):
             with self.block('a', href=href or src):
                 if alt:

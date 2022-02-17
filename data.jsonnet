@@ -145,8 +145,32 @@ local news = [
 
   News('Pet Registry', 'How many animals do we have?  See for yourself!  Check out our new pet registry on <a href="./pets.html">pets.html</a> (still in progress).'),
 
-  News('The Streak is Broken!', 'After 672 consecutive days of blogging, I finally took a day off!  In fact, I liked it so much that I might start taking off regularly on Sunday nights.  It was fun while it lasted.'),
+];
 
+local Game(filename, title, description, image, category) = {
+  filename: filename,
+  title: title,
+  description: description,
+  image: image,
+  category: category,
+};
+
+local games = [
+  Game(
+    filename='ghost-busters.html',
+    title='Ghost Busters',
+    description='Try to click on as many ghosts as you can before the time runs out, or you will have to suffer - LITERALLY - the spookiest sound ever recorded. A scratch game.',
+    image='games-ghost-busters.png',
+    category='Scratch Games',
+  ),
+
+  Game(
+    filename='parachute.html',
+    title='Parachute',
+    description='Can you swing your free-falling parachuter and narrowly avoid scary balloons?',
+    image='games-parachute.png',
+    category='Pico 8 Games',
+  ),
 ];
 
 {
@@ -159,6 +183,7 @@ local news = [
     linkedin: 'alex-recker-a0316481',
     scratch: 'mcrist0',
   },
+  'data/games.json': games,
   'data/nav.json': ['entries.html', 'games.html', 'pets.html', 'contact.html'],
   'data/news.json': news,
   'data/pets.json': pets,

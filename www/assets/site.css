@@ -97,6 +97,10 @@ td, nav span a {
     padding-right: 5px;
 }
 
+article nav {
+    margin-bottom: 10px;
+}
+
 ul.unstyled {
     list-style: none;
     padding-left: 0px;
