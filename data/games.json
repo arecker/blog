@@ -7,6 +7,13 @@
       "title": "Ghost Busters"
    },
    {
+      "category": "Scratch Games",
+      "description": "Use the arrow keys to move the face around.  Whose face are we moving around?  I don't know - this is Rodney's game, why don't you go ask him about it?",
+      "filename": "face-colored-out.html",
+      "image": "games-face-colored-out.png",
+      "title": "Face Colored Out!"
+   },
+   {
       "category": "Pico 8 Games",
       "description": "Can you swing your free-falling parachuter and narrowly avoid scary balloons?",
       "filename": "parachute.html",
