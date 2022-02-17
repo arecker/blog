@@ -4,7 +4,7 @@ import collections
 import logging
 import urllib.parse
 
-from . import utils
+from . import utils, games
 
 logger = logging.getLogger(__name__)
 Location = collections.namedtuple('Location', ['filename', 'modified'])
@@ -30,6 +30,12 @@ def main(args, entries=[]):
     locations += [
         Location(modified=None, filename=s)
         for s in ['pets.html', 'contact.html', 'games.html']
+    ]
+
+    # games
+    locations += [
+        Location(modified=None, filename='games-' + game.filename)
+        for game in games.load_games(args.directory)
     ]
 
     # entries
