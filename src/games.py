@@ -37,6 +37,7 @@ def main(args, nav=[]):
 
     html.comment('Category Index')
     with html.block('div', _class='row', blank=True):
+        html.write('<h2>Categories</h2>')
         with html.block('ul'):
             for category in categories:
                 with html.block('li'):
