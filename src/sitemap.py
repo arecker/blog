@@ -29,12 +29,13 @@ def main(args, entries=[]):
     # other pages
     locations += [
         Location(modified=None, filename=s)
-        for s in ['pets.html', 'contact.html', 'games.html']
+        for s in ['pets.html', 'contact.html']
     ]
 
     # games
+    locations.append(Location(modified=None, filename='games.html'))
     locations += [
-        Location(modified=None, filename='games-' + game.filename)
+        Location(modified=None, filename=game.filename)
         for game in games.load_games(args.directory)
     ]
 
