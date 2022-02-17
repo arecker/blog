@@ -128,6 +128,10 @@ def prettify_path(path, home=pathlib.Path.home()):
     return re.sub(f'^{home}/', '~/', str(path))
 
 
+def slugify(word):
+    return word.lower().replace(" ", "-")
+
+
 def month_name(month_int: int) -> str:
     """Return a month name for the integer.
 

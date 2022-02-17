@@ -42,12 +42,10 @@ def main(args, nav=[]):
             for category in categories:
                 with html.block('li'):
                     html.write(
-                        f'<a href="#{category.lower().replace(" ", "-")}">{category}</a>'
-                    )
+                        f'<a href="#{utils.slugify(category)}">{category}</a>')
 
     for category in categories:
-        html.write(
-            f'<h2 id="#{category.lower().replace(" ", "-")}">{category}</h2>')
+        html.write(f'<h2 id="{utils.slugify(category)}">{category}</h2>')
 
         for game in filter(lambda g: g.category == category, games):
             html.write(f'<h3>{game.title}</h3>')
