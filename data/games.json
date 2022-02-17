@@ -26,5 +26,12 @@
       "filename": "platform.html",
       "image": "games-platform.png",
       "title": "Platform"
+   },
+   {
+      "category": "Pico 8 Experiments",
+      "description": "Run through a bright, sunny field.  Jump on a trampoline.  Don't fall off the edge!",
+      "filename": "scroller.html",
+      "image": "games-scroller.png",
+      "title": "Scroller"
    }
 ]

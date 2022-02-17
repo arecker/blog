@@ -38,4 +38,12 @@ local Game(filename, title, description, image, category) = {
     image='games-platform.png',
     category='Pico 8 Experiments',
   ),
+
+  Game(
+    filename='scroller.html',
+    title='Scroller',
+    description='Run through a bright, sunny field.  Jump on a trampoline.  Don\'t fall off the edge!',
+    image='games-scroller.png',
+    category='Pico 8 Experiments',
+  ),
 ]
