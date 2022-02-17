@@ -5,7 +5,7 @@ serve webroot locally
 import logging
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 
-from . import build
+from . import build, utils
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,8 @@ def start_web_server(webroot, port=8000):
 
     httpd = HTTPServer(('', port), Handler)
     try:
-        logger.info(f'starting webserver at {webroot} - http://0.0.0.0:{port}')
+        logger.info('starting webserver at %s - http://0.0.0.0:%d',
+                    utils.prettify_path(webroot), port)
         httpd.serve_forever()
     except KeyboardInterrupt:
         logger.info('stopping web server')

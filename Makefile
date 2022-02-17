@@ -1,10 +1,12 @@
+DATA_SOURCES := $(wildcard jsonnet/*.jsonnet)
+DATA_TARGETS := $(patsubst jsonnet/%.jsonnet, data/%.json, $(DATA_SOURCES))
+
 .PHONY: all
-all: test
+all: $(DATA_TARGETS)
+
+data/%.json: jsonnet/%.jsonnet
+	jsonnet $< > $@ && touch $@
 
 .PHONY: test
 test:
 	python -m unittest discover
-
-.PHONY: data
-data:
-	jsonnet -m . data.jsonnet

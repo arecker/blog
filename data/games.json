@@ -12,5 +12,19 @@
       "filename": "parachute.html",
       "image": "games-parachute.png",
       "title": "Parachute"
+   },
+   {
+      "category": "Pico 8 Experiments",
+      "description": "Stressed?  Sit back and enjoy a relaxing, pixelated evening snowfall.",
+      "filename": "snow.html",
+      "image": "games-snow.png",
+      "title": "Snow"
+   },
+   {
+      "category": "Pico 8 Experiments",
+      "description": "Jump and wiggle a speedy little meatboy-like character around a test level.",
+      "filename": "platform.html",
+      "image": "games-platform.png",
+      "title": "Platform"
    }
 ]
