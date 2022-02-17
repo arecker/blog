@@ -41,10 +41,13 @@ def main(args, nav=[]):
         with html.block('ul'):
             for category in categories:
                 with html.block('li'):
-                    html.write(f'<a href="#{category.lower()}">{category}</a>')
+                    html.write(
+                        f'<a href="#{category.lower().replace(" ", "-")}">{category}</a>'
+                    )
 
     for category in categories:
-        html.write(f'<h2 id="#{category.lower()}">{category}</h2>')
+        html.write(
+            f'<h2 id="#{category.lower().replace(" ", "-")}">{category}</h2>')
 
         for game in filter(lambda g: g.category == category, games):
             html.write(f'<h3>{game.title}</h3>')
