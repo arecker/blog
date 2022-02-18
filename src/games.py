@@ -45,13 +45,18 @@ def main(args, nav=[]):
                         f'<a href="#{utils.slugify(category)}">{category}</a>')
 
     for category in categories:
-        html.write(f'<h2 id="{utils.slugify(category)}">{category}</h2>')
+        html.write(f'<h2 id="{utils.slugify(category)}">{category}</h2>',
+                   blank=True)
 
         for game in filter(lambda g: g.category == category, games):
-            html.write(f'<h3>{game.title}</h3>')
-            html.write(f'<p>{game.description}</p>')
-            html.figure(href=f'./{game.filename}',
-                        src=f'./images/{game.image}')
+            html.comment(game.title)
+            with html.block('div', _class='row', blank=True):
+                with html.block('div', _class='column'):
+                    html.figure(href=f'./{game.filename}',
+                                src=f'./images/{game.image}')
+                with html.block('div', _class='column'):
+                    html.write(f'<h3>{game.title}</h3>')
+                    html.write(f'<p>{game.description}</p>')
 
     page = utils.Page(filename='games.html',
                       title='Games',
