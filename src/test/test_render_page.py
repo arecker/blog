@@ -4,54 +4,6 @@ import urllib.parse
 from .. import utils
 
 
-class TestStringWriter(unittest.TestCase):
-    def test_wrapper(self):
-        w = utils.StringWriter()
-        with w.block('test', c='2', a='1', _class='center'):
-            w.write('testing')
-
-        expected = '''
-<test a="1" c="2" class="center">
-  testing
-</test>
-'''.lstrip()
-
-        self.assertEqual(w.text, expected)
-
-
-class TestMetadataParseHTML(unittest.TestCase):
-    def test_one(self):
-        actual = utils.metadata_parse_html('''
-<!-- meta:title party, dumplings, and blogging -->
-''')
-        expected = {'title': 'party, dumplings, and blogging'}
-        self.assertDictEqual(actual, expected)
-
-    def test_two(self):
-        actual = utils.metadata_parse_html('''
-<!-- just a regular comment! -->
-<!-- meta:title rodney stories, karta's enclosure, and ollie's championship -->
-<!-- meta:banner 2022-02-14.jpg -->
-
-<h2>Hello there!</h2>
-''')
-        expected = {
-            'title':
-            'rodney stories, karta\'s enclosure, and ollie\'s championship',
-            'banner': '2022-02-14.jpg'
-        }
-        self.assertDictEqual(actual, expected)
-
-
-class TestPaginateList(unittest.TestCase):
-    def test_one(self):
-        result = utils.paginate_list(['a', 'b', 'c'])
-        self.assertIsNone(result['a'].previous)
-        self.assertEqual(result['a'].next, 'b')
-        self.assertEqual(result['c'].previous, 'b')
-        self.assertIsNone(result['c'].next)
-
-
 class TestRenderPage(unittest.TestCase):
     def test_page(self):
         page = utils.Page(filename='test.html',
