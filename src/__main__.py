@@ -1,11 +1,13 @@
 """blog - the greatest static HTML journal generator ever made"""
 
 import argparse
+import collections
 import importlib
 import logging
 import os
 import pathlib
 import pdb
+import pkgutil
 import sys
 import urllib.parse
 
@@ -78,29 +80,54 @@ parser.add_argument('--full-url',
                     default='https://www.alexrecker.com',
                     help='Full URL of the website')
 
+# def all_commands():
+#     commands = [f.name for f in HERE.glob('*.py')]
+#     commands = [f for f in commands if f not in ('__main__.py', '__init__.py')]
+#     commands = [os.path.splitext(f)[0] for f in sorted(commands)]
+#     return commands
+Command = collections.namedtuple(
+    'Command', ['name', 'doc', 'main_callback', 'register_callback'])
 
-def all_commands():
-    commands = [f.name for f in HERE.glob('*.py')]
-    commands = [f for f in commands if f not in ('__main__.py', '__init__.py')]
-    commands = [os.path.splitext(f)[0] for f in sorted(commands)]
+
+def all_commands() -> list[Command]:
+    commands = []
+
+    package = importlib.import_module('.', package=HERE.name)
+
+    for info in pkgutil.iter_modules(package.__path__):
+        if info.name == '__main__':
+            continue
+
+        module = importlib.import_module('.' + info.name, package=HERE.name)
+
+        try:
+            main_callback = module.main
+        except AttributeError:
+            continue
+
+        try:
+            register_callback = module.register
+        except AttributeError:  # optional
+            register_callback = None
+
+        command = Command(name=info.name,
+                          doc=module.__doc__,
+                          main_callback=main_callback,
+                          register_callback=register_callback)
+        commands.append(command)
+
     return commands
 
 
 # Register subommands from submodules that have a main function.
 COMMANDS, subcommand = {}, parser.add_subparsers(dest='subcommand')
 for command in all_commands():
-    module = importlib.import_module(f'.{command}', package=HERE.name)
-    try:
-        COMMANDS[command] = module.main
-    except AttributeError:
-        continue
-    subparser = subcommand.add_parser(command, help=module.__doc__)
-    # Hand subparser to option register function, so the subcommand
-    # can add its own arguments
-    try:
-        module.register(subparser)
-    except AttributeError:
-        pass
+    COMMANDS[command.name] = command.main_callback
+    subparser = subcommand.add_parser(command.name, help=command.doc)
+    if command.register_callback:
+        # Hand subparser to register function, so the subcommand can
+        # add its own arguments
+        command.register_callback(subparser)
 
 # Add help subcommand
 subcommand.add_parser('help', help='print program usage')
