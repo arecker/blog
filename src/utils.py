@@ -340,7 +340,14 @@ def render_page(
 
     html.write('<!-- Page Footer -->')
     with html.block('footer', blank=True):
-        html.write(f'<small>Built with Python {python_version}</small>')
+        validate_url = urllib.parse.urljoin(full_url.geturl(), page.filename)
+        validate_url = urllib.parse.quote(validate_url)
+        validate_url = f'https://validator.w3.org/nu/?doc={validate_url}'
+        html.write(f'<small><a href="{validate_url}">Validate this page</a></small>')
+
+        github_url = 'https://www.alexrecker.com/blog.html'
+        html.write(f'<small>Built with <a href="{github_url}">blog</a> (Python v{python_version})</small>')
+
         html.write(f'<small>© Copyright {copyright_year} {author}</small>')
 
     html.unindent()
