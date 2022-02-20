@@ -16,7 +16,7 @@ body {
     margin-top: 1em;
     margin-bottom: 1em;
     max-width: 800px;
-    
+    box-shadow: 1em 1em #008080;
     padding: 2em;
 }
 
@@ -34,6 +34,8 @@ nav a, nav span {
 
 header h1 {
     margin-bottom: 0em;
+    font-size: 2em;
+    
 }
 
 header p {
