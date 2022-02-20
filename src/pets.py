@@ -18,13 +18,9 @@ def load_data(target):
 
 def render_banner(html: utils.StringWriter):
     html.comment('Video Banner')
-    with html.block('video',
-                    height=300,
-                    autoplay="1",
-                    loop="1",
-                    blank=True):
-        html.write(
-            '<source src="./vids/2021-09-07-fish.webm" type="video/webm" />')
+    html.write('<video height="300" autoplay loop>')
+    html.write('  <source src="./vids/2021-09-07-fish.webm" type="video/webm" />')
+    html.write('</video>', blank=True)
 
     return html
 
@@ -53,7 +49,7 @@ def render_category(html: utils.StringWriter,
 
         image = pet['image']
         html.write(f'<h3>{name}</h3>')
-        html.figure(f'./images/{image}')
+        html.figure(f'./images/{image}', alt=pet['name'])
         with html.block('dl', blank=True):
 
             # species
