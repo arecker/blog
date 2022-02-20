@@ -29,7 +29,7 @@ def main(args, entries=[]):
     # other pages
     locations += [
         Location(modified=None, filename=s)
-        for s in ['pets.html', 'contact.html']
+        for s in ['pets.html', 'contact.html', 'stats.html']
     ]
 
     # games

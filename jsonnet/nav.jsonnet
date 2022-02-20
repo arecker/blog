@@ -1,1 +1,1 @@
-['entries.html', 'games.html', 'pets.html', 'contact.html']
+['entries.html', 'games.html', 'pets.html', 'stats.html', 'contact.html']
