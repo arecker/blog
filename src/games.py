@@ -36,13 +36,12 @@ def main(args, nav=[]):
     categories = sorted(set([game.category for game in games]))
 
     html.comment('Category Index')
-    with html.block('div', _class='row', blank=True):
-        html.write('<h2>Categories</h2>')
-        with html.block('ul'):
-            for category in categories:
-                with html.block('li'):
-                    html.write(
-                        f'<a href="#{utils.slugify(category)}">{category}</a>')
+    html.write('<h2>Categories</h2>')
+    with html.block('ul'):
+        for category in categories:
+            with html.block('li'):
+                html.write(
+                    f'<a href="#{utils.slugify(category)}">{category}</a>')
 
     for category in categories:
         html.write(f'<h2 id="{utils.slugify(category)}">{category}</h2>',
@@ -50,13 +49,11 @@ def main(args, nav=[]):
 
         for game in filter(lambda g: g.category == category, games):
             html.comment(game.title)
-            with html.block('div', _class='row', blank=True):
-                with html.block('div', _class='column'):
-                    html.figure(href=f'./{game.filename}',
-                                src=f'./images/{game.image}')
-                with html.block('div', _class='column'):
-                    html.write(f'<h3>{game.title}</h3>')
-                    html.write(f'<p>{game.description}</p>')
+            html.write(f'<h3>{game.title}</h3>')
+            html.figure(href=f'./{game.filename}',
+                        src=f'./images/{game.image}',
+                        alt=game.title,
+                        caption=game.description)
 
     page = utils.Page(filename='games.html',
                       title='Games',

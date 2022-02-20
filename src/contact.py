@@ -18,54 +18,27 @@ def load_data(target):
 
 def main(args, nav=[]):
     html = utils.StringWriter(starting_indent=4)
-    with html.block('div', _class='row'):
-        with html.block('div', _class='column'):
-            html.figure('./images/me.jpg')
-        with html.block('div', _class='column'):
-            html.write(
-                '<p>Here are some different ways you can get in contact with me or find me on the web.</p>'
-            )
+    html.figure('./images/me.jpg')
+    html.p('Here are some different ways you can get in contact with me or find me on the web.')
 
-            data = load_data(args.directory / 'data/contact.json')
-            with html.block('dl'):
+    data = load_data(args.directory / 'data/contact.json')
+    html.dl({
+        'Email': f'<a href="mailto:{data["email"]}">{data["email"]}</a>',
+        'Twitter': f'<a href="https://www.twitter.com/{data["twitter"]}">{data["twitter"]}</a>',
+        'Github': f'<a href="https://www.github.com/{data["github"]}">{data["github"]}</a>',
+        'Scratch': f'<a href="https://scratch.mit.edu/users/{data["scratch"]}/">{data["scratch"]}</a>',
+    })
 
-                # email
-                email = data['email']
-                html.write('<dt>Email</dt>')
-                html.write(f'<dd><a href="mailto:{email}">{email}</a></dd>')
-
-                # twitter
-                twitter = data['twitter']
-                html.write('<dt>Twitter</dt>')
-                html.write(
-                    f'<dd><a href="https://www.twitter.com/{twitter}">{twitter}</a></dd>'
-                )
-
-                # github
-                github = data['github']
-                html.write('<dt>Github</dt>')
-                html.write(
-                    f'<dd><a href="https://www.github.com/{github}">{github}</a></dd>'
-                )
-
-                # scratch
-                scratch = data['scratch']
-                html.write('<dt>Scratch</dt>')
-                html.write(
-                    f'<dd><a href="https://scratch.mit.edu/users/{scratch}/">{scratch}</a></dd>'
-                )
-
-            linkedin, gram, facebook = data['linkedin'], data[
-                'instagram'], data['facebook']
-            with html.block('p'):
-                html.write(f'''
-And also <a href="https://www.linkedin.com/in/{linkedin}">LinkedIn</a>, <a href="https://www.instagram.com/{gram}">Instagram</a>, and <a href="https://www.facebook.com/{facebook}">Facebook</a>.
-'''.strip())
+    linkedin = f'<a href="https://www.linkedin.com/in/{data["linkedin"]}">LinkedIn</a>'
+    gram = f'<a href="https://www.instagram.com/{data["instagram"]}">Instagram</a>'
+    fbook = f'<a href="https://www.facebook.com/{data["facebook"]}">Facebook</a>'
+    html.p(f'And also {linkedin}, {gram}, and {fbook}.')
 
     page = utils.Page('contact.html',
                       title='Contact',
                       description='How to Reach Me / Where to Find Me',
                       banner=None)
+
     nav = nav or utils.read_nav(args.directory / 'data')
 
     with utils.write_page(args.directory,

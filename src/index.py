@@ -2,6 +2,7 @@
 
 import collections
 import datetime
+import html as HTML
 import json
 import logging
 import pathlib
@@ -30,42 +31,37 @@ def render_content(latest: utils.Entry,
     """Render latest post column."""
 
     html = utils.StringWriter(starting_indent=4)
+        
+    # Latest Post
+    html.comment('Latest Post')
+    html.write('<h2>Latest Post</h2>')
+    with html.block('a', href=f'./{latest.filename}'):
+        html.write(f'<h3 class="title">{latest.title}</h3>',
+                   unindent=True)
+    html.figure(src=f'./images/banners/{latest.banner}',
+                href=f'./{latest.filename}',
+                caption=latest.description, blank=True)
 
-    with html.block('div', _class='row', blank=True, blank_before=True):
-        # Latest Post
-        html.comment('Latest Post')
-        with html.block('div', _class='column', blank=True):
-            html.write('<h2>Latest Post</h2>')
-            with html.block('a', href=f'./{latest.filename}'):
-                html.write(f'<h3 class="title">{latest.title}</h3>',
-                           unindent=True)
-            html.figure(src=f'./images/banners/{latest.banner}',
-                        href=f'./{latest.filename}',
-                        caption=latest.description)
+    # What's New?
+    html.comment('What\'s New?')
+    html.write('<h2>What\'s New?</h2>', blank=True)
+    for item in news:
+        html.write(f'<h3>{item.title}</h3>')
+        html.write(f'<p>{item.description}</p>', blank=True)
 
-        # Last Updated
-        commit_url = f'https://github.com/arecker/blog/commit/{commit.long_hash}'
-        commit_summary = commit.summary.replace('&', '&amp;')
-        html.comment('Last Updated')
-        with html.block('div', _class='column', blank=True):
-            html.write('<h2>Last Updated</h2>')
-            with html.block('p'):
-                with html.block('small', _class='code'):
-                    html.write(
-                        f'[<a href="{commit_url}">{commit.short_hash}</a>]')
-                    html.write('<br/>')
-                    html.write(commit_summary)
-                html.write('<br/>')
-                with html.block('small'):
-                    html.write(timestamp)
-
-        # What's New?
-        html.write('<!-- What\'s New? -->')
-        with html.block('div', _class='column', blank=True):
-            html.write('<h2>What\'s New?</h2>', blank=True)
-            for item in news:
-                html.write(f'<h3>{item.title}</h3>')
-                html.write(f'<p>{item.description}</p>', blank=True)
+    # Last Updated
+    commit_url = f'https://github.com/arecker/blog/commit/{commit.long_hash}'
+    commit_summary = HTML.escape(commit.summary)
+    html.comment('Last Updated')
+    html.write('<h2>Last Updated</h2>')
+    with html.block('p', blank=True):
+        with html.block('small'):
+            html.write(
+                f'[<a href="{commit_url}">{commit.short_hash}</a>]')
+            html.br()
+            html.write(commit_summary)
+        html.br()
+        html.small(timestamp)
 
     return html.text
 

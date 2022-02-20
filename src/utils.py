@@ -185,6 +185,16 @@ class StringWriter:
         if unindent:
             self.unindent()
 
+    def blank(self):
+        with self.indentation_reset():
+            self.write('')
+
+    def hr(self, blank=True):
+        self.write('<hr/>', blank=blank)
+
+    def br(self, blank=False):
+        self.write('<br/>', blank=blank)
+        
     @contextlib.contextmanager
     def indentation_reset(self):
         current = self.current_indent
@@ -195,11 +205,24 @@ class StringWriter:
     def comment(self, text):
         self.write(f'<!-- {text} -->')
 
+    def dl(self, data, blank=True):
+        with self.block('dl', blank=blank):
+            for k, v in data.items():
+                self.write(f'<dt>{k}</dt>')
+                self.write(f'<dd>{v}</dd>')
+
+    def p(self, content, blank=True):
+        self.write(f'<p>{content}</p>', blank=blank)
+        
+    def small(self, content, blank=False):
+        self.write(f'<small>{content}</small>', blank=blank)
+
     @contextlib.contextmanager
     def block(self,
               element_name,
               blank=False,
               blank_before=False,
+              _id='',
               _class='',
               _type='',
               **attributes):
@@ -214,6 +237,8 @@ class StringWriter:
             attributes['class'] = _class
         if _type:
             attributes['type'] = _type
+        if _id:
+            attributes['id'] = _id
 
         attributes = sorted([f'{k}="{v}"' for k, v in attributes.items()])
         attributes = ' '.join(attributes)
@@ -229,17 +254,40 @@ class StringWriter:
         self.current_indent = starting_indent
         self.write(f'</{element_name}>', blank=blank)
 
-    def figure(self, src, href='', caption='', alt='', blank=False, **attrs):
+    @contextlib.contextmanager
+    def row(self):
+        with self.block('div', _class='row', blank=True):
+            yield
+
+    @contextlib.contextmanager
+    def column(self):
+        with self.block('div', _class='column', blank=True):
+            yield
+
+    def figure(self, src, href='', caption='', alt='', blank=True, **attrs):
         with self.block('figure', blank=blank):
             with self.block('a', href=href or src):
                 if alt:
-                    self.write(f'<img src="{src}" alt="{alt}" />')
+                    self.write(f'<img src="{src}" alt="{alt}"/>')
                 else:
-                    self.write(f'<img src="{src}" />')
+                    self.write(f'<img src="{src}"/>')
 
             if caption:
                 with self.block('figcaption'):
                     self.write(f'<p>{caption}</p>')
+
+    def meta(self, name='', _property='', content='', blank=False):
+        tag = '<meta'
+        
+        if name:
+            tag += f' name="{name}"'
+        if _property:
+            tag += f' property="{_property}"'
+        if content:
+            tag += f' content="{content}"'
+            
+        tag += '/>'
+        self.write(tag, blank=blank)
 
 
 Page = collections.namedtuple(
@@ -282,79 +330,72 @@ def render_page(
 
         html.comment('Page Metadata')
         html.write('<meta charset="UTF-8"/>')
-        html.write(
-            '<meta name="viewport" content="width=device-width, initial-scale=1"/>'
-        )
-        html.write(f'<meta name="twitter:title" content="{page.title}"/>')
-        html.write(
-            f'<meta name="twitter:description" content="{page.description}"/>')
-        html.write(f'<meta property="og:url" content="{page_url}"/>')
-        html.write('<meta property="og:type" content="article"/>')
-        html.write(f'<meta property="og:title" content="{page.title}"/>')
-        html.write(
-            f'<meta property="og:description" content="{page.description}"/>')
+        html.meta(name='viewport', content='width=device-width, initial-scale=1')
+        html.meta(name='twitter:title', content=page.title)
+        html.meta(name='twitter:description', content=page.description)
+        html.meta(_property='og:url', content=page_url)
+        html.meta(_property='og:type', content='article')
+        html.meta(_property='og:title', content=page.title)
+        html.meta(_property='og:description', content=page.description)
         if page.banner:
             banner = urllib.parse.urljoin(full_url.geturl(),
                                           f'/images/banners/{page.banner}')
-            html.write(f'<meta name="image" content="{banner}"/>')
-            html.write(f'<meta property="og:image" content="{banner}"/>')
+            html.meta(name='image', _property='og:image', content=banner)
         with html.indentation_reset():
             html.write('')
 
-    html.write('<body>', indent=True, blank=True)
-
-    html.comment('Page Header')
-    with html.block('header', blank=True):
-        html.write(f'<h1>{page.title}</h1>')
-        html.write(f'<h2>{page.description}</h2>')
-
-    html.write('<hr/>', blank=True)
-
-    html.write('<!-- Site Navigation -->')
-    with html.block('nav', blank=True):
-        html.write('<a href="./index.html">index.html</a>')
-        if page.filename != 'index.html':
-            html.write('<span>/</span>')
-            html.write(f'<span>{page.filename}</span>')
-        # TODO: remove these classes - just target the elements and make
-        # the markup more generic.
-        html.write('<br class="show-on-mobile">')
-        with html.block('span', _class='float-right-on-desktop'):
+    with html.block('body', _id='top', blank=True):
+        html.blank()
+        html.comment('Site Navigation')
+        with html.block('nav', blank=True):
             for nav_page in nav_pages:
                 html.write(f'<a href="./{nav_page}">{nav_page}</a>')
+            html.br()
+            html.write('<a href="./index.html">index.html</a>')
+            if page.filename != 'index.html':
+                html.write(f'<span>/ {page.filename}</span>')
 
-    html.write('<hr/>', blank=True)
+        with html.block('article', blank=True):
+            html.blank()
 
-    if page.banner:
-        html.comment('Page Banner')
-        html.figure(src=f'./images/banners/{page.banner}',
-                    alt='banner',
-                    blank=True)
+            html.comment('Page Header')
+            with html.block('header', blank=True):
+                html.write(f'<h1>{page.title}</h1>')
+                html.p(page.description, blank=False)
+                
+            html.hr()
 
-    html.comment('Page Content')
-    with html.block('article', blank=True, blank_before=True):
-        with html.indentation_reset():
-            html.write(content)
+            if page.banner:
+                html.comment('Page Banner')
+                html.figure(src=f'./images/banners/{page.banner}',
+                            alt='banner',
+                            blank=True)
 
-    html.write('<hr/>', blank=True)
+            with html.indentation_reset():
+                html.write(content, blank=True)
 
-    html.write('<!-- Page Footer -->')
-    with html.block('footer', blank=True):
-        validate_url = urllib.parse.urljoin(full_url.geturl(), page.filename)
-        validate_url = urllib.parse.quote(validate_url)
-        validate_url = f'https://validator.w3.org/nu/?doc={validate_url}'
-        html.write(f'<small><a href="{validate_url}">Validate this page</a></small>')
+        html.hr()
 
-        github_url = 'https://www.alexrecker.com/blog.html'
-        html.write(f'<small>Built with <a href="{github_url}">blog</a> (Python v{python_version})</small>')
+        html.comment('Site Footer')
+        with html.block('footer', blank=True):
+            # Back to top
+            html.write('<small><a href="#top">Back to top</a></small>')
+            html.br()
+            
+            # Validate HTML
+            validate_url = urllib.parse.urljoin(full_url.geturl(), page.filename)
+            validate_url = urllib.parse.quote(validate_url)
+            validate_url = f'https://validator.w3.org/nu/?doc={validate_url}'
+            html.small(f'<a href="{validate_url}">Validate this page</a>')
+            html.br()
 
-        html.write(f'<small>© Copyright {copyright_year} {author}</small>')
+            # Software Info
+            html.small(f'Built with Python v{python_version}')
+            html.br()
 
-    html.unindent()
-    html.write('</body>', blank=True)
+            # Copyright Info
+            html.small(f'© Copyright {copyright_year} {author}')
 
-    html.comment(
-        'No JavaScript, cookies, or tracking.  Just enjoy the reading!')
     html.write('</html>')
 
     return html.text

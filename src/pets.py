@@ -19,8 +19,7 @@ def load_data(target):
 def render_banner(html: utils.StringWriter):
     html.comment('Video Banner')
     with html.block('video',
-                    width="800",
-                    height="600",
+                    height=300,
                     autoplay="1",
                     loop="1",
                     blank=True):
@@ -34,11 +33,10 @@ def render_index(html: utils.StringWriter,
                  categories=[]) -> utils.StringWriter:
     html.comment('Index')
     html.write('<h2>Index</h2>')
-    with html.block('div', _class='row', blank=True):
-        with html.block('ul'):
-            for category in categories:
-                with html.block('li'):
-                    html.write(f'<a href="#{category.lower()}">{category}</a>')
+    with html.block('ul', blank=True):
+        for category in categories:
+            with html.block('li'):
+                html.write(f'<a href="#{category.lower()}">{category}</a>')
     return html
 
 
@@ -47,54 +45,53 @@ def render_category(html: utils.StringWriter,
                     data=[]) -> utils.StringWriter:
     html.comment(category)
     html.write(f'<h2 id="{category.lower()}">{category}</h2>', blank=True)
+
     for pet in data:
         name = pet['name']
         logger.debug('rendering pet %s', pet)
         html.comment(name)
-        with html.block('div', _class='row', blank=True):
-            with html.block('div', _class='column'):
-                image = pet['image']
-                html.figure(f'./images/{image}')
-            with html.block('div', _class='column'):
-                html.write(f'<h3>{name}</h3>')
-                with html.block('dl'):
 
-                    # species
-                    html.write('<dt>Specific name</dt>')
-                    with html.block('dd'):
-                        html.write(f'<em>{pet["species"]}</em>')
+        image = pet['image']
+        html.write(f'<h3>{name}</h3>')
+        html.figure(f'./images/{image}')
+        with html.block('dl', blank=True):
 
-                    # common name
-                    html.write('<dt>Common Name</dt>')
-                    html.write(f'<dd>{pet["common"]}</dd>')
+            # species
+            html.write('<dt>Specific name</dt>')
+            with html.block('dd'):
+                html.write(f'<em>{pet["species"]}</em>')
 
-                    # birthplace
-                    try:
-                        birthplace = pet['birthplace']
-                        html.write('<dt>Birthplace</dt>')
-                        html.write(f'<dd>{birthplace}</dd>')
-                    except KeyError:
-                        pass
+            # common name
+            html.write('<dt>Common Name</dt>')
+            html.write(f'<dd>{pet["common"]}</dd>')
 
-                    # gotcha
-                    html.write('<dt>Gotcha Date</dt>')
-                    html.write(f'<dd>{pet["gotcha"]}</dd>')
+            # birthplace
+            try:
+                birthplace = pet['birthplace']
+                html.write('<dt>Birthplace</dt>')
+                html.write(f'<dd>{birthplace}</dd>')
+            except KeyError:
+                pass
 
-                    # aliases
-                    try:
-                        aliases = pet['aliases']
-                        html.write('<dt>Aliases</dt>')
-                        html.write(f'<dd>{aliases}</dd>')
-                    except KeyError:
-                        pass
+            # gotcha
+            html.write('<dt>Gotcha Date</dt>')
+            html.write(f'<dd>{pet["gotcha"]}</dd>')
 
-                    # likes
-                    html.write('<dt>Likes</dt>')
-                    html.write(f'<dd>{pet["likes"]}</dd>')
+            # aliases
+            try:
+                aliases = pet['aliases']
+                html.write('<dt>Aliases</dt>')
+                html.write(f'<dd>{aliases}</dd>')
+            except KeyError:
+                pass
 
-                    # dislikes
-                    html.write('<dt>Dislikes</dt>')
-                    html.write(f'<dd>{pet["dislikes"]}</dd>')
+            # likes
+            html.write('<dt>Likes</dt>')
+            html.write(f'<dd>{pet["likes"]}</dd>')
+
+            # dislikes
+            html.write('<dt>Dislikes</dt>')
+            html.write(f'<dd>{pet["dislikes"]}</dd>')
 
     return html
 
@@ -104,8 +101,6 @@ def main(args, nav=[]):
 
     html = utils.StringWriter(starting_indent=4)
     html = render_banner(html)
-
-    html.write('<hr />')
 
     data = load_data(args.directory / 'data/pets.json')
     categories = sorted(set([pet['category'] for pet in data]))

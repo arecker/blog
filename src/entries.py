@@ -24,15 +24,14 @@ def main(args, nav=[], entries=[]):
 
         html.comment('Pagination')
         # add pagination
-        with html.block('nav', _class='clearfix', blank=True):
-            if entry.page_next:
-                html.write(
-                    f'<a class="float-right" href="./{entry.page_next}">{entry.page_next} ⟶</a>'
-                )
+        with html.block('nav', blank=True):
             if entry.page_previous:
-                html.write(
-                    f'<a class="float-left" href="./{entry.page_previous}">⟵ {entry.page_previous}</a>'
-                )
+                link = f'<a href="./{entry.page_previous}">⟵ {entry.page_previous}</a>'
+                html.write(link)
+
+            if entry.page_next:
+                link = f'<a href="./{entry.page_next}">{entry.page_next} ⟶</a>'
+                html.write(link)
 
         output = utils.render_page(entry,
                                    args.full_url,
