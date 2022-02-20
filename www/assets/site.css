@@ -33,9 +33,9 @@ nav a, nav span {
 }
 
 header h1 {
+    margin-top: 5px;
     margin-bottom: 0em;
     font-size: 2em;
-    
 }
 
 header p {
@@ -64,4 +64,11 @@ article video {
 
 td {
     padding-right: 1em;
+}
+
+@media screen and (max-width: 800px) {
+  body {
+      margin: 0;
+      padding: 1em;
+  }
 }
