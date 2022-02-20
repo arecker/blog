@@ -18,7 +18,7 @@ def load_data(target):
 
 def main(args, nav=[]):
     html = utils.StringWriter(starting_indent=4)
-    html.figure('./images/me.jpg')
+    html.figure('./images/me.jpg', alt='me')
     html.p('Here are some different ways you can get in contact with me or find me on the web.')
 
     data = load_data(args.directory / 'data/contact.json')
