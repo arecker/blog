@@ -51,7 +51,7 @@ def main(args, nav=[], entries=[]):
     data['Longest entry'] = f'<a href="./{longest.filename}">{longest.title} - {longest.description}</a>'
     data['Shortest entry'] = f'<a href="./{shortest.filename}">{shortest.title} - {shortest.description}</a>'
 
-    content = utils.StringWriter()
+    content = utils.StringWriter(starting_indent=4)
     content.dl(data)
 
     page = utils.Page(
