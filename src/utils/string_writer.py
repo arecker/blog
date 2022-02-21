@@ -79,14 +79,30 @@ class StringWriter:
         return self
 
     def blank(self):
+        """Add a blank line.
+
+        >>> StringWriter().blank().text.splitlines()
+        ['']
+        """
         with self.indentation_reset():
             self.write('')
+        return self
 
     def hr(self, blank=True):
-        self.write('<hr/>', blank=blank)
+        """Add an <hr/> element.
+
+        >>> StringWriter().hr().text.strip()
+        '<hr/>'
+        """
+        return self.write('<hr/>', blank=blank)
 
     def br(self, blank=False):
-        self.write('<br/>', blank=blank)
+        """Add a <br/> element.
+
+        >>> StringWriter().br().text.strip()
+        '<br/>'
+        """
+        return self.write('<br/>', blank=blank)
         
     @contextlib.contextmanager
     def indentation_reset(self):
@@ -98,17 +114,39 @@ class StringWriter:
     def comment(self, text):
         self.write(f'<!-- {text} -->')
 
-    def dl(self, data, blank=True):
+    def dl(self, data: dict, blank=True):
+        """Make a definition list.
+
+        >>> data = {'fruit': 'bananana', 'vegetable': 'carrot'}
+        >>> print(StringWriter().dl(data).text.strip())
+        <dl>
+          <dt>fruit</dt>
+          <dd>bananana</dd>
+          <dt>vegetable</dt>
+          <dd>carrot</dd>
+        </dl>
+        """
         with self.block('dl', blank=blank):
             for k, v in data.items():
                 self.write(f'<dt>{k}</dt>')
                 self.write(f'<dd>{v}</dd>')
+        return self
 
     def p(self, content, blank=True):
-        self.write(f'<p>{content}</p>', blank=blank)
+        """Write a p element.
+
+        >>> StringWriter().p('testing').text.strip()
+        '<p>testing</p>'
+        """
+        return self.write(f'<p>{content}</p>', blank=blank)
         
     def small(self, content, blank=False):
-        self.write(f'<small>{content}</small>', blank=blank)
+        """Return a <small> element.
+
+        >>> StringWriter().small('testing').text.strip()
+        '<small>testing</small>'
+        """
+        return self.write(f'<small>{content}</small>', blank=blank)
 
     @contextlib.contextmanager
     def block(self,
@@ -146,16 +184,6 @@ class StringWriter:
         yield
         self.current_indent = starting_indent
         self.write(f'</{element_name}>', blank=blank)
-
-    @contextlib.contextmanager
-    def row(self):
-        with self.block('div', _class='row', blank=True):
-            yield
-
-    @contextlib.contextmanager
-    def column(self):
-        with self.block('div', _class='column', blank=True):
-            yield
 
     def figure(self, src, href='', caption='', alt='', blank=True, **attrs):
         with self.block('figure', blank=blank):
