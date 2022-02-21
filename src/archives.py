@@ -42,7 +42,7 @@ def render_years_nav(html: utils.StringWriter, years=[]):
 def render_banner(html: utils.StringWriter, choice: utils.Entry):
     html.comment('Random Banner')
     link = f'Taken from <a href="./{choice.filename}">{choice.description}</a>'
-    html.figure(src=f'./images/banners/{choice.banner}', caption=link)
+    html.figure(src=f'./images/banners/{choice.banner}', caption=link, alt='banner image from a random entry')
     return html
 
 

@@ -40,7 +40,9 @@ def render_content(latest: utils.Entry,
                    unindent=True)
     html.figure(src=f'./images/banners/{latest.banner}',
                 href=f'./{latest.filename}',
-                caption=latest.description, blank=True)
+                caption=latest.description,
+                blank=True,
+                alt='banner image for latest post',)
 
     # What's New?
     html.comment('What\'s New?')

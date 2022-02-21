@@ -112,7 +112,13 @@ class StringWriter:
         self.current_indent = current
 
     def comment(self, text):
-        self.write(f'<!-- {text} -->')
+        """Write an HTML comment.
+        
+        >>> writer = StringWriter()
+        >>> writer.comment('Test Comment').text.strip()
+        '<!-- Test Comment -->'
+        """
+        return self.write(f'<!-- {text} -->')
 
     def dl(self, data: dict, blank=True):
         """Make a definition list.
@@ -161,6 +167,21 @@ class StringWriter:
 
         Will reset the indentation back to its starting position, so
         do whatever you want while inside.
+
+        >>> writer = StringWriter()
+        >>> with writer.block('example'):
+        ...     writer = writer.write('inside the block!')
+        >>> writer.text.splitlines()
+        ['<example>', '  inside the block!', '</example>']
+
+        Supports attributes too (use underscores for reserved python
+        words like "class" and "id").
+
+        >>> writer = StringWriter()
+        >>> with writer.block('div', style='color: red', _class='row'):
+        ...     _ = writer.comment('Inside the row')
+        >>> writer.text.splitlines()
+        ['<div class="row" style="color: red">', '  <!-- Inside the row -->', '</div>']
         """
         starting_indent = self.current_indent
 
@@ -186,6 +207,24 @@ class StringWriter:
         self.write(f'</{element_name}>', blank=blank)
 
     def figure(self, src, href='', caption='', alt='', blank=True, **attrs):
+        """Make an HTML figure.  
+
+        As a convenience to the viewer, by default the image thumbnail
+        is wrapped in a hyperlink to the original image.
+        
+        >>> writer = StringWriter()
+        >>> writer.figure('test.jpg', alt='a test image')
+        >>> writer.text.strip().splitlines()
+        ['<figure>', '  <a href="test.jpg">', '    <img src="test.jpg" alt="a test image"/>', '  </a>', '</figure>']
+
+        Pass in a caption to the image.
+
+        >>> writer = StringWriter()
+        >>> writer.figure('test.jpg', alt='a test image', caption='this is the caption')
+        >>> writer.text.strip().splitlines()
+        ['<figure>', '  <a href="test.jpg">', '    <img src="test.jpg" alt="a test image"/>', '  </a>', '  <figcaption>', '    <p>this is the caption</p>', '  </figcaption>', '</figure>']
+        """
+        assert alt, 'Every image should have an alt!'
         with self.block('figure', blank=blank):
             with self.block('a', href=href or src):
                 if alt:
@@ -198,6 +237,15 @@ class StringWriter:
                     self.write(f'<p>{caption}</p>')
 
     def meta(self, name='', _property='', content='', blank=False):
+        """Add a meta property.
+
+        >>> writer = StringWriter()
+        >>> writer.meta(name='description', content='bleh')
+        >>> writer.meta(_property='og:url', content='google.com')
+        >>> writer.text.strip().splitlines()
+        ['<meta name="description" content="bleh"/>', '<meta property="og:url" content="google.com"/>']
+        """
+        
         tag = '<meta'
         
         if name:
