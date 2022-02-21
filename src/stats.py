@@ -3,7 +3,7 @@
 import logging
 import pathlib
 
-from . import utils
+from . import utils, test, pets, games
 
 logger = logging.getLogger(__name__)
 
@@ -40,6 +40,7 @@ def main(args, nav=[], entries=[]):
     data['Number of videos'] = len(list(webroot.glob('vids/**/*.*')))
     data['Number of HTML files'] = len(list(webroot.glob('*.html'))) + 1 # plus this one
     data['Total Lines of Code'] = count_lines_of_code(args.directory / 'src')
+    data['Total number of tests'] = len(test.discover_tests())
     data['Number of entries'] = len(entries)
     data['Timespan of entries'] = str((entries[0].date - entries[-1].date).days) + ' day(s)'
 
@@ -50,6 +51,8 @@ def main(args, nav=[], entries=[]):
     longest, shortest = find_max_and_min_length(args.directory / 'entries', entries)
     data['Longest entry'] = f'<a href="./{longest.filename}">{longest.title} - {longest.description}</a>'
     data['Shortest entry'] = f'<a href="./{shortest.filename}">{shortest.title} - {shortest.description}</a>'
+    data['Number of Pets'] = len(pets.load_pets(args.directory))
+    data['Number of Games'] = len(games.load_games(args.directory))
 
     content = utils.StringWriter(starting_indent=4)
     content.dl(data)

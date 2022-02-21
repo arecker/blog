@@ -8,7 +8,8 @@ from . import utils
 logger = logging.getLogger(__name__)
 
 
-def load_data(target):
+def load_pets(directory):
+    target = directory / 'data/pets.json'
     with open(target, 'r') as f:
         data = json.load(f)
     logger.info('loaded %d pet(s) from %s', len(data),
@@ -98,7 +99,7 @@ def main(args, nav=[]):
     html = utils.StringWriter(starting_indent=4)
     html = render_banner(html)
 
-    data = load_data(args.directory / 'data/pets.json')
+    data = load_pets(args.directory)
     categories = sorted(set([pet['category'] for pet in data]))
     html = render_index(html, categories=categories)
 

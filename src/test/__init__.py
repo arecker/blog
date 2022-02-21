@@ -12,19 +12,19 @@ import unittest
 logger = logging.getLogger(__name__)
 
 
-def main(*args, **kwargs):
-    loader = unittest.TestLoader()
+def discover_tests():
     src = pathlib.Path(__file__).absolute().parent.parent
     assert src.name == 'src'
-
-    suites = loader.discover(src)
-    failed = False
-
     tests = []
-    for suite in suites:
+    for suite in unittest.TestLoader().discover(src):
         for test in suite:
             tests.append(test)
+    return tests
 
+
+def main(*args, **kwargs):
+    failed = False
+    tests = discover_tests()
     for test in tests:
         result = unittest.TestResult()
         test.run(result)
