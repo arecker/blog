@@ -1,14 +1,13 @@
-html {
-    background-image: url('./cork-board.png');
-    background-repeat: repeat;
+@media screen and (min-width: 800px) {
+    html {
+        background-image: url('./cork-board.png');
+        background-repeat: repeat;
+    }
 }
 
 body {
     background-color: white;
-    font-family: -apple-system, BlinkMacSystemFont,
-                 "Segoe UI", Roboto, Helvetica,
-                 Arial, sans-serif, "Apple Color Emoji",
-                 "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: 'Helvetica';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.5;
@@ -16,12 +15,12 @@ body {
     margin-top: 1em;
     margin-bottom: 1em;
     max-width: 800px;
-    box-shadow: 1em 1em #008080;
+    border: solid grey;
     padding: 2em;
 }
 
 h1, h2, h3, dl dd, dl dt, nav a, nav span, header p {
-    font-family: 'Monospace';
+    font-family: 'Courier New';
 }
 
 dl dd, dl dt {
