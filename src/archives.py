@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 def render_feed_link(html: utils.StringWriter,
                      full_url: urllib.parse.ParseResult):
-    html.comment('RSS Feed')
+    html.write(f'<h2>Follow with RSS</h2>')
     with html.block('p', blank=True):
         link = full_url.geturl()
         link = urllib.parse.urljoin(link, 'feed.xml')
@@ -31,7 +31,7 @@ def render_feed_link(html: utils.StringWriter,
 
 
 def render_years_nav(html: utils.StringWriter, years=[]):
-    html.comment('Year Archives')
+    html.write(f'<h2>Browse by Year</h2>')
     with html.block('nav', blank=True):
         with html.block('span'):
             for y in sorted(years, reverse=True):
@@ -39,10 +39,11 @@ def render_years_nav(html: utils.StringWriter, years=[]):
     return html
 
 
-def render_banner(html: utils.StringWriter, choice: utils.Entry):
-    html.comment('Random Banner')
-    link = f'Taken from <a href="./{choice.filename}">{choice.description}</a>'
-    html.figure(src=f'./images/banners/{choice.banner}', caption=link, alt='banner image from a random entry')
+def render_randoms(html: utils.StringWriter, choices: list[utils.Entry]):
+    html.write('<h2>Browse Some Random Entries</h2>')
+    for choice in choices:
+        link = f'Taken from <a href="./{choice.filename}">{choice.description}</a>'
+        html.figure(src=f'./images/banners/{choice.banner}', caption=link, alt='banner image from a random entry')
     return html
 
 
@@ -68,8 +69,8 @@ def render_entries_page(entries=[],
     html = utils.StringWriter(starting_indent=4)
     html = render_feed_link(html, full_url)
     html = render_years_nav(html, years=years)
-    choice = random.choice([e for e in entries if e.banner])
-    html = render_banner(html, choice)
+    choices = random.sample([e for e in entries if e.banner], 3)
+    html = render_randoms(html, choices)
 
     page = utils.Page('entries.html', 'Entries',
                       'Complete Archive of Journal Entries', None)
@@ -88,15 +89,17 @@ def render_year_page(year=None,
                      years=[]):
     html = utils.StringWriter(starting_indent=4)
     html = render_feed_link(html, full_url)
-    html = render_years_nav(html, years=years)
 
     try:
-        choice = random.choice([e for e in entries if e.banner])
-        html = render_banner(html, choice)
-    except IndexError:
+        choices = random.sample([e for e in entries if e.banner], 3)
+        html = render_randoms(html, choices)
+    except ValueError:  # no banners to pick from!
         pass
-
+    
+    html = render_years_nav(html, years=years)
+    html.br()
     html = render_entries_table(html, entries)
+
     page = utils.Page(f'{year}.html', str(year), f'All Entries from {year}',
                       None)
     return utils.render_page(page,
