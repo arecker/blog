@@ -2,7 +2,7 @@
 
 import logging
 
-from . import pave, sitemap, feed, index, archives, entries as entriescmd, pets, contact, utils, games, stats
+from . import pave, sitemap, feed, index, archives, entries as entriescmd, pets, contact, utils, games, stats, docs
 
 logger = logging.getLogger(__name__)
 
@@ -19,5 +19,6 @@ def main(args, nav=[], entries=[]):
     entriescmd.main(args, nav=nav, entries=entries)
     archives.main(args, nav=nav, entries=entries)
     stats.main(args, nav=nav, entries=entries)
+    docs.main(args, nav=nav)
     feed.main(args, entries=entries)
     sitemap.main(args, entries=entries)

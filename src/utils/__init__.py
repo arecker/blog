@@ -251,7 +251,8 @@ def render_page(
             html.br()
 
             # Software Info
-            html.small(f'Built with Python v{python_version}')
+            link = f'<a href="./blog.html">blog</a>'
+            html.small(f'Built with {link} and Python v{python_version}')
             html.br()
 
             # Copyright Info

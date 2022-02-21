@@ -138,6 +138,38 @@ class StringWriter:
                 self.write(f'<dd>{v}</dd>')
         return self
 
+    def ul(self, items, blank=True):
+        """Make an unordered list.
+
+        >>> items = ['banana', 'orange', 'apple']
+        >>> print(StringWriter().ul(items).text.strip())
+        <ul>
+          <li>banana</li>
+          <li>orange</li>
+          <li>apple</li>
+        </ul>
+        """
+        with self.block('ul', blank=blank):
+            for item in items:
+                self.write(f'<li>{item}</li>')
+        return self
+
+    def pre(self, content, blank=True):
+        """Write a pre element
+        
+        >>> print(StringWriter().pre('hostname').text.strip())
+        <pre>hostname</pre>
+        """
+        return self.write(f'<pre>{content}</pre>', blank=True)
+
+    def h2(self, content, blank=True):
+        """Write an h2 element.
+
+        >>> StringWriter().h2('testing').text.strip()
+        '<h2>testing</h2>'
+        """
+        return self.write(f'<h2>{content}</h2>', blank=blank)
+
     def p(self, content, blank=True):
         """Write a p element.
 
