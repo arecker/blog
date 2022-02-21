@@ -80,11 +80,7 @@ parser.add_argument('--full-url',
                     default='https://www.alexrecker.com',
                     help='Full URL of the website')
 
-# def all_commands():
-#     commands = [f.name for f in HERE.glob('*.py')]
-#     commands = [f for f in commands if f not in ('__main__.py', '__init__.py')]
-#     commands = [os.path.splitext(f)[0] for f in sorted(commands)]
-#     return commands
+
 Command = collections.namedtuple(
     'Command', ['name', 'doc', 'main_callback', 'register_callback'])
 
