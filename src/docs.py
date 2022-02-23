@@ -1,27 +1,23 @@
 """generate code documentation"""
 
 import logging
-import pathlib
 import pkgutil
 import importlib
 
-from . import utils, __doc__ as DOCSTRING
+from . import utils, __doc__ as DOCSTRING, src_dir
 
 logger = logging.getLogger(__name__)
 
 
 def walk_modules():
-    srcdir = pathlib.Path(__file__).absolute().parent
-    assert srcdir.name == 'src'
+    yield importlib.import_module('.', package=src_dir.name)
 
-    yield importlib.import_module('.', package=srcdir.name)
-
-    for info in sorted(pkgutil.iter_modules([str(srcdir)]),
+    for info in sorted(pkgutil.iter_modules([str(src_dir)]),
                        key=lambda m: m.name):
         if info.name == '__main__':
             continue
 
-        yield importlib.import_module(f'.{info.name}', package=srcdir.name)
+        yield importlib.import_module(f'.{info.name}', package=src_dir.name)
 
 
 def render_index(content: utils.StringWriter, modules=[]):

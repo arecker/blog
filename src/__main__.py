@@ -4,17 +4,15 @@ import argparse
 import collections
 import importlib
 import logging
-import os
 import pathlib
 import pdb
 import pkgutil
 import sys
 import urllib.parse
 
-from . import __doc__ as DOCSTRING
+from . import __doc__ as DOCSTRING, src_dir
 
 logger = logging.getLogger(__name__)
-HERE = pathlib.Path(__file__).parent.absolute()
 
 
 def DirectoryType(value, validate=True) -> pathlib.Path:
@@ -57,7 +55,7 @@ parser.add_argument('-o',
                     help='Allow pages in webroot to be overwritten')
 parser.add_argument('--directory',
                     type=DirectoryType,
-                    default=HERE.parent,
+                    default=src_dir.parent,
                     help='root directory of website files')
 parser.add_argument('--title',
                     type=str,
@@ -80,7 +78,6 @@ parser.add_argument('--full-url',
                     default='https://www.alexrecker.com',
                     help='Full URL of the website')
 
-
 Command = collections.namedtuple(
     'Command', ['name', 'doc', 'main_callback', 'register_callback'])
 
@@ -88,13 +85,13 @@ Command = collections.namedtuple(
 def all_commands() -> list[Command]:
     commands = []
 
-    package = importlib.import_module('.', package=HERE.name)
+    package = importlib.import_module('.', package=src_dir.name)
 
     for info in pkgutil.iter_modules(package.__path__):
         if info.name == '__main__':
             continue
 
-        module = importlib.import_module('.' + info.name, package=HERE.name)
+        module = importlib.import_module('.' + info.name, package=src_dir.name)
 
         try:
             main_callback = module.main
