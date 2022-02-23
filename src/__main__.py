@@ -79,7 +79,8 @@ parser.add_argument('--full-url',
                     help='Full URL of the website')
 
 # Register subommands from submodules that have a main function.
-COMMANDS, subcommand = {}, parser.add_subparsers(dest='subcommand')
+COMMANDS, subcommand = {}, parser.add_subparsers(dest='subcommand',
+                                                 metavar='{subcommand}')
 for command in fetch_commands():
     COMMANDS[command.name] = command.main_callback
     subparser = subcommand.add_parser(command.name, help=command.doc)
