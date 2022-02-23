@@ -15,8 +15,13 @@ Command: collections.namedtuple = collections.namedtuple(
 
 
 def fetch_commands() -> list[Command]:
-    """Fetches all subcommands from src as a list of named tuples."""
+    """Fetches all subcommands from src as a list of named tuples.
 
+    >>> commands = fetch_commands()
+    >>> build = next((c for c in commands if c.name == 'build'))
+    >>> build.name, build.doc
+    ('build', 'Build the website locally')
+    """
     commands = []
 
     package = importlib.import_module('.', package=src_dir.name)
