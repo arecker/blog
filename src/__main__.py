@@ -10,7 +10,7 @@ import pkgutil
 import sys
 import urllib.parse
 
-from . import __doc__ as DOCSTRING, src_dir
+from . import __doc__ as DOCSTRING, src_dir, fetch_commands
 
 logger = logging.getLogger(__name__)
 
@@ -78,43 +78,9 @@ parser.add_argument('--full-url',
                     default='https://www.alexrecker.com',
                     help='Full URL of the website')
 
-Command = collections.namedtuple(
-    'Command', ['name', 'doc', 'main_callback', 'register_callback'])
-
-
-def all_commands() -> list[Command]:
-    commands = []
-
-    package = importlib.import_module('.', package=src_dir.name)
-
-    for info in pkgutil.iter_modules(package.__path__):
-        if info.name == '__main__':
-            continue
-
-        module = importlib.import_module('.' + info.name, package=src_dir.name)
-
-        try:
-            main_callback = module.main
-        except AttributeError:
-            continue
-
-        try:
-            register_callback = module.register
-        except AttributeError:  # optional
-            register_callback = None
-
-        command = Command(name=info.name,
-                          doc=module.__doc__,
-                          main_callback=main_callback,
-                          register_callback=register_callback)
-        commands.append(command)
-
-    return commands
-
-
 # Register subommands from submodules that have a main function.
 COMMANDS, subcommand = {}, parser.add_subparsers(dest='subcommand')
-for command in all_commands():
+for command in fetch_commands():
     COMMANDS[command.name] = command.main_callback
     subparser = subcommand.add_parser(command.name, help=command.doc)
     if command.register_callback:
