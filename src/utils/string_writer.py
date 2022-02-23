@@ -103,7 +103,7 @@ class StringWriter:
         '<br/>'
         """
         return self.write('<br/>', blank=blank)
-        
+
     @contextlib.contextmanager
     def indentation_reset(self):
         current = self.current_indent
@@ -177,7 +177,7 @@ class StringWriter:
         '<p>testing</p>'
         """
         return self.write(f'<p>{content}</p>', blank=blank)
-        
+
     def small(self, content, blank=False):
         """Return a <small> element.
 
@@ -277,15 +277,15 @@ class StringWriter:
         >>> writer.text.strip().splitlines()
         ['<meta name="description" content="bleh"/>', '<meta property="og:url" content="google.com"/>']
         """
-        
+
         tag = '<meta'
-        
+
         if name:
             tag += f' name="{name}"'
         if _property:
             tag += f' property="{_property}"'
         if content:
             tag += f' content="{content}"'
-            
+
         tag += '/>'
         self.write(tag, blank=blank)
