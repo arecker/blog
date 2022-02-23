@@ -1,4 +1,4 @@
-"""generate contact page"""
+"""Generate contact page"""
 
 import json
 import logging

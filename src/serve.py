@@ -1,6 +1,4 @@
-'''
-serve webroot locally
-'''
+"""Serve webroot locally"""
 
 import logging
 from http.server import HTTPServer, SimpleHTTPRequestHandler

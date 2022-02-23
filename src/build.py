@@ -1,4 +1,4 @@
-"""build the website locally"""
+"""Build the website locally"""
 
 import logging
 

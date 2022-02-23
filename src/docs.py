@@ -1,29 +1,28 @@
-"""generate code documentation"""
+"""Generate code documentation"""
 
 import logging
-import pkgutil
-import importlib
 
-from . import utils, __doc__ as DOCSTRING, src_dir
+from . import utils, __doc__ as DOCSTRING, src_dir, fetch_commands
 
 logger = logging.getLogger(__name__)
 
 
-def walk_modules():
-    yield importlib.import_module('.', package=src_dir.name)
-
-    for info in sorted(pkgutil.iter_modules([str(src_dir)]),
-                       key=lambda m: m.name):
-        if info.name == '__main__':
-            continue
-
-        yield importlib.import_module(f'.{info.name}', package=src_dir.name)
-
-
-def render_index(content: utils.StringWriter, modules=[]):
+def render_index(content: utils.StringWriter):
     content.h2('Index')
-    items = [f'<code>{m.__name__}</code> -- {m.__doc__}' for m in modules]
-    content.ul(items=items)
+    content.ul([
+        f'<a href="#subcommands">Subcommands</a>',
+    ])
+    return content
+
+def render_commands(content: utils.StringWriter):
+    content.h2('Subcommands', _id='subcommands')
+
+    content.p('All submodules with a <code>main</code> function are callable as subcommands.')
+
+    for command in fetch_commands():
+        content.h3(f'<code>{command.name}</code>')
+        content.p(command.doc)
+    
     return content
 
 
@@ -36,9 +35,9 @@ def main(args, nav=[]):
                       banner=None)
 
     content = utils.StringWriter(starting_indent=4)
-
-    modules = [m for m in walk_modules()]
-    content = render_index(content, modules=modules)
+    
+    content = render_index(content)
+    content = render_commands(content)
 
     content = utils.render_page(page,
                                 full_url=args.full_url,

@@ -1,4 +1,4 @@
-"""deploy site to Netlify"""
+"""Deploy site to Netlify"""
 
 import hashlib
 import logging

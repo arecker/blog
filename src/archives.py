@@ -1,4 +1,4 @@
-"""generate journal archives"""
+"""Generate journal archives"""
 
 import logging
 import random

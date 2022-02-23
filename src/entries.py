@@ -1,4 +1,4 @@
-"""render journal entries"""
+"""Render journal entries"""
 
 import logging
 
