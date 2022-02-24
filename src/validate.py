@@ -44,9 +44,10 @@ def is_valid_xml(content: str):
     except xml.etree.ElementTree.ParseError:
         return False
 
+
 def main(args):
     passed = True
-    
+
     for f in ['feed.xml', 'sitemap.xml']:
         target = args.directory / 'www' / f
         with open(target, 'r') as f:
@@ -75,15 +76,18 @@ def main(args):
                 # Check the document for the specified anchor
                 expected = f'id="{href[1:]}"'
                 if expected not in content:
-                    logger.warn('nonexistent anchor "%s" found in %s', href, html_file.name)
+                    logger.warn('nonexistent anchor "%s" found in %s', href,
+                                html_file.name)
                     passed = False
             elif href.startswith('./'):
                 # Check that the reference exists
                 reference = args.directory / 'www' / href
                 if not reference.is_file():
-                    logger.warn('nonexistent href "%s" found in %s', href, utils.prettify_path(html_file))
+                    logger.warn('nonexistent href "%s" found in %s', href,
+                                utils.prettify_path(html_file))
                     passed = False
-    logger.info('validated src and href attributes in %d file(s)', len(html_files))
+    logger.info('validated src and href attributes in %d file(s)',
+                len(html_files))
 
     if not passed:
         logger.error('validation failed, there are problems to fix')
