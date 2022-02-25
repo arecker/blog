@@ -191,7 +191,8 @@ def render_page(
 
         html.comment('Page Metadata')
         html.write('<meta charset="UTF-8"/>')
-        html.meta(name='viewport', content='width=device-width, initial-scale=1')
+        html.meta(name='viewport',
+                  content='width=device-width, initial-scale=1')
         html.meta(name='twitter:title', content=page.title)
         html.meta(name='twitter:description', content=page.description)
         html.meta(_property='og:url', content=page_url)
@@ -202,6 +203,7 @@ def render_page(
             banner = urllib.parse.urljoin(full_url.geturl(),
                                           f'/images/banners/{page.banner}')
             html.meta(name='image', _property='og:image', content=banner)
+            html.meta(name='twitter:image', content=banner)
         with html.indentation_reset():
             html.write('')
 
@@ -223,7 +225,7 @@ def render_page(
             with html.block('header', blank=True):
                 html.write(f'<h1>{page.title}</h1>')
                 html.p(page.description, blank=False)
-                
+
             html.hr()
 
             if page.banner:
@@ -242,9 +244,10 @@ def render_page(
             # Back to top
             html.write('<small><a href="#top">Back to top</a></small>')
             html.br()
-            
+
             # Validate HTML
-            validate_url = urllib.parse.urljoin(full_url.geturl(), page.filename)
+            validate_url = urllib.parse.urljoin(full_url.geturl(),
+                                                page.filename)
             validate_url = urllib.parse.quote(validate_url)
             validate_url = f'https://validator.w3.org/nu/?doc={validate_url}'
             html.small(f'<a href="{validate_url}">Validate this page</a>')
