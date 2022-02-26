@@ -65,6 +65,10 @@ td {
     padding-right: 1em;
 }
 
+pre {
+    overflow-x: scroll;
+}
+
 @media screen and (max-width: 800px) {
   body {
       margin: 0;

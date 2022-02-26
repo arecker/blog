@@ -172,7 +172,7 @@ class StringWriter:
             return self.write(f'<h2 id="{_id}">{content}</h2>', blank=blank)
         else:
             return self.write(f'<h2>{content}</h2>', blank=blank)
-    
+
     def h3(self, content, blank=True):
         """Write an h3 element.
 
@@ -180,6 +180,14 @@ class StringWriter:
         '<h3>testing</h3>'
         """
         return self.write(f'<h3>{content}</h3>', blank=blank)
+
+    def h4(self, content, blank=True):
+        """Write an h4 element.
+
+        >>> StringWriter().h4('testing').text.strip()
+        '<h4>testing</h4>'
+        """
+        return self.write(f'<h4>{content}</h4>', blank=blank)
 
     def p(self, content, blank=True):
         """Write a p element.

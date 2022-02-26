@@ -2,6 +2,7 @@
 
 import collections
 import importlib
+import inspect
 import pathlib
 import pkgutil
 
@@ -50,3 +51,43 @@ def fetch_commands() -> list[Command]:
         commands.append(command)
 
     return sorted(commands, key=lambda c: c.name)
+
+
+PackageInfo = collections.namedtuple(
+    'PackageInfo', ['functions', 'classes', 'variables', 'modules'])
+"""Functions, classes, and variables in the top level src package."""
+Variable = collections.namedtuple('Variable', ['name', 'docstring'])
+
+
+def fetch_package_info() -> PackageInfo:
+    """Fetch the top level functions, classes, and variables from src.
+
+    Returns a named tuple
+
+    >>> fetch_package_info()._fields
+    ('functions', 'classes', 'variables', 'modules')
+    """
+
+    package = importlib.import_module('.', package=src_dir.name)
+
+    functions, classes, variables, modules = {}, {}, {}, {}
+
+    for key in dir(package):
+        if key.startswith('__'):
+            continue
+
+        value = getattr(package, key)
+
+        if inspect.isfunction(value):
+            functions[key] = value
+        elif inspect.isclass(value):
+            classes[key] = value
+        elif inspect.ismodule(value):
+            modules[key] = value
+        else:
+            variables[key] = value
+
+    return PackageInfo(functions=functions,
+                       classes=classes,
+                       variables=variables,
+                       modules=modules)
