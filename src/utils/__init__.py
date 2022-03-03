@@ -1,4 +1,5 @@
 """Package for random functions."""
+from .string_writer import StringWriter
 
 import collections
 import contextlib
@@ -13,18 +14,13 @@ import re
 import typing
 import urllib.parse
 
-from . import StringWriter, utils
-
 logger = logging.getLogger(__name__)
 
 
 def read_nav(data_dir: pathlib.Path):
-    target = data_dir / 'nav.json'
-    with open(target, 'r') as f:
-        data = json.load(f)
-    assert isinstance(data, list), f'nav.json should be a list, got {type(data)}'
-    logger.info('loaded %d page(s) from %s for site navigation', len(data), utils.prettify_path(target))
-    return data
+    with open(data_dir / 'nav.json', 'r') as f:
+        return json.load(f)
+
 
 Entry = collections.namedtuple('Entry', [
     'banner',
