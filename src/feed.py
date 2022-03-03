@@ -16,8 +16,9 @@ FeedInfo = collections.namedtuple(
 
 def render_info(sw: utils.StringWriter, info: FeedInfo) -> utils.StringWriter:
     """Render RSS feed info portion."""
-    sw.write(f'<title>{info.title}</title>')
-    sw.write(f'<subtitle>{info.subtitle}</subtitle>')
+
+    sw.element('title', info.title)
+    sw.element('subtitle', info.subtitle)
 
     with sw.block('author'):
         sw.element('name', info.author)
@@ -53,7 +54,7 @@ def render_entry(sw: utils.StringWriter, entry: utils.Entry, info: FeedInfo,
         url = info.url.geturl()
         entry_url = urllib.parse.urljoin(url, entry.filename)
         sw.element('id', entry_url)
-        sw.write(f'<link href="{entry_url}" />')
+        sw.link(href=entry_url)
 
         if entry.banner:
             banner_url = urllib.parse.urljoin(
