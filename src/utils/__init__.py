@@ -264,21 +264,3 @@ def render_page(
     html.write('</html>')
 
     return html.text
-
-
-@contextlib.contextmanager
-def write_page(directory: pathlib.Path, filename: str, overwrite_ok=False):
-    """Writes a file to the webroot in the 'www/' subdirectory.
-
-    Makes a really big deal if it sees that a file is already there,
-    since that would mean you have two places of code writing to the
-    same place.
-    """
-
-    target = directory / f'www/{filename}'
-
-    if not overwrite_ok and target.exists():
-        raise FileExistsError(f'{target.name} already exists in webroot!')
-
-    with open(target, 'w') as f:
-        yield f

@@ -54,9 +54,7 @@ def main(args, entries=[]):
     locations = [to_xml(l, full_url=args.full_url) for l in locations]
 
     # write the sitemap file
-    with utils.write_page(args.directory,
-                          'sitemap.xml',
-                          overwrite_ok=args.overwrite) as f:
+    with open(args.directory / 'www/sitemap.xml', 'w') as f:
         f.write('<?xml version="1.0" encoding="utf-8"?>\n')
         f.write(
             '<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'

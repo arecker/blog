@@ -60,9 +60,7 @@ def main(args, nav=[]):
                       description='Play Games and Waste Time',
                       banner=None)
 
-    with utils.write_page(args.directory,
-                          'games.html',
-                          overwrite_ok=args.overwrite) as f:
+    with open(args.directory / 'www/games.html', 'w') as f:
         f.write(
             utils.render_page(page,
                               full_url=args.full_url,
@@ -84,6 +82,6 @@ def main(args, nav=[]):
                           description=game.description,
                           banner=None)
 
-        with utils.write_page(args.directory, page.filename) as f:
+        with open(args.directory / f'www/{page.filename}', 'w') as f:
             f.write(html.text.rstrip())
         logger.info('generated %s', game.filename)

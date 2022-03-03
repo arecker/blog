@@ -68,6 +68,6 @@ def main(args, nav=[], entries=[]):
         page, full_url=args.full_url, content=content.text, nav_pages=nav, author=args.author,
     )
 
-    with utils.write_page(args.directory, page.filename, overwrite_ok=args.overwrite) as f:
+    with open(args.directory / f'www/stats.html', 'w') as f:
         f.write(content)
     logger.info('generated stats.html')

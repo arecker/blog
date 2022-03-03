@@ -69,8 +69,6 @@ def main(args, nav=[]):
                                 nav_pages=nav,
                                 author=args.author)
 
-    with utils.write_page(args.directory,
-                          page.filename,
-                          overwrite_ok=args.overwrite) as f:
+    with open(args.directory / f'www/{page.filename}', 'w') as f:
         f.write(content)
     logger.info('generated blog.html')

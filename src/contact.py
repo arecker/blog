@@ -40,10 +40,7 @@ def main(args, nav=[]):
                       banner=None)
 
     nav = nav or utils.read_nav(args.directory / 'data')
-
-    with utils.write_page(args.directory,
-                          'contact.html',
-                          overwrite_ok=args.overwrite) as f:
+    with open(args.directory / 'www/contact.html', 'w') as f:
         f.write(
             utils.render_page(page,
                               args.full_url,

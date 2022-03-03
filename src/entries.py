@@ -38,9 +38,7 @@ def main(args, nav=[], entries=[]):
                                    content=html.text.rstrip(),
                                    nav_pages=nav,
                                    author=args.author)
-        with utils.write_page(args.directory,
-                              entry.filename,
-                              overwrite_ok=args.overwrite) as f:
+        with open(args.directory / f'www/{entry.filename}', 'w') as f:
             f.write(output)
         logger.debug('generated %s', entry.filename)
         if (i + 1) % 100 == 0 or (i + 1) == total:

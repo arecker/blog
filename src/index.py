@@ -107,8 +107,6 @@ def main(args, nav=[]):
         author=args.author,
     )
 
-    with utils.write_page(args.directory,
-                          'index.html',
-                          overwrite_ok=args.overwrite) as f:
+    with open(args.directory / 'www/index.html', 'w') as f:
         f.write(output)
     logger.info('generated index.html')

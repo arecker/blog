@@ -93,6 +93,6 @@ def main(args, entries=[]):
         for entry in entries[0:30]:
             xml = render_entry(xml, entry, info, args.directory)
 
-    with utils.write_page(args.directory, 'feed.xml', overwrite_ok=True) as f:
+    with open(args.directory / 'www/feed.xml', 'w') as f:
         f.write(xml.text)
     logger.info('generated %s with %d entries', 'feed.xml', len(entries))
