@@ -205,6 +205,34 @@ class StringWriter:
         """
         return self.write(f'<small>{content}</small>', blank=blank)
 
+    def link(self,
+             href='',
+             blank=False,
+             _class='',
+             _type='',
+             _id='',
+             **attributes):
+        if href:
+            attributes['href'] = href
+        if _class:
+            attributes['class'] = _class
+        if _type:
+            attributes['type'] = _type
+        if _id:
+            attributes['id'] = _id
+
+        attributes = sorted([f'{k}="{v}"' for k, v in attributes.items()])
+        attributes = ' '.join(attributes)
+        attributes = attributes.strip()
+
+        tag = '<link ' + attributes + '/>'
+        self.write(tag, blank=blank)
+        return self
+
+    def element(self, element_name: str, content: str, blank=False):
+        self.write(f'<{element_name}>{content}</{element_name}>')
+        return self
+
     @contextlib.contextmanager
     def block(self,
               element_name,
