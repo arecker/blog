@@ -15,7 +15,25 @@ FeedInfo = collections.namedtuple(
 
 
 def render_info(sw: utils.StringWriter, info: FeedInfo) -> utils.StringWriter:
-    """Render RSS feed info portion."""
+    """Render RSS feed info portion.
+
+    >>> url = urllib.parse.urlparse('http://localhost:8000')
+    >>> import datetime
+    >>> timestamp = datetime.datetime(2020, 1, 1)
+    >>> info = FeedInfo(url=url, author='bob', email='me@mail.com', title='test title', subtitle='test subtitle', timestamp=timestamp)
+    >>> print(render_info(utils.StringWriter(), info).text)
+    <title>test title</title>
+    <subtitle>test subtitle</subtitle>
+    <author>
+      <name>bob</name>
+      <email>me@mail.com</email>
+    </author>
+    <updated>2020-01-01T00:00:00+00:00</updated>
+    <id>http://localhost:8000/feed.xml</id>
+    <link href="http://localhost:8000/feed.xml" rel="self" type="application/atom+xml"/>
+    <link href="http://localhost:8000" rel="alternate" type="text/html"/>
+    <BLANKLINE>
+    """
 
     sw.element('title', info.title)
     sw.element('subtitle', info.subtitle)
