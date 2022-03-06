@@ -10,6 +10,38 @@ from . import utils
 
 logger = logging.getLogger(__name__)
 
+
+def plain_textify(content: str) -> str:
+    """Convert an HTML string into plain text.
+
+    Can handle <p> tags.
+
+    >>> plain_textify('<p>This is a test!</p>')
+    'This is a test!'
+
+    Can handle <em> tags.
+
+    >>> plain_textify('<p><em>Sip</em>.  Hello, everyone.</p>')
+    'Sip.  Hello, everyone.'
+
+    Can remove comments.
+
+    >>> plain_textify('<!-- a comment -->')
+    ''
+    """
+
+    for tag in ('p', 'em'):
+        content = content.replace(f'<{tag}>', '')
+        content = content.replace(f'</{tag}>', '')
+
+    content = '\n'.join([
+        line for line in content.splitlines()
+        if not line.startswith('<!--') and not line.endswith('-->')
+    ])
+
+    return content
+
+
 FeedInfo = collections.namedtuple(
     'FeedInfo', ['url', 'email', 'author', 'title', 'subtitle', 'timestamp'])
 
@@ -84,6 +116,7 @@ def render_entry(sw: utils.StringWriter, entry: utils.Entry, info: FeedInfo,
 
         with open(directory / f'entries/{entry.filename}', 'r') as f:
             content = f.read()
+            content = plain_textify(content)
             content = html.escape(content)
             content = f'<![CDATA[{content}]]>'
             sw.element('content', content)
