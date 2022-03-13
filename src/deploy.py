@@ -4,7 +4,7 @@ import hashlib
 import logging
 import time
 
-from . import http, build, validate
+from . import http, build, validate, utils
 
 logger = logging.getLogger(__name__)
 
@@ -82,7 +82,7 @@ def main(args):
 
     payload = build_new_deploy(args.directory / 'www')
     logger.info('built payload from %d file(s) in %s',
-                len(payload['files'].keys()), args.directory / 'www')
+                len(payload['files'].keys()), utils.prettify_path(args.directory / 'www'))
 
     response = make_request(path=f'/sites/{site_id}/deploys/',
                             token=args.netlify_token,
