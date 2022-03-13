@@ -79,8 +79,9 @@ def new_timestamp() -> str:
     return timestamp.strftime(timestamp_format)
 
 
-def main(args, nav=[]):
-    latest = utils.fetch_entries(args.directory / 'entries')[0]
+def main(args, nav=[], entries=[]):
+    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    latest = entries[0]
     logger.info('fetched latest post %s', latest.filename)
 
     commit = git.get_head_commit(args.directory)

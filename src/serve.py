@@ -65,31 +65,57 @@ def make_snapshot_list(directory: pathlib.Path):
     return sorted(snapshots, key=lambda s: str(s))
 
 
-def get_changed_keywords(old_state: list, new_state: list):
-    changed_keywords = []
-
+def diff_snapshots(old_state: list[Snapshot], new_state: list[Snapshot]) -> list[Snapshot]:
     for old_snapshot in old_state:
         try:
             new_snapshot = next(
                 (s for s in new_state if s.path == old_snapshot.path))
             if old_snapshot.mtime != new_snapshot.mtime:
-                changed_keywords.append(old_snapshot.keyword)
                 logger.info('detected changed file %s',
                             utils.prettify_path(new_snapshot.path))
+                yield old_snapshot
         except StopIteration:
-            changed_keywords.append(old_snapshot.keyword)
             logger.info('detected deleted file %s',
                         utils.prettify_path(new_snapshot.path))
+            yield new_snapshot
 
     for new_snapshot in new_state:
         try:
             next((s for s in old_state if s.path == new_snapshot.path))
         except StopIteration:
-            changed_keywords.append(new_snapshot.keyword)
             logger.info('detected new file %s',
                         utils.prettify_path(new_snapshot.path))
+            yield new_snapshot
 
-    return set(changed_keywords)
+Changeset = collections.namedtuple('Changeset', [
+    'announcements',
+    'entries',
+    'games',
+    'index',
+    'nav',
+])
+
+def make_changeset(old_state: list[Snapshot], new_state: list[Snapshot]) -> Changeset:
+    changeset = {
+        'announcements': False,
+        'entries': False,
+        'games': False,
+        'index': False,
+        'nav': False,
+    }
+
+    for snapshot in diff_snapshots(old_state, new_state):
+        if snapshot.keyword == 'nav':
+            changeset['nav'] = True
+            changeset['entries'] = True
+            changeset['games'] = True
+            changeset['announcements'] = True
+        if snapshot.keyword == 'games':
+            changeset['games'] = True
+        if snapshot.keyword == 'entries':
+            changeset['entries'] = True
+
+    return Changeset(**changeset)
 
 
 def main(args):
@@ -108,28 +134,20 @@ def main(args):
         time.sleep(1)
 
         current_state = make_snapshot_list(args.directory)
-        keywords = get_changed_keywords(old_state=last_state,
-                                        new_state=current_state)
+        changeset = make_changeset(last_state, current_state)
 
-        if keywords:
-            print(keywords)
+        if changeset.nav:
+            nav = utils.read_nav(args.directory / 'nav.json')
 
-        # Reload cache for nav and entries
-        if 'nav' in keywords:
-            nav = utils.read_nav(args.directory / 'data')
-        if 'entries' in keywords:
+        if changeset.entries:
             entries = utils.fetch_entries(args.directory / 'entries')
+            entries_cmd.main(args, nav=nav, entries=entries)
+            archives.main(args, nav=nav, entries=entries)
 
-        if 'nav' in keywords:  # rebuild everything
-            build.main(args, nav=nav, entries=entries)
-        else:  # rebuild relevant pieces
-            if 'entries' in keywords:
-                entries_cmd.main(args, nav=nav, entries=entries)
-                archives.main(args, nav=nav, entries=entries)
-                index.main(args, nav=nav)
-            if 'games' in keywords:
-                games.main(args, nav=nav)
-            if 'news' in keywords:
-                index.main(args, nav=nav)
+        if changeset.games:
+            games.main(args, nav=nav)
+
+        if changeset.announcements or changeset.entries:
+            index.main(args, nav=nav, entries=entries)
 
         last_state = current_state
