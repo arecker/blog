@@ -2,12 +2,9 @@
 from .string_writer import StringWriter
 
 import collections
-import contextlib
 import datetime
-import errno
 import json
 import logging
-import os
 import pathlib
 import platform
 import re
@@ -91,7 +88,11 @@ def fetch_entries(entries_dir: pathlib.Path) -> list[Entry]:
 
 
 def metadata_parse_html(content) -> dict:
-    """Parse metadata from magic HTML comments."""
+    """Parse metadata from magic HTML comments.
+
+    >>> metadata_parse_html('<!-- meta:name Alex Recker -->')
+    {'name': 'Alex Recker'}
+    """
 
     pattern = re.compile(
         r'^\s?<!--\s?meta:(?P<key>[A-za-z]+)\s?(?P<value>.*)\s?-->$',

@@ -1,21 +1,13 @@
 """Generate code documentation"""
 
 import doctest
+import html
 import logging
 
-from . import utils, __doc__ as DOCSTRING, fetch_package_info
+from . import utils, __doc__ as DOCSTRING, fetch_package_info, render
 from .__main__ import parser
 
 logger = logging.getLogger(__name__)
-
-
-def render_index(content: utils.StringWriter):
-    content.h2('Index')
-    content.ul([
-        '<a href="#commands">Commands</a>',
-        '<a href="#api">API</a>',
-    ])
-    return content
 
 
 def render_commands(content: utils.StringWriter):
@@ -30,21 +22,59 @@ def render_commands(content: utils.StringWriter):
     return content
 
 
+def parse_docstring(docstring: str):
+    items = []
+    for item in doctest.DocTestParser().parse(docstring):
+        if isinstance(item, str):
+            item = item.strip()
+        items.append(item)
+
+    items = filter(None, items)
+    return list(items)
+
+
+def render_docstring(content: utils.StringWriter,
+                     docstring: str) -> utils.StringWriter:
+
+    items = parse_docstring(docstring)
+    pre = ''
+
+    while items:
+
+        item = items.pop(0)
+
+        if isinstance(item, str):
+            if pre:  # close pre first
+                content.pre(pre)
+                pre = ''
+            content.p(item)
+        elif isinstance(item, doctest.Example):
+            pre += '>>> ' + html.escape(item.source)
+            if item.want:
+                pre += html.escape(item.want)
+        else:
+            raise ValueError(f'don\'t know how to render {type(item)}')
+
+    if pre:
+        content.pre(pre)
+
+    return content
+
+
 def render_api(content: utils.StringWriter):
     content.h2('API', _id='api')
 
     info = fetch_package_info()
 
-    docparser = doctest.DocTestParser()
-
     if info.functions:
         content.h3('Functions')
-        for k, v in info.functions.items():
-            content.h4(f'<code>{k}</code>')
-            for item in docparser.parse(v.__doc__):
-                if isinstance(item, str):
-                    content.p(item.strip())
-                # TODO: parse code examples
+        content.text += render.render_index(
+            headings=info.functions.keys(),
+            render_heading=lambda h: f'<code>{h}</code>')
+
+    for k, v in info.functions.items():
+        content.h4(f'<code>{k}</code>', _id=render.slugify(k))
+        content = render_docstring(content, v.__doc__)
 
     return content
 
@@ -59,7 +89,9 @@ def main(args, nav=[]):
 
     content = utils.StringWriter(starting_indent=4)
 
-    content = render_index(content)
+    content.h2('Index')
+    content.text += render.render_index(headings=['Commands', 'API'])
+
     content = render_commands(content)
     content = render_api(content)
 
