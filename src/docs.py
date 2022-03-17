@@ -4,7 +4,7 @@ import doctest
 import html
 import logging
 
-from . import utils, __doc__ as DOCSTRING, fetch_package_info, render
+from . import utils, __doc__ as DOCSTRING, fetch_package_info, render, Function
 from .__main__ import parser
 
 logger = logging.getLogger(__name__)
@@ -49,7 +49,7 @@ def render_docstring(content: utils.StringWriter,
                 pre = ''
             content.p(item)
         elif isinstance(item, doctest.Example):
-            pre += '>>> ' + html.escape(item.source)
+            pre += html.escape('>>> ' + item.source)
             if item.want:
                 pre += html.escape(item.want)
         else:
@@ -59,6 +59,27 @@ def render_docstring(content: utils.StringWriter,
         content.pre(pre)
 
     return content
+
+
+def render_function_signature(func: Function):
+    """Render a function's signature."""
+
+    header = func.name + '('
+
+    params = func.params.values()
+
+    for i, param in enumerate(params):
+        header += param.name
+        if param.default != param.empty:
+            header += '=' + repr(param.default)
+        if param.annotation != param.empty:
+            header += ' : ' + repr(param.annotation)
+        if i != (len(params) - 1):
+            header += ', '
+    header += ')'
+    if func.return_type:
+        header += ' -> ' + repr(func.return_type)
+    return header
 
 
 def render_api(content: utils.StringWriter):
@@ -73,8 +94,9 @@ def render_api(content: utils.StringWriter):
             render_heading=lambda h: f'<code>{h}</code>')
 
     for k, v in info.functions.items():
-        content.h4(f'<code>{k}</code>', _id=render.slugify(k))
-        content = render_docstring(content, v.__doc__)
+        header = html.escape(render_function_signature(v))
+        content.h4(f'<code>{header}</code>', _id=render.slugify(k))
+        content = render_docstring(content, v.doc)
 
     return content
 

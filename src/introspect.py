@@ -57,6 +57,21 @@ PackageInfo = collections.namedtuple(
     'PackageInfo', ['functions', 'classes', 'variables', 'modules'])
 """Functions, classes, and variables in the top level src package."""
 Variable = collections.namedtuple('Variable', ['name', 'docstring'])
+Function = collections.namedtuple('Function',
+                                  ['name', 'params', 'doc', 'return_type'])
+
+
+def make_function(obj: callable) -> Function:
+    kwargs = {}
+    kwargs['name'] = obj.__name__
+    kwargs['doc'] = obj.__doc__
+    signature = inspect.signature(obj)
+    kwargs['params'] = signature.parameters
+    if signature.return_annotation != signature.empty:
+        kwargs['return_type'] = signature.return_annotation
+    else:
+        kwargs['return_type'] = None
+    return Function(**kwargs)
 
 
 def fetch_package_info() -> PackageInfo:
@@ -79,7 +94,7 @@ def fetch_package_info() -> PackageInfo:
         value = getattr(package, key)
 
         if inspect.isfunction(value):
-            functions[key] = value
+            functions[key] = make_function(value)
         elif inspect.isclass(value):
             classes[key] = value
         elif inspect.ismodule(value):

@@ -14,7 +14,7 @@ def slugify(text: str) -> str:
     return text
 
 
-def render_index(headings=[], render_heading=lambda h: h) -> str:
+def render_index(headings=[], render_heading: callable = None) -> str:
     """Render an HTML index
 
     >>> print(render_index(['Fruits', 'Vegetables', 'Spices']).strip())
@@ -32,6 +32,7 @@ def render_index(headings=[], render_heading=lambda h: h) -> str:
     </ul>
     """
 
+    render_heading = render_heading or (lambda h: h)
     content = StringWriter()
     items = [(slugify(h), render_heading(h)) for h in headings]
     items = [f'<a href="#{anchor}">{text}</a>' for anchor, text in items]

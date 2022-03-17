@@ -104,7 +104,7 @@ def metadata_parse_html(content) -> dict:
 Pagination = collections.namedtuple('Pagination', ['next', 'previous'])
 
 
-def paginate_list(things):
+def paginate_list(things: list = []):
     """Returns a pagination map for a list of things.
 
     >>> pages = paginate_list(['a', 'b', 'c'])
