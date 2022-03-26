@@ -5,11 +5,13 @@ import os
 
 from . import git, images, utils
 
+import blog
+
 logger = logging.getLogger(__name__)
 
 
 def main(args, entries=[]):
-    images.validate_image_dependencies()
+    blog.validate_image_dependenices()
 
     new_images = list(
         filter(images.is_image, git.git_new_files(args.directory)))

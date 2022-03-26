@@ -1,16 +1,16 @@
 """blog - the greatest static HTML journal generator ever made"""
 
 import argparse
-import collections
-import importlib
 import logging
 import pathlib
 import pdb
-import pkgutil
+import site
 import sys
 import urllib.parse
 
 from . import __doc__ as DOCSTRING, src_dir, fetch_commands
+
+site.addsitedir(pathlib.Path(__file__).absolute().parent)
 
 logger = logging.getLogger(__name__)
 

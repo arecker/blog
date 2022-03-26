@@ -1,5 +1,4 @@
 import collections
-import pathlib
 import shutil
 import subprocess
 

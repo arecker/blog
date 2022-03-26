@@ -5,7 +5,7 @@ import subprocess
 import unittest
 import unittest.mock
 
-from blog import _images as images
+from blog import images
 
 
 @contextlib.contextmanager
@@ -53,7 +53,7 @@ class TestImages(unittest.TestCase):
         with patch_run('80x70') as p:
             dims = images.read_image_dimensions(pathlib.Path('test.jpg'))
             p.assert_called_once_with(
-                ['identify', '-format', '%wx%h', 'test.jpg'],
+                'identify -format %wx%h test.jpg'.split(),
                 capture_output=True,
                 check=True)
             self.assertEqual(dims.width, 80)

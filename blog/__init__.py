@@ -1,6 +1,6 @@
 # flake8: noqa
 
-from ._images import (
+from .images import (
     read_image_dimensions,
     validate_image_dependenices,
 )

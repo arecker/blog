@@ -1,36 +1,12 @@
 """resize images in webroot"""
 
-import collections
 import logging
 import os
 import subprocess
 
+import blog
+
 logger = logging.getLogger(__name__)
-
-
-def validate_image_dependencies():
-    missing = []
-
-    for command in ['convert', 'identify']:
-        result = subprocess.run(['which', command],
-                                stdout=subprocess.DEVNULL,
-                                stderr=subprocess.DEVNULL)
-        if result.returncode != 0:
-            missing.append(command)
-
-    if missing:
-        raise RuntimeError(
-            f'Cannot resize images, commands not found in path: {missing}')
-
-
-Dimensions = collections.namedtuple('Dimensions', ['height', 'width'])
-
-
-def read_dimensions(path):
-    command = ['identify', '-format', '%wx%h', path]
-    result = subprocess.run(command, capture_output=True, check=True)
-    width, height = result.stdout.decode('UTF-8').split('x')
-    return Dimensions(height=int(height), width=int(width))
 
 
 def is_image(path):
@@ -53,7 +29,7 @@ def resize_image(path, maxiumum):
 
 
 def check_image(path, maximum=800):
-    dimensions = read_dimensions(path)
+    dimensions = blog.read_image_dimensions(path)
 
     if dimensions.height > maximum or dimensions.width > maximum:
         resize_image(path, maximum)
@@ -63,7 +39,7 @@ def check_image(path, maximum=800):
 
 
 def main(args):
-    validate_image_dependencies()
+    blog.validate_image_dependenices()
 
     all_images = list(filter(is_image, args.directory.glob('www/**/*.*')))
 
