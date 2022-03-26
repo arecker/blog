@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+import logging
+import pathlib
+import site
+import sys
+
+logging.basicConfig(stream=sys.stderr,
+                    format='pre-commit: %(message)s',
+                    level=logging.INFO)
+
+# TODO: this is... less than ideal.  But I like being able to test
+# this out from scripts too.
+here = pathlib.Path(__file__).absolute().parent
+if here.name == 'hooks':  # .git/hooks/
+    root = here.parent.parent
+elif here.name == 'scripts':  # scripts/
+    root = here.parent
+else:
+    raise EnvironmentError(f'unknown directory {here}')
+
+site.addsitedir(root)
+import blog
+
+
+def main():
+    max_image_size = 800
+    for path in filter(blog.is_image, blog.git_new_files()):
+        dims = blog.read_image_dimensions(root / path)
+        if dims.height > max_image_size or dims.width > max_image_size:
+            blog.resize_image(root / path, max_image_size)
+            logging.info('resized %s', path)
+
+
+if __name__ == '__main__':
+    main()

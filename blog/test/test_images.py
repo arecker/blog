@@ -58,3 +58,32 @@ class TestImages(unittest.TestCase):
                 check=True)
             self.assertEqual(dims.width, 80)
             self.assertEqual(dims.height, 70)
+
+    def test_is_image(self):
+        self.assertTrue(images.is_image('test.BMP'))
+        self.assertTrue(images.is_image('test.JPEG'))
+        self.assertTrue(images.is_image('test.JPG'))
+        self.assertTrue(images.is_image('test.PNG'))
+        self.assertTrue(images.is_image('test.bmp'))
+        self.assertTrue(images.is_image('test.jpeg'))
+        self.assertTrue(images.is_image('test.jpg'))
+        self.assertTrue(images.is_image('test.png'))
+
+        self.assertFalse(images.is_image('Makefile'))
+        self.assertFalse(images.is_image('test.GIF'))
+        self.assertFalse(images.is_image('test.PY'))
+        self.assertFalse(images.is_image('test.SH'))
+        self.assertFalse(images.is_image('test.gif'))
+        self.assertFalse(images.is_image('test.py'))
+        self.assertFalse(images.is_image('test.sh'))
+
+    def test_image_resize(self):
+        expected_args = 'convert test.jpg -resize 800x800 -auto-orient test.jpg'
+        expected_kwargs = {
+            'check': True,
+            'stdout': subprocess.DEVNULL,
+            'stderr': subprocess.DEVNULL
+        }
+        with patch_run('') as p:
+            images.resize_image('test.jpg', 800)
+            p.assert_called_once_with(expected_args.split(), **expected_kwargs)

@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+import logging
+import pathlib
+import site
+import sys
+
+logging.basicConfig(stream=sys.stderr,
+                    format='images: %(message)s',
+                    level=logging.INFO)
+
+root = pathlib.Path(__file__).absolute().parent.parent
+
+site.addsitedir(root)
+import blog
+
+
+def check_image(path, maximum=800):
+    dimensions = blog.read_image_dimensions(path)
+
+    if dimensions.height > maximum or dimensions.width > maximum:
+        blog.resize_image(path, maximum)
+        logging.info('resized %s from %s', path, dimensions)
+
+
+def main():
+    blog.validate_image_dependenices()
+
+    all_images = list(filter(blog.is_image, root.glob('www/**/*.*')))
+
+    for i, path in enumerate(all_images):
+        check_image(path)
+        if (i + 1) % 100 == 0 or (i + 1) == len(all_images):
+            logging.info('scanned %d out of %d images', i + 1, len(all_images))
+
+
+if __name__ == '__main__':
+    main()
