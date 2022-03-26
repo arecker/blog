@@ -1,11 +1,22 @@
 """resize images in webroot"""
 
 import logging
+import os
 import subprocess
 
 import blog
 
 logger = logging.getLogger(__name__)
+
+
+def is_image(path):
+    _, ext = os.path.splitext(path)
+    return ext.lower() in (
+        '.bmp',
+        '.jpeg',
+        '.jpg',
+        '.png',
+    )
 
 
 def resize_image(path, maxiumum):
@@ -30,12 +41,9 @@ def check_image(path, maximum=800):
 def main(args):
     blog.validate_image_dependenices()
 
-    all_images = list(filter(blog.is_image, args.directory.glob('www/**/*.*')))
+    all_images = list(filter(is_image, args.directory.glob('www/**/*.*')))
 
     for i, path in enumerate(all_images):
-        try:
-            check_image(path)
-        except ValueError:
-            print(path)
+        check_image(path)
         if (i + 1) % 100 == 0 or (i + 1) == len(all_images):
             logger.info('scanned %d out of %d images', i + 1, len(all_images))

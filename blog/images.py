@@ -1,5 +1,4 @@
 import collections
-import os
 import shutil
 import subprocess
 
@@ -27,27 +26,3 @@ def read_image_dimensions(path) -> ImageDimensions:
     result = subprocess.run(command, capture_output=True, check=True)
     width, height = result.stdout.decode('UTF-8').split('x')
     return ImageDimensions(height=int(height), width=int(width))
-
-
-def is_image(path):
-    """Return True if path is an image."""
-
-    _, ext = os.path.splitext(path)
-
-    return ext.lower() in [
-        '.bmp',
-        '.jpeg',
-        '.jpg',
-        '.png',
-    ]
-
-
-def resize_image(path, maximum: int):
-    """Resize an image to maximum (px) width and height."""
-
-    dimensions = f'{maximum}x{maximum}'
-    command = ['convert', path, '-resize', dimensions, '-auto-orient', path]
-    subprocess.run(command,
-                   check=True,
-                   stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)

@@ -3,7 +3,7 @@
 import logging
 import os
 
-from . import git, utils
+from . import git, images, utils
 
 import blog
 
@@ -11,6 +11,15 @@ logger = logging.getLogger(__name__)
 
 
 def main(args, entries=[]):
+    blog.validate_image_dependenices()
+
+    new_images = list(
+        filter(images.is_image, git.git_new_files(args.directory)))
+
+    logger.info('checking dimensions for new images: %s', new_images)
+    for path in new_images:
+        images.check_image(path)
+
     git.git_stage_all(args.directory)
 
     entries = entries or utils.fetch_entries(args.directory / 'entries')
