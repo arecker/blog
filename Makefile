@@ -6,3 +6,7 @@ all: $(DATA_TARGETS)
 
 data/%.json: jsonnet/%.jsonnet
 	jsonnet $< > $@ && touch $@
+
+.PHONY: test
+test:
+	python -m unittest
