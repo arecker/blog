@@ -10,3 +10,7 @@ data/%.json: jsonnet/%.jsonnet
 .PHONY: test
 test:
 	python -m unittest
+
+.PHONY: install
+install:
+	pip install --editable .

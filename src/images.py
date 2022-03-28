@@ -1,38 +1,16 @@
 """resize images in webroot"""
 
-import logging
-import os
-import subprocess
-
 import blog
+import logging
 
 logger = logging.getLogger(__name__)
-
-
-def is_image(path):
-    _, ext = os.path.splitext(path)
-    return ext.lower() in (
-        '.bmp',
-        '.jpeg',
-        '.jpg',
-        '.png',
-    )
-
-
-def resize_image(path, maxiumum):
-    dimensions = f'{maxiumum}x{maxiumum}'
-    command = ['convert', path, '-resize', dimensions, '-auto-orient', path]
-    subprocess.run(command,
-                   check=True,
-                   stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
 
 
 def check_image(path, maximum=800):
     dimensions = blog.read_image_dimensions(path)
 
     if dimensions.height > maximum or dimensions.width > maximum:
-        resize_image(path, maximum)
+        blog.resize_image(path, maximum)
         logger.info('resized %s from %s', path, dimensions)
     else:
         logger.debug('%s is correct size at %s', path, dimensions)
@@ -41,7 +19,7 @@ def check_image(path, maximum=800):
 def main(args):
     blog.validate_image_dependenices()
 
-    all_images = list(filter(is_image, args.directory.glob('www/**/*.*')))
+    all_images = list(filter(blog.is_image, args.directory.glob('www/**/*.*')))
 
     for i, path in enumerate(all_images):
         check_image(path)

@@ -58,3 +58,30 @@ class TestImages(unittest.TestCase):
                 check=True)
             self.assertEqual(dims.width, 80)
             self.assertEqual(dims.height, 70)
+
+    def test_resize_image(self):
+        with patch_run('') as p:
+            images.resize_image('test.jpg', 800)
+            cmd = 'convert test.jpg -resize 800x800 -auto-orient test.jpg'
+            kwargs = {
+                'check': True,
+                'stdout': subprocess.DEVNULL,
+                'stderr': subprocess.DEVNULL,
+            }
+            p.assert_called_once_with(cmd.split(), **kwargs)
+
+    def test_is_image(self):
+        self.assertTrue(images.is_image('test.BMP'))
+        self.assertTrue(images.is_image('test.JPEG'))
+        self.assertTrue(images.is_image('test.JPG'))
+        self.assertTrue(images.is_image('test.PNG'))
+        self.assertTrue(images.is_image('test.bmp'))
+        self.assertTrue(images.is_image('test.jpeg'))
+        self.assertTrue(images.is_image('test.jpg'))
+        self.assertTrue(images.is_image('test.png'))
+
+        self.assertFalse(images.is_image('Makefile'))
+        self.assertFalse(images.is_image('scripts/'))
+        self.assertFalse(images.is_image('test.GIF'))
+        self.assertFalse(images.is_image('test.gif'))
+        self.assertFalse(images.is_image('test.py'))
