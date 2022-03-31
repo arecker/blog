@@ -15,9 +15,8 @@ def make_http_request(url: str,
         'User-Agent': 'blog',
     }
 
-    if data:
-        if content_type == 'application/json':
-            data = json.dumps(data)
+    if data and content_type == 'application/json':
+        data = json.dumps(data)
         data = data.encode(encoding)
 
     if authorization:
