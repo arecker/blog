@@ -1,9 +1,10 @@
 """share latest entry in a slack post"""
 
+import blog
 import logging
 import urllib.parse
 
-from . import http, utils
+from . import utils
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +39,6 @@ def main(args, entries=[]):
     }
 
     for url in args.slack_webhook_urls:
-        http.make_request(url=url, method='POST', data=payload)
+        blog.make_http_request(url=url, method='POST', data=payload)
         logger.info('shared "%s" to slack channel %s', latest.description,
                     args.slack_channel)

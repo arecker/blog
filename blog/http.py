@@ -4,6 +4,7 @@ import urllib.request
 
 def make_http_request(url: str,
                       method: str = 'GET',
+                      data: str | dict = None,
                       authorization: str = '',
                       content_type: str = 'application/json',
                       encoding: str = 'UTF-8'):
@@ -14,10 +15,19 @@ def make_http_request(url: str,
         'User-Agent': 'blog',
     }
 
+    if data:
+        if content_type == 'application/json':
+            data = json.dumps(data)
+        data = data.encode(encoding)
+
     if authorization:
         headers['Authorization'] = authorization
 
-    request = urllib.request.Request(url=url, headers=headers, method=method)
+    request = urllib.request.Request(url=url,
+                                     headers=headers,
+                                     method=method,
+                                     data=data)
+
     response = urllib.request.urlopen(request)
     response_data = response.read().decode(encoding)
 

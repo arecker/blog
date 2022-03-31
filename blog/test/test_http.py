@@ -23,6 +23,9 @@ class TestHTTP(unittest.TestCase):
             kwargs = {
                 'url': 'https://www.alexrecker.com',
                 'method': 'POST',
+                'data': {
+                    'test': True
+                },
                 'authorization': 'Fart Token',
             }
             response = http.make_http_request(**kwargs)
@@ -30,6 +33,7 @@ class TestHTTP(unittest.TestCase):
         request = p.call_args[0][0]
 
         self.assertEqual(request.get_full_url(), 'https://www.alexrecker.com')
+        self.assertEqual(request.data.decode('UTF-8'), '{"test": true}')
         self.assertEqual(request.headers['User-agent'], 'blog')
         self.assertEqual(request.headers['Content-type'], 'application/json')
         self.assertEqual(request.headers['Authorization'], 'Fart Token')
