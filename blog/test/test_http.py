@@ -22,6 +22,7 @@ class TestHTTP(unittest.TestCase):
         with patch_urlopen(response_data='{"hello": "world"}') as p:
             kwargs = {
                 'url': 'https://www.alexrecker.com',
+                'method': 'POST',
                 'authorization': 'Fart Token',
             }
             response = http.make_http_request(**kwargs)
@@ -32,6 +33,7 @@ class TestHTTP(unittest.TestCase):
         self.assertEqual(request.headers['User-agent'], 'blog')
         self.assertEqual(request.headers['Content-type'], 'application/json')
         self.assertEqual(request.headers['Authorization'], 'Fart Token')
+        self.assertEqual(request.method, 'POST')
         self.assertDictEqual(response, {'hello': 'world'})
 
         with patch_urlopen(response_data='Everything is fine') as p:

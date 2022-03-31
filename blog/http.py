@@ -3,6 +3,7 @@ import urllib.request
 
 
 def make_http_request(url: str,
+                      method: str = 'GET',
                       authorization: str = '',
                       content_type: str = 'application/json',
                       encoding: str = 'UTF-8'):
@@ -16,7 +17,7 @@ def make_http_request(url: str,
     if authorization:
         headers['Authorization'] = authorization
 
-    request = urllib.request.Request(url=url, headers=headers)
+    request = urllib.request.Request(url=url, headers=headers, method=method)
     response = urllib.request.urlopen(request)
     response_data = response.read().decode(encoding)
 
