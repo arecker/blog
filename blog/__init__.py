@@ -8,3 +8,5 @@ from .images import (
     resize_image,
     validate_image_dependenices,
 )
+
+from .http import make_http_request
