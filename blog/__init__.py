@@ -10,3 +10,5 @@ from .images import (
 )
 
 from .http import make_http_request
+
+from .files import is_not_junk_file

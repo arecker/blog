@@ -1,5 +1,6 @@
 """Serve webroot locally"""
 
+import blog
 import collections
 import http.server
 import logging
@@ -33,7 +34,7 @@ def start_web_server(webroot, port=8000):
 def scan_files(directory: pathlib.Path, globs: list):
     for glob in globs:
         for f in directory.glob(glob):
-            if utils.is_not_junk_file(f):
+            if blog.is_not_junk_file(f):
                 yield f.absolute()
 
 
@@ -65,7 +66,8 @@ def make_snapshot_list(directory: pathlib.Path):
     return sorted(snapshots, key=lambda s: str(s))
 
 
-def diff_snapshots(old_state: list[Snapshot], new_state: list[Snapshot]) -> list[Snapshot]:
+def diff_snapshots(old_state: list[Snapshot],
+                   new_state: list[Snapshot]) -> list[Snapshot]:
     for old_snapshot in old_state:
         try:
             new_snapshot = next(
@@ -87,6 +89,7 @@ def diff_snapshots(old_state: list[Snapshot], new_state: list[Snapshot]) -> list
                         utils.prettify_path(new_snapshot.path))
             yield new_snapshot
 
+
 Changeset = collections.namedtuple('Changeset', [
     'announcements',
     'entries',
@@ -95,7 +98,9 @@ Changeset = collections.namedtuple('Changeset', [
     'nav',
 ])
 
-def make_changeset(old_state: list[Snapshot], new_state: list[Snapshot]) -> Changeset:
+
+def make_changeset(old_state: list[Snapshot],
+                   new_state: list[Snapshot]) -> Changeset:
     changeset = {
         'announcements': False,
         'entries': False,

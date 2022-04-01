@@ -1,6 +1,7 @@
 """Package for random functions."""
 from .string_writer import StringWriter
 
+import blog
 import collections
 import datetime
 import json
@@ -31,28 +32,11 @@ Entry = collections.namedtuple('Entry', [
 ])
 
 
-def is_not_junk_file(path: pathlib.Path):
-    """Returns true if the file is not a hidden file or an auto-save file.
-
-    >>> is_not_junk_file(pathlib.Path('test.html'))
-    True
-
-    >>> is_not_junk_file(pathlib.Path('#.test.html'))
-    False
-
-    >>> is_not_junk_file(pathlib.Path('.test.html'))
-    False
-    """
-
-    first_char = path.name[0]
-    return first_char not in ('#', '.')
-
-
 def fetch_entries(entries_dir: pathlib.Path) -> list[Entry]:
     """Returns a list of paginated entries, latest first."""
 
     files = sorted(entries_dir.glob('*.html'), reverse=True)
-    files = list(filter(is_not_junk_file, files))
+    files = list(filter(blog.is_not_junk_file, files))
     pages = paginate_list([f.name for f in files])
 
     entries = []
