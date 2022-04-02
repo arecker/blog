@@ -33,3 +33,7 @@ def main():
     configure_logger(verbose=args.verbose)
 
     logger.debug('running blog with python v%s', platform.python_version())
+
+
+if __name__ == '__main__':
+    main()
