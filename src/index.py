@@ -1,5 +1,6 @@
 """generate the site homepage"""
 
+import blog
 import collections
 import datetime
 import html as HTML
@@ -24,25 +25,23 @@ def read_news(directory: pathlib.Path) -> list[NewsItem]:
     return news
 
 
-def render_content(latest: utils.Entry,
-                   commit: git.Commit,
-                   timestamp=None,
-                   news=[]) -> str:
+def render_content(latest, commit: git.Commit, timestamp=None, news=[]) -> str:
     """Render latest post column."""
 
     html = utils.StringWriter(starting_indent=4)
-        
+
     # Latest Post
     html.comment('Latest Post')
     html.write('<h2>Latest Post</h2>')
     with html.block('a', href=f'./{latest.filename}'):
-        html.write(f'<h3 class="title">{latest.title}</h3>',
-                   unindent=True)
-    html.figure(src=f'./images/banners/{latest.banner}',
-                href=f'./{latest.filename}',
-                caption=latest.description,
-                blank=True,
-                alt='banner image for latest post',)
+        html.write(f'<h3 class="title">{latest.title}</h3>', unindent=True)
+    html.figure(
+        src=f'./images/banners/{latest.banner}',
+        href=f'./{latest.filename}',
+        caption=latest.description,
+        blank=True,
+        alt='banner image for latest post',
+    )
 
     # What's New?
     html.comment('What\'s New?')
@@ -58,8 +57,7 @@ def render_content(latest: utils.Entry,
     html.write('<h2>Last Updated</h2>')
     with html.block('p', blank=True):
         with html.block('small'):
-            html.write(
-                f'[<a href="{commit_url}">{commit.short_hash}</a>]')
+            html.write(f'[<a href="{commit_url}">{commit.short_hash}</a>]')
             html.br()
             html.write(commit_summary)
         html.br()
@@ -80,7 +78,7 @@ def new_timestamp() -> str:
 
 
 def main(args, nav=[], entries=[]):
-    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    entries = entries or blog.all_entries(args.directory)
     latest = entries[0]
     logger.info('fetched latest post %s', latest.filename)
 

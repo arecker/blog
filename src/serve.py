@@ -125,7 +125,7 @@ def make_changeset(old_state: list[Snapshot],
 
 def main(args):
     nav = utils.read_nav(args.directory / 'data')
-    entries = utils.fetch_entries(args.directory / 'entries')
+    entries = blog.all_entries(args.directory)
     build.main(args, nav=nav, entries=entries)
 
     server_thread = threading.Thread(target=start_web_server,
@@ -145,7 +145,7 @@ def main(args):
             nav = utils.read_nav(args.directory / 'nav.json')
 
         if changeset.entries:
-            entries = utils.fetch_entries(args.directory / 'entries')
+            entries = blog.all_entries(args.directory)
             entries_cmd.main(args, nav=nav, entries=entries)
             archives.main(args, nav=nav, entries=entries)
 

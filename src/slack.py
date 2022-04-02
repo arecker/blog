@@ -4,8 +4,6 @@ import blog
 import logging
 import urllib.parse
 
-from . import utils
-
 logger = logging.getLogger(__name__)
 
 
@@ -26,7 +24,7 @@ def register(subparser):
 
 
 def main(args, entries=[]):
-    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    entries = entries or blog.all_entries(args.directory)
     latest = entries[0]
     url = urllib.parse.urljoin(args.full_url.geturl(), latest.filename)
 

@@ -4,7 +4,7 @@ import blog
 import logging
 import os
 
-from . import git, images, utils
+from . import git, images
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +20,7 @@ def main(args, entries=[]):
 
     git.git_stage_all(args.directory)
 
-    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    entries = entries or blog.all_entries(args.directory / 'entries')
     latest = entries[0]
     message = f'entry: {latest.title}'
     git.git_write_commit(args.directory, message=message)

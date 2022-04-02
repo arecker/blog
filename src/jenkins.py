@@ -3,7 +3,7 @@
 import logging
 import sys
 
-from . import deploy, slack, tweet, git, test
+from . import deploy, slack, tweet, git
 
 logger = logging.getLogger(__name__)
 
@@ -15,7 +15,6 @@ def register(subparser):
 
 
 def main(args):
-    test.main(args)
     deploy.main(args)
 
     if not git.head_is_entry_tagged(args.directory):

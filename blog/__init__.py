@@ -11,4 +11,9 @@ from .images import (
 
 from .http import make_http_request
 
-from .files import is_not_junk_file
+from .files import (
+    Entry,
+    all_entries,
+    is_not_junk_file,
+    new_entry,
+)

@@ -1,10 +1,9 @@
 """share latest entry in a tweet"""
 
+import blog
 import logging
 import sys
 import urllib.parse
-
-from . import utils
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +25,7 @@ def make_twitter_client(args):
 
 
 def main(args, entries=[]):
-    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    entries = entries or blog.all_entries(args.directory)
     latest = entries[0]
 
     try:

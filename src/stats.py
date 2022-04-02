@@ -1,9 +1,10 @@
 """generate stats page"""
 
+import blog
 import logging
 import pathlib
 
-from . import utils, test, pets, games
+from . import utils, pets, games
 
 logger = logging.getLogger(__name__)
 
@@ -31,41 +32,49 @@ def find_max_and_min_length(entries_dir: pathlib.Path, entries):
 
 def main(args, nav=[], entries=[]):
     nav = nav or utils.read_nav(args.directory / 'data')
-    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    entries = entries or blog.all_entries(args.directory)
 
     webroot = args.directory / 'www'
 
     data = {}
     data['Number of images'] = len(list(webroot.glob('images/**/*.*')))
     data['Number of videos'] = len(list(webroot.glob('vids/**/*.*')))
-    data['Number of HTML files'] = len(list(webroot.glob('*.html'))) + 1 # plus this one
+    data['Number of HTML files'] = len(list(
+        webroot.glob('*.html'))) + 1  # plus this one
     data['Total Lines of Code'] = count_lines_of_code(args.directory / 'src')
-    data['Total number of tests'] = len(test.discover_tests())
     data['Number of entries'] = len(entries)
-    data['Timespan of entries'] = str((entries[0].date - entries[-1].date).days) + ' day(s)'
+    data['Timespan of entries'] = str(
+        (entries[0].date - entries[-1].date).days) + ' day(s)'
 
     oldest, newest = entries[-1], entries[0]
-    data['Oldest entry'] = f'<a href="./{oldest.filename}">{oldest.title} - {oldest.description}</a>'
-    data['Newest entry'] = f'<a href="./{newest.filename}">{newest.title} - {newest.description}</a>'
+    data[
+        'Oldest entry'] = f'<a href="./{oldest.filename}">{oldest.title} - {oldest.description}</a>'
+    data[
+        'Newest entry'] = f'<a href="./{newest.filename}">{newest.title} - {newest.description}</a>'
 
-    longest, shortest = find_max_and_min_length(args.directory / 'entries', entries)
-    data['Longest entry'] = f'<a href="./{longest.filename}">{longest.title} - {longest.description}</a>'
-    data['Shortest entry'] = f'<a href="./{shortest.filename}">{shortest.title} - {shortest.description}</a>'
+    longest, shortest = find_max_and_min_length(args.directory / 'entries',
+                                                entries)
+    data[
+        'Longest entry'] = f'<a href="./{longest.filename}">{longest.title} - {longest.description}</a>'
+    data[
+        'Shortest entry'] = f'<a href="./{shortest.filename}">{shortest.title} - {shortest.description}</a>'
     data['Number of Pets'] = len(pets.load_pets(args.directory))
     data['Number of Games'] = len(games.load_games(args.directory))
 
     content = utils.StringWriter(starting_indent=4)
     content.dl(data)
 
-    page = utils.Page(
-        filename='stats.html',
-        title='Stats',
-        description='Some interesting stats about this website.',
-        banner=None
-    )
+    page = utils.Page(filename='stats.html',
+                      title='Stats',
+                      description='Some interesting stats about this website.',
+                      banner=None)
 
     content = utils.render_page(
-        page, full_url=args.full_url, content=content.text, nav_pages=nav, author=args.author,
+        page,
+        full_url=args.full_url,
+        content=content.text,
+        nav_pages=nav,
+        author=args.author,
     )
 
     with open(args.directory / f'www/stats.html', 'w') as f:

@@ -1,5 +1,6 @@
 """Generate journal archives"""
 
+import blog
 import logging
 import random
 import urllib.parse
@@ -39,7 +40,9 @@ def render_years_nav(html: utils.StringWriter, years=[]):
     return html
 
 
-def render_randoms(html: utils.StringWriter, choices: list[utils.Entry], label=''):
+def render_randoms(html: utils.StringWriter,
+                   choices: list[blog.Entry],
+                   label=''):
     if label:
         html.write(f'<h2>Browse Some Random Entries from {label}</h2>')
     else:
@@ -47,7 +50,10 @@ def render_randoms(html: utils.StringWriter, choices: list[utils.Entry], label='
 
     for choice in choices:
         link = f'Taken from <a href="./{choice.filename}">{choice.description}</a>'
-        html.figure(src=f'./images/banners/{choice.banner}', caption=link, alt=f'banner image from {choice.description}', href=f'./{choice.filename}')
+        html.figure(src=f'./images/banners/{choice.banner}',
+                    caption=link,
+                    alt=f'banner image from {choice.description}',
+                    href=f'./{choice.filename}')
     return html
 
 
@@ -105,7 +111,7 @@ def render_year_page(year=None,
         html.br()
 
     html = render_feed_link(html, full_url)
-    
+
     page = utils.Page(f'{year}.html', str(year), f'All Entries from {year}',
                       None)
     return utils.render_page(page,
@@ -117,7 +123,7 @@ def render_year_page(year=None,
 
 def main(args, entries=[], nav=[]):
     nav = nav or utils.read_nav(args.directory / 'data')
-    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    entries = entries or blog.all_entries(args.directory)
     years = set([e.date.year for e in entries])
 
     output = render_entries_page(entries=entries,

@@ -1,5 +1,6 @@
 """generate journal RSS feed """
 
+import blog
 import collections
 import html
 import logging
@@ -86,7 +87,7 @@ def render_info(sw: utils.StringWriter, info: FeedInfo) -> utils.StringWriter:
     return sw
 
 
-def render_entry(sw: utils.StringWriter, entry: utils.Entry, info: FeedInfo,
+def render_entry(sw: utils.StringWriter, entry: blog.Entry, info: FeedInfo,
                  directory: pathlib.Path) -> utils.StringWriter:
 
     with sw.block('entry'):
@@ -125,7 +126,7 @@ def render_entry(sw: utils.StringWriter, entry: utils.Entry, info: FeedInfo,
 
 
 def main(args, entries=[]):
-    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    entries = entries or blog.all_entries(args.directory)
 
     xml = utils.StringWriter()
     xml.write('<?xml version="1.0" encoding="utf-8"?>')

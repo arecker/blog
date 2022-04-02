@@ -20,57 +20,6 @@ def read_nav(data_dir: pathlib.Path):
         return json.load(f)
 
 
-Entry = collections.namedtuple('Entry', [
-    'banner',
-    'date',
-    'description',
-    'filename',
-    'page_next',
-    'page_previous',
-    'source',
-    'title',
-])
-
-
-def fetch_entries(entries_dir: pathlib.Path) -> list[Entry]:
-    """Returns a list of paginated entries, latest first."""
-
-    files = sorted(entries_dir.glob('*.html'), reverse=True)
-    files = list(filter(blog.is_not_junk_file, files))
-    pages = paginate_list([f.name for f in files])
-
-    entries = []
-
-    for source in files:
-        kwargs = {}
-
-        # Data from the file path
-        kwargs['filename'] = source.name
-        kwargs['source'] = source.absolute()
-        kwargs['date'] = datetime.datetime.strptime(source.stem, '%Y-%m-%d')
-        kwargs['title'] = kwargs['date'].strftime('%A, %B %-d %Y')
-
-        # From the metadata
-        with open(kwargs['source'], 'r') as f:
-            # TODO: it sucks we have to read the file just to get the
-            # metadata.  Maybe something faster?
-            content = f.read()
-        metadata = metadata_parse_html(content)
-        kwargs['banner'] = metadata.get('banner')  # banner is optional
-        kwargs['description'] = metadata['title']  # title is required
-
-        # Set the pagination
-        pagination = pages[source.name]
-        kwargs['page_next'] = pagination.next
-        kwargs['page_previous'] = pagination.previous
-
-        entries.append(Entry(**kwargs))
-
-    logger.info('parsed %d entries from %s', len(entries),
-                prettify_path(entries_dir))
-    return entries
-
-
 def metadata_parse_html(content) -> dict:
     """Parse metadata from magic HTML comments.
 
@@ -166,7 +115,7 @@ Page = collections.namedtuple(
 
 
 def render_page(
-        page: typing.Union[Page, Entry],
+        page: typing.Union[Page, blog.Entry],
         full_url: urllib.parse.ParseResult,
         content='',
         nav_pages=[],

@@ -1,5 +1,6 @@
 """generate sitemap.xml"""
 
+import blog
 import collections
 import logging
 import urllib.parse
@@ -40,7 +41,7 @@ def main(args, entries=[]):
     ]
 
     # entries
-    entries = entries or utils.fetch_entries(args.directory / 'entries')
+    entries = entries or blog.all_entries(args.directory)
     locations += [
         Location(modified=e.date, filename=e.filename) for e in entries
     ]
