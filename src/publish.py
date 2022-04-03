@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 def main(args, entries=[]):
     blog.validate_image_dependenices()
 
-    new_images = list(filter(blog.is_image, git.git_new_files(args.directory)))
+    new_images = blog.all_images(args.directory)
 
     logger.info('checking dimensions for new images: %s', new_images)
     for path in new_images:

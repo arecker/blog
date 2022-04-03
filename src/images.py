@@ -19,9 +19,8 @@ def check_image(path, maximum=800):
 def main(args):
     blog.validate_image_dependenices()
 
-    all_images = list(filter(blog.is_image, args.directory.glob('www/**/*.*')))
-
-    for i, path in enumerate(all_images):
+    files = blog.all_images(args.directory)
+    for i, path in enumerate(files):
         check_image(path)
-        if (i + 1) % 100 == 0 or (i + 1) == len(all_images):
-            logger.info('scanned %d out of %d images', i + 1, len(all_images))
+        if (i + 1) % 100 == 0 or (i + 1) == len(files):
+            logger.info('scanned %d out of %d images', i + 1, len(files))

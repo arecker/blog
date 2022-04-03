@@ -2,10 +2,11 @@ import contextlib
 import pathlib
 import shutil
 import subprocess
+import tempfile
 import unittest
 import unittest.mock
 
-from blog import images
+from .. import images
 
 
 @contextlib.contextmanager
@@ -85,3 +86,28 @@ class TestImages(unittest.TestCase):
         self.assertFalse(images.is_image('test.GIF'))
         self.assertFalse(images.is_image('test.gif'))
         self.assertFalse(images.is_image('test.py'))
+
+    def test_all_images(self):
+        paths = [
+            'www/2021-01-01.html',
+            'www/assets/style.css',
+            'www/images/2021-01-01-apples.jpg',
+            'www/images/2021-01-01-fish.jpg',
+            'www/images/banners/2021-01-01.jpg',
+            'www/index.html',
+            'www/vids/2021-01-01-fish-eating.webm',
+        ]
+
+        with tempfile.TemporaryDirectory() as d:
+            for path in paths:
+                path = pathlib.Path(d) / pathlib.Path(path)
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.touch(exist_ok=True)
+
+            actual = [str(p.relative_to(d)) for p in images.all_images(d)]
+
+            self.assertEqual(actual, [
+                'www/images/2021-01-01-apples.jpg',
+                'www/images/2021-01-01-fish.jpg',
+                'www/images/banners/2021-01-01.jpg',
+            ])

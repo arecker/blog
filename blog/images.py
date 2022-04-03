@@ -1,7 +1,8 @@
 import collections
+import os
+import pathlib
 import shutil
 import subprocess
-import os
 
 
 def validate_image_dependenices():
@@ -51,3 +52,11 @@ def is_image(path):
         '.jpg',
         '.png',
     )
+
+
+def all_images(root_directory: str | pathlib.Path) -> list[pathlib.Path]:
+    """Retrieve all images in site."""
+
+    root_directory = pathlib.Path(root_directory)
+    images = filter(is_image, root_directory.glob('www/**/*.*'))
+    return list(sorted(images))
