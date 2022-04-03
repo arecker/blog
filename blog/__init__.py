@@ -16,3 +16,5 @@ from .files import (
     is_not_junk_file,
     new_entry,
 )
+
+from .logs import (configure_logging)

@@ -12,15 +12,15 @@ def load_pets(directory):
     target = directory / 'data/pets.json'
     with open(target, 'r') as f:
         data = json.load(f)
-    logger.info('loaded %d pet(s) from %s', len(data),
-                utils.prettify_path(target))
+    logger.info('loaded %d pet(s) from %s', len(data), target)
     return data
 
 
 def render_banner(html: utils.StringWriter):
     html.comment('Video Banner')
     html.write('<video height="300" autoplay loop>')
-    html.write('  <source src="./vids/2021-09-07-fish.webm" type="video/webm" />')
+    html.write(
+        '  <source src="./vids/2021-09-07-fish.webm" type="video/webm" />')
     html.write('</video>', blank=True)
 
     return html

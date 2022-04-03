@@ -23,8 +23,8 @@ def start_web_server(webroot, port=8000):
 
     httpd = http.server.HTTPServer(('', port), Handler)
     try:
-        logger.info('starting webserver at %s - http://0.0.0.0:%d',
-                    utils.prettify_path(webroot), port)
+        logger.info('starting webserver at %s - http://0.0.0.0:%d', webroot,
+                    port)
         httpd.serve_forever()
     except KeyboardInterrupt:
         logger.info('stopping web server')
@@ -59,7 +59,7 @@ def make_snapshot_list(directory: pathlib.Path):
         elif f.parent.name == 'games':
             snapshot['keyword'] = 'games'
         else:
-            raise ValueError(f'no known keyword for {utils.prettify_path(f)}')
+            raise ValueError(f'no known keyword for {f}')
 
         snapshots.append(Snapshot(**snapshot))
 
@@ -73,20 +73,17 @@ def diff_snapshots(old_state: list[Snapshot],
             new_snapshot = next(
                 (s for s in new_state if s.path == old_snapshot.path))
             if old_snapshot.mtime != new_snapshot.mtime:
-                logger.info('detected changed file %s',
-                            utils.prettify_path(new_snapshot.path))
+                logger.info('detected changed file %s', new_snapshot.path)
                 yield old_snapshot
         except StopIteration:
-            logger.info('detected deleted file %s',
-                        utils.prettify_path(new_snapshot.path))
+            logger.info('detected deleted file %s', new_snapshot.path)
             yield new_snapshot
 
     for new_snapshot in new_state:
         try:
             next((s for s in old_state if s.path == new_snapshot.path))
         except StopIteration:
-            logger.info('detected new file %s',
-                        utils.prettify_path(new_snapshot.path))
+            logger.info('detected new file %s', new_snapshot.path)
             yield new_snapshot
 
 

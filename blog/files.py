@@ -24,13 +24,13 @@ def is_not_junk_file(path: str | pathlib.Path):
     return first_char not in ('#', '.')
 
 
-Pages = collections.namedtuple('pages', ['next', 'previous'])
+Pagination = collections.namedtuple('Pagination', ['next', 'previous'])
 
 
-def paginate_files(files: list = []) -> list[Pages]:
-    """Returns a pagination map for a list of things.
+def paginate_files(files: list = []) -> list[Pagination]:
+    """Returns a pagination map for a list of files.
 
-    >>> pages = paginate_list(['a', 'b', 'c'])
+    >>> pages = paginate_files(['a', 'b', 'c'])
     >>> pages['a'].previous is None
     True
     >>> pages['a'].next
@@ -56,7 +56,7 @@ def paginate_files(files: list = []) -> list[Pages]:
         except IndexError:
             kwargs['next'] = None
 
-        pagination[pathlib.Path(this_file).name] = Pages(**kwargs)
+        pagination[pathlib.Path(this_file).name] = Pagination(**kwargs)
 
     return pagination
 

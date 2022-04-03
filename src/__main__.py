@@ -1,5 +1,6 @@
 """blog - the greatest static HTML journal generator ever made"""
 
+import blog
 import argparse
 import logging
 import pathlib
@@ -33,11 +34,6 @@ def URLType(value) -> urllib.parse.ParseResult:
 
 
 parser = argparse.ArgumentParser(prog='blog', description=DOCSTRING)
-parser.add_argument('-s',
-                    '--silent',
-                    default=False,
-                    action='store_true',
-                    help='hide all logs')
 parser.add_argument('-v',
                     '--verbose',
                     default=False,
@@ -88,30 +84,10 @@ for command in fetch_commands():
 subcommand.add_parser('help', help='print program usage')
 
 
-def configure_logging(verbose=False, silent=False):
-    if verbose and silent:
-        raise ValueError(
-            'hey smartass, how am I supposed to be silent AND verbose?')
-
-    if silent:
-        logging.disable()
-        return
-
-    if verbose:
-        level = logging.DEBUG
-    else:
-        level = logging.INFO
-
-    logging.basicConfig(level=level,
-                        stream=sys.stderr,
-                        format='%(name)s: %(message)s')
-    logger.debug('configured logging with level = %s', level)
-
-
 def main():
     args = parser.parse_args()
 
-    configure_logging(verbose=args.verbose, silent=args.silent)
+    blog.configure_logging(verbose=args.verbose)
     logger.debug('parsed args %s, ', vars(args))
 
     if args.subcommand == 'help':

@@ -5,8 +5,6 @@ import re
 import sys
 import xml.etree.ElementTree
 
-from . import utils
-
 logger = logging.getLogger(__name__)
 
 
@@ -69,7 +67,7 @@ def main(args):
                 # TODO: turn this on after fixing all the entries
                 # Links shouldn't start with a slash, because it
                 # breaks local browsing without a webserver.
-                # logger.warn('invalid href "%s" found in %s', href, utils.prettify_path(html_file))
+                # logger.warn('invalid href "%s" found in %s', href, html_file)
                 # passed = False
                 pass
             elif href.startswith('#'):
@@ -84,7 +82,7 @@ def main(args):
                 reference = args.directory / 'www' / href
                 if not reference.is_file():
                     logger.warn('nonexistent href "%s" found in %s', href,
-                                utils.prettify_path(html_file))
+                                html_file)
                     passed = False
     logger.info('validated src and href attributes in %d file(s)',
                 len(html_files))

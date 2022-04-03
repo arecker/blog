@@ -83,8 +83,7 @@ def main(args):
 
     payload = build_new_deploy(args.directory / 'www')
     logger.info('built payload from %d file(s) in %s',
-                len(payload['files'].keys()),
-                utils.prettify_path(args.directory / 'www'))
+                len(payload['files'].keys()), str(args.directory / 'www'))
 
     response = make_request(path=f'/sites/{site_id}/deploys/',
                             token=args.netlify_token,
