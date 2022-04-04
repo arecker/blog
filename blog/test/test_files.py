@@ -30,6 +30,25 @@ class TestFiles(unittest.TestCase):
         self.assertEqual(result['c'].previous, 'b')
         self.assertIsNone(result['c'].next)
 
+    def test_new_entry(self):
+        with temp_root() as root:
+            with open(root / 'entries/2021-01-01.html', 'w') as f:
+                f.write(f'''
+<!-- meta:title a smoothie -->
+<!-- meta:banner smoothie.jpg -->
+
+I had a really delicious smoothie from Surf City Squeeze.
+'''.lstrip())
+
+            pagination = {'2021-01-01.html': unittest.mock.Mock(next=None, previous=None)}
+            entry = files.new_entry(root / 'entries/2021-01-01.html', pagination=pagination)
+            self.assertEqual(entry.filename, '2021-01-01.html')
+            self.assertEqual(entry.title, 'Friday, January 1 2021')
+            self.assertEqual(entry.date, datetime.datetime(2021, 1, 1))
+            self.assertEqual(entry.source, root / 'entries/2021-01-01.html')
+            self.assertEqual(entry.banner, 'smoothie.jpg')
+            self.assertEqual(entry.description, 'a smoothie')
+
     def test_all_entries(self):
         with temp_root() as root:
             slugs = [
