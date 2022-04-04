@@ -19,10 +19,6 @@ def read_nav(data_dir: pathlib.Path):
         return json.load(f)
 
 
-def slugify(word):
-    return word.lower().replace(" ", "-")
-
-
 def to_iso_date(date):
     return date.replace(tzinfo=datetime.timezone.utc).isoformat()
 

@@ -5,7 +5,7 @@ import json
 import logging
 import pathlib
 
-from . import utils
+from . import utils, render
 
 logger = logging.getLogger(__name__)
 
@@ -41,10 +41,10 @@ def main(args, nav=[]):
         for category in categories:
             with html.block('li'):
                 html.write(
-                    f'<a href="#{utils.slugify(category)}">{category}</a>')
+                    f'<a href="#{render.slugify(category)}">{category}</a>')
 
     for category in categories:
-        html.write(f'<h2 id="{utils.slugify(category)}">{category}</h2>',
+        html.write(f'<h2 id="{render.slugify(category)}">{category}</h2>',
                    blank=True)
 
         for game in filter(lambda g: g.category == category, games):
