@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 def main(args, entries=[]):
     blog.validate_image_dependenices()
 
-    new_images = blog.all_images(args.directory)
+    new_images = list(filter(blog.is_image, git.git_new_files(args.directory)))
 
     logger.info('checking dimensions for new images: %s', new_images)
     for path in new_images:
@@ -20,7 +20,7 @@ def main(args, entries=[]):
 
     git.git_stage_all(args.directory)
 
-    entries = entries or blog.all_entries(args.directory / 'entries')
+    entries = entries or blog.all_entries(args.directory)
     latest = entries[0]
     message = f'entry: {latest.title}'
     git.git_write_commit(args.directory, message=message)
