@@ -18,3 +18,5 @@ from .files import (
 )
 
 from .logs import (configure_logging)
+
+from .git import git_status
