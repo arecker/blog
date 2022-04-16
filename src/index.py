@@ -11,20 +11,8 @@ from . import utils
 
 logger = logging.getLogger(__name__)
 
-NewsItem = collections.namedtuple('NewsItem', ['title', 'description'])
 
-
-def read_news(directory: pathlib.Path) -> list[NewsItem]:
-    target = directory / 'data/news.json'
-    with open(target, 'r') as f:
-        data = json.load(f)
-
-    news = [NewsItem(**dict(o.items())) for o in data]
-    logger.info("loaded %d news item(s) from %s", len(news), target)
-    return news
-
-
-def render_content(latest, timestamp=None) -> str:
+def render_content(latest) -> str:
     """Render latest post column."""
 
     html = utils.StringWriter(starting_indent=4)
@@ -44,25 +32,12 @@ def render_content(latest, timestamp=None) -> str:
 
     return html.text
 
-
-def new_timestamp() -> str:
-    timestamp = datetime.datetime.now()
-    timestamp_format = '%A, %B %d %Y %-I:%M %p'
-    if zone := timestamp.tzname():
-        timestamp_format += f' {zone}'
-    else:
-        timestamp_format += ' CST'
-
-    return timestamp.strftime(timestamp_format)
-
-
 def main(args, entries=[]):
     entries = entries or blog.all_entries(args.directory)
     latest = entries[0]
     logger.info('fetched latest post %s', latest.filename)
 
-    timestamp = new_timestamp()
-    content = render_content(latest=latest, timestamp=timestamp).rstrip()
+    content = render_content(latest=latest).rstrip()
 
     page = utils.Page(
         filename='index.html',
