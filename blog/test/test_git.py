@@ -129,3 +129,13 @@ class TestGit(unittest.TestCase):
                 cmd.split(), check=True,
                 capture_output=True).stdout.decode('utf-8').strip()
             self.assertEqual(output, 'v69')
+
+    def test_git_latest_tag(self):
+        with tmp_git_repo():
+            pathlib.Path('test.txt').touch()
+            git.git_add('test.txt')
+            git.git_commit('A Test Commit!')
+
+            self.assertIsNone(git.git_latest_tag())
+            git.git_tag('entry-2020-01-01')
+            self.assertEqual(git.git_latest_tag(), 'entry-2020-01-01')

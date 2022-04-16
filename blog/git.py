@@ -41,12 +41,22 @@ def git_commit(message: str):
 
 def git_tag(tag: str):
     assert len(tag.split(' ')) == 1, "tag can't have spaces!"
-    cmd = f'git commit {tag}'
+    cmd = f'git tag {tag}'.split()
     logger.debug('running command %s', cmd)
     subprocess.run(cmd,
                    check=True,
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL)
+
+
+def git_latest_tag():
+    cmd = 'git describe --exact-match --tags HEAD'
+    result = subprocess.run(cmd.split(' '), capture_output=True, check=False)
+
+    if result.returncode != 0:  # HEAD isn't tagged
+        return None
+
+    return result.stdout.decode('UTF-8').strip()
 
 
 def new_git_change(git_status_output_line: str) -> GitChange:

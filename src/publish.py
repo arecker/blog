@@ -23,12 +23,12 @@ def main(args, entries=[]):
     entries = entries or blog.all_entries(args.directory)
     latest = entries[0]
     message = f'entry: {latest.title}'
-    git.git_write_commit(args.directory, message=message)
+    blog.git_commit(message)
     logger.info('added commit: %s', message)
 
     slug = os.path.splitext(latest.filename)[0]
     tag = f'entry-{slug}'
-    git.git_write_tag(args.directory, tag=tag)
+    blog.git_tag(tag)
     logger.info('created tag %s', tag)
 
     git.git_push_tag(args.directory, tag=tag)

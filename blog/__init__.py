@@ -19,6 +19,11 @@ from .files import (
 
 from .logs import (configure_logging)
 
-from .git import git_status
+from .git import (
+    git_commit,
+    git_latest_tag,
+    git_status,
+    git_tag,
+)
 
 from .cli import parse_args

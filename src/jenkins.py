@@ -1,9 +1,10 @@
 """run the full jenkins pipeline"""
 
+import blog
 import logging
 import sys
 
-from . import deploy, slack, tweet, git
+from . import deploy, slack, tweet
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +18,7 @@ def register(subparser):
 def main(args):
     deploy.main(args)
 
-    if not git.head_is_entry_tagged(args.directory):
+    if not blog.git_latest_tag():
         logger.info('exiting, since HEAD commit is not tagged')
         sys.exit(0)
 
