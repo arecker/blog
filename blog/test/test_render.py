@@ -70,3 +70,18 @@ class TestMarkupRenderer(unittest.TestCase):
   <b>nested!</b>
 </a>
 '''.lstrip())
+
+    def test_comment(self):
+        r = MarkupRenderer()
+        r.comment('A comment')
+        self.assertEqual(r.text, '<!-- A comment -->\n')
+
+    def test_header(self):
+        r = MarkupRenderer(starting_indent_level=4)
+        r.header('Test page', 'Just a test page!')
+        self.assertEqual(
+            r.text, '''    <header>
+      <h1>Test page</h1>
+      <p>Just a test page!</p>
+    </header>
+''')

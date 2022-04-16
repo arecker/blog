@@ -3,9 +3,9 @@ import html
 
 
 class Renderer:
-    def __init__(self):
+    def __init__(self, starting_indent_level=0):
         self.text = ''
-        self.current_indent_level = 0
+        self.current_indent_level = starting_indent_level
 
     def write(self, content: str, add_newline=True, add_blankline=False):
 
@@ -46,3 +46,12 @@ class MarkupRenderer(Renderer):
         with self.indent(self.current_indent_level + self.each_indent):
             yield
         self.write(tag_close)
+
+    def comment(self, content: str):
+        content = html.escape(content)
+        self.write(f'<!-- {content} -->')
+
+    def header(self, title: str, description: str):
+        with self.wrapping_block('header'):
+            self.block('h1', title)
+            self.block('p', description)
