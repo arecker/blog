@@ -1,6 +1,9 @@
 import collections
+import logging
 import re
 import subprocess
+
+logger = logging.getLogger(__name__)
 
 GitChange = collections.namedtuple('GitChange', ['status', 'state', 'path'])
 
@@ -14,8 +17,36 @@ def git_status() -> list[GitChange]:
 
 
 p_git_change = re.compile(
-    r'^(?P<key_1>[A-Z? ])(?P<key_2>[A-Z? ]) (?P<path>(.*?))$',
+    r'^(?P<key_1>[A-Z? ])(?P<key_2>[A-Z? ])\s+(?P<path>(.*?))$',
     flags=re.MULTILINE)
+
+
+def git_add(path: str):
+    cmd = f'git add {path}'.split()
+    logger.debug('running command %s', cmd)
+    subprocess.run(cmd,
+                   check=True,
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
+
+
+def git_commit(message: str):
+    cmd = 'git commit -m'.split() + [message]
+    logger.debug('running command %s', cmd)
+    subprocess.run(cmd,
+                   check=True,
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
+
+
+def git_tag(tag: str):
+    assert len(tag.split(' ')) == 1, "tag can't have spaces!"
+    cmd = f'git commit {tag}'
+    logger.debug('running command %s', cmd)
+    subprocess.run(cmd,
+                   check=True,
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
 
 
 def new_git_change(git_status_output_line: str) -> GitChange:
@@ -33,6 +64,9 @@ def new_git_change(git_status_output_line: str) -> GitChange:
 
         if first == 'A' and second == ' ':
             return GitChange(status='staged', state='added', path=path)
+
+        if first == 'A' and second == 'M':
+            return GitChange(status='mixed', state='mixed', path=path)
 
         raise ValueError(f'unknown status key: {git_status_output_line}')
 
