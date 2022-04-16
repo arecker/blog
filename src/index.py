@@ -3,12 +3,11 @@
 import blog
 import collections
 import datetime
-import html as HTML
 import json
 import logging
 import pathlib
 
-from . import git, utils
+from . import utils
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +24,7 @@ def read_news(directory: pathlib.Path) -> list[NewsItem]:
     return news
 
 
-def render_content(latest, commit: git.Commit, timestamp=None, news=[]) -> str:
+def render_content(latest, timestamp=None, news=[]) -> str:
     """Render latest post column."""
 
     html = utils.StringWriter(starting_indent=4)
@@ -50,19 +49,6 @@ def render_content(latest, commit: git.Commit, timestamp=None, news=[]) -> str:
         html.write(f'<h3>{item.title}</h3>')
         html.write(f'<p>{item.description}</p>', blank=True)
 
-    # Last Updated
-    commit_url = f'https://github.com/arecker/blog/commit/{commit.long_hash}'
-    commit_summary = HTML.escape(commit.summary)
-    html.comment('Last Updated')
-    html.write('<h2>Last Updated</h2>')
-    with html.block('p', blank=True):
-        with html.block('small'):
-            html.write(f'[<a href="{commit_url}">{commit.short_hash}</a>]')
-            html.br()
-            html.write(commit_summary)
-        html.br()
-        html.small(timestamp)
-
     return html.text
 
 
@@ -82,14 +68,9 @@ def main(args, nav=[], entries=[]):
     latest = entries[0]
     logger.info('fetched latest post %s', latest.filename)
 
-    commit = git.get_head_commit(args.directory)
-    logger.info('fetched head commit \"%s\"', commit.summary)
-
     timestamp = new_timestamp()
     news = read_news(args.directory)
-    content = render_content(latest=latest,
-                             commit=commit,
-                             timestamp=timestamp,
+    content = render_content(latest=latest, timestamp=timestamp,
                              news=news).rstrip()
 
     page = utils.Page(
