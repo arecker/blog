@@ -35,13 +35,12 @@ Page = collections.namedtuple(
 
 
 def render_page(
-        page: typing.Union[Page, blog.Entry],
-        full_url: urllib.parse.ParseResult,
-        content='',
-        nav_pages=[],
-        copyright_year=datetime.datetime.now().year,
-        python_version=platform.python_version(),
-        author=None,
+    page: typing.Union[Page, blog.Entry],
+    full_url: urllib.parse.ParseResult,
+    content='',
+    nav_pages=[],
+    copyright_year=datetime.datetime.now().year,
+    author=None,
 ) -> str:
     """Render an HTML page as a string."""
 
@@ -81,14 +80,6 @@ def render_page(
 
     with html.block('body', _id='top', blank=True):
         html.blank()
-        html.comment('Site Navigation')
-        with html.block('nav', blank=True):
-            for nav_page in nav_pages:
-                html.write(f'<a href="./{nav_page}">{nav_page}</a>')
-            html.br()
-            html.write('<a href="./index.html">index.html</a>')
-            if page.filename != 'index.html':
-                html.write(f'<span>/ {page.filename}</span>')
 
         with html.block('article', blank=True):
             html.blank()
@@ -98,6 +89,13 @@ def render_page(
                 html.write(f'<h1>{page.title}</h1>')
                 html.p(page.description, blank=False)
 
+            html.hr()
+
+            html.comment('Site Navigation')
+            with html.block('nav', blank=True):
+                html.write('<a href="./index.html">index.html</a>')
+                if page.filename != 'index.html':
+                    html.write(f'<span>/ {page.filename}</span>')
             html.hr()
 
             if page.banner:
@@ -113,24 +111,6 @@ def render_page(
 
         html.comment('Site Footer')
         with html.block('footer', blank=True):
-            # Back to top
-            html.write('<small><a href="#top">Back to top</a></small>')
-            html.br()
-
-            # Validate HTML
-            validate_url = urllib.parse.urljoin(full_url.geturl(),
-                                                page.filename)
-            validate_url = urllib.parse.quote(validate_url)
-            validate_url = f'https://validator.w3.org/nu/?doc={validate_url}'
-            html.small(f'<a href="{validate_url}">Validate this page</a>')
-            html.br()
-
-            # Software Info
-            link = f'<a href="./blog.html">blog</a>'
-            html.small(f'Built with {link} and Python v{python_version}')
-            html.br()
-
-            # Copyright Info
             html.small(f'© Copyright {copyright_year} {author}')
 
     html.write('</html>')

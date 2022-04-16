@@ -3,23 +3,16 @@
 import blog
 import logging
 
-from . import pave, sitemap, feed, index, archives, entries as entriescmd, pets, contact, utils, games, stats, docs
+from . import pave, sitemap, feed, index, entries as entriescmd, utils
 
 logger = logging.getLogger(__name__)
 
 
-def main(args, nav=[], entries=[]):
-    nav = nav or utils.read_nav(args.directory / 'data')
+def main(args, entries=[]):
     entries = entries or blog.all_entries(args.directory)
 
     pave.main(args)
-    index.main(args, nav=nav)
-    contact.main(args, nav=nav)
-    pets.main(args, nav=nav)
-    games.main(args, nav=nav)
-    entriescmd.main(args, nav=nav, entries=entries)
-    archives.main(args, nav=nav, entries=entries)
-    stats.main(args, nav=nav, entries=entries)
-    docs.main(args, nav=nav)
+    index.main(args)
+    entriescmd.main(args, entries=entries)
     feed.main(args, entries=entries)
     sitemap.main(args, entries=entries)

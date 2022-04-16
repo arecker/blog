@@ -8,7 +8,7 @@ import pathlib
 import threading
 import time
 
-from . import build, utils, games, entries as entries_cmd, archives, index
+from . import build, utils, entries as entries_cmd, index
 
 logger = logging.getLogger(__name__)
 
@@ -121,9 +121,8 @@ def make_changeset(old_state: list[Snapshot],
 
 
 def main(args):
-    nav = utils.read_nav(args.directory / 'data')
     entries = blog.all_entries(args.directory)
-    build.main(args, nav=nav, entries=entries)
+    build.main(args, entries=entries)
 
     server_thread = threading.Thread(target=start_web_server,
                                      args=[args.directory / 'www'],
@@ -144,12 +143,8 @@ def main(args):
         if changeset.entries:
             entries = blog.all_entries(args.directory)
             entries_cmd.main(args, nav=nav, entries=entries)
-            archives.main(args, nav=nav, entries=entries)
-
-        if changeset.games:
-            games.main(args, nav=nav)
 
         if changeset.announcements or changeset.entries:
-            index.main(args, nav=nav, entries=entries)
+            index.main(args, entries=entries)
 
         last_state = current_state

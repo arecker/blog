@@ -8,8 +8,7 @@ from . import utils
 logger = logging.getLogger(__name__)
 
 
-def main(args, nav=[], entries=[]):
-    nav = nav or utils.read_nav(args.directory / 'data')
+def main(args, entries=[]):
     entries = entries or blog.all_entries(args.directory)
 
     total = len(entries)
@@ -30,6 +29,9 @@ def main(args, nav=[], entries=[]):
                 link = f'<a href="./{entry.page_previous}">⟵ {entry.page_previous}</a>'
                 html.write(link)
 
+            if entry.page_previous and entry.page_next:
+                html.write('&nbsp')
+
             if entry.page_next:
                 link = f'<a href="./{entry.page_next}">{entry.page_next} ⟶</a>'
                 html.write(link)
@@ -37,7 +39,6 @@ def main(args, nav=[], entries=[]):
         output = utils.render_page(entry,
                                    args.full_url,
                                    content=html.text.rstrip(),
-                                   nav_pages=nav,
                                    author=args.author)
         with open(args.directory / f'www/{entry.filename}', 'w') as f:
             f.write(output)

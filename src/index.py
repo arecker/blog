@@ -24,7 +24,7 @@ def read_news(directory: pathlib.Path) -> list[NewsItem]:
     return news
 
 
-def render_content(latest, timestamp=None, news=[]) -> str:
+def render_content(latest, timestamp=None) -> str:
     """Render latest post column."""
 
     html = utils.StringWriter(starting_indent=4)
@@ -42,13 +42,6 @@ def render_content(latest, timestamp=None, news=[]) -> str:
         alt='banner image for latest post',
     )
 
-    # What's New?
-    html.comment('What\'s New?')
-    html.write('<h2>What\'s New?</h2>', blank=True)
-    for item in news:
-        html.write(f'<h3>{item.title}</h3>')
-        html.write(f'<p>{item.description}</p>', blank=True)
-
     return html.text
 
 
@@ -63,15 +56,13 @@ def new_timestamp() -> str:
     return timestamp.strftime(timestamp_format)
 
 
-def main(args, nav=[], entries=[]):
+def main(args, entries=[]):
     entries = entries or blog.all_entries(args.directory)
     latest = entries[0]
     logger.info('fetched latest post %s', latest.filename)
 
     timestamp = new_timestamp()
-    news = read_news(args.directory)
-    content = render_content(latest=latest, timestamp=timestamp,
-                             news=news).rstrip()
+    content = render_content(latest=latest, timestamp=timestamp).rstrip()
 
     page = utils.Page(
         filename='index.html',
@@ -83,7 +74,6 @@ def main(args, nav=[], entries=[]):
         page=page,
         full_url=args.full_url,
         content=content,
-        nav_pages=nav or utils.read_nav(args.directory / 'data'),
         author=args.author,
     )
 
