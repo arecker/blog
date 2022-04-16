@@ -1,6 +1,6 @@
 import unittest
 
-from ..render import Renderer
+from ..render import Renderer, MarkupRenderer
 
 
 class TestRenderer(unittest.TestCase):
@@ -24,7 +24,49 @@ class TestRenderer(unittest.TestCase):
         self.assertEqual(r.text, 'First\n\nSecond\n')
 
         r.text = ''
-        r.write('First', indent_level=2)
-        r.write('Second', indent_level=4)
+        r.current_indent_level = 2
+        r.write('First')
+
+        r.current_indent_level = 4
+        r.write('Second')
+
+        r.current_indent_level = 0
         r.write('Third')
         self.assertEqual(r.text, '  First\n    Second\nThird\n')
+
+    def test_indent(self):
+        r = Renderer()
+
+        r.write('Unindented.')
+
+        with r.indent(2):
+            r.write('Indented!')
+
+        r.write('Unindented.')
+
+        self.assertEqual(r.text, 'Unindented.\n  Indented!\nUnindented.\n')
+
+
+class TestMarkupRenderer(unittest.TestCase):
+    def test_block(self):
+        r = MarkupRenderer()
+        r.block('p', contents='This is a paragraph.')
+        self.assertEqual(r.text.strip(), '<p>This is a paragraph.</p>')
+
+        r = MarkupRenderer()
+        r.block('p', 'Unsafe characters, like "&", "<", and ">"')
+        self.assertEqual(
+            r.text.strip(), '<p>Unsafe characters, like '
+            '&quot;&amp;&quot;, '
+            '&quot;&lt;&quot;, and '
+            '&quot;&gt;&quot;</p>')
+
+    def test_wrapping_block(self):
+        r = MarkupRenderer()
+        with r.wrapping_block('a'):
+            r.block('b', 'nested!')
+        self.assertEqual(r.text, '''
+<a>
+  <b>nested!</b>
+</a>
+'''.lstrip())
