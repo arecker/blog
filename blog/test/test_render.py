@@ -1,4 +1,5 @@
 import unittest
+import xml.etree.ElementTree
 
 from ..render import Renderer
 
@@ -159,3 +160,49 @@ class TestRenderer(unittest.TestCase):
         r = Renderer()
         r.hr()
         self.assertEqual(r.text.strip(), '<hr />')
+
+    def test_as_html(self):
+        r = Renderer()
+        with r.wrapping_block('body'):
+            r.block('p', contents='This is a little test.')
+        result = r.as_html()
+        self.assertEqual(
+            result, '''
+<!doctype html>
+<html lang="en">
+
+<body>
+  <p>This is a little test.</p>
+</body>
+
+</html>
+'''.lstrip())
+
+    def test_as_xml(self):
+        r = Renderer()
+        r.write('not even close to valid XML!')
+        with self.assertRaises(xml.etree.ElementTree.ParseError):
+            r.as_xml()
+
+        r = Renderer()
+        with r.wrapping_block('feed', xmlns='http://www.w3.org/2005/Atom'):
+            r.write('''
+  <title>Dear Journal</title>
+  <subtitle>Daily, public journal by Alex Recker</subtitle>
+  <author>
+    <name>Alex Recker</name>
+    <email>alex@reckerfamily.com</email>
+  </author>'''.strip())
+
+        self.assertEqual(
+            r.as_xml(), '''
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Dear Journal</title>
+  <subtitle>Daily, public journal by Alex Recker</subtitle>
+  <author>
+    <name>Alex Recker</name>
+    <email>alex@reckerfamily.com</email>
+  </author>
+</feed>
+'''.lstrip())

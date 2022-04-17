@@ -1,5 +1,6 @@
 import contextlib
 import html
+import xml.etree.ElementTree
 
 
 class Renderer:
@@ -103,3 +104,22 @@ class Renderer:
 
     def hr(self):
         self.block('hr', self_closing=True)
+
+    def as_html(self):
+        result = f'''
+<!doctype html>
+<html lang="en">
+
+{self.text}
+</html>
+'''.lstrip()
+
+        return result
+
+    def as_xml(self):
+        result = f'''
+<?xml version="1.0" encoding="utf-8"?>
+{self.text}'''.lstrip()
+
+        xml.etree.ElementTree.fromstring(result)
+        return result
