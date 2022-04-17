@@ -13,28 +13,27 @@ def main(args, entries=[]):
 
     total = len(entries)
     for i, entry in enumerate(entries):
-        html = utils.StringWriter(starting_indent=4)
+        html = blog.Renderer(starting_indent_level=4)
 
         # copy entry contents
         with open(args.directory / f'entries/{entry.filename}', 'r') as f:
             for line in f.readlines():
                 html.write(line.rstrip())
 
-        html.write('')
+        html.newline()
 
         html.comment('Pagination')
-        # add pagination
-        with html.block('nav', blank=True):
-            if entry.page_previous:
-                link = f'<a href="./{entry.page_previous}">⟵ {entry.page_previous}</a>'
-                html.write(link)
+        with html.wrapping_block('nav'):
+            if prev := entry.page_previous:
+                html.block('a', contents=f'⟵ {prev}', href=f'./{prev}')
 
             if entry.page_previous and entry.page_next:
                 html.write('&nbsp')
 
-            if entry.page_next:
-                link = f'<a href="./{entry.page_next}">{entry.page_next} ⟶</a>'
-                html.write(link)
+            if nxt := entry.page_next:
+                html.block('a', contents=f'{nxt} ⟶', href=f'./{nxt}')
+
+        html.newline()
 
         output = utils.render_page(entry,
                                    args.full_url,
