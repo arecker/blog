@@ -54,6 +54,26 @@ class TestRenderer(unittest.TestCase):
             '&quot;&lt;&quot;, and '
             '&quot;&gt;&quot;</p>')
 
+        r = Renderer()
+        r.block('div',
+                _id='some-id',
+                _class='some-class',
+                width=400,
+                contents='')
+        self.assertEqual(
+            r.text, '''
+<div class="some-class" id="some-id" width="400"></div>
+'''.lstrip())
+
+        r = Renderer()
+        r.block('img', src='blah.jpg', alt='hello', self_closing=True)
+        self.assertEqual(r.text.strip(), '<img alt="hello" src="blah.jpg" />')
+
+        r = Renderer()
+        with self.assertRaisesRegex(AssertionError,
+                                    'contents in a self-closing tag'):
+            r.block('a', contents='bleh', self_closing=True)
+
     def test_wrapping_block(self):
         r = Renderer()
         with r.wrapping_block('a'):
@@ -62,6 +82,15 @@ class TestRenderer(unittest.TestCase):
 <a>
   <b>nested!</b>
 </a>
+'''.lstrip())
+        r = Renderer()
+        with r.wrapping_block('div', _id='some-id', _class='some-class'):
+            r.block('p', 'nested!')
+        self.assertEqual(
+            r.text, '''
+<div class="some-class" id="some-id">
+  <p>nested!</p>
+</div>
 '''.lstrip())
 
     def test_comment(self):
@@ -85,3 +114,48 @@ class TestRenderer(unittest.TestCase):
       <p>Just a test page!</p>
     </header>
 ''')
+
+    def test_figure(self):
+        r = Renderer()
+
+        with self.assertRaisesRegex(AssertionError, 'should have an alt'):
+            r.figure(src='test.jpg')
+
+        with self.assertRaisesRegex(AssertionError, 'should have an src'):
+            r.figure(alt='test')
+
+        r.figure(src='test.jpg', alt='a test image')
+        self.assertEqual(
+            r.text.strip(), '''
+<figure>
+  <a href="test.jpg">
+    <img alt="a test image" src="test.jpg" />
+  </a>
+</figure>'''.strip())
+
+        r = Renderer()
+        r.figure(src='test.jpg', alt='a test image', href="google.com")
+        self.assertEqual(
+            r.text.strip(), '''
+<figure>
+  <a href="google.com">
+    <img alt="a test image" src="test.jpg" />
+  </a>
+</figure>'''.strip())
+        r = Renderer()
+        r.figure(src='test.jpg', alt='a test image', caption="a test caption!")
+        self.assertEqual(
+            r.text.strip(), '''
+<figure>
+  <a href="test.jpg">
+    <img alt="a test image" src="test.jpg" />
+  </a>
+  <figcaption>
+    <p>a test caption!</p>
+  </figcaption>
+</figure>'''.strip())
+
+    def test_hr(self):
+        r = Renderer()
+        r.hr()
+        self.assertEqual(r.text.strip(), '<hr />')

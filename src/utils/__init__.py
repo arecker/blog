@@ -4,18 +4,11 @@ from .string_writer import StringWriter
 import blog
 import collections
 import datetime
-import json
 import logging
-import pathlib
 import typing
 import urllib.parse
 
 logger = logging.getLogger(__name__)
-
-
-def read_nav(data_dir: pathlib.Path):
-    with open(data_dir / 'nav.json', 'r') as f:
-        return json.load(f)
 
 
 def to_iso_date(date):
@@ -37,7 +30,6 @@ def render_page(
     page: typing.Union[Page, blog.Entry],
     full_url: urllib.parse.ParseResult,
     content='',
-    nav_pages=[],
     copyright_year=datetime.datetime.now().year,
     author=None,
 ) -> str:

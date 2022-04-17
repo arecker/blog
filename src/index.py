@@ -1,11 +1,7 @@
 """generate the site homepage"""
 
 import blog
-import collections
-import datetime
-import json
 import logging
-import pathlib
 
 from . import utils
 
@@ -31,6 +27,7 @@ def render_content(latest) -> str:
     )
 
     return html.text
+
 
 def main(args, entries=[]):
     entries = entries or blog.all_entries(args.directory)
