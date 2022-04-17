@@ -1,6 +1,6 @@
 import unittest
 
-from ..render import Renderer, MarkupRenderer
+from ..render import Renderer
 
 
 class TestRenderer(unittest.TestCase):
@@ -17,11 +17,6 @@ class TestRenderer(unittest.TestCase):
         r.text = ''
         r.write('no newline!', add_newline=False)
         self.assertEqual(r.text, 'no newline!')
-
-        r.text = ''
-        r.write('First', add_blankline=True)
-        r.write('Second')
-        self.assertEqual(r.text, 'First\n\nSecond\n')
 
         r.text = ''
         r.current_indent_level = 2
@@ -46,14 +41,12 @@ class TestRenderer(unittest.TestCase):
 
         self.assertEqual(r.text, 'Unindented.\n  Indented!\nUnindented.\n')
 
-
-class TestMarkupRenderer(unittest.TestCase):
     def test_block(self):
-        r = MarkupRenderer()
+        r = Renderer()
         r.block('p', contents='This is a paragraph.')
         self.assertEqual(r.text.strip(), '<p>This is a paragraph.</p>')
 
-        r = MarkupRenderer()
+        r = Renderer()
         r.block('p', 'Unsafe characters, like "&", "<", and ">"')
         self.assertEqual(
             r.text.strip(), '<p>Unsafe characters, like '
@@ -62,7 +55,7 @@ class TestMarkupRenderer(unittest.TestCase):
             '&quot;&gt;&quot;</p>')
 
     def test_wrapping_block(self):
-        r = MarkupRenderer()
+        r = Renderer()
         with r.wrapping_block('a'):
             r.block('b', 'nested!')
         self.assertEqual(r.text, '''
@@ -72,12 +65,19 @@ class TestMarkupRenderer(unittest.TestCase):
 '''.lstrip())
 
     def test_comment(self):
-        r = MarkupRenderer()
+        r = Renderer()
         r.comment('A comment')
         self.assertEqual(r.text, '<!-- A comment -->\n')
 
+    def test_newline(self):
+        r = Renderer()
+        r.write('hello')
+        r.newline()
+        r.write('hello again')
+        self.assertEqual(r.text, 'hello\n\nhello again\n')
+
     def test_header(self):
-        r = MarkupRenderer(starting_indent_level=4)
+        r = Renderer(starting_indent_level=4)
         r.header('Test page', 'Just a test page!')
         self.assertEqual(
             r.text, '''    <header>

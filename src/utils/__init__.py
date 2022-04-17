@@ -7,7 +7,6 @@ import datetime
 import json
 import logging
 import pathlib
-import platform
 import typing
 import urllib.parse
 

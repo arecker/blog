@@ -3,20 +3,16 @@ import html
 
 
 class Renderer:
-    def __init__(self, starting_indent_level=0):
+    def __init__(self, starting_indent_level=0, each_indent=2):
         self.text = ''
         self.current_indent_level = starting_indent_level
+        self.each_indent = each_indent
 
-    def write(self, content: str, add_newline=True, add_blankline=False):
-
+    def write(self, content: str, add_newline=True):
         indent = ' ' * self.current_indent_level
         self.text += indent + content
-
         if add_newline:
             self.text += '\n'
-
-        if add_blankline:
-            self.write('')
 
     @contextlib.contextmanager
     def indent(self, level: int):
@@ -26,10 +22,6 @@ class Renderer:
             yield
         finally:
             self.current_indent_level = current
-
-
-class MarkupRenderer(Renderer):
-    each_indent = 2
 
     def block(self, tag_name: str, contents: str):
         tag_open = f'<{tag_name}>'
@@ -50,6 +42,9 @@ class MarkupRenderer(Renderer):
     def comment(self, content: str):
         content = html.escape(content)
         self.write(f'<!-- {content} -->')
+
+    def newline(self):
+        self.write('')
 
     def header(self, title: str, description: str):
         with self.wrapping_block('header'):
