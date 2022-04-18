@@ -1,5 +1,6 @@
 import contextlib
 import html
+import urllib.parse
 import xml.etree.ElementTree
 
 
@@ -94,7 +95,8 @@ class Renderer:
         self.block('link', self_closing=True, **attrs)
 
     def newline(self):
-        self.write('')
+        with self.indent(0):
+            self.write('')
 
     def header(self, title: str, description: str):
         with self.wrapping_block('header'):
@@ -145,16 +147,27 @@ class Renderer:
         return result
 
 
-def render_page(page):
+def render_page(page, full_url: str):
     r = Renderer()
 
     with r.wrapping_block('head'):
         r.block('title', contents=page.title)
+        r.newline()
+
+        r.comment('Page Assets')
         r.link(rel='shortcut icon', _type='image/x-icon', href='./favicon.ico')
         r.link(rel='stylesheet', href='./assets/site.css')
+        r.newline()
+
+        r.comment('Page Metadata')
         r.meta(charset='UTF-8')
         r.meta(name='viewport', content='width=device-width, initial-scale=1')
         r.meta(name='twitter:title', content=page.title)
         r.meta(name='twitter:description', content=page.description)
+        r.meta(name='og:url', content=urllib.parse.urljoin(full_url, page.filename))
+        r.meta(_property='og:type', content='article')
+        r.meta(_property='og:title', content=page.title)
+        r.meta(_property='og:description', content=page.description)
+        r.newline()
 
     return r.as_html()

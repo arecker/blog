@@ -260,20 +260,31 @@ class TestRender(unittest.TestCase):
     def test_render_page(self):
         page = unittest.mock.Mock(
             title='Some Test Page',
-            description='Just a test page for the test suite')
-        actual = render_page(page)
+            description='Just a test page for the test suite',
+            filename='test.html')
+
+        actual = render_page(page, 'http://localhost:8080')
         expected = '''
 <!doctype html>
 <html lang="en">
 
 <head>
   <title>Some Test Page</title>
+
+  <!-- Page Assets -->
   <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
   <link href="./assets/site.css" rel="stylesheet" />
+
+  <!-- Page Metadata -->
   <meta charset="UTF-8" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <meta content="Some Test Page" name="twitter:title" />
   <meta content="Just a test page for the test suite" name="twitter:description" />
+  <meta content="http://localhost:8080/test.html" name="og:url" />
+  <meta content="article" property="og:type" />
+  <meta content="Some Test Page" property="og:title" />
+  <meta content="Just a test page for the test suite" property="og:description" />
+
 </head>
 
 </html>
