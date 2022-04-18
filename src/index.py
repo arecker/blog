@@ -42,9 +42,9 @@ def main(args, entries=[]):
         description=args.subtitle,
         banner=None,
     )
-    output = utils.render_page(
+    output = blog.render_page(
         page=page,
-        full_url=args.full_url,
+        full_url=args.full_url.geturl(),
         content=content,
         author=args.author,
     )

@@ -261,7 +261,8 @@ class TestRender(unittest.TestCase):
         page = unittest.mock.Mock(
             title='Some Test Page',
             description='Just a test page for the test suite',
-            filename='test.html')
+            filename='test.html',
+            banner='test.jpg')
 
         content = '''    <p>This is some test conent.</p>
 
@@ -303,6 +304,23 @@ class TestRender(unittest.TestCase):
       <h1>Some Test Page</h1>
       <p>Just a test page for the test suite</p>
     </header>
+
+    <hr />
+
+    <!-- Page Breadcrumbs -->
+    <nav>
+      <a href="./index.html">index.html</a>
+      <span>/ test.html</span>
+    </nav>
+
+    <hr />
+
+    <!-- Page Banner -->
+    <figure>
+      <a href="./images/banners/test.jpg">
+        <img alt="page banner" src="./images/banners/test.jpg" />
+      </a>
+    </figure>
 
     <!-- Begin Page Content -->
     <p>This is some test conent.</p>

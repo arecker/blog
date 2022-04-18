@@ -179,6 +179,19 @@ def render_page(page, content='', full_url='', author='', year=''):
             r.header(title=page.title, description=page.description)
             r.newline()
 
+            r.hr()
+            r.newline()
+            r.comment('Page Breadcrumbs')
+            r.breadcrumbs(filename=page.filename)
+            r.newline()
+            r.hr()
+            r.newline()
+
+            if page.banner:
+                r.comment('Page Banner')
+                r.figure(alt='page banner', src=f'./images/banners/{page.banner}')
+                r.newline()
+
             r.comment('Begin Page Content')
             with r.indent(0):
                 for line in content.splitlines():

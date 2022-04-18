@@ -3,8 +3,6 @@
 import blog
 import logging
 
-from . import utils
-
 logger = logging.getLogger(__name__)
 
 
@@ -35,8 +33,8 @@ def main(args, entries=[]):
 
         html.newline()
 
-        output = utils.render_page(entry,
-                                   args.full_url,
+        output = blog.render_page(entry,
+                                   full_url=args.full_url.geturl(),
                                    content=html.text.rstrip(),
                                    author=args.author)
         with open(args.directory / f'www/{entry.filename}', 'w') as f:
