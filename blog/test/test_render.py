@@ -1,7 +1,8 @@
 import unittest
+import unittest.mock
 import xml.etree.ElementTree
 
-from ..render import Renderer
+from ..render import Renderer, render_page
 
 
 class TestRenderer(unittest.TestCase):
@@ -116,6 +117,26 @@ class TestRenderer(unittest.TestCase):
     </header>
 ''')
 
+    def test_breadcrumbs(self):
+        r = Renderer()
+        r.breadcrumbs(filename='index.html')
+        self.assertEqual(
+            r.text.strip(), '''
+<nav>
+  <a href="./index.html">index.html</a>
+</nav>
+'''.strip())
+
+        r = Renderer()
+        r.breadcrumbs(filename='some-page.html')
+        self.assertEqual(
+            r.text.strip(), '''
+<nav>
+  <a href="./index.html">index.html</a>
+  <span>/ some-page.html</span>
+</nav>
+'''.strip())
+
     def test_figure(self):
         r = Renderer()
 
@@ -160,6 +181,31 @@ class TestRenderer(unittest.TestCase):
         r = Renderer()
         r.hr()
         self.assertEqual(r.text.strip(), '<hr />')
+
+    def test_meta(self):
+        r = Renderer()
+        r.meta(charset='UTF-8')
+        self.assertEqual(r.text.strip(), '<meta charset="UTF-8" />')
+
+        r = Renderer()
+        r.meta(_property='og:url')
+        self.assertEqual(r.text.strip(), '<meta property="og:url" />')
+
+    def test_link(self):
+        r = Renderer()
+        r.link(href='./assets/site.css', rel='stylesheet')
+        self.assertEqual(r.text.strip(),
+                         '<link href="./assets/site.css" rel="stylesheet" />')
+
+    def test_footer(self):
+        r = Renderer()
+        r.footer(author='Austin Powers', year=1969)
+        self.assertEqual(
+            r.text.strip(), '''
+<footer>
+  <small>© Copyright 1969 Austin Powers</small>
+</footer>
+'''.strip())
 
     def test_as_html(self):
         r = Renderer()
@@ -206,3 +252,30 @@ class TestRenderer(unittest.TestCase):
   </author>
 </feed>
 '''.lstrip())
+
+
+class TestRender(unittest.TestCase):
+    maxDiff = None
+
+    def test_render_page(self):
+        page = unittest.mock.Mock(
+            title='Some Test Page',
+            description='Just a test page for the test suite')
+        actual = render_page(page)
+        expected = '''
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Some Test Page</title>
+  <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
+  <link href="./assets/site.css" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="Some Test Page" name="twitter:title" />
+  <meta content="Just a test page for the test suite" name="twitter:description" />
+</head>
+
+</html>
+'''.lstrip()
+        self.assertEqual(actual, expected)

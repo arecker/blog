@@ -83,6 +83,16 @@ class Renderer:
         content = html.escape(content)
         self.write(f'<!-- {content} -->')
 
+    def meta(self, _property=None, **attrs):
+        if _property:
+            attrs['property'] = _property
+        self.block('meta', self_closing=True, **attrs)
+
+    def link(self, _type=None, **attrs):
+        if _type:
+            attrs['type'] = _type
+        self.block('link', self_closing=True, **attrs)
+
     def newline(self):
         self.write('')
 
@@ -102,8 +112,18 @@ class Renderer:
                 with self.wrapping_block('figcaption'):
                     self.block('p', caption)
 
+    def breadcrumbs(self, filename):
+        with self.wrapping_block('nav'):
+            self.block('a', href='./index.html', contents='index.html')
+            if filename != 'index.html':
+                self.block('span', contents=f'/ {filename}')
+
     def hr(self):
         self.block('hr', self_closing=True)
+
+    def footer(self, author='', year=''):
+        with self.wrapping_block('footer'):
+            self.block('small', contents=f'© Copyright {year} {author}')
 
     def as_html(self):
         result = f'''
@@ -123,3 +143,18 @@ class Renderer:
 
         xml.etree.ElementTree.fromstring(result)
         return result
+
+
+def render_page(page):
+    r = Renderer()
+
+    with r.wrapping_block('head'):
+        r.block('title', contents=page.title)
+        r.link(rel='shortcut icon', _type='image/x-icon', href='./favicon.ico')
+        r.link(rel='stylesheet', href='./assets/site.css')
+        r.meta(charset='UTF-8')
+        r.meta(name='viewport', content='width=device-width, initial-scale=1')
+        r.meta(name='twitter:title', content=page.title)
+        r.meta(name='twitter:description', content=page.description)
+
+    return r.as_html()
