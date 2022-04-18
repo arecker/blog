@@ -164,10 +164,16 @@ def render_page(page, content='', full_url='', author='', year=''):
         r.meta(name='viewport', content='width=device-width, initial-scale=1')
         r.meta(name='twitter:title', content=page.title)
         r.meta(name='twitter:description', content=page.description)
-        r.meta(name='og:url', content=urllib.parse.urljoin(full_url, page.filename))
+        r.meta(name='og:url',
+               content=urllib.parse.urljoin(full_url, page.filename))
         r.meta(_property='og:type', content='article')
         r.meta(_property='og:title', content=page.title)
         r.meta(_property='og:description', content=page.description)
+        if page.banner:
+            banner_url = f'/images/banners/{page.banner}'
+            banner_url = urllib.parse.urljoin(full_url, banner_url)
+            r.meta(name='image', content=banner_url)
+            r.meta(name='twitter:image', content=banner_url)
         r.newline()
 
     r.newline()
@@ -189,7 +195,8 @@ def render_page(page, content='', full_url='', author='', year=''):
 
             if page.banner:
                 r.comment('Page Banner')
-                r.figure(alt='page banner', src=f'./images/banners/{page.banner}')
+                r.figure(alt='page banner',
+                         src=f'./images/banners/{page.banner}')
                 r.newline()
 
             r.comment('Begin Page Content')

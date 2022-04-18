@@ -272,7 +272,11 @@ class TestRender(unittest.TestCase):
       </a>
     </figure>'''
 
-        actual = render_page(page, content=content, full_url='http://localhost:8080', year=1990, author='Joe Schmo')
+        actual = render_page(page,
+                             content=content,
+                             full_url='http://localhost:8080',
+                             year=1990,
+                             author='Joe Schmo')
         expected = '''
 <!doctype html>
 <html lang="en">
@@ -293,6 +297,8 @@ class TestRender(unittest.TestCase):
   <meta content="article" property="og:type" />
   <meta content="Some Test Page" property="og:title" />
   <meta content="Just a test page for the test suite" property="og:description" />
+  <meta content="http://localhost:8080/images/banners/test.jpg" name="image" />
+  <meta content="http://localhost:8080/images/banners/test.jpg" name="twitter:image" />
 
 </head>
 
