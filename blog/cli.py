@@ -3,7 +3,8 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-parser = argparse.ArgumentParser(prog='blog', description='the greatest static site generator ever made')
+parser = argparse.ArgumentParser(
+    prog='blog', description='the greatest static site generator ever made')
 
 parser.add_argument('-v',
                     '--verbose',
