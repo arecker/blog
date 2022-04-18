@@ -147,7 +147,7 @@ class Renderer:
         return result
 
 
-def render_page(page, full_url: str):
+def render_page(page, content='', full_url='', author='', year=''):
     r = Renderer()
 
     with r.wrapping_block('head'):
@@ -168,6 +168,30 @@ def render_page(page, full_url: str):
         r.meta(_property='og:type', content='article')
         r.meta(_property='og:title', content=page.title)
         r.meta(_property='og:description', content=page.description)
+        r.newline()
+
+    r.newline()
+    with r.wrapping_block('body'):
+        with r.wrapping_block('article'):
+            r.newline()
+
+            r.comment('Page Header')
+            r.header(title=page.title, description=page.description)
+            r.newline()
+
+            r.comment('Begin Page Content')
+            with r.indent(0):
+                for line in content.splitlines():
+                    r.write(line)
+            r.comment('End Page Content')
+            r.newline()
+
+        r.newline()
+        r.hr()
+        r.newline()
+
+        r.comment('Page Footer')
+        r.footer(author=author, year=year)
         r.newline()
 
     return r.as_html()

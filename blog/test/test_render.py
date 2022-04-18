@@ -263,7 +263,15 @@ class TestRender(unittest.TestCase):
             description='Just a test page for the test suite',
             filename='test.html')
 
-        actual = render_page(page, 'http://localhost:8080')
+        content = '''    <p>This is some test conent.</p>
+
+    <figure>
+      <a href="test.jpg">
+        <img src="test.jpg" alt="test"/>
+      </a>
+    </figure>'''
+
+        actual = render_page(page, content=content, full_url='http://localhost:8080', year=1990, author='Joe Schmo')
         expected = '''
 <!doctype html>
 <html lang="en">
@@ -286,6 +294,36 @@ class TestRender(unittest.TestCase):
   <meta content="Just a test page for the test suite" property="og:description" />
 
 </head>
+
+<body>
+  <article>
+
+    <!-- Page Header -->
+    <header>
+      <h1>Some Test Page</h1>
+      <p>Just a test page for the test suite</p>
+    </header>
+
+    <!-- Begin Page Content -->
+    <p>This is some test conent.</p>
+
+    <figure>
+      <a href="test.jpg">
+        <img src="test.jpg" alt="test"/>
+      </a>
+    </figure>
+    <!-- End Page Content -->
+
+  </article>
+
+  <hr />
+
+  <!-- Page Footer -->
+  <footer>
+    <small>© Copyright 1990 Joe Schmo</small>
+  </footer>
+
+</body>
 
 </html>
 '''.lstrip()

@@ -28,4 +28,4 @@ from .git import (
 
 from .cli import parse_args
 
-from .render import (Renderer)
+from .render import (Renderer, render_page)
