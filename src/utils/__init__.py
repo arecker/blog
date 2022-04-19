@@ -22,5 +22,7 @@ Page = collections.namedtuple(
         'title',
         'description',
         'banner',
+        'page_next',
+        'page_previous',
     ],
 )

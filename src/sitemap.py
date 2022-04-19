@@ -33,11 +33,6 @@ def main(args, entries=[]):
         Location(modified=e.date, filename=e.filename) for e in entries
     ]
 
-    # archives
-    locations.append(Location(modified=None, filename='entries.html'))
-    years = set([e.date.year for e in entries])
-    locations += [Location(modified=None, filename=f'{y}.html') for y in years]
-
     # convert to XML
     locations = [to_xml(l, full_url=args.full_url) for l in locations]
 

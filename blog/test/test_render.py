@@ -31,6 +31,10 @@ class TestRenderer(unittest.TestCase):
         r.write('Third')
         self.assertEqual(r.text, '  First\n    Second\nThird\n')
 
+        r = Renderer(starting_indent_level=4)
+        r.write('')
+        self.assertEqual(r.text, '\n')
+
     def test_indent(self):
         r = Renderer()
 
@@ -182,6 +186,14 @@ class TestRenderer(unittest.TestCase):
         r.hr()
         self.assertEqual(r.text.strip(), '<hr />')
 
+    def test_divider(self):
+        r = Renderer()
+        r.divider()
+        self.assertEqual(r.text, '''
+<hr />
+
+''')
+
     def test_meta(self):
         r = Renderer()
         r.meta(charset='UTF-8')
@@ -191,11 +203,81 @@ class TestRenderer(unittest.TestCase):
         r.meta(_property='og:url')
         self.assertEqual(r.text.strip(), '<meta property="og:url" />')
 
+    def test_meta_banner(self):
+        r = Renderer()
+        r.meta_banner(image='test-banner.jpg', full_url='https://biztalk.biz/')
+        self.assertEqual(r.text.strip(), '''
+<meta content="https://biztalk.biz/images/banners/test-banner.jpg" name="og:image" />
+<meta content="https://biztalk.biz/images/banners/test-banner.jpg" name="twitter:image" />
+'''.strip())
+
     def test_link(self):
         r = Renderer()
         r.link(href='./assets/site.css', rel='stylesheet')
         self.assertEqual(r.text.strip(),
                          '<link href="./assets/site.css" rel="stylesheet" />')
+
+    def test_article(self):
+        r = Renderer()
+        r.write('First line')
+        r.article(content='''Zero spaces
+  Two spaces
+   Three spaces
+    Four spaces
+Zero spaces
+''')
+        r.write('last line')
+
+        expected = '''First line
+Zero spaces
+  Two spaces
+   Three spaces
+    Four spaces
+Zero spaces
+last line
+'''
+        self.assertEqual(r.text, expected)
+
+        r = Renderer(starting_indent_level=5)
+        r.article(content='Test string')
+        self.assertEqual(r.text, '     Test string\n')
+
+    def test_pagination(self):
+        r = Renderer()
+        r.pagination(next_page='next-page.html', prev_page='prev-page.html')
+        expected = '''
+<nav>
+  <a href="./prev-page.html">⟵ prev-page.html</a>
+  &nbsp
+  <a href="./next-page.html">next-page.html ⟶</a>
+</nav>'''.strip()
+        self.assertEqual(r.text.strip(), expected)
+
+        r = Renderer()
+        r.pagination(next_page='next-page.html', prev_page=None)
+        expected = '''
+<nav>
+  <a href="./next-page.html">next-page.html ⟶</a>
+</nav>'''.strip()
+        self.assertEqual(r.text.strip(), expected)
+
+        r = Renderer()
+        r.pagination(next_page=None, prev_page='prev-page.html')
+        expected = '''
+<nav>
+  <a href="./prev-page.html">⟵ prev-page.html</a>
+</nav>'''.strip()
+        self.assertEqual(r.text.strip(), expected)
+
+    def test_banner(self):
+        r = Renderer()
+        r.banner('test-banner.jpg')
+        self.assertEqual(r.text.strip(), '''
+<figure>
+  <a href="./images/banners/test-banner.jpg">
+    <img alt="page banner" src="./images/banners/test-banner.jpg" />
+  </a>
+</figure>'''.strip())
 
     def test_footer(self):
         r = Renderer()
@@ -262,15 +344,18 @@ class TestRender(unittest.TestCase):
             title='Some Test Page',
             description='Just a test page for the test suite',
             filename='test.html',
-            banner='test.jpg')
+            banner='test.jpg',
+            page_next=None,
+            page_previous=None)
 
-        content = '''    <p>This is some test conent.</p>
+        content = '''
+<p>This is some test conent.</p>
 
-    <figure>
-      <a href="test.jpg">
-        <img src="test.jpg" alt="test"/>
-      </a>
-    </figure>'''
+<figure>
+  <a href="test.jpg">
+    <img src="test.jpg" alt="test"/>
+  </a>
+</figure>'''.strip()
 
         actual = render_page(page,
                              content=content,
@@ -297,7 +382,7 @@ class TestRender(unittest.TestCase):
   <meta content="article" property="og:type" />
   <meta content="Some Test Page" property="og:title" />
   <meta content="Just a test page for the test suite" property="og:description" />
-  <meta content="http://localhost:8080/images/banners/test.jpg" name="image" />
+  <meta content="http://localhost:8080/images/banners/test.jpg" name="og:image" />
   <meta content="http://localhost:8080/images/banners/test.jpg" name="twitter:image" />
 
 </head>
@@ -352,3 +437,21 @@ class TestRender(unittest.TestCase):
 </html>
 '''.lstrip()
         self.assertEqual(actual, expected)
+
+        entry = unittest.mock.Mock(
+            title='Some Test Page',
+            description='Just a test page for the test suite',
+            filename='test.html',
+            banner='test.jpg',
+            page_next='next-page.html',
+            page_previous='previous-page.html')
+        
+        actual = render_page(entry, full_url='http://localhost:8000', author='Alex', year=1990)
+        self.assertIn('''
+    <!-- Pagination -->
+    <nav>
+      <a href="./previous-page.html">⟵ previous-page.html</a>
+      &nbsp
+      <a href="./next-page.html">next-page.html ⟶</a>
+    </nav>
+''', actual)

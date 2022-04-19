@@ -11,10 +11,11 @@ class Renderer:
         self.each_indent = each_indent
 
     def write(self, content: str, add_newline=True):
-        indent = ' ' * self.current_indent_level
-        self.text += indent + content
+        if content:
+            content = ' ' * self.current_indent_level + content
         if add_newline:
-            self.text += '\n'
+            content += '\n'
+        self.text += content
 
     @contextlib.contextmanager
     def indent(self, level: int):
@@ -89,6 +90,12 @@ class Renderer:
             attrs['property'] = _property
         self.block('meta', self_closing=True, **attrs)
 
+    def meta_banner(self, image='', full_url=''):
+        banner_url = f'/images/banners/{image}'
+        banner_url = urllib.parse.urljoin(full_url, banner_url)
+        self.meta(name='og:image', content=banner_url)
+        self.meta(name='twitter:image', content=banner_url)        
+
     def link(self, _type=None, **attrs):
         if _type:
             attrs['type'] = _type
@@ -120,8 +127,30 @@ class Renderer:
             if filename != 'index.html':
                 self.block('span', contents=f'/ {filename}')
 
+    def article(self, content=''):
+        for line in content.splitlines():
+            self.write(line)
+
+    def banner(self, image):
+        src = f'./images/banners/{image}'
+        self.figure(alt='page banner', src=src)        
+
     def hr(self):
         self.block('hr', self_closing=True)
+
+    def divider(self):
+        self.newline()
+        self.hr()
+        self.newline()
+
+    def pagination(self, next_page=None, prev_page=None):
+        with self.wrapping_block('nav'):
+            if prev_page:
+                self.block('a', contents=f'⟵ {prev_page}', href=f'./{prev_page}')
+            if prev_page and next_page:
+                self.write('&nbsp')
+            if next_page:
+                self.block('a', contents=f'{next_page} ⟶', href=f'./{next_page}')
 
     def footer(self, author='', year=''):
         with self.wrapping_block('footer'):
@@ -170,10 +199,7 @@ def render_page(page, content='', full_url='', author='', year=''):
         r.meta(_property='og:title', content=page.title)
         r.meta(_property='og:description', content=page.description)
         if page.banner:
-            banner_url = f'/images/banners/{page.banner}'
-            banner_url = urllib.parse.urljoin(full_url, banner_url)
-            r.meta(name='image', content=banner_url)
-            r.meta(name='twitter:image', content=banner_url)
+            r.meta_banner(page.banner, full_url)
         r.newline()
 
     r.newline()
@@ -183,32 +209,29 @@ def render_page(page, content='', full_url='', author='', year=''):
 
             r.comment('Page Header')
             r.header(title=page.title, description=page.description)
-            r.newline()
 
-            r.hr()
-            r.newline()
+            r.divider()
+            
             r.comment('Page Breadcrumbs')
             r.breadcrumbs(filename=page.filename)
-            r.newline()
-            r.hr()
-            r.newline()
+            
+            r.divider()
 
             if page.banner:
                 r.comment('Page Banner')
-                r.figure(alt='page banner',
-                         src=f'./images/banners/{page.banner}')
+                r.banner(page.banner)
                 r.newline()
 
             r.comment('Begin Page Content')
-            with r.indent(0):
-                for line in content.splitlines():
-                    r.write(line)
+            r.article(content=content)
             r.comment('End Page Content')
             r.newline()
 
-        r.newline()
-        r.hr()
-        r.newline()
+            if page.page_next or page.page_previous:
+                r.comment('Pagination')
+                r.pagination(next_page=page.page_next, prev_page=page.page_previous)
+
+        r.divider()
 
         r.comment('Page Footer')
         r.footer(author=author, year=year)

@@ -41,6 +41,8 @@ def main(args, entries=[]):
         title=args.title,
         description=args.subtitle,
         banner=None,
+        page_next=None,
+        page_previous=None,
     )
     output = blog.render_page(
         page=page,
