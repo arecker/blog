@@ -3,7 +3,7 @@
 import blog
 import logging
 
-from . import pave, sitemap, feed, index, entries as entriescmd, utils
+from . import pave, sitemap, feed, index, entries as entriescmd
 
 logger = logging.getLogger(__name__)
 

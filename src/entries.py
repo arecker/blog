@@ -15,9 +15,9 @@ def main(args, entries=[]):
             content = f.read()
 
         output = blog.render_page(entry,
-                                   full_url=args.full_url.geturl(),
-                                   content=content,
-                                   author=args.author)
+                                  full_url=args.full_url.geturl(),
+                                  content=content,
+                                  author=args.author)
 
         with open(args.directory / f'www/{entry.filename}', 'w') as f:
             f.write(output)

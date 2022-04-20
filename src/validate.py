@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 def extract_refs(content: str):
     """Extract href and src patterns from a string.
-    
+
     >>> example = 'A link to <href="google.com">google</a>.'
     >>> extract_refs(example)
     ['google.com']

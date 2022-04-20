@@ -2,7 +2,6 @@
 
 import collections
 import importlib
-import inspect
 import pathlib
 import pkgutil
 

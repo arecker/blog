@@ -5,7 +5,7 @@ import hashlib
 import logging
 import time
 
-from . import build, validate, utils
+from . import build, validate
 
 logger = logging.getLogger(__name__)
 
