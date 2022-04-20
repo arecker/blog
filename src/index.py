@@ -11,18 +11,18 @@ logger = logging.getLogger(__name__)
 def render_content(latest) -> str:
     """Render latest post column."""
 
-    html = utils.StringWriter(starting_indent=4)
+    html = blog.Renderer()
 
     # Latest Post
     html.comment('Latest Post')
-    html.write('<h2>Latest Post</h2>')
-    with html.block('a', href=f'./{latest.filename}'):
-        html.write(f'<h3 class="title">{latest.title}</h3>', unindent=True)
+    html.block('h2', 'Latest Post')
+    with html.wrapping_block('a', href=f'./{latest.filename}'):
+        html.block('h3', latest.title)
+
     html.figure(
         src=f'./images/banners/{latest.banner}',
         href=f'./{latest.filename}',
         caption=latest.description,
-        blank=True,
         alt='banner image for latest post',
     )
 
