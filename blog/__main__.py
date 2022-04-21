@@ -1,18 +1,13 @@
 import blog
-import logging
-import platform
-import sys
-
-logger = logging.getLogger(__name__)
 
 
-def main(args=sys.argv[1:]):
-    """Run main CLI routine."""
+@blog.register_command
+def build(args):
+    """Build the website locally"""
 
-    args = blog.parse_args(args=args)
-    blog.configure_logging(verbose=args.verbose)
 
-    logger.debug('running blog with python v%s', platform.python_version())
+def main():
+    blog.main()
 
 
 if __name__ == '__main__':

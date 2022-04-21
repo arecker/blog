@@ -17,8 +17,6 @@ from .files import (
     new_entry,
 )
 
-from .logs import (configure_logging)
-
 from .git import (
     git_commit,
     git_latest_tag,
@@ -26,6 +24,6 @@ from .git import (
     git_tag,
 )
 
-from .cli import parse_args
+from .cli import (parse_args, register_command, configure_logging, main)
 
 from .render import (Renderer, render_page)
