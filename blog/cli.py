@@ -33,6 +33,7 @@ def parse_args(args):
 
 
 class LogFormatter(logging.Formatter):
+
     def format(self, *args, **kwargs):
         result = super().format(*args, **kwargs)
         return prettify_log(result)
@@ -97,12 +98,12 @@ def main(args=sys.argv[1:]):
 
     if args.subcommand == 'help':
         parser.print_help()
-        sys.exit(0)
+        return sys.exit(0)
 
     if not args.subcommand:
         logger.error('subcommand expected')
         parser.print_help()
-        sys.exit(1)
+        return sys.exit(1)
 
     command = COMMANDS[args.subcommand]
     if args.debug:
