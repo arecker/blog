@@ -15,6 +15,13 @@ def build(args):
         logger.info('retrieved %d entries from %s', len(entries),
                     args.dir_entries)
 
+    sitemap = blog.new_sitemap(full_url=args.site_url, entries=entries)
+    target = args.dir_www / 'sitemap.xml'
+    with open(target, 'w') as f:
+        f.write(blog.render_sitemap(sitemap))
+    logger.info('rendered %s from sitemap with %d location(s)', target,
+                len(sitemap))
+
     for i, entry in enumerate(entries):
         with open(entry.source, 'r') as f:
             content = f.read()

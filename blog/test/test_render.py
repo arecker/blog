@@ -2,10 +2,11 @@ import unittest
 import unittest.mock
 import xml.etree.ElementTree
 
-from ..render import Renderer, render_page
+from ..render import Renderer, render_page, render_sitemap
 
 
 class TestRenderer(unittest.TestCase):
+
     def test_write(self):
         r = Renderer()
         self.assertEqual(r.text, '')
@@ -206,7 +207,8 @@ class TestRenderer(unittest.TestCase):
     def test_meta_banner(self):
         r = Renderer()
         r.meta_banner(image='test-banner.jpg', full_url='https://biztalk.biz/')
-        self.assertEqual(r.text.strip(), '''
+        self.assertEqual(
+            r.text.strip(), '''
 <meta content="https://biztalk.biz/images/banners/test-banner.jpg" name="og:image" />
 <meta content="https://biztalk.biz/images/banners/test-banner.jpg" name="twitter:image" />
 '''.strip())
@@ -272,7 +274,8 @@ last line
     def test_banner(self):
         r = Renderer()
         r.banner('test-banner.jpg')
-        self.assertEqual(r.text.strip(), '''
+        self.assertEqual(
+            r.text.strip(), '''
 <figure>
   <a href="./images/banners/test-banner.jpg">
     <img alt="page banner" src="./images/banners/test-banner.jpg" />
@@ -338,6 +341,29 @@ last line
 
 class TestRender(unittest.TestCase):
     maxDiff = None
+
+    def test_render_sitemap(self):
+        locations = [
+            unittest.mock.Mock(url='first', lastmod=None),
+            unittest.mock.Mock(url='second', lastmod='this one has a lastmod'),
+        ]
+        func = unittest.mock.Mock(return_value=locations)
+        sitemap = unittest.mock.Mock(locations=func)
+
+        actual = render_sitemap(sitemap)
+        expected = '''
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>first</loc>
+  </url>
+  <url>
+    <loc>second</loc>
+    <lastmod>this one has a lastmod</lastmod>
+  </url>
+</urlset>
+'''.lstrip()
+        self.assertEqual(actual, expected)
 
     def test_render_page(self):
         page = unittest.mock.Mock(
@@ -445,9 +471,13 @@ class TestRender(unittest.TestCase):
             banner='test.jpg',
             page_next='next-page.html',
             page_previous='previous-page.html')
-        
-        actual = render_page(entry, full_url='http://localhost:8000', author='Alex', year=1990)
-        self.assertIn('''
+
+        actual = render_page(entry,
+                             full_url='http://localhost:8000',
+                             author='Alex',
+                             year=1990)
+        self.assertIn(
+            '''
     <!-- Pagination -->
     <nav>
       <a href="./previous-page.html">⟵ previous-page.html</a>

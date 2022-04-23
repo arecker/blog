@@ -5,6 +5,7 @@ import xml.etree.ElementTree
 
 
 class Renderer:
+
     def __init__(self, starting_indent_level=0, each_indent=2):
         self.text = ''
         self.current_indent_level = starting_indent_level
@@ -94,7 +95,7 @@ class Renderer:
         banner_url = f'/images/banners/{image}'
         banner_url = urllib.parse.urljoin(full_url, banner_url)
         self.meta(name='og:image', content=banner_url)
-        self.meta(name='twitter:image', content=banner_url)        
+        self.meta(name='twitter:image', content=banner_url)
 
     def link(self, _type=None, **attrs):
         if _type:
@@ -133,7 +134,7 @@ class Renderer:
 
     def banner(self, image):
         src = f'./images/banners/{image}'
-        self.figure(alt='page banner', src=src)        
+        self.figure(alt='page banner', src=src)
 
     def hr(self):
         self.block('hr', self_closing=True)
@@ -146,11 +147,15 @@ class Renderer:
     def pagination(self, next_page=None, prev_page=None):
         with self.wrapping_block('nav'):
             if prev_page:
-                self.block('a', contents=f'⟵ {prev_page}', href=f'./{prev_page}')
+                self.block('a',
+                           contents=f'⟵ {prev_page}',
+                           href=f'./{prev_page}')
             if prev_page and next_page:
                 self.write('&nbsp')
             if next_page:
-                self.block('a', contents=f'{next_page} ⟶', href=f'./{next_page}')
+                self.block('a',
+                           contents=f'{next_page} ⟶',
+                           href=f'./{next_page}')
 
     def footer(self, author='', year=''):
         with self.wrapping_block('footer'):
@@ -174,6 +179,31 @@ class Renderer:
 
         xml.etree.ElementTree.fromstring(result)
         return result
+
+
+def render_sitemap(sitemap):
+    r = Renderer()
+    urlset_attrs = {
+        'xmlns:xsi':
+        'http://www.w3.org/2001/XMLSchema-instance',
+        'xsi:schemaLocation':
+        ' '.join([
+            'http://www.sitemaps.org/schemas/sitemap/0.9',
+            'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
+        ]),
+        'xmlns':
+        'http://www.sitemaps.org/schemas/sitemap/0.9'
+    }
+
+    locations = sitemap.locations()
+    with r.wrapping_block('urlset', **urlset_attrs):
+        for location in locations:
+            with r.wrapping_block('url'):
+                r.block('loc', contents=location.url)
+                if location.lastmod:
+                    r.block('lastmod', contents=location.lastmod)
+
+    return r.as_xml()
 
 
 def render_page(page, content='', full_url='', author='', year=''):
@@ -211,10 +241,10 @@ def render_page(page, content='', full_url='', author='', year=''):
             r.header(title=page.title, description=page.description)
 
             r.divider()
-            
+
             r.comment('Page Breadcrumbs')
             r.breadcrumbs(filename=page.filename)
-            
+
             r.divider()
 
             if page.banner:
@@ -229,7 +259,8 @@ def render_page(page, content='', full_url='', author='', year=''):
 
             if page.page_next or page.page_previous:
                 r.comment('Pagination')
-                r.pagination(next_page=page.page_next, prev_page=page.page_previous)
+                r.pagination(next_page=page.page_next,
+                             prev_page=page.page_previous)
 
         r.divider()
 
