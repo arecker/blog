@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 
 def main(args, entries=[]):
-    entries = entries or blog.all_entries(args.directory)
+    entries = entries or blog.all_entries(args.directory / 'entries')
 
     total = len(entries)
     for i, entry in enumerate(entries):

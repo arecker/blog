@@ -1,9 +1,11 @@
 import contextlib
 import logging
+import os
 import pathlib
 import sys
 import unittest
 import unittest.mock
+import urllib.parse
 
 from .. import cli
 
@@ -24,6 +26,12 @@ class TestCLI(unittest.TestCase):
         self.assertTrue(debug)
         subcommand = cli.parse_args(['help']).subcommand
         self.assertEqual(subcommand, 'help')
+
+        args = cli.parse_args(['help'])
+        self.assertIsInstance(args.dir_www, pathlib.Path)
+        self.assertIsInstance(args.dir_entries, pathlib.Path)
+        self.assertIsInstance(args.site_url, urllib.parse.ParseResult)
+        self.assertIsInstance(args.site_year, int)
 
     def test_prettify_log(self):
         with unittest.mock.patch.object(pathlib.Path,

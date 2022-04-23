@@ -28,7 +28,7 @@ def main(args, entries=[]):
     locations.append(Location(modified=None, filename='index.html'))
 
     # entries
-    entries = entries or blog.all_entries(args.directory)
+    entries = entries or blog.all_entries(args.directory / 'entries')
     locations += [
         Location(modified=e.date, filename=e.filename) for e in entries
     ]

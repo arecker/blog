@@ -16,6 +16,7 @@ def temp_root():
 
 
 class TestFiles(unittest.TestCase):
+
     def test_is_not_junk_file(self):
         self.assertTrue(files.is_not_junk_file('test.html'))
         self.assertTrue(files.is_not_junk_file(pathlib.Path('test.html')))
@@ -40,8 +41,11 @@ class TestFiles(unittest.TestCase):
 I had a really delicious smoothie from Surf City Squeeze.
 '''.lstrip())
 
-            pagination = {'2021-01-01.html': unittest.mock.Mock(next=None, previous=None)}
-            entry = files.new_entry(root / 'entries/2021-01-01.html', pagination=pagination)
+            pagination = {
+                '2021-01-01.html': unittest.mock.Mock(next=None, previous=None)
+            }
+            entry = files.new_entry(root / 'entries/2021-01-01.html',
+                                    pagination=pagination)
             self.assertEqual(entry.filename, '2021-01-01.html')
             self.assertEqual(entry.title, 'Friday, January 1 2021')
             self.assertEqual(entry.date, datetime.datetime(2021, 1, 1))
@@ -65,7 +69,7 @@ I had a really delicious smoothie from Surf City Squeeze.
 This is a test entry, made from a unit test from slug {slug}.
 '''.lstrip())
 
-            entries = files.all_entries(root)
+            entries = files.all_entries(root / 'entries')
 
             newest = entries[0]
             self.assertEqual(newest.filename, '2023-04-12.html')

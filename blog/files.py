@@ -96,19 +96,17 @@ def new_entry(path, pagination={}) -> Entry:
     return entry
 
 
-def all_entries(root_dir) -> list[Entry]:
+def all_entries(entries_dir) -> list[Entry]:
     """Return all journal entries.
 
     Default order is latest entry first.
     """
 
-    entries = root_dir.glob('entries/*.html')
+    entries = pathlib.Path(entries_dir).glob('*.html')
     entries = filter(is_not_junk_file, entries)
     entries = sorted(entries, reverse=True)
 
     pages = paginate_files(entries)
     entries = [new_entry(e, pagination=pages) for e in entries]
 
-    logger.debug('retrieved %d entry objects from %s', len(entries),
-                 root_dir / 'entries')
     return entries

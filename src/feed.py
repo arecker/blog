@@ -126,7 +126,7 @@ def render_entry(sw: utils.StringWriter, entry: blog.Entry, info: FeedInfo,
 
 
 def main(args, entries=[]):
-    entries = entries or blog.all_entries(args.directory)
+    entries = entries or blog.all_entries(args.directory / 'entries')
 
     xml = utils.StringWriter()
     xml.write('<?xml version="1.0" encoding="utf-8"?>')

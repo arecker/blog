@@ -1,5 +1,6 @@
 import argparse
 import collections
+import datetime
 import functools
 import logging
 import pathlib
@@ -8,28 +9,50 @@ import pdb
 import platform
 import re
 import sys
+import urllib.parse
 
 logger = logging.getLogger(__name__)
 
 parser = argparse.ArgumentParser(
     prog='blog', description='The greatest static site generator ever made')
 
-parser.add_argument('-v',
-                    '--verbose',
-                    action='store_true',
-                    help='show debug logs')
+group = parser.add_argument_group('program')
 parser.add_argument('-d',
                     '--debug',
                     action='store_true',
                     help='run code in a debugger')
+parser.add_argument('-v',
+                    '--verbose',
+                    action='store_true',
+                    help='show debug logs')
+
+group = parser.add_argument_group('directories')
+group.add_argument('--dir-www', default='./www', help='output directory')
+group.add_argument('--dir-entries',
+                   default='./entries/',
+                   help='entry sources directory')
+
+group = parser.add_argument_group('site')
+group.add_argument('--site-url',
+                   help='full site url',
+                   default='https://www.alexrecker.com')
+group.add_argument('--site-author',
+                   help='copyright author',
+                   default='Alex Recker')
+group.add_argument('--site-year',
+                   help='copyright year',
+                   default=datetime.datetime.now().year)
 
 subcommand = parser.add_subparsers(dest='subcommand', metavar='{subcommand}')
 subcommand.add_parser('help', help='Print program usage')
 
 
 def parse_args(args):
-    result = parser.parse_args(args)
-    return result
+    args = parser.parse_args(args)
+    args.dir_www = pathlib.Path(args.dir_www)
+    args.dir_entries = pathlib.Path(args.dir_entries)
+    args.site_url = urllib.parse.urlparse(args.site_url)
+    return args
 
 
 class LogFormatter(logging.Formatter):
@@ -61,7 +84,7 @@ def configure_logging(verbose=False):
     handler = logging.StreamHandler()
     handler.setLevel(level)
 
-    formatter = LogFormatter('[%(levelname)s] %(message)s')
+    formatter = LogFormatter('%(name)s: %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 
