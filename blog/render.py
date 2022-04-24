@@ -1,4 +1,5 @@
 import contextlib
+import datetime
 import html
 import logging
 import pathlib
@@ -209,7 +210,11 @@ def render_sitemap(sitemap):
     return r.as_xml()
 
 
-def render_page(page, content='', full_url='', author='', year=''):
+def render_page(page,
+                content='',
+                full_url='',
+                author='',
+                year=datetime.datetime.now().year):
     r = Renderer()
 
     with r.wrapping_block('head'):
