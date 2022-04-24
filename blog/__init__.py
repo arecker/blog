@@ -10,7 +10,7 @@ from .images import (
 
 from .http import make_http_request
 
-from .files import (
+from .entries import (
     Entry,
     all_entries,
     is_not_junk_file,
@@ -28,4 +28,4 @@ from .git import (
 
 from .cli import (parse_args, register_command, configure_logging, main)
 
-from .render import (Renderer, render_page, render_sitemap)
+from .render import (Renderer, render_page, render_sitemap, write_entries)

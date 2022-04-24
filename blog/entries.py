@@ -3,7 +3,6 @@ import datetime
 import logging
 import pathlib
 import re
-import urllib.parse
 
 logger = logging.getLogger(__name__)
 

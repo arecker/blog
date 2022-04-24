@@ -1,11 +1,14 @@
 import contextlib
 import html
+import logging
+import pathlib
 import urllib.parse
 import xml.etree.ElementTree
 
+logger = logging.getLogger(__name__)
+
 
 class Renderer:
-
     def __init__(self, starting_indent_level=0, each_indent=2):
         self.text = ''
         self.current_indent_level = starting_indent_level
@@ -269,3 +272,22 @@ def render_page(page, content='', full_url='', author='', year=''):
         r.newline()
 
     return r.as_html()
+
+
+def write_entries(entries, dir_www: str, full_url: str, author: str):
+    for i, entry in enumerate(entries):
+        with open(entry.source, 'r') as f:
+            content = f.read()
+
+        content = render_page(page=entry,
+                              content=content,
+                              full_url=full_url,
+                              author=author)
+
+        target = pathlib.Path(dir_www) / entry.filename
+        with open(target, 'w') as f:
+            f.write(content)
+            logger.debug('rendered %s', target)
+
+        if i != 0 and i % 100 == 0:
+            logger.info('rendered %d out of %d entries', i + 1, len(entries))

@@ -10,7 +10,6 @@ SitemapLocation = collections.namedtuple('SitemapLocation', [
 
 
 class Sitemap:
-
     def __init__(self, full_url):
         self.entries = []
         if isinstance(full_url, str):

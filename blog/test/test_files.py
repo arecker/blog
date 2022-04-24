@@ -5,7 +5,7 @@ import tempfile
 import unittest
 import unittest.mock
 
-from .. import files
+from .. import entries
 
 
 @contextlib.contextmanager
@@ -17,16 +17,15 @@ def temp_root():
 
 
 class TestFiles(unittest.TestCase):
-
     def test_is_not_junk_file(self):
-        self.assertTrue(files.is_not_junk_file('test.html'))
-        self.assertTrue(files.is_not_junk_file(pathlib.Path('test.html')))
-        self.assertFalse(files.is_not_junk_file(
-            pathlib.Path('.something.tmp')))
-        self.assertFalse(files.is_not_junk_file(pathlib.Path('#test.html')))
+        self.assertTrue(entries.is_not_junk_file('test.html'))
+        self.assertTrue(entries.is_not_junk_file(pathlib.Path('test.html')))
+        self.assertFalse(
+            entries.is_not_junk_file(pathlib.Path('.something.tmp')))
+        self.assertFalse(entries.is_not_junk_file(pathlib.Path('#test.html')))
 
     def test_paginate_files(self):
-        result = files.paginate_files(['a', 'b', 'c'])
+        result = entries.paginate_files(['a', 'b', 'c'])
         self.assertIsNone(result['a'].previous)
         self.assertEqual(result['a'].next, 'b')
         self.assertEqual(result['c'].previous, 'b')
@@ -45,8 +44,8 @@ I had a really delicious smoothie from Surf City Squeeze.
             pagination = {
                 '2021-01-01.html': unittest.mock.Mock(next=None, previous=None)
             }
-            entry = files.new_entry(root / 'entries/2021-01-01.html',
-                                    pagination=pagination)
+            entry = entries.new_entry(root / 'entries/2021-01-01.html',
+                                      pagination=pagination)
             self.assertEqual(entry.filename, '2021-01-01.html')
             self.assertEqual(entry.title, 'Friday, January 1 2021')
             self.assertEqual(entry.date, datetime.datetime(2021, 1, 1))
@@ -70,9 +69,9 @@ I had a really delicious smoothie from Surf City Squeeze.
 This is a test entry, made from a unit test from slug {slug}.
 '''.lstrip())
 
-            entries = files.all_entries(root / 'entries')
+            _entries = entries.all_entries(root / 'entries')
 
-            newest = entries[0]
+            newest = _entries[0]
             self.assertEqual(newest.filename, '2023-04-12.html')
             self.assertEqual(newest.title, 'Wednesday, April 12 2023')
             self.assertEqual(newest.date, datetime.datetime(2023, 4, 12))
