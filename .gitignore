@@ -2,3 +2,4 @@
 __pycache__
 *.pyc
 /blog.egg-info/
+/.coverage

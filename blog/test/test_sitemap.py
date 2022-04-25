@@ -1,4 +1,6 @@
 import datetime
+import pathlib
+import tempfile
 import unittest
 import unittest.mock
 
@@ -58,3 +60,13 @@ class TestSitemap(unittest.TestCase):
 </urlset>
 '''.lstrip()
         self.assertEqual(actual, expected)
+
+    def test_write_sitemap(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            www = (pathlib.Path(tmp) / 'www')
+            www.mkdir()
+            sitemap.write_sitemap(www,
+                                  full_url=self.full_url,
+                                  entries=self.entries)
+            actual = www / 'sitemap.xml'
+            self.assertTrue(actual.is_file())

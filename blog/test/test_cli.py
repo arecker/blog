@@ -1,6 +1,5 @@
 import contextlib
 import logging
-import os
 import pathlib
 import sys
 import unittest
@@ -18,7 +17,6 @@ def patch_logging():
 
 
 class TestCLI(unittest.TestCase):
-
     def test_parse_args(self):
         verbose = cli.parse_args(['-v']).verbose
         self.assertTrue(verbose)
@@ -70,7 +68,6 @@ class TestCLI(unittest.TestCase):
 
 
 class TestMain(unittest.TestCase):
-
     def setUp(self):
         self.configure_logging = unittest.mock.Mock(name='configure_logging')
         unittest.mock.patch.object(cli,
@@ -124,3 +121,12 @@ class TestMain(unittest.TestCase):
 
     def tearDown(self):
         unittest.mock.patch.stopall()
+
+
+class TestLogFormatter(unittest.TestCase):
+    def test_format(self):
+        getMessage = unittest.mock.Mock(return_value='test')
+        record = unittest.mock.Mock(getMessage=getMessage, exc_text=None)
+        formatter = cli.LogFormatter()
+        actual = formatter.format(record)
+        self.assertEqual(actual, 'a test message!')
