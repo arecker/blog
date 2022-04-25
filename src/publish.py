@@ -20,7 +20,7 @@ def main(args, entries=[]):
 
     git.git_stage_all(args.directory)
 
-    entries = entries or blog.all_entries(args.directory)
+    entries = entries or blog.all_entries(args.directory / 'entries')
     latest = entries[0]
     message = f'entry: {latest.title}'
     blog.git_commit(message)
