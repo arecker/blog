@@ -190,7 +190,8 @@ def render_entry(page,
     return r.as_html()
 
 
-def write_entries(entries, dir_www: str, full_url: str, author: str):
+def write_entries(entries, dir_www: str, full_url: str, author: str,
+                  year: int):
     for i, entry in enumerate(entries):
         with open(entry.source, 'r') as f:
             content = f.read()
@@ -198,7 +199,8 @@ def write_entries(entries, dir_www: str, full_url: str, author: str):
         content = render_entry(page=entry,
                                content=content,
                                full_url=full_url,
-                               author=author)
+                               author=author,
+                               year=year)
 
         target = pathlib.Path(dir_www) / entry.filename
         with open(target, 'w') as f:

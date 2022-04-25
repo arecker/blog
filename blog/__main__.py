@@ -36,7 +36,8 @@ def build(args):
     blog.write_entries(entries,
                        dir_www=str(args.dir_www),
                        full_url=str(args.site_url),
-                       author=args.site_author)
+                       author=args.site_author,
+                       year=args.site_year)
 
 
 def main():
