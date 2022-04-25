@@ -4,7 +4,6 @@ import datetime
 import functools
 import logging
 import pathlib
-import pathlib
 import pdb
 import platform
 import re
@@ -26,10 +25,13 @@ parser.add_argument('-v',
                     action='store_true',
                     help='show debug logs')
 
+home = pathlib.Path.home()
 group = parser.add_argument_group('directories')
-group.add_argument('--dir-www', default='./www', help='output directory')
+group.add_argument('--dir-www',
+                   default=str(home / 'src/blog/www'),
+                   help='output directory')
 group.add_argument('--dir-entries',
-                   default='./entries/',
+                   default=str(home / 'src/blog/entries/'),
                    help='entry sources directory')
 
 group = parser.add_argument_group('site')
