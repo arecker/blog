@@ -29,18 +29,9 @@ def build(args):
     """Build the website locally"""
 
     entries = blog.all_entries(args.dir_entries)
-    if len(entries) == 1:
-        logger.info('retrieved 1 entry from %s', args.dir_entries)
-    else:
-        logger.info('retrieved %d entries from %s', len(entries),
-                    args.dir_entries)
+    logger.info('retrieved %d entries from %s', len(entries), args.dir_entries)
 
-    sitemap = blog.new_sitemap(full_url=args.site_url, entries=entries)
-    target = args.dir_www / 'sitemap.xml'
-    with open(target, 'w') as f:
-        f.write(blog.render_sitemap(sitemap))
-    logger.info('rendered %s from sitemap with %d location(s)', target,
-                len(sitemap))
+    blog.write_sitemap(args.dir_www, full_url=args.site_url, entries=entries)
 
     blog.write_entries(entries,
                        dir_www=str(args.dir_www),

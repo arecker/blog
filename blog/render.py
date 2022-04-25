@@ -185,31 +185,6 @@ class Renderer:
         return result
 
 
-def render_sitemap(sitemap):
-    r = Renderer()
-    urlset_attrs = {
-        'xmlns:xsi':
-        'http://www.w3.org/2001/XMLSchema-instance',
-        'xsi:schemaLocation':
-        ' '.join([
-            'http://www.sitemaps.org/schemas/sitemap/0.9',
-            'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
-        ]),
-        'xmlns':
-        'http://www.sitemaps.org/schemas/sitemap/0.9'
-    }
-
-    locations = sitemap.locations()
-    with r.wrapping_block('urlset', **urlset_attrs):
-        for location in locations:
-            with r.wrapping_block('url'):
-                r.block('loc', contents=location.url)
-                if location.lastmod:
-                    r.block('lastmod', contents=location.lastmod)
-
-    return r.as_xml()
-
-
 def render_page(page,
                 content='',
                 full_url='',

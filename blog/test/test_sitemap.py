@@ -6,7 +6,6 @@ from .. import sitemap
 
 
 class TestSitemap(unittest.TestCase):
-
     def setUp(self):
         entry = unittest.mock.Mock(date=datetime.datetime(2022, 1, 1),
                                    filename='testy.html')
@@ -36,3 +35,26 @@ class TestSitemap(unittest.TestCase):
         self.assertEqual(len(s.entries), len(self.entries))
         location = s.entries[0]
         self.assertEqual(location.url, self.full_url + '/testy.html')
+
+    def test_render_sitemap(self):
+        locations = [
+            unittest.mock.Mock(url='first', lastmod=None),
+            unittest.mock.Mock(url='second', lastmod='this one has a lastmod'),
+        ]
+        func = unittest.mock.Mock(return_value=locations)
+        sm = unittest.mock.Mock(locations=func)
+
+        actual = sitemap.render_sitemap(sm)
+        expected = '''
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+  <url>
+    <loc>first</loc>
+  </url>
+  <url>
+    <loc>second</loc>
+    <lastmod>this one has a lastmod</lastmod>
+  </url>
+</urlset>
+'''.lstrip()
+        self.assertEqual(actual, expected)

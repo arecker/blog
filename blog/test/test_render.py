@@ -2,11 +2,10 @@ import unittest
 import unittest.mock
 import xml.etree.ElementTree
 
-from ..render import Renderer, render_page, render_sitemap
+from ..render import Renderer, render_page
 
 
 class TestRenderer(unittest.TestCase):
-
     def test_write(self):
         r = Renderer()
         self.assertEqual(r.text, '')
@@ -341,29 +340,6 @@ last line
 
 class TestRender(unittest.TestCase):
     maxDiff = None
-
-    def test_render_sitemap(self):
-        locations = [
-            unittest.mock.Mock(url='first', lastmod=None),
-            unittest.mock.Mock(url='second', lastmod='this one has a lastmod'),
-        ]
-        func = unittest.mock.Mock(return_value=locations)
-        sitemap = unittest.mock.Mock(locations=func)
-
-        actual = render_sitemap(sitemap)
-        expected = '''
-<?xml version="1.0" encoding="utf-8"?>
-<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-  <url>
-    <loc>first</loc>
-  </url>
-  <url>
-    <loc>second</loc>
-    <lastmod>this one has a lastmod</lastmod>
-  </url>
-</urlset>
-'''.lstrip()
-        self.assertEqual(actual, expected)
 
     def test_render_page(self):
         page = unittest.mock.Mock(

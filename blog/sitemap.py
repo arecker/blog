@@ -1,8 +1,14 @@
 import collections
 import datetime
+import logging
+import pathlib
 import urllib.parse
 
-SitemapLocation = collections.namedtuple('SitemapLocation', [
+from .render import Renderer
+
+logger = logging.getLogger(__name__)
+
+Location = collections.namedtuple('SitemapLocation', [
     'url',
     'lastmod',
     'source',
@@ -26,9 +32,7 @@ class Sitemap:
             lastmod = entry.date
             lastmod = lastmod.replace(tzinfo=datetime.timezone.utc)
             lastmod = lastmod.isoformat()
-            location = SitemapLocation(url=url,
-                                       lastmod=lastmod,
-                                       source=entry.source)
+            location = Location(url=url, lastmod=lastmod, source=entry.source)
             locations.append(location)
         self.entries = locations
 
@@ -41,3 +45,36 @@ def new_sitemap(full_url='', entries=[]):
     sm = Sitemap(full_url)
     sm.add_entries(entries)
     return sm
+
+
+def render_sitemap(sm: Sitemap):
+    r = Renderer()
+    urlset_attrs = {
+        'xmlns:xsi':
+        'http://www.w3.org/2001/XMLSchema-instance',
+        'xsi:schemaLocation':
+        ' '.join([
+            'http://www.sitemaps.org/schemas/sitemap/0.9',
+            'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd'
+        ]),
+        'xmlns':
+        'http://www.sitemaps.org/schemas/sitemap/0.9'
+    }
+
+    locations = sm.locations()
+    with r.wrapping_block('urlset', **urlset_attrs):
+        for location in locations:
+            with r.wrapping_block('url'):
+                r.block('loc', contents=location.url)
+                if location.lastmod:
+                    r.block('lastmod', contents=location.lastmod)
+
+    return r.as_xml()
+
+
+def write_sitemap(www_dir, full_url='', entries=[]):
+    sm = new_sitemap(full_url=full_url, entries=entries)
+    target = pathlib.Path(www_dir) / 'sitemap.xml'
+    with target.open('w') as f:
+        f.write(render_sitemap(sm))
+    logger.info('wrote sitemap to %s with %d location(s)', target, len(sm))

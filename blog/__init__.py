@@ -17,7 +17,7 @@ from .entries import (
     new_entry,
 )
 
-from .sitemap import new_sitemap
+from .sitemap import write_sitemap
 
 from .git import (
     git_commit,
@@ -28,4 +28,4 @@ from .git import (
 
 from .cli import (parse_args, register_command, configure_logging, main)
 
-from .render import (Renderer, render_page, render_sitemap, write_entries)
+from .render import (Renderer, render_page, write_entries)
