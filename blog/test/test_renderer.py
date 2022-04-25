@@ -1,11 +1,11 @@
 import unittest
-import unittest.mock
 import xml.etree.ElementTree
 
-from ..render import Renderer, render_page
+from ..renderer import Renderer
 
 
 class TestRenderer(unittest.TestCase):
+
     def test_write(self):
         r = Renderer()
         self.assertEqual(r.text, '')
@@ -336,128 +336,3 @@ last line
   </author>
 </feed>
 '''.lstrip())
-
-
-class TestRender(unittest.TestCase):
-    maxDiff = None
-
-    def test_render_page(self):
-        page = unittest.mock.Mock(
-            title='Some Test Page',
-            description='Just a test page for the test suite',
-            filename='test.html',
-            banner='test.jpg',
-            page_next=None,
-            page_previous=None)
-
-        content = '''
-<p>This is some test conent.</p>
-
-<figure>
-  <a href="test.jpg">
-    <img src="test.jpg" alt="test"/>
-  </a>
-</figure>'''.strip()
-
-        actual = render_page(page,
-                             content=content,
-                             full_url='http://localhost:8080',
-                             year=1990,
-                             author='Joe Schmo')
-        expected = '''
-<!doctype html>
-<html lang="en">
-
-<head>
-  <title>Some Test Page</title>
-
-  <!-- Page Assets -->
-  <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
-  <link href="./assets/site.css" rel="stylesheet" />
-
-  <!-- Page Metadata -->
-  <meta charset="UTF-8" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <meta content="Some Test Page" name="twitter:title" />
-  <meta content="Just a test page for the test suite" name="twitter:description" />
-  <meta content="http://localhost:8080/test.html" name="og:url" />
-  <meta content="article" property="og:type" />
-  <meta content="Some Test Page" property="og:title" />
-  <meta content="Just a test page for the test suite" property="og:description" />
-  <meta content="http://localhost:8080/images/banners/test.jpg" name="og:image" />
-  <meta content="http://localhost:8080/images/banners/test.jpg" name="twitter:image" />
-
-</head>
-
-<body>
-  <article>
-
-    <!-- Page Header -->
-    <header>
-      <h1>Some Test Page</h1>
-      <p>Just a test page for the test suite</p>
-    </header>
-
-    <hr />
-
-    <!-- Page Breadcrumbs -->
-    <nav>
-      <a href="./index.html">index.html</a>
-      <span>/ test.html</span>
-    </nav>
-
-    <hr />
-
-    <!-- Page Banner -->
-    <figure>
-      <a href="./images/banners/test.jpg">
-        <img alt="page banner" src="./images/banners/test.jpg" />
-      </a>
-    </figure>
-
-    <!-- Begin Page Content -->
-    <p>This is some test conent.</p>
-
-    <figure>
-      <a href="test.jpg">
-        <img src="test.jpg" alt="test"/>
-      </a>
-    </figure>
-    <!-- End Page Content -->
-
-  </article>
-
-  <hr />
-
-  <!-- Page Footer -->
-  <footer>
-    <small>© Copyright 1990 Joe Schmo</small>
-  </footer>
-
-</body>
-
-</html>
-'''.lstrip()
-        self.assertEqual(actual, expected)
-
-        entry = unittest.mock.Mock(
-            title='Some Test Page',
-            description='Just a test page for the test suite',
-            filename='test.html',
-            banner='test.jpg',
-            page_next='next-page.html',
-            page_previous='previous-page.html')
-
-        actual = render_page(entry,
-                             full_url='http://localhost:8000',
-                             author='Alex',
-                             year=1990)
-        self.assertIn(
-            '''
-    <!-- Pagination -->
-    <nav>
-      <a href="./previous-page.html">⟵ previous-page.html</a>
-      &nbsp
-      <a href="./next-page.html">next-page.html ⟶</a>
-    </nav>
-''', actual)

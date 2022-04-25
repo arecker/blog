@@ -1,5 +1,7 @@
 # flake8: noqa
 
+from .renderer import Renderer
+
 from .images import (
     all_images,
     is_image,
@@ -15,6 +17,8 @@ from .entries import (
     all_entries,
     is_not_junk_file,
     new_entry,
+    render_entry,
+    write_entries,
 )
 
 from .sitemap import write_sitemap
@@ -27,5 +31,3 @@ from .git import (
 )
 
 from .cli import (parse_args, register_command, configure_logging, main)
-
-from .render import (Renderer, render_page, write_entries)

@@ -6,10 +6,9 @@ import pathlib
 import urllib.parse
 import xml.etree.ElementTree
 
-logger = logging.getLogger(__name__)
-
 
 class Renderer:
+
     def __init__(self, starting_indent_level=0, each_indent=2):
         self.text = ''
         self.current_indent_level = starting_indent_level
@@ -183,91 +182,3 @@ class Renderer:
 
         xml.etree.ElementTree.fromstring(result)
         return result
-
-
-def render_page(page,
-                content='',
-                full_url='',
-                author='',
-                year=datetime.datetime.now().year):
-    r = Renderer()
-
-    with r.wrapping_block('head'):
-        r.block('title', contents=page.title)
-        r.newline()
-
-        r.comment('Page Assets')
-        r.link(rel='shortcut icon', _type='image/x-icon', href='./favicon.ico')
-        r.link(rel='stylesheet', href='./assets/site.css')
-        r.newline()
-
-        r.comment('Page Metadata')
-        r.meta(charset='UTF-8')
-        r.meta(name='viewport', content='width=device-width, initial-scale=1')
-        r.meta(name='twitter:title', content=page.title)
-        r.meta(name='twitter:description', content=page.description)
-        r.meta(name='og:url',
-               content=urllib.parse.urljoin(full_url, page.filename))
-        r.meta(_property='og:type', content='article')
-        r.meta(_property='og:title', content=page.title)
-        r.meta(_property='og:description', content=page.description)
-        if page.banner:
-            r.meta_banner(page.banner, full_url)
-        r.newline()
-
-    r.newline()
-    with r.wrapping_block('body'):
-        with r.wrapping_block('article'):
-            r.newline()
-
-            r.comment('Page Header')
-            r.header(title=page.title, description=page.description)
-
-            r.divider()
-
-            r.comment('Page Breadcrumbs')
-            r.breadcrumbs(filename=page.filename)
-
-            r.divider()
-
-            if page.banner:
-                r.comment('Page Banner')
-                r.banner(page.banner)
-                r.newline()
-
-            r.comment('Begin Page Content')
-            r.article(content=content)
-            r.comment('End Page Content')
-            r.newline()
-
-            if page.page_next or page.page_previous:
-                r.comment('Pagination')
-                r.pagination(next_page=page.page_next,
-                             prev_page=page.page_previous)
-
-        r.divider()
-
-        r.comment('Page Footer')
-        r.footer(author=author, year=year)
-        r.newline()
-
-    return r.as_html()
-
-
-def write_entries(entries, dir_www: str, full_url: str, author: str):
-    for i, entry in enumerate(entries):
-        with open(entry.source, 'r') as f:
-            content = f.read()
-
-        content = render_page(page=entry,
-                              content=content,
-                              full_url=full_url,
-                              author=author)
-
-        target = pathlib.Path(dir_www) / entry.filename
-        with open(target, 'w') as f:
-            f.write(content)
-            logger.debug('rendered %s', target)
-
-        if i != 0 and i % 100 == 0:
-            logger.info('rendered %d out of %d entries', i + 1, len(entries))

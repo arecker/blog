@@ -4,7 +4,7 @@ import logging
 import pathlib
 import urllib.parse
 
-from .render import Renderer
+from .renderer import Renderer
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +16,7 @@ Location = collections.namedtuple('SitemapLocation', [
 
 
 class Sitemap:
+
     def __init__(self, full_url):
         self.entries = []
         if isinstance(full_url, str):

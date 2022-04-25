@@ -14,10 +14,10 @@ def main(args, entries=[]):
         with open(args.directory / f'entries/{entry.filename}', 'r') as f:
             content = f.read()
 
-        output = blog.render_page(entry,
-                                  full_url=args.full_url.geturl(),
-                                  content=content,
-                                  author=args.author)
+        output = blog.render_entry(entry,
+                                   full_url=args.full_url.geturl(),
+                                   content=content,
+                                   author=args.author)
 
         with open(args.directory / f'www/{entry.filename}', 'w') as f:
             f.write(output)

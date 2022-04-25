@@ -8,6 +8,7 @@ from .. import sitemap
 
 
 class TestSitemap(unittest.TestCase):
+
     def setUp(self):
         entry = unittest.mock.Mock(date=datetime.datetime(2022, 1, 1),
                                    filename='testy.html')

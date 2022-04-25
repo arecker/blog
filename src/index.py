@@ -44,7 +44,7 @@ def main(args, entries=[]):
         page_next=None,
         page_previous=None,
     )
-    output = blog.render_page(
+    output = blog.render_entry(
         page=page,
         full_url=args.full_url.geturl(),
         content=content,
