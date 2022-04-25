@@ -55,20 +55,6 @@ def parse_args(args):
     return args
 
 
-class LogFormatter(logging.Formatter):
-
-    def format(self, *args, **kwargs):
-        result = super().format(*args, **kwargs)
-        return prettify_log(result)
-
-
-def prettify_log(message: str):
-    """Prettify a log message."""
-
-    message = re.sub(f'{pathlib.Path.home()}', '~', message)
-    return message
-
-
 def configure_logging(verbose=False):
     """Configures root logger."""
 
@@ -84,7 +70,7 @@ def configure_logging(verbose=False):
     handler = logging.StreamHandler()
     handler.setLevel(level)
 
-    formatter = LogFormatter('%(name)s: %(message)s')
+    formatter = logging.Formatter('%(name)s: %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
 

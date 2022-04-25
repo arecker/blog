@@ -31,20 +31,6 @@ class TestCLI(unittest.TestCase):
         self.assertIsInstance(args.site_url, urllib.parse.ParseResult)
         self.assertIsInstance(args.site_year, int)
 
-    def test_prettify_log(self):
-        with unittest.mock.patch.object(pathlib.Path,
-                                        'home',
-                                        return_value='/home/testy'):
-            message = ('a bunch of files were written to '
-                       '/home/testy/logs, '
-                       'you should go check that out.')
-            actual = cli.prettify_log(message)
-            expected = ('a bunch of files were written to '
-                        '~/logs, '
-                        'you should go check that out.')
-
-            self.assertEqual(actual, expected)
-
     def test_configure_logger(self):
         with patch_logging() as mock:
             cli.configure_logging()
@@ -121,12 +107,3 @@ class TestMain(unittest.TestCase):
 
     def tearDown(self):
         unittest.mock.patch.stopall()
-
-
-class TestLogFormatter(unittest.TestCase):
-    def test_format(self):
-        getMessage = unittest.mock.Mock(return_value='test')
-        record = unittest.mock.Mock(getMessage=getMessage, exc_text=None)
-        formatter = cli.LogFormatter()
-        actual = formatter.format(record)
-        self.assertEqual(actual, 'a test message!')
