@@ -24,7 +24,7 @@ def register(subparser):
 
 
 def main(args, entries=[]):
-    entries = entries or blog.all_entries(args.directory)
+    entries = entries or blog.all_entries(args.directory / 'entries')
     latest = entries[0]
     url = urllib.parse.urljoin(args.full_url.geturl(), latest.filename)
 

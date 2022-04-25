@@ -25,7 +25,7 @@ def make_twitter_client(args):
 
 
 def main(args, entries=[]):
-    entries = entries or blog.all_entries(args.directory)
+    entries = entries or blog.all_entries(args.directory / 'entries')
     latest = entries[0]
 
     try:
