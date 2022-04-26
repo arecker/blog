@@ -13,10 +13,11 @@ def temp_root():
     with tempfile.TemporaryDirectory() as d:
         d = pathlib.Path(d)
         (d / 'entries').mkdir()
+        (d / 'www').mkdir()
         yield d
 
 
-class TestFiles(unittest.TestCase):
+class TestEntries(unittest.TestCase):
 
     def test_is_not_junk_file(self):
         self.assertTrue(entries.is_not_junk_file('test.html'))
@@ -202,3 +203,25 @@ This is a test entry, made from a unit test from slug {slug}.
       <a href="./next-page.html">next-page.html ⟶</a>
     </nav>
 ''', actual)
+
+    def test_write_entries(self):
+        entry = unittest.mock.Mock(
+            title='Some Test Page',
+            description='Just a test page for the test suite',
+            filename='test.html',
+            banner='test.jpg',
+            page_next='next-page.html',
+            page_previous='previous-page.html')
+        with temp_root() as d:
+            with (d / 'entries/test.html').open('w') as f:
+                f.write('Test content!')
+
+            entry.source = d / 'entries/test.html'
+            entries.write_entries([entry] * 101,
+                                  d / 'www',
+                                  full_url='http://biz.local',
+                                  author='Bill S. Preston',
+                                  year='1988')
+            with (d / 'www/test.html').open('r') as f:
+                content = f.read()
+                self.assertIn('<title>Some Test Page</title>', content)

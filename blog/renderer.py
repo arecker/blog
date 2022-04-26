@@ -109,6 +109,39 @@ class Renderer:
         with self.indent(0):
             self.write('')
 
+    def head(self,
+             filename='',
+             title='',
+             description='',
+             banner='',
+             full_url=''):
+
+        with self.wrapping_block('head'):
+            self.block('title', contents=title)
+            self.newline()
+
+            self.comment('Page Assets')
+            self.link(rel='shortcut icon',
+                      _type='image/x-icon',
+                      href='./favicon.ico')
+            self.link(rel='stylesheet', href='./assets/site.css')
+            self.newline()
+
+            self.comment('Page Metadata')
+            self.meta(charset='UTF-8')
+            self.meta(name='viewport',
+                      content='width=device-width, initial-scale=1')
+            self.meta(name='twitter:title', content=title)
+            self.meta(name='twitter:description', content=description)
+            self.meta(name='og:url',
+                      content=urllib.parse.urljoin(full_url, filename))
+            self.meta(_property='og:type', content='article')
+            self.meta(_property='og:title', content=title)
+            self.meta(_property='og:description', content=description)
+            if banner:
+                self.meta_banner(banner, full_url)
+            self.newline()
+
     def header(self, title: str, description: str):
         with self.wrapping_block('header'):
             self.block('h1', title)
