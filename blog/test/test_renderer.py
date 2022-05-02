@@ -61,6 +61,11 @@ class TestRenderer(unittest.TestCase):
             '&quot;&gt;&quot;</p>')
 
         r = Renderer()
+        r.block('p', contents='Use CDATA instead!', cdata=True)
+        self.assertEqual(r.text.strip(),
+                         '<p><![CDATA[Use CDATA instead!]]></p>')
+
+        r = Renderer()
         r.block('div',
                 _id='some-id',
                 _class='some-class',

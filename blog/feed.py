@@ -40,3 +40,40 @@ def render_feed_info(info: Info) -> str:
         href=info.full_url,
     )
     return r.text
+
+
+def render_feed_entry(entry, info: Info):
+    r = Renderer()
+
+    with r.wrapping_block('entry'):
+        r.block('title', entry.title)
+        r.block('summary', contents=entry.description, cdata=True)
+
+        timestamp = entry.date.replace(
+            tzinfo=datetime.timezone.utc).isoformat()
+        r.block('published', contents=timestamp)
+        r.block('updated', contents=timestamp)
+
+        with r.wrapping_block('author'):
+            r.block('name', info.author_name)
+            r.block('email', info.author_email)
+
+        url = urllib.parse.urljoin(info.full_url, entry.filename)
+        r.block('id', url)
+        r.link(href=url)
+
+        if entry.banner:
+            banner_url = f'images/banners/{entry.banner}'
+            banner_url = urllib.parse.urljoin(info.full_url, banner_url)
+            attrs = {
+                'self_closing': True,
+                'url': banner_url,
+                'xmlns:media': 'http://search.yahoo.com/mrss/',
+            }
+            r.block('media:thumbnail', **attrs)
+            r.block('media:content', medium='image', **attrs)
+
+        with open(entry.source, 'r') as f:
+            r.block('content', cdata=True, contents=f.read())
+
+    return r.text

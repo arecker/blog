@@ -34,6 +34,7 @@ class Renderer:
               tag_name: str,
               contents='',
               self_closing=False,
+              cdata=False,
               _id=None,
               _class=None,
               **attrs):
@@ -60,7 +61,10 @@ class Renderer:
             tag_open += '>'
 
         tag_close = f'</{tag_name}>'
-        contents = html.escape(contents)
+        if cdata:
+            contents = '<![CDATA[' + contents + ']]>'
+        else:
+            contents = html.escape(contents)
         self.write(f'{tag_open}{contents}{tag_close}')
 
     @contextlib.contextmanager
