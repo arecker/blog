@@ -8,7 +8,7 @@ from .renderer import Renderer
 
 logger = logging.getLogger(__name__)
 
-Location = collections.namedtuple('SitemapLocation', [
+Location = collections.namedtuple('Location', [
     'url',
     'lastmod',
     'source',

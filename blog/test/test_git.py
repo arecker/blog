@@ -4,6 +4,7 @@ import pathlib
 import subprocess
 import tempfile
 import unittest
+import unittest.mock
 
 from .. import git
 
@@ -24,6 +25,7 @@ def tmp_git_repo():
 
 
 class TestGit(unittest.TestCase):
+
     def test_git_status(self):
         with tmp_git_repo():
             pathlib.Path('test.txt').touch()
@@ -92,6 +94,12 @@ class TestGit(unittest.TestCase):
         self.assertEqual(change.path, 'www/images/test.jpg')
         self.assertEqual(change.status, 'mixed')
         self.assertEqual(change.state, 'mixed')
+
+        with self.assertRaisesRegex(ValueError, 'unknown status'):
+            git.new_git_change('AD  www/blah.jpg')
+
+        with self.assertRaisesRegex(ValueError, 'can\'t parse'):
+            git.new_git_change('How did this happen?')
 
     def test_git_add(self):
         with tmp_git_repo():
