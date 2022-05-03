@@ -2,6 +2,7 @@ import collections
 import datetime
 import logging
 import pathlib
+import re
 import urllib.parse
 
 from .renderer import Renderer
@@ -16,6 +17,48 @@ Info = collections.namedtuple('Info', [
     'timestamp',
     'full_url',
 ])
+
+
+def plain_textify(content: str) -> str:
+
+    # strip out paragraphs
+    pattern = re.compile(r'^\<p\>(.*)\<\/p\>$', re.MULTILINE)
+    content = pattern.sub(r'\1', content)
+
+    # strip out b's, em's, and strong's
+    tags = ['b', 'em', 'strong']
+    tags = [f'<{t}>' for t in tags] + [f'</{t}>' for t in tags]
+    for tag in tags:
+        content = content.replace(tag, '')
+
+    # strip out links
+    pattern = re.compile(r'<a href=\".*?\">(.*?)</a>')
+    content = pattern.sub(r'[\1]', content)
+
+    # strip out comments
+    pattern = re.compile(r'^<!--.*-->$', re.MULTILINE)
+    content = pattern.sub('', content)
+
+    # strip out figures
+    pattern = re.compile(
+        r'<figure>\n  <a href=\".*?\">\n    <img .*?alt=\"(.*?)\" .*?/>\n  \</a>\n</figure>',
+        re.DOTALL)
+    content = pattern.sub(r'[figure \1]', content)
+
+    # figures with captions
+    pattern = re.compile(
+        r'<figure>\n  <a href=\".*?\">\n    <img .*?alt=\"(.*?)\" .*?/>\n  \</a>\n  <figcaption><p>(.*?)</p></figcaption>\n</figure>',
+        re.DOTALL)
+    content = pattern.sub(r'[figure \1: \2]', content)
+
+    # strip out video
+    pattern = re.compile(
+        r'<video .*?>\n  <source src=\"\.?\/vids\/\d{4}-\d{2}-\d{2}-(.*?)\..*?/>.*?</video>',
+        re.DOTALL,
+    )
+    content = pattern.sub(r'[video \1]', content)
+
+    return content
 
 
 def render_feed_info(info: Info) -> str:
@@ -78,7 +121,10 @@ def render_feed_entry(entry, info: Info):
             r.block('media:content', medium='image', **attrs)
 
         with open(entry.source, 'r') as f:
-            r.block('content', cdata=True, contents=f.read())
+            contents = f.read()
+            contents = plain_textify(contents)
+            contents = contents.strip()
+            r.block('content', cdata=True, contents=contents)
 
     return r.text
 

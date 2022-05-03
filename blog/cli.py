@@ -6,7 +6,6 @@ import logging
 import pathlib
 import pdb
 import platform
-import re
 import sys
 import urllib.parse
 
@@ -41,9 +40,18 @@ group.add_argument('--site-url',
 group.add_argument('--site-author',
                    help='copyright author',
                    default='Alex Recker')
+group.add_argument('--site-email',
+                   help='site author email',
+                   default='alex@reckerfamily.com')
 group.add_argument('--site-year',
                    help='copyright year',
                    default=datetime.datetime.now().year)
+group.add_argument('--site-title',
+                   help='website title',
+                   default='Dear Journal')
+group.add_argument('--site-subtitle',
+                   help='website subtitle',
+                   default='Daily, public journal by Alex Recker')
 
 subcommand = parser.add_subparsers(dest='subcommand', metavar='{subcommand}')
 subcommand.add_parser('help', help='Print program usage')

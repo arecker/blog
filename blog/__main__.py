@@ -13,7 +13,14 @@ def build(args):
 
     blog.write_sitemap(args.dir_www, full_url=args.site_url, entries=entries)
 
-    # blog.write_feed(args.dir_www)
+    blog.write_feed(args.dir_www,
+                    title=args.site_title,
+                    subtitle=args.site_subtitle,
+                    author_name=args.site_author,
+                    author_email=args.site_email,
+                    timestamp=entries[0].date,
+                    full_url=args.site_url.geturl(),
+                    entries=entries[:50])
 
     blog.write_entries(entries,
                        dir_www=str(args.dir_www),
