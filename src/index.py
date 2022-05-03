@@ -3,8 +3,6 @@
 import blog
 import logging
 
-from . import utils
-
 logger = logging.getLogger(__name__)
 
 
@@ -36,13 +34,15 @@ def main(args, entries=[]):
 
     content = render_content(latest=latest).rstrip()
 
-    page = utils.Page(
+    page = blog.Entry(
         filename='index.html',
         title=args.title,
         description=args.subtitle,
         banner=None,
         page_next=None,
         page_previous=None,
+        date=None,
+        source=None,
     )
     output = blog.render_entry(
         page=page,

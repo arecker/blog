@@ -8,7 +8,7 @@ import pathlib
 import threading
 import time
 
-from . import build, utils, entries as entries_cmd, index
+from . import build, entries as entries_cmd, index
 
 logger = logging.getLogger(__name__)
 
@@ -92,7 +92,6 @@ Changeset = collections.namedtuple('Changeset', [
     'entries',
     'games',
     'index',
-    'nav',
 ])
 
 
@@ -103,15 +102,9 @@ def make_changeset(old_state: list[Snapshot],
         'entries': False,
         'games': False,
         'index': False,
-        'nav': False,
     }
 
     for snapshot in diff_snapshots(old_state, new_state):
-        if snapshot.keyword == 'nav':
-            changeset['nav'] = True
-            changeset['entries'] = True
-            changeset['games'] = True
-            changeset['announcements'] = True
         if snapshot.keyword == 'games':
             changeset['games'] = True
         if snapshot.keyword == 'entries':
@@ -136,9 +129,6 @@ def main(args):
 
         current_state = make_snapshot_list(args.directory)
         changeset = make_changeset(last_state, current_state)
-
-        if changeset.nav:
-            nav = utils.read_nav(args.directory / 'nav.json')
 
         if changeset.entries:
             entries = blog.all_entries(args.directory)

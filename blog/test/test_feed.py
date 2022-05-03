@@ -124,23 +124,24 @@ Some italics, strongs, or bolds in a paragraph?
 
             actual = feed.render_feed_entry(entry, info)
 
-        expected = '''
-<entry>
-  <title>Just a Test Entry</title>
-  <summary><![CDATA[a test entry for a unit test]]></summary>
-  <published>2019-01-01T00:00:00+00:00</published>
-  <updated>2019-01-01T00:00:00+00:00</updated>
-  <author>
-    <name>Alex Recker</name>
-    <email>alex@reckerfamily.com</email>
-  </author>
-  <id>https://www.alexrecker.com/testing.html</id>
-  <link href="https://www.alexrecker.com/testing.html" />
-  <media:thumbnail url="https://www.alexrecker.com/images/banners/testing.jpg" xmlns:media="http://search.yahoo.com/mrss/" />
-  <media:content medium="image" url="https://www.alexrecker.com/images/banners/testing.jpg" xmlns:media="http://search.yahoo.com/mrss/" />
-  <content><![CDATA[TESTING]]></content>
-</entry>
-'''.lstrip()
+        expected = '''  <entry>
+    <title>Just a Test Entry</title>
+    <summary><![CDATA[a test entry for a unit test]]></summary>
+    <published>2019-01-01T00:00:00+00:00</published>
+    <updated>2019-01-01T00:00:00+00:00</updated>
+    <author>
+      <name>Alex Recker</name>
+      <email>alex@reckerfamily.com</email>
+    </author>
+    <id>https://www.alexrecker.com/testing.html</id>
+    <link href="https://www.alexrecker.com/testing.html" />
+    <media:thumbnail url="https://www.alexrecker.com/images/banners/testing.jpg" xmlns:media="http://search.yahoo.com/mrss/" />
+    <media:content medium="image" url="https://www.alexrecker.com/images/banners/testing.jpg" xmlns:media="http://search.yahoo.com/mrss/" />
+    <content><![CDATA[
+TESTING
+]]></content>
+  </entry>
+'''
 
         self.assertEqual(actual, expected)
 
@@ -194,7 +195,9 @@ Some italics, strongs, or bolds in a paragraph?
     <link href="https://www.alexrecker.com/testing.html" />
     <media:thumbnail url="https://www.alexrecker.com/images/banners/testing.jpg" xmlns:media="http://search.yahoo.com/mrss/" />
     <media:content medium="image" url="https://www.alexrecker.com/images/banners/testing.jpg" xmlns:media="http://search.yahoo.com/mrss/" />
-    <content><![CDATA[TESTING]]></content>
+    <content><![CDATA[
+TESTING
+]]></content>
   </entry>
 </feed>
 '''
@@ -205,7 +208,13 @@ Some italics, strongs, or bolds in a paragraph?
         with tempfile.TemporaryDirectory() as d:
             source = pathlib.Path(d) / 'test.html'
             with source.open('w') as f:
-                f.write('TESTING')
+                f.write('''
+<!-- some comment -->
+
+<p>Blah blah blah.</p>
+
+<p>OK, bye.</p>
+''')
 
             entry = unittest.mock.Mock(
                 title='Just a Test Entry',
@@ -226,3 +235,13 @@ Some italics, strongs, or bolds in a paragraph?
 
             expected = pathlib.Path(d) / 'feed.xml'
             self.assertTrue(expected.is_file())
+
+            with expected.open('r') as f:
+                self.assertIn(
+                    '''
+    <content><![CDATA[
+Blah blah blah.
+
+OK, bye.
+]]></content>
+''', f.read())

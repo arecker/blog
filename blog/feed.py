@@ -1,5 +1,6 @@
 import collections
 import datetime
+import html
 import logging
 import pathlib
 import re
@@ -90,7 +91,7 @@ def render_feed_info(info: Info) -> str:
 
 
 def render_feed_entry(entry, info: Info):
-    r = Renderer()
+    r = Renderer(starting_indent_level=2)
 
     with r.wrapping_block('entry'):
         r.block('title', entry.title)
@@ -123,7 +124,8 @@ def render_feed_entry(entry, info: Info):
         with open(entry.source, 'r') as f:
             contents = f.read()
             contents = plain_textify(contents)
-            contents = contents.strip()
+            contents = '\n' + contents.strip() + '\n'
+            contents = html.escape(contents)
             r.block('content', cdata=True, contents=contents)
 
     return r.text
@@ -138,7 +140,7 @@ def render_feed(info: Info, entries=[]) -> str:
 
         for entry in entries:
             for line in render_feed_entry(entry, info).splitlines():
-                r.write(line)
+                r.text += line + '\n'
 
     return r.as_xml()
 
@@ -162,4 +164,4 @@ def write_feed(www_dir,
     target = pathlib.Path(www_dir) / 'feed.xml'
     with target.open('w') as f:
         f.write(render_feed(info, entries=entries))
-    logger.info('rendered %s with %d item(s)', target, len(entries))
+    logger.info('wrote feed to %s with %d item(s)', target, len(entries))
