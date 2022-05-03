@@ -22,6 +22,7 @@ from .entries import (
 )
 
 from .sitemap import write_sitemap
+from .feed import write_feed
 
 from .git import (
     git_commit,

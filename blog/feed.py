@@ -1,8 +1,12 @@
 import collections
 import datetime
+import logging
+import pathlib
 import urllib.parse
 
 from .renderer import Renderer
+
+logger = logging.getLogger(__name__)
 
 Info = collections.namedtuple('Info', [
     'title',
@@ -77,3 +81,39 @@ def render_feed_entry(entry, info: Info):
             r.block('content', cdata=True, contents=f.read())
 
     return r.text
+
+
+def render_feed(info: Info, entries=[]) -> str:
+    r = Renderer()
+
+    with r.wrapping_block('feed', xmlns='http://www.w3.org/2005/Atom'):
+        for line in render_feed_info(info).splitlines():
+            r.write(line)
+
+        for entry in entries:
+            for line in render_feed_entry(entry, info).splitlines():
+                r.write(line)
+
+    return r.as_xml()
+
+
+def write_feed(www_dir,
+               title='',
+               subtitle='',
+               author_name='',
+               author_email='',
+               timestamp='',
+               full_url='',
+               entries=[]):
+
+    info = Info(title=title,
+                subtitle=subtitle,
+                author_name=author_name,
+                author_email=author_email,
+                timestamp=timestamp,
+                full_url=full_url)
+
+    target = pathlib.Path(www_dir) / 'feed.xml'
+    with target.open('w') as f:
+        f.write(render_feed(info, entries=entries))
+    logger.info('rendered %s with %d item(s)', target, len(entries))
