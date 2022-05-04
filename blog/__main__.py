@@ -22,7 +22,7 @@ def build(args):
                     full_url=args.site_url.geturl(),
                     entries=entries[:50])
 
-    blog.write_entries(entries,
+    blog.write_entries(entries=entries,
                        dir_www=str(args.dir_www),
                        full_url=str(args.site_url),
                        author=args.site_author,
