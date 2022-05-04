@@ -2,13 +2,14 @@
 
 import blog
 import collections
+import datetime
 import http.server
 import logging
 import pathlib
 import threading
 import time
 
-from . import build, entries as entries_cmd, index
+from . import build, index
 
 logger = logging.getLogger(__name__)
 
@@ -132,7 +133,11 @@ def main(args):
 
         if changeset.entries:
             entries = blog.all_entries(args.directory)
-            entries_cmd.main(args, nav=nav, entries=entries)
+            blog.write_entries(entries,
+                               args.directory / 'www',
+                               full_url=args.full_url.geturl(),
+                               author=args.author,
+                               year=datetime.datetime.now().year)
 
         if changeset.announcements or changeset.entries:
             index.main(args, entries=entries)
