@@ -1,9 +1,10 @@
 """Build the website locally"""
 
 import blog
+import datetime
 import logging
 
-from . import pave, index, entries as entriescmd
+from . import pave, index
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,12 @@ def main(args, entries=[]):
 
     pave.main(args)
     index.main(args)
-    entriescmd.main(args, entries=entries)
+
+    blog.write_entries(entries,
+                       args.directory / 'www',
+                       full_url=args.full_url.geturl(),
+                       author=args.author,
+                       year=datetime.datetime.now().year)
 
     blog.write_feed(args.directory / 'www',
                     title=args.title,
