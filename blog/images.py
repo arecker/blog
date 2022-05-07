@@ -3,6 +3,9 @@ import os
 import pathlib
 import shutil
 import subprocess
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def validate_image_dependenices():
@@ -45,7 +48,7 @@ def resize_image(path, maximum: int):
 def is_image(path):
     """Return True if path has an image file extension."""
 
-    _, ext = os.path.splitext(path)
+    _, ext = os.path.splitext(str(path))
     return ext.lower() in (
         '.bmp',
         '.jpeg',
@@ -54,9 +57,29 @@ def is_image(path):
     )
 
 
-def all_images(root_directory: str | pathlib.Path) -> list[pathlib.Path]:
+def all_images(www_directory: str | pathlib.Path) -> list[pathlib.Path]:
     """Retrieve all images in site."""
 
-    root_directory = pathlib.Path(root_directory)
-    images = filter(is_image, root_directory.glob('www/**/*.*'))
+    root_directory = pathlib.Path(www_directory)
+    images = filter(is_image, root_directory.glob('**/*.*'))
     return list(sorted(images))
+
+
+def check_image(path, maximum=800):
+    dimensions = read_image_dimensions(path)
+
+    if dimensions.height > maximum or dimensions.width > maximum:
+        resize_image(path, maximum)
+        logger.info('resized %s from %s', path, dimensions)
+    else:
+        logger.debug('%s is correct size at %s', path, dimensions)
+
+
+def scan_images(dir_www: str):
+    validate_image_dependenices()
+
+    files = all_images(dir_www)
+    for i, path in enumerate(files):
+        check_image(path)
+        if (i + 1) % 100 == 0 or (i + 1) == len(files):
+            logger.info('scanned %d out of %d images', i + 1, len(files))

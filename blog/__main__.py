@@ -29,6 +29,13 @@ def build(args):
                        year=args.site_year)
 
 
+@blog.register_command
+def images(args):
+    """Scan site images"""
+
+    blog.scan_images(args.dir_www)
+
+
 def main():
     blog.main()
 

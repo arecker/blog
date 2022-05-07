@@ -2,13 +2,7 @@
 
 from .renderer import Renderer
 
-from .images import (
-    all_images,
-    is_image,
-    read_image_dimensions,
-    resize_image,
-    validate_image_dependenices,
-)
+from .images import scan_images
 
 from .http import make_http_request
 
