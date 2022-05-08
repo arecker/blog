@@ -133,7 +133,7 @@ def index(entries=[], pages=[]):
 
 @register_page(filename='entries.html',
                title='Entries',
-               description='A complete list of journal entries')
+               description='complete archive of journal entries')
 def entries_page(entries=[], pages=[]):
     r = Renderer()
 
