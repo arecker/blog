@@ -16,7 +16,6 @@ Location = collections.namedtuple('Location', [
 
 
 class Sitemap:
-
     def __init__(self, full_url):
         self.entries = []
         if isinstance(full_url, str):
@@ -78,4 +77,4 @@ def write_sitemap(www_dir, full_url='', entries=[]):
     target = pathlib.Path(www_dir) / 'sitemap.xml'
     with target.open('w') as f:
         f.write(render_sitemap(sm))
-    logger.info('wrote sitemap to %s with %d location(s)', target, len(sm))
+    logger.info('wrote sitemap.xml with %d location(s)', len(sm))

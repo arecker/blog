@@ -1,5 +1,6 @@
 import blog
 import logging
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -7,7 +8,7 @@ logger = logging.getLogger(__name__)
 @blog.register_command
 def build(args):
     """Build the website locally"""
-
+    pave(args)
     entries = blog.all_entries(args.dir_entries)
     logger.info('retrieved %d entries from %s', len(entries), args.dir_entries)
 
@@ -30,6 +31,7 @@ def build(args):
 
     blog.write_pages(
         dir_www=str(args.dir_www),
+        dir_data=str(args.dir_data),
         entries=entries,
         full_url=str(args.site_url),
         year=args.site_year,
@@ -41,6 +43,18 @@ def images(args):
     """Scan site images"""
 
     blog.scan_images(args.dir_www)
+
+
+@blog.register_command
+def pave(args):
+    """Clean webroot"""
+
+    targets = list(args.dir_www.glob('*.html'))
+    targets += list(args.dir_www.glob('*.xml'))
+    for target in targets:
+        os.remove(target)
+        logger.debug('removed old target %s', target)
+    logger.info('paved webroot (%d files)', len(targets))
 
 
 def main():

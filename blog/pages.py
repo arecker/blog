@@ -1,6 +1,7 @@
 import collections
 import datetime
 import functools
+import json
 import logging
 import pathlib
 import random
@@ -32,6 +33,26 @@ def register_page(filename='', title='', description='', banner=''):
         return func
 
     return wrapper
+
+
+def register_page_from_data(path: str):
+    path = pathlib.Path(path)
+    with open(path, 'r') as f:
+        data = json.load(f)
+    logger.debug('imported data from %s', path)
+
+    def render_func(*args, **kwargs):
+        return f'Rendered version of {path.name}'
+
+    page = Page(
+        filename=data['filename'],
+        title=data['title'],
+        description=data['description'],
+        banner=data.get('banner'),
+        render_func=render_func,
+    )
+
+    PAGES[page.filename] = page
 
 
 def render_page(page,
@@ -87,7 +108,7 @@ def render_page(page,
                title='Dear Journal',
                description='Daily, public journal by Alex Recker')
 def index(entries=[], pages=[]):
-    r = Renderer(starting_indent_level=4)
+    r = Renderer()
 
     latest = entries[0]
     r.block('h2', 'Latest Entry')
@@ -114,7 +135,7 @@ def index(entries=[], pages=[]):
                title='Entries',
                description='A complete list of journal entries')
 def entries_page(entries=[], pages=[]):
-    r = Renderer(starting_indent_level=4)
+    r = Renderer()
 
     entries_with_banners = [e for e in entries if e.banner]
     choice = random.choice(entries_with_banners)
@@ -135,7 +156,10 @@ def entries_page(entries=[], pages=[]):
     return r.text
 
 
-def write_pages(dir_www='', full_url='', year=None, entries=[]):
+def write_pages(dir_www='', dir_data='', full_url='', year=None, entries=[]):
+    for data in pathlib.Path(dir_data).glob('*.json'):
+        register_page_from_data(data)
+
     pages = sorted(PAGES.values(), key=lambda p: p.filename)
     for i, page in enumerate(pages):
         logger.info('writing %s [page %d/%d]', page.filename, i + 1,
