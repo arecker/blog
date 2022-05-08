@@ -34,6 +34,7 @@ def build(args):
         dir_data=str(args.dir_data),
         entries=entries,
         full_url=str(args.site_url),
+        author=args.site_author,
         year=args.site_year,
     )
 

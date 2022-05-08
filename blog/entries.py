@@ -1,15 +1,8 @@
 import collections
-import contextlib
 import datetime
-import datetime
-import html
 import logging
-import logging
-import pathlib
 import pathlib
 import re
-import urllib.parse
-import xml.etree.ElementTree
 
 from .renderer import Renderer
 

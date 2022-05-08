@@ -156,7 +156,12 @@ def entries_page(entries=[], pages=[]):
     return r.text
 
 
-def write_pages(dir_www='', dir_data='', full_url='', year=None, entries=[]):
+def write_pages(dir_www='',
+                dir_data='',
+                full_url='',
+                author='',
+                year=None,
+                entries=[]):
     for data in pathlib.Path(dir_data).glob('*.json'):
         register_page_from_data(data)
 
@@ -169,6 +174,7 @@ def write_pages(dir_www='', dir_data='', full_url='', year=None, entries=[]):
             content = render_page(page,
                                   full_url=full_url,
                                   year=year,
+                                  author=author,
                                   entries=entries,
                                   pages=pages)
             f.write(content)

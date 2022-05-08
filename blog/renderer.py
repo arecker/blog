@@ -8,7 +8,6 @@ import xml.etree.ElementTree
 
 
 class Renderer:
-
     def __init__(self, starting_indent_level=0, each_indent=2):
         self.text = ''
         self.current_indent_level = starting_indent_level
