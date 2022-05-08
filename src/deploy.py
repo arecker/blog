@@ -5,7 +5,7 @@ import hashlib
 import logging
 import time
 
-from . import build, validate
+from . import validate
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +74,6 @@ def build_new_deploy(webroot):
 
 
 def main(args):
-    build.main(args)
     validate.main(args)
 
     domain = args.full_url.netloc

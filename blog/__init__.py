@@ -15,6 +15,8 @@ from .entries import (
     write_entries,
 )
 
+from .pages import write_pages
+
 from .sitemap import write_sitemap
 from .feed import write_feed
 

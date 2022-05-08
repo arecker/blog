@@ -28,6 +28,13 @@ def build(args):
                        author=args.site_author,
                        year=args.site_year)
 
+    blog.write_pages(
+        dir_www=str(args.dir_www),
+        entries=entries,
+        full_url=str(args.site_url),
+        year=args.site_year,
+    )
+
 
 @blog.register_command
 def images(args):
