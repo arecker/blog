@@ -118,12 +118,27 @@ def index(entries=[], pages=[]):
              href=f'./{latest.filename}',
              caption=latest.description)
 
+    r.divider()
+
+    choices = [e for e in entries if e.banner]
+    choice = random.choice(choices)
+    r.block('h2', 'Random Entry 🎲')
+    r.block('strong', choice.title)
+    r.figure(alt='latest entry banner',
+             src=f'./images/banners/{choice.banner}',
+             href=f'./{choice.filename}',
+             caption=choice.description)
+
+    r.divider()
+
     r.block('h2', 'Feeds 🛰')
     with r.wrapping_block('table'):
         with r.wrapping_block('tr'):
             with r.wrapping_block('td'):
                 r.block('a', href='./feed.xml', contents='feed.xml')
             r.block('td', contents='journal entries Atom feed (latest 50)')
+
+    r.divider()
 
     r.block('h2', 'Pages 🗺')
     pages = [p for p in pages if p.filename != 'index.html']
