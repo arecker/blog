@@ -14,7 +14,7 @@ def main(args, entries=[]):
     blog.images.validate_image_dependenices()
 
     new_images = list(
-        filter(blog.image.is_image, git.git_new_files(args.directory)))
+        filter(blog.images.is_image, git.git_new_files(args.directory)))
 
     logger.info('checking dimensions for new images: %s', new_images)
     for path in new_images:
