@@ -31,7 +31,7 @@ def build(args):
 
     blog.write_pages(
         dir_www=str(args.dir_www),
-        dir_data=str(args.dir_data),
+        dir_data=str(args.dir_pages),
         entries=entries,
         full_url=str(args.site_url),
         author=args.site_author,
@@ -47,6 +47,15 @@ def images(args):
 
 
 @blog.register_command
+def jenkins(args):
+    """run the full jenkins pipeline"""
+
+    test(args)
+    pave(args)
+    build(args)
+
+
+@blog.register_command
 def pave(args):
     """Clean webroot"""
 
@@ -56,6 +65,13 @@ def pave(args):
         os.remove(target)
         logger.debug('removed old target %s', target)
     logger.info('paved webroot (%d files)', len(targets))
+
+
+@blog.register_command
+def test(args):
+    """run the unit test suite"""
+
+    blog.run_test_suite()
 
 
 def main():

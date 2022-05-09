@@ -6,6 +6,8 @@ from .images import scan_images
 
 from .http import make_http_request
 
+from .test import run_test_suite
+
 from .entries import (
     Entry,
     all_entries,

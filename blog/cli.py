@@ -32,8 +32,8 @@ group.add_argument('--dir-www',
 group.add_argument('--dir-entries',
                    default=str(home / 'src/blog/entries/'),
                    help='entry sources directory')
-group.add_argument('--dir-data',
-                   default=str(home / 'src/blog/data/'),
+group.add_argument('--dir-pages',
+                   default=str(home / 'src/blog/pages/'),
                    help='data directory')
 
 group = parser.add_argument_group('site')
