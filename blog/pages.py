@@ -120,16 +120,20 @@ def index(entries=[], pages=[]):
 
     r.divider()
 
-    choices = [e for e in entries if e.banner]
-    choice = random.choice(choices)
-    r.block('h2', 'Random Entry 🎲')
-    r.block('strong', choice.title)
-    r.figure(alt='latest entry banner',
-             src=f'./images/banners/{choice.banner}',
-             href=f'./{choice.filename}',
-             caption=choice.description)
-
-    r.divider()
+    today = datetime.datetime.today()
+    last_year = datetime.datetime(year=today.year - 1,
+                                  month=today.month,
+                                  day=today.month)
+    last_year = [e for e in entries if e.banner and e.date == last_year]
+    if last_year:
+        last_year = last_year[0]
+        r.block('h2', 'Looking Back ⌛')
+        r.block('strong', '1 Year Ago')
+        r.figure(alt='latest entry banner',
+                 src=f'./images/banners/{last_year.banner}',
+                 href=f'./{last_year.filename}',
+                 caption=last_year.description)
+        r.divider()
 
     r.block('h2', 'Feeds 🛰')
     with r.wrapping_block('table'):
