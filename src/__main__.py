@@ -106,6 +106,13 @@ def main():
 
 if __name__ == '__main__':
     try:
+        logger = logging.getLogger()
+        logger.setLevel(logging.INFO)
+        handler = logging.StreamHandler()
+        handler.setLevel(logging.INFO)
+        formatter = logging.Formatter('%(name)s: %(message)s')
+        handler.setFormatter(formatter)
+        logger.addHandler(handler)
         main()
     except Exception:
         logger.exception('Unhandled exception!')
