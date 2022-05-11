@@ -28,8 +28,6 @@ class TestCLI(unittest.TestCase):
         args = cli.parse_args(['help'])
         self.assertIsInstance(args.dir_www, pathlib.Path)
         self.assertIsInstance(args.dir_entries, pathlib.Path)
-        self.assertIsInstance(args.site_url, urllib.parse.ParseResult)
-        self.assertIsInstance(args.site_year, int)
 
     def test_configure_logger(self):
         with patch_logging() as mock:

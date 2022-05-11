@@ -196,7 +196,8 @@ class Renderer:
                            contents=f'{next_page} ⟶',
                            href=f'./{next_page}')
 
-    def footer(self, author='', year=''):
+    def footer(self, author='', year=None):
+        year = year or datetime.datetime.now().year
         with self.wrapping_block('footer'):
             self.block('small', contents=f'© Copyright {year} {author}')
 

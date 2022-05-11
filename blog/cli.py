@@ -1,13 +1,11 @@
 import argparse
 import collections
-import datetime
 import functools
 import logging
 import pathlib
 import pdb
 import platform
 import sys
-import urllib.parse
 
 logger = logging.getLogger(__name__)
 
@@ -15,56 +13,23 @@ parser = argparse.ArgumentParser(
     prog='blog', description='The greatest static site generator ever made')
 
 group = parser.add_argument_group('program')
-parser.add_argument('-d',
-                    '--debug',
-                    action='store_true',
-                    help='run code in a debugger')
-parser.add_argument('-v',
-                    '--verbose',
-                    action='store_true',
-                    help='show debug logs')
+parser.add_argument('-d', '--debug', action='store_true')
+parser.add_argument('-v', '--verbose', action='store_true')
 
-home = pathlib.Path.home()
 group = parser.add_argument_group('directories')
-group.add_argument('--dir-www',
-                   default=str(home / 'src/blog/www'),
-                   help='output directory')
-group.add_argument('--dir-entries',
-                   default=str(home / 'src/blog/entries/'),
-                   help='entry sources directory')
-group.add_argument('--dir-pages',
-                   default=str(home / 'src/blog/pages/'),
-                   help='data directory')
-
-group = parser.add_argument_group('site')
-group.add_argument('--site-url',
-                   help='full site url',
-                   default='https://www.alexrecker.com')
-group.add_argument('--site-author',
-                   help='copyright author',
-                   default='Alex Recker')
-group.add_argument('--site-email',
-                   help='site author email',
-                   default='alex@reckerfamily.com')
-group.add_argument('--site-year',
-                   help='copyright year',
-                   default=datetime.datetime.now().year)
-group.add_argument('--site-title',
-                   help='website title',
-                   default='Dear Journal')
-group.add_argument('--site-subtitle',
-                   help='website subtitle',
-                   default='Daily, public journal by Alex Recker')
+group.add_argument('--dir-www', default='./www')
+group.add_argument('--dir-entries', default='./entries')
+group.add_argument('--dir-data', default='./data')
 
 subcommand = parser.add_subparsers(dest='subcommand', metavar='{subcommand}')
-subcommand.add_parser('help', help='Print program usage')
+subcommand.add_parser('help')
 
 
 def parse_args(args):
     args = parser.parse_args(args)
+    args.dir_data = pathlib.Path(args.dir_data)
     args.dir_www = pathlib.Path(args.dir_www)
     args.dir_entries = pathlib.Path(args.dir_entries)
-    args.site_url = urllib.parse.urlparse(args.site_url)
     return args
 
 

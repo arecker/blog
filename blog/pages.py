@@ -35,26 +35,6 @@ def register_page(filename='', title='', description='', banner=''):
     return wrapper
 
 
-def register_page_from_data(path: str):
-    path = pathlib.Path(path)
-    with open(path, 'r') as f:
-        data = json.load(f)
-    logger.debug('imported data from %s', path)
-
-    def render_func(*args, **kwargs):
-        return f'Rendered version of {path.name}'
-
-    page = Page(
-        filename=data['filename'],
-        title=data['title'],
-        description=data['description'],
-        banner=data.get('banner'),
-        render_func=render_func,
-    )
-
-    PAGES[page.filename] = page
-
-
 def render_page(page,
                 full_url='',
                 author='',
@@ -168,15 +148,7 @@ def entries_page(entries=[], pages=[]):
     return r.text
 
 
-def write_pages(dir_www='',
-                dir_data='',
-                full_url='',
-                author='',
-                year=None,
-                entries=[]):
-    for data in pathlib.Path(dir_data).glob('*.json'):
-        register_page_from_data(data)
-
+def write_pages(dir_www='', full_url='', author='', year=None, entries=[]):
     pages = sorted(PAGES.values(), key=lambda p: p.filename)
     for i, page in enumerate(pages):
         logger.info('writing %s [page %d/%d]', page.filename, i + 1,
