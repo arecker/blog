@@ -171,7 +171,7 @@ def write_entries(entries,
                   full_url: str,
                   author: str,
                   year=None):
-    for i, entry in enumerate(entries):
+    for entry in entries:
         with open(entry.source, 'r') as f:
             content = f.read()
 
@@ -186,5 +186,4 @@ def write_entries(entries,
             f.write(content)
             logger.debug('rendered %s', target)
 
-        if i != 0 and i % 100 == 0:
-            logger.info('rendered %d out of %d entries', i + 1, len(entries))
+    logger.info('wrote %d entries', len(entries))
