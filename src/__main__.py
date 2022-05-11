@@ -87,9 +87,6 @@ subcommand.add_parser('help', help='print program usage')
 def main():
     args = parser.parse_args()
 
-    blog.configure_logging(verbose=args.verbose)
-    logger.debug('parsed args %s, ', vars(args))
-
     if args.subcommand == 'help':
         parser.print_help()
         sys.exit(0)
