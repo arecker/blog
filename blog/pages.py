@@ -92,22 +92,17 @@ def index(entries=[], pages=[]):
 
     latest = entries[0]
     r.block('h2', 'Latest Entry 📣')
-    r.block('strong', latest.title)
     r.figure(alt='latest entry banner',
              src=f'./images/banners/{latest.banner}',
              href=f'./{latest.filename}',
              caption=latest.description)
-
-    r.divider()
 
     r.block('h2', 'Feeds 🛰')
     with r.wrapping_block('table'):
         with r.wrapping_block('tr'):
             with r.wrapping_block('td'):
                 r.block('a', href='./feed.xml', contents='feed.xml')
-            r.block('td', contents='journal entries Atom feed (latest 50)')
-
-    r.divider()
+            r.block('td', contents='journal entries')
 
     r.block('h2', 'Pages 🗺')
     pages = [p for p in pages if p.filename != 'index.html']
