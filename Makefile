@@ -19,6 +19,11 @@ publish:
 	git push origin "entry-$$(date '+%Y-%m-%d')"
 	git push origin master:master
 
+.PHONY: images
+images:
+	@echo "==> images"
+	python -m blog.images --dir-www ./www
+
 .PHONY: clean
 clean:
 	@echo "==> clean"

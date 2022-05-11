@@ -1,11 +1,15 @@
+import argparse
 import collections
+import logging
 import os
 import pathlib
 import shutil
 import subprocess
-import logging
 
 logger = logging.getLogger(__name__)
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--dir-www', required=True)
 
 
 def validate_image_dependenices():
@@ -83,3 +87,15 @@ def scan_images(dir_www: str):
         check_image(path)
         if (i + 1) % 100 == 0 or (i + 1) == len(files):
             logger.info('scanned %d out of %d images', i + 1, len(files))
+
+
+if __name__ == '__main__':
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(name)s: %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    args = parser.parse_args()
+    scan_images(args.dir_www)
