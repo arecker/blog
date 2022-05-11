@@ -91,7 +91,7 @@ def index(entries=[], pages=[]):
     r = Renderer()
 
     latest = entries[0]
-    r.block('h2', 'Latest Entry 📣')
+    r.block('h2', 'Latest Entry ☕')
     r.figure(alt='latest entry banner',
              src=f'./images/banners/{latest.banner}',
              href=f'./{latest.filename}',
