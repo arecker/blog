@@ -133,8 +133,7 @@ def entries_page(entries=[], pages=[]):
     choice = random.choice(entries_with_banners)
     r.figure(alt='random banner',
              src=f'./images/banners/{choice.banner}',
-             href=f'./{choice.filename}',
-             caption=f'taken from {choice.title}, "{choice.description}"')
+             href=f'./{choice.filename}')
 
     with r.wrapping_block('table'):
         for entry in entries:
