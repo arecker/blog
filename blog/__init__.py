@@ -28,5 +28,3 @@ from .git import (
     git_status,
     git_tag,
 )
-
-from .cli import (parse_args, register_command, configure_logging, main)
