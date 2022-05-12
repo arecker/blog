@@ -12,7 +12,7 @@ def git_status() -> list[GitChange]:
     output = subprocess.run('git status --short'.split(),
                             check=True,
                             capture_output=True).stdout.decode('utf-8')
-    changes = [new_git_change(line.strip()) for line in output.splitlines()]
+    changes = [new_git_change(line.rstrip()) for line in output.splitlines()]
     return changes
 
 
@@ -71,6 +71,9 @@ def new_git_change(git_status_output_line: str) -> GitChange:
 
         if first == 'M' and second == ' ':
             return GitChange(status='staged', state='modified', path=path)
+
+        if first == 'D' and second == ' ':
+            return GitChange(status='staged', state='deleted', path=path)
 
         if first == 'A' and second == ' ':
             return GitChange(status='staged', state='added', path=path)

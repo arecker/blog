@@ -25,7 +25,6 @@ def tmp_git_repo():
 
 
 class TestGit(unittest.TestCase):
-
     def test_git_status(self):
         with tmp_git_repo():
             pathlib.Path('test.txt').touch()
@@ -94,6 +93,15 @@ class TestGit(unittest.TestCase):
         self.assertEqual(change.path, 'www/images/test.jpg')
         self.assertEqual(change.status, 'mixed')
         self.assertEqual(change.state, 'mixed')
+
+        change = git.new_git_change(' M Makefile')
+        self.assertEqual(change.path, 'Makefile')
+        self.assertEqual(change.status, 'untracked')
+        self.assertEqual(change.state, 'modified')
+
+        change = git.new_git_change('D  www/test-git-hook.jpg')
+        self.assertEqual(change.state, 'deleted')
+        self.assertEqual(change.status, 'staged')
 
         with self.assertRaisesRegex(ValueError, 'unknown status'):
             git.new_git_change('AD  www/blah.jpg')

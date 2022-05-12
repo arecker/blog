@@ -75,8 +75,10 @@ def check_image(path, maximum=800):
     if dimensions.height > maximum or dimensions.width > maximum:
         resize_image(path, maximum)
         logger.info('resized %s from %s', path, dimensions)
+        return True
     else:
         logger.debug('%s is correct size at %s', path, dimensions)
+        return False
 
 
 def scan_images(dir_www: str):

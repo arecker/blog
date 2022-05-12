@@ -1,4 +1,9 @@
-all: test build
+all: test build .git/hooks/pre-commit
+
+.git/hooks/pre-commit:
+	@echo "==> installing pre-commit hook"
+	echo "python -m blog.hook" > $@
+	chmod +x $@
 
 .PHONY: build
 build: clean
