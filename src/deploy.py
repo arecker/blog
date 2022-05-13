@@ -1,17 +1,21 @@
 """Deploy site to Netlify"""
 
-import blog
+import argparse
 import hashlib
+import json
 import logging
+import pathlib
 import time
+import urllib.parse
+
+from .http import make_http_request
 
 logger = logging.getLogger(__name__)
+parser = argparse.ArgumentParser()
 
-
-def register(subparser):
-    subparser.add_argument('--netlify-token',
-                           required=True,
-                           help='Netlify API token')
+parser.add_argument('--dir-data', required=True)
+parser.add_argument('--dir-www', required=True)
+parser.add_argument('--netlify-token', required=True)
 
 
 def make_request(path,
@@ -26,11 +30,11 @@ def make_request(path,
 
     url = f'https://api.netlify.com/api/v1{path}'
 
-    return blog.make_http_request(url=url,
-                                  method=method,
-                                  authorization=f'Bearer {token}',
-                                  data=data,
-                                  content_type=content_type)
+    return make_http_request(url=url,
+                             method=method,
+                             authorization=f'Bearer {token}',
+                             data=data,
+                             content_type=content_type)
 
 
 def fetch_site_id(site_name, token=''):
@@ -71,14 +75,21 @@ def build_new_deploy(webroot):
     return {'files': digest_map, 'draft': False, 'async': False}
 
 
-def main(args):
-    domain = args.full_url.netloc
+def read_site_domain(data_dir):
+    with (pathlib.Path(data_dir) / 'info.json').open('r') as f:
+        data = json.load(f)
+        return urllib.parse.urlparse(data['url']).netloc
+
+
+def main():
+    args = parser.parse_args()
+    domain = read_site_domain(args.dir_data)
     site_id = fetch_site_id(domain, token=args.netlify_token)
     logger.info('found netlify site %s (%s)', domain, site_id)
-
-    payload = build_new_deploy(args.directory / 'www')
+    dir_www = pathlib.Path(args.dir_www).absolute()
+    payload = build_new_deploy(dir_www)
     logger.info('built payload from %d file(s) in %s',
-                len(payload['files'].keys()), str(args.directory / 'www'))
+                len(payload['files'].keys()), str(dir_www))
 
     response = make_request(path=f'/sites/{site_id}/deploys/',
                             token=args.netlify_token,
@@ -94,7 +105,7 @@ def main(args):
     required = sorted(response['required'], key=lambda r: hash_map[r])
     for i, sha in enumerate(required):
         path = hash_map[sha]
-        with open(str(args.directory / 'www') + path, 'rb') as f:
+        with open(str(dir_www) + path, 'rb') as f:
             data = f.read()
         url = f'/deploys/{deploy_id}/files{path}'
         response = make_request(path=url,
@@ -128,3 +139,14 @@ def main(args):
                                deploy_id)
 
     logger.info('deploy %s finished!', deploy_id)
+
+
+if __name__ == '__main__':
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(name)s: %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    main()

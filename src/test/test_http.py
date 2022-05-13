@@ -3,7 +3,7 @@ import unittest
 import unittest.mock
 import urllib.request
 
-from blog import http
+from .. import http
 
 
 @contextlib.contextmanager

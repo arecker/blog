@@ -1,32 +1,37 @@
 """share latest entry in a slack post"""
 
-import blog
+import argparse
+import json
 import logging
+import pathlib
 import urllib.parse
 
+from .entries import all_entries
+from .http import make_http_request
+
 logger = logging.getLogger(__name__)
+parser = argparse.ArgumentParser()
+
+parser.add_argument('--dir-entries', required=True)
+parser.add_argument('--dir-data', required=True)
+parser.add_argument('--slack-webhook-urls', required=True, nargs='+')
+parser.add_argument('--slack-channel', default='#blog')
+parser.add_argument('--slack-username', default='reckerbot')
+parser.add_argument('--slack-emoji', default=':reckerbot:')
 
 
-def register(subparser):
-    subparser.add_argument('--slack-webhook-urls',
-                           required=True,
-                           nargs='+',
-                           help='slack incoming webhook URLs')
-    subparser.add_argument('--slack-channel',
-                           default='#blog',
-                           help='slack channel')
-    subparser.add_argument('--slack-username',
-                           default='reckerbot',
-                           help='slack bot username')
-    subparser.add_argument('--slack-emoji',
-                           default=':reckerbot:',
-                           help='slack bot icon')
+def load_full_url(data_dir):
+    with (pathlib.Path(data_dir) / 'info.json').open('r') as f:
+        return json.load(f)['url']
 
 
-def main(args, entries=[]):
-    entries = entries or blog.all_entries(args.directory / 'entries')
+def main(args=None, entries=[]):
+    args = args or parser.parse_args()
+
+    entries = entries or all_entries(args.directory / 'entries')
     latest = entries[0]
-    url = urllib.parse.urljoin(args.full_url.geturl(), latest.filename)
+    full_url = load_full_url(args.dir_data)
+    url = urllib.parse.urljoin(full_url, latest.filename)
 
     message = '\n'.join([latest.title, latest.description, url])
     payload = {
@@ -37,6 +42,17 @@ def main(args, entries=[]):
     }
 
     for url in args.slack_webhook_urls:
-        blog.make_http_request(url=url, method='POST', data=payload)
+        make_http_request(url=url, method='POST', data=payload)
         logger.info('shared "%s" to slack channel %s', latest.description,
                     args.slack_channel)
+
+
+if __name__ == '__main__':
+    logger = logging.getLogger()
+    logger.setLevel(logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(name)s: %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    main()
