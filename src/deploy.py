@@ -5,8 +5,6 @@ import hashlib
 import logging
 import time
 
-from . import validate
-
 logger = logging.getLogger(__name__)
 
 
@@ -74,8 +72,6 @@ def build_new_deploy(webroot):
 
 
 def main(args):
-    validate.main(args)
-
     domain = args.full_url.netloc
     site_id = fetch_site_id(domain, token=args.netlify_token)
     logger.info('found netlify site %s (%s)', domain, site_id)
