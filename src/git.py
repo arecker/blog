@@ -21,6 +21,24 @@ p_git_change = re.compile(
     flags=re.MULTILINE)
 
 
+def git_push_tag(tag):
+    cmd = f'git push orgin {tag}'
+    logger.debug('running command %s', cmd)
+    subprocess.run(cmd,
+                   check=True,
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
+
+
+def git_push_branch(branch):
+    cmd = f'git push orgin {branch}:{branch}'
+    logger.debug('running command %s', cmd)
+    subprocess.run(cmd,
+                   check=True,
+                   stdout=subprocess.DEVNULL,
+                   stderr=subprocess.DEVNULL)
+
+
 def git_add(path: str):
     cmd = f'git add {path}'.split()
     logger.debug('running command %s', cmd)

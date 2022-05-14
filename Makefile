@@ -17,12 +17,7 @@ test:
 
 .PHONY: publish
 publish:
-	@echo "==> publish"
-	git add -A
-	git commit -m "publish: $$(date '+%Y-%m-%d')"
-	git tag "entry-$$(date '+%Y-%m-%d')"
-	git push origin "entry-$$(date '+%Y-%m-%d')"
-	git push origin master:master
+	python -m src.publish --dir-entries ./entries
 
 .PHONY: images
 images:
@@ -61,4 +56,4 @@ deploy:
 	python -m src.deploy --dir-data ./data --dir-www ./www $(NETLIFY_SECRETS)
 
 .PHONY: jenkins
-jenkins: test build deploy share
+jenkins: test build deploy
