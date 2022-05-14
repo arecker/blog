@@ -6,6 +6,8 @@ import pathlib
 import shutil
 import subprocess
 
+from .log import configure_logging
+
 logger = logging.getLogger(__name__)
 
 parser = argparse.ArgumentParser()
@@ -92,12 +94,6 @@ def scan_images(dir_www: str):
 
 
 if __name__ == '__main__':
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-    handler = logging.StreamHandler()
-    handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(name)s: %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    configure_logging()
     args = parser.parse_args()
     scan_images(args.dir_www)

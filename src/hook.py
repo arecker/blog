@@ -1,6 +1,7 @@
 import logging
 
 from . import git, images
+from .log import configure_logging
 
 logger = logging.getLogger(__name__)
 
@@ -21,11 +22,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-    handler = logging.StreamHandler()
-    handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(name)s: %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    configure_logging()
     main()

@@ -3,6 +3,7 @@ import logging
 
 from . import (tweet, slack)
 from .entries import all_entries
+from .log import configure_logging
 
 parser = argparse.ArgumentParser()
 logger = logging.getLogger(__name__)
@@ -27,11 +28,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-    handler = logging.StreamHandler()
-    handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(name)s: %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    configure_logging()
     main()

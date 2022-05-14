@@ -6,10 +6,11 @@ import pathlib
 
 from .entries import all_entries, write_entries
 from .feed import write_feed
+from .log import configure_logging
 from .pages import write_pages
 from .sitemap import write_sitemap
 
-logger = logging.getLogger('build')
+logger = logging.getLogger(__name__)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dir-data', required=True)
@@ -65,11 +66,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logger = logging.getLogger()
-    logger.setLevel(logging.INFO)
-    handler = logging.StreamHandler()
-    handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(name)s: %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
+    configure_logging()
     main()
