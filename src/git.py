@@ -22,7 +22,7 @@ p_git_change = re.compile(
 
 
 def git_push_tag(tag):
-    cmd = f'git push orgin {tag}'
+    cmd = f'git push orgin {tag}'.split()
     logger.debug('running command %s', cmd)
     subprocess.run(cmd,
                    check=True,
@@ -31,7 +31,7 @@ def git_push_tag(tag):
 
 
 def git_push_branch(branch):
-    cmd = f'git push orgin {branch}:{branch}'
+    cmd = f'git push orgin {branch}:{branch}'.split()
     logger.debug('running command %s', cmd)
     subprocess.run(cmd,
                    check=True,

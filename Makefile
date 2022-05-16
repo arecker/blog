@@ -51,8 +51,8 @@ clean:
 
 NETLIFY_SECRETS := --netlify-token "$$(pass netlify/jenkins)"
 .PHONY: deploy
-deploy:
+deploy: test build
 	python -m src.deploy --dir-data ./data --dir-www ./www $(NETLIFY_SECRETS)
 
-.PHONY: jenkins
-jenkins: test build deploy
+.PHONY: morning
+morning: publish deploy share
