@@ -22,7 +22,7 @@ p_git_change = re.compile(
 
 
 def git_push_tag(tag):
-    cmd = f'git push orgin {tag}'.split()
+    cmd = f'git push {tag}'.split()
     logger.debug('running command %s', cmd)
     subprocess.run(cmd,
                    check=True,
