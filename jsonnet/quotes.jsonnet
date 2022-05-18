@@ -10,7 +10,6 @@ local Quote(author='', text='') = (
 
 local quotes = [
   Quote(author='Mark Twain', text='Sanity and happiness are an impossible combination.'),
-  Quote(author='Mark Twain', text='Sanity and happiness are an impossible combination.'),
   Quote(author='Thomas Fuller', text='Trust thyself only, and another shall not betray thee.'),
   Quote(author='Mahatma Ghandi', text='Fear has its uses but cowardice has none.'),
   Quote(author='George Orwell', text='Happiness can exist only in acceptance.'),
