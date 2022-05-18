@@ -7,7 +7,7 @@ import pathlib
 from .entries import all_entries, write_entries
 from .feed import write_feed
 from .log import configure_logging
-from .pages import write_pages
+from .pages import write_pages, PAGES
 from .sitemap import write_sitemap
 
 logger = logging.getLogger(__name__)
@@ -41,7 +41,10 @@ def main():
     info = load_info(args.dir_data)
     entries = all_entries(args.dir_entries)
     logger.info('retrieved %d entries from %s', len(entries), args.dir_entries)
-    write_sitemap(args.dir_www, full_url=info.url, entries=entries)
+    write_sitemap(args.dir_www,
+                  full_url=info.url,
+                  entries=entries,
+                  pages=PAGES.keys())
 
     write_feed(args.dir_www,
                title=info.title,

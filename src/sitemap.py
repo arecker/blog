@@ -18,6 +18,7 @@ Location = collections.namedtuple('Location', [
 class Sitemap:
     def __init__(self, full_url):
         self.entries = []
+        self.pages = []
         if isinstance(full_url, str):
             full_url = urllib.parse.urlparse(full_url)
         self.full_url = full_url
@@ -36,14 +37,21 @@ class Sitemap:
             locations.append(location)
         self.entries = locations
 
+    def add_pages(self, pages):
+        self.pages = []
+        for page in pages:
+            url = urllib.parse.urljoin(self.full_url.geturl(), page)
+            self.pages.append(Location(url, lastmod=None, source=None))
+
     def locations(self):
-        pages = self.entries
+        pages = self.entries + self.pages
         return sorted(pages, key=lambda l: l.url)
 
 
-def new_sitemap(full_url='', entries=[]):
+def new_sitemap(full_url='', entries=[], pages=[]):
     sm = Sitemap(full_url)
     sm.add_entries(entries)
+    sm.add_pages(pages)
     return sm
 
 
@@ -72,8 +80,8 @@ def render_sitemap(sm: Sitemap):
     return r.as_xml()
 
 
-def write_sitemap(www_dir, full_url='', entries=[]):
-    sm = new_sitemap(full_url=full_url, entries=entries)
+def write_sitemap(www_dir, full_url='', entries=[], pages=[]):
+    sm = new_sitemap(full_url=full_url, entries=entries, pages=pages)
     target = pathlib.Path(www_dir) / 'sitemap.xml'
     with target.open('w') as f:
         f.write(render_sitemap(sm))
