@@ -99,13 +99,6 @@ def index(args=None, entries=[], pages=[]):
              href=f'./{latest.filename}',
              caption=latest.description)
 
-    r.block('h2', 'Feeds 🛰')
-    with r.wrapping_block('table'):
-        with r.wrapping_block('tr'):
-            with r.wrapping_block('td'):
-                r.block('a', href='./feed.xml', contents='feed.xml')
-            r.block('td', contents='journal entries')
-
     r.block('h2', 'Pages 🗺')
     pages = [p for p in pages if p.filename != 'index.html']
     with r.wrapping_block('table'):
@@ -116,6 +109,17 @@ def index(args=None, entries=[], pages=[]):
                             href=f'./{page.filename}',
                             contents=page.filename)
                 r.block('td', contents=page.description)
+
+    r.block('h2', 'Feeds 🛰')
+    with r.wrapping_block('table'):
+        with r.wrapping_block('tr'):
+            with r.wrapping_block('td'):
+                r.block('a', href='./feed.xml', contents='feed.xml')
+            r.block('td', contents='journal entries')
+        with r.wrapping_block('tr'):
+            with r.wrapping_block('td'):
+                r.block('a', href='./sitemap.xml', contents='sitemap.xml')
+            r.block('td', contents='complete sitemap')
 
     return r.text
 

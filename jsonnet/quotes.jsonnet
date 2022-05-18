@@ -60,7 +60,7 @@ local quotes = [
   Quote(author='Lyndon Johnson', text="Being president is like being a jackass in a hailstorm.  There's nothing to do but to stand there and take it."),
   Quote(author='Albert Camus', text='In the depth of winter, I finally learned that within me, there lay, an invincible summer.'),
   Quote(author='African Proverb', text='If you refuse to be made straight when you are green, you will not be made straight when you are dry.'),
-  Quote(author='Exodus 14:14', text='The LORD will fight for you while you remain silent.'),
+  Quote(author='Exodus 14:14', text='The Lᴏʀᴅ will fight for you while you keep silent.'),
 ];
 
 
