@@ -62,6 +62,7 @@ def main():
         entries=entries,
         full_url=info.url,
         author=info.author,
+        args=args,
     )
 
 

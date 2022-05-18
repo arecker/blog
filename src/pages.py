@@ -40,7 +40,8 @@ def render_page(page,
                 author='',
                 year=datetime.datetime.now().year,
                 entries=[],
-                pages=[]):
+                pages=[],
+                args=None):
 
     r = Renderer()
 
@@ -71,7 +72,8 @@ def render_page(page,
                 r.newline()
 
             r.comment('Begin Page Content')
-            r.article(content=page.render_func(entries=entries, pages=pages))
+            r.article(content=page.render_func(
+                args=args, entries=entries, pages=pages))
             r.comment('End Page Content')
             r.newline()
 
@@ -87,7 +89,7 @@ def render_page(page,
 @register_page(filename='index.html',
                title='Dear Journal',
                description='Daily, public journal by Alex Recker')
-def index(entries=[], pages=[]):
+def index(args=None, entries=[], pages=[]):
     r = Renderer()
 
     latest = entries[0]
@@ -121,7 +123,7 @@ def index(entries=[], pages=[]):
 @register_page(filename='entries.html',
                title='Entries',
                description='complete archive of journal entries')
-def entries_page(entries=[], pages=[]):
+def entries_page(args=None, entries=[], pages=[]):
     r = Renderer()
 
     entries_with_banners = [e for e in entries if e.banner]
@@ -142,7 +144,35 @@ def entries_page(entries=[], pages=[]):
     return r.text
 
 
-def write_pages(dir_www='', full_url='', author='', year=None, entries=[]):
+@register_page(filename='quotes.html',
+               title='Quotes',
+               description='collection of my favorite quotes',
+               banner='quotes.jpg')
+def quotes_Page(args=None, **kwargs):
+    r = Renderer()
+    target = pathlib.Path(args.dir_data) / 'quotes.json'
+    with target.open('r') as f:
+        quotes = json.load(f)
+    total = len(quotes)
+
+    for i, (author, text) in enumerate(quotes):
+        with r.wrapping_block('blockquote'):
+            r.block('p', contents=text)
+            r.block('p', contents=f'— {author}')
+        if i + 1 != total:
+            r.newline()
+
+    logger.info('rendered %d quote(s) from %s', total, target)
+
+    return r.text
+
+
+def write_pages(dir_www='',
+                full_url='',
+                author='',
+                year=None,
+                entries=[],
+                args=None):
     pages = sorted(PAGES.values(), key=lambda p: p.filename)
     for i, page in enumerate(pages):
         logger.info('writing %s [page %d/%d]', page.filename, i + 1,
@@ -154,5 +184,6 @@ def write_pages(dir_www='', full_url='', author='', year=None, entries=[]):
                                   year=year,
                                   author=author,
                                   entries=entries,
-                                  pages=pages)
+                                  pages=pages,
+                                  args=args)
             f.write(content)
