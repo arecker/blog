@@ -1,39 +1,13 @@
-import collections
 import datetime
-import functools
 import json
 import logging
 import pathlib
 import random
 
 from .renderer import Renderer
+from .lib import register_page, PAGES
 
 logger = logging.getLogger(__name__)
-
-PAGES = {}
-
-Page = collections.namedtuple('Page', [
-    'filename',
-    'title',
-    'description',
-    'banner',
-    'render_func',
-])
-
-
-def register_page(filename='', title='', description='', banner=''):
-
-    def wrapper(func):
-        functools.wraps(func)
-        logger.debug('registering %s page to %s', filename, func)
-        PAGES[filename] = Page(filename=filename,
-                               title=title,
-                               description=description,
-                               banner=banner,
-                               render_func=func)
-        return func
-
-    return wrapper
 
 
 def render_page(page,
