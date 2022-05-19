@@ -7,7 +7,7 @@ import sys
 import urllib.parse
 
 from .entries import all_entries
-from .log import configure_logging
+from .lib import configure_logging
 
 logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()

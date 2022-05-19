@@ -9,7 +9,7 @@ import time
 import urllib.parse
 
 from .http import make_http_request
-from .log import configure_logging
+from .lib import configure_logging
 
 logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()

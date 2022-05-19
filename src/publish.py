@@ -3,6 +3,7 @@ import logging
 import re
 
 from . import git, entries
+from .lib import configure_logging
 
 logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()
@@ -34,4 +35,5 @@ def main():
 
 
 if __name__ == '__main__':
+    configure_logging()
     main()

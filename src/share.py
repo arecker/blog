@@ -3,7 +3,7 @@ import logging
 
 from . import (tweet, slack)
 from .entries import all_entries
-from .log import configure_logging
+from .lib import configure_logging
 
 parser = argparse.ArgumentParser()
 logger = logging.getLogger(__name__)

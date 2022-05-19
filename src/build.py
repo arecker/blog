@@ -6,7 +6,7 @@ import pathlib
 
 from .entries import all_entries, write_entries
 from .feed import write_feed
-from .log import configure_logging
+from .lib import configure_logging
 from .pages import write_pages, PAGES
 from .sitemap import write_sitemap
 

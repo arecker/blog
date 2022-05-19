@@ -6,7 +6,7 @@ import pathlib
 import shutil
 import subprocess
 
-from .log import configure_logging
+from .lib import configure_logging
 
 logger = logging.getLogger(__name__)
 

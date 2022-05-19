@@ -1,7 +1,7 @@
 import logging
 
 from . import git, images
-from .log import configure_logging
+from .lib import configure_logging
 
 logger = logging.getLogger(__name__)
 
