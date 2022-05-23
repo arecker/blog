@@ -25,7 +25,7 @@ def main():
     git.git_tag(tag)
     logger.info('created new tag "%s"', tag)
 
-    git.git_push_tag(tag)
+    git.git_push_tags()
     logger.info('pushed tag %s', tag)
 
     git.git_push_branch('master')

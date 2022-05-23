@@ -21,8 +21,8 @@ p_git_change = re.compile(
     flags=re.MULTILINE)
 
 
-def git_push_tag(tag):
-    cmd = f'git push {tag}'.split()
+def git_push_tags():
+    cmd = f'git push origin --tags'.split()
     logger.debug('running command %s', cmd)
     subprocess.run(cmd,
                    check=True,
