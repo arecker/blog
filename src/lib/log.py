@@ -5,7 +5,7 @@ LOGGING_CONFIG = {
     'disable_existing_loggers': False,
     'formatters': {
         'standard': {
-            'format': '%(name)s: %(message)s'
+            'format': 'blog: %(message)s'
         },
     },
     'handlers': {
