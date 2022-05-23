@@ -6,9 +6,8 @@ import pathlib
 
 from .entries import all_entries, write_entries
 from .feed import write_feed
-from .lib import configure_logging
 from .pages import write_pages, PAGES
-from .sitemap import write_sitemap
+from . import lib
 
 logger = logging.getLogger(__name__)
 
@@ -40,11 +39,12 @@ def main():
 
     info = load_info(args.dir_data)
     entries = all_entries(args.dir_entries)
+
     logger.info('retrieved %d entries from %s', len(entries), args.dir_entries)
-    write_sitemap(args.dir_www,
-                  full_url=info.url,
-                  entries=entries,
-                  pages=PAGES.keys())
+    lib.write_sitemap(args.dir_www,
+                      full_url=info.url,
+                      entries=entries,
+                      pages=PAGES.keys())
 
     write_feed(args.dir_www,
                title=info.title,
@@ -70,5 +70,5 @@ def main():
 
 
 if __name__ == '__main__':
-    configure_logging()
+    lib.configure_logging()
     main()
