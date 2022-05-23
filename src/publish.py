@@ -23,7 +23,7 @@ def main():
 
     tag = 'entry-' + re.sub(r'.html$', '', latest.filename)
     git.git_tag(tag)
-    logger.info('created new tag "$s"', tag)
+    logger.info('created new tag "%s"', tag)
 
     git.git_push_tag(tag)
     logger.info('pushed tag %s', tag)
