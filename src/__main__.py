@@ -1,20 +1,8 @@
-import argparse
-import logging
-
 from . import pages as _  # noqa:F401
 from . import lib
 
-logger = logging.getLogger(__name__)
 
-parser = argparse.ArgumentParser()
-parser.add_argument('--dir-data', required=True)
-parser.add_argument('--dir-entries', required=True)
-parser.add_argument('--dir-www', required=True)
-
-
-def main():
-    args = parser.parse_args()
-
+def main(args):
     info = lib.load_info(args.dir_data)
     entries = lib.fetch_entries(args.dir_entries)
     pages = lib.fetch_pages()
@@ -49,5 +37,6 @@ def main():
 
 
 if __name__ == '__main__':
-    lib.configure_logging()
-    main()
+    args = lib.parse_args()
+    lib.configure_logging(verbose=args.verbose)
+    main(args)

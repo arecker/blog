@@ -1,29 +1,33 @@
 import logging.config
 
-LOGGING_CONFIG = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'standard': {
-            'format': 'blog: %(message)s'
+
+def new_logging_config(level):
+    return {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'standard': {
+                'format': 'blog: %(message)s'
+            },
         },
-    },
-    'handlers': {
-        'default': {
-            'level': 'INFO',
-            'formatter': 'standard',
-            'class': 'logging.StreamHandler',
+        'handlers': {
+            'default': {
+                'level': level,
+                'formatter': 'standard',
+                'class': 'logging.StreamHandler',
+            },
         },
-    },
-    'loggers': {
-        '': {
-            'handlers': ['default'],
-            'level': 'INFO',
-            'propagate': True
+        'loggers': {
+            '': {
+                'handlers': ['default'],
+                'level': level,
+                'propagate': True
+            }
         }
     }
-}
 
 
-def configure_logging():
-    logging.config.dictConfig(LOGGING_CONFIG)
+def configure_logging(verbose=False):
+    level = 'DEBUG' if verbose else 'INFO'
+    config = new_logging_config(level)
+    logging.config.dictConfig(config)

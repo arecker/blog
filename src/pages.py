@@ -1,11 +1,8 @@
 import json
-import logging
 import pathlib
 import random
 
 from . import lib
-
-logger = logging.getLogger(__name__)
 
 
 @lib.register_page(filename='index.html',
@@ -85,8 +82,6 @@ def quotes_Page(renderer=None, args=None, **kwargs):
         if i + 1 != total:
             renderer.newline()
 
-    logger.info('rendered %d quote(s) from %s', total, target)
-
     return renderer.text
 
 
@@ -107,7 +102,6 @@ def napkins(renderer=None, args=None, **kwargs):
         if i + 1 != total:
             renderer.newline()
 
-    logger.info('rendered %d napkin drawing(s)', total)
     return renderer.text
 
 
@@ -133,7 +127,6 @@ def looking_back(renderer=None, entries=[], **kwargs):
                                    contents=f'{entry.filename}')
                 renderer.block('td', contents=entry.description)
 
-    logger.info('rendered %d looking back entries', len(entries))
     return renderer.text
 
 
@@ -158,7 +151,6 @@ def anti_journal(renderer=None, entries=[], **kwargs):
                                    contents=f'{entry.filename}')
                 renderer.block('td', contents=entry.description)
 
-    logger.info('rendered %d anti-journal entries', len(entries))
     return renderer.text
 
 
@@ -184,5 +176,4 @@ def homework_vault(renderer=None, entries=[], **kwargs):
                                    contents=f'{entry.filename}')
                 renderer.block('td', contents=entry.description)
 
-    logger.info('rendered %d homework entries', len(entries))
     return renderer.text

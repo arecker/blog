@@ -1,5 +1,6 @@
 # flake8: noqa
 
+from .args import parse_args
 from .feed import write_feed
 from .git import git_add, git_commit, git_push_branch, git_push_tags, git_status, git_tag
 from .http import make_http_request
