@@ -1,7 +1,7 @@
 # flake8: noqa
 
 from .feed import write_feed
-from .git import git_add, git_commit, git_push_branch, git_push_tags, git_status
+from .git import git_add, git_commit, git_push_branch, git_push_tags, git_status, git_tag
 from .http import make_http_request
 from .images import scan_images, check_image, is_image, fetch_images
 from .info import load_info
