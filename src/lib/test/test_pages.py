@@ -5,7 +5,7 @@ import tempfile
 import unittest
 import unittest.mock
 
-from .. import entries
+from .. import pages
 
 
 @contextlib.contextmanager
@@ -18,16 +18,15 @@ def temp_root():
 
 
 class TestEntries(unittest.TestCase):
-
     def test_is_not_junk_file(self):
-        self.assertTrue(entries.is_not_junk_file('test.html'))
-        self.assertTrue(entries.is_not_junk_file(pathlib.Path('test.html')))
-        self.assertFalse(
-            entries.is_not_junk_file(pathlib.Path('.something.tmp')))
-        self.assertFalse(entries.is_not_junk_file(pathlib.Path('#test.html')))
+        self.assertTrue(pages.is_not_junk_file('test.html'))
+        self.assertTrue(pages.is_not_junk_file(pathlib.Path('test.html')))
+        self.assertFalse(pages.is_not_junk_file(
+            pathlib.Path('.something.tmp')))
+        self.assertFalse(pages.is_not_junk_file(pathlib.Path('#test.html')))
 
     def test_paginate_files(self):
-        result = entries.paginate_files(['a', 'b', 'c'])
+        result = pages.paginate_files(['a', 'b', 'c'])
         self.assertIsNone(result['a'].previous)
         self.assertEqual(result['a'].next, 'b')
         self.assertEqual(result['c'].previous, 'b')
@@ -46,8 +45,8 @@ I had a really delicious smoothie from Surf City Squeeze.
             pagination = {
                 '2021-01-01.html': unittest.mock.Mock(next=None, previous=None)
             }
-            entry = entries.new_entry(root / 'entries/2021-01-01.html',
-                                      pagination=pagination)
+            entry = pages.new_entry(root / 'entries/2021-01-01.html',
+                                    pagination=pagination)
             self.assertEqual(entry.filename, '2021-01-01.html')
             self.assertEqual(entry.title, 'Friday, January 1 2021')
             self.assertEqual(entry.date, datetime.datetime(2021, 1, 1))
@@ -55,7 +54,7 @@ I had a really delicious smoothie from Surf City Squeeze.
             self.assertEqual(entry.banner, 'smoothie.jpg')
             self.assertEqual(entry.description, 'a smoothie')
 
-    def test_all_entries(self):
+    def test_fetch_entries(self):
         with temp_root() as root:
             slugs = [
                 '2021-01-01',  # 0
@@ -71,7 +70,7 @@ I had a really delicious smoothie from Surf City Squeeze.
 This is a test entry, made from a unit test from slug {slug}.
 '''.lstrip())
 
-            _entries = entries.all_entries(root / 'entries')
+            _entries = pages.fetch_entries(root / 'entries')
 
             newest = _entries[0]
             self.assertEqual(newest.filename, '2023-04-12.html')
@@ -101,11 +100,11 @@ This is a test entry, made from a unit test from slug {slug}.
   </a>
 </figure>'''.strip()
 
-        actual = entries.render_entry(page,
-                                      content=content,
-                                      full_url='http://localhost:8080',
-                                      year=1990,
-                                      author='Joe Schmo')
+        actual = pages.render_entry(page,
+                                    content=content,
+                                    full_url='http://localhost:8080',
+                                    year=1990,
+                                    author='Joe Schmo')
         expected = '''
 <!doctype html>
 <html lang="en">
@@ -190,10 +189,10 @@ This is a test entry, made from a unit test from slug {slug}.
             page_next='next-page.html',
             page_previous='previous-page.html')
 
-        actual = entries.render_entry(entry,
-                                      full_url='http://localhost:8000',
-                                      author='Alex',
-                                      year=1990)
+        actual = pages.render_entry(entry,
+                                    full_url='http://localhost:8000',
+                                    author='Alex',
+                                    year=1990)
         self.assertIn(
             '''
     <!-- Pagination -->
@@ -217,11 +216,11 @@ This is a test entry, made from a unit test from slug {slug}.
                 f.write('Test content!')
 
             entry.source = d / 'entries/test.html'
-            entries.write_entries([entry] * 101,
-                                  d / 'www',
-                                  full_url='http://biz.local',
-                                  author='Bill S. Preston',
-                                  year='1988')
+            pages.write_entries([entry] * 101,
+                                d / 'www',
+                                full_url='http://biz.local',
+                                author='Bill S. Preston',
+                                year='1988')
             with (d / 'www/test.html').open('r') as f:
                 content = f.read()
                 self.assertIn('<title>Some Test Page</title>', content)

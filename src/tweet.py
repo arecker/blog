@@ -6,8 +6,7 @@ import pathlib
 import sys
 import urllib.parse
 
-from .entries import all_entries
-from .lib import configure_logging
+from . import lib
 
 logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()
@@ -39,7 +38,7 @@ def main(args=None, entries=[]):
 
     full_url = load_full_url(args.dir_data)
 
-    entries = entries or all_entries(args.dir_entries)
+    entries = entries or lib.fetch_entries(args.dir_entries)
     latest = entries[0]
 
     try:
@@ -56,5 +55,5 @@ def main(args=None, entries=[]):
 
 
 if __name__ == '__main__':
-    configure_logging()
+    lib.configure_logging()
     main()

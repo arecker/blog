@@ -2,8 +2,7 @@ import argparse
 import logging
 
 from . import (tweet, slack)
-from .entries import all_entries
-from .lib import configure_logging
+from . import lib
 
 parser = argparse.ArgumentParser()
 logger = logging.getLogger(__name__)
@@ -22,11 +21,11 @@ parser.add_argument('--twitter-consumer-api-secret-key', required=True)
 
 def main():
     args = parser.parse_args()
-    entries = all_entries(args.dir_entries)
+    entries = lib.fetch_entries(args.dir_entries)
     slack.main(args=args, entries=entries)
     tweet.main(args=args, entries=entries)
 
 
 if __name__ == '__main__':
-    configure_logging()
+    lib.configure_logging()
     main()

@@ -104,7 +104,7 @@ class TestImages(unittest.TestCase):
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.touch(exist_ok=True)
 
-            actual = [str(p.relative_to(d)) for p in images.all_images(d)]
+            actual = [str(p.relative_to(d)) for p in images.fetch_images(d)]
 
             self.assertEqual(actual, [
                 'www/images/2021-01-01-apples.jpg',

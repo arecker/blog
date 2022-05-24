@@ -1,8 +1,6 @@
 import contextlib
 import datetime
 import html
-import logging
-import pathlib
 import urllib.parse
 import xml.etree.ElementTree
 

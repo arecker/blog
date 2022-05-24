@@ -8,7 +8,7 @@ import pathlib
 import time
 import urllib.parse
 
-from .lib import configure_logging, make_http_request
+from . import lib
 
 logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()
@@ -30,11 +30,11 @@ def make_request(path,
 
     url = f'https://api.netlify.com/api/v1{path}'
 
-    return make_http_request(url=url,
-                             method=method,
-                             authorization=f'Bearer {token}',
-                             data=data,
-                             content_type=content_type)
+    return lib.make_http_request(url=url,
+                                 method=method,
+                                 authorization=f'Bearer {token}',
+                                 data=data,
+                                 content_type=content_type)
 
 
 def fetch_site_id(site_name, token=''):
@@ -142,5 +142,5 @@ def main():
 
 
 if __name__ == '__main__':
-    configure_logging()
+    lib.configure_logging()
     main()

@@ -2,8 +2,7 @@ import argparse
 import logging
 import re
 
-from . import git, entries
-from .lib import configure_logging
+from . import lib
 
 logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()
@@ -13,27 +12,27 @@ parser.add_argument('--dir-entries', required=True)
 def main():
     args = parser.parse_args()
 
-    git.git_add('.')
+    lib.git_add('.')
     logger.info('staged files')
 
-    latest = entries.all_entries(args.dir_entries)[0]
+    latest = lib.fetch_entries(args.dir_entries)[0]
     message = 'entry: ' + latest.title
-    git.git_commit(message)
+    lib.git_commit(message)
     logger.info('created new commit "%s"', message)
 
     tag = 'entry-' + re.sub(r'.html$', '', latest.filename)
-    git.git_tag(tag)
+    lib.git_tag(tag)
     logger.info('created new tag "%s"', tag)
 
-    git.git_push_tags()
+    lib.git_push_tags()
     logger.info('pushed tag %s', tag)
 
-    git.git_push_branch('master')
+    lib.git_push_branch('master')
     logger.info('pushed branch')
 
     logger.info('latest entry "%s" published', latest.description)
 
 
 if __name__ == '__main__':
-    configure_logging()
+    lib.configure_logging()
     main()

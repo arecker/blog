@@ -4,10 +4,8 @@ import json
 import logging
 import pathlib
 
-from .entries import all_entries, write_entries
-from .feed import write_feed
-from .pages import write_pages, PAGES
 from . import lib
+from . import pages as _  # noqa:F401
 
 logger = logging.getLogger(__name__)
 
@@ -38,31 +36,32 @@ def main():
     args = parser.parse_args()
 
     info = load_info(args.dir_data)
-    entries = all_entries(args.dir_entries)
+    entries = lib.fetch_entries(args.dir_entries)
+    pages = lib.fetch_pages()
 
-    logger.info('retrieved %d entries from %s', len(entries), args.dir_entries)
     lib.write_sitemap(args.dir_www,
                       full_url=info.url,
                       entries=entries,
-                      pages=PAGES.keys())
+                      pages=[p.filename for p in pages])
 
-    write_feed(args.dir_www,
-               title=info.title,
-               subtitle=info.title,
-               author_name=info.author,
-               author_email=info.email,
-               timestamp=entries[0].date,
-               full_url=info.url,
-               entries=entries[:50])
+    lib.write_feed(args.dir_www,
+                   title=info.title,
+                   subtitle=info.title,
+                   author_name=info.author,
+                   author_email=info.email,
+                   timestamp=entries[0].date,
+                   full_url=info.url,
+                   entries=entries[:50])
 
-    write_entries(entries=entries,
-                  dir_www=str(args.dir_www),
-                  full_url=info.url,
-                  author=info.author)
+    lib.write_entries(entries=entries,
+                      dir_www=str(args.dir_www),
+                      full_url=info.url,
+                      author=info.author)
 
-    write_pages(
+    lib.write_pages(
         dir_www=str(args.dir_www),
         entries=entries,
+        pages=pages,
         full_url=info.url,
         author=info.author,
         args=args,

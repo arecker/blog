@@ -6,9 +6,7 @@ import logging
 import pathlib
 import urllib.parse
 
-from .entries import all_entries
-from .http import make_http_request
-from .lib import configure_logging
+from . import lib
 
 logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()
@@ -29,7 +27,7 @@ def load_full_url(data_dir):
 def main(args=None, entries=[]):
     args = args or parser.parse_args()
 
-    entries = entries or all_entries(args.directory / 'entries')
+    entries = entries or lib.fetch_entries(args.directory / 'entries')
     latest = entries[0]
     full_url = load_full_url(args.dir_data)
     url = urllib.parse.urljoin(full_url, latest.filename)
@@ -43,11 +41,11 @@ def main(args=None, entries=[]):
     }
 
     for url in args.slack_webhook_urls:
-        make_http_request(url=url, method='POST', data=payload)
+        lib.make_http_request(url=url, method='POST', data=payload)
         logger.info('shared "%s" to slack channel %s', latest.description,
                     args.slack_channel)
 
 
 if __name__ == '__main__':
-    configure_logging()
+    lib.configure_logging()
     main()

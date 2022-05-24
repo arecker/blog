@@ -4,7 +4,7 @@ import logging
 import pathlib
 import urllib.parse
 
-from ..renderer import Renderer
+from .renderer import Renderer
 
 logger = logging.getLogger(__name__)
 
