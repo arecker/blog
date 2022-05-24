@@ -1,9 +1,7 @@
 """share latest entry in a slack post"""
 
 import argparse
-import json
 import logging
-import pathlib
 import urllib.parse
 
 from . import lib
@@ -19,17 +17,12 @@ parser.add_argument('--slack-username', default='reckerbot')
 parser.add_argument('--slack-emoji', default=':reckerbot:')
 
 
-def load_full_url(data_dir):
-    with (pathlib.Path(data_dir) / 'info.json').open('r') as f:
-        return json.load(f)['url']
-
-
 def main(args=None, entries=[]):
     args = args or parser.parse_args()
 
     entries = entries or lib.fetch_entries(args.directory / 'entries')
     latest = entries[0]
-    full_url = load_full_url(args.dir_data)
+    full_url = lib.load_info(args.dir_data)['url']
     url = urllib.parse.urljoin(full_url, latest.filename)
 
     message = '\n'.join([latest.title, latest.description, url])

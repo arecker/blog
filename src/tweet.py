@@ -1,8 +1,6 @@
 """share latest entry in a tweet"""
 import argparse
-import json
 import logging
-import pathlib
 import sys
 import urllib.parse
 
@@ -19,11 +17,6 @@ parser.add_argument('--twitter-access-token', required=True)
 parser.add_argument('--twitter-access-token-secret', required=True)
 
 
-def load_full_url(data_dir):
-    with (pathlib.Path(data_dir) / 'info.json').open('r') as f:
-        return json.load(f)['url']
-
-
 def make_twitter_client(args):
     import tweepy
     auth = tweepy.OAuthHandler(args.twitter_consumer_api_key,
@@ -35,9 +28,7 @@ def make_twitter_client(args):
 
 def main(args=None, entries=[]):
     args = args or parser.parse_args()
-
-    full_url = load_full_url(args.dir_data)
-
+    full_url = lib.load_info(args.dir_data['url'])
     entries = entries or lib.fetch_entries(args.dir_entries)
     latest = entries[0]
 

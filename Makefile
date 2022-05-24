@@ -12,7 +12,7 @@ data/%.json: jsonnet/%.jsonnet $(JSONNET_SOURCES)
 
 .PHONY: build
 build: clean $(JSONNET_TARGETS)
-	python -m src.build --dir-www ./www --dir-entries ./entries --dir-data ./data
+	python -m src --dir-www ./www --dir-entries ./entries --dir-data ./data
 
 .PHONY: test
 test:

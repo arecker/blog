@@ -1,11 +1,8 @@
 import argparse
-import collections
-import json
 import logging
-import pathlib
 
-from . import lib
 from . import pages as _  # noqa:F401
+from . import lib
 
 logger = logging.getLogger(__name__)
 
@@ -14,28 +11,11 @@ parser.add_argument('--dir-data', required=True)
 parser.add_argument('--dir-entries', required=True)
 parser.add_argument('--dir-www', required=True)
 
-Info = collections.namedtuple('Info', [
-    'author',
-    'email',
-    'subtitle',
-    'title',
-    'url',
-])
-
-
-def load_info(dir_data) -> Info:
-    target = pathlib.Path(dir_data) / 'info.json'
-    with open(target, 'r') as f:
-        kwargs = json.load(f)
-        info = Info(**kwargs)
-        logger.info('parsed site info from %s', target)
-        return info
-
 
 def main():
     args = parser.parse_args()
 
-    info = load_info(args.dir_data)
+    info = lib.load_info(args.dir_data)
     entries = lib.fetch_entries(args.dir_entries)
     pages = lib.fetch_pages()
 
