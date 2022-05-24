@@ -109,3 +109,80 @@ def napkins(renderer=None, args=None, **kwargs):
 
     logger.info('rendered %d napkin drawing(s)', total)
     return renderer.text
+
+
+@lib.register_page(filename='looking-back.html',
+                   title='Looking Back',
+                   description='special journal entries that look back in time'
+                   )
+def looking_back(renderer=None, entries=[], **kwargs):
+    entries = list(
+        filter(lambda e: e.description.startswith('looking back on'), entries))
+
+    choice = random.choice([e for e in entries if e.banner])
+    renderer.figure(alt='random banner',
+                    src=f'./images/banners/{choice.banner}',
+                    href=f'./{choice.filename}')
+
+    with renderer.wrapping_block('table'):
+        for entry in entries:
+            with renderer.wrapping_block('tr'):
+                with renderer.wrapping_block('td'):
+                    renderer.block('a',
+                                   href=f'./{entry.filename}',
+                                   contents=f'{entry.filename}')
+                renderer.block('td', contents=entry.description)
+
+    logger.info('rendered %d looking back entries', len(entries))
+    return renderer.text
+
+
+@lib.register_page(filename='anti-journal.html',
+                   title='Anti-Journal',
+                   description='private journal entries re-published')
+def anti_journal(renderer=None, entries=[], **kwargs):
+    entries = list(
+        filter(lambda e: e.description.startswith('anti-journal'), entries))
+
+    choice = random.choice([e for e in entries if e.banner])
+    renderer.figure(alt='random banner',
+                    src=f'./images/banners/{choice.banner}',
+                    href=f'./{choice.filename}')
+
+    with renderer.wrapping_block('table'):
+        for entry in entries:
+            with renderer.wrapping_block('tr'):
+                with renderer.wrapping_block('td'):
+                    renderer.block('a',
+                                   href=f'./{entry.filename}',
+                                   contents=f'{entry.filename}')
+                renderer.block('td', contents=entry.description)
+
+    logger.info('rendered %d anti-journal entries', len(entries))
+    return renderer.text
+
+
+@lib.register_page(filename='homework.html',
+                   title='From the Homework Vault',
+                   description='old homework assignments re-published')
+def homework_vault(renderer=None, entries=[], **kwargs):
+    entries = list(
+        filter(lambda e: e.description.startswith('from the homework vault: '),
+               entries))
+
+    choice = random.choice([e for e in entries if e.banner])
+    renderer.figure(alt='random banner',
+                    src=f'./images/banners/{choice.banner}',
+                    href=f'./{choice.filename}')
+
+    with renderer.wrapping_block('table'):
+        for entry in entries:
+            with renderer.wrapping_block('tr'):
+                with renderer.wrapping_block('td'):
+                    renderer.block('a',
+                                   href=f'./{entry.filename}',
+                                   contents=f'{entry.filename}')
+                renderer.block('td', contents=entry.description)
+
+    logger.info('rendered %d homework entries', len(entries))
+    return renderer.text
