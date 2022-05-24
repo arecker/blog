@@ -22,7 +22,7 @@ def main(args=None, entries=[]):
 
     entries = entries or lib.fetch_entries(args.directory / 'entries')
     latest = entries[0]
-    full_url = lib.load_info(args.dir_data)['url']
+    full_url = lib.load_info(args.dir_data).url
     url = urllib.parse.urljoin(full_url, latest.filename)
 
     message = '\n'.join([latest.title, latest.description, url])

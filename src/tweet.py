@@ -28,7 +28,7 @@ def make_twitter_client(args):
 
 def main(args=None, entries=[]):
     args = args or parser.parse_args()
-    full_url = lib.load_info(args.dir_data['url'])
+    full_url = lib.load_info(args.dir_data).url
     entries = entries or lib.fetch_entries(args.dir_entries)
     latest = entries[0]
 
