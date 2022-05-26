@@ -32,6 +32,9 @@ def fixup_project(entries_dir='', www_dir=''):
     images = fetch_images(www_directory=www_dir)
     total = len(images)
     for i, image in enumerate(images):
+        if '/banners/' in str(image):
+            continue
+
         found = False
         for entry in entries:
             with entry.open('r') as f:
