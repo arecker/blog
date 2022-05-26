@@ -81,7 +81,8 @@ def scan_images(dir_www: str):
     validate_image_dependenices()
 
     files = fetch_images(dir_www)
+    total = len(files)
     for i, path in enumerate(files):
         check_image(path)
         if (i + 1) % 100 == 0 or (i + 1) == len(files):
-            logger.info('scanned %d out of %d images', i + 1, len(files))
+            logger.info('checking image sizes %d of %d', i, total)

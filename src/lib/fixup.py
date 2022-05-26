@@ -30,6 +30,7 @@ def fixup_project(entries_dir='', www_dir=''):
             logger.info('checking entry content %d of %d', i + 1, total)
 
     images = fetch_images(www_directory=www_dir)
+    total = len(images)
     for i, image in enumerate(images):
         found = False
         for entry in entries:
