@@ -35,6 +35,7 @@ def git_push_branch(branch):
     logger.debug('running command %s', cmd)
     subprocess.run(cmd,
                    check=True,
+                   shell=True,
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL)
 
