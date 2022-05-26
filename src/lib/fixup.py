@@ -20,7 +20,7 @@ def fixup_project(entries_dir='', www_dir=''):
         if '--> <!--' in content:
             logger.warning('%s: found misaligned metadata', entry.name)
 
-        new_content = re.sub(r'href="\/(.*?)"', r'href="./\1"', content)
+        new_content = re.sub(r'(href|src)="\/(.*?)"', r'\1="./\2"', content)
         if new_content != content:
             with entry.open('w') as f:
                 f.write(new_content)
