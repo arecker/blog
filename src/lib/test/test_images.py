@@ -90,7 +90,7 @@ class TestImages(unittest.TestCase):
         self.assertFalse(images.is_image('test.py'))
 
     def test_is_banner(self):
-        self.assertTrue(images.is_banner('./www/images/banner/quotes.png'))
+        self.assertTrue(images.is_banner('./www/images/banners/quotes.png'))
 
     def test_all_images(self):
         paths = [
