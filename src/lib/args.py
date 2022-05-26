@@ -17,7 +17,7 @@ group = parser.add_argument_group('one-off subcommands (exit immediately)')
 group.add_argument('--fixup',
                    action='store_true',
                    default=False,
-                   help='tidy resources')
+                   help='tidy up entries and images')
 
 
 def parse_args():

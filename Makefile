@@ -27,10 +27,6 @@ test:
 publish:
 	python -m src.publish --dir-entries ./entries
 
-.PHONY: images
-images:
-	python -m src.images --dir-www ./www
-
 SLACK_SECRETS := --slack-webhook-urls "$$(pass slack/reckers/webhook)"
 .PHONY: slack
 slack:
@@ -61,6 +57,10 @@ deploy: test build
 
 .PHONY: morning
 morning: publish deploy share
+
+.PHONY: help
+help:
+	$(PYTHON_CMD) --help
 
 .PHONY: fixup
 fixup:
