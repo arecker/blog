@@ -1,8 +1,14 @@
+import sys
+
 from . import pages as _  # noqa:F401
 from . import lib
 
 
 def main(args):
+    if args.fixup:
+        lib.fixup_project(entries_dir=args.dir_entries)
+        sys.exit(0)
+
     info = lib.load_info(args.dir_data)
     entries = lib.fetch_entries(args.dir_entries)
     pages = lib.fetch_pages()

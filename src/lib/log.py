@@ -1,4 +1,5 @@
 import logging.config
+import os
 
 
 def new_logging_config(level):
@@ -28,6 +29,10 @@ def new_logging_config(level):
 
 
 def configure_logging(verbose=False):
-    level = 'DEBUG' if verbose else 'INFO'
+    if verbose or os.environ.get('DEBUG'):
+        level = 'DEBUG'
+    else:
+        level = 'INFO'
+
     config = new_logging_config(level)
     logging.config.dictConfig(config)

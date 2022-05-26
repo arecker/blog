@@ -1,6 +1,8 @@
 JSONNET_SOURCES = $(wildcard jsonnet/*.jsonnet)
 JSONNET_TARGETS := $(patsubst jsonnet/%.jsonnet, data/%.json, $(JSONNET_SOURCES))
 
+PYTHON_CMD = python -m src --dir-entries ./entries --dir-data ./data --dir-www ./www
+
 all: test build .git/hooks/pre-commit $(JSONNET_TARGETS)
 
 data/%.json: jsonnet/%.jsonnet $(JSONNET_SOURCES)
@@ -56,3 +58,7 @@ deploy: test build
 
 .PHONY: morning
 morning: publish deploy share
+
+.PHONY: fixup
+fixup:
+	$(PYTHON_CMD) --fixup
