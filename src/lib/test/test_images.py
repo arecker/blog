@@ -11,6 +11,7 @@ from .. import images
 
 @contextlib.contextmanager
 def patch_which(installed: list):
+
     def _which(command):
         return command in installed
 
@@ -27,6 +28,7 @@ def patch_run(output):
 
 
 class TestImages(unittest.TestCase):
+
     def test_validate_image_dependencies(self):
         with patch_which(['identify', 'convert']):
             self.assertIsNone(images.validate_image_dependenices())
@@ -86,6 +88,9 @@ class TestImages(unittest.TestCase):
         self.assertFalse(images.is_image('test.GIF'))
         self.assertFalse(images.is_image('test.gif'))
         self.assertFalse(images.is_image('test.py'))
+
+    def test_is_banner(self):
+        self.assertTrue(images.is_banner('./www/images/banner/quotes.png'))
 
     def test_all_images(self):
         paths = [

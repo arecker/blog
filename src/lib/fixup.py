@@ -2,7 +2,7 @@ import logging
 import pathlib
 import re
 
-from .images import scan_images, fetch_images
+from .images import scan_images, fetch_images, is_banner
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +32,8 @@ def fixup_project(entries_dir='', www_dir=''):
     images = fetch_images(www_directory=www_dir)
     total = len(images)
     for i, image in enumerate(images):
-        if '/banners/' in str(image):
+        # TODO: check banners too
+        if is_banner(image):
             continue
 
         found = False

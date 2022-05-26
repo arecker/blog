@@ -57,6 +57,17 @@ def is_image(path):
     )
 
 
+def is_banner(path):
+    """Return True if path is in the banners directory."""
+
+    path = pathlib.Path(path)
+
+    parent = path.parent.name
+    grandparent = path.parent.parent.name
+
+    return parent == 'banners' and grandparent == 'images'
+
+
 def fetch_images(www_directory: str | pathlib.Path) -> list[pathlib.Path]:
     """Retrieve all images in site."""
 
