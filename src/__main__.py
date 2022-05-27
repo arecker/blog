@@ -4,7 +4,14 @@ from . import pages as _  # noqa:F401
 from . import lib
 
 
-def main(args):
+def main():
+    args = lib.parse_args()
+    lib.configure_logging(verbose=args.verbose)
+
+    if args.hook:
+        lib.run_pre_commit_hook()
+        sys.exit(0)
+
     if args.fixup:
         lib.fixup_project(entries_dir=args.dir_entries)
         sys.exit(0)
@@ -43,6 +50,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    args = lib.parse_args()
-    lib.configure_logging(verbose=args.verbose)
-    main(args)
+    main()

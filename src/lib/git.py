@@ -85,6 +85,9 @@ def new_git_change(git_status_output_line: str) -> GitChange:
         if first == ' ' and second == 'M':
             return GitChange(status='untracked', state='modified', path=path)
 
+        if first == ' ' and second == 'D':
+            return GitChange(status='untracked', state='deleted', path=path)
+
         if first == second == '?':
             return GitChange(status='untracked', state='added', path=path)
 

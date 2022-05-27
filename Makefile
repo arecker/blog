@@ -12,7 +12,7 @@ data/%.json: jsonnet/%.jsonnet $(JSONNET_SOURCES)
 	jsonnet $< > $@ && touch $@
 
 .git/hooks/pre-commit:
-	echo "python -m src.hook" > $@
+	echo "$(PYTHON_CMD) --hook" > $@
 	chmod +x $@
 
 .PHONY: build

@@ -14,6 +14,10 @@ group.add_argument('--dir-entries', required=True)
 group.add_argument('--dir-www', required=True)
 
 group = parser.add_argument_group('one-off subcommands (exit immediately)')
+group.add_argument('--hook',
+                   action='store_true',
+                   default=False,
+                   help='run git pre-commit hook')
 group.add_argument('--fixup',
                    action='store_true',
                    default=False,
