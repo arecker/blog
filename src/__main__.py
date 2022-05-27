@@ -1,5 +1,3 @@
-import sys
-
 from . import pages as _  # noqa:F401
 from . import lib
 
@@ -10,11 +8,11 @@ def main():
 
     if args.hook:
         lib.run_pre_commit_hook()
-        sys.exit(0)
+        return
 
     if args.fixup:
         lib.fixup_project(entries_dir=args.dir_entries)
-        sys.exit(0)
+        return
 
     info = lib.load_info(args.dir_data)
     entries = lib.fetch_entries(args.dir_entries)
