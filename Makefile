@@ -7,7 +7,7 @@ PYTHON_CMD := python -m src \
   --dir-secrets ./secrets \
   --dir-www ./www
 
-SECRET_TARGETS := secrets/twitter.json
+SECRET_TARGETS := secrets/twitter.json secrets/netlify.json
 
 all: test build .git/hooks/pre-commit $(JSONNET_TARGETS) $(SECRET_TARGETS)
 
@@ -49,10 +49,9 @@ clean:
 	rm -rf www/*.html
 	rm -rf www/*.xml
 
-NETLIFY_SECRETS := --netlify-token "$$(pass netlify/jenkins)"
 .PHONY: deploy
-deploy: test build
-	python -m src.deploy --dir-data ./data --dir-www ./www $(NETLIFY_SECRETS)
+deploy:
+	$(PYTHON_CMD) --deploy
 
 .PHONY: morning
 morning: publish deploy slack tweet

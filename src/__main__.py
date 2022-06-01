@@ -54,6 +54,12 @@ def main():
         args=args,
     )
 
+    if args.deploy:
+        lib.deploy_to_netlify(full_url=info.url,
+                              secrets_dir=args.dir_secrets,
+                              www_dir=args.dir_www,
+                              dry=args.dry)
+
 
 if __name__ == '__main__':
     main()

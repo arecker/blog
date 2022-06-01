@@ -32,6 +32,12 @@ group.add_argument('--tweet',
                    default=False,
                    help='share latest entry via tweet')
 
+group = parser.add_argument_group('additional actions (before/after build)')
+group.add_argument('--deploy',
+                   action='store_true',
+                   default=False,
+                   help='deploy the site')
+
 
 def parse_args():
     return parser.parse_args()

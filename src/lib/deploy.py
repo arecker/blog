@@ -1,6 +1,5 @@
 """Deploy site to Netlify"""
 
-import argparse
 import hashlib
 import json
 import logging
@@ -8,14 +7,9 @@ import pathlib
 import time
 import urllib.parse
 
-from . import lib
+from . import http
 
 logger = logging.getLogger(__name__)
-parser = argparse.ArgumentParser()
-
-parser.add_argument('--dir-data', required=True)
-parser.add_argument('--dir-www', required=True)
-parser.add_argument('--netlify-token', required=True)
 
 
 def make_request(path,
@@ -30,11 +24,11 @@ def make_request(path,
 
     url = f'https://api.netlify.com/api/v1{path}'
 
-    return lib.make_http_request(url=url,
-                                 method=method,
-                                 authorization=f'Bearer {token}',
-                                 data=data,
-                                 content_type=content_type)
+    return http.make_http_request(url=url,
+                                  method=method,
+                                  authorization=f'Bearer {token}',
+                                  data=data,
+                                  content_type=content_type)
 
 
 def fetch_site_id(site_name, token=''):
@@ -75,24 +69,28 @@ def build_new_deploy(webroot):
     return {'files': digest_map, 'draft': False, 'async': False}
 
 
-def read_site_domain(data_dir):
-    with (pathlib.Path(data_dir) / 'info.json').open('r') as f:
-        data = json.load(f)
-        return urllib.parse.urlparse(data['url']).netloc
+def read_netlify_token(secrets_dir):
+    with (pathlib.Path(secrets_dir) / 'netlify.json').open('r') as f:
+        return json.load(f)['token']
 
 
-def main():
-    args = parser.parse_args()
-    domain = read_site_domain(args.dir_data)
-    site_id = fetch_site_id(domain, token=args.netlify_token)
+def deploy_to_netlify(full_url='', secrets_dir='', www_dir='', dry=False):
+    domain = urllib.parse.urlparse(full_url).netloc
+    token = read_netlify_token(secrets_dir)
+
+    site_id = fetch_site_id(domain, token=token)
     logger.info('found netlify site %s (%s)', domain, site_id)
-    dir_www = pathlib.Path(args.dir_www).absolute()
+    dir_www = pathlib.Path(www_dir).absolute()
     payload = build_new_deploy(dir_www)
     logger.info('built payload from %d file(s) in %s',
                 len(payload['files'].keys()), str(dir_www))
 
+    if dry:
+        logger.warn('running in dry mode, can\'t proceed with deploy')
+        return
+
     response = make_request(path=f'/sites/{site_id}/deploys/',
-                            token=args.netlify_token,
+                            token=token,
                             method='POST',
                             data=payload)
 
@@ -109,7 +107,7 @@ def main():
             data = f.read()
         url = f'/deploys/{deploy_id}/files{path}'
         response = make_request(path=url,
-                                token=args.netlify_token,
+                                token=token,
                                 method='PUT',
                                 data=data,
                                 content_type='application/octet-stream')
@@ -121,7 +119,7 @@ def main():
 
     while True:
         response = make_request(path=f'/deploys/{deploy_id}',
-                                token=args.netlify_token,
+                                token=token,
                                 method='GET')
         status = response['state']
 
@@ -139,8 +137,3 @@ def main():
                                deploy_id)
 
     logger.info('deploy %s finished!', deploy_id)
-
-
-if __name__ == '__main__':
-    lib.configure_logging()
-    main()
