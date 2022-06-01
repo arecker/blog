@@ -7,7 +7,8 @@ PYTHON_CMD := python -m src \
   --dir-secrets ./secrets \
   --dir-www ./www
 
-SECRET_TARGETS := secrets/twitter.json secrets/netlify.json
+SECRETS := twitter netlify slack
+SECRET_TARGETS := $(patsubst %,secrets/%.json, $(SECRETS))
 
 all: test build .git/hooks/pre-commit $(JSONNET_TARGETS) $(SECRET_TARGETS)
 
@@ -33,14 +34,10 @@ test:
 publish:
 	python -m src.publish --dir-entries ./entries
 
-SLACK_SECRETS := --slack-webhook-urls "$$(pass slack/reckers/webhook)"
-.PHONY: slack
-slack:
-	python -m src.slack --dir-data ./data --dir-entries ./entries $(SLACK_SECRETS)
-
-.PHONY: tweet
-tweet:
-	$(PYTHON_CMD) --tweet
+ONE_OFFS := slack tweet help deploy fixup
+.PHONY: $(ONE_OFFS)
+$(ONE_OFFS):
+	$(PYTHON_CMD) --$@ --dry
 
 .PHONY: clean
 clean:
@@ -49,17 +46,5 @@ clean:
 	rm -rf www/*.html
 	rm -rf www/*.xml
 
-.PHONY: deploy
-deploy:
-	$(PYTHON_CMD) --deploy
-
 .PHONY: morning
 morning: publish deploy slack tweet
-
-.PHONY: help
-help:
-	$(PYTHON_CMD) --help
-
-.PHONY: fixup
-fixup:
-	$(PYTHON_CMD) --fixup

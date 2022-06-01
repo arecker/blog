@@ -24,6 +24,13 @@ def main():
                                   dry=args.dry)
         return
 
+    if args.slack:
+        lib.share_latest_as_slack(latest=entries[0],
+                                  full_url=info.url,
+                                  secrets_dir=args.dir_secrets,
+                                  dry=args.dry)
+        return
+
     pages = lib.fetch_pages()
 
     lib.write_sitemap(args.dir_www,
@@ -59,6 +66,16 @@ def main():
                               secrets_dir=args.dir_secrets,
                               www_dir=args.dir_www,
                               dry=args.dry)
+
+    if args.share:
+        lib.share_latest_as_tweet(latest=entries[0],
+                                  full_url=info.url,
+                                  creds_dir=args.dir_secrets,
+                                  dry=args.dry)
+        lib.share_latest_as_slack(latest=entries[0],
+                                  full_url=info.url,
+                                  secrets_dir=args.dir_secrets,
+                                  dry=args.dry)
 
 
 if __name__ == '__main__':

@@ -27,6 +27,10 @@ group.add_argument('--fixup',
                    action='store_true',
                    default=False,
                    help='tidy up entries and images')
+group.add_argument('--slack',
+                   action='store_true',
+                   default=False,
+                   help='share latest entry via slack')
 group.add_argument('--tweet',
                    action='store_true',
                    default=False,
@@ -37,6 +41,10 @@ group.add_argument('--deploy',
                    action='store_true',
                    default=False,
                    help='deploy the site')
+group.add_argument('--share',
+                   action='store_true',
+                   default=False,
+                   help='share new post on social media')
 
 
 def parse_args():
