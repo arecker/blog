@@ -11,3 +11,4 @@ from .info import load_info
 from .log import configure_logging
 from .pages import fetch_entries, write_pages, write_entries, register_page, fetch_pages
 from .sitemap import write_sitemap
+from .tweet import share_latest_as_tweet

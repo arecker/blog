@@ -16,6 +16,14 @@ def main():
 
     info = lib.load_info(args.dir_data)
     entries = lib.fetch_entries(args.dir_entries)
+
+    if args.tweet:
+        lib.share_latest_as_tweet(latest=entries[0],
+                                  full_url=info.url,
+                                  creds_dir=args.dir_secrets,
+                                  dry=args.dry)
+        return
+
     pages = lib.fetch_pages()
 
     lib.write_sitemap(args.dir_www,

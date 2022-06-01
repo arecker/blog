@@ -2,11 +2,17 @@ JSONNET_SOURCES = $(wildcard jsonnet/*.jsonnet)
 JSONNET_TARGETS := $(patsubst jsonnet/%.jsonnet, data/%.json, $(JSONNET_SOURCES))
 
 PYTHON_CMD := python -m src \
-  --dir-entries ./entries \
   --dir-data ./data \
+  --dir-entries ./entries \
+  --dir-secrets ./secrets \
   --dir-www ./www
 
-all: test build .git/hooks/pre-commit $(JSONNET_TARGETS)
+SECRET_TARGETS := secrets/twitter.json
+
+all: test build .git/hooks/pre-commit $(JSONNET_TARGETS) $(SECRET_TARGETS)
+
+secrets/%.json:
+	pass blog/$* > $@
 
 data/%.json: jsonnet/%.jsonnet $(JSONNET_SOURCES)
 	jsonnet $< > $@ && touch $@
@@ -16,8 +22,8 @@ data/%.json: jsonnet/%.jsonnet $(JSONNET_SOURCES)
 	chmod +x $@
 
 .PHONY: build
-build: clean $(JSONNET_TARGETS)
-	python -m src --dir-www ./www --dir-entries ./entries --dir-data ./data
+build: clean $(JSONNET_TARGETS) $(SECRET_TARGETS)
+	$(PYTHON_CMD)
 
 .PHONY: test
 test:
@@ -32,20 +38,13 @@ SLACK_SECRETS := --slack-webhook-urls "$$(pass slack/reckers/webhook)"
 slack:
 	python -m src.slack --dir-data ./data --dir-entries ./entries $(SLACK_SECRETS)
 
-TWITTER_SECRETS := --twitter-consumer-api-key "$$(pass twitter/reckerbot/consumer-api-key)" \
-	           --twitter-consumer-api-secret-key "$$(pass twitter/reckerbot/consumer-api-secret-key)" \
-	           --twitter-access-token "$$(pass twitter/reckerbot/access-token)" \
-	           --twitter-access-token-secret "$$(pass twitter/reckerbot/access-token-secret)"
 .PHONY: tweet
 tweet:
-	python -m src.tweet --dir-data ./data --dir-entries ./entries $(TWITTER_SECRETS)
-
-.PHONY: share
-share:
-	python -m src.share --dir-data ./data --dir-entries ./entries $(SLACK_SECRETS) $(TWITTER_SECRETS)
+	$(PYTHON_CMD) --tweet
 
 .PHONY: clean
 clean:
+	rm -rf secrets/*.json
 	rm -rf data/*.json
 	rm -rf www/*.html
 	rm -rf www/*.xml
@@ -56,7 +55,7 @@ deploy: test build
 	python -m src.deploy --dir-data ./data --dir-www ./www $(NETLIFY_SECRETS)
 
 .PHONY: morning
-morning: publish deploy share
+morning: publish deploy slack tweet
 
 .PHONY: help
 help:
