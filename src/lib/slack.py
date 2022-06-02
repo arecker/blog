@@ -38,7 +38,7 @@ def share_latest_as_slack(latest=None, full_url='', secrets_dir='', dry=False):
             logger.warn('running in dry, but would have posted %s to slack',
                         payload)
         else:
-            http.make_http_request(url=workspace.url,
+            http.make_http_request(url=workspace.webhook_url,
                                    method='POST',
                                    data=payload)
         logger.info('shared "%s" to slack workspace %s', latest.description,
