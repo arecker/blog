@@ -38,6 +38,8 @@ def main():
                       entries=entries,
                       pages=[p.filename for p in pages])
 
+    lib.write_redirects(www_dir=args.dir_www, data_dir=args.dir_data)
+
     lib.write_feed(args.dir_www,
                    title=info.title,
                    subtitle=info.title,

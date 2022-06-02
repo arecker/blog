@@ -1,11 +1,11 @@
-local ArchiveRedirect(source='', target='', status='301!') = [
+local ArchiveRedirect(source='', target='', status='301!') = (
   local baseUrl = 'https://archive.alexrecker.com';
-  
+
   assert source != '' : 'source required';
 
   local t = if target != '' then target else source;
-  [source, baseUrl + t + ' ' + status],
-];
+  [source, baseUrl + t + ' ' + status]
+);
 
 [
   ArchiveRedirect(source='/our-new-sid-meiers-civilization-inspired-budget/', target='/civ-budget.html'),
