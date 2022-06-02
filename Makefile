@@ -37,7 +37,7 @@ build:
 COMMANDS := deploy share slack tweet help fixup
 .PHONY: $(COMMANDS)
 $(COMMANDS):
-	$(PYTHON_CMD) --$@ --dry
+	$(PYTHON_CMD) --$@
 
 .PHONY: test
 test:

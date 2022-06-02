@@ -8,7 +8,7 @@ def new_logging_config(level):
         'disable_existing_loggers': False,
         'formatters': {
             'standard': {
-                'format': 'blog: %(message)s'
+                'format': '%(name)s :: %(message)s'
             },
         },
         'handlers': {

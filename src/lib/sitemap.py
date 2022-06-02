@@ -54,4 +54,4 @@ def write_sitemap(www_dir, full_url, entries=[], pages=[]):
     rendered, count = render_sitemap(full_url, entries=entries, pages=pages)
     with target.open('w') as f:
         f.write(rendered)
-    logging.info('rendered sitemap.xml %d location(s)', count)
+    logger.info('rendered sitemap.xml %d location(s)', count)
