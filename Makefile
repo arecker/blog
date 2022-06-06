@@ -5,9 +5,6 @@ all: git jsonnet secrets test build
 clean:
 	rm -rf secrets/*.json
 	rm -rf data/*.json
-	rm -rf www/*.html
-	rm -rf www/*.xml
-	rm -rf www/_redirects
 
 JSONNET_SOURCES := $(wildcard jsonnet/*.jsonnet)
 JSONNET_TARGETS := $(patsubst jsonnet/%.jsonnet, data/%.json, $(JSONNET_SOURCES))

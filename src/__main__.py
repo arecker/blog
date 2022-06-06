@@ -33,6 +33,8 @@ def main():
 
     pages = lib.fetch_pages()
 
+    lib.pave_webroot(www_dir=args.dir_www)
+
     lib.write_sitemap(args.dir_www,
                       full_url=info.url,
                       entries=entries,
