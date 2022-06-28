@@ -40,3 +40,11 @@ $(COMMANDS):
 .PHONY: test
 test:
 	python -m unittest
+
+.PHONY: publish
+publish:
+	git add -A
+	git commit -m 'publish new entry'
+	git tag "entry-$$(date '+%Y-%m-%d')"
+	git push origin --tags
+	git push origin "master:master"
