@@ -25,6 +25,7 @@ def tmp_git_repo():
 
 
 class TestGit(unittest.TestCase):
+
     def test_git_status(self):
         with tmp_git_repo():
             pathlib.Path('test.txt').touch()
@@ -118,40 +119,3 @@ class TestGit(unittest.TestCase):
             change = changes[0]
             self.assertEqual(change.status, 'staged')
             self.assertEqual(change.state, 'added')
-
-    def test_git_commit(self):
-        with tmp_git_repo():
-            pathlib.Path('test.txt').touch()
-            git.git_add('test.txt')
-            git.git_commit('A Test Commit!')
-
-            cmd = 'git log -1 --pretty=%B'
-            output = subprocess.run(
-                cmd.split(), check=True,
-                capture_output=True).stdout.decode('utf-8').strip()
-            self.assertEqual(output, 'A Test Commit!')
-
-    def test_git_tag(self):
-        with self.assertRaisesRegex(AssertionError, "tag can't have spaces"):
-            git.git_tag('this is a bad tag')
-
-        with tmp_git_repo():
-            pathlib.Path('test.txt').touch()
-            git.git_add('test.txt')
-            git.git_commit('A Test Commit!')
-            git.git_tag('v69')
-            cmd = 'git describe --tag'
-            output = subprocess.run(
-                cmd.split(), check=True,
-                capture_output=True).stdout.decode('utf-8').strip()
-            self.assertEqual(output, 'v69')
-
-    def test_git_latest_tag(self):
-        with tmp_git_repo():
-            pathlib.Path('test.txt').touch()
-            git.git_add('test.txt')
-            git.git_commit('A Test Commit!')
-
-            self.assertIsNone(git.git_latest_tag())
-            git.git_tag('entry-2020-01-01')
-            self.assertEqual(git.git_latest_tag(), 'entry-2020-01-01')

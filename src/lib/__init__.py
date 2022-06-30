@@ -4,7 +4,7 @@ from .args import parse_args
 from .deploy import deploy_to_netlify
 from .feed import write_feed
 from .fixup import fixup_project
-from .git import git_add, git_commit, git_push_branch, git_push_tags, git_status, git_tag
+from .git import git_add, git_status
 from .hook import run_pre_commit_hook
 from .images import scan_images, check_image, is_image, fetch_images
 from .info import load_info

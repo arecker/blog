@@ -21,25 +21,6 @@ p_git_change = re.compile(
     flags=re.MULTILINE)
 
 
-def git_push_tags():
-    cmd = f'git push origin --tags'.split()
-    logger.debug('running command %s', cmd)
-    subprocess.run(cmd,
-                   check=True,
-                   stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-
-
-def git_push_branch(branch):
-    cmd = f'git push orgin {branch}:{branch}'.split()
-    logger.debug('running command %s', cmd)
-    subprocess.run(cmd,
-                   check=True,
-                   shell=True,
-                   stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-
-
 def git_add(path: str):
     cmd = f'git add {path}'.split()
     logger.debug('running command %s', cmd)
@@ -47,35 +28,6 @@ def git_add(path: str):
                    check=True,
                    stdout=subprocess.DEVNULL,
                    stderr=subprocess.DEVNULL)
-
-
-def git_commit(message: str):
-    cmd = 'git commit -m'.split() + [message]
-    logger.debug('running command %s', cmd)
-    subprocess.run(cmd,
-                   check=True,
-                   stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-
-
-def git_tag(tag: str):
-    assert len(tag.split(' ')) == 1, "tag can't have spaces!"
-    cmd = f'git tag {tag}'.split()
-    logger.debug('running command %s', cmd)
-    subprocess.run(cmd,
-                   check=True,
-                   stdout=subprocess.DEVNULL,
-                   stderr=subprocess.DEVNULL)
-
-
-def git_latest_tag():
-    cmd = 'git describe --exact-match --tags HEAD'
-    result = subprocess.run(cmd.split(' '), capture_output=True, check=False)
-
-    if result.returncode != 0:  # HEAD isn't tagged
-        return None
-
-    return result.stdout.decode('UTF-8').strip()
 
 
 def new_git_change(git_status_output_line: str) -> GitChange:
