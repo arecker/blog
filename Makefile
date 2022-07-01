@@ -48,3 +48,6 @@ publish:
 	git tag "entry-$$(date '+%Y-%m-%d')"
 	git push origin --tags
 	git push origin "master:master"
+
+.PHONY: morning
+morning: publish deploy share
