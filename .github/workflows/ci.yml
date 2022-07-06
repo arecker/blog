@@ -25,8 +25,8 @@ jobs:
     needs: deploy
     runs-on: ubuntu-18.04
     # if: startsWith(github.ref, 'refs/tags/entry-')
-    container:
-      image: 'arecker/shmeeds:latest'
+    steps:
+    - run: docker run --rm -it 'arecker/shmeeds:latest'
       env:
         SLACK_WEBHOOK_URL: ''
         TWEET_ACCESS_TOKEN: ''
