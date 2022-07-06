@@ -26,6 +26,6 @@ jobs:
     runs-on: ubuntu-18.04
     # if: startsWith(github.ref, 'refs/tags/entry-')
     steps:
-    - uses: arecker/shmeeds@latest
+    - uses: arecker/shmeeds@v1
       with:
         feed-url: 'https://www.alexrecker.com/feed.xml'
