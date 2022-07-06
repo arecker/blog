@@ -24,7 +24,12 @@ jobs:
   share:
     needs: deploy
     runs-on: ubuntu-18.04
-    if: startsWith(github.ref, 'refs/tags/entry-')
-    steps:
-    - uses: actions/checkout@v2
-    - run: echo "would share the post!"
+    # if: startsWith(github.ref, 'refs/tags/entry-')
+    container:
+      image: 'arecker/shmeeds:latest'
+      env:
+        SLACK_WEBHOOK_URL: ''
+        TWEET_ACCESS_TOKEN: ''
+        TWEET_ACCESS_TOKEN_SECRET: ''
+        TWEET_CONSUMER_API_KEY: ''
+        TWEET_CONSUMER_API_SECRET_KEY: ''
