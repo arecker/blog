@@ -15,7 +15,7 @@ group.add_argument('--dry',
 group = parser.add_argument_group('resource directories')
 group.add_argument('--dir-data', required=True)
 group.add_argument('--dir-entries', required=True)
-group.add_argument('--dir-secrets', required=True)
+group.add_argument('--dir-secrets', default=None)
 group.add_argument('--dir-www', required=True)
 
 group = parser.add_argument_group('one-off subcommands (exit immediately)')
