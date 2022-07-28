@@ -4,6 +4,11 @@ on:
   push:
     branches:
     - master
+    paths:
+    - data/**
+    - entries/**
+    - src/**
+    - www/**
 
 jobs:
   deploy:
