@@ -1,7 +1,6 @@
 # flake8: noqa
 
 from .args import parse_args
-from .deploy import deploy_to_netlify
 from .feed import write_feed
 from .fixup import fixup_project
 from .git import git_add, git_status
@@ -13,5 +12,3 @@ from .pages import fetch_entries, write_pages, write_entries, register_page, fet
 from .pave import pave_webroot
 from .redirects import write_redirects
 from .sitemap import write_sitemap
-from .slack import share_latest_as_slack
-from .tweet import share_latest_as_tweet

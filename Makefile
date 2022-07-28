@@ -1,5 +1,5 @@
 .PHONY: all
-all: git jsonnet secrets test build
+all: git jsonnet test build
 
 .PHONY: clean
 clean:
@@ -24,7 +24,7 @@ git: .git/hooks/pre-commit
 build:
 	$(PYTHON_CMD)
 
-COMMANDS := deploy share slack tweet help fixup
+COMMANDS := deploy share slack help fixup
 .PHONY: $(COMMANDS)
 $(COMMANDS):
 	$(PYTHON_CMD) --$@
@@ -40,6 +40,3 @@ publish:
 	git tag "entry-$$(date '+%Y-%m-%d')"
 	git push origin --tags
 	git push origin "master:master"
-
-.PHONY: morning
-morning: publish deploy share

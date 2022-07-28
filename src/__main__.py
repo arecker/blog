@@ -16,21 +16,6 @@ def main():
 
     info = lib.load_info(args.dir_data)
     entries = lib.fetch_entries(args.dir_entries)
-
-    if args.tweet:
-        lib.share_latest_as_tweet(latest=entries[0],
-                                  full_url=info.url,
-                                  creds_dir=args.dir_secrets,
-                                  dry=args.dry)
-        return
-
-    if args.slack:
-        lib.share_latest_as_slack(latest=entries[0],
-                                  full_url=info.url,
-                                  secrets_dir=args.dir_secrets,
-                                  dry=args.dry)
-        return
-
     pages = lib.fetch_pages()
 
     lib.pave_webroot(www_dir=args.dir_www)
@@ -64,22 +49,6 @@ def main():
         author=info.author,
         args=args,
     )
-
-    if args.deploy:
-        lib.deploy_to_netlify(full_url=info.url,
-                              secrets_dir=args.dir_secrets,
-                              www_dir=args.dir_www,
-                              dry=args.dry)
-
-    if args.share:
-        lib.share_latest_as_tweet(latest=entries[0],
-                                  full_url=info.url,
-                                  creds_dir=args.dir_secrets,
-                                  dry=args.dry)
-        lib.share_latest_as_slack(latest=entries[0],
-                                  full_url=info.url,
-                                  secrets_dir=args.dir_secrets,
-                                  dry=args.dry)
 
 
 if __name__ == '__main__':
