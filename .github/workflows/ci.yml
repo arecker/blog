@@ -34,4 +34,4 @@ jobs:
         tweet-access-token: '${{ secrets.TWEET_ACCESS_TOKEN }}'
         tweet-access-token-secret: '${{ secrets.TWEET_ACCESS_TOKEN_SECRET }}'
         tweet-consumer-api-key: '${{ secrets.TWEET_CONSUMER_API_KEY }}'
-        tweet-consumer-api-secret-key: '{{ secrets.TWEET_CONSUMER_API_SECRET_KEY }}'
+        tweet-consumer-api-secret-key: '${{ secrets.TWEET_CONSUMER_API_SECRET_KEY }}'
