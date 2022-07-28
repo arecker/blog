@@ -24,7 +24,7 @@ git: .git/hooks/pre-commit
 build:
 	$(PYTHON_CMD)
 
-COMMANDS := deploy share slack help fixup
+COMMANDS := help fixup
 .PHONY: $(COMMANDS)
 $(COMMANDS):
 	$(PYTHON_CMD) --$@
@@ -33,10 +33,11 @@ $(COMMANDS):
 test:
 	python -m unittest
 
+PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish
 publish:
 	git add -A
-	git commit -m 'publish new entry'
-	git tag "entry-$$(date '+%Y-%m-%d')"
+	git commit -m "publish new entry: $(PUBLISH_TAG)"
+	git tag "$(PUBLISH_TAG)"
 	git push origin --tags
 	git push origin "master:master"
