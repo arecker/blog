@@ -16,6 +16,7 @@ jobs:
     - run: make build
     - uses: nwtgck/actions-netlify@v1.2
       with:
+        production-deploy: true
         publish-dir: './www'
       env:
         NETLIFY_AUTH_TOKEN: '${{ secrets.NETLIFY_AUTH_TOKEN }}'
