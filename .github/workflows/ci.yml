@@ -3,29 +3,28 @@ name: CI
 on:
   push:
     branches:
-    - ci
+    - master
 
 jobs:
   deploy:
     runs-on: ubuntu-18.04
     steps:
-    - run: echo "good"
-    # - uses: actions/checkout@v2
-    # - uses: actions/setup-python@v4
-    #   with:
-    #     python-version-file: '.python-version'
-    # - run: make build
-    # - uses: nwtgck/actions-netlify@v1.2
-    #   with:
-    #     publish-dir: './www'
-    #   env:
-    #     NETLIFY_AUTH_TOKEN: '${{ secrets.NETLIFY_AUTH_TOKEN }}'
-    #     NETLIFY_SITE_ID: '${{ secrets.NETLIFY_SITE_ID }}'
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v4
+      with:
+        python-version-file: '.python-version'
+    - run: make build
+    - uses: nwtgck/actions-netlify@v1.2
+      with:
+        publish-dir: './www'
+      env:
+        NETLIFY_AUTH_TOKEN: '${{ secrets.NETLIFY_AUTH_TOKEN }}'
+        NETLIFY_SITE_ID: '${{ secrets.NETLIFY_SITE_ID }}'
 
   share:
     needs: deploy
     runs-on: ubuntu-18.04
-    # if: startsWith(github.ref, 'refs/tags/entry-')
+    if: startsWith(github.ref, 'refs/tags/entry-')
     steps:
     - uses: arecker/shmeeds@v1.0.1
       with:
