@@ -9,11 +9,12 @@ jobs:
   deploy:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v4
-      with:
-        python-version-file: '.python-version'
-    - run: make build
+    - run: echo "good"
+    # - uses: actions/checkout@v2
+    # - uses: actions/setup-python@v4
+    #   with:
+    #     python-version-file: '.python-version'
+    # - run: make build
     # - uses: nwtgck/actions-netlify@v1.2
     #   with:
     #     publish-dir: './www'
