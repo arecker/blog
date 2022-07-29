@@ -18,10 +18,6 @@ group.add_argument('--hook',
                    action='store_true',
                    default=False,
                    help='run git pre-commit hook')
-group.add_argument('--fixup',
-                   action='store_true',
-                   default=False,
-                   help='tidy up entries and images')
 
 
 def parse_args():

@@ -2,7 +2,6 @@
 
 from .args import parse_args
 from .feed import write_feed
-from .fixup import fixup_project
 from .git import git_add, git_status
 from .hook import run_pre_commit_hook
 from .images import scan_images, check_image, is_image, fetch_images
@@ -12,3 +11,4 @@ from .pages import fetch_entries, write_pages, write_entries, register_page, fet
 from .pave import pave_webroot
 from .redirects import write_redirects
 from .sitemap import write_sitemap
+from .validate import validate_website

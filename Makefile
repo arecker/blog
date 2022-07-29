@@ -24,7 +24,7 @@ git: .git/hooks/pre-commit
 build:
 	$(PYTHON_CMD)
 
-COMMANDS := help fixup
+COMMANDS := help
 .PHONY: $(COMMANDS)
 $(COMMANDS):
 	$(PYTHON_CMD) --$@

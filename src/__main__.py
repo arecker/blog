@@ -10,10 +10,6 @@ def main():
         lib.run_pre_commit_hook()
         return
 
-    if args.fixup:
-        lib.fixup_project(entries_dir=args.dir_entries)
-        return
-
     info = lib.load_info(args.dir_data)
     entries = lib.fetch_entries(args.dir_entries)
     pages = lib.fetch_pages()
@@ -49,6 +45,8 @@ def main():
         author=info.author,
         args=args,
     )
+
+    lib.validate_website(args.dir_www)
 
 
 if __name__ == '__main__':
