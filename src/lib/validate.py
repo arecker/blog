@@ -25,17 +25,16 @@ def extract_references(dir_www):
 def walk_assets(dir_www):
     dir_www = pathlib.Path(dir_www)
 
-    for item in dir_www.glob('images/**/*.*'):
-        yield item.relative_to(dir_www)
+    patterns = [
+        'assets/**/*.*',
+        'audio/**/*.*',
+        'images/**/*.*',
+        'vids/**/*.*',
+    ]
 
-    for item in dir_www.glob('vids/**/*.*'):
-        yield item.relative_to(dir_www)
-
-    for item in dir_www.glob('assets/**/*.*'):
-        yield item.relative_to(dir_www)
-
-    for item in dir_www.glob('audio/**/*.*'):
-        yield item.relative_to(dir_www)
+    for pattern in patterns:
+        for item in dir_www.glob(pattern):
+            yield item.relative_to(dir_www)
 
 
 def validate_website(dir_www: str | pathlib.Path):
@@ -50,10 +49,9 @@ def validate_website(dir_www: str | pathlib.Path):
                         reference.path)
 
     assets = [a for a in walk_assets(dir_www)]
+    referenced_paths = set([str(r.path) for r in references])
 
     for asset in assets:
-        try:
-            next((r for r in references if r.path == str(asset)))
-        except StopIteration:
+        if str(asset) not in referenced_paths:
             logger.warn('WARNING - %s is not referenced in any site files',
                         asset)
