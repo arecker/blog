@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-18.04
     if: startsWith(github.ref, 'refs/tags/entry-')
     steps:
-    - uses: arecker/shmeeds@v1.0.1
+    - uses: arecker/shmeeds@v1.0.2
       with:
         feed-url: 'https://www.alexrecker.com/feed.xml'
         slack-webhook-url: '${{ secrets.SLACK_WEBHOOK_URL }}'
