@@ -11,6 +11,8 @@ on:
     - entries/**
     - src/**
     - www/**
+    tags:
+    - entry-*
 
 jobs:
   deploy:
