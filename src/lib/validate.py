@@ -55,3 +55,5 @@ def validate_website(dir_www):
         if str(asset) not in referenced_paths:
             logger.warn('WARNING - %s is not referenced in any site files',
                         asset)
+
+    # TODO: cloudflare 25MiB limit
