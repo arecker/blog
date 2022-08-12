@@ -17,7 +17,7 @@ def index(renderer=None, args=None, entries=[], pages=[]):
                     caption=latest.description)
 
     renderer.block('h2', 'Pages 🗺')
-    pages = [p for p in pages if p.filename != 'index.html']
+    pages = [p for p in pages if p.filename not in ('index.html', '404.html')]
     with renderer.wrapping_block('table'):
         for page in pages:
             with renderer.wrapping_block('tr'):
@@ -176,4 +176,14 @@ def homework_vault(renderer=None, entries=[], **kwargs):
                                    contents=f'{entry.filename}')
                 renderer.block('td', contents=entry.description)
 
+    return renderer.text
+
+@lib.register_page(filename='404.html', title='404', description='page not found')
+def four_oh_four(renderer=None, entries=[], **kwargs):
+    choice = random.choice([e for e in entries if e.banner])
+    renderer.block('p', 'I don\'t have that page, so here\'s a random entry instead!')
+    renderer.figure(alt='random banner',
+                    src=f'./images/banners/{choice.banner}',
+                    href=f'./{choice.filename}',
+                    caption=choice.description)
     return renderer.text
