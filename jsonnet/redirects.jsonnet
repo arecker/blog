@@ -1,10 +1,10 @@
-local ArchiveRedirect(source='', target='', status='301!') = (
+local ArchiveRedirect(source='', target='') = (
   local baseUrl = 'https://archive.alexrecker.com';
 
   assert source != '' : 'source required';
 
   local t = if target != '' then target else source;
-  [source, baseUrl + t + ' ' + status]
+  [source, baseUrl + t]
 );
 
 [
