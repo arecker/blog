@@ -37,7 +37,7 @@ def walk_assets(dir_www):
             yield item.relative_to(dir_www)
 
 
-def validate_website(dir_www: str | pathlib.Path):
+def validate_website(dir_www):
     logger.info('validating site files in %s', dir_www)
 
     references = [r for r in extract_references(dir_www)]

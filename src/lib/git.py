@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 GitChange = collections.namedtuple('GitChange', ['status', 'state', 'path'])
 
 
-def git_status() -> list[GitChange]:
+def git_status():
     output = subprocess.run('git status --short'.split(),
                             check=True,
                             capture_output=True).stdout.decode('utf-8')
@@ -31,7 +31,8 @@ def git_add(path: str):
 
 
 def new_git_change(git_status_output_line: str) -> GitChange:
-    if match := p_git_change.match(git_status_output_line):
+    match = p_git_change.match(git_status_output_line)
+    if match:
         first, second, path, _ = match.groups()
 
         if first == ' ' and second == 'M':

@@ -68,7 +68,7 @@ def is_banner(path):
     return parent == 'banners' and grandparent == 'images'
 
 
-def fetch_images(www_directory: str | pathlib.Path) -> list[pathlib.Path]:
+def fetch_images(www_directory):
     """Retrieve all images in site."""
 
     root_directory = pathlib.Path(www_directory)

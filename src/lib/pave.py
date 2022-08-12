@@ -9,12 +9,14 @@ def pave_webroot(www_dir=''):
 
     paved = 0
 
-    if html_files := list(www_dir.glob('*.html')):
+    html_files = list(www_dir.glob('*.html'))
+    if html_files:
         [f.unlink() for f in html_files]
         paved += len(html_files)
         logger.debug('paved %d HTML file(s) from %s', len(html_files), www_dir)
 
-    if xml_files := list(www_dir.glob('*.xml')):
+    xml_files = list(www_dir.glob('*.xml'))
+    if xml_files:
         [f.unlink() for f in xml_files]
         paved += len(xml_files)
         logger.debug('paved %d XML file(s) from %s', len(xml_files), www_dir)

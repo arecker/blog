@@ -69,7 +69,7 @@ def new_entry(path, pagination={}) -> Entry:
 Pagination = collections.namedtuple('Pagination', ['next', 'previous'])
 
 
-def paginate_files(files: list = []) -> list[Pagination]:
+def paginate_files(files=[]):
     """Returns a pagination map for a list of files.
 
     >>> pages = paginate_files(['a', 'b', 'c'])
@@ -103,7 +103,7 @@ def paginate_files(files: list = []) -> list[Pagination]:
     return pagination
 
 
-def is_not_junk_file(path: str | pathlib.Path):
+def is_not_junk_file(path):
     """Returns true if the file is not a hidden file or an auto-save file.
 
     >>> is_not_junk_file(pathlib.Path('test.html'))
