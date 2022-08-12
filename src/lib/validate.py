@@ -1,7 +1,8 @@
+import collections
 import logging
+import os
 import pathlib
 import re
-import collections
 
 logger = logging.getLogger(__name__)
 
@@ -56,4 +57,5 @@ def validate_website(dir_www):
             logger.warn('WARNING - %s is not referenced in any site files',
                         asset)
 
-    # TODO: cloudflare 25MiB limit
+        if os.path.getsize(dir_www / asset) > 25000000: # 25MiB
+            logger.warn('WARNING - %s is bigger than the 25MiB file limit', asset)
