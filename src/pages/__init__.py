@@ -4,7 +4,7 @@ import pathlib
 import random
 import math
 
-from . import lib
+from .. import lib
 
 
 def convert_size(size_bytes):
@@ -303,3 +303,6 @@ def list_audios(renderer=None, args=None, **kwargs):
                 renderer.block('td', contents=convert_size(os.path.getsize(audio)))
 
     return renderer.text
+
+
+from . import swears
