@@ -341,3 +341,19 @@ last line
   </author>
 </feed>
 '''.lstrip())
+
+    def test_table(self):
+        r = Renderer()
+        r.table(data=[['a', '1'], ['b', '2']])
+        self.assertEqual(r.text.strip(), '''
+<table>
+  <tr>
+    <td>a</td>
+    <td>1</td>
+  </tr>
+  <tr>
+    <td>b</td>
+    <td>2</td>
+  </tr>
+</table>
+        '''.strip())

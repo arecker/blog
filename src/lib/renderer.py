@@ -217,3 +217,10 @@ class Renderer:
 
         xml.etree.ElementTree.fromstring(result)
         return result
+
+    def table(self, data=[]):
+        with self.wrapping_block('table'):
+            for row in data:
+                with self.wrapping_block('tr'):
+                    for i, item in enumerate(row):
+                        self.block('td', contents=item)
