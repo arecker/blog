@@ -15,8 +15,10 @@ def napkins(renderer=None, args=None, **kwargs):
     total = len(images)
 
     for i, image in enumerate(images):
+        name = image.name[11:-11].replace('-', ' ').title()
         src = image.relative_to(args.dir_www)
-        renderer.figure(alt=image.stem, src=f'./{src}')
+        href = image.name[0:10]
+        renderer.figure(alt=image.stem, src=f'./{src}', href=href, caption=name)
         if i + 1 != total:
             renderer.newline()
 
