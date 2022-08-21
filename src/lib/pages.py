@@ -1,8 +1,10 @@
 import collections
-import functools
+import copy
 import datetime
+import functools
 import logging
 import pathlib
+import random
 import re
 
 from .renderer import Renderer
@@ -26,6 +28,44 @@ def register_page(filename='', title='', description='', banner=''):
                                title=title,
                                description=description,
                                banner=banner,
+                               render_func=func)
+        return func
+
+    return wrapper
+
+
+def build_entry_listing_render_func(list_entries_func):
+
+    def render(renderer=None, entries=[], **kwargs):
+        entries = list_entries_func(entries=entries)
+        entries_with_banners = [e for e in entries if e.banner]
+        choice = random.choice(entries_with_banners)
+        renderer.figure(alt=choice.description,
+                        src=f'./images/banners/{choice.banner}',
+                        href=f'./{choice.filename}')
+
+        with renderer.wrapping_block('table'):
+            for entry in entries:
+                with renderer.wrapping_block('tr'):
+                    with renderer.wrapping_block('td'):
+                        renderer.block('a',
+                                       href=f'./{entry.filename}',
+                                       contents=f'{entry.filename}')
+                        renderer.block('td', contents=entry.description)
+
+        return renderer.text
+
+
+    return render
+
+
+def register_entry_listing(filename='', title='', description=''):
+    def wrapper(list_entries_func):
+        func = build_entry_listing_render_func(list_entries_func)
+        PAGES[filename] = Page(filename=filename,
+                               title=title,
+                               description=description,
+                               banner=None,
                                render_func=func)
         return func
 
