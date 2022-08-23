@@ -31,6 +31,7 @@ def render(renderer=None, args=None, entries=[], pages=[]):
     swears = (
         'ass',
         'bitch',
+        'bullshit',
         'dammit',
         'damn',
         'dick',
