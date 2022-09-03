@@ -41,3 +41,9 @@ publish:
 	git tag "$(PUBLISH_TAG)"
 	git push origin --tags
 	git push origin "master:master"
+
+.PHONY: rnd
+rnd:
+	./scripts/build-entries --entries entries --data data
+	./scripts/render --data data --www www
+	cd scripts && python -m unittest
