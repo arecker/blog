@@ -44,6 +44,6 @@ publish:
 
 .PHONY: rnd
 rnd:
-	./scripts/build-entries --entries entries --data data
-	./scripts/render --data data --www www
-	cd scripts && python -m unittest
+	cd rnd && python -m unittest
+	./rnd/build --entries entries --data data
+	./rnd/render --data data --www www

@@ -23,11 +23,13 @@ def make_page(path):
     kwargs['title'] = kwargs['date'].strftime('%A, %B %-d %Y')
 
     with path.open() as f:
-        metadata = [(k, v) for k, v in r_metadata.findall(f.read())]
+        contents = f.read()
+        metadata = [(k, v) for k, v in r_metadata.findall(contents)]
         metadata = dict([(k.strip(), v.strip()) for k, v in metadata])
         kwargs.update({
             'banner': metadata.get('banner'),
             'description': metadata['title'],
+            'contents': contents,
         })
 
     return Page(**kwargs)
