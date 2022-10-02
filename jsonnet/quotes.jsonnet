@@ -60,6 +60,7 @@ local quotes = [
   Quote(author='Albert Camus', text='In the depth of winter, I finally learned that within me, there lay, an invincible summer.'),
   Quote(author='African Proverb', text='If you refuse to be made straight when you are green, you will not be made straight when you are dry.'),
   Quote(author='Exodus 14:14', text='The Lᴏʀᴅ will fight for you while you keep silent.'),
+  Quote(author='Kahlil Gibran', text="For in the dew of little things the heart finds it's morning and is refreshed."),
 ];
 
 
