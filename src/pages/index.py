@@ -2,7 +2,7 @@ from .. import lib
 
 @lib.register_page(filename='index.html',
                    title='Dear Journal',
-                   description='Daily, public journal by Alex Recker')
+                   description='Public journal by Alex Recker')
 def index(renderer=None, args=None, entries=[], pages=[]):
     latest = entries[0]
     renderer.block('h2', 'Latest Entry ☕')
