@@ -9,7 +9,8 @@ from .. import lib
                    title='Images',
                    description='index of website images')
 def list_images(renderer=None, args=None, **kwargs):
-    images = list(sorted(pathlib.Path(args.dir_www).glob('images/**/*.*')))
+    images = pathlib.Path(args.dir_www).glob('images/**/*.*')
+    images = list(sorted(images, key=lambda f: f.name, reverse=True))
 
     renderer.figure(
         alt='random banner',
@@ -33,12 +34,9 @@ def list_images(renderer=None, args=None, **kwargs):
         for image in images:
             with renderer.wrapping_block('tr'):
                 with renderer.wrapping_block('td'):
-                    name = str(
-                        image.relative_to(
-                            pathlib.Path(args.dir_www) / 'images/'))
                     href = './' + str(
                         image.relative_to(pathlib.Path(args.dir_www)))
-                    renderer.block('a', href=href, contents=name)
+                    renderer.block('a', href=href, contents=image.name)
 
                 renderer.block('td',
                                contents=lib.convert_size(

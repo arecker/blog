@@ -1,7 +1,7 @@
 {
   author: 'Alex Recker',
   email: 'alex@reckerfamily.com',
-  title: 'Dear Journal',
-  subtitle: 'Blog by Alex Recker',
+  title: 'Hey Reader!',
+  subtitle: 'emails from Alex',
   url: 'https://www.alexrecker.com',
 }
