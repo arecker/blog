@@ -319,6 +319,5 @@ def write_entries(entries,
         target = pathlib.Path(dir_www) / entry.filename
         with open(target, 'w') as f:
             f.write(content)
-            logger.debug('rendered %s', target)
 
     logger.info('wrote %d entries', len(entries))

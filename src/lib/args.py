@@ -7,6 +7,9 @@ group.add_argument('--verbose',
                    action='store_true',
                    default=False,
                    help='show debug logs')
+group.add_argument('-C', '--config',
+                   help='path to config file',
+                   default='./blog.conf')
 
 group = parser.add_argument_group('resource directories')
 group.add_argument('--dir-data', required=True)

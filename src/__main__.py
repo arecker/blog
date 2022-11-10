@@ -1,5 +1,9 @@
+import logging
+
 from . import pages as _  # noqa:F401
-from . import lib
+from . import lib, config, template
+
+logger = logging.getLogger(__name__)
 
 
 def main():
@@ -45,6 +49,16 @@ def main():
         author=info.author,
         args=args,
     )
+
+    c = config.load(args.config)
+    content = template.render(template_path=c.site.template, context={
+        'site': c.site,
+        'page': pages[0],
+    })
+    from pprint import pprint
+    pprint(content)
+    logger.debug('loaded config %s', c)
+
 
     lib.validate_website(args.dir_www)
 
