@@ -21,12 +21,5 @@ def pave_webroot(www_dir=''):
         paved += len(xml_files)
         logger.debug('paved %d XML file(s) from %s', len(xml_files), www_dir)
 
-    redirects_file = www_dir / '_redirects'
-
-    if redirects_file.is_file():
-        redirects_file.unlink()
-        paved += 1
-        logger.debug('removed %s', redirects_file)
-
     if paved != 0:
         logger.info('paved %d file(s) from webroot', paved)
