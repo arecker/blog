@@ -1,15 +1,31 @@
 import logging
+import argparse
 
 from . import pages as _  # noqa:F401
-from . import lib, config, template
+from . import (
+    config,
+    feed,
+    lib,
+    template,
+    utils,
+)
+
 
 logger = logging.getLogger(__name__)
 
+parser = argparse.ArgumentParser(prog='python -m src')
+group = parser.add_argument_group('run options')
+group.add_argument('--verbose', action='store_true', default=False, help='show debug logs')
+group.add_argument('-C', '--config', help='path to config file', default='./blog.conf')
+group = parser.add_argument_group('resource directories')
+group.add_argument('--dir-data', required=True)
+group.add_argument('--dir-entries', required=True)
+group.add_argument('--dir-www', required=True)
+group = parser.add_argument_group('one-off subcommands (exit immediately)')
+group.add_argument('--hook', action='store_true', default=False, help='run git pre-commit hook')
 
-def main():
-    args = lib.parse_args()
-    lib.configure_logging(verbose=args.verbose)
 
+def main(args):
     if args.hook:
         lib.run_pre_commit_hook()
         return
@@ -18,7 +34,7 @@ def main():
     entries = lib.fetch_entries(args.dir_entries)
     pages = lib.fetch_pages()
 
-    lib.pave_webroot(www_dir=args.dir_www)
+    utils.pave_webroot(www_dir=args.dir_www)
 
     lib.write_sitemap(args.dir_www,
                       full_url=info.url,
@@ -49,12 +65,20 @@ def main():
     )
 
     c = config.load(args.config)
+
+    feed.write(
+        www_dir=c.site.www,
+        title=c.site.title,
+        subtitle=c.site.subtitle,
+        author_name=c.site.name,
+        author_email=c.site.email,
+        entries=entries,
+    )
+
     content = template.render(template_path=c.site.template, context={
         'site': c.site,
         'page': pages[0],
     })
-    # from pprint import pprint
-    # pprint(content)
     logger.debug('loaded config %s', c)
 
 
@@ -62,4 +86,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    args = parser.parse_args()
+    utils.configure_logging(verbose=args.verbose)
+    main(args=args)

@@ -8,9 +8,12 @@ Config = collections.namedtuple('Config', [
 ])
 
 SiteConfig = collections.namedtuple('SiteConfig', [
-    'title',
+    'email',
+    'name',
     'subtitle',
     'template',
+    'title',
+    'www',
 ])
 
 def load(config_path):
