@@ -72,6 +72,7 @@ def main(args):
         subtitle=c.site.subtitle,
         author_name=c.site.name,
         author_email=c.site.email,
+        url=c.site.url,
         entries=entries,
     )
 

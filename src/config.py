@@ -13,6 +13,7 @@ SiteConfig = collections.namedtuple('SiteConfig', [
     'subtitle',
     'template',
     'title',
+    'url',
     'www',
 ])
 
