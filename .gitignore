@@ -1,6 +1,2 @@
-.bundle
 __pycache__
 *.pyc
-/blog.egg-info/
-/.coverage
-/venv/
