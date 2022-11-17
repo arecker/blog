@@ -1,5 +1,5 @@
 .PHONY: all
-all: git jsonnet test build
+all: jsonnet test build
 
 .PHONY: clean
 clean:
@@ -15,10 +15,6 @@ PYTHON_CMD := pipenv run python -m src \
 --dir-data ./data \
 --dir-entries ./entries \
 --dir-www ./www
-
-git: .git/hooks/pre-commit
-.git/hooks/pre-commit:
-	echo '$(PYTHON_CMD) --hook' > $@ && chmod +x $@
 
 .PHONY: build
 build:

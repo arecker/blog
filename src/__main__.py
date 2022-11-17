@@ -21,15 +21,9 @@ group = parser.add_argument_group('resource directories')
 group.add_argument('--dir-data', required=True)
 group.add_argument('--dir-entries', required=True)
 group.add_argument('--dir-www', required=True)
-group = parser.add_argument_group('one-off subcommands (exit immediately)')
-group.add_argument('--hook', action='store_true', default=False, help='run git pre-commit hook')
 
 
 def main(args):
-    if args.hook:
-        lib.run_pre_commit_hook()
-        return
-
     info = lib.load_info(args.dir_data)
     entries = lib.fetch_entries(args.dir_entries)
     pages = lib.fetch_pages()
