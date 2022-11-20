@@ -6,7 +6,6 @@ from . import (
     config,
     feed,
     lib,
-    template,
     utils,
 )
 
@@ -59,6 +58,7 @@ def main(args):
     )
 
     c = config.load(args.config)
+    logger.debug('loaded config %s', c)
 
     feed.write(
         www_dir=c.site.www,
@@ -69,13 +69,6 @@ def main(args):
         url=c.site.url,
         entries=entries,
     )
-
-    content = template.render(template_path=c.site.template, context={
-        'site': c.site,
-        'page': pages[0],
-    })
-    logger.debug('loaded config %s', c)
-
 
     lib.validate_website(args.dir_www)
 

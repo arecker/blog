@@ -11,7 +11,7 @@ jsonnet: $(JSONNET_TARGETS)
 data/%.json: jsonnet/%.jsonnet $(JSONNET_SOURCES)
 	jsonnet $< > $@ && touch $@
 
-PYTHON_CMD := pipenv run python -m src \
+PYTHON_CMD := python -m src \
 --dir-data ./data \
 --dir-entries ./entries \
 --dir-www ./www
@@ -27,7 +27,7 @@ $(COMMANDS):
 
 .PHONY: test
 test:
-	pipenv run python -m unittest
+	python -m unittest
 
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish

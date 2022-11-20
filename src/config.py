@@ -11,7 +11,6 @@ SiteConfig = collections.namedtuple('SiteConfig', [
     'email',
     'name',
     'subtitle',
-    'template',
     'title',
     'url',
     'www',
