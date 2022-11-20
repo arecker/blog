@@ -17,7 +17,7 @@ SiteConfig = collections.namedtuple('SiteConfig', [
     'www',
 ])
 
-def load(config_path):
+def load_config(config_path):
     config = configparser.ConfigParser()
     config_path = pathlib.Path(config_path)
     config.read(str(config_path))

@@ -4,13 +4,9 @@ import logging
 import os
 import pathlib
 import random
+import sys
 
-from . import (
-    config,
-    feed,
-    lib,
-    utils,
-)
+from . import lib
 
 
 logger = logging.getLogger(__name__)
@@ -112,12 +108,12 @@ def index(renderer=None, args=None, entries=[], pages=[], **kwargs):
 
 
 def main(args):
-    c = config.load(args.config)
+    c = lib.load_config(args.config)
     logger.debug('loaded config %s', c)
     entries = lib.fetch_entries(c.site.entries)
     pages = lib.fetch_pages()
 
-    utils.pave_webroot(www_dir=c.site.www)
+    lib.pave_webroot(www_dir=c.site.www)
 
     lib.write_sitemap(c.site.www,
                       full_url=c.site.url,
@@ -148,20 +144,14 @@ def main(args):
         c=c,
     )
 
-    feed.write(
-        www_dir=c.site.www,
-        title=c.site.title,
-        subtitle=c.site.subtitle,
-        author_name=c.site.name,
-        author_email=c.site.email,
-        url=c.site.url,
-        entries=entries,
-    )
-
     lib.validate_website(c.site.www)
 
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    utils.configure_logging(verbose=args.verbose)
+    if args.verbose:
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+    logging.basicConfig(level=level, stream=sys.stderr, format='%(levelname)s: %(message)s')
     main(args=args)
