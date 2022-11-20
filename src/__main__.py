@@ -19,14 +19,10 @@ parser = argparse.ArgumentParser(prog='python -m src')
 group = parser.add_argument_group('run options')
 group.add_argument('--verbose', action='store_true', default=False, help='show debug logs')
 group.add_argument('-C', '--config', help='path to config file', default='./blog.conf')
-group = parser.add_argument_group('resource directories')
-group.add_argument('--dir-data', required=True)
-group.add_argument('--dir-entries', required=True)
-group.add_argument('--dir-www', required=True)
 
 
 @lib.register_page(filename='media.html', title='Media', description='all website media')
-def media_page(renderer=None, args=None, **kwargs):
+def media_page(renderer=None, args=None, c=None, **kwargs):
     renderer.block('h3', contents='Index')
     sections = ('Images', 'Videos', 'Audio')
     with renderer.wrapping_block('ul'):
@@ -35,7 +31,7 @@ def media_page(renderer=None, args=None, **kwargs):
                 renderer.block('a', href='#' + section.lower(), contents=section)
 
     media = collections.defaultdict(list)
-    for p in pathlib.Path(args.dir_www).glob('**/*.*'):
+    for p in pathlib.Path(c.site.www).glob('**/*.*'):
         if p.suffix.lower() in ('.jpg', '.jpeg', '.png', '.bmp'):
             media['images'].append(p)
         if p.suffix.lower() in ('.ogg', '.mp3', '.wav'):
@@ -59,7 +55,7 @@ def media_page(renderer=None, args=None, **kwargs):
                 with renderer.wrapping_block('tr'):
                     with renderer.wrapping_block('td'):
                         href = './' + str(
-                            item.relative_to(pathlib.Path(args.dir_www)))
+                            item.relative_to(pathlib.Path(c.site.www)))
                         renderer.block('a', href=href, contents=item.name)
 
                     renderer.block('td',
@@ -83,7 +79,7 @@ def four_oh_four(renderer=None, entries=[], **kwargs):
 @lib.register_page(filename='index.html',
                    title='Hey Reader!',
                    description='emails from Alex')
-def index(renderer=None, args=None, entries=[], pages=[]):
+def index(renderer=None, args=None, entries=[], pages=[], **kwargs):
     latest = entries[0]
     renderer.block('h2', 'Latest Entry')
     renderer.figure(alt='latest entry banner',
@@ -116,42 +112,41 @@ def index(renderer=None, args=None, entries=[], pages=[]):
 
 
 def main(args):
-    info = lib.load_info(args.dir_data)
-    entries = lib.fetch_entries(args.dir_entries)
+    c = config.load(args.config)
+    logger.debug('loaded config %s', c)
+    entries = lib.fetch_entries(c.site.entries)
     pages = lib.fetch_pages()
 
-    utils.pave_webroot(www_dir=args.dir_www)
+    utils.pave_webroot(www_dir=c.site.www)
 
-    lib.write_sitemap(args.dir_www,
-                      full_url=info.url,
+    lib.write_sitemap(c.site.www,
+                      full_url=c.site.url,
                       entries=entries,
                       pages=[p.filename for p in pages])
 
-    lib.write_feed(args.dir_www,
-                   title=info.title,
-                   subtitle=info.title,
-                   author_name=info.author,
-                   author_email=info.email,
+    lib.write_feed(c.site.www,
+                   title=c.site.title,
+                   subtitle=c.site.subtitle,
+                   author_name=c.site.name,
+                   author_email=c.site.email,
                    timestamp=entries[0].date,
-                   full_url=info.url,
+                   full_url=c.site.url,
                    entries=entries[:50])
 
     lib.write_entries(entries=entries,
-                      dir_www=str(args.dir_www),
-                      full_url=info.url,
-                      author=info.author)
+                      dir_www=c.site.www,
+                      full_url=c.site.url,
+                      author=c.site.name)
 
     lib.write_pages(
-        dir_www=str(args.dir_www),
+        dir_www=c.site.www,
         entries=entries,
         pages=pages,
-        full_url=info.url,
-        author=info.author,
+        full_url=c.site.url,
+        author=c.site.name,
         args=args,
+        c=c,
     )
-
-    c = config.load(args.config)
-    logger.debug('loaded config %s', c)
 
     feed.write(
         www_dir=c.site.www,
@@ -163,7 +158,7 @@ def main(args):
         entries=entries,
     )
 
-    lib.validate_website(args.dir_www)
+    lib.validate_website(c.site.www)
 
 
 if __name__ == '__main__':

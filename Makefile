@@ -1,20 +1,7 @@
 .PHONY: all
-all: jsonnet test build
+all: test build
 
-.PHONY: clean
-clean:
-	rm -rf data/*.json
-
-JSONNET_SOURCES := $(wildcard jsonnet/*.jsonnet)
-JSONNET_TARGETS := $(patsubst jsonnet/%.jsonnet, data/%.json, $(JSONNET_SOURCES))
-jsonnet: $(JSONNET_TARGETS)
-data/%.json: jsonnet/%.jsonnet $(JSONNET_SOURCES)
-	jsonnet $< > $@ && touch $@
-
-PYTHON_CMD := python -m src \
---dir-data ./data \
---dir-entries ./entries \
---dir-www ./www
+PYTHON_CMD := python -m src
 
 .PHONY: build
 build:

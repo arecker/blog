@@ -34,44 +34,6 @@ def register_page(filename='', title='', description='', banner=''):
     return wrapper
 
 
-def build_entry_listing_render_func(list_entries_func):
-
-    def render(renderer=None, entries=[], **kwargs):
-        entries = list_entries_func(entries=entries)
-        entries_with_banners = [e for e in entries if e.banner]
-        choice = random.choice(entries_with_banners)
-        renderer.figure(alt=choice.description,
-                        src=f'./images/banners/{choice.banner}',
-                        href=f'./{choice.filename}')
-
-        with renderer.wrapping_block('table'):
-            for entry in entries:
-                with renderer.wrapping_block('tr'):
-                    with renderer.wrapping_block('td'):
-                        renderer.block('a',
-                                       href=f'./{entry.filename}',
-                                       contents=f'{entry.filename}')
-                        renderer.block('td', contents=entry.description)
-
-        return renderer.text
-
-
-    return render
-
-
-def register_entry_listing(filename='', title='', description=''):
-    def wrapper(list_entries_func):
-        func = build_entry_listing_render_func(list_entries_func)
-        PAGES[filename] = Page(filename=filename,
-                               title=title,
-                               description=description,
-                               banner=None,
-                               render_func=func)
-        return func
-
-    return wrapper
-
-
 Entry = collections.namedtuple('Entry', [
     'filename', 'title', 'description', 'banner', 'date', 'source',
     'page_next', 'page_previous'
@@ -182,7 +144,8 @@ def render_page(page,
                 year=datetime.datetime.now().year,
                 entries=[],
                 pages=[],
-                args=None):
+                args=None,
+                c=None):
 
     r = Renderer()
 
@@ -214,7 +177,7 @@ def render_page(page,
 
             r.comment('Begin Page Content')
             r.article(content=page.render_func(
-                renderer=Renderer(), args=args, entries=entries, pages=pages))
+                renderer=Renderer(), args=args, entries=entries, pages=pages, c=c))
             r.comment('End Page Content')
             r.newline()
 
@@ -285,7 +248,8 @@ def write_pages(dir_www,
                 year=datetime.datetime.now().year,
                 entries=[],
                 pages=[],
-                args=None):
+                args=None,
+                c=None):
     for i, page in enumerate(pages):
         logger.info('writing %s [page %d/%d]', page.filename, i + 1,
                     len(pages))
@@ -297,7 +261,8 @@ def write_pages(dir_www,
                                   author=author,
                                   entries=entries,
                                   pages=pages,
-                                  args=args)
+                                  args=args,
+                                  c=c)
             f.write(content)
 
 

@@ -9,6 +9,7 @@ Config = collections.namedtuple('Config', [
 
 SiteConfig = collections.namedtuple('SiteConfig', [
     'email',
+    'entries',
     'name',
     'subtitle',
     'title',
