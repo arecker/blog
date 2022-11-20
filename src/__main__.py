@@ -1,7 +1,10 @@
-import logging
 import argparse
+import collections
+import logging
+import os
+import pathlib
+import random
 
-from . import pages as _  # noqa:F401
 from . import (
     config,
     feed,
@@ -20,6 +23,96 @@ group = parser.add_argument_group('resource directories')
 group.add_argument('--dir-data', required=True)
 group.add_argument('--dir-entries', required=True)
 group.add_argument('--dir-www', required=True)
+
+
+@lib.register_page(filename='media.html', title='Media', description='all website media')
+def media_page(renderer=None, args=None, **kwargs):
+    renderer.block('h3', contents='Index')
+    sections = ('Images', 'Videos', 'Audio')
+    with renderer.wrapping_block('ul'):
+        for section in sections:
+            with renderer.wrapping_block('li'):
+                renderer.block('a', href='#' + section.lower(), contents=section)
+
+    media = collections.defaultdict(list)
+    for p in pathlib.Path(args.dir_www).glob('**/*.*'):
+        if p.suffix.lower() in ('.jpg', '.jpeg', '.png', '.bmp'):
+            media['images'].append(p)
+        if p.suffix.lower() in ('.ogg', '.mp3', '.wav'):
+            media['audio'].append(p)
+        if p.suffix.lower() in ('.mp4', '.webm'):
+            media['videos'].append(p)
+
+    for section in ('images', 'videos', 'audio'):
+        renderer.block('h3', contents=section.title(), _id=section)
+        total_size = sum([os.path.getsize(i) for i in media[section]])
+        renderer.table(data=[
+            ['Total Count', str(len(media[section]))],
+            ['Total Storage', lib.convert_size(total_size)]
+        ])
+
+        with renderer.wrapping_block('table'):
+            with renderer.wrapping_block('tr'):
+                renderer.block('td', contents='Name')
+                renderer.block('td', contents='Size')
+            for item in sorted(media[section], key=lambda p: p.name, reverse=True):
+                with renderer.wrapping_block('tr'):
+                    with renderer.wrapping_block('td'):
+                        href = './' + str(
+                            item.relative_to(pathlib.Path(args.dir_www)))
+                        renderer.block('a', href=href, contents=item.name)
+
+                    renderer.block('td',
+                                   contents=lib.convert_size(
+                                   os.path.getsize(item)))
+
+    return renderer.text
+
+
+@lib.register_page(filename='404.html', title='404', description='page not found')
+def four_oh_four(renderer=None, entries=[], **kwargs):
+    choice = random.choice([e for e in entries if e.banner])
+    renderer.block('p', 'I don\'t have that page, so here\'s a random entry instead!')
+    renderer.figure(alt='random banner',
+                    src=f'./images/banners/{choice.banner}',
+                    href=f'./{choice.filename}',
+                    caption=choice.description)
+    return renderer.text
+
+
+@lib.register_page(filename='index.html',
+                   title='Hey Reader!',
+                   description='emails from Alex')
+def index(renderer=None, args=None, entries=[], pages=[]):
+    latest = entries[0]
+    renderer.block('h2', 'Latest Entry')
+    renderer.figure(alt='latest entry banner',
+                    src=f'./images/banners/{latest.banner}',
+                    href=f'./{latest.filename}',
+                    caption=latest.description)
+
+    renderer.block('h2', 'Pages')
+    pages = [p for p in pages if p.filename not in ('index.html', '404.html')]
+    with renderer.wrapping_block('table'):
+        for page in pages:
+            with renderer.wrapping_block('tr'):
+                with renderer.wrapping_block('td'):
+                    renderer.block('a',
+                                   href=f'./{page.filename}',
+                                   contents=page.filename)
+                renderer.block('td', contents=page.description)
+
+    renderer.block('h2', 'Entries')
+    with renderer.wrapping_block('table'):
+        for entry in entries:
+            with renderer.wrapping_block('tr'):
+                with renderer.wrapping_block('td'):
+                    renderer.block('a',
+                                   href=f'./{entry.filename}',
+                                   contents=f'{entry.filename}')
+                    renderer.block('td', contents=entry.description)
+
+    return renderer.text
 
 
 def main(args):

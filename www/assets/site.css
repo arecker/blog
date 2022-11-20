@@ -57,8 +57,12 @@ td {
     padding-right: 10px;
 }
 
+table {
+    margin-bottom: 10px;
+}
+
 @media only screen and (max-width: 500px) {
     figure img, video {
-        max-width: 100%;
+	max-width: 100%;
     }
 }
