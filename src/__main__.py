@@ -1,8 +1,10 @@
 import argparse
 import collections
+import datetime
 import logging
 import os
 import pathlib
+import platform
 import random
 import sys
 
@@ -108,6 +110,9 @@ def index(renderer=None, args=None, entries=[], pages=[], **kwargs):
 
 
 def main(args):
+    start = datetime.datetime.now()
+    logger.info('starting website build using python v%s (%s)', platform.python_version(), sys.executable)
+
     c = lib.load_config(args.config)
     logger.debug('loaded config %s', c)
     entries = lib.fetch_entries(c.site.entries)
@@ -145,6 +150,8 @@ def main(args):
     )
 
     lib.validate_website(c.site.www)
+    end = datetime.datetime.now()
+    logger.info('finished website build in %.2fs', (end - start).total_seconds())
 
 
 if __name__ == '__main__':
