@@ -7,11 +7,6 @@ PYTHON_CMD := python -m src
 build:
 	$(PYTHON_CMD) --verbose
 
-COMMANDS := help
-.PHONY: $(COMMANDS)
-$(COMMANDS):
-	$(PYTHON_CMD) --$@
-
 .PHONY: test
 test:
 	python -m unittest
