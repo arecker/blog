@@ -47,6 +47,8 @@ figure figcaption p {
 
 blockquote {
     margin-left: 0;
+    font-style: italic;
+    color: grey;
 }
 
 blockquote p {
