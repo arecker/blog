@@ -187,6 +187,7 @@ def write_feed(www_dir,
     www_dir = pathlib.Path(www_dir)
     for p in www_dir.glob('images/*.*'):
         slug = p.name[:10] # YYYY-MM-dd-blah.jpg
+        title = slug + ' - ' + p.stem[11:].replace('-', ' ').title()
         date = datetime.datetime.strptime(slug, '%Y-%m-%d')
         banner = str(p.relative_to(www_dir))
         items.append(Item(
@@ -195,7 +196,7 @@ def write_feed(www_dir,
             description='',
             filename=banner,
             source='',
-            title='',
+            title=title,
         ))
 
     items = list(sorted(items, key=lambda i: i.date, reverse=True))
