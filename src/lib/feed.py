@@ -206,4 +206,4 @@ def write_feed(www_dir,
 
     with target.open('w') as f:
         f.write(render_feed(info, items))
-    logger.info('wrote feed to %s with %d item(s)', target, len(entries))
+    logger.info('wrote feed to %s with %d item(s)', target, len(items))

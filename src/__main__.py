@@ -132,7 +132,7 @@ def main(args):
                    author_email=c.site.email,
                    timestamp=entries[0].date,
                    full_url=c.site.url,
-                   entries=entries[:50])
+                   entries=entries)
 
     lib.write_entries(entries=entries,
                       dir_www=c.site.www,
