@@ -168,7 +168,7 @@ TESTING
                 banner='testing.jpg',
                 source=str(source))
 
-            actual = feed.render_feed(info, entries=[entry])
+            actual = feed.render_feed(info, items=[entry])
 
         expected = '''<?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
