@@ -119,7 +119,7 @@ Some italics, strongs, or bolds in a paragraph?
                 description='a test entry for a unit test',
                 date=datetime.datetime(2019, 1, 1),
                 filename='testing.html',
-                banner='testing.jpg',
+                banner='images/banners/testing.jpg',
                 source=str(source))
 
             actual = feed.render_feed_entry(entry, info)
@@ -165,7 +165,7 @@ TESTING
                 description='a test entry for a unit test',
                 date=datetime.datetime(2019, 1, 1),
                 filename='testing.html',
-                banner='testing.jpg',
+                banner='images/banners/testing.jpg',
                 source=str(source))
 
             actual = feed.render_feed(info, items=[entry])

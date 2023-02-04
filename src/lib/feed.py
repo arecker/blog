@@ -122,7 +122,7 @@ def render_feed_entry(item, info: Info):
         r.link(href=url)
 
         if item.banner:
-            banner_url = f'images/banners/{item.banner}'
+            banner_url = item.banner
             banner_url = urllib.parse.urljoin(info.full_url, banner_url)
             attrs = {
                 'self_closing': True,
@@ -176,7 +176,7 @@ def write_feed(www_dir,
     items = []
     for entry in entries:
         items.append(Item(
-            banner=f'banners/{entry.banner}',
+            banner=f'images/banners/{entry.banner}',
             date=entry.date,
             description=entry.description,
             filename=entry.filename,
