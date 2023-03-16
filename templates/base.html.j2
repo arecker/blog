@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <title>{{ page.title }}</title>
+
+    <!-- Assets -->
+    <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <link href="./assets/site.css" rel="stylesheet" />
+
+    <!-- Metadata -->
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="{{ page.title }}" name="twitter:title" />
+    <meta content="{{ page.subtitle }}" name="twitter:description" />
+    <meta content="{{ site.protocol }}://{{ site.domain }}/{{ page.html }}" name="og:url" />
+    <meta content="article" property="og:type" />
+    <meta content="{{ page.title }}" property="og:title" />
+    <meta content="{{ page.subtitle }}" property="og:description" />
+    {% if page.banner %}
+      <meta content="{{ site.protocol }}://{{ site.domain }}/images/banners/{{ page.banner }}" name="og:image" />
+      <meta content="{{ site.protocol }}://{{ site.domain }}/images/banners/{{ page.banner }}" name="twitter:image" />
+    {% endif %}
+  </head>
+
+  <body>
+    <article>
+
+      <!-- Header -->
+      <header>
+        <h1>{{ page.title }}</h1>
+        <p>{{ page.subtitle }}</p>
+      </header>
+
+      <hr />
+
+      <!-- Breadcrumbs -->
+      <nav>
+        <a href="./index.html">index.html</a>
+        {% if page.filename != "index.html" %}
+          <span>/ 2022-01-03.html</span>
+        {% endif %}
+      </nav>
+
+      <hr />
+
+      {% if page.banner %}
+        <!-- Page Banner -->
+        <figure>
+          <a href="./images/banners/{{ page.banner }}">
+            <img alt="page banner" src="./images/banners/{{ page.banner }}" />
+          </a>
+        </figure>
+      {% endif %}
+      <!-- Content: begin -->
+      {{ page.content }}
+      <!-- Content: end -->
+
+      {% if page.next or page.previous %}
+      <!-- Pagination -->
+      <nav>
+        <a href="./2022-01-04.html">⟵ 2022-01-04.html</a>
+        &nbsp
+        <a href="./2021-12-30.html">2021-12-30.html ⟶</a>
+      </nav>
+      {% endif %}
+    </article>
+
+    <hr />
+
+    <!-- Page Footer -->
+    <footer>
+      <small>© Copyright {{ now.year }} {{ site.author }}</small>
+    </footer>
+
+  </body>
+
+</html>
