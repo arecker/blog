@@ -11,6 +11,21 @@ build:
 test:
 	python -m unittest
 
+.phony: clean
+clean:
+	rm -rf ./www/*.xml
+	rm -rf ./www/*.html
+	rm -rf ./venv
+
+venv:
+	$$(which python) -m venv ./venv
+	./venv/bin/pip install --upgrade pip
+	./venv/bin/pip install --upgrade jinja2
+
+.phony: new
+new: venv
+	./build.py
+
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish
 publish:

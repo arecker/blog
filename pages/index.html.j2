@@ -1,3 +1,11 @@
 <!-- meta:title alexrecker.com -->
 <!-- meta:subtitle personal website -->
-<h1>This is the index</h1>
+
+<h2>Pages</h2>
+<ul>
+  {% for page in pages %}
+    {% if page.filename != "index.html" %}
+      <li><a href="./{{ page.filename }}">{{ page.filename }}</a></li>
+    {% endif %}
+  {% endfor %}
+</ul>

@@ -37,8 +37,12 @@
       <!-- Breadcrumbs -->
       <nav>
         <a href="./index.html">index.html</a>
+        {% if page.subindex %}
+          <span>/ </span>
+          <a href="./{{ page.subindex }}">{{ page.subindex }}</a>
+        {% endif %}
         {% if page.filename != "index.html" %}
-          <span>/ 2022-01-03.html</span>
+          <span>/ {{ page.filename }}</span>
         {% endif %}
       </nav>
 
@@ -53,7 +57,7 @@
         </figure>
       {% endif %}
       <!-- Content: begin -->
-      {{ page.content }}
+      {{ content }}
       <!-- Content: end -->
 
       {% if page.next or page.previous %}

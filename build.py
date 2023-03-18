@@ -10,7 +10,6 @@ import re
 import sys
 
 import jinja2
-import jinja2.ext
 
 
 logger = logging.getLogger(__name__)
@@ -25,8 +24,6 @@ Site = collections.namedtuple('Site', [
     'domain',
     'author',
 ])
-
-
 Page = collections.namedtuple('Page', [
     'filename',
     'title',
@@ -36,57 +33,16 @@ Page = collections.namedtuple('Page', [
     'content',
     'next',
     'previous',
+    'subindex',
 ])
 Pagination = collections.namedtuple('Pagination', ['next', 'previous'])
-
-
-class Now(jinja2.ext.Extension):
-    def __init__(self, environment):
-        super().__init__(environment)
-
-        # add the defaults to the environment
-        environment.extend(now=datetime.datetime.now())
-
-    # def parse(self, parser):
-    #     # the first token is the token that started the tag.  In our case
-    #     # we only listen to ``'cache'`` so this will be a name token with
-    #     # `cache` as value.  We get the line number so that we can give
-    #     # that line number to the nodes we create by hand.
-    #     lineno = next(parser.stream).lineno
-
-    #     # now we parse a single expression that is used as cache key.
-    #     args = [parser.parse_expression()]
-
-    #     # if there is a comma, the user provided a timeout.  If not use
-    #     # None as second parameter.
-    #     if parser.stream.skip_if("comma"):
-    #         args.append(parser.parse_expression())
-    #     else:
-    #         args.append(nodes.Const(None))
-
-    #     # now we parse the body of the cache block up to `endcache` and
-    #     # drop the needle (which would always be `endcache` in that case)
-    #     body = parser.parse_statements(["name:endcache"], drop_needle=True)
-
-    #     # now return a `CallBlock` node that calls our _cache_support
-    #     # helper method on this extension.
-    #     return nodes.CallBlock(
-    #         self.call_method("_cache_support", args), [], [], body
-    #     ).set_lineno(lineno)
-
-    # def _cache_support(self, name, timeout, caller):
-    #     """Helper callback."""
-    #     key = self.environment.fragment_cache_prefix + name
-
-    #     # try to load the block from the cache
-    #     # if there is no fragment in the cache, render it and store
-    #     # it in the cache.
-    #     rv = self.environment.fragment_cache.get(key)
-    #     if rv is not None:
-    #         return rv
-    #     rv = caller()
-    #     self.environment.fragment_cache.add(key, rv, timeout)
-    #     return rv
+Context = collections.namedtuple('Context', [
+    'page',
+    'pages',
+    'entries',
+    'site',
+    'now',
+])
 
 
 def parse_metadata(content):
@@ -134,6 +90,7 @@ def load_entries() -> list[Page]:
         kwargs['title'] = date.strftime('%A, %B %-d %Y')
         kwargs['subtitle'] = metadata['title']
         kwargs['banner'] = metadata.get('banner')
+        kwargs['subindex'] = 'entries.html'
 
         entry = Page(**kwargs)
         entries.append(entry)
@@ -145,10 +102,11 @@ def load_entries() -> list[Page]:
 def load_pages() -> list[Page]:
     pages_dir = pathlib.Path('./pages')
     pages = list(pages_dir.glob('*.html.j2'))
+    pages = list(filter(lambda f: f.name != '_layout.html.j2', pages))
     results = []
     for page in pages:
         kwargs = {}
-        kwargs['filename'] = page.name
+        kwargs['filename'] = page.name[:-3]
         kwargs['date'] = None
 
         with page.open('r') as f:
@@ -160,6 +118,7 @@ def load_pages() -> list[Page]:
             kwargs['banner'] = metadata.get('banner')
             kwargs['previous'] = metadata.get('previous')
             kwargs['next'] = metadata.get('previous')
+            kwargs['subindex'] = metadata.get('subindex', None)
         results.append(Page(**kwargs))
 
     logger.info('loaded %d page(s)', len(pages))
@@ -177,19 +136,58 @@ def clean_webroot():
     logger.info('cleaned %d old files from webroot', len(targets))
 
 
-def load_jinja_env():
-    template_dir = pathlib.Path('./templates/')
-    loader = jinja2.FileSystemLoader(template_dir)
-    count = len(list(template_dir.glob('*.*')))
-    logger.debug('loaded %d templates', count)
-    return jinja2.Environment(loader=loader, extensions=[Now])
+def render_page(context: Context, sub_jinja=True) -> str:
+    content = context.page.content.read()
+    if sub_jinja:
+        # render content as a sub jinja template
+        content = jinja2.Environment().from_string(content)
+        content = content.render(content=content, **context._asdict())
+
+    # render layout around content
+    with pathlib.Path('./pages/_layout.html.j2').open('r') as layout:
+        layout = jinja2.Environment().from_string(layout.read())
+        return layout.render(content=content, **context._asdict())
 
 
 def main():
     clean_webroot()
-    template = load_jinja_env()
+
     entries = load_entries()
     pages = load_pages()
+    site = Site(
+        protocol='https',
+        domain='www.alexrecker.com',
+        author='Alex Recker',
+    )
+    now = datetime.datetime.now()
+
+    for i, page in enumerate(pages):
+        context = Context(
+            page=page,
+            pages=pages,
+            entries=entries,
+            site=site,
+            now=now,
+        )
+        content = render_page(context)
+        with pathlib.Path(f'./www/{page.filename}').open('w') as target:
+            target.write(content)
+        logger.info('rendered %s (%d/%d)', page.filename, i + 1, len(pages))
+
+    count = len(entries)
+    for i, entry in enumerate(entries):
+        context = Context(
+            page=entry,
+            pages=pages,
+            entries=entries,
+            site=site,
+            now=now,
+        )
+        content = render_page(context, sub_jinja=False)
+        with pathlib.Path(f'./www/{entry.filename}').open('w') as target:
+            target.write(content)
+        if (i + 1) % 100 == 0:
+            logger.info('rendered %d/%d entries', i + 1, count)
 
 
 if __name__ == '__main__':
