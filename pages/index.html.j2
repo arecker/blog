@@ -3,9 +3,9 @@
 
 <h2>Pages</h2>
 <ul>
-  {% for page in pages %}
-    {% if page.filename != "index.html" %}
+  {%- for page in pages %}
+    {%- if page.filename != "index.html" %}
       <li><a href="./{{ page.filename }}">{{ page.filename }}</a></li>
-    {% endif %}
-  {% endfor %}
+    {%- endif %}
+  {%- endfor %}
 </ul>

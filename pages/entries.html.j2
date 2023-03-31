@@ -2,10 +2,10 @@
 <!-- meta:subtitle archive of journal entries -->
 
 <table>
-  {% for entry in entries %}
+  {%- for entry in entries %}
   <tr>
     <td><a href="./{{ entry.filename }}">{{ entry.filename }}</a></td>
     <td>{{ entry.subtitle }}</td>
   </tr>
-  {% endfor %}
+  {%- endfor %}
 </table>

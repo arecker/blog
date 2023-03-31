@@ -143,6 +143,9 @@ def render_page(context: Context, sub_jinja=True) -> str:
         content = jinja2.Environment().from_string(content)
         content = content.render(content=content, **context._asdict())
 
+    # indent inner content so it looks natural in the HTML
+    content = '\n'.join(['      ' + line for line in content.splitlines()]).lstrip()
+
     # render layout around content
     with pathlib.Path('./pages/_layout.html.j2').open('r') as layout:
         layout = jinja2.Environment().from_string(layout.read())
