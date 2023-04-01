@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>{{ page.title }}</title>
+    <title><%= page.title %></title>
 
     <!-- Assets -->
     <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -11,11 +11,11 @@
     <!-- Metadata -->
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="{{ page.title }}" name="twitter:title" />
+    <meta content="<%= page.title %>" name="twitter:title" />
     <meta content="{{ page.subtitle }}" name="twitter:description" />
     <meta content="{{ site.protocol }}://{{ site.domain }}/{{ page.html }}" name="og:url" />
     <meta content="article" property="og:type" />
-    <meta content="{{ page.title }}" property="og:title" />
+    <meta content="<%= page.title %>" property="og:title" />
     <meta content="{{ page.subtitle }}" property="og:description" />
     {%- if page.banner %}
       <meta content="{{ site.protocol }}://{{ site.domain }}/images/banners/{{ page.banner }}" name="og:image" />
@@ -28,7 +28,7 @@
 
       <!-- Header -->
       <header>
-        <h1>{{ page.title }}</h1>
+        <h1><%= page.title %></h1>
         <p>{{ page.subtitle }}</p>
       </header>
 
