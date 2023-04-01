@@ -17,10 +17,10 @@
     <meta content="article" property="og:type" />
     <meta content="<%= page.title %>" property="og:title" />
     <meta content="<%= page.subtitle %>" property="og:description" />
-    <% if page.banner %>
+    <%- if page.banner -%>
     <meta content="<%= site.protocol %>://<%= site.domain %>/images/banners/<%= page.banner %>" name="og:image" />
     <meta content="<%= site.protocol %>://<%= site.domain %>/images/banners/<%= page.banner %>" name="twitter:image" />
-    <% end %>
+    <%- end -%>
   </head>
 
   <body>
@@ -37,49 +37,51 @@
       <!-- Breadcrumbs -->
       <nav>
         <a href="./index.html">index.html</a>
-        <% if page.subindex %>
+        <%- if page.subindex -%>
         <span>/ </span>
         <a href="./<%= page.subindex %>.html"><%= page.subindex %>.html</a>
-        <% end %>
-        <% if page.filename != "index.html" %>
+        <%- end -%>
+        <%- if page.filename != "index.html" -%>
         <span>/ <%= page.filename %></span>
-        <% end %>
+        <%- end -%>
       </nav>
 
       <hr />
 
-      <% if page.banner %>
+      <%- if page.banner -%>
       <!-- Page Banner -->
       <figure>
         <a href="./images/banners/<%= page.banner %>">
           <img alt="page banner" src="./images/banners/<%= page.banner %>" />
         </a>
       </figure>
-      <% end %>
+      <%- end -%>
 
       <!-- Content: begin -->
       <%= content %>
       <!-- Content: end -->
 
-      <% if page.next || page.previous %>
+      <%- if page.next || page.previous -%>
       <!-- Pagination -->
       <nav>
-        <% if page.previous %>
-        <a href="./<%= page.previous %>">⟵ <%= page.previous %></a>
-        <% end %>
-        <%  if page.next && page.previous %>&nbsp<% end %>
-        <% if page.next %>
+        <%- if page.previous -%>
+        <a href="./<%= page.previous -%>">⟵ <%= page.previous %></a>
+        <%- end -%>
+        <%- if page.next && page.previous -%>
+        &nbsp
+        <%- end -%>
+        <%- if page.next -%>
         <a href="./<%= page.next %>"><%= page.next %> ⟶</a>
-        <% end %>
+        <%- end -%>
       </nav>
-      <% end %>
+      <%- end -%>
     </article>
 
     <hr />
 
     <!-- Page Footer -->
     <footer>
-      <small>© Copyright {{ now.year }} <%= site.author %></small>
+      <small>© Copyright <%= site.year %> <%= site.author %></small>
     </footer>
 
   </body>

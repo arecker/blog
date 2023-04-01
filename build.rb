@@ -13,12 +13,15 @@ logger.level = Logger::INFO
 module Blog
   # Site - global website metadata
   class Site
-    attr_reader :protocol, :domain, :author
+    attr_reader :protocol, :domain, :author, :year
 
     def initialize(protocol:, domain:, author:)
       @protocol = protocol
       @domain = domain
       @author = author
+
+      now = Time.now
+      @year = now.year
     end
   end
 
@@ -84,7 +87,7 @@ module Blog
       namespace = OpenStruct.new(*args, **kwargs)
 
       # render innder page
-      template = ERB.new content
+      template = ERB.new(content, trim_mode: '-')
       inner = template.result(namespace.instance_eval { binding })
 
       # indent
@@ -142,7 +145,7 @@ module Blog
   def self.render_page(layout:, page:, site:, entries:, pages:)
     context = { page: page, site: site, entries: entries, pages: pages }
     context[:content] = page.render(**context)
-    template = ERB.new layout
+    template = ERB.new(layout, trim_mode: '-')
     namespace = OpenStruct.new(**context)
     template.result(namespace.instance_eval { binding })
   end
