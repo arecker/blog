@@ -12,15 +12,15 @@
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta content="<%= page.title %>" name="twitter:title" />
-    <meta content="{{ page.subtitle }}" name="twitter:description" />
-    <meta content="{{ site.protocol }}://{{ site.domain }}/{{ page.html }}" name="og:url" />
+    <meta content="<%= page.subtitle %>" name="twitter:description" />
+    <meta content="<%= site.protocol %>://<%= site.domain %>/<%= page.filename%>" name="og:url" />
     <meta content="article" property="og:type" />
     <meta content="<%= page.title %>" property="og:title" />
-    <meta content="{{ page.subtitle }}" property="og:description" />
-    {%- if page.banner %}
-      <meta content="{{ site.protocol }}://{{ site.domain }}/images/banners/{{ page.banner }}" name="og:image" />
-      <meta content="{{ site.protocol }}://{{ site.domain }}/images/banners/{{ page.banner }}" name="twitter:image" />
-    {%- endif %}
+    <meta content="<%= page.subtitle %>" property="og:description" />
+    <% if page.banner %>
+    <meta content="<%= site.protocol %>://<%= site.domain %>/images/banners/<%= page.banner %>" name="og:image" />
+    <meta content="<%= site.protocol %>://<%= site.domain %>/images/banners/<%= page.banner %>" name="twitter:image" />
+    <% end %>
   </head>
 
   <body>
@@ -29,7 +29,7 @@
       <!-- Header -->
       <header>
         <h1><%= page.title %></h1>
-        <p>{{ page.subtitle }}</p>
+        <p><%= page.subtitle %></p>
       </header>
 
       <hr />
@@ -38,40 +38,40 @@
       <nav>
         <a href="./index.html">index.html</a>
         {%- if page.subindex %}
-          <span>/ </span>
-          <a href="./{{ page.subindex }}">{{ page.subindex }}</a>
+        <span>/ </span>
+        <a href="./{{ page.subindex }}">{{ page.subindex }}</a>
         {%- endif %}
         {%- if page.filename != "index.html" %}
-          <span>/ {{ page.filename }}</span>
+        <span>/ {{ page.filename }}</span>
         {%- endif %}
       </nav>
 
       <hr />
 
-      {%- if page.banner %}
-        <!-- Page Banner -->
-        <figure>
-          <a href="./images/banners/{{ page.banner }}">
-            <img alt="page banner" src="./images/banners/{{ page.banner }}" />
-          </a>
-        </figure>
-      {%- endif %}
+      <% if page.banner %>
+      <!-- Page Banner -->
+      <figure>
+        <a href="./images/banners/<%= page.banner %>">
+          <img alt="page banner" src="./images/banners/<%= page.banner %>" />
+        </a>
+      </figure>
+      <% end %>
 
       <!-- Content: begin -->
       {{ content }}
       <!-- Content: end -->
 
       {%- if page.next or page.previous %}
-        <!-- Pagination -->
-        <nav>
-          {%- if page.previous %}
-            <a href="./{{ page.previous }}">⟵ {{ page.previous }}</a>
-          {%- endif %}
-          {%  if page.next and page.previous %}&nbsp{% endif %}
-          {%- if page.next %}
-            <a href="./{{ page.next }}">{{ page.next }} ⟶</a>
-          {%- endif %}
-        </nav>
+      <!-- Pagination -->
+      <nav>
+        {%- if page.previous %}
+        <a href="./{{ page.previous }}">⟵ {{ page.previous }}</a>
+        {%- endif %}
+        {%  if page.next and page.previous %}&nbsp{% endif %}
+        {%- if page.next %}
+        <a href="./{{ page.next }}">{{ page.next }} ⟶</a>
+        {%- endif %}
+      </nav>
       {%- endif %}
     </article>
 

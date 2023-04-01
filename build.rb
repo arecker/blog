@@ -10,6 +10,15 @@ logger = Logger.new($stdout)
 logger.level = Logger::INFO
 
 module Blog
+  class Site
+    attr_reader :protocol, :domain
+
+    def initialize(protocol, domain)
+      @protocol = protocol
+      @domain = domain
+    end
+  end
+
   class Entry
     attr_reader :path
 
@@ -36,6 +45,27 @@ module Blog
     def title
       date.strftime('%A, %B %-d %Y')
     end
+
+    def content
+      @content ||= File.read(path)
+    end
+
+    def metadata
+      @metadata ||= parse_metadata(content)
+    end
+
+    def parse_metadata(content)
+      pattern = /^\s?<!--\s?meta:(?<key>[A-za-z]+)\s?(?<value>.*)\s?-->$/
+      Hash[content.scan(pattern)]
+    end
+
+    def subtitle
+      metadata.fetch('title')
+    end
+
+    def banner
+      metadata['banner']
+    end
   end
 
   def self.clean_webroot(www_dir)
@@ -51,10 +81,9 @@ module Blog
     entries.map { |p| Entry.new p }.reverse
   end
 
-  def self.render_page(page)
-    template = File.read("./pages/_layout.html")
-    template = ERB.new template
-    namespace = OpenStruct.new(page: page)
+  def self.render_page(page, layout, site)
+    template = ERB.new layout
+    namespace = OpenStruct.new(page: page, site: site)
     template.result(namespace.instance_eval { binding })
   end
 end
@@ -67,8 +96,10 @@ logger.info "loaded #{entries.length} entries"
 
 www_dir += '/' unless www_dir.end_with? '/'
 total_entries = entries.length
+layout = File.read('./pages/_layout.html')
+site = Blog::Site.new(protocol='https', domain='www.alexrecker.com')
 entries.each_with_index do |e, i|
-  content = Blog.render_page(e)
+  content = Blog.render_page(e, layout, site)
   File.open("./#{www_dir}#{e.filename}", 'w') { |f| f.write(content) }
   logger.debug "wrote #{e.filename}"
   logger.info "wrote #{i + 1}/#{total_entries} entries" if (i % 100).zero? || i == total_entries - 1
