@@ -97,6 +97,8 @@ module Blog
 
   # Entry - journal entry object
   class Entry < Page
+    attr_accessor :next, :previous
+
     def to_s
       "<Entry #{filename}>"
     end
@@ -133,7 +135,13 @@ module Blog
   def self.load_entries(entries_dir)
     entries_dir += '/' unless entries_dir.end_with?('/')
     entries = Dir["#{entries_dir}*.html"]
-    entries.map { |p| Entry.new p }.reverse
+    entries = entries.map { |p| Entry.new p }.reverse
+    # paginate
+    entries.each_with_index do |e, i|
+      e.previous = entries[i - 1].filename if i.positive?
+      e.next = entries[i + 1].filename unless i == (entries.length - 1)
+    end
+    entries
   end
 
   def self.load_pages(pages_dir)
