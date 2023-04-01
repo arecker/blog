@@ -11,11 +11,12 @@ logger.level = Logger::INFO
 
 module Blog
   class Site
-    attr_reader :protocol, :domain
+    attr_reader :protocol, :domain, :author
 
-    def initialize(protocol, domain)
+    def initialize(protocol:, domain:, author:)
       @protocol = protocol
       @domain = domain
+      @author = author
     end
   end
 
@@ -97,7 +98,7 @@ logger.info "loaded #{entries.length} entries"
 www_dir += '/' unless www_dir.end_with? '/'
 total_entries = entries.length
 layout = File.read('./pages/_layout.html')
-site = Blog::Site.new(protocol='https', domain='www.alexrecker.com')
+site = Blog::Site.new(protocol: 'https', domain: 'www.alexrecker.com', author: 'Alex Recker')
 entries.each_with_index do |e, i|
   content = Blog.render_page(e, layout, site)
   File.open("./#{www_dir}#{e.filename}", 'w') { |f| f.write(content) }
