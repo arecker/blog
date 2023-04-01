@@ -98,10 +98,14 @@ logger.info "loaded #{entries.length} entries"
 www_dir += '/' unless www_dir.end_with? '/'
 total_entries = entries.length
 layout = File.read('./pages/_layout.html')
-site = Blog::Site.new(protocol: 'https', domain: 'www.alexrecker.com', author: 'Alex Recker')
+site = Blog::Site.new(
+  protocol: 'https',
+  domain: 'www.alexrecker.com',
+  author: 'Alex Recker'
+)
 entries.each_with_index do |e, i|
   content = Blog.render_page(e, layout, site)
   File.open("./#{www_dir}#{e.filename}", 'w') { |f| f.write(content) }
   logger.debug "wrote #{e.filename}"
-  logger.info "wrote #{i + 1}/#{total_entries} entries" if (i % 100).zero? || i == total_entries - 1
+  logger.info "wrote #{i + 1}/#{total_entries} entries" if ((i + 1) % 100).zero? || i == total_entries - 1
 end
