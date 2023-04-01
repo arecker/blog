@@ -3,12 +3,15 @@
 
 <h2>Pages</h2>
 
-<ul>
-  <% pages.each do |p| %>
-  <% if p.filename != 'index.html' %>
-  <li>
-    <a href="./<%= p.filename %>"><%= p.filename %></a>
-  </li>
-  <% end %>
-  <% end %>
-</ul>
+<table>
+  <%- pages.each do |p| -%>
+  <%- if p.filename != 'index.html' -%>
+  <tr>
+    <td>
+      <a href="./<%= p.filename %>"><%= p.filename %></a>
+    </td>
+    <td><%= p.subtitle %></td>
+  </tr>
+  <%- end -%>
+  <%- end -%>
+</table>
