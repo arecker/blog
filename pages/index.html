@@ -2,10 +2,13 @@
 <!-- meta:subtitle personal website -->
 
 <h2>Pages</h2>
+
 <ul>
-  {%- for page in pages %}
-    {%- if page.filename != "index.html" %}
-      <li><a href="./{{ page.filename }}">{{ page.filename }}</a></li>
-    {%- endif %}
-  {%- endfor %}
+  <% pages.each do |p| %>
+  <% if p.filename != 'index.html' %>
+  <li>
+    <a href="./<%= p.filename %>"><%= p.filename %></a>
+  </li>
+  <% end %>
+  <% end %>
 </ul>

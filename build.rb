@@ -9,7 +9,9 @@ require 'ostruct'
 logger = Logger.new($stdout)
 logger.level = Logger::INFO
 
+# Blog - source code library
 module Blog
+  # Site - global website metadata
   class Site
     attr_reader :protocol, :domain, :author
 
@@ -20,31 +22,24 @@ module Blog
     end
   end
 
-  class Entry
+  # Page - blog page object
+  class Page
     attr_reader :path
 
     def initialize(path)
       @path = path
     end
 
+    def to_s
+      "<Page #{filename}>"
+    end
+
     def filename
       File.basename(path)
     end
 
-    def to_s
-      "Entry <#{filename}>"
-    end
-
     def slug
       File.basename(filename, '*.html')
-    end
-
-    def date
-      DateTime.strptime(slug, '%Y-%m-%d')
-    end
-
-    def title
-      date.strftime('%A, %B %-d %Y')
     end
 
     def content
@@ -60,12 +55,68 @@ module Blog
       Hash[content.scan(pattern)]
     end
 
-    def subtitle
+    def title
       metadata.fetch('title')
+    end
+
+    def subtitle
+      metadata.fetch('subtitle')
     end
 
     def banner
       metadata['banner']
+    end
+
+    def subindex
+      metadata['subindex']
+    end
+
+    def next
+      metadata['next']
+    end
+
+    def previous
+      metadata['previous']
+    end
+
+    def render(*args, **kwargs)
+      # setup context
+      namespace = OpenStruct.new(*args, **kwargs)
+
+      # render innder page
+      template = ERB.new content
+      inner = template.result(namespace.instance_eval { binding })
+
+      # indent
+      inner.split("\n").map { |l| "      #{l}" }.join("\n").lstrip
+    end
+  end
+
+  # Entry - journal entry object
+  class Entry < Page
+    def to_s
+      "<Entry #{filename}>"
+    end
+
+    def date
+      DateTime.strptime(slug, '%Y-%m-%d')
+    end
+
+    def title
+      date.strftime('%A, %B %-d %Y')
+    end
+
+    def render(*_args, **_kwargs)
+      # child page is not a template, so just read it
+      content.split("\n").map { |l| "      #{l}" }.join("\n").lstrip
+    end
+
+    def subtitle
+      metadata.fetch('title')
+    end
+
+    def subindex
+      'entries'
     end
   end
 
@@ -82,9 +133,17 @@ module Blog
     entries.map { |p| Entry.new p }.reverse
   end
 
-  def self.render_page(page, layout, site)
+  def self.load_pages(pages_dir)
+    pages_dir += '/' unless pages_dir.end_with?('/')
+    pages = Dir["#{pages_dir}*.html"]
+    pages.map { |p| Page.new p }.keep_if { |p| !p.filename.start_with?('_') }
+  end
+
+  def self.render_page(layout:, page:, site:, entries:, pages:)
+    context = { page: page, site: site, entries: entries, pages: pages }
+    context[:content] = page.render(**context)
     template = ERB.new layout
-    namespace = OpenStruct.new(page: page, site: site)
+    namespace = OpenStruct.new(**context)
     template.result(namespace.instance_eval { binding })
   end
 end
@@ -95,6 +154,9 @@ logger.info "removed #{Blog.clean_webroot(www_dir)} old target(s)"
 entries = Blog.load_entries('./entries')
 logger.info "loaded #{entries.length} entries"
 
+pages = Blog.load_pages('./pages')
+logger.info "loaded #{pages.length} page(s)"
+
 www_dir += '/' unless www_dir.end_with? '/'
 total_entries = entries.length
 layout = File.read('./pages/_layout.html')
@@ -103,9 +165,16 @@ site = Blog::Site.new(
   domain: 'www.alexrecker.com',
   author: 'Alex Recker'
 )
+total_pages = pages.length
+pages.each_with_index do |p, i|
+  content = Blog.render_page(page: p, layout: layout, site: site, entries: entries, pages: pages)
+  File.open("./#{www_dir}#{p.filename}", 'w') { |f| f.write(content) }
+  logger.info "wrote #{p} (#{i + 1}/#{total_pages})"
+end
+
 entries.each_with_index do |e, i|
-  content = Blog.render_page(e, layout, site)
+  content = Blog.render_page(page: e, layout: layout, site: site, entries: entries, pages: pages)
   File.open("./#{www_dir}#{e.filename}", 'w') { |f| f.write(content) }
-  logger.debug "wrote #{e.filename}"
+  logger.debug "wrote #{e}"
   logger.info "wrote #{i + 1}/#{total_entries} entries" if ((i + 1) % 100).zero? || i == total_entries - 1
 end

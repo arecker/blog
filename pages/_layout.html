@@ -37,13 +37,13 @@
       <!-- Breadcrumbs -->
       <nav>
         <a href="./index.html">index.html</a>
-        {%- if page.subindex %}
+        <% if page.subindex %>
         <span>/ </span>
-        <a href="./{{ page.subindex }}">{{ page.subindex }}</a>
-        {%- endif %}
-        {%- if page.filename != "index.html" %}
-        <span>/ {{ page.filename }}</span>
-        {%- endif %}
+        <a href="./<%= page.subindex %>.html"><%= page.subindex %>.html</a>
+        <% end %>
+        <% if page.filename != "index.html" %>
+        <span>/ <%= page.filename %></span>
+        <% end %>
       </nav>
 
       <hr />
@@ -58,21 +58,21 @@
       <% end %>
 
       <!-- Content: begin -->
-      {{ content }}
+      <%= content %>
       <!-- Content: end -->
 
-      {%- if page.next or page.previous %}
+      <% if page.next || page.previous %>
       <!-- Pagination -->
       <nav>
-        {%- if page.previous %}
-        <a href="./{{ page.previous }}">⟵ {{ page.previous }}</a>
-        {%- endif %}
-        {%  if page.next and page.previous %}&nbsp{% endif %}
-        {%- if page.next %}
-        <a href="./{{ page.next }}">{{ page.next }} ⟶</a>
-        {%- endif %}
+        <% if page.previous %>
+        <a href="./<%= page.previous %>">⟵ <%= page.previous %></a>
+        <% end %>
+        <%  if page.next && page.previous %>&nbsp<% end %>
+        <% if page.next %>
+        <a href="./<%= page.next %>"><%= page.next %> ⟶</a>
+        <% end %>
       </nav>
-      {%- endif %}
+      <% end %>
     </article>
 
     <hr />

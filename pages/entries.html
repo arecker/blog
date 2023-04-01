@@ -1,0 +1,13 @@
+<!-- meta:title Entries -->
+<!-- meta:subtitle archive of journal entries -->
+
+<table>
+  <% entries.each do |e| %>
+  <tr>
+    <td>
+      <a href="./<%= e.filename %>"><%= e.filename %></a>
+    </td>
+    <td><%= e.subtitle %></td>
+  </tr>
+  <% end %>
+</table>
