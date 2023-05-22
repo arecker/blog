@@ -13,12 +13,15 @@ logger.level = Logger::INFO
 module Blog
   # Site - global website metadata
   class Site
-    attr_reader :protocol, :domain, :author, :year
+    attr_reader :protocol, :domain, :author, :year, :title, :subtitle
 
-    def initialize(protocol:, domain:, author:)
+    def initialize(protocol:, domain:, author:, title:, subtitle:)
       @protocol = protocol
       @domain = domain
       @author = author
+      @year = year
+      @title = title
+      @subtitle = subtitle
 
       now = Time.now
       @year = now.year
@@ -136,7 +139,10 @@ module Blog
     entries_dir += '/' unless entries_dir.end_with?('/')
     entries = Dir["#{entries_dir}*.html"]
     entries = entries.map { |p| Entry.new p }.reverse
-    # paginate
+    paginate_entries(entries)
+  end
+
+  def self.paginate_entries(entries)
     entries.each_with_index do |e, i|
       e.previous = entries[i - 1].filename if i.positive?
       e.next = entries[i + 1].filename unless i == (entries.length - 1)
@@ -157,6 +163,14 @@ module Blog
     namespace = OpenStruct.new(**context)
     template.result(namespace.instance_eval { binding })
   end
+
+  def self.render_feed(site: nil, entries: nil)
+    context = { site: site, entries: entries }
+    layout = File.read('./pages/_feed.xml')
+    template = ERB.new(layout, trim_mode: '-')
+    namespace = OpenStruct.new(**context)
+    template.result(namespace.instance_eval { binding })
+  end
 end
 
 www_dir = './www'
@@ -172,6 +186,8 @@ www_dir += '/' unless www_dir.end_with? '/'
 total_entries = entries.length
 layout = File.read('./pages/_layout.html')
 site = Blog::Site.new(
+  title: 'alexrecker.com',
+  subtitle: 'a personal website',
   protocol: 'https',
   domain: 'www.alexrecker.com',
   author: 'Alex Recker'
@@ -189,3 +205,9 @@ entries.each_with_index do |e, i|
   logger.debug "wrote #{e}"
   logger.info "wrote #{i + 1}/#{total_entries} entries" if ((i + 1) % 100).zero? || i == total_entries - 1
 end
+
+File.open("./#{www_dir}/feed.xml", 'w') do |f|
+  content = Blog.render_feed(site: site, entries: entries)
+  f.write(content)
+end
+logger.info 'wrote feed.xml'
