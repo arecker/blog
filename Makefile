@@ -16,10 +16,6 @@ clean:
 	rm -rf ./www/*.xml
 	rm -rf ./www/*.html
 
-.PHONY: new
-new:
-	./build.rb
-
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish
 publish:
