@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  push: {}
+
+jobs:
+  deploy:
+    name: 'Deploy to Netlify'
+    steps:
+      - name: checkout repo content
+        uses: actions/checkout@v2
+
+      - name: setup python
+        uses: actions/setup-python@v4
+
+      - name: build website
+        run: make
+
+      - name: setup nodejs
+        uses: actions/setup-node@v3
+
+      - name: install netlify
+        run: npm install -g netlify-cli
+
+      - name: deploy to netlify
+        run: netlify deploy --prod --dir=www --auth "${{ secrets.NETLIFY_TOKEN }}" --site "${{ secrets.NETLIFY_SITE_ID }}"
