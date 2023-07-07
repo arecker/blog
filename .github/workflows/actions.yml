@@ -6,7 +6,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    name: 'Deploy to Netlify'
     steps:
       - name: checkout repo content
         uses: actions/checkout@v2
