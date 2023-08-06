@@ -1,0 +1,12 @@
+<!-- meta:title Banners -->
+<!-- meta:description gallery of banner images -->
+
+{% for image in images %}
+  {% if image.banner %}
+    <figure>
+      <a href="{{ image.src }}">
+        <img alt="{{ image.path.name }}" src="{{ image.src }}" />
+      </a>
+    </figure>
+  {% endif %}
+{% endfor %}

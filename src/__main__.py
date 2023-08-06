@@ -9,6 +9,7 @@ from . import (
     render_page,
     load_entries,
     load_pages,
+    load_images,
     make_global_context,
 )
 
@@ -32,13 +33,18 @@ def main(args):
 
     # load pages
     pages = load_pages()
-    logger.info('loaded %s page(s)', len(pages))
+    logger.info('loaded %d page(s)', len(pages))
+
+    # load images
+    images = load_images()
+    logger.info('loaded %d image(s)', len(images))
 
     # create global context
     context = make_global_context(
         args=args,
         entries=entries,
         pages=pages,
+        images=images,
     )
 
     for page in pages:

@@ -7,6 +7,7 @@ Context = collections.namedtuple('Context', [
     'entries',
     'latest',
     'pages',
+    'images',
     'timestamp',
 ])
 
@@ -17,7 +18,7 @@ Site = collections.namedtuple('Site', [
 ])
 
 
-def make_global_context(args=None, entries=[], pages=[]) -> Context:
+def make_global_context(args=None, entries=[], pages=[], images=[]) -> Context:
     kwargs = {
         'site': Site(
             protocol=args.site_protocol,
@@ -27,6 +28,7 @@ def make_global_context(args=None, entries=[], pages=[]) -> Context:
         'entries': entries,
         'pages': pages,
         'timestamp': datetime.datetime.now(),
+        'images': images,
     }
 
     try:
