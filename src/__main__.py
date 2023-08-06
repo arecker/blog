@@ -51,7 +51,7 @@ def main(args):
         with open(f'./www/{entry.filename}', 'w') as f:
             f.write(render_page(entry, site=site, entries=entries, pages=pages))
 
-        if (i + 1) % 100 == 0:
+        if ((i + 1) % 100 == 0) or (i + 1) == total:
             logger.info('generated %d/%d journal entries', i + 1, total)
 
     duration = time.time() - start
