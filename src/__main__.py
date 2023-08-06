@@ -1,164 +1,77 @@
 import argparse
-import collections
-import datetime
 import logging
-import os
 import pathlib
-import platform
-import random
 import sys
+import time
+import datetime
 
-from . import lib
+from . import (
+    render_page,
+    load_entries,
+    load_pages,
+    Site,
+)
 
 
 logger = logging.getLogger(__name__)
-
-parser = argparse.ArgumentParser(prog='python -m src')
-group = parser.add_argument_group('run options')
-group.add_argument('--verbose', action='store_true', default=False, help='show debug logs')
-group.add_argument('-C', '--config', help='path to config file', default='./blog.conf')
-
-
-@lib.register_page(filename='media.html', title='Media', description='all website media')
-def media_page(renderer=None, args=None, c=None, **kwargs):
-    renderer.block('h3', contents='Index')
-    sections = ('Images', 'Videos', 'Audio')
-    with renderer.wrapping_block('ul'):
-        for section in sections:
-            with renderer.wrapping_block('li'):
-                renderer.block('a', href='#' + section.lower(), contents=section)
-
-    media = collections.defaultdict(list)
-    for p in pathlib.Path(c.site.www).glob('**/*.*'):
-        if p.suffix.lower() in ('.jpg', '.jpeg', '.png', '.bmp'):
-            media['images'].append(p)
-        if p.suffix.lower() in ('.ogg', '.mp3', '.wav'):
-            media['audio'].append(p)
-        if p.suffix.lower() in ('.mp4', '.webm'):
-            media['videos'].append(p)
-
-    for section in ('images', 'videos', 'audio'):
-        renderer.block('h3', contents=section.title(), _id=section)
-        total_size = sum([os.path.getsize(i) for i in media[section]])
-        renderer.table(data=[
-            ['Total Count', str(len(media[section]))],
-            ['Total Storage', lib.convert_size(total_size)]
-        ])
-
-        with renderer.wrapping_block('table'):
-            with renderer.wrapping_block('tr'):
-                renderer.block('td', contents='Name')
-                renderer.block('td', contents='Size')
-            for item in sorted(media[section], key=lambda p: p.name, reverse=True):
-                with renderer.wrapping_block('tr'):
-                    with renderer.wrapping_block('td'):
-                        href = './' + str(
-                            item.relative_to(pathlib.Path(c.site.www)))
-                        renderer.block('a', href=href, contents=item.name)
-
-                    renderer.block('td',
-                                   contents=lib.convert_size(
-                                   os.path.getsize(item)))
-
-    return renderer.text
-
-
-@lib.register_page(filename='404.html', title='404', description='page not found')
-def four_oh_four(renderer=None, entries=[], **kwargs):
-    choice = random.choice([e for e in entries if e.banner])
-    renderer.block('p', 'I don\'t have that page, so here\'s a random entry instead!')
-    renderer.figure(alt='random banner',
-                    src=f'./images/banners/{choice.banner}',
-                    href=f'./{choice.filename}',
-                    caption=choice.description)
-    return renderer.text
-
-
-@lib.register_page(filename='index.html',
-                   title='Hey Reader!',
-                   description='emails from Alex')
-def index(renderer=None, args=None, entries=[], pages=[], **kwargs):
-    latest = entries[0]
-    renderer.block('h2', 'Latest Entry')
-    renderer.figure(alt='latest entry banner',
-                    src=f'./images/banners/{latest.banner}',
-                    href=f'./{latest.filename}',
-                    caption=latest.description)
-
-    renderer.block('h2', 'Pages')
-    pages = [p for p in pages if p.filename not in ('index.html', '404.html')]
-    with renderer.wrapping_block('table'):
-        for page in pages:
-            with renderer.wrapping_block('tr'):
-                with renderer.wrapping_block('td'):
-                    renderer.block('a',
-                                   href=f'./{page.filename}',
-                                   contents=page.filename)
-                renderer.block('td', contents=page.description)
-
-    renderer.block('h2', 'Entries')
-    with renderer.wrapping_block('table'):
-        for entry in entries:
-            with renderer.wrapping_block('tr'):
-                with renderer.wrapping_block('td'):
-                    renderer.block('a',
-                                   href=f'./{entry.filename}',
-                                   contents=f'{entry.filename}')
-                    renderer.block('td', contents=entry.description)
-
-    return renderer.text
+parser = argparse.ArgumentParser()
+group = parser.add_argument_group('Site Options')
+group.add_argument('--site-protocol', default='https')
+group.add_argument('--site-domain', required=True)
+group.add_argument('--site-author', required=True)
 
 
 def main(args):
-    start = datetime.datetime.now()
-    logger.info('starting website build using python v%s (%s)', platform.python_version(), sys.executable)
+    start = time.time()
 
-    c = lib.load_config(args.config)
-    logger.debug('loaded config %s', c)
-    entries = lib.fetch_entries(c.site.entries)
-    pages = lib.fetch_pages()
-
-    lib.pave_webroot(www_dir=c.site.www)
-
-    lib.write_sitemap(c.site.www,
-                      full_url=c.site.url,
-                      entries=entries,
-                      pages=[p.filename for p in pages])
-
-    lib.write_feed(c.site.www,
-                   title=c.site.title,
-                   subtitle=c.site.subtitle,
-                   author_name=c.site.name,
-                   author_email=c.site.email,
-                   timestamp=entries[0].date,
-                   full_url=c.site.url,
-                   entries=entries)
-
-    lib.write_entries(entries=entries,
-                      dir_www=c.site.www,
-                      full_url=c.site.url,
-                      author=c.site.name)
-
-    lib.write_pages(
-        dir_www=c.site.www,
-        entries=entries,
-        pages=pages,
-        full_url=c.site.url,
-        author=c.site.name,
-        args=args,
-        c=c,
+    # create Site object
+    site = Site(
+        protocol=args.site_protocol,
+        domain=args.site_domain,
+        author=args.site_author,
+        timestamp=datetime.datetime.now(),
     )
 
-    lib.validate_website(c.site.www)
-    end = datetime.datetime.now()
-    logger.info('finished website build in %.2fs', (end - start).total_seconds())
+    # load entries
+    entries = load_entries()
+    logger.info('loaded %s journal entries', len(entries))
+
+    # load pages
+    pages = load_pages()
+    logger.info('loaded %s page(s)', len(pages))
+
+    for page in pages:
+        with open(f'./www/{page.filename}', 'w') as f:
+            f.write(render_page(page, site=site, entries=entries, pages=pages))
+        logger.info('generated %s', page.filename)
+
+    # render entries
+    total = len(entries)
+    for i, entry in enumerate(entries):
+        with open(f'./www/{entry.filename}', 'w') as f:
+            f.write(render_page(entry, site=site, entries=entries, pages=pages))
+
+        if (i + 1) % 100 == 0:
+            logger.info('generated %d/%d journal entries', i + 1, total)
+
+    duration = time.time() - start
+    logger.info('build finished in %ds', duration)
 
 
 if __name__ == '__main__':
+    logging.basicConfig(
+        stream=sys.stderr,
+        format='blog: %(message)s',
+        level=logging.INFO,
+    )
+
     args = parser.parse_args()
-    if args.verbose:
-        level = logging.DEBUG
-    else:
-        level = logging.INFO
-    logging.basicConfig(level=level, stream=sys.stderr, format='%(levelname)s: %(message)s')
-    main(args=args)
+
+    try:
+        main(args)
+    except AssertionError as e:
+        logger.error('assertion failed: %s', e)
+        sys.exit(1)
+    except KeyboardInterrupt:
+        logger.info('program interrupted, exiting')
+        sys.exit(0)

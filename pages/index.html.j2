@@ -1,0 +1,29 @@
+<!-- meta:title Alex Recker's Journal -->
+
+{% if latest %}
+  <h2>Latest Entry</h2>
+  <figure>
+    <a href="./{{ latest.filename }}">
+      <img alt="latest entry banner" src="./images/banners/{{ latest.banner }}" />
+    </a>
+    <figcaption>
+      <p>{{ latest.description }}</p>
+    </figcaption>
+  </figure>
+{% endif %}
+
+{% if pages %}
+  <h2>Pages</h2>
+  <table>
+    {% for page in pages %}
+      {% if page.filename != "index.html" %}
+      <tr>
+        <td>
+          <a href="/{{ page.filename }}">{{ page.filename }}</a>
+        </td>
+        <td>{{ page.description }}</td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+  </table>
+{% endif %}
