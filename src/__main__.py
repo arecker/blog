@@ -9,12 +9,14 @@ from . import (
     render_page,
     load_entries,
     load_pages,
-    Site,
+    make_global_context,
 )
 
 
 logger = logging.getLogger(__name__)
+
 parser = argparse.ArgumentParser()
+
 group = parser.add_argument_group('Site Options')
 group.add_argument('--site-protocol', default='https')
 group.add_argument('--site-domain', required=True)
@@ -24,14 +26,6 @@ group.add_argument('--site-author', required=True)
 def main(args):
     start = time.time()
 
-    # create Site object
-    site = Site(
-        protocol=args.site_protocol,
-        domain=args.site_domain,
-        author=args.site_author,
-        timestamp=datetime.datetime.now(),
-    )
-
     # load entries
     entries = load_entries()
     logger.info('loaded %s journal entries', len(entries))
@@ -40,16 +34,23 @@ def main(args):
     pages = load_pages()
     logger.info('loaded %s page(s)', len(pages))
 
+    # create global context
+    context = make_global_context(
+        args=args,
+        entries=entries,
+        pages=pages,
+    )
+
     for page in pages:
         with open(f'./www/{page.filename}', 'w') as f:
-            f.write(render_page(page, site=site, entries=entries, pages=pages))
+            f.write(render_page(page, context))
         logger.info('generated %s', page.filename)
 
     # render entries
     total = len(entries)
     for i, entry in enumerate(entries):
         with open(f'./www/{entry.filename}', 'w') as f:
-            f.write(render_page(entry, site=site, entries=entries, pages=pages))
+            f.write(render_page(entry, context))
 
         if ((i + 1) % 100 == 0) or (i + 1) == total:
             logger.info('generated %d/%d journal entries', i + 1, total)

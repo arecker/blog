@@ -1,0 +1,13 @@
+<!-- meta:title Entries -->
+<!-- meta:description complete archive of journal entries -->
+
+<table>
+  {% for entry in entries %}
+    <tr>
+      <td>
+        <a href="./{{ entry.filename }}">{{ entry.filename }}</a>
+      </td>
+      <td>{{ entry.description }}</td>
+    </tr>
+  {% endfor %}
+</table>
