@@ -1,32 +1,27 @@
-<!-- meta:title Alex Recker's Journal -->
+<h2>Latest Entry</h2>
+<figure>
+  <a href="./{{ latest.filename }}">
+    <img alt="latest entry banner" src="./images/banners/{{ latest.banner }}" />
+  </a>
+  <figcaption>
+    <p>{{ latest.description }}</p>
+  </figcaption>
+</figure>
 
-{% if latest %}
-  <h2>Latest Entry</h2>
-  <figure>
-    <a href="./{{ latest.filename }}">
-      <img alt="latest entry banner" src="./images/banners/{{ latest.banner }}" />
-    </a>
-    <figcaption>
-      <p>{{ latest.description }}</p>
-    </figcaption>
-  </figure>
-{% endif %}
-
-{% if pages %}
-  <h2>Pages</h2>
-  <table>
-    {% for page in pages %}
-      {% if page.filename != "index.html" %}
+<h2>Pages</h2>
+<table>
+  {%- for page in pages %}
+    {%- if page.filename != "index.html" %}
       <tr>
         <td>
           <a href="./{{ page.filename }}">{{ page.filename }}</a>
         </td>
         <td>{{ page.description }}</td>
       </tr>
-      {% endif %}
-    {% endfor %}
-  </table>
-{% endif %}
+    {%- endif %}
+  {%- endfor %}
+</table>
+
 
 <h2>Other Links</h2>
 <table>
@@ -47,11 +42,5 @@
       <a href="https://www.bobrosssearch.com/">https://www.bobrosssearch.com/</a>
     </td>
     <td>cozy homepage with search bar and quotes by Bob Ross</td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://www.fromdirktolight.com//">https://www.fromdirktolight.com//</a>
-    </td>
-    <td>buy a cool lamp made by my dad</td>
   </tr>
 </table>

@@ -1,7 +1,9 @@
+{%- set title = page.title or site.title %}
+{%- set description = page.description or site.description %}
 <!doctype html>
 <html>
   <head>
-    <title>{{ page.title }} - Alex Recker's Journal</title>
+    <title>{{ title }}</title>
 
     <!-- Page Assets -->
     <link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
@@ -10,12 +12,12 @@
     <!-- Page Metadata -->
     <meta charset="UTF-8" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="{{ page.title }}" name="twitter:title" />
-    <meta content="{{ page.description }}" name="twitter:description" />
+    <meta content="{{ title }}" name="twitter:title" />
+    <meta content="{{ description }}" name="twitter:description" />
     <meta content="{{ site.protocol }}://{{ site.domain }}/{{ page.filename }}" name="og:url" />
     <meta content="article" property="og:type" />
-    <meta content="{{ page.title }}" property="og:title" />
-    <meta content="{{ page.description }}" property="og:description" />
+    <meta content="{{ title }}" property="og:title" />
+    <meta content="{{ description }}" property="og:description" />
   </head>
   <body>
 
@@ -23,10 +25,8 @@
 
       <!-- Page Header -->
       <header>
-        <h1>{{ page.title }}</h1>
-        {% if page.description %}
-          <p>{{ page.description }}</p>
-        {% endif %}
+        <h1>{{ title }}</h1>
+        <p>{{ description }}</p>
       </header>
 
       <hr />
@@ -34,36 +34,36 @@
       <!-- Page Breadcrumbs -->
       <nav>
         <a href='./index.html'>index.html</a>
-        {% if page.filename != 'index.html' %}
+        {%- if page.filename != 'index.html' %}
           <span>/ {{ page.filename }}</span>
-        {% endif %}
+        {%- endif %}
       </nav>
 
       <hr />
 
-      {% if page.banner %}
+      {%- if page.banner %}
       <!-- Page Banner -->
       <figure>
         <a href="./images/banners/{{ page.banner }}">
           <img alt="page banner" src="./images/banners/{{ page.banner }}" />
         </a>
       </figure>
-      {% endif %}
+      {%- endif %}
 
-      {{ content }}
+{{ content }}
 
-      {% if page.next or page.previous %}
+      {%- if page.next or page.previous %}
         <!-- Pagination -->
         <nav>
-          {% if page.next %}
+          {%- if page.next %}
             <a href='./{{ page.next }}'>⟵ {{ page.next }}</a>
             &nbsp
-          {% endif %}
-          {% if page.previous %}
+          {%- endif %}
+          {%- if page.previous %}
             <a href='./{{ page.previous }}'>{{ page.previous }} ⟶</a>
-          {% endif %}
+          {%- endif %}
         </nav>
-      {% endif %}
+      {%- endif %}
 
       <hr />
 
@@ -71,5 +71,7 @@
       <footer>
         <small>© Copyright {{ timestamp.year }} {{ site.author }}</small>
       </footer>
+
+    </article>
   </body>
 </html>

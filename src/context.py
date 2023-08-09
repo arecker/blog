@@ -12,6 +12,8 @@ Context = collections.namedtuple('Context', [
 ])
 
 Site = collections.namedtuple('Site', [
+    'title',
+    'description',
     'protocol',
     'domain',
     'author',
@@ -22,6 +24,8 @@ Site = collections.namedtuple('Site', [
 def make_global_context(args=None, entries=[], pages=[], images=[]) -> Context:
     kwargs = {
         'site': Site(
+            title=args.site_title,
+            description=args.site_description,
             protocol=args.site_protocol,
             domain=args.site_domain,
             author=args.site_author,

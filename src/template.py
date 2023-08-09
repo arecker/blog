@@ -3,13 +3,15 @@ import jinja2
 import pathlib
 
 
-def render_template(template_name: str, context={}, templates_dir='./templates'):
+template_loader = jinja2.FileSystemLoader(searchpath='./templates')
+template_env = jinja2.Environment(loader=template_loader)
+
+
+def render_template(template_name: str, context={}):
     """
     Render a template into a string.
     """
-    loader = jinja2.FileSystemLoader(searchpath=templates_dir)
-    env = jinja2.Environment(loader=loader)
-    template = env.get_template(template_name)
+    template = template_env.get_template(template_name)
     return template.render(**context)
 
 
@@ -24,13 +26,15 @@ def render_page(page, context={}, pages_dir='./pages'):
 
     if page.path.name.endswith('.j2'):
         # page is a template, so render it
-        env = jinja2.Environment(loader=jinja2.BaseLoader)
         with page.path.open('r') as f:
-            content = env.from_string(f.read()).render(**context)
+            content = template_env.from_string(f.read()).render(**context)
     else:
         # page isn't a template, so just read it
         with page.path.open('r') as f:
             content = f.read()
+
+    # indent the content so the HTML looks purty
+    content = '\n'.join(['      ' + row for row in content.split('\n')])
 
     # now, wrap that content in the base template
     context['content'] = content

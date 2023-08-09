@@ -37,7 +37,7 @@ def load_pages(pages_dir='./pages'):
 
         # get the rest from the metadata
         metadata = parse_metadata(content)
-        kwargs['title'] = metadata['title']
+        kwargs['title'] = metadata.get('title')
         kwargs['description'] = metadata.get('description')
         kwargs['banner'] = metadata.get('banner')
         kwargs['next'] = metadata.get('next')

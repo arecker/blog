@@ -1,4 +1,6 @@
 ARGS := \
+  --site-title "Hey Reader!" \
+  --site-description "personal online journal of Alex Recker" \
   --site-domain www.alexrecker.com \
   --site-author "$(shell git config user.name)" \
   --site-email "$(shell git config user.email)"

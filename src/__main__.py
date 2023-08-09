@@ -21,6 +21,8 @@ logger = logging.getLogger(__name__)
 parser = argparse.ArgumentParser()
 
 group = parser.add_argument_group('Site Options')
+group.add_argument('--site-title', required=True)
+group.add_argument('--site-description', required=True)
 group.add_argument('--site-protocol', default='https')
 group.add_argument('--site-domain', required=True)
 group.add_argument('--site-author', required=True)
@@ -39,7 +41,7 @@ def main(args):
     logger.info('loaded %d page(s)', len(pages))
 
     # load images
-    images = load_images()
+    images = load_images(entries=entries)
     logger.info('loaded %d image(s)', len(images))
 
     # create global context

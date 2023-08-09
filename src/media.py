@@ -7,9 +7,11 @@ import re
 Image = collections.namedtuple('Image', [
     'path',
     'banner',
+    'entry',
     'src',
     'date',
     'slug',
+    'title',
 ])
 
 r_filename = re.compile(
@@ -44,7 +46,7 @@ def parse_date(filename: str) -> datetime.datetime:
     raise ValueError(f'{filename} does not match expected format!')
 
 
-def load_images(images_dir='./www/images/'):
+def load_images(entries=[], images_dir='./www/images/'):
     image_extensions = (
         '.jpg',
         '.jpeg',
@@ -56,6 +58,9 @@ def load_images(images_dir='./www/images/'):
 
     images = []
 
+    # organize entries by banner name
+    entries = dict([(e.banner, e) for e in entries])
+
     for p in images_dir.glob('**/*.*'):
         if p.suffix.lower() not in image_extensions:
             continue
@@ -63,10 +68,22 @@ def load_images(images_dir='./www/images/'):
         kwargs = {}
         kwargs['path'] = p
         kwargs['src'] = './images/' + str(p.relative_to(images_dir))
-        kwargs['banner'] = banner_dir in p.parents
+
+        # if its a banner, link the entry
+        if is_banner := banner_dir in p.parents:
+            kwargs['banner'] = True
+            kwargs['entry'] = entries[p.name]
+        else:
+            kwargs['banner'] = False
+            kwargs['entry'] = None
 
         # parse the date from the slug
         kwargs['date'], kwargs['slug'] = parse_date(p.name)
+
+        # title for RSS feed
+        kwargs['title'] = kwargs['date'].strftime('%Y-%m-%d')
+        if slug := kwargs.get('slug'):
+            kwargs['title'] += ' - ' + slug.replace('-', ' ').title()
 
         images.append(Image(**kwargs))
 
