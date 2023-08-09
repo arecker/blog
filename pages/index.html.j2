@@ -10,18 +10,17 @@
 
 <h2>Pages</h2>
 <table>
-  {%- for page in pages %}
-    {%- if page.filename != "index.html" %}
-      <tr>
-        <td>
-          <a href="./{{ page.filename }}">{{ page.filename }}</a>
-        </td>
-        <td>{{ page.description }}</td>
-      </tr>
-    {%- endif %}
-  {%- endfor %}
+{%- for page in pages %}
+{%- if page.filename != "index.html" %}
+  <tr>
+    <td>
+      <a href="./{{ page.filename }}">{{ page.filename }}</a>
+    </td>
+    <td>{{ page.description }}</td>
+  </tr>
+{%- endif %}
+{%- endfor %}
 </table>
-
 
 <h2>Other Links</h2>
 <table>

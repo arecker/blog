@@ -76,7 +76,7 @@ def main(args):
 
 
     duration = time.time() - start
-    logger.info('build finished in %ds', duration)
+    logger.info('build finished in %.2fs', duration)
 
 
 if __name__ == '__main__':
