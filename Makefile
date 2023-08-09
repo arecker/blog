@@ -1,6 +1,7 @@
 ARGS := \
   --site-domain www.alexrecker.com \
-  --site-author "Alex Recker"
+  --site-author "$(shell git config user.name)" \
+  --site-email "$(shell git config user.email)"
 
 .PHONY: all
 all: build
@@ -23,6 +24,11 @@ clean:
 	rm -rf ./www/*.xml
 	rm -rf ./www/*.html
 	rm -rf ./venv
+
+.PHONY: test
+test: venv/bin/python
+	python -m unittest discover -v
+
 
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish

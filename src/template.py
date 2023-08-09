@@ -13,7 +13,7 @@ def render_template(template_name: str, context={}, templates_dir='./templates')
     return template.render(**context)
 
 
-def render_page(page, context, pages_dir='./pages'):
+def render_page(page, context={}, pages_dir='./pages'):
     """
     Render a page into a string.
     """

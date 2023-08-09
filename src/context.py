@@ -15,6 +15,7 @@ Site = collections.namedtuple('Site', [
     'protocol',
     'domain',
     'author',
+    'email',
 ])
 
 
@@ -24,6 +25,7 @@ def make_global_context(args=None, entries=[], pages=[], images=[]) -> Context:
             protocol=args.site_protocol,
             domain=args.site_domain,
             author=args.site_author,
+            email=args.site_email,
         ),
         'entries': entries,
         'pages': pages,

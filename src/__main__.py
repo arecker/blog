@@ -6,11 +6,13 @@ import time
 import datetime
 
 from . import (
+    render_template,
     render_page,
     load_entries,
     load_pages,
     load_images,
     make_global_context,
+    new_rss_feed,
 )
 
 
@@ -22,6 +24,7 @@ group = parser.add_argument_group('Site Options')
 group.add_argument('--site-protocol', default='https')
 group.add_argument('--site-domain', required=True)
 group.add_argument('--site-author', required=True)
+group.add_argument('--site-email', required=True)
 
 
 def main(args):
@@ -60,6 +63,16 @@ def main(args):
 
         if ((i + 1) % 100 == 0) or (i + 1) == total:
             logger.info('generated %d/%d journal entries', i + 1, total)
+
+    # render feed
+    with open('./www/feed.xml', 'w') as f:
+        feed = new_rss_feed(context)
+        f.write(render_template(
+            'feed.xml.j2',
+            context=context._asdict() | {'feed': feed},
+        ))
+        logger.info('generated feed.xml')
+
 
     duration = time.time() - start
     logger.info('build finished in %ds', duration)
