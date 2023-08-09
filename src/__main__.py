@@ -12,7 +12,7 @@ from . import (
     load_pages,
     load_images,
     make_global_context,
-    new_rss_feed,
+    build_feed_items,
 )
 
 
@@ -66,10 +66,9 @@ def main(args):
 
     # render feed
     with open('./www/feed.xml', 'w') as f:
-        feed = new_rss_feed(context)
         f.write(render_template(
             'feed.xml.j2',
-            context=context._asdict() | {'feed': feed},
+            context=context._asdict() | {'items': build_feed_items(context)},
         ))
         logger.info('generated feed.xml')
 

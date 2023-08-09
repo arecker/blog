@@ -1,14 +1,9 @@
 import collections
 
 
-Feed = collections.namedtuple('Feed', [
-    'items',
-])
 FeedItem = collections.namedtuple('FeedItem', [
 ])
 
 
-def new_rss_feed(context) -> FeedItem:
-    kwargs = {'items': []}
-
-    return Feed(**kwargs)
+def build_feed_items(context) -> list[FeedItem]:
+    return []
