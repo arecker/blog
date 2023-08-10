@@ -28,6 +28,10 @@ def build_feed_items(context) -> list[FeedItem]:
         items.append(FeedItem(**kwargs))
 
     for image in sorted(context.images, key=lambda i: i.path.name):
+        # skip banners, since we already have those
+        if image.banner:
+            continue
+
         link = f'{context.site.protocol}://{context.site.domain}/{image.src[2:]}'
         items.append(FeedItem(
             title=image.title,
