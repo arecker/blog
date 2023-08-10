@@ -7,6 +7,16 @@ template_loader = jinja2.FileSystemLoader(searchpath='./templates')
 template_env = jinja2.Environment(loader=template_loader)
 
 
+def write_page(page, context={}):
+    # first render the conent
+    content = render_page(page, context=context)
+
+    # now write it to the webroot
+    target = pathlib.Path(f'www/{page.filename}')
+    with target.open('w') as f:
+        f.write(content)
+
+
 def render_template(template_name: str, context={}):
     """
     Render a template into a string.

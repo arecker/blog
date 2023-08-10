@@ -72,7 +72,9 @@ def load_entries(entries_dir='./entries') -> list[Page]:
         # get the rest from metadata
         metadata = parse_metadata(content)
         kwargs['banner'] = metadata.get('banner')
-        kwargs['description'] = metadata['title']
+
+        # remove special characters from description
+        kwargs['description'] = metadata['title'].replace("'", '')
 
         # check pagination map
         kwargs['next'] = pagination[p.name].next

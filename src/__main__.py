@@ -5,12 +5,14 @@ import sys
 import time
 import datetime
 
+
 from . import (
     render_template,
     render_page,
     load_entries,
     load_pages,
     load_images,
+    write_page,
     make_global_context,
     build_feed_items,
 )
@@ -53,16 +55,13 @@ def main(args):
     )
 
     for page in pages:
-        with open(f'./www/{page.filename}', 'w') as f:
-            f.write(render_page(page, context))
+        write_page(page, context=context)
         logger.info('generated %s', page.filename)
 
     # render entries
     total = len(entries)
     for i, entry in enumerate(entries):
-        with open(f'./www/{entry.filename}', 'w') as f:
-            f.write(render_page(entry, context))
-
+        write_page(entry, context=context)
         if ((i + 1) % 100 == 0) or (i + 1) == total:
             logger.info('generated %d/%d journal entries', i + 1, total)
 

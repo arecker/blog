@@ -1,5 +1,6 @@
 import collections
 import datetime
+import random
 
 
 Context = collections.namedtuple('Context', [
@@ -9,6 +10,7 @@ Context = collections.namedtuple('Context', [
     'pages',
     'images',
     'timestamp',
+    'random',
 ])
 
 Site = collections.namedtuple('Site', [
@@ -41,5 +43,8 @@ def make_global_context(args=None, entries=[], pages=[], images=[]) -> Context:
         kwargs['latest'] = entries[0]
     except IndexError:
         kwargs['latest'] = None
+
+    # pick a random one with a banner
+    kwargs['random'] = random.choice([e for e in entries if e.banner])
 
     return Context(**kwargs)

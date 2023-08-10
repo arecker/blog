@@ -12,6 +12,8 @@ Image = collections.namedtuple('Image', [
     'date',
     'slug',
     'title',
+    'alt',
+    'napkin',
 ])
 
 r_filename = re.compile(
@@ -70,12 +72,8 @@ def load_images(entries=[], images_dir='./www/images/'):
         kwargs['src'] = './images/' + str(p.relative_to(images_dir))
 
         # if its a banner, link the entry
-        if is_banner := banner_dir in p.parents:
-            kwargs['banner'] = True
-            kwargs['entry'] = entries[p.name]
-        else:
-            kwargs['banner'] = False
-            kwargs['entry'] = None
+        kwargs['banner'] = banner_dir in p.parents
+        kwargs['entry'] = entries.get(p.name)
 
         # parse the date from the slug
         kwargs['date'], kwargs['slug'] = parse_date(p.name)
@@ -84,6 +82,13 @@ def load_images(entries=[], images_dir='./www/images/'):
         kwargs['title'] = kwargs['date'].strftime('%Y-%m-%d')
         if slug := kwargs.get('slug'):
             kwargs['title'] += ' - ' + slug.replace('-', ' ').title()
+
+        # use the title as the alt caption
+        kwargs['alt'] = kwargs['title']
+
+        # napkin flag
+        slug = kwargs['slug']
+        kwargs['napkin'] = (slug is not None) and 'napkin' in slug
 
         images.append(Image(**kwargs))
 

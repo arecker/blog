@@ -2,14 +2,12 @@
 <!-- meta:description gallery of banner images -->
 
 {%- for image in images %}
-{%- if image.banner %}
-<figure>
-  <a href="{{ image.src }}">
-    <img alt="{{ image.path.name }}" src="{{ image.src }}" />
-  </a>
-  <figcaption>
-    <p>From <a href="./{{ image.entry.filename }}">{{ image.entry.description }}</a></p>
-  </figcaption>
-</figure>
-{%- endif %}
+  {%- if image.banner %}
+    {%- set caption %}
+<p>From <a href="./{{ image.entry.filename }}">{{ image.entry.description }}</a></p>
+    {%- endset %}
+    {%- with href=image.src, src=image.src, alt=image.alt, caption=caption %}
+      {%- include "figure.html.j2" %}
+    {%- endwith %}
+  {%- endif %}
 {%- endfor %}
