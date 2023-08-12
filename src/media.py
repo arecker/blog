@@ -4,6 +4,38 @@ import pathlib
 import re
 
 
+class NewImage:
+    def __init__(self, path):
+        self.path = pathlib.Path(path)
+
+    @property
+    def filename(self):
+        return self.path.name
+
+    @property
+    def date(self):
+        if match := r_filename.search(self.path.stem):
+            return datetime.datetime(
+                year=int(match.group('year')),
+                month=int(match.group('month')),
+                day=int(match.group('day')),
+            )
+        raise ValueError(f'could not parse date from {self.filename}')
+
+    @property
+    def date_slug(self):
+        return self.date.strftime('%Y-%m-%d')
+
+    @property
+    def slug(self):
+        if match := r_filename.search(self.path.stem):
+            return match.group('slug')
+
+    @property
+    def title(self):
+        return self.slug.replace('-', ' ').title()
+
+
 Image = collections.namedtuple('Image', [
     'path',
     'banner',
