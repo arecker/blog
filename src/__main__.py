@@ -4,8 +4,6 @@ import pathlib
 import sys
 import time
 
-import bs4
-
 
 from . import (
     render_template,
@@ -73,7 +71,6 @@ def main(args):
             'feed.xml.j2',
             context=context._asdict() | {'items': build_feed_items(context)},
         )
-        content = bs4.BeautifulSoup(content, features='xml').prettify()
         f.write(content)
         logger.info('generated feed.xml')
 

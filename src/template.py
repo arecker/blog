@@ -1,7 +1,11 @@
+import logging
 import pathlib
+import xml.etree.ElementTree
 
 import jinja2
-import bs4
+
+
+logger = logging.getLogger(__name__)
 
 
 def embed(obj):
@@ -37,13 +41,34 @@ template_env = jinja2.Environment(loader=template_loader)
 template_env.filters['embed'] = embed
 
 
+def prettify_xml(content):
+    tree = xml.etree.ElementTree.fromstring(content)
+    xml.etree.ElementTree.indent(tree)
+    content = xml.etree.ElementTree.tostring(
+        tree, encoding='utf8', method='html').decode('utf-8')
+    return content
+
+
 def write_page(page, context={}):
     # first render the conent
     content = render_page(page, context=context)
+    content = content.strip()
 
     # prettify it
     if page.filename.endswith('.html'):
-        content = bs4.BeautifulSoup(content, 'html.parser').prettify()
+        content = '\n'.join(content.splitlines()[1:])  # remove doctype
+        content = content.replace('&', '&amp;')  # clean up chars
+        try:
+            content = prettify_xml(content)
+            content = '<!doctype html>\n' + content  # add doctype back
+        except xml.etree.ElementTree.ParseError as e:
+            msg = 'invalid XML on row %d, col %d'
+            msg = 'error writing %s: ' + msg
+            logger.warn(
+                msg,
+                page.filename,
+                e.position[0] + 1, e.position[1]
+            )
 
     # now write it to the webroot
     target = pathlib.Path(f'www/{page.filename}')

@@ -63,6 +63,10 @@ table {
     margin-bottom: 10px;
 }
 
+nav a:nth-child(2) {
+  margin-left: 10px;
+}
+
 @media only screen and (max-width: 500px) {
   figure img, video {
     max-width: 100%;
