@@ -41,3 +41,16 @@ class TestImage(unittest.TestCase):
         actual = Image('1990-09-28-test-image.jpg').title
         expected = 'Test Image'
         self.assertEqual(actual, expected)
+
+    def test_href(self):
+        actual = Image('www/images/test.jpg').href
+        expected = './images/test.jpg'
+        self.assertEqual(actual, expected)
+
+        actual = Image('www/images/subfolder/test.jpg').href
+        expected = './images/subfolder/test.jpg'
+        self.assertEqual(actual, expected)
+
+        actual = Image('./www/images/test.jpg').href
+        expected = './images/test.jpg'
+        self.assertEqual(actual, expected)

@@ -35,6 +35,12 @@ class NewImage:
     def title(self):
         return self.slug.replace('-', ' ').title()
 
+    @property
+    def href(self):
+        www_dir = pathlib.Path('./www')
+        relpath = self.path.relative_to(www_dir)
+        return f'./{relpath}'
+
 
 Image = collections.namedtuple('Image', [
     'path',
