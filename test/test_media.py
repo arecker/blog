@@ -37,6 +37,10 @@ class TestImage(unittest.TestCase):
         actual = Image('1990-09-28.jpg').slug
         self.assertIsNone(actual)
 
+        actual = Image('bare-image.jpg').slug
+        expected = 'bare-image'
+        self.assertEqual(actual, expected)
+
     def test_title(self):
         actual = Image('1990-09-28-test-image.jpg').title
         expected = 'Test Image'

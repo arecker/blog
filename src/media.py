@@ -31,6 +31,9 @@ class NewImage:
         if match := r_filename.search(self.path.stem):
             return match.group('slug')
 
+        # otherwise just return the stem
+        return self.path.stem
+
     @property
     def title(self):
         return self.slug.replace('-', ' ').title()
