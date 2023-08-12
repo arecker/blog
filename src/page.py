@@ -4,6 +4,26 @@ import pathlib
 import re
 
 
+class NewPage:
+    def __init__(self, path):
+        self.path = pathlib.Path(path)
+
+    @property
+    def filename(self):
+        if self.path.suffix == '.j2':
+            return self.path.name[:-3]
+        return self.path.name
+
+    @property
+    def is_entry(self):
+        entry_dir = pathlib.Path('./entries')
+        return entry_dir in self.path.parents
+
+    @property
+    def date(self):
+        return datetime.datetime.strptime(self.path.stem, '%Y-%m-%d')
+
+
 Page = collections.namedtuple('Page', [
     'path',
     'filename',

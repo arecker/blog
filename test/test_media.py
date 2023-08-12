@@ -1,6 +1,6 @@
 import unittest
 
-from src.media import NewImage as Image
+from src.media import Image
 
 
 class TestImage(unittest.TestCase):
@@ -58,3 +58,7 @@ class TestImage(unittest.TestCase):
         actual = Image('./www/images/test.jpg').href
         expected = './images/test.jpg'
         self.assertEqual(actual, expected)
+
+    def test_is_banner(self):
+        self.assertTrue(Image('./www/images/banners/test.jpg').is_banner)
+        self.assertFalse(Image('./www/images/test.jpg').is_banner)

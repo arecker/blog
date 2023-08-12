@@ -1,13 +1,8 @@
 <!-- meta:title Banners -->
 <!-- meta:description gallery of banner images -->
 
-{%- for image in images %}
-  {%- if image.banner %}
-    {%- set caption %}
-<p>From <a href="./{{ image.entry.filename }}">{{ image.entry.description }}</a></p>
-    {%- endset %}
-    {%- with href=image.src, src=image.src, alt=image.alt, caption=caption %}
-      {%- include "figure.html.j2" %}
-    {%- endwith %}
+{%- for entry in entries %}
+  {%- if entry.banner %}
+    {{ entry | embed }}
   {%- endif %}
 {%- endfor %}

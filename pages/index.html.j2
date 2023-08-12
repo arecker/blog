@@ -1,12 +1,5 @@
 <h2>Latest Entry</h2>
-<figure>
-  <a href="./{{ latest.filename }}">
-    <img alt="latest entry banner" src="./images/banners/{{ latest.banner }}" />
-  </a>
-  <figcaption>
-    <p>{{ latest.description }}</p>
-  </figcaption>
-</figure>
+{{ latest | embed }}
 
 <h2>Pages</h2>
 <table>

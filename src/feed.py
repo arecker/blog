@@ -24,7 +24,7 @@ def build_feed_items(context) -> list[FeedItem]:
         }
         if entry.banner:
             banner = f'{context.site.protocol}://{context.site.domain}'
-            banner += f'/images/banner/{entry.banner}'
+            banner += f'/images/banners/{entry.banner}'
             kwargs['image'] = banner
         else:
             kwargs['image'] = None
@@ -33,11 +33,11 @@ def build_feed_items(context) -> list[FeedItem]:
 
     for image in sorted(context.images, key=lambda i: i.path.name):
         # skip banners, since we already have those
-        if image.banner:
+        if image.is_banner:
             continue
 
         link = f'{context.site.protocol}://{context.site.domain}'
-        link += f'/{image.src[2:]}'
+        link += f'/{image.href[2:]}'
         items.append(FeedItem(
             title=image.title,
             date=image.date,
