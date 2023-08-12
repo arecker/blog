@@ -3,12 +3,10 @@ import logging
 import pathlib
 import sys
 import time
-import datetime
 
 
 from . import (
     render_template,
-    render_page,
     load_entries,
     load_pages,
     load_images,
@@ -33,6 +31,8 @@ group.add_argument('--site-email', required=True)
 
 def main(args):
     start = time.time()
+
+    pave_webroot()
 
     # load entries
     entries = load_entries()
@@ -73,9 +73,20 @@ def main(args):
         ))
         logger.info('generated feed.xml')
 
-
     duration = time.time() - start
     logger.info('build finished in %.2fs', duration)
+
+
+def pave_webroot():
+    webroot = pathlib.Path('./www')
+
+    old_files = []
+    old_files += list(webroot.glob('*.html'))
+    old_files += list(webroot.glob('*.xml'))
+
+    for target in old_files:
+        target.unlink()
+    logger.info('paved %d old file(s) from webroot', len(old_files))
 
 
 if __name__ == '__main__':

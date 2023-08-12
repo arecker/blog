@@ -1,3 +1,5 @@
+# flake8: noqa
+
 from .template import render_template, render_page, write_page
 from .page import load_pages, load_entries
 from .context import make_global_context

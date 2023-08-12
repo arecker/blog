@@ -19,6 +19,7 @@ Image = collections.namedtuple('Image', [
 r_filename = re.compile(
     r'(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})(-(?P<slug>.*))?')
 
+
 def parse_date(filename: str) -> datetime.datetime:
     """
     Parse the date from a filename with a YYYY-MM-DD- prefix.

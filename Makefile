@@ -6,11 +6,11 @@ ARGS := \
   --site-email "$(shell git config user.email)"
 
 .PHONY: all
-all: build
+all: test lint build
 
 .PHONY: build
 build: venv/bin/python
-	@echo "==> building blog"
+	@echo "==> building website"
 	./venv/bin/python -m src $(ARGS)
 
 venv/bin/python: requirements.txt
@@ -27,10 +27,15 @@ clean:
 	rm -rf ./www/*.html
 	rm -rf ./venv
 
+.PHONY: lint
+lint: venv/bin/python
+	@echo "==> checking code style"
+	./venv/bin/flake8 --doctests --color never --extend-exclude "venv/*" .
+
 .PHONY: test
 test: venv/bin/python
-	python -m unittest discover -v
-
+	@echo "==> running unit tests"
+	./venv/bin/python -m unittest discover -v
 
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish

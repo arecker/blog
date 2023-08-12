@@ -1,6 +1,6 @@
-import collections
-import jinja2
 import pathlib
+
+import jinja2
 
 
 template_loader = jinja2.FileSystemLoader(searchpath='./templates')
