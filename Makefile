@@ -6,12 +6,12 @@ ARGS := \
   --site-email "$(shell git config user.email)"
 
 .PHONY: all
-all: test lint build
+all: test lint build docs
 
 .PHONY: build
 build: venv/bin/python
 	@echo "==> building website"
-	./venv/bin/python ./main.py $(ARGS)
+	./venv/bin/python -m src.scripts.build $(ARGS)
 
 venv/bin/python: requirements.txt
 	@echo "==> generating local python"
@@ -19,6 +19,11 @@ venv/bin/python: requirements.txt
 	python -m venv --copies ./venv
 	./venv/bin/pip install --upgrade --quiet pip
 	./venv/bin/pip install --quiet -r requirements.txt
+
+.PHONY: docs
+docs:
+	@echo "==> generating api docs"
+	./venv/bin/pdoc src -o www/api/
 
 .PHONY: clean
 clean:

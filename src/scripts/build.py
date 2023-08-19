@@ -3,13 +3,12 @@ import logging
 import sys
 import time
 
-
 import src
+
 
 logger = logging.getLogger(__name__)
 
 parser = argparse.ArgumentParser()
-
 group = parser.add_argument_group('Site Options')
 group.add_argument('--site-title', required=True)
 group.add_argument('--site-description', required=True)

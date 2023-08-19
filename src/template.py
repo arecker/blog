@@ -41,7 +41,15 @@ template_env = jinja2.Environment(loader=template_loader)
 template_env.filters['embed'] = embed
 
 
-def prettify_xml(content):
+def prettify_xml(content: str) -> str:
+    """
+    Returns a prettified version of the XML document in `content` as a
+    `str`.
+
+    Warning: this raises a `xml.etree.ElementTree.ParseError` if there
+    is *anything* invalid in the document, and - being XML - it's kind
+    of picky.
+    """
     tree = xml.etree.ElementTree.fromstring(content)
     xml.etree.ElementTree.indent(tree)
     content = xml.etree.ElementTree.tostring(

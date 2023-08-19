@@ -1,5 +1,6 @@
 import collections
 import datetime
+import platform
 import random
 
 
@@ -10,6 +11,7 @@ Context = collections.namedtuple('Context', [
     'pages',
     'images',
     'timestamp',
+    'python_version',
     'random',
 ])
 
@@ -36,6 +38,7 @@ def make_global_context(args=None, entries=[], pages=[], images=[]) -> Context:
         'entries': entries,
         'pages': pages,
         'timestamp': datetime.datetime.now(),
+        'python_version': platform.python_version(),
         'images': images,
     }
 

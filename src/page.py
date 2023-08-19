@@ -37,6 +37,10 @@ Page = collections.namedtuple('Page', [
 
 
 def load_pages(pages_dir='./pages'):
+    """
+    Fetches a list of `Page` objects.
+    """
+
     pages = []
 
     for p in pathlib.Path(pages_dir).glob('*.*'):
