@@ -1,20 +1,10 @@
 import argparse
 import logging
-import pathlib
 import sys
 import time
 
 
-from . import (
-    render_template,
-    load_entries,
-    load_pages,
-    load_images,
-    write_page,
-    make_global_context,
-    build_feed_items,
-)
-
+import src
 
 logger = logging.getLogger(__name__)
 
@@ -32,22 +22,22 @@ group.add_argument('--site-email', required=True)
 def main(args):
     start = time.time()
 
-    pave_webroot()
+    logger.info('paved %d old file(s) from webroot', src.pave_webroot())
 
     # load entries
-    entries = load_entries()
+    entries = src.load_entries()
     logger.info('loaded %s journal entries', len(entries))
 
     # load pages
-    pages = load_pages()
+    pages = src.load_pages()
     logger.info('loaded %d page(s)', len(pages))
 
     # load images
-    images = load_images(entries=entries)
+    images = src.load_images(entries=entries)
     logger.info('loaded %d image(s)', len(images))
 
     # create global context
-    context = make_global_context(
+    context = src.make_global_context(
         args=args,
         entries=entries,
         pages=pages,
@@ -55,39 +45,30 @@ def main(args):
     )
 
     for page in pages:
-        write_page(page, context=context)
+        src.write_page(page, context=context)
         logger.info('generated %s', page.filename)
 
     # render entries
     total = len(entries)
     for i, entry in enumerate(entries):
-        write_page(entry, context=context)
+        src.write_page(entry, context=context)
         if ((i + 1) % 100 == 0) or (i + 1) == total:
             logger.info('generated %d/%d journal entries', i + 1, total)
 
     # render feed
+    feed_context = context._asdict() | {
+        'items': src.build_feed_items(context)
+    }
     with open('./www/feed.xml', 'w') as f:
-        content = render_template(
+        content = src.render_template(
             'feed.xml.j2',
-            context=context._asdict() | {'items': build_feed_items(context)},
+            context=feed_context,
         )
         f.write(content)
         logger.info('generated feed.xml')
 
     duration = time.time() - start
     logger.info('build finished in %.2fs', duration)
-
-
-def pave_webroot():
-    webroot = pathlib.Path('./www')
-
-    old_files = []
-    old_files += list(webroot.glob('*.html'))
-    old_files += list(webroot.glob('*.xml'))
-
-    for target in old_files:
-        target.unlink()
-    logger.info('paved %d old file(s) from webroot', len(old_files))
 
 
 if __name__ == '__main__':

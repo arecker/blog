@@ -11,7 +11,7 @@ all: test lint build
 .PHONY: build
 build: venv/bin/python
 	@echo "==> building website"
-	./venv/bin/python -m src $(ARGS)
+	./venv/bin/python ./main.py $(ARGS)
 
 venv/bin/python: requirements.txt
 	@echo "==> generating local python"
