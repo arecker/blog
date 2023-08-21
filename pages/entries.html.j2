@@ -1,12 +1,12 @@
 <!-- meta:title Entries -->
 <!-- meta:description complete archive of journal entries -->
 
-{%- set caption %}
+{% set caption %}
   <p>From <a href="{{ random.filename }}">{{ random.description }}</a></p>
-{%- endset %}
-{%- with href="./" + random.filename, src="./images/banners/" + random.banner, caption=caption %}
-{%- include "figure.html.j2" %}
-{%- endwith %}
+{% endset %}
+{% with href="./" + random.filename, src="./images/banners/" + random.banner, caption=caption %}
+  {% include "figure.html.j2" %}
+{% endwith %}
 
 <hr/>
 
