@@ -1,16 +1,29 @@
 <h2>Latest Entry</h2>
+
 {{ latest | embed }}
 
-<h2>Pages</h2>
+<h2>Site Data</h2>
+
 <table>
-  {%- for page in pages %}
-    {%- if page.filename != "index.html" %}
-      <tr>
-        <td>
-          <a href="./{{ page.filename }}">{{ page.filename }}</a>
-        </td>
-        <td>{{ page.description }}</td>
-      </tr>
-    {%- endif %}
-  {%- endfor %}
+  <tr>
+    <td>Number of entries</td>
+    <td>{{ entries | length }}</td>
+  </tr>
+  <tr>
+    <td>Number of images</td>
+    <td>{{ images | length }}</td>
+  </tr>
+</table>
+
+<h2>All Entries</h2>
+
+<table>
+  {% for entry in entries %}
+    <tr>
+      <td>
+        <a href="./{{ entry.filename }}">{{ entry.filename }}</a>
+      </td>
+      <td>{{ entry.description }}</td>
+    </tr>
+  {% endfor %}
 </table>

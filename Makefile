@@ -13,7 +13,7 @@ build: venv/bin/python
 	@echo "==> building website"
 	./venv/bin/python -m src.scripts.build $(ARGS)
 
-venv/bin/python: requirements.txt
+venv/bin/python: requirements.txt .python-version
 	@echo "==> generating local python"
 	rm -rf ./venv
 	python -m venv --copies ./venv
