@@ -75,7 +75,7 @@ def on_this_date(entries=[]):
 
     Return None if there is No others.
     """
-
+    entries = [e for e in entries]
     try:
         latest = entries.pop(0)
     except IndexError:
