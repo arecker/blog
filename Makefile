@@ -29,6 +29,7 @@ docs:
 clean:
 	@echo "==> cleaning old artifacts"
 	rm -rf ./www/*.xml
+	rm -rf ./www/*.txt
 	rm -rf ./www/*.html
 	rm -rf ./venv
 

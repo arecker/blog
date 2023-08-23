@@ -1,4 +1,5 @@
 import argparse
+import datetime
 import logging
 import sys
 import time
@@ -28,6 +29,11 @@ group.add_argument('--site-email', required=True)
 
 def main(args):
     start = time.time()
+    logger.info(
+        '%s %s',
+        datetime.datetime.now().strftime('%Y-%m-%d %H:%m'),
+        time.tzname[0]
+    )
 
     logger.info('paved %d old file(s) from webroot', src.pave_webroot())
 
