@@ -69,6 +69,12 @@ nav a:nth-child(2) {
   margin-left: 10px;
 }
 
+footer p {
+    font-style: italic;
+    font-size: 15px;
+    margin: 0;
+}
+
 @media only screen and (max-width: 500px) {
   figure img, video {
     max-width: 100%;

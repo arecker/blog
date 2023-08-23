@@ -17,15 +17,17 @@ src.pave_webroot()  # off you go!
 ```
 """
 
-from .template import render_template, render_page, write_page, prettify_xml
-from .page import load_pages, load_entries
 from .context import make_global_context
-from .media import load_images, Image
 from .feed import build_feed_items
+from .logging import configure_logging
+from .media import load_images, Image
+from .page import load_pages, load_entries
+from .template import render_template, render_page, write_page, prettify_xml
 from .utils import pave_webroot
 
 __all__ = [
     build_feed_items,
+    configure_logging,
     load_entries,
     load_images,
     load_pages,

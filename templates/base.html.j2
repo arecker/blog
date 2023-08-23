@@ -68,9 +68,11 @@
 
       <!-- Page Footer -->
       <footer>
-        <small>Built with <a href="./api/src.html">blog</a> and python v{{ python_version }}</small>
-        <br />
-        <small>© Copyright {{ timestamp.year }} {{ site.author }}</small>
+        <p>
+          Built with <a href="./api/src.html">blog</a>
+          and python v{{ python_version }} (<a href="./build.txt">build.txt</a>)
+        </p>
+        <p>© {{ timestamp.year }} {{ site.author }}</p>
       </footer>
 
     </article>

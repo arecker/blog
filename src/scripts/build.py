@@ -9,6 +9,14 @@ import src
 logger = logging.getLogger(__name__)
 
 parser = argparse.ArgumentParser()
+group = parser.add_argument_group('Run options')
+group.add_argument(
+    '--verbose',
+    default=False,
+    action='store_true',
+    help='print debug logs'
+)
+
 group = parser.add_argument_group('Site Options')
 group.add_argument('--site-title', required=True)
 group.add_argument('--site-description', required=True)
@@ -71,13 +79,8 @@ def main(args):
 
 
 if __name__ == '__main__':
-    logging.basicConfig(
-        stream=sys.stderr,
-        format='blog: %(message)s',
-        level=logging.INFO,
-    )
-
     args = parser.parse_args()
+    src.configure_logging(logger, verbose=args.verbose)
 
     try:
         main(args)

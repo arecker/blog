@@ -17,9 +17,10 @@ def pave_webroot() -> int:
 
     old_files = []
     old_files += list(webroot.glob('*.html'))
+    old_files += list(webroot.glob('*.txt'))
+    old_files += list(webroot.glob('*.xml'))
     old_files += list(webroot.glob('api/*.html'))
     old_files += list(webroot.glob('api/*.js'))
-    old_files += list(webroot.glob('*.xml'))
 
     for target in old_files:
         target.unlink()
