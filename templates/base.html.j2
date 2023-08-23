@@ -21,7 +21,7 @@
   </head>
   <body>
 
-    <article>
+    <article id="top">
 
       <!-- Page Header -->
       <header>
@@ -52,9 +52,9 @@
 
 {{ content }}
 
-      {%- if page.next or page.previous %}
-      <!-- Pagination -->
+      <!-- Pagination/Navigation -->
       <nav>
+        <a href="#top">↑ back to top</a>
       {%- if page.next %}
         <a href="./{{ page.next }}">⟵ {{ page.next }}</a>
       {%- endif %}
@@ -62,7 +62,6 @@
         <a href="./{{ page.previous }}">{{ page.previous }} ⟶</a>
       {%- endif %}
       </nav>
-      {%- endif %}
 
       <hr />
 
