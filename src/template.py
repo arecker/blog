@@ -5,7 +5,7 @@ import xml.etree.ElementTree
 import jinja2
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('blog')
 
 
 def embed(obj):

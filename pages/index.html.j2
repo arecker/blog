@@ -2,6 +2,12 @@
 
 {{ latest | embed }}
 
+{% if this_date %}
+  <h2>On This Day</h2>
+  <h3>{{ this_date.title }}</h3>
+  <a href="./{{ this_date.filename }}">{{ this_date.description }}</a>
+{% endif %}
+
 <h2>All Entries</h2>
 
 <table>

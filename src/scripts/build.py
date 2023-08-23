@@ -1,13 +1,14 @@
 import argparse
 import datetime
 import logging
+import platform
 import sys
 import time
 
 import src
 
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger('blog')
 
 parser = argparse.ArgumentParser()
 group = parser.add_argument_group('Run options')
@@ -30,7 +31,12 @@ group.add_argument('--site-email', required=True)
 def main(args):
     start = time.time()
     logger.info(
-        '%s %s',
+        'starting program with python v%s (%s)',
+        platform.python_version(),
+        sys.executable,
+    )
+    logger.info(
+        'timestamp %s %s',
         datetime.datetime.now().strftime('%Y-%m-%d %H:%m'),
         time.tzname[0]
     )
