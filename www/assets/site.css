@@ -71,7 +71,7 @@ table {
     margin-bottom: 10px;
 }
 
-nav a {
+nav:nth-of-type(2) a {
     margin-right: 20px;
 }
 
