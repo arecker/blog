@@ -10,7 +10,7 @@
 
 <h2>Random Photo</h2>
 {% set random_photo = images | random %}
-<a href="./{{ random_photo.href }}">{{ random_photo.filename }}</a>
+<a href="{{ random_photo.href }}">{{ random_photo.filename }}</a>
 
 <h2>All Entries</h2>
 
