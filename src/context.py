@@ -70,21 +70,20 @@ def make_global_context(args=None, entries=[], pages=[], images=[]) -> Context:
 
 def on_this_date(entries=[]):
     """
-    Find a random entry that occured on the same month and day as the
-    first entry in the list.
+    Find a random entry that occured on day as today.
 
     Return None if there is No others.
     """
-    entries = [e for e in entries]
-    try:
-        latest = entries.pop(0)
-    except IndexError:
-        return None
+    today = datetime.datetime.now()
 
     def same_date(e):
-        same_month = e.date.month == latest.date.month
-        same_day = e.date.day == latest.date.day
+        same_month = e.date.month == today.month
+        same_day = e.date.day == today.day
         return same_month and same_day
 
     matching = filter(same_date, entries)
-    return random.choice(list(matching))
+
+    try:
+        return random.choice(list(matching))
+    except IndexError:
+        return None
