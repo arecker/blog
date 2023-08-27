@@ -1,5 +1,6 @@
 import collections
 import datetime
+import functools
 import pathlib
 import re
 
@@ -22,6 +23,29 @@ class NewPage:
     @property
     def date(self):
         return datetime.datetime.strptime(self.path.stem, '%Y-%m-%d')
+
+    @functools.cached_property
+    def metadata(self):
+        with self.path.open('r') as f:
+            return parse_metadata(f.read())
+
+    @property
+    def title(self):
+        if self.is_entry:
+            return self.strftime('%A, %B %-d %Y')
+        else:
+            return self.metadata['title']
+
+    @property
+    def description(self):
+        if self.is_entry:
+            return self.metadata['title']
+        else:
+            return self.metadata['description']
+
+    @property
+    def banner(self):
+        return self.metadata.get('banner')
 
 
 Page = collections.namedtuple('Page', [

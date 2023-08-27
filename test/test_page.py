@@ -1,5 +1,5 @@
+import tempfile
 import unittest
-
 
 from src.page import NewPage
 
@@ -24,4 +24,22 @@ class TestPage(unittest.TestCase):
         actual = NewPage('./entries/2023-08-10.html').date
         actual = (actual.year, actual.month, actual.day)
         expected = (2023, 8, 10)
+        self.assertEqual(actual, expected)
+
+    def test_metadata(self):
+        content = '''
+<!-- meta:title A Test Title -->
+<!-- meta:description A Test Description -->
+        '''
+
+        tmp = tempfile.NamedTemporaryFile()
+
+        with open(tmp.name, 'w') as f:
+            f.write(content)
+
+        actual = NewPage(tmp.name).metadata
+        expected = {
+            'title': 'A Test Title',
+            'description': 'A Test Description',
+        }
         self.assertEqual(actual, expected)
