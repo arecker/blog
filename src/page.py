@@ -5,97 +5,125 @@ import pathlib
 import re
 
 
-class NewPage:
-    def __init__(self, path):
+class Page:
+    """
+    A website page.  Can be either a normal page, or a journal entry.
+    """
+
+    def __init__(self, path: pathlib.Path, next_page=None, previous_page=None):
+        """
+        `path` should be a pathlib Path.
+        """
+
         self.path = pathlib.Path(path)
+
+        self._next = next_page
+        self._previous = previous_page
 
     @property
     def filename(self):
+        """
+        Page filename, e.g. `index.html`.
+
+        The file extension will always be `.html`, so even if the
+        source page is rendered from a template, this suffix will be
+        removed.
+        """
         if self.path.suffix == '.j2':
             return self.path.name[:-3]
         return self.path.name
 
     @property
-    def is_entry(self):
+    def is_entry(self) -> bool:
+        """
+        `True` if the page is a journal entry, False if it's just a
+        normal Page.
+        """
         entry_dir = pathlib.Path('./entries')
         return entry_dir in self.path.parents
 
     @property
-    def date(self):
+    def date(self) -> datetime.datetime:
+        """
+        Page date, as parsed from the filename.
+        """
         return datetime.datetime.strptime(self.path.stem, '%Y-%m-%d')
 
     @functools.cached_property
-    def metadata(self):
+    def metadata(self) -> dict:
+        """
+        Metadata embedded in the page.  This is read from special HTML
+        comments.
+
+        A page with this header:
+
+        ```html
+        <!-- meta:title a walk in the park -->
+        <!-- meta:description I take a nice walk in the park -->
+        ```
+
+        Will yield this metadata:
+
+        ```python
+        {
+            'title': 'a walk in the park',
+            'description': 'I take a nice walk in the park.',
+        }
+        ```
+
+        For performance, this information is only read once, then
+        cached in memory during website build.
+        """
         with self.path.open('r') as f:
             return parse_metadata(f.read())
 
     @property
     def title(self):
         if self.is_entry:
-            return self.strftime('%A, %B %-d %Y')
+            return self.date.strftime('%A, %B %-d %Y')
         else:
-            return self.metadata['title']
+            return self.get('title')
 
     @property
     def description(self):
         if self.is_entry:
-            return self.metadata['title']
+            return self.metadata['title'].replace("'", '')
         else:
-            return self.metadata['description']
+            return self.metadata.get('description')
 
     @property
     def banner(self):
         return self.metadata.get('banner')
 
+    @property
+    def next(self):
+        """Next `Page` object, if paginated."""
+        return self._next
 
-Page = collections.namedtuple('Page', [
-    'path',
-    'filename',
-    'title',
-    'description',
-    'banner',
-    'date',
-    'next',
-    'previous',
-])
+    @property
+    def previous(self):
+        """Previous `Page` object, if paginated."""
+        return self._previous
 
 
-def load_pages(pages_dir='./pages'):
+def load_pages(pages_dir='./pages') -> list[Page]:
     """
-    Fetches a list of `Page` objects.
+    Fetches a list of website pages as `Page` objects.
     """
 
-    pages = []
-
-    for p in pathlib.Path(pages_dir).glob('*.*'):
-        kwargs = {}
-
-        kwargs['path'] = p
-
-        if p.name.endswith('.j2'):
-            kwargs['filename'] = p.name[:-3]
-        else:
-            kwargs['filename'] = p.name
-
-        with p.open() as f:
-            content = f.read()
-
-        # date not supported on pages for now
-        kwargs['date'] = None
-
-        # get the rest from the metadata
-        metadata = parse_metadata(content)
-        kwargs['title'] = metadata.get('title')
-        kwargs['description'] = metadata.get('description')
-        kwargs['banner'] = metadata.get('banner')
-        kwargs['next'] = metadata.get('next')
-        kwargs['previous'] = metadata.get('previous')
-        pages.append(Page(**kwargs))
-
+    pages = pathlib.Path(pages_dir).glob('*.*')
+    pages = map(Page, pages)
     return sorted(pages, key=lambda p: p.filename)
 
 
 def load_entries(entries_dir='./entries') -> list[Page]:
+    """
+    Fetches a list of journal entries as `Page` objects.
+
+    The list is sorted in descending date, so the latest entry is always
+    first.
+    """
+
     entries = []
 
     entry_paths = list(sorted(pathlib.Path(entries_dir).glob('*.html')))
@@ -103,41 +131,21 @@ def load_entries(entries_dir='./entries') -> list[Page]:
     # get pagination map
     pagination = paginate_entries(entry_paths)
 
-    for p in entry_paths:
-        kwargs = {}
-        kwargs['path'] = p
-        kwargs['filename'] = p.name
-
-        # parse date
-        kwargs['date'] = datetime.datetime.strptime(p.stem, '%Y-%m-%d')
-
-        # set title
-        kwargs['title'] = kwargs['date'].strftime('%A, %B %-d %Y')
-
-        with p.open() as f:
-            content = f.read()
-
-        # get the rest from metadata
-        metadata = parse_metadata(content)
-        kwargs['banner'] = metadata.get('banner')
-
-        # remove special characters from description
-        kwargs['description'] = metadata['title'].replace("'", '')
-
-        # check pagination map
-        kwargs['next'] = pagination[p.name].next
-        kwargs['previous'] = pagination[p.name].previous
-
-        entries.append(Page(**kwargs))
+    for path in entry_paths:
+        entries.append(Page(
+            path,
+            next_page=pagination[path.name].next,
+            previous_page=pagination[path.name].previous
+        ))
 
     # sort latest first
-    return sorted(entries, reverse=True)
+    return sorted(entries, reverse=True, key=lambda e: e.date)
 
 
 Pagination = collections.namedtuple('Pagination', ['next', 'previous'])
 
 
-def paginate_entries(files=[]):
+def paginate_entries(files=[]) -> Pagination:
     pagination = {}
 
     for i, this_file in enumerate(files):
