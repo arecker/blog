@@ -10,7 +10,10 @@ import src
 
 logger = logging.getLogger('blog')
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(
+    'src.scripts.build',
+    description='Build the website to the local file system',
+)
 group = parser.add_argument_group('Run options')
 group.add_argument(
     '--verbose',
@@ -18,6 +21,13 @@ group.add_argument(
     action='store_true',
     help='print debug logs'
 )
+
+group = parser.add_argument_group('Directories')
+group.add_argument('--dir-www', default='./www')
+group.add_argument('--dir-entries', default='./entries')
+group.add_argument('--dir-pages', default='./pages')
+group.add_argument('--dir-templates', default='./templates')
+group.add_argument('--dir-images', default='./www/images')
 
 group = parser.add_argument_group('Site Options')
 group.add_argument('--site-title', required=True)
