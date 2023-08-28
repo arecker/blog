@@ -70,7 +70,8 @@ def make_global_context(args=None, entries=[], pages=[], images=[]) -> Context:
 
 def on_this_date(entries=[]):
     """
-    Find a random entry that occured on day as today.
+    Find a random entry that occured on day as today (but not actually
+    today, just the same month and day).
 
     Return None if there is No others.
     """
@@ -79,7 +80,8 @@ def on_this_date(entries=[]):
     def same_date(e):
         same_month = e.date.month == today.month
         same_day = e.date.day == today.day
-        return same_month and same_day
+        different_year = e.date.year != today.year
+        return same_month and same_day and different_year
 
     matching = filter(same_date, entries)
 
