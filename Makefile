@@ -41,7 +41,9 @@ lint: venv/bin/python
 .PHONY: test
 test: venv/bin/python
 	@echo "==> running unit tests"
-	./venv/bin/python -m unittest discover -q
+	./venv/bin/coverage run -m unittest discover
+	./venv/bin/coverage report --skip-covered
+
 
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish

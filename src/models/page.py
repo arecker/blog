@@ -1,14 +1,51 @@
 import collections
 import datetime
 import functools
+import logging
 import pathlib
 import re
+import xml.etree.ElementTree
+
+from src.template import template_env, render_template, prettify_xml
+
+logger = logging.getLogger('blog')
 
 
 class Page:
     """
     A website page.  Can be either a normal page, or a journal entry.
     """
+    @classmethod
+    def load_entries(cls, entries_dir='./entries'):
+        """
+        Load a list of journal entries as `Page` objects.  Order the
+        list starting with the latest entry first.
+        """
+        entries = []
+
+        entry_paths = list(sorted(pathlib.Path(entries_dir).glob('*.html')))
+
+        # get pagination map
+        pagination = paginate_entries(entry_paths)
+
+        for path in entry_paths:
+            entries.append(cls(
+                path,
+                next_page=pagination[path.name].next,
+                previous_page=pagination[path.name].previous
+            ))
+
+        # sort latest first
+        return sorted(entries, reverse=True, key=lambda e: e.date)
+
+    @classmethod
+    def load_pages(cls, pages_dir='./pages'):
+        """
+        Fetches a list of website pages as `Page` objects.
+        """
+        pages = pathlib.Path(pages_dir).glob('*.*')
+        pages = map(cls, pages)
+        return sorted(pages, key=lambda p: p.filename)
 
     def __init__(self, path: pathlib.Path, next_page=None, previous_page=None):
         """
@@ -105,41 +142,64 @@ class Page:
         """Previous `Page` object, if paginated."""
         return self._previous
 
+    @property
+    def href(self):
+        """
+        The `href` html value that points to the image.
 
-def load_pages(pages_dir='./pages') -> list[Page]:
-    """
-    Fetches a list of website pages as `Page` objects.
-    """
+        Can be used in templates like so:
 
-    pages = pathlib.Path(pages_dir).glob('*.*')
-    pages = map(Page, pages)
-    return sorted(pages, key=lambda p: p.filename)
+        ```html
+        <a href="{{ page.href }}">...</a>
+        ```
+        """
+        return f'./{self.filename}'
 
+    def render(self, context: dict) -> str:
+        """
+        Render the complete content for a page.
+        """
+        # add current page to context
+        context['page'] = self
 
-def load_entries(entries_dir='./entries') -> list[Page]:
-    """
-    Fetches a list of journal entries as `Page` objects.
+        # build inner content
+        if self.path.name.endswith('.j2'):
+            # page is a template, so render it
+            with self.path.open('r') as f:
+                tmpl = template_env.from_string(f.read())
+                content = tmpl.render(**context)
+        else:
+            # page isn't a template, so just read it
+            with self.path.open('r') as f:
+                content = f.read()
 
-    The list is sorted in descending date, so the latest entry is always
-    first.
-    """
+        # now, wrap that content in the base template
+        context['content'] = content.strip()
+        content = render_template('base.html.j2', context=context).strip()
 
-    entries = []
+        # prettify the markup
+        content = '\n'.join(content.splitlines()[1:])  # remove doctype
+        content = content.replace('&', '&amp;')  # clean up chars
+        try:
+            content = prettify_xml(content)
+        except xml.etree.ElementTree.ParseError as e:
+            msg = 'invalid XML on row %d, col %d'
+            msg = 'error writing %s: ' + msg
+            logger.warn(
+                msg,
+                self.filename,
+                e.position[0] + 1, e.position[1]
+            )
+        return '<!doctype html>\n' + content  # add doctype back
 
-    entry_paths = list(sorted(pathlib.Path(entries_dir).glob('*.html')))
-
-    # get pagination map
-    pagination = paginate_entries(entry_paths)
-
-    for path in entry_paths:
-        entries.append(Page(
-            path,
-            next_page=pagination[path.name].next,
-            previous_page=pagination[path.name].previous
-        ))
-
-    # sort latest first
-    return sorted(entries, reverse=True, key=lambda e: e.date)
+    def write(self, context: dict):
+        """
+        Write the page to the www directory.
+        """
+        target = pathlib.Path(f'./www/{self.filename}')
+        content = self.render(context)
+        with target.open('w') as f:
+            f.write(content)
 
 
 Pagination = collections.namedtuple('Pagination', ['next', 'previous'])

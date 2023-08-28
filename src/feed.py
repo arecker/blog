@@ -12,9 +12,10 @@ FeedItem = collections.namedtuple('FeedItem', [
 
 def build_feed_items(context) -> list[FeedItem]:
     items = []
+    site = context['site']
 
-    for entry in context.entries:
-        link = f'{context.site.protocol}://{context.site.domain}'
+    for entry in context['entries']:
+        link = f'{site.protocol}://{site.domain}'
         link += f'/{entry.filename}'
         kwargs = {
             'title': entry.title,
@@ -23,7 +24,7 @@ def build_feed_items(context) -> list[FeedItem]:
             'link': link,
         }
         if entry.banner:
-            banner = f'{context.site.protocol}://{context.site.domain}'
+            banner = f'{site.protocol}://{site.domain}'
             banner += f'/images/banners/{entry.banner}'
             kwargs['image'] = banner
         else:
@@ -31,12 +32,12 @@ def build_feed_items(context) -> list[FeedItem]:
 
         items.append(FeedItem(**kwargs))
 
-    for image in sorted(context.images, key=lambda i: i.path.name):
+    for image in sorted(context['images'], key=lambda i: i.path.name):
         # skip banners, since we already have those
         if image.is_banner:
             continue
 
-        link = f'{context.site.protocol}://{context.site.domain}'
+        link = f'{site.protocol}://{site.domain}'
         link += f'/{image.href[2:]}'
         items.append(FeedItem(
             title=image.title,

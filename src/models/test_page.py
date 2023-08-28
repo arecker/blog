@@ -1,7 +1,7 @@
 import tempfile
 import unittest
 
-from src.page import Page
+from .page import Page
 
 
 class TestPage(unittest.TestCase):

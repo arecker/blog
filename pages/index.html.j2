@@ -1,6 +1,23 @@
-<h2>Latest Entry</h2>
-
-{{ latest | embed }}
+{% if latest %}
+  <h2>Latest Entry</h2>
+  {% if latest.banner %}
+    <figure>
+      <a href="{{ latest.href }}">
+        <img
+          alt="{{ latest.description }}"
+          src="./images/banners/{{ latest.banner }}"
+        />
+      </a>
+      <figcaption>
+        <p>{{ latest.description }}</p>
+      </figcaption>
+    </figure>
+  {% else %}
+    <a href="{{ latest.href }}">
+      <p>{{ latest.description }}</p>
+    </a>
+  {% endif %}
+{% endif %}
 
 {% if this_date %}
   <h2>On This Day</h2>
@@ -8,12 +25,14 @@
   <a href="./{{ this_date.filename }}">{{ this_date.description }}</a>
 {% endif %}
 
-<h2>Random Photo</h2>
 {% set random_photo = images | random %}
+{% if random_photo %}
+<h2>Random Photo</h2>
 <a href="{{ random_photo.href }}">{{ random_photo.filename }}</a>
+{% endif %}
 
+{% if entries %}
 <h2>All Entries</h2>
-
 <table>
   {% for entry in entries %}
     <tr>
@@ -24,3 +43,4 @@
     </tr>
   {% endfor %}
 </table>
+{% endif %}

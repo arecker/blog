@@ -44,11 +44,11 @@ def main(args):
     logger.info('paved %d old file(s) from webroot', src.pave_webroot())
 
     # load entries
-    entries = src.load_entries()
+    entries = src.Page.load_entries()
     logger.info('loaded %s journal entries', len(entries))
 
     # load pages
-    pages = src.load_pages()
+    pages = src.Page.load_pages()
     logger.info('loaded %d page(s)', len(pages))
 
     # load images
@@ -61,21 +61,21 @@ def main(args):
         entries=entries,
         pages=pages,
         images=images,
-    )
+    )._asdict()
 
     for page in pages:
-        src.write_page(page, context=context)
+        page.write(context=context)
         logger.info('generated %s', page.filename)
 
     # render entries
     total = len(entries)
     for i, entry in enumerate(entries):
-        src.write_page(entry, context=context)
+        entry.write(context=context)
         if ((i + 1) % 100 == 0) or (i + 1) == total:
             logger.info('generated %d/%d journal entries', i + 1, total)
 
     # render feed
-    feed_context = context._asdict() | {
+    feed_context = context | {
         'items': src.build_feed_items(context)
     }
     with open('./www/feed.xml', 'w') as f:

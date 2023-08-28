@@ -21,22 +21,17 @@ from .context import make_global_context
 from .feed import build_feed_items
 from .logging import configure_logging
 from .media import load_images, Image
-from .page import load_pages, load_entries, Page
-from .template import render_template, render_page, write_page, prettify_xml
+from .models import Page
+from .template import render_template
 from .utils import pave_webroot
 
 __all__ = [
     build_feed_items,
     configure_logging,
-    load_entries,
     load_images,
-    load_pages,
     make_global_context,
     pave_webroot,
-    prettify_xml,
-    render_page,
     render_template,
-    write_page,
     Page,
     Image,
 ]
