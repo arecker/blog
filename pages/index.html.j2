@@ -27,8 +27,13 @@
 
 {% set random_photo = images | random %}
 {% if random_photo %}
-<h2>Random Photo</h2>
-<a href="{{ random_photo.href }}">{{ random_photo.filename }}</a>
+  <h2>Random Photo</h2>
+  <a href="{{ random_photo.href }}">{{ random_photo.filename }}</a>
+{% endif %}
+
+{% if random_napkin %}
+  <h2>Random Napkin Art</h2>
+  <a href="{{ random_napkin.href }}">{{ random_napkin.filename }}</a>
 {% endif %}
 
 {% if entries %}

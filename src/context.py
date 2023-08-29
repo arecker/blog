@@ -16,6 +16,7 @@ Context = collections.namedtuple('Context', [
     'random',
     'site',
     'this_date',
+    'random_napkin',
     'timestamp',
 ])
 
@@ -65,6 +66,13 @@ def make_global_context(args=None, entries=[], pages=[], images=[]) -> Context:
     # pick a random one with a banner
     kwargs['random'] = random.choice([e for e in entries if e.banner])
 
+    # random napkin
+    kwargs['random_napkin'] = random_napkin(images=images)
+    if kwargs['random_napkin']:
+        logger.info('random napkin art: %s', kwargs['random_napkin'])
+    else:
+        logger.info('no random napkin art found')
+
     return Context(**kwargs)
 
 
@@ -87,5 +95,14 @@ def on_this_date(entries=[]):
 
     try:
         return random.choice(list(matching))
+    except IndexError:
+        return None
+
+
+def random_napkin(images=[]):
+    """Chooses a random napkin image to display"""
+
+    try:
+        return random.choice([i for i in images if 'napkin' in (i.slug or '')])
     except IndexError:
         return None
