@@ -11,45 +11,48 @@ from src.template import template_env, render_template, prettify_xml
 logger = logging.getLogger('blog')
 
 
+def load_entries(entries_dir='./entries'):
+    """
+    Load a list of journal entries as `Page` objects.  Order the
+    list starting with the latest entry first.
+    """
+    entries = []
+
+    entry_paths = list(sorted(pathlib.Path(entries_dir).glob('*.html')))
+
+    # get pagination map
+    pagination = paginate_entries(entry_paths)
+
+    for path in entry_paths:
+        entries.append(Page(
+            path,
+            next_page=pagination[path.name].next,
+            previous_page=pagination[path.name].previous
+        ))
+
+    # sort latest first
+    return sorted(entries, reverse=True, key=lambda e: e.date)
+
+
+def load_pages(pages_dir='./pages'):
+    """
+    Fetches a list of website pages as `Page` objects.
+    """
+    pages = pathlib.Path(pages_dir).glob('*.*')
+    pages = map(Page, pages)
+    return sorted(pages, key=lambda p: p.filename)
+
+
 class Page:
     """
     A website page.  Can be either a normal page, or a journal entry.
     """
-    @classmethod
-    def load_entries(cls, entries_dir='./entries'):
-        """
-        Load a list of journal entries as `Page` objects.  Order the
-        list starting with the latest entry first.
-        """
-        entries = []
-
-        entry_paths = list(sorted(pathlib.Path(entries_dir).glob('*.html')))
-
-        # get pagination map
-        pagination = paginate_entries(entry_paths)
-
-        for path in entry_paths:
-            entries.append(cls(
-                path,
-                next_page=pagination[path.name].next,
-                previous_page=pagination[path.name].previous
-            ))
-
-        # sort latest first
-        return sorted(entries, reverse=True, key=lambda e: e.date)
-
-    @classmethod
-    def load_pages(cls, pages_dir='./pages'):
-        """
-        Fetches a list of website pages as `Page` objects.
-        """
-        pages = pathlib.Path(pages_dir).glob('*.*')
-        pages = map(cls, pages)
-        return sorted(pages, key=lambda p: p.filename)
-
     def __init__(self, path: pathlib.Path, next_page=None, previous_page=None):
         """
         `path` should be a pathlib Path.
+
+        `next_page` and `previous_page` can be filenames, if
+        pagination should be enabled.
         """
 
         self.path = pathlib.Path(path)

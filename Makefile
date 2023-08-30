@@ -13,12 +13,12 @@ build: venv/bin/python
 	@echo "==> building website"
 	./venv/bin/python -m src.scripts.build $(ARGS)
 
-venv/bin/python: requirements.txt .python-version
+venv/bin/python: requirements/prod.txt .python-version
 	@echo "==> generating local python"
 	rm -rf ./venv
 	python -m venv --copies ./venv
 	./venv/bin/pip install --upgrade --quiet pip
-	./venv/bin/pip install --quiet -r requirements.txt
+	./venv/bin/pip install --quiet -r requirements/prod.txt
 
 .PHONY: docs
 docs:

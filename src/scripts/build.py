@@ -54,11 +54,11 @@ def main(args):
     logger.info('paved %d old file(s) from webroot', src.pave_webroot())
 
     # load entries
-    entries = src.Page.load_entries()
+    entries = src.load_entries()
     logger.info('loaded %s journal entries', len(entries))
 
     # load pages
-    pages = src.Page.load_pages()
+    pages = src.load_pages()
     logger.info('loaded %d page(s)', len(pages))
 
     # load images

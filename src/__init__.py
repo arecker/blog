@@ -21,14 +21,16 @@ from .context import make_global_context
 from .feed import build_feed_items
 from .logging import configure_logging
 from .media import load_images, Image
-from .models import Page
+from .models import Page, load_entries, load_pages
 from .template import render_template
 from .utils import pave_webroot
 
 __all__ = [
     build_feed_items,
     configure_logging,
+    load_entries,
     load_images,
+    load_pages,
     make_global_context,
     pave_webroot,
     render_template,
