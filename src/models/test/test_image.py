@@ -1,6 +1,6 @@
 import unittest
 
-from src.media import Image
+from ..image import Image
 
 
 class TestImage(unittest.TestCase):

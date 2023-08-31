@@ -15,8 +15,7 @@ def build_feed_items(context) -> list[FeedItem]:
     site = context['site']
 
     for entry in context['entries']:
-        link = f'{site.protocol}://{site.domain}'
-        link += f'/{entry.filename}'
+        link = f'{site.url}/{entry.filename}'
         kwargs = {
             'title': entry.title,
             'date': entry.date,
@@ -24,8 +23,7 @@ def build_feed_items(context) -> list[FeedItem]:
             'link': link,
         }
         if entry.banner:
-            banner = f'{site.protocol}://{site.domain}'
-            banner += f'/images/banners/{entry.banner}'
+            banner = f'{site.url}/images/banners/{entry.banner}'
             kwargs['image'] = banner
         else:
             kwargs['image'] = None
@@ -37,8 +35,7 @@ def build_feed_items(context) -> list[FeedItem]:
         if image.is_banner:
             continue
 
-        link = f'{site.protocol}://{site.domain}'
-        link += f'/{image.href[2:]}'
+        link = f'{site.url}/{image.href[2:]}'
         items.append(FeedItem(
             title=image.title,
             date=image.date,

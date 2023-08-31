@@ -7,9 +7,9 @@
     <email>{{ site.email }}</email>
   </author>
   <updated>{{ items[0].date_slug }}T00:00:00+00:00</updated>
-  <id>{{ site.protocol }}://{{ site.domain }}/feed.xml</id>
-  <link href="{{ site.protocol }}://{{ site.domain }}/feed.xml" rel="self" type="application/atom+xml" />
-  <link href="{{ site.protocol }}://{{ site.domain }}" rel="alternate" type="text/html" />
+  <id>{{ site.url }}/feed.xml</id>
+  <link href="{{ site.url }}/feed.xml" rel="self" type="application/atom+xml" />
+  <link href="{{ site.url }}" rel="alternate" type="text/html" />
   {%- for item in items %}
   <entry>
     <title>{{ item.title }}</title>

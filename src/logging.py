@@ -3,14 +3,14 @@ import pathlib
 import sys
 
 
-def configure_logging(
-        logger: logging.Logger,
-        verbose=False,
-        logfile='./www/build.txt',
-        truncate_logfile=True
-):
+def load_logger(verbose=False, logfile='./www/build.txt', truncate_logfile=True) -> logging.Logger:  # noqa: E501
     """
-    Configure a logger with some sensible defaults.
+    Load a logger with some sensible defaults.
+
+    ```python
+    logger = src.load_logger()
+    logger.info('starting program')
+    ```
 
     Those defaults being:
 
@@ -22,6 +22,9 @@ def configure_logging(
     - `logfile` path to the logfile
     - `truncate_logfile` whether to truncate the logfile or not
     """
+
+    logger = logging.getLogger('blog')
+
     # formatter
     formatter = logging.Formatter(fmt='blog: %(message)s')
 

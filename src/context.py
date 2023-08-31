@@ -1,8 +1,8 @@
 import collections
 import datetime
 import logging
-import platform
 import random
+
 
 logger = logging.getLogger('blog')
 
@@ -12,38 +12,18 @@ Context = collections.namedtuple('Context', [
     'images',
     'latest',
     'pages',
-    'python_version',
     'random',
     'site',
     'this_date',
     'random_napkin',
-    'timestamp',
-])
-
-Site = collections.namedtuple('Site', [
-    'title',
-    'description',
-    'protocol',
-    'domain',
-    'author',
-    'email',
 ])
 
 
-def make_global_context(args=None, entries=[], pages=[], images=[]) -> Context:
+def make_global_context(site, entries=[], pages=[], images=[]) -> Context:
     kwargs = {
-        'site': Site(
-            title=args.site_title,
-            description=args.site_description,
-            protocol=args.site_protocol,
-            domain=args.site_domain,
-            author=args.site_author,
-            email=args.site_email,
-        ),
+        'site': site,
         'entries': entries,
         'pages': pages,
-        'timestamp': datetime.datetime.now(),
-        'python_version': platform.python_version(),
         'images': images,
     }
 

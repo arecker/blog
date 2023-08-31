@@ -15,6 +15,10 @@ def load_entries(entries_dir='./entries'):
     """
     Load a list of journal entries as `Page` objects.  Order the
     list starting with the latest entry first.
+
+    ```python
+    entries = src.load_entries()
+    ```
     """
     entries = []
 
@@ -37,6 +41,10 @@ def load_entries(entries_dir='./entries'):
 def load_pages(pages_dir='./pages'):
     """
     Fetches a list of website pages as `Page` objects.
+
+    ```python
+    pages = src.load_pages()
+    ```
     """
     pages = pathlib.Path(pages_dir).glob('*.*')
     pages = map(Page, pages)
@@ -47,6 +55,7 @@ class Page:
     """
     A website page.  Can be either a normal page, or a journal entry.
     """
+
     def __init__(self, path: pathlib.Path, next_page=None, previous_page=None):
         """
         `path` should be a pathlib Path.

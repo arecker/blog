@@ -102,6 +102,10 @@ class Image:
 def load_images(entries=[], images_dir='./www/images/') -> list[Image]:
     """
     Loads complete set of images for website as a list of `Image` objects.
+
+    ```python
+    images = src.load_images()
+    ```
     """
 
     image_extensions = (

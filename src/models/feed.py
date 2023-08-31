@@ -9,8 +9,10 @@ class Feed:
 
     `images` should be a list of `Image` objects.
     """
+
     def __init__(self, entries=[], images=[]):
-        pass
+        self._entries = entries
+        self._images = images
 
     def render(self) -> str:
         """
