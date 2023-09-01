@@ -37,6 +37,15 @@ class SiteTestCase(unittest.TestCase):
             expected = 'v1.2.3'
             self.assertEqual(actual, expected)
 
+    def test_python_executable(self):
+        mock = unittest.mock.PropertyMock(return_value='/bin/fart')
+        patch = unittest.mock.patch('sys.executable', new_callable=mock)
+
+        with patch:
+            actual = Site().python_executable
+            expected = '/bin/fart'
+            self.assertEqual(actual, expected)
+
     def test_url(self):
         actual = Site(protocol='http', domain='localhost').url
         expected = 'http://localhost'

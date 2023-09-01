@@ -2,6 +2,7 @@ import argparse
 import datetime
 import os
 import platform
+import sys
 
 
 class Site:
@@ -69,9 +70,17 @@ class Site:
     @property
     def python_version(self) -> str:
         """
-        The python version used to build the website. (ex. `"v3.11.0")
+        The python version used to build the website. (ex. `"v3.11.0"`)
         """
         return f'v{platform.python_version()}'
+
+    @property
+    def python_executable(self) -> str:
+        """
+        Path to `python` executable used to build the site
+        (ex. `"/usr/bin/python"`)
+        """
+        return sys.executable
 
 
 def load_site(args: argparse.Namespace) -> Site:

@@ -11,7 +11,7 @@ def main(args):
     logger.info(
         'starting program with python %s (%s)',
         site.python_version,
-        sys.executable,
+        site.python_executable,
     )
 
     logger.info(
