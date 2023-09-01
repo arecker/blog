@@ -43,6 +43,7 @@ test: venv/bin/python
 	@echo "==> running unit tests"
 	./venv/bin/coverage run -m unittest discover
 	./venv/bin/coverage report --skip-covered
+	./venv/bin/coverage html -q -d ./www/coverage
 
 
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
