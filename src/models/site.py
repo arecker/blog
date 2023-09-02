@@ -10,17 +10,26 @@ class Site:
     Website model.
     """
 
-    def __init__(self, title='', description='', author='', email='', protocol='', domain='', timestamp=None):  # noqa: E501
+    def __init__(self, timestamp=None, entries=[], **kwargs):  # noqa: E501
+        """
+        Build a Site model.
 
-        # site metadata
-        self._title = title
-        self._description = description
-        self._author = author
-        self._email = email
+        Customize with the following kwargs:
 
-        # site URL
-        self._protocol = protocol
-        self._domain = domain
+        - `title`
+        - `description`
+        - `author`
+        - `email`
+        - `domain`
+        - `protocol`
+        """
+
+        fields = ['title', 'description', 'author',
+                  'email', 'domain', 'protocol']
+
+        for key in fields:
+            if value := kwargs.get(key):
+                setattr(self, '_' + key, value)
 
         # timestamp
         self._timestamp = timestamp
@@ -92,18 +101,15 @@ def load_site(args: argparse.Namespace) -> Site:
     site = src.load_site(args)
     ```
 
-    Will automatically supply all the args that start with `site_` to
-    the constructor.
-
     Note: the timezone is hard-coded to `"America/Chicago"`
     (because nobody ever brags about the beef sandwich they had in
     Greenwich).
     """
-    site_args = {k[5:]: v for k, v in vars(
-        args).items() if k.startswith('site_')}
-
     # set timestamp
     os.environ['TZ'] = 'America/Chicago'
     timestamp = datetime.datetime.now()
+
+    site_args = {k[5:]: v for k, v in vars(
+        args).items() if k.startswith('site_')}
 
     return Site(timestamp=timestamp, **site_args)

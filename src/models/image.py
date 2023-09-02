@@ -71,7 +71,6 @@ class Image:
 
         For example, `test-image.jpg`, becomes `Test Image`
         """
-
         return self.slug.replace('-', ' ').title()
 
     @property

@@ -75,8 +75,7 @@ nav:nth-of-type(2) a {
     margin-right: 20px;
 }
 
-footer p {
-    font-style: italic;
+footer p, footer a {
     font-size: 15px;
     margin: 0;
 }

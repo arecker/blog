@@ -54,16 +54,9 @@ def main(args):
             logger.info('generated %d/%d journal entries', i + 1, total)
 
     # render feed
-    feed_context = context | {
-        'items': src.build_feed_items(context)
-    }
-    with open('./www/feed.xml', 'w') as f:
-        content = src.render_template(
-            'feed.xml.j2',
-            context=feed_context,
-        )
-        f.write(content)
-        logger.info('generated feed.xml')
+    feed = src.load_feed(site, entries=entries, images=images)
+    feed.write()
+    logger.info('generated feed.xml')
 
     duration = time.time() - start
     logger.info('build finished in %.2fs', duration)

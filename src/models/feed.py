@@ -1,21 +1,102 @@
+import collections
+
 from src.template import render_template
+
+
+Item = collections.namedtuple('Item', [
+    'title',
+    'timestamp',
+    'path',
+    'image',
+])
 
 
 class Feed:
     """
-    RSS feed object.
+    Website RSS feed.
 
-    `entries` should be a list of `Page` objects.
-
-    `images` should be a list of `Image` objects.
+    An atom feed that you can build from site information and write
+    locally as a valid atom RSS feed.
     """
 
-    def __init__(self, entries=[], images=[]):
-        self._entries = entries
-        self._images = images
+    filename = 'feed.xml'
 
-    def render(self) -> str:
+    def __init__(self, site=None, items: list[Item] = []):  # noqa: E501
         """
-        Render the body of feed.xml as a string
+        Build a feed object.
+
+        Takes a list of `Item` objects, which is just this named
+        tuple:
+
+        ```python
+        Item = collections.namedtuple('Item', [
+            'title',
+            'timestamp',
+            'path', # ex. 2020-01-01.html
+            'image', # ex. banners/2021-01-01.jpg
+        ])
+        ```
         """
-        return render_template('feed.xml.j2')
+        self.site = site
+        self.items = items
+
+    def render(self):
+        return render_template('feed.xml.j2', context={
+            'filename': self.filename,
+            'site': self.site,
+            'items': self.items,
+        })
+
+    def write(self):
+        with open(f'./www/{self.filename}', 'w') as f:
+            f.write(self.render())
+
+    def __repr__(self):
+        return f'<Feed {self.filename}>'
+
+
+def load_feed(site, entries=[], images=[]) -> Feed:  # noqa: E501
+    """
+    Load an RSS feed object.
+
+    ```python
+    feed = load_feed(site)
+    ```
+    """
+    items = []
+
+    def convert_timestamp(date):
+        slug = date.strftime("%Y-%m-%d")
+        return f'{slug}T00:00:00+00:00'
+
+    # add all journal entries
+    for entry in entries:
+        kwargs = {}
+        kwargs['title'] = entry.title
+        kwargs['path'] = entry.filename
+
+        if entry.banner:
+            kwargs['image'] = f'images/banners/{entry.banner}'
+        else:
+            kwargs['image'] = None
+
+        kwargs['timestamp'] = convert_timestamp(entry.date)
+        items.append(Item(**kwargs))
+
+    # add all other images that aren't a banner
+    for image in images:
+        if image.is_banner:
+            continue
+
+        kwargs = {
+            'title': image.title,
+            'path': f'images/{image.filename}',
+            'image': f'images/{image.filename}',
+            'timestamp': convert_timestamp(image.date),
+        }
+        items.append(Item(**kwargs))
+
+    # sort by descending timestamp
+    items = sorted(items, key=lambda i: i.timestamp, reverse=True)
+
+    return Feed(site=site, items=items)

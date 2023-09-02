@@ -20,24 +20,27 @@ src.pave_webroot()  # off you go!
 # functions
 from .args import load_args
 from .context import make_global_context
-from .feed import build_feed_items
 from .logging import load_logger
+from .models.feed import load_feed
 from .models.image import load_images
 from .models.page import load_entries, load_pages
 from .models.site import load_site
 from .template import render_template
 from .utils import pave_webroot
 
+# Models
 from .models import (
     Site,
     Page,
     Image,
+    Feed,
 )
 
 
 __all__ = [
     load_args,
     load_entries,
+    load_feed,
     load_images,
     load_logger,
     load_pages,
@@ -46,4 +49,5 @@ __all__ = [
     Site,
     Page,
     Image,
+    Feed,
 ]
