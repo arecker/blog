@@ -1,22 +1,12 @@
 import sys
 import time
 
-from . import (
-    load_args,
-    load_entries,
-    load_feed,
-    load_images,
-    load_logger,
-    load_pages,
-    load_site,
-    make_global_context,
-    pave_webroot,
-)
+import src
 
 
 def main(args):
     start = time.time()
-    site = load_site(args)
+    site = src.load_site(args)
 
     logger.info(
         'starting program with python %s (%s)',
@@ -30,22 +20,22 @@ def main(args):
         time.tzname[0]
     )
 
-    logger.info('paved %d old file(s) from webroot', pave_webroot())
+    logger.info('paved %d old file(s) from webroot', src.pave_webroot())
 
     # load entries
-    entries = load_entries()
+    entries = src.load_entries()
     logger.info('loaded %s journal entries', len(entries))
 
     # load pages
-    pages = load_pages()
+    pages = src.load_pages()
     logger.info('loaded %d page(s)', len(pages))
 
     # load images
-    images = load_images(entries=entries)
+    images = src.load_images(entries=entries)
     logger.info('loaded %d image(s)', len(images))
 
     # create global context
-    context = make_global_context(
+    context = src.make_global_context(
         site=site,
         entries=entries,
         pages=pages,
@@ -64,7 +54,7 @@ def main(args):
             logger.info('generated %d/%d journal entries', i + 1, total)
 
     # render feed
-    feed = load_feed(site, entries=entries, images=images)
+    feed = src.load_feed(site, entries=entries, images=images)
     feed.write()
     logger.info('generated feed.xml')
 
@@ -73,8 +63,8 @@ def main(args):
 
 
 if __name__ == '__main__':
-    args = load_args()
-    logger = load_logger(verbose=args.verbose)
+    args = src.load_args()
+    logger = src.load_logger(verbose=args.verbose)
 
     try:
         main(args)
