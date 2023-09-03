@@ -1,19 +1,11 @@
 # flake8: noqa
 
 """
-This is the source code for my blog.  This library is comprised of
-functions and objects for working with all website resources.
+This is the source code from my blog.  To execute the build, just run
+the package like this:
 
-To add a new script, simply create a new file python file in
-`src/scripts/`.  Invoke the script by running `python -m
-src.scripts.<name>`.
-
-You can import the `src` library into your code like this.
-
-```python
-import src
-
-src.pave_webroot()  # off you go!
+```
+./venv/bin/python -m src
 ```
 """
 
