@@ -1,3 +1,4 @@
+import pathlib
 import sys
 import time
 
@@ -50,13 +51,21 @@ def main(args):
     total = len(entries)
     for i, entry in enumerate(entries):
         entry.write(context=context)
-        if ((i + 1) % 100 == 0) or (i + 1) == total:
+        if ((i + 1) % 400 == 0) or (i + 1) == total:
             logger.info('generated %d/%d journal entries', i + 1, total)
 
     # render feed
     feed = src.load_feed(site, entries=entries, images=images)
     feed.write()
     logger.info('generated feed.xml')
+
+    # validate HTML files
+    total = 0
+    files = list(pathlib.Path('./www/').glob('*.html'))
+    for path in files:
+        total += src.validate_html_references(path)
+    logger.info('validated %d total reference(s) across %d file(s)',
+                total, len(files))
 
     duration = time.time() - start
     logger.info('build finished in %.2fs', duration)

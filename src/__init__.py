@@ -19,6 +19,7 @@ from .models.page import load_entries, load_pages
 from .models.site import load_site
 from .template import render_template
 from .utils import pave_webroot
+from .validate import validate_html_references
 
 # Models
 from .models import (
