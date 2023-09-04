@@ -1,3 +1,4 @@
+{% set latest = entries[0] %}
 {% if latest %}
   <h2>Latest Entry</h2>
   {% if latest.banner %}
@@ -19,6 +20,7 @@
   {% endif %}
 {% endif %}
 
+{% set this_date = on_this_date(site.timestamp, entries) %}
 {% if this_date %}
   <h2>On This Day</h2>
   <h3>{{ this_date.title }}</h3>
@@ -31,6 +33,7 @@
   <a href="{{ random_photo.href }}">{{ random_photo.filename }}</a>
 {% endif %}
 
+{% set random_napkin = find_random_napkin(images) %}
 {% if random_napkin %}
   <h2>Random Napkin Art</h2>
   <a href="{{ random_napkin.href }}">{{ random_napkin.filename }}</a>

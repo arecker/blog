@@ -10,17 +10,12 @@ def main(args):
     site = src.load_site(args)
 
     logger.info(
-        'starting program with python %s (%s)',
+        'starting program with python %s at %s',
         site.python_version,
-        site.python_executable,
-    )
-
-    logger.info(
-        'timestamp %s %s',
         site.timestamp.strftime('%Y-%m-%d %H:%m'),
-        time.tzname[0]
     )
 
+    # clean up old files
     logger.info('paved %d old file(s) from webroot', src.pave_webroot())
 
     # load entries
@@ -36,23 +31,21 @@ def main(args):
     logger.info('loaded %d image(s)', len(images))
 
     # create global context
-    context = src.make_global_context(
-        site=site,
-        entries=entries,
-        pages=pages,
-        images=images,
-    )._asdict()
+    context = {
+        'site': site,
+        'entries': entries,
+        'pages': pages,
+        'images': images,
+    }
 
     for page in pages:
         page.write(context=context)
         logger.info('generated %s', page.filename)
 
     # render entries
-    total = len(entries)
     for i, entry in enumerate(entries):
         entry.write(context=context)
-        if ((i + 1) % 400 == 0) or (i + 1) == total:
-            logger.info('generated %d/%d journal entries', i + 1, total)
+    logger.info('generated %d journal(s)', len(entries))
 
     # render feed
     feed = src.load_feed(site, entries=entries, images=images)

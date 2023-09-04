@@ -11,7 +11,6 @@ the package like this:
 
 # functions
 from .args import load_args
-from .context import make_global_context
 from .logging import load_logger
 from .models.feed import load_feed
 from .models.image import load_images
@@ -39,6 +38,7 @@ __all__ = [
     load_pages,
     load_site,
     pave_webroot,
+    validate_html_references,
     Site,
     Page,
     Image,

@@ -31,7 +31,7 @@ clean:
 
 .PHONY: lint
 lint: venv/bin/python
-	./venv/bin/flake8 --quiet --doctests --color never --extend-exclude "venv/*" .
+	./venv/bin/flake8 --doctests --color never --extend-exclude "venv/*" .
 
 .PHONY: test
 test: venv/bin/python
