@@ -10,11 +10,9 @@ all: test lint build docs
 
 .PHONY: build
 build: venv/bin/python
-	@echo "==> building website"
 	./venv/bin/python -m src $(ARGS)
 
 venv/bin/python: requirements/prod.txt .python-version
-	@echo "==> generating local python"
 	rm -rf ./venv
 	python -m venv --copies ./venv
 	./venv/bin/pip install --upgrade --quiet pip
@@ -22,12 +20,10 @@ venv/bin/python: requirements/prod.txt .python-version
 
 .PHONY: docs
 docs:
-	@echo "==> generating api docs"
 	./venv/bin/pdoc src -o www/api/
 
 .PHONY: clean
 clean:
-	@echo "==> cleaning old artifacts"
 	rm -rf ./www/*.xml
 	rm -rf ./www/*.txt
 	rm -rf ./www/*.html
@@ -35,14 +31,11 @@ clean:
 
 .PHONY: lint
 lint: venv/bin/python
-	@echo "==> checking code style"
-	./venv/bin/flake8 --doctests --color never --extend-exclude "venv/*" .
+	./venv/bin/flake8 --quiet --doctests --color never --extend-exclude "venv/*" .
 
 .PHONY: test
 test: venv/bin/python
-	@echo "==> running unit tests"
-	./venv/bin/coverage run -m unittest discover
-	./venv/bin/coverage report --skip-covered
+	./venv/bin/coverage run -m unittest discover --quiet
 	./venv/bin/coverage html -q -d ./www/coverage
 
 
