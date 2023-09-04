@@ -1,6 +1,8 @@
 {% set latest = entries[0] %}
 {% if latest %}
   <h2>Latest Entry</h2>
+  <h3>{{ latest.title }}</h3>
+  <a href="{{ latest.href }}">{{ latest.description }}</a>
   {% if latest.banner %}
     <figure>
       <a href="{{ latest.href }}">
@@ -9,46 +11,66 @@
           src="./images/banners/{{ latest.banner }}"
         />
       </a>
-      <figcaption>
-        <p>{{ latest.description }}</p>
-      </figcaption>
     </figure>
-  {% else %}
-    <a href="{{ latest.href }}">
-      <p>{{ latest.description }}</p>
-    </a>
   {% endif %}
+  <hr/>
 {% endif %}
+
 
 {% set this_date = on_this_date(site.timestamp, entries) %}
 {% if this_date %}
   <h2>On This Day</h2>
   <h3>{{ this_date.title }}</h3>
   <a href="./{{ this_date.filename }}">{{ this_date.description }}</a>
+  {% if this_date.banner %}
+    <figure class="small">
+      <a href="./{{ this_date.filename }}">
+        <img alt="{{ this_date.description }}" src="./images/banners/{{ this_date.banner }}" />
+      </a>
+    </figure>
+  {% endif %}
+  <hr/>
 {% endif %}
 
 {% set random_photo = images | random %}
 {% if random_photo %}
   <h2>Random Photo</h2>
-  <a href="{{ random_photo.href }}">{{ random_photo.filename }}</a>
+  <figure class="small">
+    <a href="{{ random_photo.href }}">
+      <img alt="{{ random_photo.title }}" src="{{ random_photo.href }}" />
+    </a>
+    <figcaption>
+      {{ random_photo.title }}
+    </figcaption>
+  </figure>
+  <hr/>
 {% endif %}
 
 {% set random_napkin = find_random_napkin(images) %}
 {% if random_napkin %}
-  <h2>Random Napkin Art</h2>
-  <a href="{{ random_napkin.href }}">{{ random_napkin.filename }}</a>
+  <h2>Random Napkin</h2>
+  <figure class="small">
+    <a href="{{ random_napkin.href }}">
+      <img alt="{{ random_napkin.title }}" src="{{ random_napkin.href }}" />
+    </a>
+    <figcaption>
+      {{ random_napkin.title }}
+    </figcaption>
+  </figure>
+  <hr/>
 {% endif %}
 
 {% if entries %}
-<h2>All Entries</h2>
-<table>
-  {% for entry in entries %}
-    <tr>
-      <td>
-        <a href="./{{ entry.filename }}">{{ entry.filename }}</a>
-      </td>
-      <td>{{ entry.description }}</td>
-    </tr>
-  {% endfor %}
-</table>
+  <h2>All Entries</h2>
+  <table>
+    {% for entry in entries %}
+      <tr>
+        <td>
+          <a href="./{{ entry.filename }}">{{ entry.filename }}</a>
+        </td>
+        <td>{{ entry.description }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+  <hr/>
 {% endif %}
