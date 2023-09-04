@@ -6,7 +6,8 @@ import pathlib
 import re
 import xml.etree.ElementTree
 
-from src.template import template_env, render_template, prettify_xml
+from src.template import template_env, render_template
+from src import xml
 
 logger = logging.getLogger('blog')
 
@@ -190,19 +191,11 @@ class Page:
         content = render_template('base.html.j2', context=context).strip()
 
         # prettify the markup
-        content = '\n'.join(content.splitlines()[1:])  # remove doctype
-        content = content.replace('&', '&amp;')  # clean up chars
         try:
-            content = prettify_xml(content)
-        except xml.etree.ElementTree.ParseError as e:
-            msg = 'invalid XML on row %d, col %d'
-            msg = 'error writing %s: ' + msg
-            logger.warn(
-                msg,
-                self.filename,
-                e.position[0] + 1, e.position[1]
-            )
-        return '<!doctype html>\n' + content  # add doctype back
+            return xml.prettify(content)
+        except xml.ParseError as e:
+            logger.error('cannot parse %s: %s', self.filename, e)
+            return content
 
     def write(self, context: dict):
         """

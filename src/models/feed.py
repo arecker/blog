@@ -1,6 +1,7 @@
 import collections
 
 from src.template import render_template
+from src import xml
 
 
 Item = collections.namedtuple('Item', [
@@ -41,11 +42,12 @@ class Feed:
         self.items = items
 
     def render(self):
-        return render_template('feed.xml.j2', context={
+        content = render_template('feed.xml.j2', context={
             'filename': self.filename,
             'site': self.site,
             'items': self.items,
         })
+        return xml.prettify(content)
 
     def write(self):
         with open(f'./www/{self.filename}', 'w') as f:
