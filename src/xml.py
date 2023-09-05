@@ -1,8 +1,8 @@
 import xml.etree.ElementTree
 
-# xml.etree.ElementTree.register_namespace("", "http://www.w3.org/2005/Atom")
-# xml.etree.ElementTree.register_namespace(
-#     "feed", "http://search.yahoo.com/mrss/")
+xml.etree.ElementTree.register_namespace("", "http://www.w3.org/2005/Atom")
+xml.etree.ElementTree.register_namespace(
+    "media", "http://search.yahoo.com/mrss/")
 
 
 class ParseError(BaseException):

@@ -1,6 +1,7 @@
 import collections
 
 from src.template import render_template
+from src import xml
 
 
 Item = collections.namedtuple('Item', [
@@ -47,7 +48,7 @@ class Feed:
             'items': self.items,
         })
         # TODO: xscreensaver can't read the feed
-        # return xml.prettify(content)
+        return xml.prettify(content)
         return content
 
     def write(self):
