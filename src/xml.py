@@ -21,7 +21,8 @@ def prettify(content: str) -> str:
     """
     # if there is a doctype, trim it off
     doctype, *rest = content.splitlines()
-    if doctype.lower().startswith('<!doctype'):
+    doctype = doctype.lower()
+    if doctype.startswith('<!doctype') or doctype.startswith('<?xml'):
         content = '\n'.join(rest)
     else:
         doctype = None

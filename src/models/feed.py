@@ -47,9 +47,7 @@ class Feed:
             'site': self.site,
             'items': self.items,
         })
-        # TODO: xscreensaver can't read the feed
         return xml.prettify(content)
-        return content
 
     def write(self):
         with open(f'./www/{self.filename}', 'w') as f:
