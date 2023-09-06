@@ -1,64 +1,71 @@
-{% set latest = entries[0] %}
-{% if latest %}
-  <h2>Latest Entry</h2>
-  <h3>{{ latest.title }}</h3>
-  <a href="{{ latest.href }}">{{ latest.description }}</a>
-  {% if latest.banner %}
-    <figure>
-      <a href="{{ latest.href }}">
-        <img
-          alt="{{ latest.description }}"
-          src="./images/banners/{{ latest.banner }}"
-        />
-      </a>
-    </figure>
+<div class="row">
+  {% set latest = entries[0] %}
+  {% if latest %}
+    <div class="column">
+      <h2>Latest Entry</h2>
+      <h3>{{ latest.title }}</h3>
+      <a href="{{ latest.href }}">{{ latest.description }}</a>
+      {% if latest.banner %}
+        <figure>
+          <a href="{{ latest.href }}">
+            <img
+              alt="{{ latest.description }}"
+              src="./images/banners/{{ latest.banner }}"
+            />
+          </a>
+        </figure>
+      {% endif %}
+    </div>
   {% endif %}
-  <hr/>
-{% endif %}
 
-
-{% set this_date = on_this_date(site.timestamp, entries) %}
-{% if this_date %}
-  <h2>On This Day</h2>
-  <h3>{{ this_date.title }}</h3>
-  <a href="./{{ this_date.filename }}">{{ this_date.description }}</a>
-  {% if this_date.banner %}
-    <figure class="small">
-      <a href="./{{ this_date.filename }}">
-        <img alt="{{ this_date.description }}" src="./images/banners/{{ this_date.banner }}" />
-      </a>
-    </figure>
+  {% set this_date = on_this_date(site.timestamp, entries) %}
+  {% if this_date %}
+    <div class="column">
+      <h2>On This Day</h2>
+      <h3>{{ this_date.title }}</h3>
+      <a href="./{{ this_date.filename }}">{{ this_date.description }}</a>
+      {% if this_date.banner %}
+        <figure class="small">
+          <a href="./{{ this_date.filename }}">
+            <img alt="{{ this_date.description }}" src="./images/banners/{{ this_date.banner }}" />
+          </a>
+        </figure>
+      {% endif %}
+    </div>
   {% endif %}
-  <hr/>
-{% endif %}
+</div>
 
-{% set random_photo = images | random %}
-{% if random_photo %}
-  <h2>Random Photo</h2>
-  <figure class="small">
-    <a href="{{ random_photo.href }}">
-      <img alt="{{ random_photo.title }}" src="{{ random_photo.href }}" />
-    </a>
-    <figcaption>
-      {{ random_photo.title }}
-    </figcaption>
-  </figure>
-  <hr/>
-{% endif %}
+<div class="row">
+  {% set random_photo = images | random %}
+  {% if random_photo %}
+    <div class="column">
+      <h2>Random Photo</h2>
+      <figure class="small">
+        <a href="{{ random_photo.href }}">
+          <img alt="{{ random_photo.title }}" src="{{ random_photo.href }}" />
+        </a>
+        <figcaption>
+          {{ random_photo.title }}
+        </figcaption>
+      </figure>
+    </div>
+  {% endif %}
 
-{% set random_napkin = find_random_napkin(images) %}
-{% if random_napkin %}
-  <h2>Random Napkin</h2>
-  <figure class="small">
-    <a href="{{ random_napkin.href }}">
-      <img alt="{{ random_napkin.title }}" src="{{ random_napkin.href }}" />
-    </a>
-    <figcaption>
-      {{ random_napkin.title }}
-    </figcaption>
-  </figure>
-  <hr/>
-{% endif %}
+  {% set random_napkin = find_random_napkin(images) %}
+  {% if random_napkin %}
+    <div class="column">
+      <h2>Random Napkin</h2>
+      <figure class="small">
+        <a href="{{ random_napkin.href }}">
+          <img alt="{{ random_napkin.title }}" src="{{ random_napkin.href }}" />
+        </a>
+        <figcaption>
+          {{ random_napkin.title }}
+        </figcaption>
+      </figure>
+    </div>
+  {% endif %}
+</div>
 
 {% if entries %}
   <h2>All Entries</h2>

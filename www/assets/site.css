@@ -84,6 +84,17 @@ figure.small a img {
     max-width: 200px;
 }
 
+.column {
+    float: left;
+    max-width: 400px;
+}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
 @media only screen and (max-width: 500px) {
   figure img, video {
     max-width: 100%;
