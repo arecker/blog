@@ -11,6 +11,7 @@ the package like this:
 
 # functions
 from .args import load_args
+from .docs import write_api_docs
 from .logging import load_logger
 from .models.feed import load_feed
 from .models.image import load_images
@@ -41,6 +42,7 @@ __all__ = [
     pave_webroot,
     run_unit_tests,
     validate_html_references,
+    write_api_docs,
     Site,
     Page,
     Image,

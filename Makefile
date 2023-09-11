@@ -6,7 +6,7 @@ ARGS := \
   --site-email "alex@reckerfamily.com"
 
 .PHONY: all
-all: lint build docs
+all: lint build
 
 .PHONY: build
 build: venv/bin/python
@@ -17,10 +17,6 @@ venv/bin/python: requirements/prod.txt .python-version
 	python -m venv --copies ./venv
 	./venv/bin/pip install --upgrade --quiet pip
 	./venv/bin/pip install --quiet -r requirements/prod.txt
-
-.PHONY: docs
-docs:
-	./venv/bin/pdoc src -o www/api/
 
 .PHONY: clean
 clean:

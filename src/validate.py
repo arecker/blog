@@ -13,9 +13,6 @@ Reference = collections.namedtuple('Reference', [
 ])
 
 
-IGNORE_NOT_FOUND = ['./api/src.html']
-
-
 class ReferenceParser(html.parser.HTMLParser):
     def __init__(self, parent):
         self.parent = pathlib.Path(parent)
@@ -50,9 +47,6 @@ def validate_html_references(path: str) -> int:
     checker.feed(content)
     for reference in checker.references:
         if not reference.path.is_file():
-            if reference.value in IGNORE_NOT_FOUND:
-                pass
-            else:
-                logger.warn('%s: %s reference not found: %s',
-                            path.name, reference.attr, reference.value)
+            logger.warn('%s: %s reference not found: %s',
+                        path.name, reference.attr, reference.value)
     return len(checker.references)

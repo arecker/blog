@@ -55,6 +55,9 @@ def main(args):
     feed.write()
     logger.info('generated feed.xml')
 
+    # render api docs
+    logger.info('generated api docs - %d file(s)', src.write_api_docs())
+
     # validate HTML files
     total = 0
     files = list(pathlib.Path('./www/').glob('*.html'))

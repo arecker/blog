@@ -2,7 +2,7 @@
 
 import unittest
 
-from .. import xml
+from src import xml
 
 
 class TestCase(unittest.TestCase):

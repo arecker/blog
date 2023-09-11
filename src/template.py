@@ -41,3 +41,11 @@ def find_random_napkin(images):
 
 
 template_env.globals['find_random_napkin'] = find_random_napkin
+
+
+def find_random_entry_with_banner(entries):
+    return random.choice([e for e in entries if e.banner])
+
+
+template_env.globals['find_random_entry_with_banner'] = \
+    find_random_entry_with_banner

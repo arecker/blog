@@ -67,17 +67,17 @@
   {% endif %}
 </div>
 
-{% if entries %}
-  <h2>All Entries</h2>
-  <table>
-    {% for entry in entries %}
+<h2>Pages</h2>
+
+<table>
+  {% for page in pages %}
+    {% if page.filename != 'index.html' %}
       <tr>
         <td>
-          <a href="./{{ entry.filename }}">{{ entry.filename }}</a>
+          <a href="./{{ page.filename }}">{{ page.filename }}</a>
         </td>
-        <td>{{ entry.description }}</td>
+        <td>{{ page.description }}</td>
       </tr>
-    {% endfor %}
-  </table>
-  <hr/>
-{% endif %}
+    {% endif %}
+  {% endfor %}
+</table>
