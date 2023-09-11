@@ -17,6 +17,7 @@ from .models.image import load_images
 from .models.page import load_entries, load_pages
 from .models.site import load_site
 from .template import render_template
+from .testing import run_unit_tests
 from .utils import pave_webroot
 from .validate import validate_html_references
 
@@ -38,6 +39,7 @@ __all__ = [
     load_pages,
     load_site,
     pave_webroot,
+    run_unit_tests,
     validate_html_references,
     Site,
     Page,

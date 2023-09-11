@@ -1,6 +1,8 @@
 import argparse
+import logging
 
 
+logger = logging.getLogger('blog')
 parser = argparse.ArgumentParser(
     'src.scripts.build',
     description='Build the website to the local file system',
@@ -38,4 +40,6 @@ def load_args() -> argparse.Namespace:
     logger.debug('called with args = %s', vars(args))
     ```
     """
-    return parser.parse_args()
+    result = parser.parse_args()
+    logger.info('loading system args %s', vars(result))
+    return result

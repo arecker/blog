@@ -6,7 +6,7 @@ ARGS := \
   --site-email "alex@reckerfamily.com"
 
 .PHONY: all
-all: test lint build docs
+all: lint build docs
 
 .PHONY: build
 build: venv/bin/python
@@ -32,12 +32,6 @@ clean:
 .PHONY: lint
 lint: venv/bin/python
 	./venv/bin/flake8 --doctests --color never --extend-exclude "venv/*" .
-
-.PHONY: test
-test: venv/bin/python
-	./venv/bin/coverage run -m unittest discover --quiet
-	./venv/bin/coverage html -q -d ./www/coverage
-
 
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish
