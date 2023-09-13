@@ -49,3 +49,15 @@ def find_random_entry_with_banner(entries):
 
 template_env.globals['find_random_entry_with_banner'] = \
     find_random_entry_with_banner
+
+
+def find_napkins(images):
+    def is_napkin(image):
+        return 'napkin' in (image.slug or '')
+
+    napkins = list(filter(is_napkin, images))
+    group_by = 3
+    return [napkins[i:i+group_by] for i in range(0, len(napkins), group_by)]
+
+
+template_env.globals['find_napkins'] = find_napkins

@@ -1,0 +1,20 @@
+<!-- meta:title Napkins -->
+<!-- meta:description gallery of napkin doodles -->
+
+{% for group in find_napkins(images) %}
+<div class="row">
+  {% for napkin in group %}
+  <div class="column">
+    <figure class="small">
+      <a href="./{{ napkin.href }}">
+        <img alt="{{ napkin.title }}" src="{{ napkin.href }}" />
+      </a>
+      <figcaption>
+        {{ napkin.title.replace(' Napkin', '') }} ({{ napkin.date.year }})
+      </figcaption>
+    </figure>
+  </div>
+  {% endfor %}
+</div>
+<hr/>
+{% endfor %}
