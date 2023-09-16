@@ -12,8 +12,9 @@ class Image:
     A website image.
     """
 
-    def __init__(self, path: str | pathlib.Path):
+    def __init__(self, path: str | pathlib.Path, entry=None):
         self._path = pathlib.Path(path)
+        self._entry = entry
 
     @property
     def path(self) -> pathlib.Path:
@@ -97,29 +98,47 @@ class Image:
         banner_dir = pathlib.Path('./www/images/banners/')
         return banner_dir in self.path.parents
 
+    @property
+    def entry(self):
+        """
+        The entry where the image is referenced.
+        """
+        return self._entry
+
 
 def load_images(entries=[], images_dir='./www/images/') -> list[Image]:
     """
     Loads complete set of images for website as a list of `Image` objects.
+
+    Requires a list of entries so it can associate the entry where it
+    is referenced.
 
     ```python
     images = src.load_images()
     ```
     """
 
-    image_extensions = (
-        '.jpg',
-        '.jpeg',
-        '.png',
-    )
-
-    images_dir = pathlib.Path(images_dir)
-
     images = []
 
-    for p in images_dir.glob('**/*.*'):
-        if p.suffix.lower() not in image_extensions:
-            continue
-        images.append(Image(p))
+    def is_image(p):
+        return p.suffix.lower() in (
+            '.jpg',
+            '.jpeg',
+            '.png',
+        )
 
+    images_dir = pathlib.Path(images_dir)
+    image_files = filter(is_image, images_dir.glob('**/*.*'))
+
+    # build a k/v map of image paths to entries
+    ref_map = {}
+    for entry in entries:
+        for path in entry.extract_links():
+            ref_map[str(path)] = entry
+
+    # build the list of images
+    for path in image_files:
+        images.append(Image(path, ref_map.get(str(path))))
+
+    # finally, sort them by name
     return sorted(images, key=lambda i: i.path.name, reverse=True)

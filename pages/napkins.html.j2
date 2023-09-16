@@ -10,7 +10,14 @@
         <img alt="{{ napkin.title }}" src="{{ napkin.href }}" />
       </a>
       <figcaption>
-        {{ napkin.title.replace(' Napkin', '') }} ({{ napkin.date.year }})
+        <p>
+          {{ napkin.title.replace(' Napkin', '') }} ({{ napkin.date.year }})
+        </p>
+        {% if napkin.entry %}
+        <p>
+          From <a href="./{{ napkin.entry.filename }}">{{ napkin.entry.description }}</a>
+        </p>
+        {% endif %}
       </figcaption>
     </figure>
   </div>

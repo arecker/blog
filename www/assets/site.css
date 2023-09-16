@@ -51,6 +51,7 @@ figure figcaption {
 
 figure figcaption p {
     margin-top: 0;
+    margin-bottom: 0;
 }
 
 blockquote {
@@ -81,6 +82,10 @@ footer p, footer a {
 }
 
 figure.small a img {
+    max-width: 200px;
+}
+
+figure.small figcaption {
     max-width: 200px;
 }
 

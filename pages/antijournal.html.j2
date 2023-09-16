@@ -1,0 +1,27 @@
+<!-- meta:title Anti-journal -->
+<!-- meta:description private journal entries that predate this blog -->
+
+{% set entries = find_anti_journals(entries) %}
+{% set random = entries | random %}
+
+<figure>
+  <a href="./{{ random.filename }}">
+    <img alt="{{ random.description }}" src="./images/banners/{{ random.banner }}" />
+  </a>
+  <figcaption>
+    From <a href="./{{ random.filename }}">{{ random.description }}</a>
+  </figcaption>
+</figure>
+
+<hr/>
+
+<table>
+  {% for entry in entries %}
+    <tr>
+      <td>
+        <a href="./{{ entry.filename }}">{{ entry.filename }}</a>
+      </td>
+      <td>{{ entry.description }}</td>
+    </tr>
+  {% endfor %}
+</table>

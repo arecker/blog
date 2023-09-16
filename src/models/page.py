@@ -7,7 +7,7 @@ import re
 import xml.etree.ElementTree
 
 from src.template import template_env, render_template
-from src import xml
+from src import xml, validate
 
 logger = logging.getLogger('blog')
 
@@ -205,6 +205,25 @@ class Page:
         content = self.render(context)
         with target.open('w') as f:
             f.write(content)
+
+    def extract_links(self) -> list[pathlib.Path]:
+        """
+        Returns a list of href or src values.
+        """
+        results = []
+
+        # make a ReferenceParser
+        parser = validate.ReferenceParser(parent='./www/')
+
+        # feed content to parser
+        with self.path.open('r') as f:
+            parser.feed(f.read())
+
+        # collect all the links
+        for reference in parser.references:
+            results.append(reference.path)
+
+        return results
 
 
 Pagination = collections.namedtuple('Pagination', ['next', 'previous'])

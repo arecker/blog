@@ -1,0 +1,27 @@
+<!-- meta:title Nostalgia -->
+<!-- meta:description essays about special memories -->
+
+{% set lbes = find_looking_back_entries(entries) %}
+{% set random = lbes | random %}
+
+<figure>
+  <a href="./{{ random.filename }}">
+    <img alt="{{ random.description }}" src="./images/banners/{{ random.banner }}" />
+  </a>
+  <figcaption>
+    From <a href="./{{ random.filename }}">{{ random.description }}</a>
+  </figcaption>
+</figure>
+
+<hr/>
+
+<table>
+  {% for entry in lbes %}
+    <tr>
+      <td>
+        <a href="./{{ entry.filename }}">{{ entry.filename }}</a>
+      </td>
+      <td>{{ entry.description }}</td>
+    </tr>
+  {% endfor %}
+</table>
