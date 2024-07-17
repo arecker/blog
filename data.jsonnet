@@ -70,7 +70,7 @@ local spiders = [
     personal='Tex',
     common='Texas Brown',
     scientific='Aphonopelma hentzi',
-    image='2023-06-22-tex.jpg',
+    image='2022-01-06-tex.jpg',
     acquired=[5, 1, 2022],
     deceased=[30, 5, 2024],
     endemic='Colorado, Kansas, Missouri, New Mexico, Oklahoma, Arkansas, Texas, and Louisiana',
@@ -92,15 +92,14 @@ local spiders = [
     deceased=[9, 9, 2022],
     endemic='Brazil (forest)',
   ),
-  // Lol
-  // Spider(
-  //   personal='Lassie',
-  //   common='Brazilian Salmon Pink Bird-eater',
-  //   scientific='Lasiodora parahybana',
-  //   image='',
-  //   acquired=[???],
-  //   endemic='Brazil (forest)',
-  // ),
+  Spider(
+    personal='Lassie',
+    common='Brazilian Salmon Pink Bird-eater',
+    scientific='Lasiodora parahybana',
+    image='2023-06-22-lassie.jpg',
+    acquired=[22, 6, 2023],
+    endemic='Brazil (forest)',
+  ),
   Spider(
     personal='Beans',
     common='Brazilian White Knee',
