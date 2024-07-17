@@ -92,6 +92,15 @@ local spiders = [
     deceased=[9, 9, 2022],
     endemic='Brazil (forest)',
   ),
+  // Lol
+  // Spider(
+  //   personal='Lassie',
+  //   common='Brazilian Salmon Pink Bird-eater',
+  //   scientific='Lasiodora parahybana',
+  //   image='',
+  //   acquired=[???],
+  //   endemic='Brazil (forest)',
+  // ),
   Spider(
     personal='Beans',
     common='Brazilian White Knee',
@@ -109,13 +118,45 @@ local spiders = [
     endemic='Costa Rica, Honduras, Nicaragua',
   ),
   Spider(
+    personal='Blanca',
+    common='Brazilian Red and White',
+    scientific='Nhandu chromatus',
+    image='2022-10-01-blanca.jpg',
+    acquired=[1, 10, 2022],
+    endemic='Brazil and Paraguay',
+  ),
+  Spider(
     personal='Tiny',
     common='Mexican Red Rump',
     scientific='Tlitocatl vagans',
     image='2024-05-21-tiny.jpg',
     acquired=[11, 3, 2023],
     endemic='Mexico and Central America',
-  )
+  ),
+  Spider(
+    personal='Charlene',
+    common='Arizona Blonde',
+    scientific='Aphonopelma chalcodes',
+    image='2023-12-27-charlene.jpg',
+    acquired=[27, 12, 2023],
+    endemic='Arizona and Mexico (deserts)',
+  ),
+  Spider(
+    personal='Astuary Art',
+    common='Jalisco Gold Top',
+    scientific='Aphonopelma sp. Jalisco',
+    image='2024-02-27-astuary-art.jpg',
+    acquired=[27, 12, 2023],
+    endemic='Mexico',
+  ),
+  Spider(
+    personal='Jacob Leespider',
+    common='Texas Brown',
+    scientific='Aphonopelma hentzi',
+    image='2024-07-14-jacobleespider.jpg',
+    acquired=[14, 7, 2024],
+    endemic='Colorado, Kansas, Missouri, New Mexico, Oklahoma, Arkansas, Texas, and Louisiana',
+  ),
 ];
 
 {

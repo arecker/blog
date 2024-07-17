@@ -143,6 +143,18 @@
    },
    {
       "acquired": [
+         1,
+         10,
+         2022
+      ],
+      "common": "Brazilian Red and White",
+      "endemic": "Brazil and Paraguay",
+      "image": "2022-10-01-blanca.jpg",
+      "personal": "Blanca",
+      "scientific": "Nhandu chromatus"
+   },
+   {
+      "acquired": [
          11,
          3,
          2023
@@ -152,5 +164,41 @@
       "image": "2024-05-21-tiny.jpg",
       "personal": "Tiny",
       "scientific": "Tlitocatl vagans"
+   },
+   {
+      "acquired": [
+         27,
+         12,
+         2023
+      ],
+      "common": "Arizona Blonde",
+      "endemic": "Arizona and Mexico (deserts)",
+      "image": "2023-12-27-charlene.jpg",
+      "personal": "Charlene",
+      "scientific": "Aphonopelma chalcodes"
+   },
+   {
+      "acquired": [
+         27,
+         12,
+         2023
+      ],
+      "common": "Jalisco Gold Top",
+      "endemic": "Mexico",
+      "image": "2024-02-27-astuary-art.jpg",
+      "personal": "Astuary Art",
+      "scientific": "Aphonopelma sp. Jalisco"
+   },
+   {
+      "acquired": [
+         14,
+         7,
+         2024
+      ],
+      "common": "Texas Brown",
+      "endemic": "Colorado, Kansas, Missouri, New Mexico, Oklahoma, Arkansas, Texas, and Louisiana",
+      "image": "2024-07-14-jacobleespider.jpg",
+      "personal": "Jacob Leespider",
+      "scientific": "Aphonopelma hentzi"
    }
 ]

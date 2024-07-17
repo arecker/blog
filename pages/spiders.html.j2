@@ -2,7 +2,7 @@
 <!-- meta:description directory of spiders I have cared for -->
 
 {% for spider in spiders %}
-<h2>{{ spider.personal }}</h2>
+<hr/>
 <figure>
   <a href="{{ spider.image.href }}">
     <img
@@ -11,6 +11,7 @@
       />
   </a>
 </figure>
+<h2>{{ spider.personal }}</h2>
 <table>
   <tr>
     <td>Scientific Name: </td>
