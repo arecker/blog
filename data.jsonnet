@@ -99,6 +99,22 @@ local spiders = [
     image='2023-04-04-beans.jpg',
     acquired=[10, 8, 2022],
     endemic='Northern Brazil',
+  ),
+  Spider(
+    personal='Buzz Queen',
+    common='Costa Rican Zebra',
+    scientific='Aphonopelma seemani',
+    image='2022-10-20-buzz.jpg',
+    acquired=[1, 10, 2022],
+    endemic='Costa Rica, Honduras, Nicaragua',
+  ),
+  Spider(
+    personal='Tiny',
+    common='Mexican Red Rump',
+    scientific='Tlitocatl vagans',
+    image='2024-05-21-tiny.jpg',
+    acquired=[11, 3, 2023],
+    endemic='Mexico and Central America',
   )
 ];
 

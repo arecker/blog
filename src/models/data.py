@@ -46,4 +46,5 @@ def load_spiders(data_dir: str | pathlib.Path, images=[]) -> list[Spider]:
         spider = Spider(**kwargs)
         spiders.append(spider)
 
+    spiders.sort(key=lambda s: s.acquired)
     return spiders

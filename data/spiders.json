@@ -128,5 +128,29 @@
       "image": "2023-04-04-beans.jpg",
       "personal": "Beans",
       "scientific": "Acanthoscurria geniculata"
+   },
+   {
+      "acquired": [
+         1,
+         10,
+         2022
+      ],
+      "common": "Costa Rican Zebra",
+      "endemic": "Costa Rica, Honduras, Nicaragua",
+      "image": "2022-10-20-buzz.jpg",
+      "personal": "Buzz Queen",
+      "scientific": "Aphonopelma seemani"
+   },
+   {
+      "acquired": [
+         11,
+         3,
+         2023
+      ],
+      "common": "Mexican Red Rump",
+      "endemic": "Mexico and Central America",
+      "image": "2024-05-21-tiny.jpg",
+      "personal": "Tiny",
+      "scientific": "Tlitocatl vagans"
    }
 ]
