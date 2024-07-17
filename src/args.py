@@ -21,6 +21,7 @@ group.add_argument('--dir-entries', default='./entries')
 group.add_argument('--dir-pages', default='./pages')
 group.add_argument('--dir-templates', default='./templates')
 group.add_argument('--dir-images', default='./www/images')
+group.add_argument('--dir-data', default='./data')
 
 group = parser.add_argument_group('Site Options')
 group.add_argument('--site-title', required=True)

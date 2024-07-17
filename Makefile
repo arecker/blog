@@ -6,7 +6,11 @@ ARGS := \
   --site-email "alex@reckerfamily.com"
 
 .PHONY: all
-all: lint build
+all: lint data build
+
+.PHONY: data
+data:
+	jsonnet -m data data.jsonnet
 
 .PHONY: build
 build: venv/bin/python

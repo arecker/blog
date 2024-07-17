@@ -17,6 +17,9 @@ jobs:
       - name: setup python
         uses: actions/setup-python@v4
 
+      - name: setup jsonnet
+        uses: zendesk/setup-jsonnet@v1
+
       - name: build website
         run: make
 

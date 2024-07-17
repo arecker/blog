@@ -1,0 +1,132 @@
+[
+   {
+      "acquired": [
+         5,
+         7,
+         2021
+      ],
+      "common": "Mexican Rose Grey",
+      "endemic": "Mexico - Southern Guerrero and eastern Oaxaca",
+      "image": "2023-06-26-spidey.jpg",
+      "personal": "Spidey",
+      "scientific": "Tlitocatl verdezi"
+   },
+   {
+      "acquired": [
+         5,
+         7,
+         2021
+      ],
+      "common": "Mexican Red Knee",
+      "endemic": "Mexico - Colima, Jalisco, and Michoacán",
+      "image": "2023-05-26-karta.jpg",
+      "personal": "Karta",
+      "scientific": "Brachypelma hamorii"
+   },
+   {
+      "acquired": [
+         16,
+         7,
+         2021
+      ],
+      "common": "Curly Hair",
+      "endemic": "Nicaragua and Costa Rica",
+      "image": "2023-06-19-glassy.jpg",
+      "personal": "Glassy",
+      "scientific": "Tliltocatl albopilosus"
+   },
+   {
+      "acquired": [
+         6,
+         10,
+         2021
+      ],
+      "common": "Green Bottle Blue",
+      "endemic": "Northern Venezuela (coastal)",
+      "image": "2023-09-12-leo.jpg",
+      "personal": "Leo",
+      "scientific": "Chromatopelma cyaneopubescens"
+   },
+   {
+      "acquired": [
+         6,
+         10,
+         2021
+      ],
+      "common": "Chaco Golden Knee",
+      "endemic": "Argentina and Paraguay (grasslands)",
+      "image": "2023-11-11-spiker-rehouse.jpg",
+      "personal": "Spiker",
+      "scientific": "Grammostola pulchripes "
+   },
+   {
+      "acquired": [
+         6,
+         10,
+         2021
+      ],
+      "common": "Brazilian Black",
+      "endemic": "Brazil and Uruguay (grasslands)",
+      "image": "2023-08-16-venom.jpg",
+      "personal": "Venom",
+      "scientific": "Grammostola pulchra"
+   },
+   {
+      "acquired": [
+         5,
+         1,
+         2022
+      ],
+      "common": "Texas Brown",
+      "deceased": [
+         30,
+         5,
+         2024
+      ],
+      "endemic": "Colorado, Kansas, Missouri, New Mexico, Oklahoma, Arkansas, Texas, and Louisiana",
+      "image": "2023-06-22-tex.jpg",
+      "personal": "Tex",
+      "scientific": "Aphonopelma hentzi"
+   },
+   {
+      "acquired": [
+         14,
+         1,
+         2022
+      ],
+      "common": "Guatemalen Tiger Rump",
+      "endemic": "Mexico and Guatemala",
+      "image": "2022-08-24-tio.jpg",
+      "personal": "Tio",
+      "scientific": "Davus pentaloris"
+   },
+   {
+      "acquired": [
+         7,
+         6,
+         2022
+      ],
+      "common": "Brazilian Salmon Pink Bird-eater",
+      "deceased": [
+         9,
+         9,
+         2022
+      ],
+      "endemic": "Brazil (forest)",
+      "image": "2022-06-07-lalo.jpg",
+      "personal": "Lalo",
+      "scientific": "Lasiodora parahybana"
+   },
+   {
+      "acquired": [
+         10,
+         8,
+         2022
+      ],
+      "common": "Brazilian White Knee",
+      "endemic": "Northern Brazil",
+      "image": "2023-04-04-beans.jpg",
+      "personal": "Beans",
+      "scientific": "Acanthoscurria geniculata"
+   }
+]

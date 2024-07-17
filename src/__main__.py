@@ -33,12 +33,17 @@ def main(args):
     images = src.load_images(entries=entries)
     logger.info('loaded %d image(s)', len(images))
 
+    # load spiders
+    spiders = src.load_spiders(data_dir=args.dir_data, images=images)
+    logger.info('loaded %d spider(s)', len(spiders))
+
     # create global context
     context = {
         'site': site,
         'entries': entries,
         'pages': pages,
         'images': images,
+        'spiders': spiders,
     }
 
     for page in pages:

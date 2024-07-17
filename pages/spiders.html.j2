@@ -1,0 +1,38 @@
+<!-- meta:title Spiders -->
+<!-- meta:description directory of spiders I have cared for -->
+
+{% for spider in spiders %}
+<h2>{{ spider.personal }}</h2>
+<figure>
+  <a href="{{ spider.image.href }}">
+    <img
+      alt="{{ spider.personal }} image"
+      src="{{ spider.image.href }}"
+      />
+  </a>
+</figure>
+<table>
+  <tr>
+    <td>Scientific Name: </td>
+    <td><em>{{ spider.scientific }}</em></td>
+  </tr>
+  <tr>
+    <td>Common Name: </td>
+    <td>{{ spider.common }}</td>
+  </tr>
+  <tr>
+    <td>Endemic Region: </td>
+    <td>{{ spider.endemic }}</td>
+  </tr>
+  <tr>
+    <td>Acquired: </td>
+    <td>{{ spider.acquired.strftime('%B %d, %Y') }}</td>
+  </tr>
+  {% if spider.deceased %}
+  <tr>
+    <td>Deceased: </td>
+    <td>{{ spider.deceased.strftime('%B %d, %Y') }}</td>
+  </tr>
+  {% endif %}
+</table>
+{% endfor %}
