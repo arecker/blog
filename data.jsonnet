@@ -24,6 +24,7 @@ local spiders = [
     scientific='Tlitocatl verdezi',
     image='2023-06-26-spidey.jpg',
     acquired=[5, 7, 2021],
+    deceased=[26, 7, 2024],
     endemic='Mexico - Southern Guerrero and eastern Oaxaca',
   ),
   Spider(
