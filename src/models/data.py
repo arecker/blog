@@ -24,7 +24,7 @@ class Spider:
     """The spider's species common name (e.g. *Mexican Rose Grey*)"""
 
     scientific: str
-    """The spider's species scientific name (e.g. *Tlitiocatl Verdezi*)"""
+    """The spider's species scientific name (e.g. *Tlitiocatl verdezi*)"""
 
     image: Image
     """The spider's picture (an `Image`)"""
