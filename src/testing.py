@@ -15,7 +15,7 @@ def run_unit_tests() -> int:
     Returns the number of executed tests so you have something
     interesting to log.
 
-    If any tests fail, the names and stack traces are printed to
+   If any tests fail, the names and stack traces are printed to
     stderr and the whole process is exited.
 
     >>> logger.info('ran %d test(s)', run_unit_tests())

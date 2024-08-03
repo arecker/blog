@@ -29,6 +29,8 @@ from .models import (
     Page,
     Image,
     Feed,
+    Spider,
+    SpiderStats,
 )
 
 
@@ -40,6 +42,8 @@ __all__ = [
     load_logger,
     load_pages,
     load_site,
+    load_spiders,
+    load_spider_stats,
     pave_webroot,
     run_unit_tests,
     validate_html_references,
@@ -48,4 +52,6 @@ __all__ = [
     Page,
     Image,
     Feed,
+    Spider,
+    SpiderStats,
 ]

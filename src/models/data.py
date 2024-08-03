@@ -2,6 +2,9 @@ import collections
 import json
 import pathlib
 import datetime
+import dataclasses
+
+from . import Image
 
 
 def load_data(name, data_dir: str | pathlib.Path):
@@ -11,18 +14,43 @@ def load_data(name, data_dir: str | pathlib.Path):
         return json.load(f)
 
 
-Spider = collections.namedtuple('Spider', [
-    'personal',
-    'common',
-    'scientific',
-    'image',
-    'acquired',
-    'deceased',
-    'endemic',
-])
+@dataclasses.dataclass
+class Spider:
+    """A Spider"""
+    personal: str
+    """The spider's personal name (e.g. *Spidey*)"""
+
+    common: str
+    """The spider's species common name (e.g. *Mexican Rose Grey*)"""
+
+    scientific: str
+    """The spider's species scientific name (e.g. *Tlitiocatl Verdezi*)"""
+
+    image: Image
+    """The spider's picture (an `Image`)"""
+
+    acquired: datetime.datetime
+    """The day the spider was acquired"""
+
+    deceased: datetime.datetime
+    """The day the spider died"""
+
+    endemic: str
+    """The spider's natural endemic region (e.g. *Mexico - Southern Guerrero and eastern Oaxaca*)"""
 
 
 def load_spiders(data_dir: str | pathlib.Path, images=[]) -> list[Spider]:
+    """Load spiders from the `data_dir`.
+
+    Pass in site a list of site `Image` objects so the spider's image
+    can be associated.
+
+    Returns a `Spider`.
+
+    ```python
+    spiders = load_spiders('./data')
+    ```
+    """
     spiders = []
 
     for obj in load_data('spiders', data_dir):
@@ -61,6 +89,15 @@ SpiderStats = collections.namedtuple('SpiderStats', [
 
 
 def load_spider_stats(spiders: list[Spider]) -> SpiderStats:
+    """Generate stats from a list of `spiders`.
+
+    Returns a `SpiderStats` containing some miscellaneous
+    stats.
+
+    ```python
+    stats = load_spider_stats(spiders)
+    ```
+    """
     stats = {}
 
     living = [s for s in spiders if not s.deceased]
