@@ -55,7 +55,7 @@ def find_napkins(images):
 
     napkins = list(filter(is_napkin, images))
     group_by = 3
-    return [napkins[i:i+group_by] for i in range(0, len(napkins), group_by)]
+    return [napkins[i:i + group_by] for i in range(0, len(napkins), group_by)]
 
 
 @register

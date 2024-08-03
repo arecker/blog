@@ -22,6 +22,10 @@ venv/bin/python: requirements/prod.txt .python-version
 	./venv/bin/pip install --upgrade --quiet pip
 	./venv/bin/pip install --quiet -r requirements/prod.txt
 
+.PHONY: dev
+dev: venv/bin/python
+	./venv/bin/pip install --quiet -r requirements/dev.txt
+
 .PHONY: clean
 clean:
 	rm -rf ./www/*.xml
@@ -31,7 +35,7 @@ clean:
 
 .PHONY: lint
 lint: venv/bin/python
-	./venv/bin/flake8 --doctests --color never --extend-exclude "venv/*" .
+	./venv/bin/flake8 --doctests --color never --ignore=E501 --extend-exclude "venv/*" .
 
 .PHONY: test
 test:

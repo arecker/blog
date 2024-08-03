@@ -68,8 +68,7 @@ def main(args):
     files = list(pathlib.Path('./www/').glob('*.html'))
     for path in files:
         total += src.validate_html_references(path)
-    logger.info('validated %d total reference(s) across %d file(s)',
-                total, len(files))
+    logger.info('validated %d total reference(s) across %d file(s)', total, len(files))
 
     duration = time.time() - start
     logger.info('build finished in %.2fs', duration)
