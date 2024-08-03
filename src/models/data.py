@@ -42,10 +42,34 @@ class Spider:
 def load_spiders(data_dir: str | pathlib.Path, images=[]) -> list[Spider]:
     """Load spiders from the `data_dir`.
 
+    Spiders are defined in `data/spiders.json` in this format:
+
+    ```json
+    [
+      {
+        "acquired": [
+           5,
+           7,
+           2021
+        ],
+        "common": "Mexican Rose Grey",
+        "deceased": [
+           26,
+           7,
+           2024
+        ],
+        "endemic": "Mexico - Southern Guerrero and eastern Oaxaca",
+        "image": "2023-06-26-spidey.jpg",
+        "personal": "Spidey",
+        "scientific": "Tlitocatl verdezi"
+      }
+    ]
+    ```
+    This function reads the same data and converts it into a list of
+    `Spider` objects in the order they were acquired.
+
     Pass in site a list of site `Image` objects so the spider's image
     can be associated.
-
-    Returns a `Spider`.
 
     ```python
     spiders = load_spiders('./data')
