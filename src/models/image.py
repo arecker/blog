@@ -94,9 +94,7 @@ class Image:
         """
         True if the image lives in the banners directory.
         """
-
-        banner_dir = pathlib.Path('./www/images/banners/')
-        return banner_dir in self.path.parents
+        return self.date_slug == self.path.stem
 
     @property
     def entry(self):

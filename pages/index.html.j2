@@ -10,7 +10,7 @@
       <a href="{{ latest.href }}">
         <img
           alt="{{ latest.description }}"
-          src="./images/banners/{{ latest.banner }}"
+          src="./images/{{ latest.banner }}"
           />
       </a>
     </figure>
@@ -29,7 +29,7 @@
     {% if this_date.banner %}
     <figure class="small">
       <a href="./{{ this_date.filename }}">
-        <img alt="{{ this_date.description }}" src="./images/banners/{{ this_date.banner }}" />
+        <img alt="{{ this_date.description }}" src="./images/{{ this_date.banner }}" />
       </a>
     </figure>
     {% endif %}

@@ -34,7 +34,7 @@ class Feed:
             'title',
             'timestamp',
             'path', # ex. 2020-01-01.html
-            'image', # ex. banners/2021-01-01.jpg
+            'image', # ex. 2021-01-01.jpg
         ])
         ```
         """
@@ -78,7 +78,7 @@ def load_feed(site, entries=[], images=[]) -> Feed:  # noqa: E501
         kwargs['path'] = entry.filename
 
         if entry.banner:
-            kwargs['image'] = f'images/banners/{entry.banner}'
+            kwargs['image'] = f'images/{entry.banner}'
         else:
             kwargs['image'] = None
 

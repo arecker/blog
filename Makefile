@@ -33,6 +33,10 @@ clean:
 lint: venv/bin/python
 	./venv/bin/flake8 --doctests --color never --extend-exclude "venv/*" .
 
+.PHONY: test
+test:
+	./venv/bin/python -m unittest
+
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish
 publish:

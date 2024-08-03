@@ -60,5 +60,5 @@ class TestImage(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     def test_is_banner(self):
-        self.assertTrue(Image('./www/images/banners/test.jpg').is_banner)
-        self.assertFalse(Image('./www/images/test.jpg').is_banner)
+        self.assertTrue(Image('./www/images/2024-01-01.jpg').is_banner)
+        self.assertFalse(Image('./www/images/2024-01-01-test.jpg').is_banner)
