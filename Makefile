@@ -1,3 +1,9 @@
+PYTHON_DETECTED = "$(shell python --version)"
+PYTHON_DESIRED = "Python $(shell cat .python-version)"
+ifneq ($(PYTHON_DETECTED), $(PYTHON_DESIRED))
+$(error wanted $(PYTHON_DESIRED), detected $(PYTHON_DETECTED))
+endif
+
 ARGS := \
   --site-title "Hey Reader!" \
   --site-description "personal online journal of Alex Recker" \
