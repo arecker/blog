@@ -86,8 +86,9 @@ def load_feed(site, entries=[], images=[]) -> Feed:  # noqa: E501
         items.append(Item(**kwargs))
 
     # add all other images that aren't a banner
+    banners = [e.banner for e in entries if e.banner]
     for image in images:
-        if image.is_banner:
+        if image.filename in banners:
             continue
 
         kwargs = {
