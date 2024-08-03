@@ -1,8 +1,42 @@
 <!-- meta:title Spiders -->
 <!-- meta:description directory of spiders I have cared for -->
 
+<h2>Stats</h2>
+<p>Note: actual ages of spiders may vary.  These stats are relative to time spent under my care.</p>
+<table>
+  <tr>
+    <td>Total Acquired</td>
+    <td>{{ spiders | length }}</td>
+  </tr>
+  <tr>
+    <td>Total Living</td>
+    <td>{{ spider_stats.count_living }}</td>
+  </tr>
+  <tr>
+    <td>Total Deceased</td>
+    <td>{{ spider_stats.count_deceased }}</td>
+  </tr>
+  <tr>
+    <td>Oldest Living</td>
+    <td>{{ spider_stats.oldest_living }}</td>
+  </tr>
+  <tr>
+    <td>Youngest Living</td>
+    <td>{{ spider_stats.youngest_living }}</td>
+  </tr>
+  <tr>
+    <td>Oldest Deceased</td>
+    <td>{{ spider_stats.oldest_deceased }}</td>
+  </tr>
+  <tr>
+    <td>Youngest Deceased</td>
+    <td>{{ spider_stats.youngest_deceased }}</td>
+  </tr>
+</table>
+
+<h2>Directory</h2>
+
 {% for spider in spiders %}
-<hr/>
 <figure>
   <a href="{{ spider.image.href }}">
     <img
