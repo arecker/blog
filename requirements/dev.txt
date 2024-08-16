@@ -1,2 +1,4 @@
 -r prod.txt
-jedi-language-server==0.41.4
+pyright
+isort
+pyflakes

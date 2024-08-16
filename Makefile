@@ -12,17 +12,26 @@ ARGS := \
   --site-email "alex@reckerfamily.com"
 
 .PHONY: all
-all: lint data build
+all: lint data test build
 
 .PHONY: data
 data:
+	@echo "==> rendering data"
 	jsonnet -m data data.jsonnet
 
 .PHONY: build
 build: venv/bin/python
+	@echo "==> building website"
 	./venv/bin/python -m src $(ARGS)
 
+.PHONY: test
+test: venv/bin/python
+	@echo "==> running tests"
+	./venv/bin/coverage run -m unittest discover -q
+	./venv/bin/coverage html -d www/coverage -q
+
 venv/bin/python: requirements/prod.txt .python-version
+	@echo "==> setting up python environment"
 	rm -rf ./venv
 	python -m venv --copies ./venv
 	./venv/bin/pip install --upgrade --quiet pip
@@ -41,11 +50,8 @@ clean:
 
 .PHONY: lint
 lint: venv/bin/python
+	@echo "==> linting code"
 	./venv/bin/flake8 --doctests --color never --ignore=E501 --extend-exclude "venv/*" .
-
-.PHONY: test
-test:
-	./venv/bin/python -m unittest
 
 PUBLISH_TAG := entry-$(shell date '+%Y-%m-%d')
 .PHONY: publish

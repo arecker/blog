@@ -1,18 +1,14 @@
 import xml.etree.ElementTree
 
+
 xml.etree.ElementTree.register_namespace("", "http://www.w3.org/2005/Atom")
-xml.etree.ElementTree.register_namespace(
-    "media", "http://search.yahoo.com/mrss/")
-
-
-class ParseError(BaseException):
-    """There was an unparsable error in the XML input."""
+xml.etree.ElementTree.register_namespace("media", "http://search.yahoo.com/mrss/")
 
 
 def prettify(content: str) -> str:
     """Prettify an XML string
 
-    Raises a `ParseError` if the input is invalid.
+    Raises a `ValueError` if the input is invalid.
 
     >>> prettify('<some><xml></xml></some>')
     <some>
@@ -34,8 +30,7 @@ def prettify(content: str) -> str:
     try:
         tree = xml.etree.ElementTree.fromstring(content)
     except xml.etree.ElementTree.ParseError as e:
-        raise ParseError(
-            f'error parsing the following ({e.args})\n{content[:800]}')
+        raise ValueError(f'error parsing the following ({e.args})\n{content[:800]}')
 
     # add indenting
     xml.etree.ElementTree.indent(tree)

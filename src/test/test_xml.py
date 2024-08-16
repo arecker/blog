@@ -1,5 +1,3 @@
-# flake8: noqa
-
 import unittest
 
 from src import xml
@@ -53,3 +51,10 @@ class TestCase(unittest.TestCase):
 </feed>'''.strip()
         actual = xml.prettify(original)
         self.assertEqual(actual, original)
+
+        with self.assertRaisesRegex(ValueError, 'Hello'):
+            xml.prettify('''
+<!doctype html>
+<h1>Hello
+        '''.strip())
+            self.assertEqual(actual, expected)

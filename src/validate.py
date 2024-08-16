@@ -22,6 +22,7 @@ class ReferenceParser(html.parser.HTMLParser):
     def handle_starttag(self, tag, attrs):
         for attr in attrs:
             key, val = attr
+            val = val or ''
             if key not in ['src', 'href']:
                 continue
             if not val.startswith('./'):
@@ -33,7 +34,7 @@ class ReferenceParser(html.parser.HTMLParser):
             ))
 
 
-def validate_html_references(path: str) -> int:
+def validate_html_references(path: str | pathlib.Path) -> int:
     """Validate an HTML file
     """
 

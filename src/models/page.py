@@ -229,7 +229,7 @@ class Page:
 Pagination = collections.namedtuple('Pagination', ['next', 'previous'])
 
 
-def paginate_entries(files=[]) -> Pagination:
+def paginate_entries(files=[]) -> dict:
     pagination = {}
 
     for i, this_file in enumerate(files):

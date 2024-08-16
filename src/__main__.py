@@ -15,11 +15,8 @@ def main(args):
         site.timestamp.strftime('%Y-%m-%d %H:%m'),
     )
 
-    # run unit tests
-    logger.info('executed %d test(s)', src.run_unit_tests())
-
     # clean up old files
-    logger.info('paved %d old file(s) from webroot', src.pave_webroot())
+    logger.info('paved %d old file(s) from webroot', src.pave_webroot(args.dir_www))
 
     # load entries
     entries = src.load_entries()

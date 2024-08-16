@@ -1,7 +1,7 @@
 import pathlib
 
 
-def pave_webroot() -> int:
+def pave_webroot(webroot: pathlib.Path | str) -> int:
     """
     Delete all old generated files from webroot
 
@@ -9,11 +9,11 @@ def pave_webroot() -> int:
     so you have something interesting to log.
 
     ```python
-    logger.info('paved %d old file(s) from webroot!', src.pave_webroot())
+    logger.info('paved %d old file(s) from webroot!', src.pave_webroot('./www'))
     ```
     """
 
-    webroot = pathlib.Path('./www')
+    webroot = pathlib.Path(webroot)
 
     old_files = []
     old_files += list(webroot.glob('*.html'))

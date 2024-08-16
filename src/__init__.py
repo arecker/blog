@@ -18,8 +18,6 @@ from .models.image import load_images
 from .models.page import load_entries, load_pages
 from .models.site import load_site
 from .models.data import load_spiders, load_spider_stats
-from .template import render_template
-from .testing import run_unit_tests
 from .utils import pave_webroot
 from .validate import validate_html_references
 
@@ -45,7 +43,6 @@ __all__ = [
     load_spiders,
     load_spider_stats,
     pave_webroot,
-    run_unit_tests,
     validate_html_references,
     write_api_docs,
     Site,
