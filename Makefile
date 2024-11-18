@@ -30,16 +30,12 @@ test: venv/bin/python
 	./venv/bin/coverage run -m unittest discover -q
 	./venv/bin/coverage html -d www/coverage -q
 
-venv/bin/python: requirements/prod.txt .python-version
+venv/bin/python: requirements.txt .python-version
 	@echo "==> setting up python environment"
 	rm -rf ./venv
 	python -m venv --copies ./venv
 	./venv/bin/pip install --upgrade --quiet pip
-	./venv/bin/pip install --quiet -r requirements/prod.txt
-
-.PHONY: dev
-dev: venv/bin/python
-	./venv/bin/pip install --quiet -r requirements/dev.txt
+	./venv/bin/pip install --quiet -r requirements.txt
 
 .PHONY: clean
 clean:
