@@ -17,6 +17,19 @@ local Spider(personal='', common='', scientific='', image='', acquired=[], decea
   })
 );
 
+local Game(slug='', description='', image='') = (
+  assert slug != '' : 'slug required';
+  assert description != '' : 'description required';
+  assert image != '' : 'image required';
+
+  {
+    slug: slug,
+    url: std.format('https://arecker.itch.io/%s', std.asciiLower(slug)),
+    image: image,
+    description: description,
+  }
+);
+
 local spiders = [
   Spider(
     personal='Spidey',
@@ -159,6 +172,12 @@ local spiders = [
   ),
 ];
 
+local games = [
+  Game(slug='hallway', image='2025-04-16-game-hallway.png', description="Wander around a strange hallway in the sky.  Don't be too critical - this was my first attempt at a game, and you should be grateful I figured out how to keep you from falling through the floor to your death."),
+  Game(slug='beach', image='2025-04-16-game-beach.png', description='Take a peaceful walk around the beach.  Did you find the hidden message?'),
+];
+
 {
   'spiders.json': spiders,
+  'games.json': games,
 }

@@ -35,6 +35,10 @@ def main(args):
     spider_stats = src.load_spider_stats(spiders)
     logger.info('loaded %d spider(s)', len(spiders))
 
+    # load games
+    games = src.load_games(data_dir=args.dir_data, images=images)
+    logger.info('loaded %d game(s)', len(games))
+
     # create global context
     context = {
         'site': site,
@@ -43,6 +47,7 @@ def main(args):
         'images': images,
         'spiders': spiders,
         'spider_stats': spider_stats,
+        'games': games,
     }
 
     for page in pages:

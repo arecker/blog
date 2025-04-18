@@ -15,6 +15,27 @@ def load_data(name, data_dir: str | pathlib.Path):
 
 
 @dataclasses.dataclass
+class Game:
+    """A Game"""
+    slug: str
+    """A slugified version of the name to act as an ID"""
+
+    description: str
+    """A short description of the game"""
+
+    image: Image
+    """The game's image (an `Image`)"""
+
+    url: str
+    """A url link to the game download"""
+
+    @property
+    def title(self) -> str:
+        """A title cased version of the slug for display."""
+        return self.slug.title()
+
+
+@dataclasses.dataclass
 class Spider:
     """A Spider"""
     personal: str
@@ -37,6 +58,49 @@ class Spider:
 
     endemic: str
     """The spider's natural endemic region (e.g. *Mexico - Southern Guerrero and eastern Oaxaca*)"""
+
+
+def load_games(data_dir: str | pathlib.Path, images=[]) -> list[Game]:
+    """Load games from the `data_dir`
+
+    Games are defined in `data/games.json` in this format:
+
+    ```json
+    [
+     {
+      "description": "fight a bear",
+      "image": "2025-04-16-bear-fight.png",
+      "slug": "bear-fight",
+      "url": "https://www.bear-fight-game.biz"
+     },
+    ]
+    ```
+
+    This function converts it into a list of `Game` objects.
+
+    Pass in site a list of site `Image` objects so the game's image
+    can be associated.
+
+    ```python
+    games = load_games('./data', images=[])
+    ```
+    """
+    games = []
+
+    for obj in load_data('games', data_dir):
+        try:
+            image = next((
+                img for img in images if img.filename == obj['image']
+            ))
+        except StopIteration:
+            raise ValueError(f'could not find game image \"{obj["image"]}\"')
+
+        kwargs = obj
+        kwargs['image'] = image
+        game = Game(**kwargs)
+        games.append(game)
+
+    return games
 
 
 def load_spiders(data_dir: str | pathlib.Path, images=[]) -> list[Spider]:
