@@ -16,6 +16,8 @@ jobs:
 
       - name: setup python
         uses: actions/setup-python@v5
+        with:
+          python-version-file: .tool-versions
 
       - name: setup jsonnet
         uses: zendesk/setup-jsonnet@v12
