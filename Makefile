@@ -1,5 +1,5 @@
 PYTHON_DETECTED = "$(shell python --version)"
-PYTHON_DESIRED = "Python $(shell cat .python-version)"
+PYTHON_DESIRED = "Python $(shell cat .tool-versions | grep python | awk '{ print $$2 }')"
 ifneq ($(PYTHON_DETECTED), $(PYTHON_DESIRED))
 $(error wanted $(PYTHON_DESIRED), detected $(PYTHON_DETECTED))
 endif
@@ -30,7 +30,7 @@ test: venv/bin/python
 	./venv/bin/coverage run -m unittest discover -q
 	./venv/bin/coverage html -d www/coverage -q
 
-venv/bin/python: requirements.txt .python-version
+venv/bin/python: requirements.txt
 	@echo "==> setting up python environment"
 	rm -rf ./venv
 	python -m venv --copies ./venv
