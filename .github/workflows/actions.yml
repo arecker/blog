@@ -1,35 +1,35 @@
-name: Merge / Cron
+# name: Merge / Cron
 
-on:
-  push:
-    branches:
-      - master
-  schedule:
-    - cron: '0 12 * * *'
+# on:
+#   push:
+#     branches:
+#       - master
+#   schedule:
+#     - cron: '0 12 * * *'
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout repo content
-        uses: actions/checkout@v2
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: checkout repo content
+#         uses: actions/checkout@v2
 
-      - name: setup python
-        uses: actions/setup-python@v5
-        with:
-          python-version-file: .tool-versions
+#       - name: setup python
+#         uses: actions/setup-python@v5
+#         with:
+#           python-version-file: .tool-versions
 
-      - name: setup jsonnet
-        uses: zendesk/setup-jsonnet@v12
+#       - name: setup jsonnet
+#         uses: zendesk/setup-jsonnet@v12
 
-      - name: build website
-        run: make
+#       - name: build website
+#         run: make
 
-      - name: setup nodejs
-        uses: actions/setup-node@v3
+#       - name: setup nodejs
+#         uses: actions/setup-node@v3
 
-      - name: install netlify
-        run: npm install -g netlify-cli
+#       - name: install netlify
+#         run: npm install -g netlify-cli
 
-      - name: deploy to netlify
-        run: netlify deploy --prod --dir=www --auth "${{ secrets.NETLIFY_TOKEN }}" --site "${{ secrets.NETLIFY_SITE_ID }}"
+#       - name: deploy to netlify
+#         run: netlify deploy --prod --dir=www --auth "${{ secrets.NETLIFY_TOKEN }}" --site "${{ secrets.NETLIFY_SITE_ID }}"
