@@ -132,7 +132,7 @@ class Page:
         if self.is_entry:
             return self.date.strftime('%A, %B %-d %Y')
         else:
-            return self.get('title')
+            return self.metadata.get('title')
 
     @property
     def description(self):
