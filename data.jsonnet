@@ -62,6 +62,7 @@ local spiders = [
     scientific='Chromatopelma cyaneopubescens',
     image='2023-09-12-leo.jpg',
     acquired=[6, 10, 2021],
+    deceased=[27, 12, 2025],
     endemic='Northern Venezuela (coastal)',
   ),
   Spider(
@@ -110,7 +111,7 @@ local spiders = [
     personal='Lassie',
     common='Brazilian Salmon Pink Bird-eater',
     scientific='Lasiodora parahybana',
-    image='2023-06-22-lassie.jpg',
+    image='2025-12-28-lassie.jpg',
     acquired=[22, 6, 2023],
     endemic='Brazil (forest)',
   ),

@@ -47,6 +47,11 @@
          2021
       ],
       "common": "Green Bottle Blue",
+      "deceased": [
+         27,
+         12,
+         2025
+      ],
       "endemic": "Northern Venezuela (coastal)",
       "image": "2023-09-12-leo.jpg",
       "personal": "Leo",
@@ -130,7 +135,7 @@
       ],
       "common": "Brazilian Salmon Pink Bird-eater",
       "endemic": "Brazil (forest)",
-      "image": "2023-06-22-lassie.jpg",
+      "image": "2025-12-28-lassie.jpg",
       "personal": "Lassie",
       "scientific": "Lasiodora parahybana"
    },
